@@ -10,7 +10,7 @@ var express = require('express'),
     app = express();
     
 require('./lib/reverser')(app);
-
+require('./lib/neo4jconnect')(app, db);
 
 
 app.listen(8080);

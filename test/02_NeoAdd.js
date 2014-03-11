@@ -1,4 +1,4 @@
-var testmodule = '../lib/reverser.js',
+var testmodule = '../lib/neo4jconnect.js',
     request = require('supertest'),
     should = require('should'),
     express = require('express'),
@@ -7,11 +7,11 @@ var testmodule = '../lib/reverser.js',
 describe('Neo4JTester', function() {
     require(testmodule)(app);
     describe('Write to Database', function() {
-        it('should write to the neo4j database, and then delete what was written', function(done) {
+        it('should write to the neo4j database, delete what was written, and then spit the string back', function(done) {
             request(app).
-                get('/reverse/hello').
+                get('/addremove/hello').
                 expect('Content-Type', 'text/plain').
-                expect(200, 'olleh', done);
+                expect(200, 'hello', done);
         });
     });
 });

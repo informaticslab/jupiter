@@ -14,4 +14,4 @@ require('./lib/neo4jconnect')(app, db);
 
 
 app.listen(8089);
-  console.log('Express server listening on port 8080');
+  console.log('Express server listening on port 8089');

@@ -13,5 +13,5 @@ require('./lib/reverser')(app);
 require('./lib/neo4jconnect')(app, db);
 
 
-app.listen(8080);
+app.listen(8089);
   console.log('Express server listening on port 8080');

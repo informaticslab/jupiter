@@ -8,10 +8,10 @@ Integrated Survellance Portal
 * JQuery 1.10.2 compatible browser (Internet Explorer 8+, Firefox, Opera, Chrome)
 * Node.js
 * Neo4j
-* CassMongo
+* Mongodb
 
 ## Roadmap
-* Active development, 1 week iterations
+* Active development, 2 week iterations
 
 ## Contributing
 Anyone is encouraged to contribute to the project by [forking](https://help.github.com/articles/fork-a-repo) and submitting a pull request. (If you are new to GitHub, you might start with a [basic tutorial](https://help.github.com/articles/set-up-git).) 
@@ -23,6 +23,8 @@ All comments, messages, pull requests, and other submissions received through CD
 ##Hat-tips
 
 [Issac G](https://github.com/issacg/mocha-demo/) for creating an awesome starting point for testing with Mocha and CI with Bamboo
+[Pluralsight's awesome node.js tutorial](http://pluralsight.com/training/courses/TableOfContents?courseName=building-angularjs-nodejs-apps-mean&highlight=) 
+[Pluralsight's awesome express tutorial](http://pluralsight.com/training/courses/TableOfContents?courseName=expressjs&highlight=hadi-hariri_expressjs-m2*2!hadi-hariri_expressjs-m5*6#expressjs-m2)
 
 ## License
 

@@ -7,19 +7,19 @@
 var express = require('express'),
     app = express();
 //configure express further
-app.configure(function(){
-  app.use(express.static(__dirname +'/server/views'));
-});
 
-app.get('/', function(req, res){
-    console.log('got a request for //n trying ' + __dirname +'/server/views/index.html');
-  res.sendfile(__dirname +'/server/views/index.html');
-});
+var config = require('./server/config/config');  //may pass env later
 
-require('./lib/reverser')(app);
+require('./server/config/express')(app, config);
 
-var neo4j = require('neo4j');
-var db = new neo4j.GraphDatabase('http://localhost:7474');
+//mongoose goes here
+
+// passport goes here
+
+require ('./server/config/routes.js')(app);
+
+//var neo4j = require('neo4j');
+//var db = new neo4j.GraphDatabase('http://localhost:7474');
 
 //require('./lib/neo4jconnect')(app, db);
 

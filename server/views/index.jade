@@ -1,6 +1,9 @@
-doctype
-html
-    body
-        h1 hello world, how are you today?  
-        h2 That's nice.  
-        h3 I like you.
+extends ../includes/layout
+
+block main-content
+ 
+ section.content
+   div(ng-view)
+
+ footer.container.text-center
+   p &copy; 2014 CDC.

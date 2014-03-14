@@ -14,8 +14,8 @@
     "express": "~3.4.4",
     "neo4j": "*",
     "mongoose": "~3.5.5",
-    "bcrypt-nodejs": "*",
-      "jade" : "*"
+    "bcrypt-nodejs": "*"
+      ,"jade" : "*"
   },
   "devDependencies": {
     "supertest": "~0.8.1",

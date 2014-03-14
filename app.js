@@ -18,10 +18,7 @@ require('./server/config/express')(app, config);
 
 require ('./server/config/routes.js')(app);
 
-//var neo4j = require('neo4j');
-//var db = new neo4j.GraphDatabase('http://localhost:7474');
 
-//require('./lib/neo4jconnect')(app, db);
 
 
 //require('./lib/mongouser');

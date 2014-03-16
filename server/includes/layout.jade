@@ -1,8 +1,86 @@
 doctype
-html
- head
-   title Apollo
-   base(href='/')
- body(ng-app='app')
-   block main-content
-   include scripts
+html(lang="en" ng-app='app')
+	head
+		meta(charset="utf-8")
+		meta(name="viewport" content="width=device-width, initial-scale=1")
+		title Apollo
+		link(rel="stylesheet" href="/css/bootstrap.min.css")
+		link(rel="stylesheet" href="/css/bootstrap-theme.min.css")
+		link(rel="stylesheet" href="/css/font-awesome.min.css")
+		link(rel="stylesheet" href="/css/sticky-footer-navbar.css")
+	body
+		.navbar.navbar-default.navbar-fixed-top
+			.container
+				.navbar-header
+					a.navbar-brand(href='../') Bootswatch
+					button.navbar-toggle(type='button', data-toggle='collapse', data-target='#navbar-main')
+						span.icon-bar
+						span.icon-bar
+						span.icon-bar
+				#navbar-main.navbar-collapse.collapse
+					ul.nav.navbar-nav
+						li.dropdown
+							a#themes.dropdown-toggle(data-toggle='dropdown', href='#')
+								|Themes
+								span.caret
+							ul.dropdown-menu(aria-labelledby='themes')
+								li
+									a(href='../default/') Default
+								li.divider
+								li
+									a(href='../amelia/') Amelia
+								li
+									a(href='../cerulean/') Cerulean
+								li
+									a(href='../cosmo/') Cosmo
+								li
+									a(href='../cyborg/') Cyborg
+								li
+									a(href='../flatly/') Flatly
+								li
+									a(href='../journal/') Journal
+								li
+									a(href='../lumen/') Lumen
+								li
+									a(href='../readable/') Readable
+								li
+									a(href='../simplex/') Simplex
+								li
+									a(href='../slate/') Slate
+								li
+									a(href='../spacelab/') Spacelab
+								li
+									a(href='../superhero/') Superhero
+								li
+									a(href='../united/') United
+								li
+									a(href='../yeti/') Yeti
+						li
+							a(href='../faq/') Faq
+						li
+							a(href='/') Home
+						li.dropdown
+							a#download.dropdown-toggle(data-toggle='dropdown', href='#')
+								|Download
+								span.caret
+							ul.dropdown-menu(aria-labelledby='download')
+								li
+									a(href='./bootstrap.min.css') bootstrap.min.css
+								li
+									a(href='./bootstrap.css') bootstrap.css
+								li.divider
+								li
+									a(href='./variables.less') variables.less
+								li
+									a(href='./bootswatch.less') bootswatch.less
+					ul.nav.navbar-nav.navbar-right
+						li
+							a(href='http://builtwithbootstrap.com/', target='_blank') Built With Bootstrap
+						li
+							a(href='https://wrapbootstrap.com/?ref=bsw', target='_blank') WrapBootstrap
+		.container
+			block main-content
+		include scripts
+		#footer
+			.container
+				p.text-muted &copy; 2014 CDC.	

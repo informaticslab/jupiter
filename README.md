@@ -25,7 +25,7 @@ All comments, messages, pull requests, and other submissions received through CD
 [Issac G](https://github.com/issacg/mocha-demo/) for creating an awesome starting point for testing with Mocha and CI with Bamboo
 [Pluralsight's awesome node.js tutorial](http://pluralsight.com/training/courses/TableOfContents?courseName=building-angularjs-nodejs-apps-mean&highlight=) 
 [Pluralsight's awesome express tutorial](http://pluralsight.com/training/courses/TableOfContents?courseName=expressjs&highlight=hadi-hariri_expressjs-m2*2!hadi-hariri_expressjs-m5*6#expressjs-m2)
-
+[HTML to  Jade Converter](http://html2jade.aaron-powell.com/)
 ## License
 
 This project constitutes a work of the United States Government and is not subject to domestic copyright protection under 17 USC § 105.

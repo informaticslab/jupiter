@@ -1,7 +1,9 @@
-angular.module('app').controller('nodeCtrl', function($scope, nodeService, $routeParams){
-    console.log('The routeparams id is: ', $routeParams.id)
-    nodeService.get($routeParams.id).then(function(data){
-        $scope.node = data
-    });
-    console.log(nodeService.get($routeParams.id));
+angular.module('app').controller('nodeCtrl', function($scope, $http, $routeParams){
+    $http.get('/api/node/' + $routeParams.id)
+        .success(function(data){
+            $scope.node = data;
+        })
+        .error(function(data){
+            console.error(data);
+        });
 });

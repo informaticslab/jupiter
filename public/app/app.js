@@ -7,7 +7,7 @@ angular.module('app').config(function($routeProvider, $locationProvider) {
     }).when('/faq', {
         templateUrl: '/partials/faq',
         controller: 'faqCtrl'
-    }).when('/node', {
+    }).when('/node/:id', {
         templateUrl: '/partials/node',
         controller: 'nodeCtrl'
     });

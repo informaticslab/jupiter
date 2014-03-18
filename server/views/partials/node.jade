@@ -1,7 +1,10 @@
-h1 Hello Node
+h1 Name: {{node.data.name}}
+h2 type: {{node.labels}}
+h3 id: {{node.id}}
+p Node: {{node.attributes}}
 table 
-    tr(ng-repeat="node in nodes ")
-        td {{node.id}}
-        td {{node.name}}
+    tr(ng-foreach="item in data")
+        td {{item.value}}
+        td {{item.value}}
     
     

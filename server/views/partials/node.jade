@@ -1,10 +1,8 @@
 h1 Name: {{node.name}}
-h2 type: {{node.labels}}
+h2 type: {{node.labels.join()}}
 h3 id: {{node.id}}
-p Node: {{node.attributes}}
-table 
-    tr(ng-foreach="item in data")
-        td {{item.value}}
-        td {{item.value}}
-    
-    
+table(class="table table-condensed") 
+	tr(ng-repeat="att in node.attributes")
+		td(class="text-right") 
+			strong {{att.key}}
+		td {{att.value}}

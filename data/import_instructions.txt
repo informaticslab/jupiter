@@ -1,0 +1,11 @@
+-- for windows, within powershell
+
+cd "C:\Program Files\Neo4j Community"
+jre\bin\java -cp bin\neo4j-desktop-2.0.1.jar org.neo4j.shell.StartClient
+
+-- this should drop you into the neo4j shell
+-- copy contents of import.txt to your clipboard
+-- paste contents into the shell command line (right-click in powershell)
+-- import should execute successfully
+
+-- to exit the neo4j shell, type 'quit'

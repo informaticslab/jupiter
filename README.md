@@ -11,8 +11,8 @@ Integrated Survellance Portal
 * PostgreSQL
 
 ## Handy things to npm install -g
-* forever (forever start/stop/list [app.js] to run as service in background)
-* nodemon (start and run [app.js], automatically restarts upon changing system js files)
+* forever (forever start/stop/list [app.js] to run/stop/list-running-apps given node.js application as a service in background)
+* nodemon (start and run [app.js], runs node [app.js] in perpetuity.  Automatically restarts upon changing system js files)
 
 ## Roadmap
 * Active development, 2 week iterations

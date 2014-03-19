@@ -1,4 +1,4 @@
-lib-cov
+src/lib-cov
 *.seed
 *.log
 *.csv
@@ -7,9 +7,9 @@ lib-cov
 *.pid
 *.gz
 
-pids
-logs
-results
+src/pids
+src/logs
+src/results
 
-npm-debug.log
-node_modules
+src/npm-debug.log
+src/node_modules

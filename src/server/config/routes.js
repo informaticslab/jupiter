@@ -9,6 +9,8 @@ module.exports = function(app){
     });
     
     app.get('/api/node/:id', nodes.getNodeById);
+    app.get('/api/node/:id/labels', nodes.getLabelsForNode);
+    app.get('/api/node/:id/relations', nodes.getRelationsForNode);
     
     //this goes at the bottom.  It is the catchall for everything not defined above.  Silly.
     app.get('*', index.index);

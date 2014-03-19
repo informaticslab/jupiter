@@ -1,8 +1,28 @@
 h1 Name: {{node.name}}
 h2 type: {{node.labels.join()}}
 h3 id: {{node.id}}
-table(class="table table-condensed") 
-	tr(ng-repeat="att in node.attributes")
-		td(class="text-right") 
-			strong {{att.key}}
-		td {{att.value}}
+
+.panel.panel-default
+	.panel-heading Node Attributes
+	.panel-body
+		table(class="table table-condensed") 
+			tr(ng-repeat="att in node.attributes")
+				td(class="text-right") 
+					strong {{att.key}}
+				td {{att.value}}
+
+.panel.panel-default
+	.panel-heading Related Nodes
+	.panel-body
+		h3 Systems
+		table(class="table table-condensed") 
+			tr(ng-repeat="sys in node.relationships.systems")
+				td.col-xs-1
+					strong {{sys.id}}
+				td {{sys.name}}
+		h3 Data Sets
+		table(class="table table-condensed") 
+			tr(ng-repeat="set in node.relationships.dataSets")
+				td.col-xs-1
+					strong {{set.id}}
+				td {{set.name}}

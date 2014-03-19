@@ -8,7 +8,11 @@ Integrated Survellance Portal
 * JQuery 1.10.2 compatible browser (Internet Explorer 8+, Firefox, Opera, Chrome)
 * Node.js
 * Neo4j
-* Mongodb
+* PostgreSQL
+
+## Handy things to npm install -g
+* forever (forever start/stop/list [app.js] to run as service in background)
+* nodemon (start and run [app.js], automatically restarts upon changing system js files)
 
 ## Roadmap
 * Active development, 2 week iterations

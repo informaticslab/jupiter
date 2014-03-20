@@ -18,12 +18,23 @@ exports.getRelationsForNode = function(req, res) {
         name: 'Set 3'
     }];
 
+    var dataElements = [{
+        id: 45,
+        name: 'Element 2'
+    }, {
+        id: 56,
+        name: 'Element 3'
+    }];
+
     var relationships = [{
         type: 'Systems',
         values: systems
     }, {
         type: 'Data Sets',
         values: datasets
+    }, {
+        type: 'Data Elements',
+        values: null
     }];
 
     res.json(relationships);
@@ -41,7 +52,7 @@ exports.getLabelsForNode = function(req, res) {
         if (err) {
             console.error('Error retreiving labels from database:', err);
         }
-        
+
         res.json(results[0]['labels(n)']);
     });
 }

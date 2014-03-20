@@ -13,7 +13,7 @@ h3 id: {{node.id}}
 
 .panel.panel-default
 	.panel-heading Related Nodes
-	.panel-body(ng-repeat="relation in relations")
+	.panel-body(ng-repeat="relation in relations  | filter:{values: '!!'}")
 		h3 {{relation.type}}
 		table(class="table table-condensed")
 			tr(ng-repeat="val in relation.values")

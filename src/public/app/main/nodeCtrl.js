@@ -1,11 +1,12 @@
-angular.module('app').controller('nodeCtrl', function($scope, $resource, $routeParams) {
+angular.module('app').controller('nodeCtrl', function($scope, $resource, $http, $routeParams) {
     var node = $resource('/api/node/:id', {
         id: '@id'
     });
 
-    var labels = $resource('/api/node/:id/labels', {
-        id: '@id'
-    });
+    var labels = $http.get('/api/node/' + $routeParams.id + '/labels')
+        .success(function(data){
+            $scope.labels = data;
+        });
 
     var relations = $resource('/api/node/:id/relations', {
         id: '@id'
@@ -15,11 +16,7 @@ angular.module('app').controller('nodeCtrl', function($scope, $resource, $routeP
         id: $routeParams.id
     });
 
-    $scope.labels = labels.get({
+    $scope.relations = relations.query({
         id: $routeParams.id
-    })
-
-    $scope.relations = relations.get({
-        id: $routeParams.id
-    })
+    });
 });

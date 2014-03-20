@@ -2,22 +2,29 @@ var neodb = require('../lib/neo4jConnection');
 
 exports.getRelationsForNode = function(req, res) {
 
-    var relationships = {
-        systems: [{
-            id: 2,
-            name: 'System 2'
-        }, {
-            id: 3,
-            name: 'System 3'
-        }],
-        dataSets: [{
-            id: 2,
-            name: 'Set 2'
-        }, {
-            id: 3,
-            name: 'Set 3'
-        }]
-    };
+    var systems = [{
+        id: 2,
+        name: 'System 2'
+    }, {
+        id: 3,
+        name: 'System 3'
+    }];
+
+    var datasets = [{
+        id: 2,
+        name: 'Set 2'
+    }, {
+        id: 3,
+        name: 'Set 3'
+    }];
+
+    var relationships = [{
+        type: 'Systems',
+        values: systems
+    }, {
+        type: 'Data Sets',
+        values: datasets
+    }];
 
     res.json(relationships);
 }
@@ -34,12 +41,8 @@ exports.getLabelsForNode = function(req, res) {
         if (err) {
             console.error('Error retreiving labels from database:', err);
         }
-
-        var labels = results.map(function(result) {
-            return result['labels(n)'];
-        });
-
-        res.json(labels);
+        
+        res.json(results[0]['labels(n)']);
     });
 }
 

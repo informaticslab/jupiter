@@ -3,7 +3,7 @@ h2 type: {{labels.join()}}
 h3 id: {{node.id}}
 
 .panel.panel-default
-	.panel-heading Node nodeibutes
+	.panel-heading Node Attributes
 	.panel-body
 		table(class="table table-condensed") 
 			tr(ng-repeat="att in node.attributes")
@@ -13,16 +13,10 @@ h3 id: {{node.id}}
 
 .panel.panel-default
 	.panel-heading Related Nodes
-	.panel-body
-		h3 Systems
-		table(class="table table-condensed") 
-			tr(ng-repeat="sys in relations.systems")
+	.panel-body(ng-repeat="relation in relations")
+		h3 {{relation.type}}
+		table(class="table table-condensed")
+			tr(ng-repeat="val in relation.values")
 				td.col-xs-1
-					strong {{sys.id}}
-				td {{sys.name}}
-		h3 Data Sets
-		table(class="table table-condensed") 
-			tr(ng-repeat="set in relations.dataSets")
-				td.col-xs-1
-					strong {{set.id}}
-				td {{set.name}}
+					strong {{val.id}}
+				td {{val.name}}

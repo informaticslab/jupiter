@@ -59,7 +59,7 @@ exports.getLabelsForNode = function(req, res) {
 
 exports.getNodeById = function(req, res) {
 
-    var nodeRetrieved = function(err, node) {
+    neodb.db.getNodeById(req.params.id, function(err, node) {
         var nodedata = {};
 
         if (err) {
@@ -80,7 +80,5 @@ exports.getNodeById = function(req, res) {
 
             res.json(nodedata);
         }
-    };
-
-    neodb.db.getNodeById(req.params.id, nodeRetrieved);
+    });
 };

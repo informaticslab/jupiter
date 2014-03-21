@@ -1,46 +1,61 @@
 var neodb = require('../lib/neo4jConnection');
 
 exports.getRelationsForNode = function(req, res) {
+     var query = ['start n=node({nodeId}) ', 'MATCH n-[r]-x ', 
+     'return id(r) as relId,type(r) as relType, id(x) as childId, ' 
+     ,'labels(x) as childLabels, x.name as childName'].join('\n');
 
-    var systems = [{
-        id: 2,
-        name: 'System 2'
-    }, {
-        id: 3,
-        name: 'System 3'
-    }];
+    var params = {
+        nodeId: +req.params.id
+    };
 
-    var datasets = [{
-        id: 2,
-        name: 'Set 2'
-    }, {
-        id: 3,
-        name: 'Set 3'
-    }];
+    neodb.db.query(query, params, function(err, results) {
+        if (err) {
+            console.error('Error retreiving labels from database:', err);
+        }
+        console.log(results);
+        res.json(results);
+    });
+    // var systems = [{
+    //     id: 2,
+    //     name: 'System 2'
+    // }, {
+    //     id: 3,
+    //     name: 'System 3'
+    // }];
 
-    var dataElements = [{
-        id: 45,
-        name: 'Element 2'
-    }, {
-        id: 56,
-        name: 'Element 3'
-    }];
+    // var datasets = [{
+    //     id: 2,
+    //     name: 'Set 2'
+    // }, {
+    //     id: 3,
+    //     name: 'Set 3'
+    // }];
 
-    var relationships = [{
-        type: 'Systems',
-        values: systems
-    }, {
-        type: 'Data Sets',
-        values: datasets
-    }, {
-        type: 'Data Elements',
-        values: null
-    }];
+    // var dataElements = [{
+    //     id: 45,
+    //     name: 'Element 2'
+    // }, {
+    //     id: 56,
+    //     name: 'Element 3'
+    // }];
 
-    res.json(relationships);
+    // var relationships = [{
+    //     type: 'Systems',
+    //     values: systems
+    // }, {
+    //     type: 'Data Sets',
+    //     values: datasets
+    // }, {
+    //     type: 'Data Elements',
+    //     values: null
+    // }];
+
+    // res.json(relationships);
 }
 
 exports.getLabelsForNode = function(req, res) {
+
 
     var query = ['START n=node({nodeId}) ', 'RETURN labels(n)'].join('\n');
 

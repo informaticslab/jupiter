@@ -16,8 +16,11 @@
 
 .panel.panel-default
 	.panel-heading Related Nodes
+	.panel-body {{relations}}
 	.panel-body(ng-repeat="relation in relations  | filter:{values: '!!'}")
-		h3 {{relation.type}}
+		h3 {{relation.relType}}
+		h4 {{relation.childLabels.join()}}
+		h4 {{relation.childName}}
 		table(class="table table-condensed")
 			tr(ng-repeat="val in relation.values")
 				td.col-xs-1

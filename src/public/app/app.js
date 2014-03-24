@@ -10,5 +10,7 @@ angular.module('app').config(function($routeProvider, $locationProvider) {
     }).when('/node/:id', {
         templateUrl: '/partials/node',
         controller: 'nodeCtrl'
+    }).otherwise({
+        templateUrl: '/partials/404'
     });
 });

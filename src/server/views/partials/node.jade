@@ -14,15 +14,15 @@
 					strong {{att.key}}
 				td {{att.value}}
 
-.panel.panel-default
-	.panel-heading Related Nodes
-	.panel-body {{relations}}
-	.panel-body(ng-repeat="relation in relations  | filter:{values: '!!'}")
-		h3 {{relation.relType}}
-		h4 {{relation.childLabels.join()}}
-		h4 {{relation.childName}}
-		table(class="table table-condensed")
-			tr(ng-repeat="val in relation.values")
-				td.col-xs-1
-					strong {{val.id}}
-				td {{val.name}}
+div(ng-repeat="relation in relations")
+	.panel.panel-default
+		.panel-heading Related {{relation.name}}s
+		.panel-body
+			div(ng-repeat="relType in relation.relTypes")		
+				h3 {{relType.name}}
+				table(class="table table-condensed")
+					tr(ng-repeat="node in relType.nodes")
+						td.col-xs-1
+							a(href="/node/{{node.id}}")
+								strong {{node.id}}
+						td {{node.name}}

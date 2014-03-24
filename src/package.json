@@ -16,6 +16,7 @@
     "mongoose": "~3.5.5",
     "bcrypt-nodejs": "*"
       ,"jade" : "*"
+      ,"underscore" : "*"
   },
   "devDependencies": {
     "supertest": "~0.8.1",

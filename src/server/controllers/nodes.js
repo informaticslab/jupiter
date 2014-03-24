@@ -1,4 +1,5 @@
 var neodb = require('../lib/neo4jConnection');
+var _= require('underscore');
 
 exports.getRelationsForNode = function(req, res) {
     var query = ['MATCH n-[r]-x ' 
@@ -6,21 +7,94 @@ exports.getRelationsForNode = function(req, res) {
      ,'return id(r) as relId,type(r) as relType, id(x) as childId, '
      ,'labels(x) as childLabels, x.name as childName order by relType '].join('\n');
 
-     // var query = ['start n=node({nodeId}) ', 'MATCH n-[r]-x ', 
-     // 'return id(r) as relId,type(r) as relType, id(x) as childId, ' 
-     // ,'labels(x) as childLabels, x.name as childName '].join('\n');
 
     var params = {
         nodeId: +req.params.id
     };
 
-    neodb.db.query(query, params, function(err, results) {
+     var relationships = [];
+
+    neodb.db.query(query, params, function(err, r) {
         if (err) {
             console.error('Error retreiving labels from database:', err);
-        }
-        console.log(results);
-        res.json(results);
+            res.err()
+        } else
+        {
+         // results.forEach(function(entry) {
+
+         // //   console.log(entry);
+         //  //  relationships.push(entry);
+         //    entry.childLabels.forEach(function(childLabel){
+
+         //        var labelItem = relationships[childLabel];
+         //        if(labelItem == null){ //please create a new label item
+         //            // var relType = {
+         //            //         'id': entry.relId
+         //            //         ,'relName': entry.relType                            
+         //            //         ,'nodeId': entry.childId
+         //            //         ,'nodeName': entry.childName                           
+         //            //     }                  
+         //            // labelItem = [];
+         //            // labelItem.relTypes = [relType];
+         //            // labelItem = {'foo':'bar'};
+         //            // relationships[childLabel] = labelItem
+         //                            labelItem = {'foo':'bar'};
+         //            relationships[childLabel] = labelItem;
+         //        }
+         //        else
+         //        {
+
+         //           //  var relType = {
+         //           //          'id': entry.relId
+         //           //          ,'relName': entry.relType                            
+         //           //          ,'nodeId': entry.childId
+         //           //          ,'nodeName': entry.childName                           
+         //           //      }                                 
+         //           // labelItem.relTypes.push(relType);
+
+         //        }
+            
+         //    })
+            
+         // })
+    var allLabels = _.map(r, function(i){return i.childLabels});
+   var distinctLabels = _.union.apply(_, allLabels);
+   
+   var toRet = [];
+   
+   _.each(distinctLabels, function(a,b,c){
+       var labelToAdd = {
+           'name': a,
+           'relTypes' : []
+       };
+       
+       var labeled = _.filter(r, function(i){
+           return _.contains(i.childLabels, a);
+       });
+       
+       var mappedRelTypes = _.map(labeled, function(p){return p.relType;});        
+       var distinctRelTypes = _.union.apply(_, mappedRelTypes);
+      
+       _.each(distinctRelTypes, function(x,y,z){
+           var relTypeToAdd = {
+               'name': x 
+           };
+           
+           relTypeToAdd.nodes = _.filter(labeled, function(i){
+               return i.relType === x;
+           });
+           
+           labelToAdd.relTypes.push(relTypeToAdd);
+       });
+       
+       toRet.push(labelToAdd);
+   });
+        res.json(toRet);
+        console.log(toRet);
+        
+    }
     });
+
     // var systems = [{
     //     id: 2,
     //     name: 'System 2'
@@ -58,6 +132,8 @@ exports.getRelationsForNode = function(req, res) {
 
     // res.json(relationships);
 }
+
+
 
 exports.getLabelsForNode = function(req, res) {
 

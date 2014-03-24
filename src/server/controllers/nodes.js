@@ -1,9 +1,14 @@
 var neodb = require('../lib/neo4jConnection');
 
 exports.getRelationsForNode = function(req, res) {
-     var query = ['start n=node({nodeId}) ', 'MATCH n-[r]-x ', 
-     'return id(r) as relId,type(r) as relType, id(x) as childId, ' 
-     ,'labels(x) as childLabels, x.name as childName'].join('\n');
+    var query = ['MATCH n-[r]-x ' 
+     ,'where id(n)={nodeId} ' //maaaaaaaagic
+     ,'return id(r) as relId,type(r) as relType, id(x) as childId, '
+     ,'labels(x) as childLabels, x.name as childName order by relType '].join('\n');
+
+     // var query = ['start n=node({nodeId}) ', 'MATCH n-[r]-x ', 
+     // 'return id(r) as relId,type(r) as relType, id(x) as childId, ' 
+     // ,'labels(x) as childLabels, x.name as childName '].join('\n');
 
     var params = {
         nodeId: +req.params.id

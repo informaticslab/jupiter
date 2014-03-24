@@ -1,7 +1,7 @@
 Apollo
 ======
 
-Integrated Survellance Portal
+Integrated Surveillance Portal
 
 
 # Requirements
@@ -13,6 +13,12 @@ Integrated Survellance Portal
 ## Handy things to npm install -g
 * forever (forever start/stop/list [app.js] to run/stop/list-running-apps given node.js application as a service in background)
 * nodemon (start and run [app.js], runs node [app.js] in perpetuity.  Automatically restarts upon changing system js files)
+
+##Documentation
+* Integrated Surveillance Portal [Confluence](http://code.phiresearchlab.org/confluence/pages/viewpage.action?pageId=9797792)
+
+##Issue Tracker
+* Integrated Surveillance Portal [Jira](https://code.phiresearchlab.org/jira/browse/AP)
 
 ## Roadmap
 * Active development, 2 week iterations

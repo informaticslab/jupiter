@@ -1,16 +1,16 @@
 angular.module('app', ['ngResource', 'ngRoute', 'ngAnimate']);
 angular.module('app').config(function($routeProvider, $locationProvider) {
     $locationProvider.html5Mode(true);
-    $routeProvider.when('/', {
-        templateUrl: '/partials/main',
+    $routeProvider.when('/apollo/', {
+        templateUrl: '/apollo/partials/main',
         controller: 'mainCtrl'
-    }).when('/faq', {
-        templateUrl: '/partials/faq',
+    }).when('/apollo/faq', {
+        templateUrl: '/apollo/partials/faq',
         controller: 'faqCtrl'
-    }).when('/node/:id', {
-        templateUrl: '/partials/node',
+    }).when('/apollo/node/:id', {
+        templateUrl: '/apollo/partials/node',
         controller: 'nodeCtrl'
     }).otherwise({
-        templateUrl: '/partials/404'
+        templateUrl: '/apollo/partials/404'
     });
 });

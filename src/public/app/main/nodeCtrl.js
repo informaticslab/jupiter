@@ -1,14 +1,14 @@
 angular.module('app').controller('nodeCtrl', function($scope, $resource, $http, $routeParams) {
-    var node = $resource('/api/node/:id', {
+    var node = $resource('/apollo/api/node/:id', {
         id: '@id'
     });
 
-    var labels = $http.get('/api/node/' + $routeParams.id + '/labels')
+    var labels = $http.get('/apollo/api/node/' + $routeParams.id + '/labels')
         .success(function(data){
             $scope.labels = data;
         });
 
-    var relations = $resource('/api/node/:id/relations', {
+    var relations = $resource('/apollo/api/node/:id/relations', {
         id: '@id'
     });
 

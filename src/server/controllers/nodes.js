@@ -63,7 +63,13 @@ exports.getLabelsForNode = function(req, res) {
             console.error('Error retreiving labels from database:', err);
             res.send(500, "Error retreiving labels from database")
         } else {
-            res.json(results[0]['labels(n)']);
+            if (results[0] != null) {
+                res.json(results[0]['labels(n)']);
+            }
+            else
+            {
+              res.send(500, "No node at that location");
+            }
         }
     });
 }

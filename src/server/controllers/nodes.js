@@ -11,7 +11,7 @@ exports.getRelationsForNode = function(req, res) {
     neodb.db.query(query, params, function(err, r) {
         if (err) {
             console.error('Error retreiving relations from database:', err);
-            res.send(500, 'Error retreiving labels from');
+            res.send(404, 'no node at that location');
         } else {
             var allLabels = _.map(r, function(i) {
                 return i.childLabels
@@ -61,14 +61,14 @@ exports.getLabelsForNode = function(req, res) {
     neodb.db.query(query, params, function(err, results) {
         if (err) {
             console.error('Error retreiving labels from database:', err);
-            res.send(500, "Error retreiving labels from database")
+            res.send(404, "No node at that locaton")
         } else {
             if (results[0] != null) {
                 res.json(results[0]['labels(n)']);
             }
             else
             {
-              res.send(500, "No node at that location");
+              res.send(404, "No node at that location");
             }
         }
     });
@@ -78,7 +78,7 @@ exports.getNodeById = function(req, res) {
         var nodedata = {};
         if (err) {
             console.error('Error retreiving node from database:', err);
-            res.send(500, 'error retreiving node from database');
+            res.send(404, 'No node at that location');
         } else {
             nodedata.name = node.data.name;
             nodedata.id = req.params.id;

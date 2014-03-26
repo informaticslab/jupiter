@@ -39,7 +39,7 @@ MERGE (:`Data standard`{`id`:'DSTD3',`name`:'RX Norm',`shortname`:'RX Norm',`ful
 MERGE (:`Data standard`{`id`:'DSTD4',`name`:'LOINC',`shortname`:'LOINC',`fullname`:'',`description`:'',`objectid`:''})
 MERGE (:`Data standard`{`id`:'DSTD5',`name`:'CPT',`shortname`:'CPT',`fullname`:'',`description`:'',`objectid`:''})
 MERGE (:`Data standard`{`id`:'DSTD6',`name`:'PIX',`shortname`:'PIX',`fullname`:'',`description`:'',`objectid`:''})
-MERGE (:`Data standard`{`id`:'DSTD7',`name`:'PDQ',`shortname`:'PDQ',`fullname`:'',`description`:'',`objectid`:''})
+MERGE (:`Data standard`{`id`:'DSTD7',`name`:'PDQ',`shortname`:'PDQ',`fullname`:'',`description`:'',`objectid`:''});
  MATCH (a1{id:'C1'}), (b1{id:'P1'}) create unique (a1)-[:FUNDS]->(b1);
  MATCH (a2{id:'C2'}), (b2{id:'P2'}) create unique (a2)-[:FUNDS]->(b2);
  MATCH (a3{id:'C1'}), (b3{id:'P3'}) create unique (a3)-[:FUNDS]->(b3);

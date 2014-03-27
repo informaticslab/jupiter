@@ -1,4 +1,4 @@
-BEGIN TRANSACTION
+BEGIN
 MATCH (n)-[r]-(x) delete r;
 MATCH (n) delete n;
 COMMIT

@@ -12,9 +12,9 @@ jre\bin\java -cp bin\neo4j-desktop-2.0.1.jar org.neo4j.shell.StartClient
 
 -- #######################################################################
 -- for mac/linux, within terminal
--- assumes you ran ./neo4j-install during neo4j installation (per the documentation on the neo4j site) and thus have neo4j-client within your path
+-- assumes you ran './neo4j-installer install' during neo4j installation (per the documentation on the neo4j site) and thus have neo4j-shell within your path
 -- navigate to [git apollo directory]/data/
-cat import.txt | neo4j-client 
+cat import.txt | neo4j-shell
 
 -- please note neo4j client can be called with the -config and -path flags (which you can point at a config and database file, respectively)
 

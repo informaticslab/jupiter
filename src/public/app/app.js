@@ -1,6 +1,8 @@
 angular.module('app', ['ngResource', 'ngRoute', 'ngAnimate']);
 angular.module('app').config(function($routeProvider, $locationProvider) {
-    $locationProvider.html5Mode(true);
+
+    $locationProvider.html5Mode(true)
+    .hashPrefix('!');
     $routeProvider.when('/apollo/', {
         templateUrl: '/apollo/partials/main',
         controller: 'mainCtrl'

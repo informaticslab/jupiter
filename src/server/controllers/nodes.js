@@ -1,11 +1,11 @@
 var neodb = require('../lib/neo4jConnection');
 var _ = require('underscore');
 exports.getRelationsForNode = function(req, res) {
-    var query = ['MATCH n-[r]-x ', 'where id(n)={nodeId} ' //maaaaaaaagic
-        , 'return id(r) as relId,type(r) as relType, id(x) as childId, ', 'labels(x) as childLabels, x.name as childName order by relType '
+    var query = ['MATCH n-[r]-x ', 'where n.id={nodeId} ' //maaaaaaaagic
+        , 'return id(r) as relId,type(r) as relType, x.id as childId, ', 'labels(x) as childLabels, x.name as childName order by relType '
     ].join('\n');
     var params = {
-        nodeId: +req.params.id
+        nodeId: req.params.id
     };
     var relationships = [];
     neodb.db.query(query, params, function(err, r) {
@@ -54,9 +54,9 @@ exports.getRelationsForNode = function(req, res) {
 }
 exports.getLabelsForNode = function(req, res) {
     //var query = ['START n=node({nodeId}) ', 'RETURN labels(n)'].join('\n');
-    var query = ['MATCH n WHERE id(n) ={nodeId} ', 'RETURN labels(n)'].join('\n');
+    var query = ['MATCH n WHERE n.id ="P2"', 'RETURN labels(n)'].join('\n');
     var params = {
-        nodeId: +req.params.id
+        nodeId: req.params.id
     };
     neodb.db.query(query, params, function(err, results) {
         if (err) {
@@ -74,22 +74,38 @@ exports.getLabelsForNode = function(req, res) {
     });
 }
 exports.getNodeById = function(req, res) {
-    neodb.db.getNodeById(req.params.id, function(err, node) {
+     var query = 'MATCH n WHERE n.id ={nodeId} RETURN n'
+    var params = {
+        nodeId: req.params.id
+    };
+    //console.log("Query is " + query + " and params are " + req.params.id)
+    neodb.db.query(query, params, function(err, results) {
         var nodedata = {};
         if (err) {
             console.error('Error retreiving node from database:', err);
             res.send(404, 'No node at that location');
         } else {
-            nodedata.name = node.data.name;
-            nodedata.id = req.params.id;
-            nodedata.attributes = [];
-            for (var prop in node.data) {
-                nodedata.attributes.push({
-                    'key': prop,
-                    'value': node.data[prop]
+            //console.log("results were" + results);
+            if (results[0] != null && results[0]['n'] != null && results[0]['n']['data'] != null) {
+                var doohicky = results[0]['n']['data'];               
+                //console.log(doohicky);
+            
+             nodedata.name = doohicky.name;
+             nodedata.id = doohicky.id;
+             nodedata.attributes = [];
+             for (var prop in doohicky) {
+                 nodedata.attributes.push({
+                     'key': prop,
+                     'value': doohicky[prop]
                 })
+             }
+             res.json(nodedata);
+            //res.send(404, "there was a node at that location, but you don't get to see it (neener)");
+        }
+        else
+            {
+              res.send(404, "No node at that location");
             }
-            res.json(nodedata);
         }
     });
 };

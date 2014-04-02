@@ -1,14 +1,11 @@
 -- for windows, within powershell
 
 cd "C:\Program Files\Neo4j Community"
-jre\bin\java -cp bin\neo4j-desktop-2.0.1.jar org.neo4j.shell.StartClient
+jre\bin\java -cp bin\neo4j-desktop-2.0.1.jar org.neo4j.shell.StartClient -path c:\user\documents\Neo4j\DBname -file import.txt >c:\path\output.txt
 
--- this should drop you into the neo4j shell
--- copy contents of import.txt to your clipboard
--- paste contents into the shell command line (right-click in powershell)
--- import should execute successfully
-
--- to exit the neo4j shell, type 'quit'
+-- set -path to point to the relevant Neo4j Database
+—- set -file to point to the import.txt file which contains neo4j queries
+—- set path to the output.txt file correctly to save the output of the script
 
 -- #######################################################################
 -- for mac/linux, within terminal

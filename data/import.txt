@@ -28,18 +28,7 @@ MERGE (:`Data Set`{`id`:'DSET2',`name`:'Date Set 2',`fullname`:'',`shortname`:''
 MERGE (:`Data Set`{`id`:'DSET3',`name`:'Date Set 3',`fullname`:'',`shortname`:'',`description`:'',`Start Date`:'',`enddate`:'',`dataupdatefrequency`:'',`currentlyavailable`:'',`url`:'',`filename`:'',`filelocation`:'',`contactname`:'',`contactemail`:'',`contactphone`:'',`datacategtorytypes`:'',`dataformat`:''})
 MERGE (:`Data Set`{`id`:'DSET4',`name`:'Date Set 4',`fullname`:'',`shortname`:'',`description`:'',`Start Date`:'',`enddate`:'',`dataupdatefrequency`:'',`currentlyavailable`:'',`url`:'',`filename`:'',`filelocation`:'',`contactname`:'',`contactemail`:'',`contactphone`:'',`datacategtorytypes`:'',`dataformat`:''})
 MERGE (:`Data Set`{`id`:'DSET5',`name`:'Date Set 5',`fullname`:'',`shortname`:'',`description`:'',`Start Date`:'',`enddate`:'',`dataupdatefrequency`:'',`currentlyavailable`:'',`url`:'',`filename`:'',`filelocation`:'',`contactname`:'',`contactemail`:'',`contactphone`:'',`datacategtorytypes`:'',`dataformat`:''})
-MERGE (:`Data Element`{`id`:'DELE1',`name`:'Age',`vocabulary`:'',`vocabularyname`:'',`objectid`:'',`vocabularyvalue`:'',`conceptid`:''})
-MERGE (:`Data Element`{`id`:'DELE2',`name`:'Gender',`vocabulary`:'',`vocabularyname`:'',`objectid`:'',`vocabularyvalue`:'',`conceptid`:''})
-MERGE (:`Data Element`{`id`:'DELE3',`name`:'Medications',`vocabulary`:'',`vocabularyname`:'',`objectid`:'',`vocabularyvalue`:'',`conceptid`:''})
-MERGE (:`Data Element`{`id`:'DELE4',`name`:'Birth Weigtht',`vocabulary`:'',`vocabularyname`:'',`objectid`:'',`vocabularyvalue`:'',`conceptid`:''})
-MERGE (:`Data Element`{`id`:'DELE5',`name`:'Clinical Diagnosis',`vocabulary`:'',`vocabularyname`:'',`objectid`:'',`vocabularyvalue`:'',`conceptid`:''})
-MERGE (:`Data standard`{`id`:'DSTD1',`name`:'HL7',`shortname`:'HL7',`fullname`:'',`description`:'',`objectid`:''})
-MERGE (:`Data standard`{`id`:'DSTD2',`name`:'SNOMED',`shortname`:'SNOMED',`fullname`:'',`description`:'',`objectid`:''})
-MERGE (:`Data standard`{`id`:'DSTD3',`name`:'RX Norm',`shortname`:'RX Norm',`fullname`:'',`description`:'',`objectid`:''})
-MERGE (:`Data standard`{`id`:'DSTD4',`name`:'LOINC',`shortname`:'LOINC',`fullname`:'',`description`:'',`objectid`:''})
-MERGE (:`Data standard`{`id`:'DSTD5',`name`:'CPT',`shortname`:'CPT',`fullname`:'',`description`:'',`objectid`:''})
-MERGE (:`Data standard`{`id`:'DSTD6',`name`:'PIX',`shortname`:'PIX',`fullname`:'',`description`:'',`objectid`:''})
-MERGE (:`Data standard`{`id`:'DSTD7',`name`:'PDQ',`shortname`:'PDQ',`fullname`:'',`description`:'',`objectid`:''});
+;
  MATCH (a1{id:'C1'}), (b1{id:'P1'}) create unique (a1)-[:FUNDS]->(b1);
  MATCH (a2{id:'C2'}), (b2{id:'P2'}) create unique (a2)-[:FUNDS]->(b2);
  MATCH (a3{id:'C1'}), (b3{id:'P3'}) create unique (a3)-[:FUNDS]->(b3);
@@ -55,36 +44,4 @@ MERGE (:`Data standard`{`id`:'DSTD7',`name`:'PDQ',`shortname`:'PDQ',`fullname`:'
  MATCH (a13{id:'S3'}), (b13{id:'DSET3'}) create unique (a13)-[:GENERATES]->(b13);
  MATCH (a14{id:'S4'}), (b14{id:'DSET4'}) create unique (a14)-[:GENERATES]->(b14);
  MATCH (a15{id:'S5'}), (b15{id:'DSET5'}) create unique (a15)-[:GENERATES]->(b15);
- MATCH (a21{id:'DSET1'}), (b21{id:'DELE1'}) create unique (a21)-[:CONTAINS {`id`:'DSE1',`de_unitsofmeasure`:'',`de_datatype`:'',`de_firstcollecteddate`:'',`de_firstimplementeddate`:'',`dstd_name`:'HL7',`dstd_versionnumber`:'1',`dstd_licensetype`:'',`dstd_referenceurl`:'',`dstd_notes`:''}]->(b21);
- MATCH (a22{id:'DSET1'}), (b22{id:'DELE2'}) create unique (a22)-[:CONTAINS {`id`:'DSE2',`de_unitsofmeasure`:'',`de_datatype`:'',`de_firstcollecteddate`:'',`de_firstimplementeddate`:'',`dstd_name`:'SNOMED',`dstd_versionnumber`:'1',`dstd_licensetype`:'',`dstd_referenceurl`:'',`dstd_notes`:''}]->(b22);
- MATCH (a23{id:'DSET1'}), (b23{id:'DELE3'}) create unique (a23)-[:CONTAINS {`id`:'DSE3',`de_unitsofmeasure`:'',`de_datatype`:'',`de_firstcollecteddate`:'',`de_firstimplementeddate`:'',`dstd_name`:'RX Norm',`dstd_versionnumber`:'1',`dstd_licensetype`:'',`dstd_referenceurl`:'',`dstd_notes`:''}]->(b23);
- MATCH (a24{id:'DSET1'}), (b24{id:'DELE4'}) create unique (a24)-[:CONTAINS {`id`:'DSE4',`de_unitsofmeasure`:'',`de_datatype`:'',`de_firstcollecteddate`:'',`de_firstimplementeddate`:'',`dstd_name`:'LOINC',`dstd_versionnumber`:'1',`dstd_licensetype`:'',`dstd_referenceurl`:'',`dstd_notes`:''}]->(b24);
- MATCH (a25{id:'DSET1'}), (b25{id:'DELE5'}) create unique (a25)-[:CONTAINS {`id`:'DSE5',`de_unitsofmeasure`:'',`de_datatype`:'',`de_firstcollecteddate`:'',`de_firstimplementeddate`:'',`dstd_name`:'CPT',`dstd_versionnumber`:'1',`dstd_licensetype`:'',`dstd_referenceurl`:'',`dstd_notes`:''}]->(b25);
- MATCH (a26{id:'DSET2'}), (b26{id:'DELE1'}) create unique (a26)-[:CONTAINS {`id`:'DSE6',`de_unitsofmeasure`:'',`de_datatype`:'',`de_firstcollecteddate`:'',`de_firstimplementeddate`:'',`dstd_name`:'PIX',`dstd_versionnumber`:'2',`dstd_licensetype`:'',`dstd_referenceurl`:'',`dstd_notes`:''}]->(b26);
- MATCH (a27{id:'DSET2'}), (b27{id:'DELE2'}) create unique (a27)-[:CONTAINS {`id`:'DSE7',`de_unitsofmeasure`:'',`de_datatype`:'',`de_firstcollecteddate`:'',`de_firstimplementeddate`:'',`dstd_name`:'PDQ',`dstd_versionnumber`:'2',`dstd_licensetype`:'',`dstd_referenceurl`:'',`dstd_notes`:''}]->(b27);
- MATCH (a28{id:'DSET2'}), (b28{id:'DELE3'}) create unique (a28)-[:CONTAINS {`id`:'DSE8',`de_unitsofmeasure`:'',`de_datatype`:'',`de_firstcollecteddate`:'',`de_firstimplementeddate`:'',`dstd_name`:'HL7',`dstd_versionnumber`:'2',`dstd_licensetype`:'',`dstd_referenceurl`:'',`dstd_notes`:''}]->(b28);
- MATCH (a29{id:'DSET3'}), (b29{id:'DELE4'}) create unique (a29)-[:CONTAINS {`id`:'DSE9',`de_unitsofmeasure`:'',`de_datatype`:'',`de_firstcollecteddate`:'',`de_firstimplementeddate`:'',`dstd_name`:'SNOMED',`dstd_versionnumber`:'2',`dstd_licensetype`:'',`dstd_referenceurl`:'',`dstd_notes`:''}]->(b29);
- MATCH (a30{id:'DSET3'}), (b30{id:'DELE5'}) create unique (a30)-[:CONTAINS {`id`:'DSE10',`de_unitsofmeasure`:'',`de_datatype`:'',`de_firstcollecteddate`:'',`de_firstimplementeddate`:'',`dstd_name`:'HL7',`dstd_versionnumber`:'2',`dstd_licensetype`:'',`dstd_referenceurl`:'',`dstd_notes`:''}]->(b30);
- MATCH (a31{id:'DSET3'}), (b31{id:'DELE1'}) create unique (a31)-[:CONTAINS {`id`:'DSE11',`de_unitsofmeasure`:'',`de_datatype`:'',`de_firstcollecteddate`:'',`de_firstimplementeddate`:'',`dstd_name`:'SNOMED',`dstd_versionnumber`:'2',`dstd_licensetype`:'',`dstd_referenceurl`:'',`dstd_notes`:''}]->(b31);
- MATCH (a32{id:'DSET3'}), (b32{id:'DELE2'}) create unique (a32)-[:CONTAINS {`id`:'DSE12',`de_unitsofmeasure`:'',`de_datatype`:'',`de_firstcollecteddate`:'',`de_firstimplementeddate`:'',`dstd_name`:'HL7',`dstd_versionnumber`:'3',`dstd_licensetype`:'',`dstd_referenceurl`:'',`dstd_notes`:''}]->(b32);
- MATCH (a33{id:'DSET4'}), (b33{id:'DELE3'}) create unique (a33)-[:CONTAINS {`id`:'DSE13',`de_unitsofmeasure`:'',`de_datatype`:'',`de_firstcollecteddate`:'',`de_firstimplementeddate`:'',`dstd_name`:'SNOMED',`dstd_versionnumber`:'3',`dstd_licensetype`:'',`dstd_referenceurl`:'',`dstd_notes`:''}]->(b33);
- MATCH (a34{id:'DSET4'}), (b34{id:'DELE4'}) create unique (a34)-[:CONTAINS {`id`:'DSE14',`de_unitsofmeasure`:'',`de_datatype`:'',`de_firstcollecteddate`:'',`de_firstimplementeddate`:'',`dstd_name`:'HL7',`dstd_versionnumber`:'3',`dstd_licensetype`:'',`dstd_referenceurl`:'',`dstd_notes`:''}]->(b34);
- MATCH (a35{id:'DSET5'}), (b35{id:'DELE5'}) create unique (a35)-[:CONTAINS {`id`:'DSE15',`de_unitsofmeasure`:'',`de_datatype`:'',`de_firstcollecteddate`:'',`de_firstimplementeddate`:'',`dstd_name`:'LOINC',`dstd_versionnumber`:'3',`dstd_licensetype`:'',`dstd_referenceurl`:'',`dstd_notes`:''}]->(b35);
- MATCH (a36{id:'DSET5'}), (b36{id:'DELE1'}) create unique (a36)-[:CONTAINS {`id`:'DSE16',`de_unitsofmeasure`:'',`de_datatype`:'',`de_firstcollecteddate`:'',`de_firstimplementeddate`:'',`dstd_name`:'LOINC',`dstd_versionnumber`:'3',`dstd_licensetype`:'',`dstd_referenceurl`:'',`dstd_notes`:''}]->(b36);
- MATCH (a37{id:'DELE1'}), (b37{id:'DSTD1'}) create unique (a37)-[:BASED_ON {`id`:'',`de_unitsofmeasure`:'',`de_datatype`:'',`de_firstcollecteddate`:'',`de_firstimplementeddate`:'',`dstd_name`:'',`dstd_versionnumber`:'',`dstd_licensetype`:'',`dstd_referenceurl`:'',`dstd_notes`:''}]->(b37);
- MATCH (a38{id:'DELE2'}), (b38{id:'DSTD2'}) create unique (a38)-[:BASED_ON]->(b38);
- MATCH (a39{id:'DELE3'}), (b39{id:'DSTD3'}) create unique (a39)-[:BASED_ON]->(b39);
- MATCH (a40{id:'DELE4'}), (b40{id:'DSTD4'}) create unique (a40)-[:BASED_ON]->(b40);
- MATCH (a41{id:'DELE5'}), (b41{id:'DSTD5'}) create unique (a41)-[:BASED_ON]->(b41);
- MATCH (a42{id:'DELE1'}), (b42{id:'DSTD6'}) create unique (a42)-[:BASED_ON]->(b42);
- MATCH (a43{id:'DELE2'}), (b43{id:'DSTD7'}) create unique (a43)-[:BASED_ON]->(b43);
- MATCH (a44{id:'DELE3'}), (b44{id:'DSTD1'}) create unique (a44)-[:BASED_ON]->(b44);
- MATCH (a45{id:'DELE4'}), (b45{id:'DSTD2'}) create unique (a45)-[:BASED_ON]->(b45);
- MATCH (a46{id:'DELE5'}), (b46{id:'DSTD1'}) create unique (a46)-[:BASED_ON]->(b46);
- MATCH (a47{id:'DELE1'}), (b47{id:'DSTD2'}) create unique (a47)-[:BASED_ON]->(b47);
- MATCH (a48{id:'DELE2'}), (b48{id:'DSTD1'}) create unique (a48)-[:BASED_ON]->(b48);
- MATCH (a49{id:'DELE3'}), (b49{id:'DSTD2'}) create unique (a49)-[:BASED_ON]->(b49);
- MATCH (a50{id:'DELE4'}), (b50{id:'DSTD1'}) create unique (a50)-[:BASED_ON]->(b50);
- MATCH (a51{id:'DELE5'}), (b51{id:'DSTD4'}) create unique (a51)-[:BASED_ON]->(b51);
- MATCH (a52{id:'DELE1'}), (b52{id:'DSTD4'}) create unique (a52)-[:BASED_ON]->(b52);
 COMMIT

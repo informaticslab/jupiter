@@ -1,17 +1,47 @@
-angular.module('app', ['ngResource', 'ngRoute', 'ngAnimate']);
-angular.module('app').config(function($routeProvider, $locationProvider) {
+var apolloApp = angular.module('apolloApp', [
+  'ngRoute'
+  ,'ngResource'
+  ,'ngAnimate'
+  //'apolloAppAnimations',
+ // 'apolloAppControllers',
+ // 'apolloAppFilters',
+//  'apolloAppServices'
+]);
 
-    $locationProvider.html5Mode(true);
-    $routeProvider.when('/apollo/', {
-        templateUrl: '/apollo/partials/main',
-        controller: 'mainCtrl'
-    }).when('/apollo/faq', {
-        templateUrl: '/apollo/partials/faq',
+apolloApp.config(['$routeProvider',
+  function($routeProvider) {
+    $routeProvider.
+          when('/faq', {
+        templateUrl: 'partials/faq',
         controller: 'faqCtrl'
-    }).when('/apollo/node/:id', {
-        templateUrl: '/apollo/partials/node',
+      }).
+          when('/main', {
+        templateUrl: 'partials/main',
+        controller: 'mainCtrl'
+      }).
+          when('/node/:id', {
+        templateUrl: 'partials/node',
         controller: 'nodeCtrl'
-    }).otherwise({
-        templateUrl: '/apollo/partials/404'
-    });
-});
+      }).
+      otherwise({
+        redirectTo: '/main'
+      });
+  }]);
+
+// angular.module('app', ['ngResource', 'ngRoute', 'ngAnimate']);
+// apolloApp.config([function($routeProvider, $locationProvider) {
+
+//     $locationProvider.html5Mode(true);
+//     $routeProvider.when('/apollo/', {
+//         templateUrl: '/apollo/partials/main',
+//         controller: 'mainCtrl'
+//     }).when('/apollo/faq', {
+//         templateUrl: '/apollo/partials/faq',
+//         controller: 'faqCtrl'
+//     }).when('/apollo/node/:id', {
+//         templateUrl: '/apollo/partials/node',
+//         controller: 'nodeCtrl'
+//     }).otherwise({
+//         templateUrl: '/apollo/partials/404'
+//     });
+// }]);

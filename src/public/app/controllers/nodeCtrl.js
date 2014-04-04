@@ -1,4 +1,4 @@
-angular.module('app').controller('nodeCtrl', function($scope, $resource, $http, $routeParams) {
+angular.module('apolloApp').controller('nodeCtrl', function($scope, $resource, $http, $routeParams) {
     var node = $resource('/apollo/api/node/:id', {
         id: '@id'
     });

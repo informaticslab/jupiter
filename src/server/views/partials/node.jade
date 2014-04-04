@@ -23,6 +23,6 @@ div(ng-repeat="relation in relations")
 				table(class="table table-condensed")
 					tr(ng-repeat="node in relType.nodes")
 						td.col-xs-1
-							a(href="/apollo/node/{{node.id}}")
+							a(href="#/node/{{node.id}}")
 								strong {{node.id}}
 						td {{node.name}}

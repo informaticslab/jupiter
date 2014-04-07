@@ -1,18 +1,15 @@
-.panel.panel-default
-	.panel-heading Summary
-	.panel-body
-		h1 Name: {{node.name}}
-		h2 type: {{labels.join()}}
-		h3 id: {{node.id}}
+.orange_header Summary
+p Name: {{node.name}}
+p Type: {{labels.join()}}
+p Id: {{node.id}}
 
-.panel.panel-default
-	.panel-heading Node Attributes
-	.panel-body
-		table(class="table table-condensed") 
-			tr(ng-repeat="att in node.attributes")
-				td(class="text-right") 
-					strong {{att.key}}
-				td {{att.value}}
+
+.orange_header Node Attributes
+table(class="table table-condensed") 
+	tr(ng-repeat="att in node.attributes")
+		td(class="text-right") 
+			strong {{att.key}}
+		td {{att.value}}
 
 div(ng-repeat="relation in relations")
 	.panel.panel-default
@@ -26,3 +23,29 @@ div(ng-repeat="relation in relations")
 							a(href="#/node/{{node.id}}")
 								strong {{node.id}}
 						td {{node.name}}
+
+//- .linkage
+//- 	.vertical_spacing
+//- 	.orange_header Linkage&sol;Relationships&colon;
+//- 	ul.nav.nav-tabs
+//- 		li.active
+//- 			a(href='#') Program
+//- 		li
+//- 			a(href='#') System
+//- 		li
+//- 			a(href='#') Data Set
+//- 		li
+//- 			a(href='#') Data Element
+//- 		li
+//- 			a(href='#') Data Source
+//- 		li
+//- 			a(href='#') Data Standard
+//- 	.vertical_spacing
+//- 	| &lsqb;Placeholder for tabbed content&rsqb;
+// end linkage
+.com_discuss
+	.vertical_spacing
+	.orange_header Comments&sol;Discussion&colon;
+	.vertical_spacing
+	| &lsqb;Placeholder for comments&sol;discussion content&rsqb;
+// end com_discuss

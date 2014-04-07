@@ -16,6 +16,8 @@ Integrated Surveillance Portal
 
 ##Documentation
 * Integrated Surveillance Portal [Confluence](http://code.phiresearchlab.org/confluence/pages/viewpage.action?pageId=9797792)
+* Server code is located in src.  To run, clone this project, move into the src directory, npm install, then node app.js
+* Data for Neo4J database is loaded in Data.  To run, clone this project, move into the data directory, then cat ./import.txt | [path-to-your-neo4j-shell]/neo4j-shell (read the import instructions for further instructions).
 
 ##Issue Tracker
 * Integrated Surveillance Portal [Jira](https://code.phiresearchlab.org/jira/browse/AP)

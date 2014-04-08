@@ -1,0 +1,482 @@
+doctype html
+html
+	head
+		meta(charset='utf-8')
+		title CDC Surveillance System Knowledgebase
+		meta(name='viewport', content='width=device-width, initial-scale=1.0')
+		// Bootstrap
+		link(href='css/bootstrap.min.css', rel='stylesheet')
+		link(href='css/custom.css', rel='stylesheet')
+		script(src='js/respond.js')
+	body
+		.container-fluid
+			// row1
+			.row.headerblue
+				.col-lg-7.col-md-7.col-sm-7.clearfix
+					span.visible-lg.visible-md
+						a(href='http://www.cdc.gov')
+							img.img-responsive.pull-left.cdclogo(src='img/cdc_logo.png', alt='CDC logo')
+						span.cdctext CDC Surveillance System Knowledgebase
+						span.header_icon
+							img(src='img/computer_icon.png', alt='computer icon')
+					span.visible-sm
+						a(href='http://www.cdc.gov')
+							img.img-responsive.pull-left.cdclogo2(src='img/cdc_logo_smaller.png', alt='CDC logo')
+						span.cdctext2 CDC Surveillance System Knowledgebase
+				.col-lg-3.col-md-3.col-sm-3
+					span.visible-lg.visible-md
+						.input-group.search_button
+							input.form-control(type='text')
+							span.input-group-btn
+								button.btn.btn-default(type='button') Search
+						// /input-group
+					span.visible-sm
+						.input-group.search_button
+							input.form-control(type='text')
+							span.input-group-btn
+								button.btn.btn-default(type='button') Search
+						// /input-group
+				.col-lg-2.col-md-2.col-sm-2.clearfix
+					span.visible-lg.visible-md
+						a(href='#')
+							img.img-responsive.pull-left.settings_btn(src='img/settings_icon.png', alt='Settings')
+						a(href='#')
+							img.img-responsive.help_btn(src='img/help_icon.png', alt='Help')
+					span.visible-sm
+						a(href='#')
+							img.img-responsive.pull-left.settings_btn2(src='img/settings_icon.png', alt='Settings')
+						a(href='#')
+							img.img-responsive.help_btn2(src='img/help_icon.png', alt='Help')
+			// end 1st row
+			// row 2 (navbar)
+			.row
+				nav.navbar.navbar-default.navbar-inner(role='navigation')
+					.navbar-header
+						button.navbar-toggle(type='button', data-toggle='collapse', data-target='#collapse')
+							span.sr-only Toggle navigation
+							span.icon-bar
+							span.icon-bar
+							span.icon-bar
+					#collapse.collapse.navbar-collapse
+						ul.nav.navbar-nav.scootnav
+							li
+								a(href='#')
+									span.glyphicon.glyphicon-home.custom_home  
+									| Home
+							li.active
+								a(href='#')
+									span.glyphicon.glyphicon-dashboard.custom_explore  
+									| Explore
+							li
+								a(href='#')
+									span.glyphicon.glyphicon-comment.custom_faqs.icon-flipped  
+									| FAQs
+						span.right_nav_content
+							span.glyphicon.glyphicon-user.user_custom  
+							| Welcome, @TimSmith37  |
+							a(href='#') Logout
+							span.favorites_icon
+								img(src='img/filled_circle_smaller.png', alt='Favorites')
+								| Favorites
+		// end row 2 (navbar)
+		// row
+		.row
+			.col-lg-11.col-md-11.col-sm-11
+				.content_block
+					.subnav
+						ul.nav.nav-pills.pills_custom
+							li
+								a(href='#') Quick Guide
+							li.active
+								a(href='#') Browse
+							li
+								a(href='#') Search
+							li
+								a(href='#') Advanced Search
+							li
+								a(href='#') Favorites
+					// end subnav
+					.instructive_text
+						span.glyphicon.glyphicon-envelope.addbrowse
+						| Please let us know if you'd like to see a
+						strong new topic
+						| added to this list. Contact us at
+						a(href='mailto:integratedsurveillance@cdc.gov') integratedsurveillance@cdc.gov
+						| .
+					h4.orange_main Browse by featured topics:
+					.row
+						// nested row
+						.col-lg-4.col-md-4.col-sm-4
+							.topics_block
+								.block_header
+									img(src='img\germ.png', alt='bacteria icon')
+									| Infectious Disease
+								// end block header
+								.row
+									.col-lg-6.col-md-6.col-sm-6
+										.browse_topics
+											p
+												a(href='#') Hepatitis
+											p
+												a(href='#') HIV/AIDS
+											p
+												a(href='#') Relevant Topic
+											p
+												a(href='#') Relevant Topic
+											p
+												a(href='#') Relevant Topic
+									// end col specs
+									.col-lg-6.col-md-6.col-sm-6
+										.browse_topics
+											p
+												a(href='#') Relevant Topic
+											p
+												a(href='#') Relevant Topic
+											p
+												a(href='#') Relevant Topic
+											p
+												a(href='#') Relevant Topic
+											p
+												a(href='#') Relevant Topic
+									// end col specs
+								// end topics_block
+							// end nested sub-row
+						// end column specs
+						.col-lg-4.col-md-4.col-sm-4
+							.topics_block
+								.block_header
+									img(src='img\heart.png', alt='heart icon')
+									| Chronic Disease
+								// end block header
+								.row
+									.col-lg-6.col-md-6.col-sm-6
+										.browse_topics
+											p
+												a(href='#') Arthritis
+											p
+												a(href='#') Diabetes
+											p
+												a(href='#') Heart Disease
+											p
+												a(href='#') Relevant Topic
+											p
+												a(href='#') Relevant Topic
+									// end col specs
+									.col-lg-6.col-md-6.col-sm-6
+										.browse_topics
+											p
+												a(href='#') Relevant Topic
+											p
+												a(href='#') Relevant Topic
+											p
+												a(href='#') Relevant Topic
+											p
+												a(href='#') Relevant Topic
+											p
+												a(href='#') Relevant Topic
+									// end col specs
+								// end topics_block
+							// end nested sub-row
+						// end column specs
+						.col-lg-4.col-md-4.col-sm-4
+							.topics_block
+								.block_header
+									span.glyphicon.glyphicon-leaf
+									| Environmental Health
+								// end block header
+								.row
+									.col-lg-6.col-md-6.col-sm-6
+										.browse_topics
+											p
+												a(href='#') Asbestos
+											p
+												a(href='#') Asthma
+											p
+												a(href='#') Mold
+											p
+												a(href='#') Radon
+											p
+												a(href='#') Relevant Topic
+									// end col specs
+									.col-lg-6.col-md-6.col-sm-6
+										.browse_topics
+											p
+												a(href='#') Relevant Topic
+											p
+												a(href='#') Relevant Topic
+											p
+												a(href='#') Relevant Topic
+											p
+												a(href='#') Relevant Topic
+											p
+												a(href='#') Relevant Topic
+									// end col specs
+								// end topics_block
+							// end nested sub-row
+						// end column specs
+					// end row
+					// 2ND ROW
+					.row.vertical_spacing_more
+						// nested row
+						.col-lg-4.col-md-4.col-sm-4
+							.topics_block
+								.block_header
+									img(src='img\placeholder_icon.png', alt='')
+									| Category Title
+								// end block header
+								.row
+									.col-lg-6.col-md-6.col-sm-6
+										.browse_topics
+											p
+												a(href='#') Relevant Topic
+											p
+												a(href='#') Relevant Topic
+											p
+												a(href='#') Relevant Topic
+											p
+												a(href='#') Relevant Topic
+											p
+												a(href='#') Relevant Topic
+									// end col specs
+									.col-lg-6.col-md-6.col-sm-6
+										.browse_topics
+											p
+												a(href='#') Relevant Topic
+											p
+												a(href='#') Relevant Topic
+											p
+												a(href='#') Relevant Topic
+											p
+												a(href='#') Relevant Topic
+											p
+												a(href='#') Relevant Topic
+									// end col specs
+								// end topics_block
+							// end nested sub-row
+						// end column specs
+						.col-lg-4.col-md-4.col-sm-4
+							.topics_block
+								.block_header
+									img(src='img\placeholder_icon.png', alt='')
+									| Catgeory Title
+								// end block header
+								.row
+									.col-lg-6.col-md-6.col-sm-6
+										.browse_topics
+											p
+												a(href='#') Relevant Topic
+											p
+												a(href='#') Relevant Topic
+											p
+												a(href='#') Relevant Topic
+											p
+												a(href='#') Relevant Topic
+											p
+												a(href='#') Relevant Topic
+									// end col specs
+									.col-lg-6.col-md-6.col-sm-6
+										.browse_topics
+											p
+												a(href='#') Relevant Topic
+											p
+												a(href='#') Relevant Topic
+											p
+												a(href='#') Relevant Topic
+											p
+												a(href='#') Relevant Topic
+											p
+												a(href='#') Relevant Topic
+									// end col specs
+								// end topics_block
+							// end nested sub-row
+						// end column specs
+						.col-lg-4.col-md-4.col-sm-4
+							.topics_block
+								.block_header
+									img(src='img\placeholder_icon.png', alt='')
+									| Category Title
+								// end block header
+								.row
+									.col-lg-6.col-md-6.col-sm-6
+										.browse_topics
+											p
+												a(href='#') Relevant Topic
+											p
+												a(href='#') Relevant Topic
+											p
+												a(href='#') Relevant Topic
+											p
+												a(href='#') Relevant Topic
+											p
+												a(href='#') Relevant Topic
+									// end col specs
+									.col-lg-6.col-md-6.col-sm-6
+										.browse_topics
+											p
+												a(href='#') Relevant Topic
+											p
+												a(href='#') Relevant Topic
+											p
+												a(href='#') Relevant Topic
+											p
+												a(href='#') Relevant Topic
+											p
+												a(href='#') Relevant Topic
+									// end col specs
+								// end topics_block
+							// end nested sub-row
+						// end column specs
+					// end row
+					// END 2ND ROW
+					// 3RD ROW
+					.row.vertical_spacing_more
+						// nested row
+						.col-lg-4.col-md-4.col-sm-4
+							.topics_block
+								.block_header
+									img(src='img\placeholder_icon.png', alt='')
+									| Category Title
+								// end block header
+								.row
+									.col-lg-6.col-md-6.col-sm-6
+										.browse_topics
+											p
+												a(href='#') Relevant Topic
+											p
+												a(href='#') Relevant Topic
+											p
+												a(href='#') Relevant Topic
+											p
+												a(href='#') Relevant Topic
+											p
+												a(href='#') Relevant Topic
+									// end col specs
+									.col-lg-6.col-md-6.col-sm-6
+										.browse_topics
+											p
+												a(href='#') Relevant Topic
+											p
+												a(href='#') Relevant Topic
+											p
+												a(href='#') Relevant Topic
+											p
+												a(href='#') Relevant Topic
+											p
+												a(href='#') Relevant Topic
+									// end col specs
+								// end topics_block
+							// end nested sub-row
+						// end column specs
+						.col-lg-4.col-md-4.col-sm-4
+							.topics_block
+								.block_header
+									img(src='img\placeholder_icon.png', alt='')
+									| Catgeory Title
+								// end block header
+								.row
+									.col-lg-6.col-md-6.col-sm-6
+										.browse_topics
+											p
+												a(href='#') Relevant Topic
+											p
+												a(href='#') Relevant Topic
+											p
+												a(href='#') Relevant Topic
+											p
+												a(href='#') Relevant Topic
+											p
+												a(href='#') Relevant Topic
+									// end col specs
+									.col-lg-6.col-md-6.col-sm-6
+										.browse_topics
+											p
+												a(href='#') Relevant Topic
+											p
+												a(href='#') Relevant Topic
+											p
+												a(href='#') Relevant Topic
+											p
+												a(href='#') Relevant Topic
+											p
+												a(href='#') Relevant Topic
+									// end col specs
+								// end topics_block
+							// end nested sub-row
+						// end column specs
+						.col-lg-4.col-md-4.col-sm-4
+							.topics_block
+								.block_header
+									img(src='img\placeholder_icon.png', alt='')
+									| Category Title
+								// end block header
+								.row
+									.col-lg-6.col-md-6.col-sm-6
+										.browse_topics
+											p
+												a(href='#') Relevant Topic
+											p
+												a(href='#') Relevant Topic
+											p
+												a(href='#') Relevant Topic
+											p
+												a(href='#') Relevant Topic
+											p
+												a(href='#') Relevant Topic
+									// end col specs
+									.col-lg-6.col-md-6.col-sm-6
+										.browse_topics
+											p
+												a(href='#') Relevant Topic
+											p
+												a(href='#') Relevant Topic
+											p
+												a(href='#') Relevant Topic
+											p
+												a(href='#') Relevant Topic
+											p
+												a(href='#') Relevant Topic
+									// end col specs
+								// end topics_block
+							// end nested sub-row
+						// end column specs
+					// end row
+					// END 3RD ROW
+				// end content block
+			// end col spec
+			.col-lg-1.col-md-1.col-sm-1
+				.hx_side
+					span.small_text
+						| Tab
+				// end hx_side
+			// end col spec
+		// end row
+		// row
+		// footer row
+		.row.footerbottom
+			// <div class="col-md-6">
+			// share
+			.share
+				.share_corner
+					span.share_text
+						| Share site:
+						a(href='#')
+							img(src='img\facebook_icon.png', alt='Share with Facebook')
+						a(href='#')
+							img(src='img\twitter_icon.png', alt='Share with Twitter')
+						a(href='#')
+							img(src='img\mail_icon.png', alt='Share with Email')
+			// end share
+			// </div> <!-- end column class
+			// <div class="col-md-6">
+			// links
+			.bottom_links
+				| Disability   |   Accessibility   |   Code of Conduct   |   Contact
+				span.cdc_info Centers for Disease Control and Prevention 
+			// end links
+			// </div> <!-- end column class
+		// end footer row
+		//
+			 close container>
+			<!-- javascript 
+		script(src='http://code.jquery.com/jquery-latest.min.js')
+		script(src='js/bootstrap.min.js')

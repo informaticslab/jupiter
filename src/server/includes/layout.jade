@@ -66,7 +66,7 @@ html(lang="en" ng-app='apolloApp')
 									span.glyphicon.glyphicon-home.custom_home  
 									| Home
 							li
-								a(href='#/node/P1')
+								a(href='#/browse')
 									span.glyphicon.glyphicon-dashboard.custom_explore  
 									| Explore
 							li
@@ -75,38 +75,13 @@ html(lang="en" ng-app='apolloApp')
 									| FAQs
 						span.right_nav_content
 							span.glyphicon.glyphicon-user.user_custom  
-							| Welcome&comma; &commat;TimSmith37&NonBreakingSpace; &VerticalLine;
-							a(href='#') Logout
+							| Welcome, @TimSmith37&nbsp; |
+							a(href='#') &nbsp;Logout
 							span.favorites_icon
 								img(src='img/filled_circle_smaller.png', alt='Favorites')
-								| Favorites
+								| &nbsp;Favorites
 		// end row 2 (navbar)
-		// new row
-		.row
-			.col-lg-9.col-md-9.col-sm-9
-				.content_block
-					.top_block
-						block main-content
-					// end top_block
-					.carousel_controls
-						| &lsqb;Placeholder for controls&rsqb;
-					// end carousel controls
-					.bottom_block
-						| Live Statistics &lsqb;placeholder&semi; NEED to FIX alignment issues&rsqb;
-					// end bottom_block
-				// end content block
-			// end col spec
-			.col-lg-3.col-md-3.col-sm-3
-				.sideblock
-					.block1
-						| Searching for information&quest; &lsqb;placeholder&rsqb;
-					.block2
-						| Do you work with&quest; &lsqb;placeholder&rsqb;
-					.block3
-						| Recent activity &lsqb;placeholder&rsqb;
-				// end side block
-			// end col spec
-		// end row
+		block main-content
 		// start footer row
 		.row.footerbottom
 			// <div class="col-md-6">
@@ -119,14 +94,14 @@ html(lang="en" ng-app='apolloApp')
 							img(src='img/facebook_icon.png', alt='Share with Facebook')
 						a(href='#')
 							img(src='img/twitter_icon.png', alt='Share with Twitter')
-						a(href='#')
+						a(href='#')&nbsp;
 							img(src='img/mail_icon.png', alt='Share with Email')
 			// end share
 			// </div> <!-- end column class
 			// <div class="col-md-6">
 			// links
 			.bottom_links
-				| Disability &NonBreakingSpace; &VerticalLine;&NonBreakingSpace;  Accessibility &NonBreakingSpace; &VerticalLine; &NonBreakingSpace; Code of Conduct &NonBreakingSpace; &VerticalLine; &NonBreakingSpace; Contact
+				| Disability  |  Accessibility  |  Code of Conduct  |  Contact
 				span.cdc_info
 					| Centers for Disease Control and Prevention
 		include scripts

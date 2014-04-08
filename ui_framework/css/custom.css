@@ -1,21 +1,21 @@
 /* this is a custom CSS stylesheet */
 body {
-	
-	padding-top: 0px;
+  
+  padding-top: 0px;
 
 }
 
 footer {
-	padding: 2em 0;
-	margin: 3em 0;
-	border-top: 1px solid #ddd;
-	color: #999;
+  padding: 2em 0;
+  margin: 3em 0;
+  border-top: 1px solid #ddd;
+  color: #999;
 text-align: center;
 }
 
 html, body { overflow-x: hidden; }
 .glyphicon {
-	color:#3f2b22;
+  color:#3f2b22;
 }
 
 .headerblue {background-color:#34495e; height:5.4em; margin-bottom:3.1em; 
@@ -26,11 +26,11 @@ html, body { overflow-x: hidden; }
 .cdclogo2 {margin-left:0em; padding-top:11px;}
 
 .cdctext {color:#ecf0f1; font-size: medium; font-family: Tahoma, Geneva, sans-serif; letter-spacing:.04em; 
-	padding-left:2.1em; position:relative; top:2em;
+  padding-left:2.1em; position:relative; top:2em;
 }
 
 .cdctext2 {color:#ecf0f1; font-size: 1.1em; font-family: Tahoma, Geneva, sans-serif; letter-spacing:.01em;  
-	padding-left:.7em; position:relative; top:2em;
+  padding-left:.7em; position:relative; top:2em;
 }
 
 .header_icon {position:relative; top:2.1em; left:.5em;

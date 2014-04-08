@@ -19,6 +19,10 @@ apolloApp.config(['$routeProvider',
         templateUrl: 'partials/main',
         controller: 'mainCtrl'
       }).
+          when('/browse', {
+        templateUrl: 'partials/browse',
+        controller: 'browseCtrl'
+      }).
           when('/node/:id', {
         templateUrl: 'partials/node',
         controller: 'nodeCtrl'

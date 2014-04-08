@@ -1,20 +1,21 @@
 /* this is a custom CSS stylesheet */
 body {
-	
-	padding-top: 0px;
+  
+  padding-top: 0px;
+
 }
 
 footer {
-	padding: 2em 0;
-	margin: 3em 0;
-	border-top: 1px solid #ddd;
-	color: #999;
+  padding: 2em 0;
+  margin: 3em 0;
+  border-top: 1px solid #ddd;
+  color: #999;
 text-align: center;
 }
 
 html, body { overflow-x: hidden; }
 .glyphicon {
-	color:#3f2b22;
+  color:#3f2b22;
 }
 
 .headerblue {background-color:#34495e; height:5.4em; margin-bottom:3.1em; 
@@ -25,11 +26,11 @@ html, body { overflow-x: hidden; }
 .cdclogo2 {margin-left:0em; padding-top:11px;}
 
 .cdctext {color:#ecf0f1; font-size: medium; font-family: Tahoma, Geneva, sans-serif; letter-spacing:.04em; 
-	padding-left:2.1em; position:relative; top:2em;
+  padding-left:2.1em; position:relative; top:2em;
 }
 
 .cdctext2 {color:#ecf0f1; font-size: 1.1em; font-family: Tahoma, Geneva, sans-serif; letter-spacing:.01em;  
-	padding-left:.7em; position:relative; top:2em;
+  padding-left:.7em; position:relative; top:2em;
 }
 
 .header_icon {position:relative; top:2.1em; left:.5em;
@@ -140,7 +141,9 @@ height: 36px; padding-left:2em; padding-top:.6em; color:#ffffff; font-size: smal
 .carousel_controls {height:40px; background-color:#f39c11; text-align:center; color:#ffffff; padding:.5em;}
 
 
-.orange_header {color:#e77e23; font-weight:bold; font-size:1.1em; padding-bottom:1em;}
+
+.orange_main {background-color:#f39c11; color:#ffffff; font-weight:bold; padding:.7em; padding-bottom:.9em; padding-left:1em; margin-bottom:1.3em; margin-right:.9em; }
+.orange_header {font-weight:bold; color:#e77e23; padding-bottom:1em;}
 .placeholder_image {padding-left:1.5em;}
 .sideblock {margin-right:2em; }
 .block1 {height:111px; background-color:#3598db; margin-bottom:1em; padding:1.2em; color:#ffffff;}
@@ -151,7 +154,9 @@ height: 36px; padding-left:2em; padding-top:.6em; color:#ffffff; font-size: smal
 
 .detail_header {height:55px; background-color:#f39c11; text-align:center; color:#ffffff; font-weight:bold; padding:.5em;}
 
-.hx_side {margin-right:2em; background-color:#e1ebf4; text-align:center; height:1033px; margin-bottom:3em; padding:1em;}
+.search_header {height:55px; background-color:#f39c11; text-align:left; color:#ffffff; font-weight:bold; font-size:1.5em; padding-top:.7em; padding-left:1em;}
+
+.hx_side {margin-right:2em; background-color:#e1ebf4; text-align:center; height:968px; margin-bottom:3em; padding:1em;}
 
 .subnav {margin-bottom:2em;}
 
@@ -167,7 +172,24 @@ height: 36px; padding-left:2em; padding-top:.6em; color:#ffffff; font-size: smal
 
 .vertical_spacing {margin-top:2em;}
 
+.vertical_spacing_more {margin-top:4em;}
+
 .nav_split {margin-bottom:2.5em; max-width:45%; margin-left: auto;
     margin-right: auto; }
 
+.search_intro {font-weight:normal; font-size:.8em;}
 
+.small_text {font-size:smaller;}
+
+.instructive_text {margin-left:0em; padding-top:1em; padding-bottom:2em;}
+
+.addbrowse {color:#f1c40f; font-size:1.3em; padding-right:.2em;}
+
+
+.browse_topics {padding-left:1em; padding-right:1em;}
+
+.topics_block {margin-right:1.1em; border-style:solid; border-color:#d3d9d9; border-width:1px; padding-bottom:.4em; }
+
+.block_header {background-color:#eaeced; color:#777777; padding-left:1em; padding-right:1em; padding-top:.5em; padding-bottom:.5em; font-weight:bold; font-size: 1.1em; text-align:center; margin-bottom:1em; border-bottom-style: solid; border-bottom-color:#d3d9d9; border-bottom-width:1px;  }
+
+.glyphicon-leaf {font-size:1.2em; color:#2dcc70; padding-right:.2em; }

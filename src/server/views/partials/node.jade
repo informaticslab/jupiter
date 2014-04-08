@@ -1,28 +1,125 @@
-.orange_header Summary
-p Name: {{node.name}}
-p Type: {{labels.join()}}
-p Id: {{node.id}}
+.row
+			.col-lg-9.col-md-9.col-sm-9
+				.content_block
+					.subnav
+						ul.nav.nav-pills.pills_custom
+							li
+								a(href='#') Quick Guide
+							li
+								a(href='#') Browse
+							li.active
+								a(href='#') Search
+							li
+								a(href='#') Advanced Search
+							li
+								a(href='#') Favorites
+					// end subnav
+					.backlink
+						span.glyphicon.glyphicon-circle-arrow-left
+						| Back to search results
+					// end backlink class
+					.entity_name
+						| HHS CDC Sample Surveillance System Name
+					// end entity_name class
+					.nav_split
+						.btn-group.btn-group-md.btn-group-justified
+							.btn-group
+								button.btn.btn-primary(type='button') Details
+							.btn-group
+								button.btn.btn-default(type='button') Linkage Viewer
+						// end button group
+					// end nav_split
+					.detail_header
+						| [Placeholder for entity's header content]
+					// end detail header
+					.top_block
+						.orange_header Summary;
+						p 
+							| Name: {{node.name}}
+						p 
+							| Type: {{labels.join()}}
+						p 
+							| Id: {{node.id}}
+						p
+							| Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+							| tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
+							| veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
+							| commodo consequat. Duis aute irure dolor in reprehenderit in voluptate
+							| velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat
+							| cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id
+							| est laborum.
+						.linkage
+							.vertical_spacing
+							.orange_header Node Attributes
+							table(class="table table-condensed") 
+								tr(ng-repeat="att in node.attributes")
+									td(class="text-right") 
+										strong {{att.key}}
+									td {{att.value}}
+							.orange_header Linkage/Relationships:
+							div(ng-repeat="relation in relations")
+								.panel.panel-default
+									.panel-heading Related {{relation.name}}s
+									.panel-body
+										div(ng-repeat="relType in relation.relTypes")		
+											h3 {{relType.name}}
+											table(class="table table-condensed")
+												tr(ng-repeat="node in relType.nodes")
+													td.col-xs-1
+														a(href="#/node/{{node.id}}")
+															strong {{node.id}}
+													td {{node.name}}
 
+							//- ul.nav.nav-tabs
+							//- 	li.active
+							//- 		a(href='#') Program
+							//- 	li
+							//- 		a(href='#') System
+							//- 	li
+							//- 		a(href='#') Data Set
+							//- 	li
+							//- 		a(href='#') Data Element
+							//- 	li
+							//- 		a(href='#') Data Source
+							//- 	li
+							//- 		a(href='#') Data Standard
+							//- .vertical_spacing
+							//- | [Placeholder for tabbed content]
+						// end linkage
+						.com_discuss
+							.vertical_spacing
+							.orange_header Comments/Discussion:
+							.vertical_spacing
+							| [Placeholder for comments/discussion content]
+						// end com_discuss
+				// end content block
+			// end col spec
+			.col-lg-3.col-md-3.col-sm-3
+				.hx_side
+					| Exploration History [placeholder]
+				// end hx_side
+			// end col spec
+		// end row
+		// row
+//- .orange_header Node Attributes
+//- table(class="table table-condensed") 
+//- 	tr(ng-repeat="att in node.attributes")
+//- 		td(class="text-right") 
+//- 			strong {{att.key}}
+//- 		td {{att.value}}
 
-.orange_header Node Attributes
-table(class="table table-condensed") 
-	tr(ng-repeat="att in node.attributes")
-		td(class="text-right") 
-			strong {{att.key}}
-		td {{att.value}}
-
-div(ng-repeat="relation in relations")
-	.panel.panel-default
-		.panel-heading Related {{relation.name}}s
-		.panel-body
-			div(ng-repeat="relType in relation.relTypes")		
-				h3 {{relType.name}}
-				table(class="table table-condensed")
-					tr(ng-repeat="node in relType.nodes")
-						td.col-xs-1
-							a(href="#/node/{{node.id}}")
-								strong {{node.id}}
-						td {{node.name}}
+//- div(ng-repeat="relation in relations")
+//- 	.panel.panel-default
+//- 		.panel-heading Related {{relation.name}}s
+//- 		.panel-body
+//- 			div(ng-repeat="relType in relation.relTypes")		
+//- 				h3 {{relType.name}}
+//- 				table(class="table table-condensed")
+//- 					tr(ng-repeat="node in relType.nodes")
+//- 						td.col-xs-1
+//- 							a(href="#/node/{{node.id}}")
+//- 								strong {{node.id}}
+//- 						td {{node.name}}
 
 //- .linkage
 //- 	.vertical_spacing
@@ -42,10 +139,10 @@ div(ng-repeat="relation in relations")
 //- 			a(href='#') Data Standard
 //- 	.vertical_spacing
 //- 	| &lsqb;Placeholder for tabbed content&rsqb;
-// end linkage
-.com_discuss
-	.vertical_spacing
-	.orange_header Comments&sol;Discussion&colon;
-	.vertical_spacing
-	| &lsqb;Placeholder for comments&sol;discussion content&rsqb;
-// end com_discuss
+//- // end linkage
+//- .com_discuss
+//- 	.vertical_spacing
+//- 	.orange_header Comments/Discussion:
+//- 	.vertical_spacing
+//- 	| [Placeholder for comments/discussion content]
+//- // end com_discuss

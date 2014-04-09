@@ -33,7 +33,7 @@
 						| [Placeholder for entity's header content]
 					// end detail header
 					.top_block
-						.orange_header Summary;
+						.orange_header Summary:
 						p 
 							| Name: {{node.name}}
 						p 
@@ -57,19 +57,35 @@
 										strong {{att.key}}
 									td {{att.value}}
 							.orange_header Linkage/Relationships:
-							div(ng-repeat="relation in relations")
-								.panel.panel-default
-									.panel-heading Related {{relation.name}}s
-									.panel-body
-										div(ng-repeat="relType in relation.relTypes")		
-											h3 {{relType.name}}
-											table(class="table table-condensed")
-												tr(ng-repeat="node in relType.nodes")
-													td.col-xs-1
-														a(href="#/node/{{node.id}}")
-															strong {{node.id}}
-													td {{node.name}}
+							tabset
+								tab(ng-repeat="relation in relations", heading="{{relation.name}}")
+									div(ng-repeat="relType in relation.relTypes")
+										.vertical_spacing		
+										.orange_header {{relType.name}}
+										table(class="table table-condensed")
+											tr(ng-repeat="node in relType.nodes")
+												td.col-xs-1
+													a(href="#/node/{{node.id}}")
+														strong {{node.id}}
+												td {{node.name}}
+							//- ul.nav.nav-tabs
+							//- 	li(ng-repeat="relation in relations")
+							//- 		a(href='#') {{relation.name}}	
 
+							//- .tab-content			
+							//- 	div.tab-pane(ng-repeat="relation in relations",id={{relation.name}})
+							//- 		{{relation.name}}
+									//- .panel.panel-default
+									//- 	.panel-heading Related {{relation.name}}s
+									//- 	.panel-body
+									//- 		div(ng-repeat="relType in relation.relTypes")		
+									//- 			h3 {{relType.name}}
+									//- 			table(class="table table-condensed")
+									//- 				tr(ng-repeat="node in relType.nodes")
+									//- 					td.col-xs-1
+									//- 						a(href="#/node/{{node.id}}")
+									//- 							strong {{node.id}}
+									//- 					td {{node.name}}
 							//- ul.nav.nav-tabs
 							//- 	li.active
 							//- 		a(href='#') Program

@@ -64,22 +64,22 @@ html(lang="en" ng-app='apolloApp')
 							li.active
 								a(href='#/home')
 									span.glyphicon.glyphicon-home.custom_home  
-									| Home
+									| &nbsp;Home
 							li
 								a(href='#/browse')
 									span.glyphicon.glyphicon-dashboard.custom_explore  
-									| Explore
+									| &nbsp;Explore
 							li
 								a(href='#/faq')
 									span.glyphicon.glyphicon-comment.custom_faqs.icon-flipped  
-									| FAQs
+									| &nbsp;FAQs
 						span.right_nav_content
 							span.glyphicon.glyphicon-user.user_custom  
-							| Welcome, @TimSmith37  |
+							| &nbsp;Welcome, @TimSmith37  |
 							a(href='#')  Logout
 							span.favorites_icon
 								img(src='img/filled_circle_smaller.png', alt='Favorites')
-								|  Favorites
+								| &nbsp;Favorites
 		// end row 2 (navbar)
 		block main-content
 		// start footer row
@@ -94,6 +94,7 @@ html(lang="en" ng-app='apolloApp')
 							img(src='img/facebook_icon.png', alt='Share with Facebook')
 						a(href='#')
 							img(src='img/twitter_icon.png', alt='Share with Twitter')
+						| &nbsp;
 						a(href='#') 
 							img(src='img/mail_icon.png', alt='Share with Email')
 			// end share

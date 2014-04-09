@@ -2,6 +2,7 @@ var apolloApp = angular.module('apolloApp', [
   'ngRoute'
   ,'ngResource'
   ,'ngAnimate'
+  ,'ui.bootstrap'
   //'apolloAppAnimations',
  // 'apolloAppControllers',
  // 'apolloAppFilters',

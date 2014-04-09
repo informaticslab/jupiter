@@ -1,0 +1,32 @@
+// new row
+.row
+	.col-lg-9.col-md-9.col-sm-9
+		.content_block
+			.top_block
+				p
+					| The item you searched for was: {{queryString}} .
+				.orange_header Summary:
+				p 
+					| Name: {{node.name}}
+				p 
+					| Id: {{node.id}}
+			// end top_block
+			.carousel_controls
+				| [Placeholder for controls]
+			// end carousel controls
+			.bottom_block
+				| Live Statistics [placeholder] NEED to FIX alignment issues]
+			// end bottom_block
+		// end content block
+	// end col spec
+	.col-lg-3.col-md-3.col-sm-3
+		.sideblock
+			.block1
+				| Searching for information? [placeholder]
+			.block2
+				| Do you work with? [placeholder]
+			.block3
+				| Recent activity [placeholder]
+		// end side block
+	// end col spec
+// end row.orange_header Overview

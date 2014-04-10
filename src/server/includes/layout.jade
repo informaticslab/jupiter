@@ -10,6 +10,15 @@ html(lang="en" ng-app='apolloApp')
 		link(rel="stylesheet" href="/apollo/css/sticky-footer-navbar.css")
 		link(rel="stylesheet" href="/apollo/css/animation.css")
 		link(rel="stylesheet" href="/apollo/css/custom.css")
+		script.
+			function Ctrl($scope)
+			{
+				$scope.srchVars = {srchString: ''};
+			}
+			$scope.go = function(path){
+				$location.path(path);
+			}
+				
 	body
 		.container-fluid
 			// row1
@@ -25,18 +34,22 @@ html(lang="en" ng-app='apolloApp')
 						a(href='http://www.cdc.gov')
 							img.img-responsive.pull-left.cdclogo2(src='img/cdc_logo_smaller.png', alt='CDC logo')
 						span.cdctext2 CDC Surveillance System Knowledgebase
-				.col-lg-3.col-md-3.col-sm-3
+				.col-lg-3.col-md-3.col-sm-3(ng-controller="Ctrl")
 					span.visible-lg.visible-md
 						.input-group.search_button
-							input.form-control(type='text')
+							input.form-control(name='searchQuery', type='text', ng-model="srchVars.srchString")
 							span.input-group-btn
-								button.btn.btn-default(type='button') Search
+							a(href='#/search/{{srchVars.srchString}}')
+								span.glyphicon.glyphicon-home.custom_home  
+								| &nbsp;Search
 						// /input-group
 					span.visible-sm
 						.input-group.search_button
-							input.form-control(type='text')
+							input.form-control(type='text', ng-model="srchVars.srchString")
 							span.input-group-btn
-								button.btn.btn-default(type='button') Search
+								a(href='#/search/{{srchVars.srchString}}')
+								span.glyphicon.glyphicon-home.custom_home  
+								| &nbsp;Search
 						// /input-group
 				.col-lg-2.col-md-2.col-sm-2.clearfix
 					span.visible-lg.visible-md

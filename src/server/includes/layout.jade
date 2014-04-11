@@ -10,15 +10,6 @@ html(lang="en" ng-app='apolloApp')
 		link(rel="stylesheet" href="/apollo/css/sticky-footer-navbar.css")
 		link(rel="stylesheet" href="/apollo/css/animation.css")
 		link(rel="stylesheet" href="/apollo/css/custom.css")
-		script.
-			function Ctrl($scope)
-			{
-				$scope.srchVars = {srchString: ''};
-			}
-			$scope.go = function(path){
-				$location.path(path);
-			}
-				
 	body
 		.container-fluid
 			// row1
@@ -34,22 +25,18 @@ html(lang="en" ng-app='apolloApp')
 						a(href='http://www.cdc.gov')
 							img.img-responsive.pull-left.cdclogo2(src='img/cdc_logo_smaller.png', alt='CDC logo')
 						span.cdctext2 CDC Surveillance System Knowledgebase
-				.col-lg-3.col-md-3.col-sm-3(ng-controller="Ctrl")
+				.col-lg-3.col-md-3.col-sm-3
 					span.visible-lg.visible-md
 						.input-group.search_button
-							input.form-control(name='searchQuery', type='text', ng-model="srchVars.srchString")
+							input.form-control(id='bigSearchBawks', type='text')
 							span.input-group-btn
-							a(href='#/search/{{srchVars.srchString}}')
-								span.glyphicon.glyphicon-home.custom_home  
-								| &nbsp;Search
+								button.btn.btn-default(type='button' id='bigSearchButton') Search
 						// /input-group
 					span.visible-sm
 						.input-group.search_button
-							input.form-control(type='text', ng-model="srchVars.srchString")
+							input.form-control(id='lilSearchBawks', type='text')
 							span.input-group-btn
-								a(href='#/search/{{srchVars.srchString}}')
-								span.glyphicon.glyphicon-home.custom_home  
-								| &nbsp;Search
+								button.btn.btn-default(type='button' id='lilSearchButton') Search
 						// /input-group
 				.col-lg-2.col-md-2.col-sm-2.clearfix
 					span.visible-lg.visible-md
@@ -119,3 +106,12 @@ html(lang="en" ng-app='apolloApp')
 				span.cdc_info
 					| Centers for Disease Control and Prevention
 		include scripts
+		script.
+			$(function(){
+				$('#bigSearchButton').click(function(){
+					window.location = '#/search/' + $('#bigSearchBawks').val();
+					}); 
+				$('#lilSearchButton').click(function(){
+					window.location = '#/search/' + $('#lilSearchBawks').val();
+					}); 
+			});

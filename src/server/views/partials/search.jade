@@ -1,32 +1,257 @@
 // new row
 .row
-	.col-lg-9.col-md-9.col-sm-9
+	.col-lg-11.col-md-11.col-sm-11
 		.content_block
-			.top_block
-				p
-					| The item you searched for was: {{queryString}} .
-				.orange_header Summary:
-				p 
-					| Name: {{node.name}}
-				p 
-					| Id: {{node.id}}
-			// end top_block
-			.carousel_controls
-				| [Placeholder for controls]
-			// end carousel controls
-			.bottom_block
-				| Live Statistics [placeholder] NEED to FIX alignment issues]
-			// end bottom_block
+			.subnav
+				ul.nav.nav-pills.pills_custom
+					li
+						a(href='#') Quick Guide
+					li
+						a(href='#') Browse
+					li.active
+						a(href='#') Search
+					li
+						a(href='#') Advanced Search
+					li
+						a(href='#') Favorites
+			// end subnav
+			.search_header
+				.search_text
+					| Search
+					span.search_intro   |  Enter a search term:
+				.input-group.search_term
+					input.form-control(type='text', value='{{queryString}}')
+					span.input-group-btn
+						button.btn.btn-default(type='button')
+							span.glyphicon.glyphicon-search
+				// /input-group
+				// Split button
+				.btn-group.sortby
+					button.btn.btn-default(type='button') Sort by...   
+					button.btn.btn-default.dropdown-toggle(type='button', data-toggle='dropdown')
+						span.caret
+						span.sr-only Toggle Dropdown
+					ul.dropdown-menu(role='menu')
+						li
+							a(href='#') Resource
+						li
+							a(href='#') Date
+						li
+							a(href='#') Status
+			// end search header
+			.row
+				// nested row
+				.col-lg-3.col-md-4.col-sm-4
+					.sub_block
+						.orange_header_narrow Narrow your results:
+						.thick_border
+						.gray_header By Resource:
+						table.table_filter
+							tr
+								td
+									.input-group
+										input(type='checkbox')
+										| &nbsp;CDC Program
+									// /input-group
+								td.result_number #
+							tr
+								td
+									.input-group
+										input(type='checkbox')
+										| &nbsp;CDC System
+									// /input-group
+								td.result_number #
+							tr
+								td
+									.input-group
+										input(type='checkbox')
+										| &nbsp;CDC Data Set
+									// /input-group
+								td.result_number #
+							tr
+								td
+									.input-group
+										input(type='checkbox')
+										| &nbsp;Data Source
+									// /input-group
+								td.result_number #
+							tr
+								td
+									.input-group
+										input(type='checkbox')
+										| &nbsp;Data Element
+									// /input-group
+								td.result_number #
+							tr
+								td
+									.input-group
+										input(type='checkbox')
+										| &nbsp;Data Standard
+									// /input-group
+								td.result_number #
+						.gray_header.vertical_spacing By Date:
+						table.table_filter
+							tr
+								td
+									.input-group
+										input(type='checkbox')
+										| &nbsp;Start Date
+									// /input-group
+								td.result_number ##/##/##
+							tr
+								td
+									.input-group
+										input(type='checkbox')
+										| &nbsp;End Date
+									// /input-group
+								td.result_number ##/##/##
+						.divider_line
+						table.table_filter
+							tr
+								td
+									.input-group.check_filter
+										input(type='checkbox')
+										| &nbsp;Newer than
+									// /input-group
+								td.result_number ##/##/##
+							tr
+								td
+									.input-group.check_filter
+										input(type='checkbox')
+										| &nbsp;Older than
+									// /input-group
+								td.result_number ##/##/##
+						.divider_line
+						.select_date
+							a(href='')
+								span.glyphicon.glyphicon-calendar
+								| Select date
+						.gray_header.vertical_spacing By Status:
+						table.table_filter
+							tr
+								td
+									.input-group.check_filter
+										input(type='checkbox')
+										| &nbsp;Active
+									// /input-group
+								td.result_number ##
+							tr
+								td
+									.input-group.check_filter
+										input(type='checkbox')
+										| &nbsp;Archived
+									// /input-group
+								td.result_number ##
+						.vertical_spacing_morer
+					// end filter block
+				// end col specs
+				.col-lg-9.col-md-8.col-sm-8
+					.sub_block
+						table.search_results
+							tr
+								td.resource_name.search
+									a(href='#/node/{{node.id}}') {{node.name}}
+								td.status.search ##/##/##, Status 
+								td.resource_type.search2
+									span.labelbg Resource Type
+						table.search_results
+							tr
+								td.detail_label Detail 1:
+								td
+									| Detailed information lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod.
+							tr
+								td.detail_label Detail 2:
+								td Detailed information lorem ipsum dolor sit amet, consectetur adipisicing elit.
+							tr
+								td.detail_label.bot_space Detail 3:
+								td.bot_space
+									| Detailed information lorem ipsum dolor sit amet, consectetur adipisicing elit. Ut enim ad minim.
+						table.search_results
+							tr
+								td.resource_name.search
+									a(href='#') Sample Resource Name
+								td.status.search ##/##/##, Status 
+								td.resource_type.search2
+									span.labelbg Resource Type
+						table.search_results
+							tr
+								td.detail_label Detail 1:
+								td
+									| Detailed information lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod.
+							tr
+								td.detail_label Detail 2:
+								td Detailed information lorem ipsum dolor sit amet, consectetur adipisicing elit.
+							tr
+								td.detail_label.bot_space Detail 3:
+								td.bot_space
+									| Detailed information lorem ipsum dolor sit amet, consectetur adipisicing elit. Ut enim ad minim.
+						table.search_results
+							tr
+								td.resource_name.search
+									a(href='#') Sample Resource Name
+								td.status.search ##/##/##, Status 
+								td.resource_type.search2
+									span.labelbg Resource Type
+						table.search_results
+							tr
+								td.detail_label Detail 1:
+								td
+									| Detailed information lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod.
+							tr
+								td.detail_label Detail 2:
+								td Detailed information lorem ipsum dolor sit amet, consectetur adipisicing elit.
+							tr
+								td.detail_label.bot_space Detail 3:
+								td.bot_space
+									| Detailed information lorem ipsum dolor sit amet, consectetur adipisicing elit. Ut enim ad minim.
+						table.search_results
+							tr
+								td.resource_name.search
+									a(href='#') Sample Resource Name
+								td.status.search ##/##/##, Status 
+								td.resource_type.search2
+									span.labelbg Resource Type
+						table.search_results
+							tr
+								td.detail_label Detail 1:
+								td
+									| Detailed information lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod.
+							tr
+								td.detail_label Detail 2:
+								td Detailed information lorem ipsum dolor sit amet, consectetur adipisicing elit.
+							tr
+								td.detail_label.bot_space Detail 3:
+								td.bot_space
+									| Detailed information lorem ipsum dolor sit amet, consectetur adipisicing elit. Ut enim ad minim.
+						table.search_results
+							tr
+								td.resource_name.search
+									a(href='#') Sample Resource Name
+								td.status.search ##/##/##, Status 
+								td.resource_type.search2
+									span.labelbg Resource Type
+						table.search_results
+							tr
+								td.detail_label Detail 1:
+								td
+									| Detailed information lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod.
+							tr
+								td.detail_label Detail 2:
+								td Detailed information lorem ipsum dolor sit amet, consectetur adipisicing elit.
+							tr
+								td.detail_label.bot_space Detail 3:
+								td.bot_space
+									| Detailed information lorem ipsum dolor sit amet, consectetur adipisicing elit. Ut enim ad minim.
+						.page_controls
+							| Page controls (for multiple pages of results) to go here
+					// end sub block
+				// end col specs
+			// end nested row
 		// end content block
 	// end col spec
-	.col-lg-3.col-md-3.col-sm-3
-		.sideblock
-			.block1
-				| Searching for information? [placeholder]
-			.block2
-				| Do you work with? [placeholder]
-			.block3
-				| Recent activity [placeholder]
-		// end side block
+	.col-lg-1.col-md-1.col-sm-1
+		.hx_side2
+			| Tab
+		// end hx_side
 	// end col spec
-// end row.orange_header Overview
+// end row

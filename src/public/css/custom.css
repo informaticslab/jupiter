@@ -1,21 +1,23 @@
 /* this is a custom CSS stylesheet */
 body {
+	
+	padding-top: 0px;
   
-  padding-top: 0px;
+  color:#5c5c5c;
 
 }
 
 footer {
-  padding: 2em 0;
-  margin: 3em 0;
-  border-top: 1px solid #ddd;
-  color: #999;
+	padding: 2em 0;
+	margin: 3em 0;
+	border-top: 1px solid #ddd;
+	color: #999;
 text-align: center;
 }
 
 html, body { overflow-x: hidden; }
 .glyphicon {
-  color:#3f2b22;
+	color:#3f2b22;
 }
 
 .headerblue {background-color:#34495e; height:5.4em; margin-bottom:3.1em; 
@@ -26,11 +28,11 @@ html, body { overflow-x: hidden; }
 .cdclogo2 {margin-left:0em; padding-top:11px;}
 
 .cdctext {color:#ecf0f1; font-size: medium; font-family: Tahoma, Geneva, sans-serif; letter-spacing:.04em; 
-  padding-left:2.1em; position:relative; top:2em;
+	padding-left:2.1em; position:relative; top:2em;
 }
 
 .cdctext2 {color:#ecf0f1; font-size: 1.1em; font-family: Tahoma, Geneva, sans-serif; letter-spacing:.01em;  
-  padding-left:.7em; position:relative; top:2em;
+	padding-left:.7em; position:relative; top:2em;
 }
 
 .header_icon {position:relative; top:2.1em; left:.5em;
@@ -38,6 +40,10 @@ html, body { overflow-x: hidden; }
 }
 
 .search_button {position:relative; top:1.5em; }
+
+
+
+.glyphicon-search {color:#7e8c8d;}
 
 .settings_btn {position:relative; top:1.7em; right:.7em;}
 
@@ -68,7 +74,7 @@ transform: scaleX(-1);
   background-image: -webkit-linear-gradient(top, #ffffff, #f8f8f8);
   background-image: -o-linear-gradient(top, #ffffff, #f8f8f8);
   background-image: linear-gradient(top, #ffffff, #f8f8f8);
-  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#ffffff", endColorstr="#f8f8f8", GradientType=0);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#'ffffff, endColorstr='#'f8f8f8, GradientType=0);
   
   margin-left:2em;
    margin-right:2em;
@@ -137,6 +143,9 @@ height: 36px; padding-left:2em; padding-top:.6em; color:#ffffff; font-size: smal
 
 .content_block {margin-left:2em;}
 .top_block {padding:1.2em; border-style:solid; border-width:1px; border-color:#d3d9d9; text-align:left; min-height:450px; }
+
+.sub_block {border-style:solid; border-width:1px; border-color:#d3d9d9; text-align:left; min-height:840px; margin-top:1.1em; }
+
 .bottom_block {height:196px; background-color:#f2f5f5; margin-top:2em; padding:1.2em; border-style:solid; border-width:1px; border-color:#d3d9d9; text-align:center;}
 .carousel_controls {height:40px; background-color:#f39c11; text-align:center; color:#ffffff; padding:.5em;}
 
@@ -144,6 +153,9 @@ height: 36px; padding-left:2em; padding-top:.6em; color:#ffffff; font-size: smal
 
 .orange_main {background-color:#f39c11; color:#ffffff; font-weight:bold; padding:.7em; padding-bottom:.9em; padding-left:1em; margin-bottom:1.3em; margin-right:.9em; }
 .orange_header {font-weight:bold; color:#e77e23; padding-bottom:1em;}
+
+.orange_header_narrow {color:#e77e23; padding:.7em; padding-left:1em; font-weight:bold;}
+
 .placeholder_image {padding-left:1.5em;}
 .sideblock {margin-right:2em; }
 .block1 {height:111px; background-color:#3598db; margin-bottom:1em; padding:1.2em; color:#ffffff;}
@@ -154,7 +166,15 @@ height: 36px; padding-left:2em; padding-top:.6em; color:#ffffff; font-size: smal
 
 .detail_header {height:55px; background-color:#f39c11; text-align:center; color:#ffffff; font-weight:bold; padding:.5em;}
 
-.search_header {height:55px; background-color:#f39c11; text-align:left; color:#ffffff; font-weight:bold; font-size:1.5em; padding-top:.7em; padding-left:1em;}
+.search_header {height:55px; background-color:#f39c11; font-weight:bold; font-size:1.5em; padding-top:.6em; padding-left:1em;}
+
+.search_text {float:left; color:#ffffff;}
+
+.search_term {width:33%; float:left; margin-left:.3em; position:relative; bottom:.1em; }
+
+.search_intro {font-weight:normal; font-size:.8em;}
+
+.sortby {float:right; padding-right:1em; position:relative; bottom:.1em;   }
 
 .hx_side {margin-right:2em; background-color:#e1ebf4; text-align:center; height:968px; margin-bottom:3em; padding:1em;}
 
@@ -174,10 +194,10 @@ height: 36px; padding-left:2em; padding-top:.6em; color:#ffffff; font-size: smal
 
 .vertical_spacing_more {margin-top:4em;}
 
+.vertical_spacing_morer {margin-top:8em;}
+
 .nav_split {margin-bottom:2.5em; max-width:45%; margin-left: auto;
     margin-right: auto; }
-
-.search_intro {font-weight:normal; font-size:.8em;}
 
 .small_text {font-size:smaller;}
 
@@ -193,3 +213,41 @@ height: 36px; padding-left:2em; padding-top:.6em; color:#ffffff; font-size: smal
 .block_header {background-color:#eaeced; color:#777777; padding-left:1em; padding-right:1em; padding-top:.5em; padding-bottom:.5em; font-weight:bold; font-size: 1.1em; text-align:center; margin-bottom:1em; border-bottom-style: solid; border-bottom-color:#d3d9d9; border-bottom-width:1px;  }
 
 .glyphicon-leaf {font-size:1.2em; color:#2dcc70; padding-right:.2em; }
+
+.thick_border {background-color:#dddddd; height:2px;}
+
+.gray_header {background-color:#e6e8e9; color:#34495e; padding-left:1.5em; padding-top:.5em; padding-bottom:.5em; border-top-style:solid; border-top-color:#ffffff; border-top-width:1px; margin-bottom:.4em;}
+
+.table_filter {width:88%; color:#777777; margin-left:1.5em;}
+
+td {vertical-align:bottom; padding-top:.4em;}
+
+
+.result_number {text-align:right; padding-right:.5em;}
+
+.divider_line {height:1px; background-color:#dee3e3; margin:1em; margin-bottom:.6em;}
+
+.select_date {margin-left:1.5em; }
+
+.glyphicon-calendar {color:#f39c11; padding-right:.2em; font-size:1.5em;}
+
+.search_results {color:#777777; width:100%; padding-left:1.5em; margin-top:1em; border-bottom-style:solid; border-bottom-width:2px; border-bottom-color:#dddddd;}
+
+.resource_name {padding-left:1em; width:50%; font-weight:bold;}
+
+.status {width:20%;}
+
+.resource_type {font-weight:bold; font-size:small; width:30%; text-align: right; padding-right:.5em; }
+.labelbg {background-color:#e6e8e9; padding:.4em; padding-left:.6em; padding-right:.6em; }
+
+td.search {padding-bottom:.7em; padding-left:1em;}
+td.search2 {padding-bottom:1em; padding-left:1em;}
+
+td.detail_label {padding-left:1.2em; padding-right:.7em; }
+
+td.bot_space {padding-bottom:1em;}
+
+.page_controls {background-color:#e6e8e9; text-align:center; color:#777777; padding-top:.7em; padding-bottom:.7em;}
+
+.hx_side2 {margin-right:2em; background-color:#e1ebf4; text-align:center; height:981px; margin-bottom:3em; padding:1em;}
+

@@ -1,0 +1,368 @@
+doctype html
+html
+	head
+		meta(charset='utf-8')
+		title CDC Surveillance System Knowledgebase
+		meta(name='viewport', content='width=device-width, initial-scale=1.0')
+		// Bootstrap
+		link(href='css/bootstrap.min.css', rel='stylesheet')
+		link(href='css/custom.css', rel='stylesheet')
+		script(src='js/respond.js')
+	body
+		.container-fluid
+			// row1
+			.row.headerblue
+				.col-lg-7.col-md-7.col-sm-7.clearfix
+					span.visible-lg.visible-md
+						a(href='http://www.cdc.gov')
+							img.img-responsive.pull-left.cdclogo(src='img/cdc_logo.png', alt='CDC logo')
+						span.cdctext CDC Surveillance System Knowledgebase
+						span.header_icon
+							img(src='img/computer_icon.png', alt='computer icon')
+					span.visible-sm
+						a(href='http://www.cdc.gov')
+							img.img-responsive.pull-left.cdclogo2(src='img/cdc_logo_smaller.png', alt='CDC logo')
+						span.cdctext2 CDC Surveillance System Knowledgebase
+				.col-lg-3.col-md-3.col-sm-3
+					span.visible-lg.visible-md
+						.input-group.search_button
+							input.form-control(type='text')
+							span.input-group-btn
+								button.btn.btn-default(type='button') Search
+						// /input-group
+					span.visible-sm
+						.input-group.search_button
+							input.form-control(type='text')
+							span.input-group-btn
+								button.btn.btn-default(type='button') Search
+						// /input-group
+				.col-lg-2.col-md-2.col-sm-2.clearfix
+					span.visible-lg.visible-md
+						a(href='#')
+							img.img-responsive.pull-left.settings_btn(src='img/settings_icon.png', alt='Settings')
+						a(href='#')
+							img.img-responsive.help_btn(src='img/help_icon.png', alt='Help')
+					span.visible-sm
+						a(href='#')
+							img.img-responsive.pull-left.settings_btn2(src='img/settings_icon.png', alt='Settings')
+						a(href='#')
+							img.img-responsive.help_btn2(src='img/help_icon.png', alt='Help')
+			// end 1st row
+			// row 2 (navbar)
+			.row
+				nav.navbar.navbar-default.navbar-inner(role='navigation')
+					.navbar-header
+						button.navbar-toggle(type='button', data-toggle='collapse', data-target='#collapse')
+							span.sr-only Toggle navigation
+							span.icon-bar
+							span.icon-bar
+							span.icon-bar
+					#collapse.collapse.navbar-collapse
+						ul.nav.navbar-nav.scootnav
+							li
+								a(href='#')
+									span.glyphicon.glyphicon-home.custom_home  
+									| Home
+							li.active
+								a(href='#')
+									span.glyphicon.glyphicon-dashboard.custom_explore  
+									| Explore
+							li
+								a(href='#')
+									span.glyphicon.glyphicon-comment.custom_faqs.icon-flipped  
+									| FAQs
+						span.right_nav_content
+							span.glyphicon.glyphicon-user.user_custom  
+							| Welcome, @TimSmith37  |
+							a(href='#') Logout
+							span.favorites_icon
+								img(src='img/filled_circle_smaller.png', alt='Favorites')
+								| Favorites
+		// end row 2 (navbar)
+		// row
+		.row
+			.col-lg-11.col-md-11.col-sm-11
+				.content_block
+					.subnav
+						ul.nav.nav-pills.pills_custom
+							li
+								a(href='#') Quick Guide
+							li
+								a(href='#') Browse
+							li.active
+								a(href='#') Search
+							li
+								a(href='#') Advanced Search
+							li
+								a(href='#') Favorites
+					// end subnav
+					.search_header
+						.search_text
+							| Search
+							span.search_intro   |  Enter a search term:
+						.input-group.search_term
+							input.form-control(type='text')
+							span.input-group-btn
+								button.btn.btn-default(type='button')
+									span.glyphicon.glyphicon-search
+						// /input-group
+						// Split button
+						.btn-group.sortby
+							button.btn.btn-default(type='button') Sort by...   
+							button.btn.btn-default.dropdown-toggle(type='button', data-toggle='dropdown')
+								span.caret
+								span.sr-only Toggle Dropdown
+							ul.dropdown-menu(role='menu')
+								li
+									a(href='#') Resource
+								li
+									a(href='#') Date
+								li
+									a(href='#') Status
+					// end search header
+					.row
+						// nested row
+						.col-lg-3.col-md-4.col-sm-4
+							.sub_block
+								.orange_header_narrow Narrow your results:
+								.thick_border
+								.gray_header By Resource:
+								table.table_filter
+									tr
+										td
+											.input-group
+												input(type='checkbox')
+												| CDC Program
+											// /input-group
+										td.result_number #
+									tr
+										td
+											.input-group
+												input(type='checkbox')
+												| CDC System
+											// /input-group
+										td.result_number #
+									tr
+										td
+											.input-group
+												input(type='checkbox')
+												| CDC Data Set
+											// /input-group
+										td.result_number #
+									tr
+										td
+											.input-group
+												input(type='checkbox')
+												| Data Source
+											// /input-group
+										td.result_number #
+									tr
+										td
+											.input-group
+												input(type='checkbox')
+												| Data Element
+											// /input-group
+										td.result_number #
+									tr
+										td
+											.input-group
+												input(type='checkbox')
+												| Data Standard
+											// /input-group
+										td.result_number #
+								.gray_header.vertical_spacing By Date:
+								table.table_filter
+									tr
+										td
+											.input-group
+												input(type='checkbox')
+												| Start Date
+											// /input-group
+										td.result_number ##/##/##
+									tr
+										td
+											.input-group
+												input(type='checkbox')
+												| End Date
+											// /input-group
+										td.result_number ##/##/##
+								.divider_line
+								table.table_filter
+									tr
+										td
+											.input-group.check_filter
+												input(type='checkbox')
+												| Newer than
+											// /input-group
+										td.result_number ##/##/##
+									tr
+										td
+											.input-group.check_filter
+												input(type='checkbox')
+												| Older than
+											// /input-group
+										td.result_number ##/##/##
+								.divider_line
+								.select_date
+									a(href='')
+										span.glyphicon.glyphicon-calendar
+										| Select date
+								.gray_header.vertical_spacing By Status:
+								table.table_filter
+									tr
+										td
+											.input-group.check_filter
+												input(type='checkbox')
+												| Active
+											// /input-group
+										td.result_number ##
+									tr
+										td
+											.input-group.check_filter
+												input(type='checkbox')
+												| Archived
+											// /input-group
+										td.result_number ##
+								.vertical_spacing_morer
+							// end filter block
+						// end col specs
+						.col-lg-9.col-md-8.col-sm-8
+							.sub_block
+								table.search_results
+									tr
+										td.resource_name.search
+											a(href='#') Sample Resource Name
+										td.status.search ##/##/##, Status 
+										td.resource_type.search2
+											span.labelbg Resource Type
+								table.search_results
+									tr
+										td.detail_label Detail 1:
+										td
+											| Detailed information lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod.
+									tr
+										td.detail_label Detail 2:
+										td Detailed information lorem ipsum dolor sit amet, consectetur adipisicing elit.
+									tr
+										td.detail_label.bot_space Detail 3:
+										td.bot_space
+											| Detailed information lorem ipsum dolor sit amet, consectetur adipisicing elit. Ut enim ad minim.
+								table.search_results
+									tr
+										td.resource_name.search
+											a(href='#') Sample Resource Name
+										td.status.search ##/##/##, Status 
+										td.resource_type.search2
+											span.labelbg Resource Type
+								table.search_results
+									tr
+										td.detail_label Detail 1:
+										td
+											| Detailed information lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod.
+									tr
+										td.detail_label Detail 2:
+										td Detailed information lorem ipsum dolor sit amet, consectetur adipisicing elit.
+									tr
+										td.detail_label.bot_space Detail 3:
+										td.bot_space
+											| Detailed information lorem ipsum dolor sit amet, consectetur adipisicing elit. Ut enim ad minim.
+								table.search_results
+									tr
+										td.resource_name.search
+											a(href='#') Sample Resource Name
+										td.status.search ##/##/##, Status 
+										td.resource_type.search2
+											span.labelbg Resource Type
+								table.search_results
+									tr
+										td.detail_label Detail 1:
+										td
+											| Detailed information lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod.
+									tr
+										td.detail_label Detail 2:
+										td Detailed information lorem ipsum dolor sit amet, consectetur adipisicing elit.
+									tr
+										td.detail_label.bot_space Detail 3:
+										td.bot_space
+											| Detailed information lorem ipsum dolor sit amet, consectetur adipisicing elit. Ut enim ad minim.
+								table.search_results
+									tr
+										td.resource_name.search
+											a(href='#') Sample Resource Name
+										td.status.search ##/##/##, Status 
+										td.resource_type.search2
+											span.labelbg Resource Type
+								table.search_results
+									tr
+										td.detail_label Detail 1:
+										td
+											| Detailed information lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod.
+									tr
+										td.detail_label Detail 2:
+										td Detailed information lorem ipsum dolor sit amet, consectetur adipisicing elit.
+									tr
+										td.detail_label.bot_space Detail 3:
+										td.bot_space
+											| Detailed information lorem ipsum dolor sit amet, consectetur adipisicing elit. Ut enim ad minim.
+								table.search_results
+									tr
+										td.resource_name.search
+											a(href='#') Sample Resource Name
+										td.status.search ##/##/##, Status 
+										td.resource_type.search2
+											span.labelbg Resource Type
+								table.search_results
+									tr
+										td.detail_label Detail 1:
+										td
+											| Detailed information lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod.
+									tr
+										td.detail_label Detail 2:
+										td Detailed information lorem ipsum dolor sit amet, consectetur adipisicing elit.
+									tr
+										td.detail_label.bot_space Detail 3:
+										td.bot_space
+											| Detailed information lorem ipsum dolor sit amet, consectetur adipisicing elit. Ut enim ad minim.
+								.page_controls
+									| Page controls (for multiple pages of results) to go here
+							// end sub block
+						// end col specs
+					// end nested row
+				// end content block
+			// end col spec
+			.col-lg-1.col-md-1.col-sm-1
+				.hx_side2
+					| Tab
+				// end hx_side
+			// end col spec
+		// end row
+		// row
+		// footer row
+		.row.footerbottom
+			// <div class="col-md-6">
+			// share
+			.share
+				.share_corner
+					span.share_text
+						| Share site:
+						a(href='#')
+							img(src='img\facebook_icon.png', alt='Share with Facebook')
+						a(href='#')
+							img(src='img\twitter_icon.png', alt='Share with Twitter')
+						a(href='#')
+							img(src='img\mail_icon.png', alt='Share with Email')
+			// end share
+			// </div> <!-- end column class
+			// <div class="col-md-6">
+			// links
+			.bottom_links
+				| Disability   |   Accessibility   |   Code of Conduct   |   Contact
+				span.cdc_info Centers for Disease Control and Prevention 
+			// end links
+			// </div> <!-- end column class
+		// end footer row
+		//
+			 close container>
+			<!-- javascript 
+		script(src='http://code.jquery.com/jquery-latest.min.js')
+		script(src='js/bootstrap.min.js')

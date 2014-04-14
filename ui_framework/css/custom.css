@@ -74,7 +74,7 @@ transform: scaleX(-1);
   background-image: -webkit-linear-gradient(top, #ffffff, #f8f8f8);
   background-image: -o-linear-gradient(top, #ffffff, #f8f8f8);
   background-image: linear-gradient(top, #ffffff, #f8f8f8);
-  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#'ffffff, endColorstr='#'f8f8f8, GradientType=0);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffff', endColorstr='#f8f8f8', GradientType=0);
   
   margin-left:2em;
    margin-right:2em;

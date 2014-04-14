@@ -32,6 +32,10 @@ apolloApp.config(['$routeProvider',
         templateUrl: 'partials/search',
         controller: 'searchCtrl'
       }).
+          when('/search/', {
+        templateUrl: 'partials/search',
+        controller: 'searchCtrl'
+      }).
         otherwise({
         redirectTo: '/main'
       });

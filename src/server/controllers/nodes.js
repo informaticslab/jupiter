@@ -112,9 +112,9 @@ exports.getNodeById = function(req, res) {
 exports.searchNodesByString = function(req, res) {
      var query = 'MATCH n WHERE n.name=~{qString} RETURN n'
     var params = {
-        qString: req.params.query
+        qString: '(?i)' + req.params.query + '.*'
     };
-    console.log("Query is " + query + " and params are " + req.params.query);
+    console.log("Query is " + query + " and params are " + params.qString);
     neodb.db.query(query, params, function(err, results) {
         var nodedata = {};
         if (err) {
@@ -124,7 +124,7 @@ exports.searchNodesByString = function(req, res) {
             //console.log("results were" + results);
             if (results[0] != null && results[0]['n'] != null && results[0]['n']['data'] != null) {
                 var doohicky = results[0]['n']['data'];               
-                console.log(doohicky);
+                //console.log(doohicky);
             
              nodedata.name = doohicky.name;
              nodedata.id = doohicky.id;

@@ -54,7 +54,7 @@ exports.getRelationsForNode = function(req, res) {
 }
 exports.getLabelsForNode = function(req, res) {
     //var query = ['START n=node({nodeId}) ', 'RETURN labels(n)'].join('\n');
-    var query = ['MATCH n WHERE n.id ="P2"', 'RETURN labels(n)'].join('\n');
+    var query = ['MATCH n WHERE n.id ={nodeId}', 'RETURN labels(n)'].join('\n');
     var params = {
         nodeId: req.params.id
     };
@@ -85,7 +85,7 @@ exports.getNodeById = function(req, res) {
             console.error('Error retreiving node from database:', err);
             res.send(404, 'No node at that location');
         } else {
-            //console.log("results were" + results);
+            //console.log("results were" + results[0]['n']);
             if (results[0] != null && results[0]['n'] != null && results[0]['n']['data'] != null) {
                 var doohicky = results[0]['n']['data'];               
                 //console.log(doohicky);
@@ -110,32 +110,48 @@ exports.getNodeById = function(req, res) {
     });
 };
 exports.searchNodesByString = function(req, res) {
-     var query = 'MATCH n WHERE n.name=~{qString} RETURN n'
+     var query = 'MATCH n WHERE n.name=~{qString} RETURN n '+
+        'union all '+
+        'MATCH n WHERE n.fullname=~{qString} RETURN n '+
+        'union all '+
+        'MATCH n WHERE n.contractphone=~{qString} RETURN n '+
+        'union all '+
+        'MATCH n WHERE n.mission=~{qString} RETURN n '+
+        'union all '+
+        'MATCH n WHERE n.contractname=~{qString} RETURN n'
     var params = {
         qString: '(?i)' + req.params.query + '.*'
     };
-    console.log("Query is " + query + " and params are " + params.qString);
+    //console.log("Query is " + query + " and params are " + params.qString);
     neodb.db.query(query, params, function(err, results) {
-        var nodedata = {};
+        var nodedataarr = [];
+        
         if (err) {
             console.error('Error retreiving node from database:', err);
             res.send(404, 'No node at that location');
         } else {
             //console.log("results were" + results);
+            //console.log("results length is" + results);
             if (results[0] != null && results[0]['n'] != null && results[0]['n']['data'] != null) {
-                var doohicky = results[0]['n']['data'];               
-                //console.log(doohicky);
+                for(var i=0;i<results.length;i++)
+                {
+                    var nodedata = {};
+                    var doohicky = results[i]['n']['data'];               
+                    //console.log(doohicky);
             
-             nodedata.name = doohicky.name;
-             nodedata.id = doohicky.id;
-             nodedata.attributes = [];
-             for (var prop in doohicky) {
-                 nodedata.attributes.push({
-                     'key': prop,
-                     'value': doohicky[prop]
-                })
-             }
-             res.json(nodedata);
+                     nodedata.name = doohicky.name;
+                     nodedata.id = doohicky.id;
+                     nodedata.attributes = [];
+                     for (var prop in doohicky) {
+                            nodedata.attributes.push({
+                            'key': prop,
+                            'value': doohicky[prop]
+                        })
+                    }
+                    nodedataarr.push(nodedata);
+                }
+         
+             res.json(nodedataarr);
             //res.send(404, "there was a node at that location, but you don't get to see it (neener)");
         }
         else

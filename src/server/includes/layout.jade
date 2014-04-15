@@ -113,5 +113,15 @@ html(lang="en" ng-app='apolloApp')
 					}); 
 				$('#lilSearchButton').click(function(){
 					window.location = '#/search/' + $('#lilSearchBawks').val();
-					}); 
+					});
+				$('#lilSearchBawks').keypress(function (e) {
+					if (e.which == 13) {
+					window.location = '/apollo/#/search/' + $('#lilSearchBawks').val();
+						}
+					});
+				$('#bigSearchBawks').keypress(function (e) {
+					if (e.which == 13) {
+					window.location = '/apollo/#/search/' + $('#bigSearchBawks').val();
+						}
+					});
 			});

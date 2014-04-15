@@ -147,103 +147,21 @@
 				// end col specs
 				.col-lg-9.col-md-8.col-sm-8
 					.sub_block
-						table.search_results
-							tr
-								td.resource_name.search
-									a(href='#/node/{{node.id}}') {{node.name}}
-								td.status.search ##/##/##, Status 
-								td.resource_type.search2
-									span.labelbg Resource Type
-						table.search_results
-							tr
-								td.detail_label Detail 1:
-								td
-									| Detailed information lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod.
-							tr
-								td.detail_label Detail 2:
-								td Detailed information lorem ipsum dolor sit amet, consectetur adipisicing elit.
-							tr
-								td.detail_label.bot_space Detail 3:
-								td.bot_space
-									| Detailed information lorem ipsum dolor sit amet, consectetur adipisicing elit. Ut enim ad minim.
-						table.search_results
-							tr
-								td.resource_name.search
-									a(href='#') Sample Resource Name
-								td.status.search ##/##/##, Status 
-								td.resource_type.search2
-									span.labelbg Resource Type
-						table.search_results
-							tr
-								td.detail_label Detail 1:
-								td
-									| Detailed information lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod.
-							tr
-								td.detail_label Detail 2:
-								td Detailed information lorem ipsum dolor sit amet, consectetur adipisicing elit.
-							tr
-								td.detail_label.bot_space Detail 3:
-								td.bot_space
-									| Detailed information lorem ipsum dolor sit amet, consectetur adipisicing elit. Ut enim ad minim.
-						table.search_results
-							tr
-								td.resource_name.search
-									a(href='#') Sample Resource Name
-								td.status.search ##/##/##, Status 
-								td.resource_type.search2
-									span.labelbg Resource Type
-						table.search_results
-							tr
-								td.detail_label Detail 1:
-								td
-									| Detailed information lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod.
-							tr
-								td.detail_label Detail 2:
-								td Detailed information lorem ipsum dolor sit amet, consectetur adipisicing elit.
-							tr
-								td.detail_label.bot_space Detail 3:
-								td.bot_space
-									| Detailed information lorem ipsum dolor sit amet, consectetur adipisicing elit. Ut enim ad minim.
-						table.search_results
-							tr
-								td.resource_name.search
-									a(href='#') Sample Resource Name
-								td.status.search ##/##/##, Status 
-								td.resource_type.search2
-									span.labelbg Resource Type
-						table.search_results
-							tr
-								td.detail_label Detail 1:
-								td
-									| Detailed information lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod.
-							tr
-								td.detail_label Detail 2:
-								td Detailed information lorem ipsum dolor sit amet, consectetur adipisicing elit.
-							tr
-								td.detail_label.bot_space Detail 3:
-								td.bot_space
-									| Detailed information lorem ipsum dolor sit amet, consectetur adipisicing elit. Ut enim ad minim.
-						table.search_results
-							tr
-								td.resource_name.search
-									a(href='#') Sample Resource Name
-								td.status.search ##/##/##, Status 
-								td.resource_type.search2
-									span.labelbg Resource Type
-						table.search_results
-							tr
-								td.detail_label Detail 1:
-								td
-									| Detailed information lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod.
-							tr
-								td.detail_label Detail 2:
-								td Detailed information lorem ipsum dolor sit amet, consectetur adipisicing elit.
-							tr
-								td.detail_label.bot_space Detail 3:
-								td.bot_space
-									| Detailed information lorem ipsum dolor sit amet, consectetur adipisicing elit. Ut enim ad minim.
-						.page_controls
-							| Page controls (for multiple pages of results) to go here
+						.span(ng-repeat="node in nodes")
+							table.search_results
+								tr
+									td.resource_name.search
+										a(href='#/node/{{node.id}}') {{node.name}}
+									td.status.search ##/##/##, Status 
+									td.resource_type.search2
+										span.labelbg Resource Type
+							table.search_results
+								tr(ng-repeat="att in node.attributes")
+									td(class="text-right") 
+										strong {{att.key}}
+									td {{att.value}}						
+						//.page_controls
+						//	| Page controls (for multiple pages of results) to go here
 					// end sub block
 				// end col specs
 			// end nested row
@@ -259,5 +177,10 @@ script.
 	$(function(){
 		$('#searchPageButton').click(function(){
 			window.location = '/apollo/#/search/' + $('#searchPageBawks').val();
-			}); 
+			});
+		$('#searchPageBawks').keypress(function (e) {
+			if (e.which == 13) {
+				window.location = '/apollo/#/search/' + $('#searchPageBawks').val();
+			}
+		});
 	});

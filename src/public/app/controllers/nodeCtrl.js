@@ -19,4 +19,6 @@ angular.module('apolloApp').controller('nodeCtrl', function($scope, $resource, $
     $scope.relations = relations.query({
         id: $routeParams.id
     });
+
+    $scope.nodeId = $routeParams.id
 });

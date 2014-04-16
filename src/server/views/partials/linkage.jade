@@ -1,0 +1,118 @@
+.row
+	.col-lg-9.col-md-9.col-sm-9
+		.content_block
+			.subnav
+				ul.nav.nav-pills.pills_custom
+					li
+						a(href='#') Quick Guide
+					li
+						a(href='#/browse/') Browse
+					li.active
+						a(href='#/search/{{nodeId}}') Search
+					li
+						a(href='#') Advanced Search
+					li
+						a(href='#') Favorites
+			// end subnav
+			.backlink
+				span.glyphicon.glyphicon-circle-arrow-left
+				| Back to search results
+			// end backlink class
+			.entity_name
+				| HHS CDC Sample Surveillance System Name
+			// end entity_name class
+			.nav_split
+				.btn-group.btn-group-md.btn-group-justified
+					.btn-group
+						button.btn.btn-default(type='button' id='btnDetails') Details
+					.btn-group
+						button.btn.btn-primary(type='button' id='btnLinkageViewer') Linkage Viewer
+				// end button group
+			// end nav_split
+			.detail_header
+				button.btn.btn-default.pull-left.link_button1(type='button')
+					span.glyphicon.glyphicon-repeat.icon-flipped
+					| Reset
+				button.btn.btn-default.link_button2(type='button')
+					span.glyphicon.glyphicon-play.icon-flipped
+					| Back
+				button.btn.btn-default.link_button3(type='button')
+					| Forward
+					span.glyphicon.glyphicon-play
+			// end detail header
+			.top_block2
+				.block_linkage
+					.vertical_spacing
+					| [Placeholder for linkage visualization]
+				// end block_linkage
+				.key
+					table.key_details
+						tr
+							td.key_td
+								.blue_subhead Key:
+							td.node_image_td
+								img(src='img/node.png')
+							td.node_text_td
+								| a 
+								strong node
+								|  – represents a program, system, data set,
+								|  data source, data element, or data standard.
+							td.white_divider  
+							td.line_image_td
+								img(src='img/line.png')
+							td.line_text_td
+								|  represents the relationship (manage, generate,
+								|  contain, use, etc.) between any two entities.
+				// end class key
+				.instructions
+					.blue_subhead Instructions:
+					.left_bullets
+						ul
+							li.instruct
+								| To view
+								strong  hidden relationships
+								| , simply click on a
+								| node to bring it into the center.
+							li.instruct
+								| To view
+								strong  more information
+								| , click the
+								a(href='#/node/{{nodeId}}')  Details
+								|  link.
+							li.instruct
+								| To view
+								strong  basic information
+								| , simply place your
+								| pointer over the node.
+					// end class left_bullets
+					.right_bullets
+						ul
+							li.instruct
+								strong Reset button
+								| – the original entity is reset as the center node.
+							li.instruct
+								strong Back button
+								| – the previous entity becomes the center node.
+							li.instruct
+								strong Forward button
+								| – the next entity becomes the center node.
+					// end class right_bullets
+				// end class instructions
+			// end top_block2
+		// end content block
+	// end col spec
+	.col-lg-3.col-md-3.col-sm-3
+		.hx_side
+			| Exploration History [placeholder]
+		// end hx_side
+	// end col spec
+// end row
+// row
+hidden(id="nodeValueHolder", value='{{nodeId}}')
+script.
+	$(function(){
+		$('#btnDetails').click(function(){
+			//alert('the value was ' + $('#nodeValueHolder').attr('value'));
+			window.location = '#/node/' + $('#nodeValueHolder').attr('value');
+		});
+	});

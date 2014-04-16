@@ -1,0 +1,221 @@
+doctype html
+html
+	head
+		meta(charset='utf-8')
+		title Integrated Surveillance Portal
+		meta(name='viewport', content='width=device-width, initial-scale=1.0')
+		// Bootstrap
+		link(href='css/bootstrap.min.css', rel='stylesheet')
+		link(href='css/custom.css', rel='stylesheet')
+		script(src='js/respond.js')
+	body
+		.container-fluid
+			// row1
+			.row.headerblue
+				.col-lg-7.col-md-7.col-sm-7.clearfix
+					span.visible-lg.visible-md
+						a(href='http://www.cdc.gov')
+							img.img-responsive.pull-left.cdclogo(src='img/cdc_logo.png', alt='CDC logo')
+						span.cdctext Integrated Surveillance Portal
+						span.header_icon
+							img(src='img/computer_icon.png', alt='computer icon')
+					span.visible-sm
+						a(href='http://www.cdc.gov')
+							img.img-responsive.pull-left.cdclogo2(src='img/cdc_logo_smaller.png', alt='CDC logo')
+						span.cdctext2 CDC Surveillance System Knowledgebase
+				.col-lg-3.col-md-3.col-sm-3
+					span.visible-lg.visible-md
+						.input-group.search_button
+							input.form-control(type='text')
+							span.input-group-btn
+								button.btn.btn-default(type='button') Search
+						// /input-group
+					span.visible-sm
+						.input-group.search_button
+							input.form-control(type='text')
+							span.input-group-btn
+								button.btn.btn-default(type='button') Search
+						// /input-group
+				.col-lg-2.col-md-2.col-sm-2.clearfix
+					span.visible-lg.visible-md
+						a(href='#')
+							img.img-responsive.pull-left.settings_btn(src='img/settings_icon.png', alt='Settings')
+						a(href='#')
+							img.img-responsive.help_btn(src='img/help_icon.png', alt='Help')
+					span.visible-sm
+						a(href='#')
+							img.img-responsive.pull-left.settings_btn2(src='img/settings_icon.png', alt='Settings')
+						a(href='#')
+							img.img-responsive.help_btn2(src='img/help_icon.png', alt='Help')
+			// end 1st row
+			// row 2 (navbar)
+			.row
+				nav.navbar.navbar-default.navbar-inner(role='navigation')
+					.navbar-header
+						button.navbar-toggle(type='button', data-toggle='collapse', data-target='#collapse')
+							span.sr-only Toggle navigation
+							span.icon-bar
+							span.icon-bar
+							span.icon-bar
+					#collapse.collapse.navbar-collapse
+						ul.nav.navbar-nav.scootnav
+							li
+								a(href='#')
+									span.glyphicon.glyphicon-home.custom_home  
+									| Home
+							li.active
+								a(href='#')
+									span.glyphicon.glyphicon-dashboard.custom_explore  
+									| Explore
+							li
+								a(href='#')
+									span.glyphicon.glyphicon-comment.custom_faqs.icon-flipped  
+									| FAQs
+						span.right_nav_content
+							span.glyphicon.glyphicon-user.user_custom  
+							| Welcome, @TimSmith37  |
+							a(href='#') Logout
+							span.favorites_icon
+								img(src='img/filled_circle_smaller.png', alt='Favorites')
+								| Favorites
+		// end row 2 (navbar)
+		// row
+		.row
+			.col-lg-9.col-md-9.col-sm-9
+				.content_block
+					.subnav
+						ul.nav.nav-pills.pills_custom
+							li
+								a(href='#') Quick Guide
+							li
+								a(href='#') Browse
+							li.active
+								a(href='#') Search
+							li
+								a(href='#') Advanced Search
+							li
+								a(href='#') Favorites
+					// end subnav
+					.backlink
+						span.glyphicon.glyphicon-circle-arrow-left
+						| Back to search results
+					// end backlink class
+					.entity_name
+						| HHS CDC Sample Surveillance System Name
+					// end entity_name class
+					.nav_split
+						.btn-group.btn-group-md.btn-group-justified
+							.btn-group
+								button.btn.btn-default(type='button') Details
+							.btn-group
+								button.btn.btn-primary(type='button') Linkage Viewer
+						// end button group
+					// end nav_split
+					.detail_header
+						button.btn.btn-default.pull-left.link_button1(type='button')
+							span.glyphicon.glyphicon-repeat.icon-flipped
+							| Reset
+						button.btn.btn-default.link_button2(type='button')
+							span.glyphicon.glyphicon-play.icon-flipped
+							| Back
+						button.btn.btn-default.link_button3(type='button')
+							| Forward
+							span.glyphicon.glyphicon-play
+					// end detail header
+					.top_block2
+						.block_linkage
+							.vertical_spacing
+							| [Placeholder for linkage visualization]
+						// end block_linkage
+						.key
+							table.key_details
+								tr
+									td.key_td
+										.blue_subhead Key:
+									td.node_image_td
+										img(src='img\node.png')
+									td.node_text_td
+										| a
+										strong node
+										| – represents a program, system, data set,
+										| data source, data element, or data standard.
+									td.white_divider  
+									td.line_image_td
+										img(src='img\line.png')
+									td.line_text_td
+										| represents the relationship (manage, generate,
+										| contain, use, etc.) between any two entities.
+						// end class key
+						.instructions
+							.blue_subhead Instructions:
+							.left_bullets
+								ul
+									li.instruct
+										| To view
+										strong hidden relationships
+										| , simply click on a
+										| node to bring it into the center.
+									li.instruct
+										| To view
+										strong more information
+										| , click the
+										a(href='#') Details
+										| link.
+									li.instruct
+										| To view
+										strong basic information
+										| , simply place your
+										| pointer over the node.
+							// end class left_bullets
+							.right_bullets
+								ul
+									li.instruct
+										strong Reset button
+										| – the original entity is reset as the center node.
+									li.instruct
+										strong Back button
+										| – the previous entity becomes the center node.
+									li.instruct
+										strong Forward button
+										| – the next entity becomes the center node.
+							// end class right_bullets
+						// end class instructions
+					// end top_block2
+				// end content block
+			// end col spec
+			.col-lg-3.col-md-3.col-sm-3
+				.hx_side
+					| Exploration History [placeholder]
+				// end hx_side
+			// end col spec
+		// end row
+		// row
+		// footer row
+		.row.footerbottom
+			// <div class="col-md-6">
+			// share
+			.share
+				.share_corner
+					span.share_text
+						| Share site:
+						a(href='#')
+							img(src='img\facebook_icon.png', alt='Share with Facebook')
+						a(href='#')
+							img(src='img\twitter_icon.png', alt='Share with Twitter')
+						a(href='#')
+							img(src='img\mail_icon.png', alt='Share with Email')
+			// end share
+			// </div> <!-- end column class
+			// <div class="col-md-6">
+			// links
+			.bottom_links
+				| Disability   |   Accessibility   |   Code of Conduct   |   Contact
+				span.cdc_info Centers for Disease Control and Prevention 
+			// end links
+			// </div> <!-- end column class
+		// end footer row
+		//
+			 close container>
+			<!-- javascript 
+		script(src='http://code.jquery.com/jquery-latest.min.js')
+		script(src='js/bootstrap.min.js')

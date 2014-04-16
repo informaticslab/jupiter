@@ -36,6 +36,10 @@ apolloApp.config(['$routeProvider',
         templateUrl: 'partials/search',
         controller: 'searchCtrl'
       }).
+          when('/linkage/:id', {
+        templateUrl: 'partials/linkage',
+        controller: 'linkageCtrl'
+      }).
         otherwise({
         redirectTo: '/main'
       });

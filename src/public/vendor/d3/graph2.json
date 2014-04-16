@@ -1,0 +1,27 @@
+{
+	"nodes": [{
+		"name": "root",
+		"id":"r01",
+		"label":"organization"
+	},
+	{
+		"name": "Active Bacterial Core surveillance",
+		"id":"r02",
+		"label":"program"
+	},
+	{
+		"name": "Acute Meningitis and Encephalitis Syndrome Surveillance",
+		"id":"r03",
+		"label":"program"
+	}],
+	"links": [{
+		"source": 1,
+		"target": 0,
+		"type":"OVERSEES"
+	},
+	{
+		"source": 0,
+		"target": 2,
+		"type":"USES"
+	}]
+}

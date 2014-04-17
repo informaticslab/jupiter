@@ -29,8 +29,35 @@ circle.node.Organization {
   fill: #19EC84;
 }
 
-circle.node.CIO {
+circle.node.SurveillanceSystem {
   fill: #F6E452;
+}
+
+circle.node.Tool {
+  fill: #4B7ED5;
+}
+
+circle.node.Registry {
+  fill: #F4F4F4;
+}
+circle.node.Collaborative {
+  fill: #454447;
+}
+
+circle.node.HealthSurvey {
+  fill: #FF9FCA;
+}
+
+circle.node.DataSet {
+  fill: #FFC393;
+}
+
+circle.node.DataStandard {
+  fill: #75411B;
+}
+
+circle.node.Tag {
+  fill: #3C4F4D;
 }
 
 

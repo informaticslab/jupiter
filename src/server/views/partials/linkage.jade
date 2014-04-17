@@ -159,7 +159,8 @@
 							//alert(d);
 							//d3.select(this).classed("fixed", d.fixed = false);
 							d.fixed=false;
-							d3.select(this).attr("class",function(d) { return "node " + d.label; });
+							d3.select(this).classed("fixed",false);
+							//d3.select(this).attr("class",function(d) { return "node " + d.label; });
 
 							//alert(d.fixed);
 							}
@@ -175,8 +176,8 @@
 							}
 
 							function dragstart(d) {
-							//d3.select(this).classed("fixed", d.fixed = true);
-							d3.select(this).attr("class","node fixed");
+							d3.select(this).classed("fixed",true);
+							//d3.select(this).attr("class","node fixed");
 							d.fixed=true;
 							}
 

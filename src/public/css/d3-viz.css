@@ -18,7 +18,8 @@ circle {
 }
 
 .node.fixed {
-  fill: #EC2819;
+  stroke: red;
+  stroke-width: 2.0px;
 }
 
 circle.node.Program {

@@ -120,7 +120,7 @@ exports.searchNodesByString = function(req, res) {
         'union all '+
         'MATCH n WHERE n.contractname=~{qString} RETURN n'
     var params = {
-        qString: '(?i)' + req.params.query + '.*'
+        qString: '(?i).*' + req.params.query + '.*'
     };
     //console.log("Query is " + query + " and params are " + params.qString);
     neodb.db.query(query, params, function(err, results) {
@@ -160,4 +160,35 @@ exports.searchNodesByString = function(req, res) {
             }
         }
     });
+};
+exports.getNodesForLinkageViewer = function(req, res) {
+var viewerJson = {
+    "nodes": [{
+        "name": "root",
+        "id":"r01",
+        "label":"look ma, I'm coming from an API"
+    },
+    {
+        "name": "Active Bacterial Core surveillance",
+        "id":"r02",
+        "label":"program"
+    },
+    {
+        "name": "Acute Meningitis and Encephalitis Syndrome Surveillance",
+        "id":"r03",
+        "label":"program"
+    }],
+    "links": [{
+        "source": 1,
+        "target": 0,
+        "type":"OVERSEES"
+    },
+    {
+        "source": 0,
+        "target": 2,
+        "type":"USES"
+    }]
+}
+
+res.send(viewerJson);
 };

@@ -9,6 +9,7 @@ module.exports = function(app) {
     app.get('/apollo/api/node/:id/labels', nodes.getLabelsForNode);
     app.get('/apollo/api/node/:id/relations', nodes.getRelationsForNode);
     app.get('/apollo/api/node/search/:query', nodes.searchNodesByString);
+    app.get('/apollo/api/node/viewer/:id', nodes.getNodesForLinkageViewer);
     //this goes at the bottom.  It is the catchall for everything not defined above.  Silly.
     app.get('/apollo/*', index.index);
 };	

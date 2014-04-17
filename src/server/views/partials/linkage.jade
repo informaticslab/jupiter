@@ -24,9 +24,9 @@
 			.nav_split
 				.btn-group.btn-group-md.btn-group-justified
 					.btn-group
-						button.btn.btn-default(type='button' id='btnDetails') Details
+						a.btn.btn-default(href="#/node/{{nodeId}}", id='btnDetails') Details
 					.btn-group
-						button.btn.btn-primary(type='button' id='btnLinkageViewer') Linkage Viewer
+						a.btn.btn-primary(href='#/linkage/{{nodeId}}', id='btnLinkageViewer') Linkage Viewer
 				// end button group
 			// end nav_split
 			.detail_header
@@ -227,14 +227,6 @@
 	// end col spec
 // end row
 // row
-hidden(id="nodeValueHolder", value='{{nodeId}}')
-script.
-	$(function(){
-		$('#btnDetails').click(function(){
-			//alert('the value was ' + $('#nodeValueHolder').attr('value'));
-			window.location = '#/node/' + $('#nodeValueHolder').attr('value');
-		});
-	});
 
 
 

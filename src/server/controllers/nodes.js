@@ -162,33 +162,85 @@ exports.searchNodesByString = function(req, res) {
     });
 };
 exports.getNodesForLinkageViewer = function(req, res) {
-var viewerJson = {
-    "nodes": [{
-        "name": "root",
-        "id":"r01",
-        "label":"look ma, an API"
-    },
-    {
-        "name": "Active Bacterial Core surveillance",
-        "id":"r02",
-        "label":"program"
-    },
-    {
-        "name": "Acute Meningitis and Encephalitis Syndrome Surveillance",
-        "id":"r03",
-        "label":"program"
-    }],
-    "links": [{
-        "source": 1,
-        "target": 0,
-        "type":"OVERSEES"
-    },
-    {
-        "source": 0,
-        "target": 2,
-        "type":"USES"
-    }]
-}
+    var query = ['MATCH n-[r]-x where n.id={nodeId} ',
+    'return n.id as nodeId, labels(n) as nodeLabels, ',
+    'n.name as nodeNames, ',
+    'id(r) as relId,type(r) as relType, x.id as childId, ', 
+    'labels(x) as childLabels, ', 
+    'x.name as childName order by relType'
+    ].join('\n');
+    var params = {
+        nodeId: req.params.id
+    };
+    var viewerJson;
+    neodb.db.query(query, params, function(err, r) {
+        if (err) {
+            console.error('Error retreiving relations from database:', err);
+            res.send(404, 'no node at that location');
+        } else {
+            var nodeLabel = _.map(r, function(i) {
+                return i.nodeLabels
+            });
+            if(nodeLabel != null && nodeLabel[0] != null)
+            {
+            nodeLabel = nodeLabel[0][0];
+            var nodeName = _.map(r, function(i) {
+                return i.nodeNames
+            });
+            nodeName = nodeName[0]          
+            var allLabels = _.map(r, function(i) {
+                return i.childLabels
+            });
 
-res.send(viewerJson);
+            var allRelations = _.map(r, function(i) {
+                return i.relType
+            });
+
+            var allRelIds = _.map(r, function(i) {
+                return i.relId
+            });
+
+            var allChildIds = _.map(r, function(i) {
+                return i.childId
+            });
+
+            var allChildNames = _.map(r, function(i) {
+                return i.childName
+            });
+            //cast root node
+            var nodes = [
+                {
+                    "name": nodeName,
+                    "id":req.params.id,
+                    "label":nodeLabel
+                }
+            ]
+            //console.log(nodes);
+            var links = [];
+            for (var i=0;i<allRelations.length;i++)
+            { 
+                nodes.push({
+                    "name":allChildNames[i],
+                    "id":allChildIds[i],
+                    "label":allLabels[i]
+                });
+                links.push({
+                    "source": 0,
+                    "target": i+1,
+                    "type":allRelations[i]
+                })
+            }
+            viewerJson = {
+                "nodes": nodes,
+                "links": links
+                        }
+            //console.log(viewerJson);
+            res.send(viewerJson);
+            }
+            else
+            {
+                res.send(404, 'no node at that location');
+            }   
+        }
+    });
 };

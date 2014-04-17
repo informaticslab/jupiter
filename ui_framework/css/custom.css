@@ -27,15 +27,15 @@ html, body { overflow-x: hidden; }
 
 .cdclogo2 {margin-left:0em; padding-top:11px;}
 
-.cdctext {color:#ecf0f1; font-size: medium; font-family: Tahoma, Geneva, sans-serif; letter-spacing:.04em; 
-	padding-left:2.1em; position:relative; top:2em;
+.cdctext {color:#ecf0f1; font-size: 1.2em; font-family: Tahoma, Geneva, sans-serif; letter-spacing:.05em; 
+	padding-left:2.1em; position:relative; top:1.8em;
 }
 
-.cdctext2 {color:#ecf0f1; font-size: 1.1em; font-family: Tahoma, Geneva, sans-serif; letter-spacing:.01em;  
-	padding-left:.7em; position:relative; top:2em;
+.cdctext2 {color:#ecf0f1; font-size: medium; font-family: Tahoma, Geneva, sans-serif; letter-spacing:.01em;  
+	padding-left:1em; position:relative; top:1.8em;
 }
 
-.header_icon {position:relative; top:2.1em; left:.5em;
+.header_icon {position:relative; top:1.9em; left:.5em;
 
 }
 

@@ -8,13 +8,8 @@ marker#licensing {
   fill: green;
 }
 
-path.link.OVERSEES {
-  stroke: green;
-}
 
-path.link.USES {
-  stroke-dasharray: 0,2 1;
-}
+
 
 circle {
   fill: #ccc;
@@ -22,7 +17,7 @@ circle {
   stroke-width: 1.5px;
 }
 
-circle.node.fixed {
+.node.fixed {
   fill: #EC2819;
 }
 

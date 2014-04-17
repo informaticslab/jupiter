@@ -21,13 +21,18 @@ circle {
   fill: #EC2819;
 }
 
-circle.node.program {
+circle.node.Program {
   fill: #CDEC19;
 }
 
-circle.node.organization {
+circle.node.Organization {
   fill: #19EC84;
 }
+
+circle.node.CIO {
+  fill: #F6E452;
+}
+
 
 
 text {

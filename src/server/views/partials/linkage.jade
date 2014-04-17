@@ -47,8 +47,8 @@
 							d3.json("/apollo/vendor/d3/graph2.json", function(error, json) {
 
 
-							var w = 1660,
-							h = 1000;
+							var w = 1300,
+							h = 400;
 
 							var force = d3.layout.force()
 							.nodes(json.nodes)
@@ -74,8 +74,8 @@
 							.enter().append("svg:marker")
 							.attr("id", String)
 							.attr("viewBox", "0 -5 10 10")
-							.attr("refX", 15)
-							.attr("refY", -1.5)
+							.attr("refX", 25)
+							.attr("refY", -0.5)
 							.attr("markerWidth", 6)
 							.attr("markerHeight", 6)
 							.attr("orient", "auto")

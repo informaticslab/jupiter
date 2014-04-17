@@ -8,11 +8,11 @@ marker#licensing {
   fill: green;
 }
 
-path.link.licensing {
+path.link.OVERSEES {
   stroke: green;
 }
 
-path.link.resolved {
+path.link.USES {
   stroke-dasharray: 0,2 1;
 }
 
@@ -22,9 +22,18 @@ circle {
   stroke-width: 1.5px;
 }
 
-circle.fixed {
-  fill: red;
+circle.node.fixed {
+  fill: #EC2819;
 }
+
+circle.node.program {
+  fill: #CDEC19;
+}
+
+circle.node.organization {
+  fill: #19EC84;
+}
+
 
 text {
   font: 10px sans-serif;

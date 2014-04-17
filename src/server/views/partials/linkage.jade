@@ -47,8 +47,8 @@
 							d3.json("/apollo/vendor/d3/graph2.json", function(error, json) {
 
 
-							var w = 1379,
-							h = 400;
+							var w = 1660,
+							h = 1000;
 
 							var force = d3.layout.force()
 							.nodes(json.nodes)
@@ -95,7 +95,8 @@
 							var circle = svg.append("svg:g").selectAll("circle")
 							.data(json.nodes)
 							.enter().append("svg:circle")
-							.attr("r", 6)
+							.attr("r", 15)
+							.attr("class", function(d) { return "node " + d.label; })
 							.on("dblclick", dblclick)
 							.call(force.drag);
 
@@ -150,10 +151,12 @@
 
 							function dblclick(d) {
 							d3.select(this).classed("fixed", d.fixed = false);
+							d3.select(this).attr("class",function(d) { return "node " + d.label; });
 							}
 
 							function dragstart(d) {
 							d3.select(this).classed("fixed", d.fixed = true);
+							d3.select(this).attr("class","node fixed");
 							}
 
 							});

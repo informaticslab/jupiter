@@ -44,7 +44,10 @@
 				.block_linkage
 					.vertical_spacing
 						script.
-							d3.json("/apollo/vendor/d3/graph2.json", function(error, json) {
+							var url = $(location).attr('href');
+							var split = url.split('/');
+							var id = split[split.length - 1];
+							d3.json("/apollo/api/node/viewer/" + id, function(error, json) {
 
 
 							var w = 1300,

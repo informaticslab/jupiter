@@ -166,7 +166,7 @@ var viewerJson = {
     "nodes": [{
         "name": "root",
         "id":"r01",
-        "label":"look ma, I'm coming from an API"
+        "label":"look ma, an API"
     },
     {
         "name": "Active Bacterial Core surveillance",

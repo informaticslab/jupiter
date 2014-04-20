@@ -117,7 +117,8 @@
 							.attr("class", "shadow")
 							.text(function(d) { return d.name; });*/
 
-							text.append("svg:text")
+							text.append("a").attr("xlink:href",function(d) { return "/apollo/#/linkage/" + d.id; })
+							.append("svg:text")
 							.attr("x", 25)
 							.attr("y", ".31em")
 							.text(function(d) { return d.name+" ("+d.label+")"; });

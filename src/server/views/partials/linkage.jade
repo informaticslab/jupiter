@@ -50,15 +50,15 @@
 							d3.json("/apollo/api/node/viewer/" + id, function(error, json) {
 
 
-							var w = 1300,
-							h = 400;
+							var w = 1000,
+							h = 600;
 
 							var force = d3.layout.force()
 							.nodes(json.nodes)
 							.links(json.links)
 							.size([w, h])
 							.linkDistance(200)
-							.charge(-250)
+							.charge(-850)
 							.on("tick", tick)
 							.start();
 

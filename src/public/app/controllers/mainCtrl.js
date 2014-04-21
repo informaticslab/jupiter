@@ -5,4 +5,5 @@ angular.module('apolloApp').controller('mainCtrl', function($scope){
 
 angular.module('apolloApp').controller('rootCtrl', function($scope){
     $scope.q = 'home';
+    $scope.loginuser = 'guest';
 });

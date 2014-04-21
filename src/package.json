@@ -17,6 +17,7 @@
     "bcrypt-nodejs": "*"
       ,"jade" : "*"
       ,"underscore" : "*"
+      ,"angular-loading-bar" : "*"
   },
   "devDependencies": {
     "supertest": "~0.8.1",

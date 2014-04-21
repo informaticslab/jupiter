@@ -7,4 +7,5 @@ angular.module('apolloApp').controller('searchCtrl', function($scope, $resource,
         query: $routeParams.query
     });
     $scope.queryString = $routeParams.query;
+
 });

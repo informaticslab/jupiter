@@ -3,6 +3,7 @@ var apolloApp = angular.module('apolloApp', [
   ,'ngResource'
   ,'ngAnimate'
   ,'ui.bootstrap'
+  ,'chieffancypants.loadingBar'
   //'apolloAppAnimations',
  // 'apolloAppControllers',
  // 'apolloAppFilters',

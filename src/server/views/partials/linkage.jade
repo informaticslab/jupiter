@@ -86,7 +86,8 @@
 							.attr("markerHeight", 6)
 							.attr("orient", "auto")
 							.append("svg:path")
-							.attr("d", "M0,-5L10,0L0,5");
+							.attr("d", "M0,-5L10,0L0,5Z")
+								.attr("class","marker");
 
 							var path = svg.append("svg:g").selectAll("path")
 							.data(json.links)
@@ -148,6 +149,10 @@
 
 
 							circle.attr("transform", function(d) {
+							return "translate(" + d.x + "," + d.y + ")";
+							});
+
+							path_label.attr("transform", function(d) {
 							return "translate(" + d.x + "," + d.y + ")";
 							});
 

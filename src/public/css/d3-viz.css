@@ -4,8 +4,8 @@ path.link {
   stroke-width: 1.5px;
 }
 
-marker#licensing {
-  fill: green;
+marker {
+  fill: black;
 }
 
 

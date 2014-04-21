@@ -20,6 +20,10 @@ apolloApp.config(['$routeProvider',
         templateUrl: 'partials/main',
         controller: 'mainCtrl'
       }).
+           when('/quickGuide', {
+        templateUrl: 'partials/quickGuide',
+        controller: 'quickGuideCtrl'
+      }).
           when('/browse', {
         templateUrl: 'partials/browse',
         controller: 'browseCtrl'

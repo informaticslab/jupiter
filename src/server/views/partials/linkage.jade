@@ -58,7 +58,7 @@
 							.links(json.links)
 							.size([w, h])
 							.linkDistance(200)
-							.charge(-850)
+							.charge(-1850)
 							.on("tick", tick)
 							.start();
 
@@ -172,8 +172,17 @@
 							}
 
 							function clickreset(d) {
-							//alert(d);
-							//d3.select(this).classed("fixed", d.fixed = false);
+							d3.selectAll("circle").classed("fixed", false);
+							i=0;
+							for (n in json.nodes){
+									//alert(n.id);
+								json.nodes[i].fixed=false;
+								i++;
+
+							}
+
+							
+
 							//force.nodes.fixed=false;
 
 

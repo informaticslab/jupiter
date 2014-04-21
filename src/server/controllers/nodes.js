@@ -166,7 +166,8 @@ exports.getNodesForLinkageViewer = function(req, res) {
     'return n.id as nodeId, labels(n) as nodeLabels, ',
     'n.name as nodeNames, ',
     'id(r) as relId,type(r) as relType, x.id as childId, ', 
-    'labels(x) as childLabels, ', 
+    'labels(x) as childLabels, ',
+    'startNode(r).id as startNode, ',
     'x.name as childName order by relType'
     ].join('\n');
     var params = {
@@ -207,6 +208,9 @@ exports.getNodesForLinkageViewer = function(req, res) {
             var allChildNames = _.map(r, function(i) {
                 return i.childName
             });
+            var relStartNode = _.map(r, function(i) {
+                return i.startNode
+            });
             //cast root node
             var nodes = [
                 {
@@ -224,11 +228,22 @@ exports.getNodesForLinkageViewer = function(req, res) {
                     "id":allChildIds[i],
                     "label":allLabels[i]
                 });
-                links.push({
-                    "source": 0,
-                    "target": i+1,
-                    "type":allRelations[i]
-                })
+                if(relStartNode[i] == allChildIds[i])
+                {
+                    links.push({
+                        "source": i+1,
+                        "target": 0,
+                        "type":allRelations[i]
+                    })
+                }
+                else
+                {
+                    links.push({
+                        "source": 0,
+                        "target": i+1,
+                        "type":allRelations[i]
+                    })
+                }
             }
             viewerJson = {
                 "nodes": nodes,

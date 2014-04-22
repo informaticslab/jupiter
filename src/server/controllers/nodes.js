@@ -168,7 +168,7 @@ exports.getNodesForLinkageViewer = function(req, res) {
     'id(r) as relId,type(r) as relType, x.id as childId, ', 
     'labels(x) as childLabels, ',
     'startNode(r).id as startNode, ',
-    'x.name as childName order by relType'
+    'x.name as childName order by childLabels[0]'
     ].join('\n');
     var params = {
         nodeId: req.params.id

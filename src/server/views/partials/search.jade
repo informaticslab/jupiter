@@ -145,9 +145,11 @@
 						.vertical_spacing_morer
 					// end filter block
 				// end col specs
+
 				.col-lg-9.col-md-8.col-sm-8
 					.sub_block
-						.span(ng-repeat="node in nodes")
+						img(src='img/ajax-loader.gif', alt='Content is Loading', ng-show='contentLoading')
+						.span(ng-repeat="node in nodes", ng-show='!contentLoading' )
 							table.search_results
 								tr
 									td.resource_name.search

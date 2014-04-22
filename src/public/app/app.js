@@ -21,9 +21,13 @@ apolloApp.config(['$routeProvider',
         templateUrl: 'partials/main',
         controller: 'mainCtrl'
       }).
-           when('/quickGuide', {
+          when('/quickGuide', {
         templateUrl: 'partials/quickGuide',
         controller: 'quickGuideCtrl'
+      }).
+          when('/foodBorneIllness', {
+        templateUrl: 'partials/foodBorneIllness',
+        controller: 'foodBorneIllnessCtrl'
       }).
           when('/browse', {
         templateUrl: 'partials/browse',

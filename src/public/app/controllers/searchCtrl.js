@@ -1,16 +1,16 @@
 angular.module('apolloApp').controller('searchCtrl', function($scope, $resource, $http, $routeParams) {
 	$scope.$parent.q = 'explore';
-        
-    $scope.loading = true;
+	$scope.contentLoading = true;
     var nodes = $resource('/apollo/api/node/search/:query', {
         query: '@query'
     });
 
     $scope.nodes = nodes.query({
         query: $routeParams.query
+    },function(){
+        $scope.contentLoading = false;
     });
 
-    $scope.loading = false;
     $scope.queryString = $routeParams.query;
 
 });

@@ -33,35 +33,36 @@
 				| [Placeholder for entity's header content]
 			// end detail header
 			.top_block
-				loading
+				img(src='img/brimley-o.gif', alt='Brimmin with Brimley', ng-show='contentLoading')
 				.orange_header Summary:
-				p 
-					| Name: {{node.name}}
-				p 
-					| Type: {{labels.join()}}
-				p 
-					| Id: {{node.id}}
-				.linkage
-					.vertical_spacing
-					.orange_header Node Attributes
-					table(class="table table-condensed") 
-						tr(ng-repeat="att in node.attributes")
-							td(class="text-right") 
-								strong {{att.key}}
-							td {{att.value}}
-					.orange_header Linkage/Relationships:
-					tabset
-						tab(ng-repeat="relation in relations", heading="{{relation.name}}")
-							div(ng-repeat="relType in relation.relTypes")
-								.vertical_spacing		
-								.orange_header {{relType.name}}
-								table(class="table table-condensed")
-									tr(ng-repeat="node in relType.nodes")
-										td.col-xs-1
-											a(href="#/node/{{node.id}}")
-												strong {{node.id}}
-										td {{node.name}}
-				// end linkage
+				div(ng-show='!contentLoading')
+					p 
+						| Name: {{node.name}}
+					p 
+						| Type: {{labels.join()}}
+					p 
+						| Id: {{node.id}}
+					.linkage
+						.vertical_spacing
+						.orange_header Node Attributes
+						table(class="table table-condensed") 
+							tr(ng-repeat="att in node.attributes")
+								td(class="text-right") 
+									strong {{att.key}}
+								td {{att.value}}
+						.orange_header Linkage/Relationships:
+						tabset
+							tab(ng-repeat="relation in relations", heading="{{relation.name}}")
+								div(ng-repeat="relType in relation.relTypes")
+									.vertical_spacing		
+									.orange_header {{relType.name}}
+									table(class="table table-condensed")
+										tr(ng-repeat="node in relType.nodes")
+											td.col-xs-1
+												a(href="#/node/{{node.id}}")
+													strong {{node.id}}
+											td {{node.name}}
+					// end linkage
 				.com_discuss
 					.vertical_spacing
 					.orange_header Comments/Discussion:

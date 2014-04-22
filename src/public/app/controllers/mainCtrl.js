@@ -10,7 +10,6 @@ angular.module('apolloApp').controller('rootCtrl', function($scope, $http){
        .then(function(res){
        	
        	var build = res.data
-       	console.log(res.data);
           $scope.buildNumber = res.data.buildNumber;              
         });
 });

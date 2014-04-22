@@ -1,7 +1,7 @@
 angular.module('apolloApp').controller('nodeCtrl', function($scope, $resource, $http, $routeParams) {
 
     $scope.$parent.q = 'explore';
-    
+    $scope.loading = true;
     var node = $resource('/apollo/api/node/:id', {
         id: '@id'
     });
@@ -24,4 +24,5 @@ angular.module('apolloApp').controller('nodeCtrl', function($scope, $resource, $
     });
 
     $scope.nodeId = $routeParams.id
+    $scope.loading = false;
 });

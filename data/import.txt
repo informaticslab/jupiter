@@ -1037,3 +1037,4 @@ MERGE (tag25:`Tag`{`id`:'TAG25',`name`:'Gastroenteritis',`tagRelationship`:''}) 
  MATCH (node1510{id:'P16'}), (node2510{id:'TL59'}) create unique (node1510)-[:`USES`]->(node2510);
  MATCH (node1511{id:'P16'}), (node2511{id:'P13'}) create unique (node1511)-[:`USES`]->(node2511);
  MATCH (node1512{id:'P16'}), (node2512{id:'TL60'}) create unique (node1512)-[:`USES`]->(node2512);
+

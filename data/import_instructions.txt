@@ -1,4 +1,4 @@
--- for windows, within powershell
+﻿-- for windows, within powershell
 
 cd "C:\Program Files\Neo4j Community"
 jre\bin\java -cp bin\neo4j-desktop-2.0.1.jar org.neo4j.shell.StartClient -path c:\user\documents\Neo4j\DBname -file import.txt >c:\path\output.txt
@@ -15,3 +15,6 @@ cat import.txt | neo4j-shell
 
 -- please note neo4j client can be called with the -config and -path flags (which you can point at a config and database file, respectively)
 
+---IGNORE-------
+C:\Program Files\Neo4j Community>jre\bin\java -cp bin\neo4j-desktop-2.0.1.jar org.neo4j.shell.StartClient -file C:\Users\sdavid\Documents\IIU\import.txt -path C:\Users\s
+david\Documents\Neo4j\default.graphdb >C:\Users\sdavid\Documents\IIU\output.txt

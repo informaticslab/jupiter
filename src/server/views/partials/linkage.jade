@@ -74,32 +74,17 @@
 							.on("dragstart", dragstart);  
 
 
-							// build the arrow.
-							svg.append("svg:defs").selectAll("marker")
-							.data(["end"])
-							.enter().append("svg:marker")
-							.attr("id", String)
-							.attr("viewBox", "0 -5 10 10")
-							.attr("refX", 25)
-							.attr("refY", -0.5)
-							.attr("markerWidth", 6)
-							.attr("markerHeight", 6)
-							.attr("orient", "auto")
-							.append("svg:path")
-							.attr("d", "M0,-5L10,0L0,5Z")
-								.attr("class","marker");
-
-							var path = svg.append("svg:g").selectAll("path")
+							var path = svg.append("svg:g")
+							.selectAll("path")
 							.data(json.links)
 							.enter().append("svg:path")
 							.attr("id", function(d) { return d.source.index + "_" + d.target.index; })
-							.attr("class", "link")
-							.attr("marker-end", function(d) { return "url(#end)"; });
+							.attr("class", "link");
+							
+							
 
-
-
-
-							var circle = svg.append("svg:g").selectAll("circle")
+							var circle = svg.append("svg:g")
+							.selectAll("circle")
 							.data(json.nodes)
 							.enter().append("svg:circle")
 							.attr("r", 15)
@@ -107,7 +92,8 @@
 							.on("dblclick", dblclick)
 							.call(force.drag);
 
-							var text = svg.append("svg:g").selectAll("g")
+							var text = svg.append("svg:g")
+							.selectAll("g")
 							.data(json.nodes)
 							.enter().append("svg:g");
 
@@ -141,8 +127,15 @@
 							path.attr("d", function(d) {
 							var dx = d.target.x - d.source.x,
 							dy = d.target.y - d.source.y,
-							dr = Math.sqrt(dx * dx + dy * dy);
-							return "M" + d.source.x + "," + d.source.y + "L" + d.target.x + "," + d.target.y;
+							dr = Math.sqrt(dx * dx + dy * dy),
+							theta = Math.atan2(dy, dx) + Math.PI / 100, //orientation of the arrow
+							d90 = Math.PI / 2,
+							dtxs = d.target.x - 15 * Math.cos(theta), //distance of arrow from the node
+							dtys = d.target.y - 15 * Math.sin(theta);
+							//return "M" + d.source.x + "," + d.source.y + "A" + dr + "," + dr + " 0 0 1," + d.target.x + "," + d.target.y + "A" + dr + "," + dr + " 0 0 0," + d.source.x + "," + d.source.y + "M" + dtxs + "," + dtys +  "l" + (3.5 * Math.cos(d90 - theta) - 10 * Math.cos(theta)) + "," + (-3.5 * Math.sin(d90 - theta) - 10 * Math.sin(theta)) + "L" + (dtxs - 3.5 * Math.cos(d90 - theta) - 10 * Math.cos(theta)) + "," + (dtys + 3.5 * Math.sin(d90 - theta) - 10 * Math.sin(theta)) + "z";
+							return "M" + d.source.x + "," + d.source.y + "L" + d.target.x + "," + d.target.y + "M" + dtxs + "," + dtys +  "l" + (3.5 * Math.cos(d90 - theta) - 10 * Math.cos(theta)) + "," + (-3.5 * Math.sin(d90 - theta) - 10 * Math.sin(theta)) + "L" + (dtxs - 3.5 * Math.cos(d90 - theta) - 10 * Math.cos(theta)) + "," + (dtys + 3.5 * Math.sin(d90 - theta) - 10 * Math.sin(theta)) + "z";
+							//return "M" + d.source.x + "," + d.source.y + "L" + d.target.x + "," + d.target.y +"m0,-5l10,0l0,5z";
+							//return "M" + d.source.x + "," + d.source.y + "L" + d.target.x + "," + d.target.y + "A" + dr + "," + dr + " 0 0 0," + d.source.x + "," + d.source.y + "M" + dtxs + "," + dtys +  "l" + (3.5 * Math.cos(d90 - theta) - 10 * Math.cos(theta)) + "," + (-3.5 * Math.sin(d90 - theta) - 10 * Math.sin(theta)) + "L" + (dtxs - 3.5 * Math.cos(d90 - theta) - 10 * Math.cos(theta)) + "," + (dtys + 3.5 * Math.sin(d90 - theta) - 10 * Math.sin(theta)) + "z";
 							});
 
 

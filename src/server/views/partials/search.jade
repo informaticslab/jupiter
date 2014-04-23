@@ -156,11 +156,11 @@
 										a(href='#/node/{{node.id}}') {{node.name}}
 									td.status.search ##/##/##, Status 
 									td.resource_type.search2
-										span.labelbg Resource Type
+										span.labelbg {{node.labels | unCamelCase}}
 							table.search_results
 								tr(ng-repeat="att in node.attributes")
 									td(class="text-right") 
-										strong {{att.key | unCamelCase}}
+										strong {{att.key | unCamelCase}} &nbsp;
 									td {{att.value}}						
 						//.page_controls
 						//	| Page controls (for multiple pages of results) to go here

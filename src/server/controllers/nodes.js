@@ -110,15 +110,15 @@ exports.getNodeById = function(req, res) {
     });
 };
 exports.searchNodesByString = function(req, res) {
-     var query = 'MATCH n WHERE n.name=~{qString} RETURN n '+
+     var query = 'MATCH n WHERE n.name=~{qString} RETURN n, labels(n) '+
         'union all '+
-        'MATCH n WHERE n.fullname=~{qString} RETURN n '+
+        'MATCH n WHERE n.fullname=~{qString} RETURN n, labels(n) '+
         'union all '+
-        'MATCH n WHERE n.contractphone=~{qString} RETURN n '+
+        'MATCH n WHERE n.contractphone=~{qString} RETURN n, labels(n) '+
         'union all '+
-        'MATCH n WHERE n.mission=~{qString} RETURN n '+
+        'MATCH n WHERE n.mission=~{qString} RETURN n, labels(n) '+
         'union all '+
-        'MATCH n WHERE n.contractname=~{qString} RETURN n'
+        'MATCH n WHERE n.contractname=~{qString} RETURN n, labels(n)'
     var params = {
         qString: '(?i).*' + req.params.query + '.*'
     };
@@ -128,7 +128,7 @@ exports.searchNodesByString = function(req, res) {
         
         if (err) {
             console.error('Error retreiving node from database:', err);
-            res.send(404, 'No node at that location');
+            res.send(404, 'No node with that text available');
         } else {
             //console.log("results were" + results);
             //console.log("results length is" + results);
@@ -136,11 +136,13 @@ exports.searchNodesByString = function(req, res) {
                 for(var i=0;i<results.length;i++)
                 {
                     var nodedata = {};
-                    var doohicky = results[i]['n']['data'];               
+                    var doohicky = results[i]['n']['data'];
+                    var doohickylabels = results[i]['labels(n)']               
                     //console.log(doohicky);
             
                      nodedata.name = doohicky.name;
                      nodedata.id = doohicky.id;
+                     nodedata.labels = doohickylabels.join(',');
                      nodedata.attributes = [];
                      for (var prop in doohicky) {
                             nodedata.attributes.push({

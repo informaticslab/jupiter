@@ -50,8 +50,9 @@
 							d3.json("/apollo/api/node/viewer/" + id, function(error, json) {
 
 
+							var togglelabel=true;
 							var w = 1000,
-							h = 600;
+							h = 800;
 
 							var force = d3.layout.force()
 							.nodes(json.nodes)
@@ -68,6 +69,8 @@
 							
 
 							d3.select(".btn.btn-default.pull-left.link_button1").on("click", clickreset);
+							d3.select(".btn.btn-default.link_button2").on("click", clickfix);
+							d3.select(".btn.btn-default.link_button3").on("click", hidelinks);
 
 
 							var drag = force.drag()
@@ -167,20 +170,39 @@
 							function clickreset(d) {
 							d3.selectAll("circle").classed("fixed", false);
 							i=0;
-							for (n in json.nodes){
-									//alert(n.id);
-								json.nodes[i].fixed=false;
-								i++;
+								for (n in json.nodes){
+										//alert(n.id);
+									json.nodes[i].fixed=false;
+									i++;
+
+								}
+								force.start();
 
 							}
 
+							function clickfix(d) {
+							d3.selectAll("circle").classed("fixed", true);
+							i=0;
+								for (n in json.nodes){
+										//alert(n.id);
+									json.nodes[i].fixed=true;
+									i++;
+
+								}
 							
+							}
 
-							//force.nodes.fixed=false;
-
-
-							//d3.selectAll("circle").attr("class",function(d) { return "node " + d.label; });
-							//alert(svg.append("svg:g").selectAll("circle").data(json.nodes).fixed);
+							function hidelinks(d) {
+							
+							if(togglelabel){
+									d3.selectAll("path").attr("visibility", "hidden");
+									togglelabel=false;
+									}
+							else{
+								d3.selectAll("path").attr("visibility", "visible");
+								togglelabel=true;
+								}
+						
 							}
 
 							function dragstart(d) {

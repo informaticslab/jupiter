@@ -160,7 +160,7 @@
 							table.search_results
 								tr(ng-repeat="att in node.attributes")
 									td(class="text-right") 
-										strong {{att.key}}
+										strong {{att.key | unCamelCase}}
 									td {{att.value}}						
 						//.page_controls
 						//	| Page controls (for multiple pages of results) to go here

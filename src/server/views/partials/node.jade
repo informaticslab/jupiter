@@ -39,7 +39,7 @@
 					p 
 						| Name: {{node.name}}
 					p 
-						| Type: {{labels.join()}}
+						| Type: {{labels.join()|unCamelCase}}
 					p 
 						| Id: {{node.id}}
 					.linkage
@@ -48,11 +48,11 @@
 						table(class="table table-condensed") 
 							tr(ng-repeat="att in node.attributes")
 								td(class="text-right") 
-									strong {{att.key}}
+									strong {{att.key | unCamelCase}}
 								td {{att.value}}
 						.orange_header Linkage/Relationships:
 						tabset
-							tab(ng-repeat="relation in relations", heading="{{relation.name}}")
+							tab(ng-repeat="relation in relations", heading="{{relation.name | unCamelCase}}")
 								div(ng-repeat="relType in relation.relTypes")
 									.vertical_spacing		
 									.orange_header {{relType.name}}
@@ -77,4 +77,4 @@
 		// end hx_side
 	// end col spec
 // end row
-// row
+// 

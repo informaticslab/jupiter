@@ -2,7 +2,7 @@
 	.col-lg-9.col-md-9.col-sm-9
 		.content_block
 			.subnav
-				ul.nav.nav-pills.pills_custom
+				ul.nav.nav-pills
 					li
 						a(href='#/quickGuide/') Quick Guide
 					li
@@ -18,19 +18,35 @@
 				span.glyphicon.glyphicon-circle-arrow-left
 				| &nbsp;Back to search results
 			// end backlink class
-			.entity_name
-				| &nbsp;{{node.name}}
-			// end entity_name class
+			//- .entity_name
+			//- 	| &nbsp;{{node.name}}
+			//- // end entity_name class
 			.nav_split
 				.btn-group.btn-group-md.btn-group-justified
 					.btn-group
-						a.btn.btn-primary(href="#/node/{{nodeId}}", id='btnDetails') Details
+						a.btn.btn-custom(href="#/node/{{nodeId}}", id='btnDetails') Details
 					.btn-group
 						a.btn.btn-default(href='#/linkage/{{nodeId}}', id='btnLinkageViewer') Linkage Viewer
 				// end button group
 			// end nav_split
+			.share_button
+				//These lines, 173 - 187, were added 
+				//Single button 
+				.btn-group
+					button.btn.btn-default.dropdown-toggle(type='button', data-toggle='dropdown')
+						span.glyphicon.glyphicon-share
+						| Share
+						span.caret
+					ul.dropdown-menu(role='menu')
+						li
+							a(href='#') Email
+						li
+							a(href='#') Facebook
+						li
+							a(href='#') Twitter
+					//end added lines 
 			.detail_header
-				| [Placeholder for entity's header content]
+				| {{node.name}}
 			// end detail header
 			.top_block
 				img(src='img/ajax-loader.gif', alt='Content is Loading', ng-show='contentLoading')

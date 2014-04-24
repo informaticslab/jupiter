@@ -125,6 +125,7 @@ exports.searchNodesByString = function(req, res) {
     //console.log("Query is " + query + " and params are " + params.qString);
     neodb.db.query(query, params, function(err, results) {
         var nodedataarr = [];
+        var nodeLabelCounts = [];
         
         if (err) {
             console.error('Error retreiving node from database:', err);
@@ -137,12 +138,20 @@ exports.searchNodesByString = function(req, res) {
                 {
                     var nodedata = {};
                     var doohicky = results[i]['n']['data'];
-                    var doohickylabels = results[i]['labels(n)']               
+                    var doohickylabels = results[i]['labels(n)'].join(',')             
                     //console.log(doohicky);
             
                      nodedata.name = doohicky.name;
                      nodedata.id = doohicky.id;
-                     nodedata.labels = doohickylabels.join(',');
+                     nodedata.labels = doohickylabels;
+                     if (nodeLabelCounts[doohickylabels] != null)
+                     {
+                        nodeLabelCounts[doohickylabels]++;
+                     }
+                     else
+                     {
+                        nodeLabelCounts[doohickylabels] = 1;
+                     }
                      nodedata.attributes = [];
                      for (var prop in doohicky) {
                             nodedata.attributes.push({
@@ -150,15 +159,15 @@ exports.searchNodesByString = function(req, res) {
                             'value': doohicky[prop]
                         })
                     }
+                    console.log(nodeLabelCounts);
                     nodedataarr.push(nodedata);
                 }
          
              res.json(nodedataarr);
-            //res.send(404, "there was a node at that location, but you don't get to see it (neener)");
         }
         else
             {
-              res.send(404, "No node at that location");
+              res.send(404, "No node with that text available");
             }
         }
     });

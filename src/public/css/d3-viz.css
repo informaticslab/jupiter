@@ -16,8 +16,8 @@ marker {
 
 circle {
   fill: #ccc;
-  stroke: #333;
-  stroke-width: 0px;
+  stroke: white;
+  stroke-width: 1.5px;
 }
 
 .node.fixed {

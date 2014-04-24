@@ -19,7 +19,7 @@
 				| Back to search results
 			// end backlink class
 			.entity_name
-				| HHS CDC Sample Surveillance System Name
+				| &nbsp;{{node.name}}
 			// end entity_name class
 			.nav_split
 				.btn-group.btn-group-md.btn-group-justified
@@ -113,6 +113,13 @@
 							.attr("y", ".31em")
 							.text(function(d) { return d.name+" ("+d.label+")"; });
 
+							//For tooltip
+							var div = d3.select("body").append("div")   
+							.attr("class", "tooltip")               
+							.style("opacity", 0);
+
+
+
 							var path_label = svg.append("svg:g").selectAll(".path_label")
 							.data(json.links)
 							.enter().append("svg:text")
@@ -121,9 +128,24 @@
 							.attr("startOffset", "50%")
 							.attr("text-anchor", "middle")
 							.attr("xlink:href", function(d) { return "#" + d.source.index + "_" + d.target.index; })
+							.attr("testattr","hello")
 							.style("fill", "#000")
 							.style("font-family", "Arial")
-							.text(function(d) { return d.type; });
+							.text(function(d) { return d.type; })
+							.on("click", function(d) {      
+							div.transition()        
+							.duration(200)      
+							.style("opacity", .9);      
+							div .html(d.type)  
+							.style("left", (d3.event.pageX) + "px")     
+							.style("top", (d3.event.pageY - 28) + "px");    
+							})                  
+							.on("mouseout", function(d) {       
+							div.transition()        
+							.duration(500)      
+							.style("opacity", 0);   
+							});
+							//.on("mouseover", linkmouseover);
 
 							// Use elliptical arc path segments to doubly-encode directionality.
 							function tick() {
@@ -202,6 +224,13 @@
 								d3.selectAll("path").attr("visibility", "visible");
 								togglelabel=true;
 								}
+						
+							}
+
+
+							function linkmouseover(d) { 
+							
+							alert(d3.select(this).attr("testattr"));
 						
 							}
 

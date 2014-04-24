@@ -1,25 +1,28 @@
 path.link {
   fill: #626266;
   stroke: #626266;
-  stroke-width: 1.5px;
+  stroke-width: 1.0px;
 }
 
 marker {
   fill: black;
 }
 
+.path_label{
+  cursor:pointer;
+}
 
 
 
 circle {
   fill: #ccc;
   stroke: #333;
-  stroke-width: 1.5px;
+  stroke-width: 0px;
 }
 
 .node.fixed {
   stroke: red;
-  stroke-width: 2.0px;
+  stroke-width: 1.5px;
 }
 
 circle.node.Program {
@@ -71,4 +74,15 @@ text.shadow {
   stroke: #fff;
   stroke-width: 3px;
   stroke-opacity: .8;
+}
+
+div.tooltip {   
+  position: absolute;           
+  text-align: center;                       
+  padding: 4px;             
+  font: 12px sans-serif;        
+  background: lightsteelblue;   
+  border: 0px;      
+  border-radius: 8px;           
+  pointer-events: none;         
 }

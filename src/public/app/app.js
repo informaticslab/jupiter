@@ -10,7 +10,7 @@ var apolloApp = angular.module('apolloApp', [
 //  'apolloAppServices'
 ]);
 
-apolloApp.config(['$routeProvider',
+apolloApp.config(['$routeProvider', 
   function($routeProvider) {
     $routeProvider.
           when('/faq', {
@@ -25,9 +25,11 @@ apolloApp.config(['$routeProvider',
         templateUrl: 'partials/quickGuide',
         controller: 'quickGuideCtrl'
       }).
-          when('/foodBorneIllness', {
-        templateUrl: 'partials/foodBorneIllness',
-        controller: 'foodBorneIllnessCtrl'
+          when('/quickGuide/:topic', { 
+            templateUrl: function(params){
+        return 'partials/quickGuide/' + params.topic
+       },
+        controller: 'quickGuideCtrl'
       }).
           when('/browse', {
         templateUrl: 'partials/browse',

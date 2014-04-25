@@ -314,4 +314,23 @@ td.bot_space {padding-bottom:1em;}
 
 li.instruct {padding-bottom:.5em;}
 
+.highlights {width:100%; border-style:solid; min-height:300px; border-color:#d3d9d9; border-width:1px;  margin-top:.5em; }
 
+.azlist_header {text-align:center; color:#ffffff; font-weight:bold; background-color:#f39c11; font-size:1.25em; width:100%; padding-left:1em; padding-bottom:.5em; padding-top:.5em;}
+
+
+
+.inside_title {padding-left:1.2em; padding-top:1em; font-weight:bold; color:#e77e23; font-size:1.3em; }
+.highlight_txt {padding-left:1.2em; padding-bottom:1em; padding-top:1em;  }
+.highlight_photo {padding-right:1.5em; padding-left:1.5em; position:relative; bottom:1.5em;}
+
+
+.highlight_controls {clear:both; background-color:#d8e6f2; text-align: center; padding:.8em;}
+.glyphicon-forward, .glyphicon-backward {color:#3598db;}
+
+
+.glyphicon-list {color:#ffffff;}
+.center_text {text-align: center;}
+.letter_header {margin-top:1.5em; margin-right:.4em; font-family:tahoma, Geneva, sans-serif; font-weight:bold;  font-size:1.6em; color:#8f8d8d; background-color:#fdf3d0; padding-left:.7em; padding-top:.1em; padding-bottom:.1em;}
+.alph_terms {margin-left:1em; margin-right:1em; min-height:800px;}
+.qg_term{margin-top:1em; margin-left:1em;}

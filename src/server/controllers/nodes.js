@@ -125,8 +125,8 @@ exports.searchNodesByString = function(req, res) {
     //console.log("Query is " + query + " and params are " + params.qString);
     neodb.db.query(query, params, function(err, results) {
         var nodedataarr = [];
-        var nodeLabelCounts = [];
-        
+        var nodeLabelCounts = {};
+        var returnable = {};
         if (err) {
             console.error('Error retreiving node from database:', err);
             res.send(404, 'No node with that text available');
@@ -159,11 +159,13 @@ exports.searchNodesByString = function(req, res) {
                             'value': doohicky[prop]
                         })
                     }
-                    console.log(nodeLabelCounts);
                     nodedataarr.push(nodedata);
                 }
-         
-             res.json(nodedataarr);
+                console.log(JSON.stringify(nodeLabelCounts))
+                returnable.nodedataarr = nodedataarr;
+                returnable.nodeLabelCounts = nodeLabelCounts;
+                //console.log(returnable);
+                res.json(returnable);
         }
         else
             {

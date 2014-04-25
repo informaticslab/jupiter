@@ -22,7 +22,7 @@
 				.input-group.search_term
 					input.form-control(type='text', value='{{queryString}}', id='searchPageBawks')
 					span.input-group-btn
-						button.btn.btn-default(type='button' id='searchPageButton')
+						a.btn.btn-default(type='button' id='searchPageButton')
 							span.glyphicon.glyphicon-search
 				// /input-group
 				// Split button
@@ -50,45 +50,66 @@
 							tr
 								td
 									.input-group
-										input(type='checkbox')
+										input(type='checkbox' data-ng-model='search.labels1' data-ng-true-value='Program' data-ng-false-value='')
 										| &nbsp;CDC Program
 									// /input-group
-								td.result_number #
+								td.result_number {{labelCounts.Program}}
 							tr
 								td
 									.input-group
-										input(type='checkbox')
+										input(type='checkbox' data-ng-model='search.labels1' data-ng-true-value='SurveillanceSystem' data-ng-false-value='')
 										| &nbsp;CDC System
 									// /input-group
-								td.result_number #
+								td.result_number {{labelCounts.SurveillanceSystem}}
 							tr
 								td
 									.input-group
-										input(type='checkbox')
+										input(type='checkbox' data-ng-model='search.labels1' data-ng-true-value='Dataset' data-ng-false-value='')
 										| &nbsp;CDC Data Set
 									// /input-group
-								td.result_number #
+								td.result_number {{labelCounts.Dataset}}
 							tr
 								td
 									.input-group
-										input(type='checkbox')
-										| &nbsp;Data Source
+										input(type='checkbox' data-ng-model='search.labels1' data-ng-true-value='Organization' data-ng-false-value='')
+										| &nbsp;Organization
 									// /input-group
-								td.result_number #
+								td.result_number {{labelCounts.Organization}}
 							tr
 								td
 									.input-group
-										input(type='checkbox')
-										| &nbsp;Data Element
+										input(type='checkbox' data-ng-model='search.labels1' data-ng-true-value='Registry' data-ng-false-value='')
+										| &nbsp;Registry
 									// /input-group
-								td.result_number #
+								td.result_number {{labelCounts.Registry}}
 							tr
 								td
 									.input-group
-										input(type='checkbox')
-										| &nbsp;Data Standard
+										input(type='checkbox' data-ng-model='search.labels1' data-ng-true-value='Tool' data-ng-false-value='')
+										| &nbsp;Tool
 									// /input-group
-								td.result_number #
+								td.result_number {{labelCounts.Tool}}
+							tr
+								td
+									.input-group
+										input(type='checkbox' data-ng-model='search.labels1' data-ng-true-value='Collaborative' data-ng-false-value='')
+										| &nbsp;Collaborative
+									// /input-group
+								td.result_number {{labelCounts.Collaborative}}
+							tr
+								td
+									.input-group
+										input(type='checkbox' data-ng-model='search.labels1' data-ng-true-value='HealthSurvey' data-ng-false-value='')
+										| &nbsp;Health Survey
+									// /input-group
+								td.result_number {{labelCounts.HealthSurvey}}
+							tr
+								td
+									.input-group
+										input(type='checkbox' data-ng-model='search.labels1' data-ng-true-value='Tag' data-ng-false-value='')
+										| &nbsp;Tag
+									// /input-group
+								td.result_number {{labelCounts.Tag}}
 						.gray_header.vertical_spacing By Date:
 						table.table_filter
 							tr
@@ -110,14 +131,14 @@
 							tr
 								td
 									.input-group.check_filter
-										input(type='checkbox')
+										input(type='checkbox' )
 										| &nbsp;Newer than
 									// /input-group
 								td.result_number ##/##/##
 							tr
 								td
 									.input-group.check_filter
-										input(type='checkbox')
+										input(type='checkbox' )
 										| &nbsp;Older than
 									// /input-group
 								td.result_number ##/##/##
@@ -149,7 +170,7 @@
 				.col-lg-9.col-md-8.col-sm-8
 					.sub_block
 						img(src='img/ajax-loader.gif', alt='Content is Loading', ng-show='contentLoading')
-						.span(ng-repeat="node in nodes", ng-show='!contentLoading' )
+						.span(ng-repeat="node in nodes | filter:search.labels1 | filter:search.labels2", ng-show='!contentLoading', )
 							table.search_results
 								tr
 									td.resource_name.search

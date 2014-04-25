@@ -1,0 +1,274 @@
+doctype html
+html
+  head
+    meta(charset='utf-8')
+    title Integrated Surveillance Portal
+    meta(name='viewport', content='width=device-width, initial-scale=1.0')
+    // Bootstrap
+    link(href='css/bootstrap.min.css', rel='stylesheet')
+    link(href='css/custom.css', rel='stylesheet')
+    script(src='js/respond.js')
+  body
+    .container-fluid
+      // row1
+      .row.headerblue
+        .col-lg-7.col-md-7.col-sm-7.clearfix
+          span.visible-lg.visible-md
+            a(href='http://www.cdc.gov')
+              img.img-responsive.pull-left.cdclogo(src='img/cdc_logo.png', alt='CDC logo')
+            span.cdctext Integrated Surveillance Portal
+            span.header_icon
+              img(src='img/header_graphic.png', alt='Integrated Surveillance Portal graphic')
+            // This line changed for new graphic
+          span.visible-sm
+            a(href='http://www.cdc.gov')
+              img.img-responsive.pull-left.cdclogo2(src='img/cdc_logo_smaller.png', alt='CDC logo')
+            span.cdctext2 Integrated Surveillance Portal
+            span.header_icon
+              img(src='img/header_graphic_small.png', alt='Integrated Surveillance Portal graphic')
+            // This line changed for new graphic
+        .col-lg-3.col-md-3.col-sm-3
+          span.visible-lg.visible-md
+            .input-group.search_button
+              input.form-control(type='text')
+              span.input-group-btn
+                button.btn.btn-default(type='button') Search
+            // /input-group
+          span.visible-sm
+            .input-group.search_button
+              input.form-control(type='text')
+              span.input-group-btn
+                button.btn.btn-default(type='button') Search
+            // /input-group
+        .col-lg-2.col-md-2.col-sm-2.clearfix
+          span.visible-lg.visible-md
+            a(href='#')
+              img.img-responsive.pull-left.settings_btn(src='img/settings_icon.png', alt='Settings')
+            a(href='#')
+              img.img-responsive.help_btn(src='img/help_icon.png', alt='Help')
+          span.visible-sm
+            a(href='#')
+              img.img-responsive.pull-left.settings_btn2(src='img/settings_icon.png', alt='Settings')
+            a(href='#')
+              img.img-responsive.help_btn2(src='img/help_icon.png', alt='Help')
+      // end 1st row
+      // row 2 (navbar)
+      .row
+        nav.navbar.navbar-default.navbar-inner(role='navigation')
+          .navbar-header
+            button.navbar-toggle(type='button', data-toggle='collapse', data-target='#collapse')
+              span.sr-only Toggle navigation
+              span.icon-bar
+              span.icon-bar
+              span.icon-bar
+          #collapse.collapse.navbar-collapse
+            ul.nav.navbar-nav.scootnav
+              li
+                a(href='#')
+                  span.glyphicon.glyphicon-home.custom_home  
+                  | Home
+              li.active
+                a(href='#')
+                  span.glyphicon.glyphicon-dashboard.custom_explore  
+                  | Explore
+              li
+                a(href='#')
+                  span.glyphicon.glyphicon-comment.custom_faqs.icon-flipped  
+                  | FAQs
+            span.right_nav_content
+              span.glyphicon.glyphicon-user.user_custom  
+              | Welcome, guest&#160; |
+              a(href='#') Logout
+              span.favorites_icon
+                img(src='img/filled_circle_smaller.png', alt='Favorites')
+                | Favorites
+    // end row 2 (navbar)
+    // row
+    .row
+      .col-lg-11.col-md-11.col-sm-11
+        .content_block
+          .subnav
+            ul.nav.nav-pills
+              li.active
+                a(href='#') Quick Guide
+              li
+                a(href='#') Browse
+              li
+                a(href='#') Search
+              li
+                a(href='#') Advanced Search
+              li
+                a(href='#') Favorites
+          // end subnav
+          .instructive_text
+            | We&#39;ve curated these topics to speed up your exploration of
+            strong data sets
+            | and
+            strong systems
+            | . Let us know if you&#39;d like to see a new topic added to the list.
+            span.glyphicon.glyphicon-envelope.addbrowse
+            | Contact us at
+            a(href='mailto:integratedsurveillance@cdc.gov') integratedsurveillance@cdc.gov
+            | .
+          .highlights
+            .inside_title Title of Selected Highlight
+            img.img-responsive.highlight_photo.pull-right(src='img\asthma.png', alt='highlight sample photo')
+            .highlight_txt
+              p
+                | Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+              p
+                | Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem.
+              p
+                | Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel
+                a(href='#') illum qui dolorem eum fugiat quo voluptas
+                | ratione nulla pariatur.
+            // end highlight txt
+            .highlight_controls
+              .btn-group
+                button.btn.btn-default(type='button')
+                  span.glyphicon.glyphicon-backward
+                button.btn.btn-default.active(type='button') 1
+                button.btn.btn-default(type='button') 2
+                button.btn.btn-default(type='button') 3
+                button.btn.btn-default(type='button') 4
+                button.btn.btn-default(type='button')
+                  span.glyphicon.glyphicon-forward
+            // end highlight controls
+          // end highlights
+          .vertical_spacing_more
+          .azlist_header
+            span.glyphicon.glyphicon-list
+            | View Data and Systems by Topic
+          .row.alph_terms
+            // nested row
+            .col-lg-3.col-md-3.col-sm-3
+              .letter_header A
+              .qg_term
+                a(href='#') Topic
+              .qg_term
+                a(href='#') Topic
+              .qg_term
+                a(href='#') Topic
+              .qg_term
+                a(href='#') Topic
+              .qg_term
+                a(href='#') Topic
+              .qg_term
+                a(href='#') Topic
+              .qg_term
+                a(href='#') Topic
+              .qg_term
+                a(href='#') Topic
+              .letter_header B
+              .qg_term
+                a(href='#') Topic
+              .letter_header C
+              .qg_term
+                a(href='#') Topic
+              .qg_term
+                a(href='#') Topic
+              .qg_term
+                a(href='#') Topic
+              .letter_header D
+              .qg_term
+                a(href='#') Topic
+            // end column specs
+            .col-lg-3.col-md-3.col-sm-3
+              .letter_header E
+              .qg_term
+                a(href='#') Topic
+              .letter_header F
+              .qg_term
+                a(href='#') Topic
+              .qg_term
+                a(href='#') Fetal Alcohol Syndrome
+              .qg_term
+                a(href='#') Topic
+              .letter_header G
+              .qg_term
+                a(href='#') Genital Herpes (Herpes Simplex Virus)
+              .qg_term
+                a(href='#') Topic
+              .qg_term
+                a(href='#') Topic
+              .letter_header H
+              .qg_term
+                a(href='#') Topic
+              .qg_term
+                a(href='#') Topic
+              .qg_term
+                a(href='#') Topic
+              .qg_term
+                a(href='#') Topic
+            // end column specs
+            .col-lg-3.col-md-3.col-sm-3
+              .letter_header M
+              .qg_term
+                a(href='#') Topic
+              .qg_term
+                a(href='#') MRSA (Methicillin Resistant Staphylococcus aureus)
+              .letter_header O
+              .qg_term
+                a(href='#') Topic
+              .letter_header S
+              .qg_term
+                a(href='#') Topic
+              .qg_term
+                a(href='#') Topic
+              .qg_term
+                a(href='#') Topic
+              .qg_term
+                a(href='#') Topic
+              .letter_header T
+              .qg_term
+                a(href='#') Topic
+              .qg_term
+                a(href='#') Trichomonas Infection (Trichomoniasis)
+              .qg_term
+                a(href='#') Topic
+            // end column specs
+            .col-lg-3.col-md-3.col-sm-3
+              .letter_header W
+              .qg_term
+                a(href='#') Topic
+            // end column specs
+          // end row
+        // end content block
+      // end col spec
+      .col-lg-1.col-md-1.col-sm-1
+        .hx_side
+          span.small_text
+            | Tab
+        // end hx_side
+      // end col spec
+    // end row
+    // row
+    // footer row
+    .row.footerbottom
+      // <div class="col-md-6">
+      // share
+      .share
+        .share_corner
+          span.share_text
+            | Share site:
+            a(href='#')
+              img(src='img\facebook_icon.png', alt='Share with Facebook')
+            a(href='#')
+              img(src='img\twitter_icon.png', alt='Share with Twitter')
+            a(href='#')
+              img(src='img\mail_icon.png', alt='Share with Email')
+      // end share
+      // </div> <!-- end column class
+      // <div class="col-md-6">
+      // links
+      .bottom_links
+        | Disability &#160; |&#160;  Accessibility &#160; | &#160; Code of Conduct &#160; | &#160; Contact
+        span.cdc_info Centers for Disease Control and Prevention 
+      // end links
+      // </div> <!-- end column class
+    // end footer row
+    //
+       close container>
+      <!-- javascript 
+    script(src='http://code.jquery.com/jquery-latest.min.js')
+    script(src='js/bootstrap.min.js')

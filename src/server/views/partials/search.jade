@@ -50,31 +50,17 @@
 							tr
 								td
 									.input-group
-										input(type='checkbox' data-ng-model='search.labels1' data-ng-true-value='Program' data-ng-false-value='')
-										| &nbsp;CDC Program
-									// /input-group
-								td.result_number {{labelCounts.Program}}
-							tr
-								td
-									.input-group
 										input(type='checkbox' data-ng-model='search.labels1' data-ng-true-value='SurveillanceSystem' data-ng-false-value='')
-										| &nbsp;CDC System
+										| &nbsp;Surveillance System
 									// /input-group
 								td.result_number {{labelCounts.SurveillanceSystem}}
 							tr
 								td
 									.input-group
-										input(type='checkbox' data-ng-model='search.labels1' data-ng-true-value='Dataset' data-ng-false-value='')
-										| &nbsp;CDC Data Set
+										input(type='checkbox' data-ng-model='search.labels1' data-ng-true-value='Program' data-ng-false-value='')
+										| &nbsp;Program
 									// /input-group
-								td.result_number {{labelCounts.Dataset}}
-							tr
-								td
-									.input-group
-										input(type='checkbox' data-ng-model='search.labels1' data-ng-true-value='Organization' data-ng-false-value='')
-										| &nbsp;Organization
-									// /input-group
-								td.result_number {{labelCounts.Organization}}
+								td.result_number {{labelCounts.Program}}
 							tr
 								td
 									.input-group
@@ -85,10 +71,31 @@
 							tr
 								td
 									.input-group
+										input(type='checkbox' data-ng-model='search.labels1' data-ng-true-value='HealthSurvey' data-ng-false-value='')
+										| &nbsp;Health Survey
+									// /input-group
+								td.result_number {{labelCounts.HealthSurvey}}
+							tr
+								td
+									.input-group
 										input(type='checkbox' data-ng-model='search.labels1' data-ng-true-value='Tool' data-ng-false-value='')
 										| &nbsp;Tool
 									// /input-group
 								td.result_number {{labelCounts.Tool}}
+							tr
+								td
+									.input-group
+										input(type='checkbox' data-ng-model='search.labels1' data-ng-true-value='Dataset' data-ng-false-value='')
+										| &nbsp;Dataset
+									// /input-group
+								td.result_number {{labelCounts.Dataset}}
+							tr
+								td
+									.input-group
+										input(type='checkbox' data-ng-model='search.labels1' data-ng-true-value='Dataset' data-ng-false-value='')
+										| &nbsp;Data Standard
+									// /input-group
+								td.result_number {{labelCounts.DataStandard}}
 							tr
 								td
 									.input-group
@@ -99,10 +106,10 @@
 							tr
 								td
 									.input-group
-										input(type='checkbox' data-ng-model='search.labels1' data-ng-true-value='HealthSurvey' data-ng-false-value='')
-										| &nbsp;Health Survey
+										input(type='checkbox' data-ng-model='search.labels1' data-ng-true-value='Organization' data-ng-false-value='')
+										| &nbsp;Organization
 									// /input-group
-								td.result_number {{labelCounts.HealthSurvey}}
+								td.result_number {{labelCounts.Organization}}
 							tr
 								td
 									.input-group

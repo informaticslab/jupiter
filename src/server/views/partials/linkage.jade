@@ -57,7 +57,7 @@
 			// end detail header
 			.top_block2
 				.block_linkage
-					.vertical_spacing
+					.vertical_spacing1
 						script.
 							var url = $(location).attr('href');
 							var split = url.split('/');
@@ -80,8 +80,8 @@
 							.start();
 
 							var svg = d3.select(".block_linkage").append("svg:svg")
-							.attr("width", w)
-							.attr("height", h);
+							.attr("width", "100%")
+							.attr("height", "100%");
 							
 
 							d3.select(".btn.btn-default.pull-left.link_button1").on("click", clickreset);
@@ -166,35 +166,42 @@
 							// Use elliptical arc path segments to doubly-encode directionality.
 							function tick() {
 							
+								w= $("svg").outerWidth();
+								h= $("svg").outerHeight();
+								//console.log($("svg").outerWidth());
+								
 
-							circle.attr("cx", function(d) { return d.x = Math.max(r, Math.min(w - r, d.x)); })
-							.attr("cy", function(d) { return d.y = Math.max(r, Math.min(h - r, d.y)); });
-							
-							path.attr("d", function(d) {
-							var dx = d.target.x - d.source.x,
-							dy = d.target.y - d.source.y,
-							dr = Math.sqrt(dx * dx + dy * dy),
-							theta = Math.atan2(dy, dx) + Math.PI / 100, //orientation of the arrow
-							d90 = Math.PI / 2,
-							dtxs = d.target.x - 15 * Math.cos(theta), //distance of arrow from the node
-							dtys = d.target.y - 15 * Math.sin(theta);
-							//return "M" + d.source.x + "," + d.source.y + "A" + dr + "," + dr + " 0 0 1," + d.target.x + "," + d.target.y + "A" + dr + "," + dr + " 0 0 0," + d.source.x + "," + d.source.y + "M" + dtxs + "," + dtys +  "l" + (3.5 * Math.cos(d90 - theta) - 10 * Math.cos(theta)) + "," + (-3.5 * Math.sin(d90 - theta) - 10 * Math.sin(theta)) + "L" + (dtxs - 3.5 * Math.cos(d90 - theta) - 10 * Math.cos(theta)) + "," + (dtys + 3.5 * Math.sin(d90 - theta) - 10 * Math.sin(theta)) + "z";
-							return "M" + d.source.x + "," + d.source.y + "L" + d.target.x + "," + d.target.y + "M" + dtxs + "," + dtys +  "l" + (3.5 * Math.cos(d90 - theta) - 10 * Math.cos(theta)) + "," + (-3.5 * Math.sin(d90 - theta) - 10 * Math.sin(theta)) + "L" + (dtxs - 3.5 * Math.cos(d90 - theta) - 10 * Math.cos(theta)) + "," + (dtys + 3.5 * Math.sin(d90 - theta) - 10 * Math.sin(theta)) + "z";
-							//return "M" + d.source.x + "," + d.source.y + "L" + d.target.x + "," + d.target.y +"m0,-5l10,0l0,5z";
-							//return "M" + d.source.x + "," + d.source.y + "L" + d.target.x + "," + d.target.y + "A" + dr + "," + dr + " 0 0 0," + d.source.x + "," + d.source.y + "M" + dtxs + "," + dtys +  "l" + (3.5 * Math.cos(d90 - theta) - 10 * Math.cos(theta)) + "," + (-3.5 * Math.sin(d90 - theta) - 10 * Math.sin(theta)) + "L" + (dtxs - 3.5 * Math.cos(d90 - theta) - 10 * Math.cos(theta)) + "," + (dtys + 3.5 * Math.sin(d90 - theta) - 10 * Math.sin(theta)) + "z";
-							});
+								circle.attr("cx", function(d) { return d.x = Math.max(r, Math.min(w - r, d.x)); })
+								.attr("cy", function(d) { return d.y = Math.max(r, Math.min(h - r, d.y)); });
+								
+								path.attr("d", function(d) {
+								var dx = d.target.x - d.source.x,
+								dy = d.target.y - d.source.y,
+								dr = Math.sqrt(dx * dx + dy * dy),
+								theta = Math.atan2(dy, dx) + Math.PI / 100, //orientation of the arrow
+								d90 = Math.PI / 2,
+								dtxs = d.target.x - 15 * Math.cos(theta), //distance of arrow from the node
+								dtys = d.target.y - 15 * Math.sin(theta);
+								//return "M" + d.source.x + "," + d.source.y + "A" + dr + "," + dr + " 0 0 1," + d.target.x + "," + d.target.y + "A" + dr + "," + dr + " 0 0 0," + d.source.x + "," + d.source.y + "M" + dtxs + "," + dtys +  "l" + (3.5 * Math.cos(d90 - theta) - 10 * Math.cos(theta)) + "," + (-3.5 * Math.sin(d90 - theta) - 10 * Math.sin(theta)) + "L" + (dtxs - 3.5 * Math.cos(d90 - theta) - 10 * Math.cos(theta)) + "," + (dtys + 3.5 * Math.sin(d90 - theta) - 10 * Math.sin(theta)) + "z";
+								return "M" + d.source.x + "," + d.source.y + "L" + d.target.x + "," + d.target.y + "M" + dtxs + "," + dtys +  "l" + (3.5 * Math.cos(d90 - theta) - 10 * Math.cos(theta)) + "," + (-3.5 * Math.sin(d90 - theta) - 10 * Math.sin(theta)) + "L" + (dtxs - 3.5 * Math.cos(d90 - theta) - 10 * Math.cos(theta)) + "," + (dtys + 3.5 * Math.sin(d90 - theta) - 10 * Math.sin(theta)) + "z";
+								//return "M" + d.source.x + "," + d.source.y + "L" + d.target.x + "," + d.target.y +"m0,-5l10,0l0,5z";
+								//return "M" + d.source.x + "," + d.source.y + "L" + d.target.x + "," + d.target.y + "A" + dr + "," + dr + " 0 0 0," + d.source.x + "," + d.source.y + "M" + dtxs + "," + dtys +  "l" + (3.5 * Math.cos(d90 - theta) - 10 * Math.cos(theta)) + "," + (-3.5 * Math.sin(d90 - theta) - 10 * Math.sin(theta)) + "L" + (dtxs - 3.5 * Math.cos(d90 - theta) - 10 * Math.cos(theta)) + "," + (dtys + 3.5 * Math.sin(d90 - theta) - 10 * Math.sin(theta)) + "z";
+								});
 
 
-							
+								
 
 
-							path_label.attr("transform", function(d) {
-							return "translate(" + d.x + "," + d.y + ")";
-							});
+								path_label.attr("transform", function(d) {
+								return "translate(" + d.x + "," + d.y + ")";
+								});
 
-							text.attr("transform", function(d) {
-							return "translate(" + d.x + "," + d.y + ")";
-							});
+								text.attr("transform", function(d) {
+								return "translate(" + d.x + "," + d.y + ")";
+								});
+								force.size([w, h]);
+								force.start();
+								console.log(w,h);
 							}
 
 							function dblclick(d) {

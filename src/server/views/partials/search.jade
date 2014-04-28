@@ -174,8 +174,8 @@
 					// end filter block
 				// end col specs
 
-				.col-lg-9.col-md-8.col-sm-8
-					.sub_block
+				.col-lg-9.col-md-8.col-sm-8(ng-show='hadSearchResults')
+					.sub_block(ng-show='hasSearchValue')
 						img(src='img/ajax-loader.gif', alt='Content is Loading', ng-show='contentLoading')
 						.span(ng-repeat="node in nodes | filter:search.labels1 | filter:search.labels2", ng-show='!contentLoading', )
 							table.search_results
@@ -187,9 +187,16 @@
 										span.labelbg {{node.labels | unCamelCase}}
 							table.search_results
 								tr(ng-repeat="att in node.attributes")
-									td(class="text-right") 
-										strong {{att.key | unCamelCase}} &nbsp;
-									td {{att.value}}						
+									td(class="text-left") 
+										strong {{att.key | unCamelCase}} :&nbsp; {{att.value}}	
+									//- td(class="text-left")															
+						//.page_controls
+						//	| Page controls (for multiple pages of results) to go here
+					// end sub block
+				// end col specs
+				.col-lg-9.col-md-8.col-sm-8(ng-show='!hadSearchResults')
+					.sub_block(ng-show='hasSearchValue')
+						strong No search results returned.									
 						//.page_controls
 						//	| Page controls (for multiple pages of results) to go here
 					// end sub block

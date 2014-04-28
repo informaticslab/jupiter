@@ -5,18 +5,29 @@ angular.module('apolloApp').controller('searchCtrl', function($scope, $resource,
         query: '@query'
     },{'query': {isArray: false }});
 
+    $scope.hadSearchResults = true;
+
     var searchResult = nodes.query({
         query: $routeParams.query
     },function(result){
+        if (result.nullset)
+        {
+            $scope.hadSearchResults = false;
+        }
         $scope.contentLoading = false;
         $scope.labelCounts = result.nodeLabelCounts;
         $scope.nodes = result.nodedataarr;
-        // console.log(result)
-        // console.log($scope.nodes)
-        // console.log($scope.labelCounts)
     });
     
     $scope.search=[];
     $scope.queryString = $routeParams.query;
+    if($routeParams.query == null || $routeParams.query == '')
+    {
+        $scope.hasSearchValue= false;
+    }
+    else
+    {
+        $scope.hasSearchValue= true;
+    }
 
 });

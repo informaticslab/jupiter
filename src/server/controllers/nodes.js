@@ -154,10 +154,13 @@ exports.searchNodesByString = function(req, res) {
                      }
                      nodedata.attributes = [];
                      for (var prop in doohicky) {
-                            nodedata.attributes.push({
-                            'key': prop,
-                            'value': doohicky[prop]
-                        })
+                            if(prop == 'id')
+                            {
+                                nodedata.attributes.push({
+                                'key': prop,
+                                'value': doohicky[prop] 
+                                })
+                            }
                     }
                     nodedataarr.push(nodedata);
                 }
@@ -169,7 +172,8 @@ exports.searchNodesByString = function(req, res) {
         }
         else
             {
-              res.send(404, "No node with that text available");
+              //res.send(404, "No node with that text available");
+              res.json({"nullset":true}) ;
             }
         }
     });

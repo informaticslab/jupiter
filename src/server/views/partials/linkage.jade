@@ -66,10 +66,13 @@
 
 
 							var togglelabel=true;
-							var w = 1000,
-							h = 800,
-							r = 10;//radius of node circle
-
+							//var w = 1000,
+							//h = 800,
+							var r = 10;//radius of node circle
+							
+							var w= $("div.block_linkage").outerWidth();
+							var h= $("div.block_linkage").outerHeight();
+							
 							var force = d3.layout.force()
 							.nodes(json.nodes)
 							.links(json.links)
@@ -78,10 +81,13 @@
 							.charge(-1850)
 							.on("tick", tick)
 							.start();
-
+							
+							//console.log($("div.block_linkage").outerWidth(),$("div.block_linkage").outerHeight());
+							
+							
 							var svg = d3.select(".block_linkage").append("svg:svg")
-							.attr("width", "100%")
-							.attr("height", "100%");
+							.attr("width", w)
+							.attr("height", h);
 
 
 							d3.select(window).on('resize', svgresize);
@@ -170,6 +176,9 @@
 							
 								w= $("svg").outerWidth();
 								h= $("svg").outerHeight();
+								
+								
+								
 								//console.log($("svg").outerWidth());
 								
 
@@ -255,6 +264,12 @@
 							function svgresize()
 							{
 								//alert("aa");
+
+								w= $("div.block_linkage").outerWidth();
+								h= $("div.block_linkage").outerHeight();
+
+								d3.select("svg").attr("width", w).attr("height", h);
+								force.size([w, h]);
 								force.start();
 
 							}

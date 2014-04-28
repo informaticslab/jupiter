@@ -20,9 +20,9 @@
 					| Search
 					span.search_intro   |  Enter a search term:
 				.input-group.search_term
-					input.form-control(type='text', value='{{queryString}}', id='searchPageBawks')
+					input.form-control(type='text', ng-model='queryString', id='searchPageBawks', ng-enter='redirectToSearch()')
 					span.input-group-btn
-						a.btn.btn-default(type='button' id='searchPageButton')
+						a.btn.btn-default(type='button', id='searchPageButton', ng-click='redirectToSearch()')
 							span.glyphicon.glyphicon-search
 				// /input-group
 				// Split button
@@ -210,14 +210,3 @@
 		// end hx_side
 	// end col spec
 // end row
-script.
-	$(function(){
-		$('#searchPageButton').click(function(){
-			window.location = '/apollo/#/search/' + $('#searchPageBawks').val();
-			});
-		$('#searchPageBawks').keypress(function (e) {
-			if (e.which == 13) {
-				window.location = '/apollo/#/search/' + $('#searchPageBawks').val();
-			}
-		});
-	});

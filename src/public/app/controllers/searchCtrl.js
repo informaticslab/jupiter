@@ -1,11 +1,14 @@
 angular.module('apolloApp').controller('searchCtrl', function($scope, $resource, $http, $routeParams) {
-	$scope.$parent.q = 'explore';
+	
+    $scope.$parent.q = 'explore';
 	$scope.contentLoading = true;
+    $scope.hadSearchResults = true;
+    $scope.search=[];
+    $scope.queryString = $routeParams.query;
+
     var nodes = $resource('/apollo/api/node/search/:query', {
         query: '@query'
     },{'query': {isArray: false }});
-
-    $scope.hadSearchResults = true;
 
     var searchResult = nodes.query({
         query: $routeParams.query
@@ -18,9 +21,7 @@ angular.module('apolloApp').controller('searchCtrl', function($scope, $resource,
         $scope.labelCounts = result.nodeLabelCounts;
         $scope.nodes = result.nodedataarr;
     });
-    
-    $scope.search=[];
-    $scope.queryString = $routeParams.query;
+        
     if($routeParams.query == null || $routeParams.query == '')
     {
         $scope.hasSearchValue= false;
@@ -30,4 +31,7 @@ angular.module('apolloApp').controller('searchCtrl', function($scope, $resource,
         $scope.hasSearchValue= true;
     }
 
+    $scope.redirectToSearch = function(){
+       window.location =  '/apollo/#/search/' + $scope.queryString;
+    };
 });

@@ -68,7 +68,7 @@
 							var togglelabel=true;
 							var w = 1000,
 							h = 800,
-							r = 15;
+							r = 10;//radius of node circle
 
 							var force = d3.layout.force()
 							.nodes(json.nodes)
@@ -82,6 +82,9 @@
 							var svg = d3.select(".block_linkage").append("svg:svg")
 							.attr("width", "100%")
 							.attr("height", "100%");
+
+
+							d3.select(window).on('resize', svgresize);
 							
 
 							d3.select(".btn.btn-default.pull-left.link_button1").on("click", clickreset);
@@ -163,7 +166,6 @@
 							});
 							//.on("mouseover", linkmouseover);
 
-							// Use elliptical arc path segments to doubly-encode directionality.
 							function tick() {
 							
 								w= $("svg").outerWidth();
@@ -180,8 +182,8 @@
 								dr = Math.sqrt(dx * dx + dy * dy),
 								theta = Math.atan2(dy, dx) + Math.PI / 100, //orientation of the arrow
 								d90 = Math.PI / 2,
-								dtxs = d.target.x - 15 * Math.cos(theta), //distance of arrow from the node
-								dtys = d.target.y - 15 * Math.sin(theta);
+								dtxs = d.target.x - 10 * Math.cos(theta), //distance of arrow from the node
+								dtys = d.target.y - 10 * Math.sin(theta);
 								//return "M" + d.source.x + "," + d.source.y + "A" + dr + "," + dr + " 0 0 1," + d.target.x + "," + d.target.y + "A" + dr + "," + dr + " 0 0 0," + d.source.x + "," + d.source.y + "M" + dtxs + "," + dtys +  "l" + (3.5 * Math.cos(d90 - theta) - 10 * Math.cos(theta)) + "," + (-3.5 * Math.sin(d90 - theta) - 10 * Math.sin(theta)) + "L" + (dtxs - 3.5 * Math.cos(d90 - theta) - 10 * Math.cos(theta)) + "," + (dtys + 3.5 * Math.sin(d90 - theta) - 10 * Math.sin(theta)) + "z";
 								return "M" + d.source.x + "," + d.source.y + "L" + d.target.x + "," + d.target.y + "M" + dtxs + "," + dtys +  "l" + (3.5 * Math.cos(d90 - theta) - 10 * Math.cos(theta)) + "," + (-3.5 * Math.sin(d90 - theta) - 10 * Math.sin(theta)) + "L" + (dtxs - 3.5 * Math.cos(d90 - theta) - 10 * Math.cos(theta)) + "," + (dtys + 3.5 * Math.sin(d90 - theta) - 10 * Math.sin(theta)) + "z";
 								//return "M" + d.source.x + "," + d.source.y + "L" + d.target.x + "," + d.target.y +"m0,-5l10,0l0,5z";
@@ -193,30 +195,25 @@
 
 
 								path_label.attr("transform", function(d) {
-								return "translate(" + d.x + "," + d.y + ")";
+									return "translate(" + d.x + "," + d.y + ")";
 								});
 
 								text.attr("transform", function(d) {
-								return "translate(" + d.x + "," + d.y + ")";
+									return "translate(" + d.x + "," + d.y + ")";
 								});
 								force.size([w, h]);
-								force.start();
-								console.log(w,h);
+								//force.start();
+								//console.log(w,h);
 							}
 
 							function dblclick(d) {
-							//alert(d);
-							//d3.select(this).classed("fixed", d.fixed = false);
-							d.fixed=false;
-							d3.select(this).classed("fixed",false);
-							//d3.select(this).attr("class",function(d) { return "node " + d.label; });
-
-							//alert(d.fixed);
+								d.fixed=false;
+								d3.select(this).classed("fixed",false);
 							}
 
 							function clickreset(d) {
-							d3.selectAll("circle").classed("fixed", false);
-							i=0;
+								d3.selectAll("circle").classed("fixed", false);
+								i=0;
 								for (n in json.nodes){
 										//alert(n.id);
 									json.nodes[i].fixed=false;
@@ -243,13 +240,23 @@
 							
 							if(togglelabel){
 									d3.selectAll("path").attr("visibility", "hidden");
+									d3.selectAll("text.path_label").attr("visibility", "hidden");
+									
 									togglelabel=false;
 									}
 							else{
 								d3.selectAll("path").attr("visibility", "visible");
+								d3.selectAll("text.path_label").attr("visibility", "visible");
 								togglelabel=true;
 								}
 						
+							}
+
+							function svgresize()
+							{
+								//alert("aa");
+								force.start();
+
 							}
 
 
@@ -260,9 +267,9 @@
 							}
 
 							function dragstart(d) {
-							d3.select(this).classed("fixed",true);
-							//d3.select(this).attr("class","node fixed");
-							d.fixed=true;
+								d3.select(this).classed("fixed",true);
+								//d3.select(this).attr("class","node fixed");
+								d.fixed=true;
 							}
 
 							});

@@ -34,15 +34,15 @@ html(lang="en" ng-app='apolloApp')
 				.col-lg-3.col-md-3.col-sm-3
 					span.visible-lg.visible-md
 						.input-group.search_button
-							input.form-control(id='bigSearchBawks', type='text')
+							input.form-control(id='bigSearchBawks', type='text', ng-model='queryString', ng-enter='redirectToSearch()')
 							span.input-group-btn
-								button.btn.btn-default(type='button' id='bigSearchButton') Search
+								button.btn.btn-default(type='button', id='bigSearchButton', ng-click='redirectToSearch()') Search
 						// /input-group
 					span.visible-sm
 						.input-group.search_button
-							input.form-control(id='lilSearchBawks', type='text')
+							input.form-control(id='lilSearchBawks', type='text', ng-model='queryString', ng-enter='redirectToSearch()')
 							span.input-group-btn
-								button.btn.btn-default(type='button' id='lilSearchButton') Search
+								button.btn.btn-default(type='button' id='lilSearchButton', ng-click='redirectToSearch()') Search
 						// /input-group
 				.col-lg-2.col-md-2.col-sm-2.clearfix
 					span.visible-lg.visible-md
@@ -112,22 +112,4 @@ html(lang="en" ng-app='apolloApp')
 				span.cdc_info
 					| Centers for Disease Control and Prevention | &nbsp;Build: {{buildNumber}}
 		include scripts
-		script.
-			$(function(){
-				$('#bigSearchButton').click(function(){
-					window.location = '#/search/' + $('#bigSearchBawks').val();
-					}); 
-				$('#lilSearchButton').click(function(){
-					window.location = '#/search/' + $('#lilSearchBawks').val();
-					});
-				$('#lilSearchBawks').keypress(function (e) {
-					if (e.which == 13) {
-					window.location = '/apollo/#/search/' + $('#lilSearchBawks').val();
-						}
-					});
-				$('#bigSearchBawks').keypress(function (e) {
-					if (e.which == 13) {
-					window.location = '/apollo/#/search/' + $('#bigSearchBawks').val();
-						}
-					});
-			});
+		

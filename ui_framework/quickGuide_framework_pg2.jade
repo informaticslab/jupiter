@@ -1,0 +1,305 @@
+doctype html
+html
+  head
+    meta(charset='utf-8')
+    title Integrated Surveillance Portal
+    meta(name='viewport', content='width=device-width, initial-scale=1.0')
+    // Bootstrap
+    link(href='css/bootstrap.min.css', rel='stylesheet')
+    link(href='css/custom.css', rel='stylesheet')
+    script(src='js/respond.js')
+  body
+    .container-fluid
+      // row1
+      .row.headerblue
+        .col-lg-7.col-md-7.col-sm-7.clearfix
+          span.visible-lg.visible-md
+            a(href='http://www.cdc.gov')
+              img.img-responsive.pull-left.cdclogo(src='img/cdc_logo.png', alt='CDC logo')
+            span.cdctext Integrated Surveillance Portal
+            span.header_icon
+              img(src='img/header_graphic.png', alt='Integrated Surveillance Portal graphic')
+            // This line changed for new graphic
+          span.visible-sm
+            a(href='http://www.cdc.gov')
+              img.img-responsive.pull-left.cdclogo2(src='img/cdc_logo_smaller.png', alt='CDC logo')
+            span.cdctext2 Integrated Surveillance Portal
+            span.header_icon
+              img(src='img/header_graphic_small.png', alt='Integrated Surveillance Portal graphic')
+            // This line changed for new graphic
+        .col-lg-3.col-md-3.col-sm-3
+          span.visible-lg.visible-md
+            .input-group.search_button
+              input.form-control(type='text')
+              span.input-group-btn
+                button.btn.btn-default(type='button') Search
+            // /input-group
+          span.visible-sm
+            .input-group.search_button
+              input.form-control(type='text')
+              span.input-group-btn
+                button.btn.btn-default(type='button') Search
+            // /input-group
+        .col-lg-2.col-md-2.col-sm-2.clearfix
+          span.visible-lg.visible-md
+            a(href='#')
+              img.img-responsive.pull-left.settings_btn(src='img/settings_icon.png', alt='Settings')
+            a(href='#')
+              img.img-responsive.help_btn(src='img/help_icon.png', alt='Help')
+          span.visible-sm
+            a(href='#')
+              img.img-responsive.pull-left.settings_btn2(src='img/settings_icon.png', alt='Settings')
+            a(href='#')
+              img.img-responsive.help_btn2(src='img/help_icon.png', alt='Help')
+      // end 1st row
+      // row 2 (navbar)
+      .row
+        nav.navbar.navbar-default.navbar-inner(role='navigation')
+          .navbar-header
+            button.navbar-toggle(type='button', data-toggle='collapse', data-target='#collapse')
+              span.sr-only Toggle navigation
+              span.icon-bar
+              span.icon-bar
+              span.icon-bar
+          #collapse.collapse.navbar-collapse
+            ul.nav.navbar-nav.scootnav
+              li
+                a(href='#')
+                  span.glyphicon.glyphicon-home.custom_home  
+                  | Home
+              li.active
+                a(href='#')
+                  span.glyphicon.glyphicon-dashboard.custom_explore  
+                  | Explore
+              li
+                a(href='#')
+                  span.glyphicon.glyphicon-comment.custom_faqs.icon-flipped  
+                  | FAQs
+            span.right_nav_content
+              span.glyphicon.glyphicon-user.user_custom  
+              | Welcome, guest&#160; |
+              a(href='#') Logout
+              span.favorites_icon
+                img(src='img/filled_circle_smaller.png', alt='Favorites')
+                | Favorites
+    // end row 2 (navbar)
+    // row
+    .row
+      .col-lg-11.col-md-11.col-sm-11
+        .content_block
+          .subnav
+            ul.nav.nav-pills
+              li.active
+                a(href='#') Quick Guide
+              li
+                a(href='#') Browse
+              li
+                a(href='#') Search
+              li
+                a(href='#') Advanced Search
+              li
+                a(href='#') Favorites
+          // end subnav
+          .share_button2
+            // These lines were added
+            // Single button
+            .btn-group
+              button.btn.btn-default.dropdown-toggle(type='button', data-toggle='dropdown')
+                span.glyphicon.glyphicon-share
+                | Share
+                span.caret
+              ul.dropdown-menu(role='menu')
+                li
+                  a(href='#') Email
+                li
+                  a(href='#') Facebook
+                li
+                  a(href='#') Twitter
+          .backlink
+            span.glyphicon.glyphicon-circle-arrow-left
+            a(href='#') Back to Quick Guide topics
+          // end backlink class
+          .vertical_spacing
+          .azlist_header Foodborne Illness Surveillance, Response, and Data Systems
+          .row
+            // nested row
+            .col-lg-9.col-md-9.col-sm-8
+              .row
+                // nested sub row
+                .col-lg-3.col-md-3.col-sm-5
+                  .qg_this_pg
+                    .qg_page
+                      span.glyphicon.glyphicon-list-alt
+                      | On this page:
+                    .yellow_divider
+                    .white_divider
+                    ul.qg_list
+                      li.qg_li
+                        a(href='#') NARMS
+                      li.qg_li
+                        a(href='#') National Surveillance for Enteric Disease
+                      li.qg_li
+                        a(href='#') FoodNet
+                      li.qg_li
+                        a(href='#') Anchor link
+                      li.qg_li
+                        a(href='#') Anchor link
+                      li.qg_li
+                        a(href='#') Anchor link
+                      li.qg_li
+                        a(href='#') Anchor link
+                      li.qg_li
+                        a(href='#') Anchor link
+                  .qg_resources
+                    .qg_page
+                      span.glyphicon.glyphicon-pushpin
+                      | Resources:
+                    .gray_divider
+                    ul.qg_list2
+                      li.qg_li
+                        a(href='#') Estimates of Foodborne Illness: Fact Sheets
+                      li.qg_li
+                        a(href='#') Medscape Commentaries
+                      li.qg_li
+                        a(href='#') America&#39;s Report Card for Food Safety
+                      li.qg_li
+                        a(href='#') Select Foodborne Illness Publications
+                      li.qg_li
+                        a(href='#') Select CDC Foodborne Illness Articles
+                      li.qg_li
+                        a(href='#') CDC Director Dr. Thomas R. Frieden&#39;s &#34;Winnable Battles&#34;
+                      li.qg_li
+                        a(href='#') Another Resource
+                  // end qg_resources
+                  .qg_contribute
+                    .qg_page
+                      span.glyphicon.glyphicon-pencil
+                      | Contributors:
+                    .gray_divider
+                    ul.qg_list2
+                      li.qg_li
+                        a(href='#') CDC Food Safety Office
+                      li.qg_li
+                        a(href='#') Another Contributor
+                      li.qg_li
+                        a(href='#') Contribute to this Quick Guide Topic
+                  // end qg_contribute
+                // end col specs
+                .col-lg-9.col-md-9.col-sm-7
+                  .qg_content
+                    .orange_header Overview
+                    img.pull-right.img-responsive.qgphoto(src='img\foodborne.png', alt='Foods susceptible to foodborne illness')
+                    p
+                      strong Foodborne Illness
+                      | lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                    p
+                      | Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.
+                      a(href='#') Nemo enim ipsam voluptatem quia voluptas
+                      | sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?
+                    .orange_header2 Another Subheader
+                    p
+                      | At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita distinctio.
+                      img.qgphoto_inset.img-responsive(src='img\foodnet.png', alt='Food Net')
+                      .photo_caption
+                        strong Caption goes here
+                        | . Lorem ipsum dolor sit amet accusantium doloremque laudantium, totam rem. Voluptatum deleniti atque.
+                      | Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus id quod maxime placeat facere possimus, omnis voluptas assumenda est, omnis dolor repellendus. Temporibus autem quibusdam et aut officiis debitis aut rerum necessitatibus saepe eveniet ut et voluptates repudiandae sint et molestiae non recusandae. Itaque earum rerum hic tenetur a sapiente delectus, ut aut reiciendis voluptatibus maiores alias consequatur aut perferendis doloribus asperiores repellat.
+                    .toplink
+                      span.glyphicon.glyphicon-upload
+                      a(href='#') Back to the top
+                    // end backlink class
+                    .orange_header2 Another Subheader
+                    p
+                      | Lorem at vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita distinctio.
+                    p
+                      | Temporibus autem quibusdam et aut officiis debitis aut rerum necessitatibus saepe eveniet ut et voluptates repudiandae sint et molestiae non recusandae. Itaque earum rerum hic tenetur a sapiente delectus, ut aut reiciendis voluptatibus maiores alias consequatur aut perferendis doloribus asperiores repellat.
+                    .toplink
+                      span.glyphicon.glyphicon-upload
+                      a(href='#') Back to the top
+                    // end backlink class
+                  // end qg content
+                // end col specs
+              // end sub nested 2 row
+            // end 9 col specs
+            .col-lg-3.col-md-3.col-sm-4
+              .qg_column
+                .tg_header_narrow Surveillance systems, data sets, &#38; data sources:
+                .thick_border
+                table.table.table-hover
+                  tr
+                    td
+                      a(href='#') &#160;NARMS System
+                    td
+                      img(src='img/fav_circle.png', alt='Favorite', title='Favorite', align='right')
+                  tr
+                    td
+                      a(href='#') &#160;Relevant link
+                    td
+                      img(src='img/fav_circle_empty.png', alt='Favorite', title='Click to favorite', align='right')
+                  tr
+                    td
+                      a(href='#') &#160;Relevant link
+                    td
+                      img(src='img/fav_circle_empty.png', alt='Favorite', title='Click to favorite', align='right')
+                  tr
+                    td
+                      a(href='#') &#160;Relevant link
+                    td
+                      img(src='img/fav_circle.png', alt='Favorite', title='Favorite', align='right')
+                  tr
+                    td
+                      a(href='#') &#160;Relevant link
+                    td
+                      img(src='img/fav_circle.png', alt='Favorite', title='Favorite', align='right')
+                  tr
+                    td
+                      a(href='#') &#160;Relevant link
+                    td
+                      img(src='img/fav_circle_empty.png', alt='Click to favorite', title='Click to favorite', align='right')
+                  tr
+                    td
+                      a(href='#') &#160;Relevant link
+                    td
+                      img(src='img/fav_circle.png', alt='Favorite', title='Favorite', align='right')
+              // end qg column
+            // end column specs
+          // end nested quickguide_nest row
+        // end content block
+      // end col spec
+      .col-lg-1.col-md-1.col-sm-1
+        .hx_side
+          span.small_text
+            | Tab
+        // end hx_side
+      // end col spec
+    // end row
+    // row
+    // footer row
+    .row.footerbottom
+      // <div class="col-md-6">
+      // share
+      .share
+        .share_corner
+          span.share_text
+            | Share site:
+            a(href='#')
+              img(src='img\facebook_icon.png', alt='Share with Facebook')
+            a(href='#')
+              img(src='img\twitter_icon.png', alt='Share with Twitter')
+            a(href='#')
+              img(src='img\mail_icon.png', alt='Share with Email')
+      // end share
+      // </div> <!-- end column class
+      // <div class="col-md-6">
+      // links
+      .bottom_links
+        | Disability &#160; |&#160;  Accessibility &#160; | &#160; Code of Conduct &#160; | &#160; Contact
+        span.cdc_info Centers for Disease Control and Prevention 
+      // end links
+      // </div> <!-- end column class
+    // end footer row
+    //
+       close container>
+      <!-- javascript 
+    script(src='http://code.jquery.com/jquery-latest.min.js')
+    script(src='js/bootstrap.min.js')

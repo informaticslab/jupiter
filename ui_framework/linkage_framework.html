@@ -7,7 +7,9 @@
     <!-- Bootstrap -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <link href="css/custom.css" rel="stylesheet">
-    
+
+    <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css">
+
 
     <script src="js/respond.js"></script>
 </head>
@@ -23,14 +25,14 @@
 <span class="visible-lg visible-md">
             <a href="http://www.cdc.gov"><img src="img/cdc_logo.png" alt="CDC logo" class="img-responsive pull-left cdclogo">
                </a><span class="cdctext">Integrated Surveillance Portal</span>
-           <span class="header_icon"><img src="img/computer_icon.png" alt="computer icon"></span>
+           <span class="header_icon"><img src="img/header_graphic.png" alt="Integrated Surveillance Portal graphic"></span><!-- This line changed for new graphic -->
 
 </span>
 
 <span class="visible-sm">
             <a href="http://www.cdc.gov"><img src="img/cdc_logo_smaller.png" alt="CDC logo" class="img-responsive pull-left cdclogo2">
-               </a><span class="cdctext2">CDC Surveillance System Knowledgebase</span>
-                
+               </a><span class="cdctext2">Integrated Surveillance Portal</span>
+                <span class="header_icon"><img src="img/header_graphic_small.png" alt="Integrated Surveillance Portal graphic"></span><!-- This line changed for new graphic -->
            
 </span>
 
@@ -103,7 +105,7 @@
 
  
    <span class="right_nav_content">
-     <span class="glyphicon glyphicon-user user_custom"> </span> Welcome, @TimSmith37&nbsp; |&nbsp;  <a href="#">Logout</a>
+      <span class="glyphicon glyphicon-user user_custom"> </span> Welcome, guest&nbsp; |&nbsp;  <a href="#">Logout</a><!-- ADD pipe and spacing after "guest" -->
      <span class="favorites_icon"> <img src="img/filled_circle_smaller.png" alt="Favorites"> &nbsp;Favorites </span>
 
     
@@ -127,7 +129,7 @@
 
 <div class="subnav">
 
-<ul class="nav nav-pills pills_custom">
+<ul class="nav nav-pills"> <!--This line changed -->
   <li><a href="#">Quick Guide</a></li>
   <li><a href="#">Browse</a></li>
   <li class="active"><a href="#">Search</a></li>
@@ -152,36 +154,63 @@
 
 
 
-<div class="entity_name">
-  HHS CDC Sample Surveillance System Name
-
-
-</div><!-- end entity_name class -->
 
 <div class="nav_split">
 <div class="btn-group btn-group-md btn-group-justified">
   <div class="btn-group">
-  <button type="button" class="btn btn-default">Details</button>
+   <button type="button" class="btn btn-default">Details</button> <!-- THIS line changed -->
   </div>
   <div class="btn-group">
-  <button type="button" class="btn btn-primary">Linkage Viewer</button>
+  <button type="button" class="btn btn-custom">Linkage Viewer</button> <!-- this line changed -->
 </div>
 
 </div><!--end button group-->
 </div><!--end nav_split-->
 
 
+<div class="share_button"> <!--These lines were added -->
+  <!-- Single button -->
+<div class="btn-group">
+  <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+    <span class="glyphicon glyphicon-share"></span>&nbsp;&nbsp;Share&nbsp;&nbsp;&nbsp;&nbsp;<span class="caret"></span>
+  </button>
+  <ul class="dropdown-menu" role="menu">
+    <li><a href="#">Email</a></li>
+    <li><a href="#">Facebook</a></li>
+    <li><a href="#">Twitter</a></li>
+    
+  </ul>
+</div>
+
+</div>
+
+
 
  <div class="detail_header">
 
-<button type="button" class="btn btn-default pull-left link_button1"><span class="glyphicon glyphicon-repeat icon-flipped"></span>&nbsp;Reset</button>
+<button type="button" class="btn btn-default pull-left link_button1"><span class="glyphicon glyphicon-repeat icon-flipped"></span>Reset</button>
 
+<img src="img\small_divider.png" class="pull-left small_divider">
+<button type="button" class="btn btn-default pull-left link_button4"><i class="fa fa-lock"></i>Lock nodes</button>
+
+<button type="button" class="btn btn-default pull-left link_button5"><span class="glyphicon glyphicon-ban-circle"></span>Hide lines</button>
+
+<div class="cluster">
+<span class="cluster_text">Cluster by:</span>
+<div class="btn-group">
+  <button type="button" class="btn btn-default link_button6 active"><i class="fa fa-gears"></i>Activity type</button>
+  <button type="button" class="btn btn-default link_button6"><span class="glyphicon glyphicon-link"></span>Relationship type</button>
+
+</div>
+</div> <!--end cluster -->
+
+<!--forward/back buttons
 <button type="button" class="btn btn-default link_button2"><span class="glyphicon glyphicon-play icon-flipped"></span>&nbsp;&nbsp;&nbsp;&nbsp;Back&nbsp;&nbsp;&nbsp;</button>
 
 <button type="button" class="btn btn-default link_button3">Forward&nbsp;&nbsp;<span class="glyphicon glyphicon-play"></span></button>
+-->
 
-
-</div> <!-- end detail header -->
+</div> <!-- end detail header link -->
 
  <div class="top_block2"> 
 
@@ -209,7 +238,7 @@ data source, data element, or data standard.</td>
 <td class="white_divider">&nbsp;</td>
 
 
-<td class="line_image_td"><img src="img\line.png" /></td>
+<td class="line_image_td"><img src="img\line.png"></td>
 
 <td class="line_text_td">represents the relationship (manage, generate,
 contain, use, etc.) between any two entities.</td>

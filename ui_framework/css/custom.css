@@ -285,13 +285,20 @@ td.bot_space {padding-bottom:1em;}
 
 .hx_side2 {margin-right:2em; background-color:#e1ebf4; text-align:center; height:981px; margin-bottom:3em; padding:1em;}
 
-.glyphicon-repeat {color:#e77e23;}
+.glyphicon-repeat {color:#1bbc9b; padding-left:.3em;}
 
 .glyphicon-play {color:#3598db;}
 
 .link_button1 {margin-top:.3em; margin-left:.5em;}
 .link_button2 {margin-top:.3em; margin-right:1em;}
 .link_button3 {margin-top:.3em; margin-right:6.2em;}
+
+.link_button4 {margin-top:.3em; margin-left:1.2em;}
+.link_button5 {margin-top:.3em; margin-left:1em;}
+.link_button6 {margin-top:.3em; margin-left:.5em;}
+
+.cluster {float:right; margin-right:.5em;}
+.cluster_text {margin-right:.4em; position:relative; top:.2em;}
 
 .key {background-color: #f9e697; min-height:51px; border-bottom-style:solid; border-bottom-color:#ffffff; border-bottom-width:1px; padding-left:1.2em; padding-right:1.2em;  padding-bottom:.7em; padding-top:.7em;}
 
@@ -309,6 +316,7 @@ td.bot_space {padding-bottom:1em;}
 .line_text_td {vertical-align:middle; padding-left:.9em;}
 
 .white_divider {border-right-style:solid; border-right-color:#ffffff; border-right-width:1px; padding-left:.5em; padding-right:1.5em;}
+
 
 .instructions {background-color: #fcf1c7; padding-left:1.2em; padding-right:1.2em; padding-bottom:.7em; padding-top:.7em; min-height:250px;}
 
@@ -380,3 +388,11 @@ li.qg_li {padding-top:.7em; margin-left: -1.7em;}
 
 .toplink  {margin-bottom:1em; margin-left:1em; color:#298ccf; text-align: right;}
 .glyphicon-upload {color:#3598db; font-size:1.3em; vertical-align:top;}
+
+.fa-arrows-v, .glyphicon-ban-circle, .glyphicon-eye-close  {font-size:1.1em; padding-right:.3em; color:#e77e23;}
+
+.fa-lock {font-size:1.2em; padding-right:.4em; color:#ebbd05;}
+.fa-gears {font-size:1.2em; padding-right:.35em; color:#3598db;}
+.glyphicon-link {font-size:1.1em; padding-right:.3em; color:#3598db;}
+
+.small_divider {margin-left:1.2em; margin-top:.6em;}

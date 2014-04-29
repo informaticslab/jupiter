@@ -110,17 +110,20 @@ exports.getNodeById = function(req, res) {
     });
 };
 exports.searchNodesByString = function(req, res) {
-     var query = 'MATCH n WHERE n.name=~{qString} RETURN n, labels(n) '+
+
+     var query = 'MATCH n WHERE n.name=~{qString} RETURN n, labels(n) skip {skipnum} limit {retNum}'+
         'union all '+
-        'MATCH n WHERE n.fullname=~{qString} RETURN n, labels(n) '+
+        'MATCH n WHERE n.fullname=~{qString} RETURN n, labels(n) skip {skipnum} limit {retNum}'+
         'union all '+
-        'MATCH n WHERE n.contractphone=~{qString} RETURN n, labels(n) '+
+        'MATCH n WHERE n.contractphone=~{qString} RETURN n, labels(n) skip {skipnum} limit {retNum}'+
         'union all '+
-        'MATCH n WHERE n.mission=~{qString} RETURN n, labels(n) '+
+        'MATCH n WHERE n.mission=~{qString} RETURN n, labels(n) skip {skipnum} limit {retNum}'+
         'union all '+
-        'MATCH n WHERE n.contractname=~{qString} RETURN n, labels(n)'
+        'MATCH n WHERE n.contractname=~{qString} RETURN n, labels(n) skip {skipnum} limit {retNum}'
     var params = {
-        qString: '(?i).*' + req.params.query + '.*'
+        qString: '(?i).*' + req.params.query + '.*',
+        skipnum: 0,
+        retNum: 50
     };
     //console.log("Query is " + query + " and params are " + params.qString);
     neodb.db.query(query, params, function(err, results) {
@@ -164,7 +167,7 @@ exports.searchNodesByString = function(req, res) {
                     }
                     nodedataarr.push(nodedata);
                 }
-                console.log(JSON.stringify(nodeLabelCounts))
+                //console.log(JSON.stringify(nodeLabelCounts))
                 returnable.nodedataarr = nodedataarr;
                 returnable.nodeLabelCounts = nodeLabelCounts;
                 //console.log(returnable);

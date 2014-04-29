@@ -67,11 +67,12 @@
 
 							var togglelabel=true;
 							//var w = 1000,
-							//h = 800,
+							var w= $("div.block_linkage").width();
+							var h = 500;
 							var r = 10;//radius of node circle
 							
-							var w= $("div.block_linkage").outerWidth();
-							var h= $("div.block_linkage").outerHeight();
+							
+							//var h= $("div.block_linkage").outerHeight();
 							
 							var force = d3.layout.force()
 							.nodes(json.nodes)
@@ -265,8 +266,8 @@
 							{
 								//alert("aa");
 
-								w= $("div.block_linkage").outerWidth();
-								h= $("div.block_linkage").outerHeight();
+								w= $("div.block_linkage").width();
+								//h= $("div.block_linkage").outerHeight();
 
 								d3.select("svg").attr("width", w).attr("height", h);
 								force.size([w, h]);

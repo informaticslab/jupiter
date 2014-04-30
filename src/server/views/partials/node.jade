@@ -47,34 +47,37 @@
 						li
 							a(href='#') Twitter
 					//end added lines 
-			.detail_header
+			.detail_header.detail_header_text
 				| {{node.name}}
 			// end detail header
 			.top_block
 				img(src='img/ajax-loader.gif', alt='Content is Loading', ng-show='contentLoading')
 				.orange_header Summary:
 				div(ng-show='!contentLoading')
-					p 
-						| Name: {{node.name}}
-					p 
-						| Type: {{labels.join()|unCamelCase}}
-					p 
-						| Id: {{node.id}}
+					table(class="table table-condensed") 
+							tr
+								td(class="detail_column") 
+									strong Full Name:
+								td {{node.name}}
+							tr
+								td(class="detail_column") 
+									strong Type:
+								td {{labels.join()|unCamelCase}}
+					table(class="table table-condensed") 
+							tr(ng-repeat="att in node.attributes")
+								td(class="detail_column") 
+									strong {{att.key | unCamelCase}}:
+								td {{att.value}}
+
 					.linkage
 						.vertical_spacing
-						.orange_header Node Attributes
-						table(class="table table-condensed") 
-							tr(ng-repeat="att in node.attributes")
-								td(class="text-right") 
-									strong {{att.key | unCamelCase}}
-								td {{att.value}}
 						.orange_header Linkage/Relationships:
 						tabset
 							tab(ng-repeat="relation in relations", heading="{{relation.name | unCamelCase}}")
 								div(ng-repeat="relType in relation.relTypes")
 									.vertical_spacing		
 									.orange_header {{relType.name}}
-									table(class="table table-condensed")
+									table(class="table table-striped")
 										tr(ng-repeat="node in relType.nodes")
 											td.col-xs-1
 												a(href="#/node/{{node.id}}")

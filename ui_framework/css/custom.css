@@ -295,7 +295,8 @@ td.bot_space {padding-bottom:1em;}
 
 .link_button4 {margin-top:.3em; margin-left:1.2em;}
 .link_button5 {margin-top:.3em; margin-left:1em;}
-.link_button6 {margin-top:.3em; margin-left:.5em;}
+.link_button6 {margin-top:.3em; margin-left:.5em; width:10em;}
+.link_button7 {margin-top:.3em; margin-left:.5em; width:11em;}
 
 .cluster {float:right; margin-right:.5em;}
 .cluster_text {margin-right:.4em; position:relative; top:.2em;}
@@ -392,7 +393,7 @@ li.qg_li {padding-top:.7em; margin-left: -1.7em;}
 .fa-arrows-v, .glyphicon-ban-circle, .glyphicon-eye-close  {font-size:1.1em; padding-right:.3em; color:#e77e23;}
 
 .fa-lock {font-size:1.2em; padding-right:.4em; color:#ebbd05;}
-.fa-gears {font-size:1.2em; padding-right:.35em; color:#3598db;}
+.fa-gears {font-size:1.2em; padding-right:.5em; color:#3598db;}
 .glyphicon-link {font-size:1.1em; padding-right:.3em; color:#3598db;}
 
 .small_divider {margin-left:1.2em; margin-top:.6em;}

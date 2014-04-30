@@ -52,7 +52,7 @@
 			// end detail header
 			.top_block
 				img(src='img/ajax-loader.gif', alt='Content is Loading', ng-show='contentLoading')
-				.orange_header Summary:
+				.orange_header_larger Summary:
 				div(ng-show='!contentLoading')
 					table(class="table table-striped") 
 							tr
@@ -71,7 +71,7 @@
 
 					.linkage
 						.vertical_spacing
-						.orange_header Linkage/Relationships:
+						.orange_header_larger Linkage/Relationships:
 						tabset
 							tab(ng-repeat="relation in relations", heading="{{relation.name | unCamelCase}}")
 								div(ng-repeat="relType in relation.relTypes")
@@ -86,7 +86,7 @@
 					// end linkage
 				.com_discuss
 					.vertical_spacing
-					.orange_header Comments/Discussion:
+					.orange_header_larger Comments/Discussion:
 					.vertical_spacing
 					| [Placeholder for comments/discussion content]
 				// end com_discuss

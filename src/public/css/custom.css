@@ -157,6 +157,8 @@ height: 36px; padding-left:2em; padding-top:.6em; color:#ffffff; font-size: smal
 
 .orange_main {background-color:#f39c11; color:#ffffff; font-weight:bold; padding:.7em; padding-bottom:.9em; padding-left:1em; margin-bottom:1.3em; margin-right:.9em; }
 .orange_header {font-weight:bold; color:#e77e23; padding-bottom:1em;}
+.orange_header_larger {font-weight:bold; font-size:1.2em; color:#e77e23; padding-bottom:1em;}
+
 
 .orange_header_narrow {color:#e77e23; padding:.7em; padding-left:1em; font-weight:bold;}
 
@@ -278,6 +280,8 @@ td.search {padding-bottom:.7em; padding-left:1em;}
 td.search2 {padding-bottom:1em; padding-left:1em;}
 
 td.detail_label {padding-left:1.2em; padding-right:.7em; }
+
+.list_margin {padding-left:1.2em; padding-bottom:.5em;}
 
 td.bot_space {padding-bottom:1em;}
 

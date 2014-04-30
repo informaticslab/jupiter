@@ -54,7 +54,7 @@
 				img(src='img/ajax-loader.gif', alt='Content is Loading', ng-show='contentLoading')
 				.orange_header Summary:
 				div(ng-show='!contentLoading')
-					table(class="table table-condensed") 
+					table(class="table table-striped") 
 							tr
 								td(class="detail_column") 
 									strong Full Name:
@@ -63,7 +63,7 @@
 								td(class="detail_column") 
 									strong Type:
 								td {{labels.join()|unCamelCase}}
-					table(class="table table-condensed") 
+					table(class="table table-striped") 
 							tr(ng-repeat="att in node.attributes")
 								td(class="detail_column") 
 									strong {{att.key | unCamelCase}}:

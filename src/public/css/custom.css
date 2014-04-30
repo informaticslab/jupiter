@@ -389,8 +389,7 @@ li.qg_li {padding-top:.7em; margin-left: -1.7em;}
 
 .toplink  {margin-bottom:1em; margin-left:1em; color:#298ccf; text-align: right;}
 .glyphicon-upload {color:#3598db; font-size:1.3em; vertical-align:top;}
-<<<<<<< HEAD
-<<<<<<< HEAD
+
 
 .fa-arrows-v, .glyphicon-ban-circle, .glyphicon-eye-close  {font-size:1.1em; padding-right:.3em; color:#e77e23;}
 
@@ -399,11 +398,9 @@ li.qg_li {padding-top:.7em; margin-left: -1.7em;}
 .glyphicon-link {font-size:1.1em; padding-right:.3em; color:#3598db;}
 
 .small_divider {margin-left:1.2em; margin-top:.6em;}
-=======
+
 .detail_column {width:12%;}
 .bold_text {font-weight:bold;}
->>>>>>> FETCH_HEAD
-=======
-.detail_column {width:12%;}
-.bold_text {font-weight:bold;}
->>>>>>> FETCH_HEAD
+
+
+

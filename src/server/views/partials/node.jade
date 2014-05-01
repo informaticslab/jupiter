@@ -65,13 +65,13 @@
 						{{node.id}}
 					.vertical_spacing
 					.row
-						.col-sm-6.col-sm-6.col-sm-6
+						.col-md-6
 							table(class="table table-condensed")
 									tr(ng-repeat="att in splitArr1")
 											td(class="detail_column") 
 												strong {{att.key | unCamelCase}}:
 											td {{att.value}}
-						.col-sm-6.col-sm-6.col-sm-6
+						.col-md-6
 							table(class="table table-condensed")
 									tr(ng-repeat="att in splitArr2")
 											td(class="detail_column") 

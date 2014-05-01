@@ -48,12 +48,23 @@
 				button.btn.btn-default.pull-left.link_button1(type='button')
 					span.glyphicon.glyphicon-repeat.icon-flipped
 					| Reset
-				button.btn.btn-default.link_button2(type='button')
-					span.glyphicon.glyphicon-play.icon-flipped
-					| Back
-				button.btn.btn-default.link_button3(type='button')
-					| Forward
-					span.glyphicon.glyphicon-play
+				img.pull-left.small_divider(src='img/small_divider.png')
+				button.btn.btn-default.pull-left.link_button5(type='button')
+					| Lock nodes
+					span.glyphicon.glyphicon-ban-circle
+				button.btn.btn-default.pull-left.link_button4(type='button')
+					i.fa.fa-lock
+					| Hide lines
+				.cluster
+					.cluster_text
+					| Cluster by
+					.btn-group
+						button.btn.btn-default.link_button6(type='button')
+							i.fa.fa-gears
+							| Activity type
+						button.btn.btn-default.link_button7(type='button')
+							span.glyphicon.glyphicon-link
+							| Relationship type
 			// end detail header
 			.top_block2
 				.block_linkage
@@ -95,8 +106,8 @@
 							
 
 							d3.select(".btn.btn-default.pull-left.link_button1").on("click", clickreset);
-							d3.select(".btn.btn-default.link_button2").on("click", clickfix);
-							d3.select(".btn.btn-default.link_button3").on("click", hidelinks);
+							d3.select(".btn.btn-default.pull-left.link_button5").on("click", clickfix);
+							d3.select(".btn.btn-default.pull-left.link_button4").on("click", hidelinks);
 
 
 							var drag = force.drag()

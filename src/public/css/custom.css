@@ -1,23 +1,23 @@
 /* this is a custom CSS stylesheet */
 body {
-	
-	padding-top: 0px;
+  
+  padding-top: 0px;
   
   color:#5c5c5c;
 
 }
 
 footer {
-	padding: 2em 0;
-	margin: 3em 0;
-	border-top: 1px solid #ddd;
-	color: #999;
+  padding: 2em 0;
+  margin: 3em 0;
+  border-top: 1px solid #ddd;
+  color: #999;
 text-align: center;
 }
 
 html, body { overflow-x: hidden; }
 .glyphicon {
-	color:#3f2b22;
+  color:#3f2b22;
 }
 
 .headerblue {background-color:#34495e; height:5.4em; margin-bottom:3.1em; 
@@ -28,11 +28,11 @@ html, body { overflow-x: hidden; }
 .cdclogo2 {margin-left:0em; padding-top:11px;}
 
 .cdctext {color:#ecf0f1; font-size: 1.2em; font-family: Tahoma, Geneva, sans-serif; letter-spacing:.05em; 
-	padding-left:2.1em; position:relative; top:1.8em;
+  padding-left:2.1em; position:relative; top:1.8em;
 }
 
 .cdctext2 {color:#ecf0f1; font-size: medium; font-family: Tahoma, Geneva, sans-serif; letter-spacing:.01em;  
-	padding-left:1em; position:relative; top:1.8em;
+  padding-left:1em; position:relative; top:1.8em;
 }
 
 .header_icon {position:relative; top:1.9em; left:.5em;
@@ -157,6 +157,8 @@ height: 36px; padding-left:2em; padding-top:.6em; color:#ffffff; font-size: smal
 
 .orange_main {background-color:#f39c11; color:#ffffff; font-weight:bold; padding:.7em; padding-bottom:.9em; padding-left:1em; margin-bottom:1.3em; margin-right:.9em; }
 .orange_header {font-weight:bold; color:#e77e23; padding-bottom:1em;}
+.orange_header_larger {font-weight:bold; font-size:1.2em; color:#e77e23; padding-bottom:1em;}
+
 
 .orange_header_narrow {color:#e77e23; padding:.7em; padding-left:1em; font-weight:bold;}
 
@@ -168,11 +170,11 @@ height: 36px; padding-left:2em; padding-top:.6em; color:#ffffff; font-size: smal
 .block3 {height:477px;  background-color:#f2f5f5; margin-bottom:3em; padding:1.2em; border-style:solid; border-width:1px; border-color:#d3d9d9; }
 
 
-.detail_header {height:55px; background-color:#f39c11; text-align:center; color:#ffffff; font-weight:bold; padding:.5em;}
+.detail_header {min-height:55px;background-color:#f39c11; text-align:center; color:#ffffff; font-weight:bold; padding:.5em;}
 
 .detail_header_link {height:55px; background-color:#f39c11; text-align:center; color:#ffffff; font-weight:bold; padding:.5em; margin-top:2em;}
 
-.detail_header_text {font-family: Tahoma, Geneva, sans-serif; letter-spacing:.03em; font-size:1.2em; padding-top:.5em;}
+.detail_header_text {font-family: Tahoma, Geneva, sans-serif; letter-spacing:.03em; font-size:1.2em; padding-top:1em; padding-bottom:1em; }
 
 .search_header {height:55px; background-color:#f39c11; font-weight:bold; font-size:1.5em; padding-top:.6em; padding-left:1em;}
 
@@ -279,19 +281,29 @@ td.search2 {padding-bottom:1em; padding-left:1em;}
 
 td.detail_label {padding-left:1.2em; padding-right:.7em; }
 
+.list_margin {padding-left:1.2em; padding-bottom:.5em;}
+
 td.bot_space {padding-bottom:1em;}
 
 .page_controls {background-color:#e6e8e9; text-align:center; color:#777777; padding-top:.7em; padding-bottom:.7em;}
 
 .hx_side2 {margin-right:2em; background-color:#e1ebf4; text-align:center; height:981px; margin-bottom:3em; padding:1em;}
 
-.glyphicon-repeat {color:#e77e23;}
+.glyphicon-repeat {color:#1bbc9b; padding-left:.3em;}
 
 .glyphicon-play {color:#3598db;}
 
 .link_button1 {margin-top:.3em; margin-left:.5em;}
 .link_button2 {margin-top:.3em; margin-right:1em;}
 .link_button3 {margin-top:.3em; margin-right:6.2em;}
+
+.link_button4 {margin-top:.3em; margin-left:1.2em;}
+.link_button5 {margin-top:.3em; margin-left:1em;}
+.link_button6 {margin-top:.3em; margin-left:.5em; width:10em;}
+.link_button7 {margin-top:.3em; margin-left:.5em; width:11em;}
+
+.cluster {float:right; margin-right:.5em;}
+.cluster_text {margin-right:.4em; position:relative; top:.2em;}
 
 .key {background-color: #f9e697; min-height:51px; border-bottom-style:solid; border-bottom-color:#ffffff; border-bottom-width:1px; padding-left:1.2em; padding-right:1.2em;  padding-bottom:.7em; padding-top:.7em;}
 
@@ -309,6 +321,7 @@ td.bot_space {padding-bottom:1em;}
 .line_text_td {vertical-align:middle; padding-left:.9em;}
 
 .white_divider {border-right-style:solid; border-right-color:#ffffff; border-right-width:1px; padding-left:.5em; padding-right:1.5em;}
+
 
 .instructions {background-color: #fcf1c7; padding-left:1.2em; padding-right:1.2em; padding-bottom:.7em; padding-top:.7em; min-height:250px;}
 
@@ -380,5 +393,19 @@ li.qg_li {padding-top:.7em; margin-left: -1.7em;}
 
 .toplink  {margin-bottom:1em; margin-left:1em; color:#298ccf; text-align: right;}
 .glyphicon-upload {color:#3598db; font-size:1.3em; vertical-align:top;}
-.detail_column {width:12%;}
+
+
+.fa-arrows-v, .glyphicon-ban-circle, .glyphicon-eye-close  {font-size:1.1em; padding-right:.3em; color:#e77e23;}
+
+.fa-lock {font-size:1.2em; padding-right:.4em; color:#ebbd05;}
+.fa-gears {font-size:1.2em; padding-right:.5em; color:#3598db;}
+.glyphicon-link {font-size:1.1em; padding-right:.3em; color:#3598db;}
+
+.small_divider {margin-left:1.2em; margin-top:.6em;}
+
+.detail_column {width:12%;min-width:250px;}
 .bold_text {font-weight:bold;}
+
+
+
+

@@ -59,7 +59,7 @@
 						{{node.name}}
 					p 
 						strong &nbsp; Type: &nbsp; 
-						{{labels.join()|unCamelCase}}
+						{{labels.join() | unCamelCase}}
 					p 
 						strong &nbsp; ID: &nbsp;
 						{{node.id}}
@@ -72,14 +72,15 @@
 						.col-md-6
 							table(class="table table-condensed")
 									tr(ng-repeat="att in splitArr1")
-											td(class="detail_column") 
-												strong {{att.key | unCamelCase}}:
-											td {{att.value}}
+											td
+												strong {{att.key | unCamelCase}}: &nbsp;
+											td 
+												{{att.value}}
 						.col-md-6
 							table(class="table table-condensed")
 									tr(ng-repeat="att in splitArr2")
-											td(class="detail_column") 
-												strong {{att.key | unCamelCase}}:
+											td 
+												strong {{att.key | unCamelCase}}: &nbsp;
 											td {{att.value}}
 					.linkage
 						.vertical_spacing

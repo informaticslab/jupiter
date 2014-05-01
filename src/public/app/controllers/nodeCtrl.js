@@ -21,28 +21,23 @@ angular.module('apolloApp').controller('nodeCtrl', function($scope, $resource, $
 
     $scope.splitArr1 = [];
     $scope.splitArr2 = [];
+
     var nodeDetails = $http.get('/apollo/api/node/' + $routeParams.id)
         .success(function(data){
             $scope.node = data;
+            
             var len = $scope.node.attributes.length;
             for (var i = 0; i< len; i++) {
-                if(i%2 == 0){
-                    if(($scope.node.attributes[i].key == 'name') || ($scope.node.attributes[i].key == 'id') || ($scope.node.attributes[i].key == 'fullNameCIO') || ($scope.node.attributes[i].key == 'fullName')) {
-                        //do nothing
-                    }
-                    else{
-                        $scope.splitArr1.push($scope.node.attributes[i]);
-                    }
+               
+                if((($scope.node.attributes[i].key != 'name') || ($scope.node.attributes[i].key != 'id') || ($scope.node.attributes[i].key != 'fullNameCIO') || ($scope.node.attributes[i].key != 'fullName')) && (i%2 == 0)) {
+                    $scope.splitArr1.push($scope.node.attributes[i]);
                 }
-                else{
-                    if(($scope.node.attributes[i].key == 'name') || ($scope.node.attributes[i].key == 'id') || ($scope.node.attributes[i].key == 'fullNameCIO') || ($scope.node.attributes[i].key == 'fullName')){
-                        //do nothing
-                    }
-                    else{
-                        $scope.splitArr2.push($scope.node.attributes[i]);
-                    }
+                else if(i%2 != 0){
+                    $scope.splitArr2.push($scope.node.attributes[i]);
                 }
+
             };
+
         });
 
     

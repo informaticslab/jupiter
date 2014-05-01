@@ -106,7 +106,7 @@
 							d3.select(window).on('resize', svgresize);
 							
 
-							//d3.select(".btn.btn-default.pull-left.link_button1").on("click", clickreset);
+							d3.select(".btn.btn-default.pull-left.link_button1").on("click", clickreset);
 							d3.select(".btn.btn-default.pull-left.link_button5").on("click", locknodes);
 							d3.select(".btn.btn-default.pull-left.link_button4").on("click", hidelinks);
 
@@ -265,6 +265,23 @@
 									togglefixnodes=true;
 
 								}
+							
+							}
+
+
+
+							function clickreset(d) {
+
+								d3.selectAll("circle").classed("fixed", false);
+
+								i=0;
+								for (n in json.nodes){
+								//alert(n.id);
+								json.nodes[i].fixed=false;
+								i++;
+
+								}
+								force.start();							
 							
 							}
 

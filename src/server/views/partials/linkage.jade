@@ -76,7 +76,8 @@
 							d3.json("/apollo/api/node/viewer/" + id, function(error, json) {
 
 
-							var togglelabel=true;
+							var togglehidelinks=true;
+							var togglefixnodes=true;
 							//var w = 1000,
 							var w= $("div.block_linkage").width();
 							var h = 500;
@@ -105,8 +106,8 @@
 							d3.select(window).on('resize', svgresize);
 							
 
-							d3.select(".btn.btn-default.pull-left.link_button1").on("click", clickreset);
-							d3.select(".btn.btn-default.pull-left.link_button5").on("click", clickfix);
+							//d3.select(".btn.btn-default.pull-left.link_button1").on("click", clickreset);
+							d3.select(".btn.btn-default.pull-left.link_button5").on("click", locknodes);
 							d3.select(".btn.btn-default.pull-left.link_button4").on("click", hidelinks);
 
 
@@ -232,26 +233,36 @@
 								d3.select(this).classed("fixed",false);
 							}
 
-							function clickreset(d) {
-								d3.selectAll("circle").classed("fixed", false);
-								i=0;
-								for (n in json.nodes){
-										//alert(n.id);
-									json.nodes[i].fixed=false;
-									i++;
 
+							function locknodes(d) {
+
+								if(togglefixnodes){
+
+										d3.selectAll("circle").classed("fixed", true);
+										d3.select(".btn.btn-default.pull-left.link_button5").classed("active", true);
+										i=0;
+											for (n in json.nodes){
+													//alert(n.id);
+												json.nodes[i].fixed=true;
+												i++;
+
+											}
+										
+									togglefixnodes=false;
 								}
-								force.start();
+								else{
+									
+									d3.selectAll("circle").classed("fixed", false);
+									d3.select(".btn.btn-default.pull-left.link_button5").classed("active", false);
+									i=0;
+									for (n in json.nodes){
+											//alert(n.id);
+										json.nodes[i].fixed=false;
+										i++;
 
-							}
-
-							function clickfix(d) {
-							d3.selectAll("circle").classed("fixed", true);
-							i=0;
-								for (n in json.nodes){
-										//alert(n.id);
-									json.nodes[i].fixed=true;
-									i++;
+									}
+									force.start();
+									togglefixnodes=true;
 
 								}
 							
@@ -259,16 +270,18 @@
 
 							function hidelinks(d) {
 							
-							if(togglelabel){
+							if(togglehidelinks){
 									d3.selectAll("path").attr("visibility", "hidden");
 									d3.selectAll("text.path_label").attr("visibility", "hidden");
+									d3.select(".btn.btn-default.pull-left.link_button4").classed("active", true);
 									
-									togglelabel=false;
+									togglehidelinks=false;
 									}
 							else{
 								d3.selectAll("path").attr("visibility", "visible");
 								d3.selectAll("text.path_label").attr("visibility", "visible");
-								togglelabel=true;
+								d3.select(".btn.btn-default.pull-left.link_button4").classed("active", false);
+								togglehidelinks=true;
 								}
 						
 							}

@@ -1,6 +1,6 @@
 path.link {
-  fill: #626266;
-  stroke: #626266;
+  fill: #000000;
+  stroke: #8d8d91;
   stroke-width: 1.0px;
 }
 
@@ -57,11 +57,11 @@ circle.node.DataSet {
 }
 
 circle.node.DataStandard {
-  fill: #b0cc2d;
+  fill: #92af08;
 }
 
 circle.node.Tag {
-  fill: #a34d03;
+  fill: #94531b;
 }
 
 

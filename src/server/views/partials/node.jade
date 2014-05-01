@@ -52,9 +52,10 @@
 			// end detail header
 			.top_block
 				img(src='img/ajax-loader.gif', alt='Content is Loading', ng-show='contentLoading')
-				.orange_header Summary:
+				.orange_header_larger Summary:
 				div(ng-show='!contentLoading')
-					p 
+				
+					p
 						strong &nbsp; Name: &nbsp;
 						{{node.name}}
 					p 
@@ -70,21 +71,21 @@
 					.vertical_spacing
 					.row
 						.col-md-6
-							table(class="table table-condensed")
+							table(class="table")
 									tr(ng-repeat="att in splitArr1")
 											td
 												strong {{att.key | unCamelCase}}: &nbsp;
 											td 
 												{{att.value}}
 						.col-md-6
-							table(class="table table-condensed")
+							table(class="table")
 									tr(ng-repeat="att in splitArr2")
-											td 
+											td.small_col_width 
 												strong {{att.key | unCamelCase}}: &nbsp;
 											td {{att.value}}
 					.linkage
 						.vertical_spacing
-						.orange_header Linkage/Relationships:
+						.orange_header_larger Linkage/Relationships:
 						tabset
 							tab(ng-repeat="relation in relations", heading="{{relation.name | unCamelCase}}")
 								div(ng-repeat="relType in relation.relTypes")
@@ -99,7 +100,7 @@
 					// end linkage
 				.com_discuss
 					.vertical_spacing
-					.orange_header Comments/Discussion:
+					.orange_header_larger Comments/Discussion:
 					.vertical_spacing
 					| [Placeholder for comments/discussion content]
 				// end com_discuss

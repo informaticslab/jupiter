@@ -267,21 +267,26 @@ td {vertical-align:bottom; padding-top:.4em;}
 
 .glyphicon-calendar {color:#f39c11; padding-right:.2em; font-size:1.5em;}
 
-.search_results {color:#777777; width:100%; padding-left:1.5em; margin-top:1em; border-bottom-style:solid; border-bottom-width:2px; border-bottom-color:#dddddd;}
+.search_results {color:#777777; width:100%; padding-left:1.5em; border-bottom-style:solid; border-bottom-width:0px; border-bottom-color:#dddddd;}
 
-.resource_name {padding-left:1em; width:50%; font-weight:bold;}
+
+.search_results2 {color:#777777; width:100%; padding-left:1.5em;  border-bottom-style:solid; border-bottom-width:1px; border-bottom-color:#dddddd;}
+
+.resource_name {padding-left:1em; width:50%; font-weight:bold; padding-top:1em;}
+
+
 
 .status {width:20%;}
 
 .resource_type {font-weight:bold; font-size:small; width:30%; text-align: right; padding-right:.5em; }
-.labelbg {background-color:#e6e8e9; padding:.4em; padding-left:.6em; padding-right:.6em; }
+.labelbg {background-color:#e8f1f8; padding-top:.4em; padding-bottom:.5em; padding-left:.8em; padding-right:.8em; color:#5b5b5b; border:1px solid #c5dae8; border-radius:2px;}
 
 td.search {padding-bottom:.7em; padding-left:1em;}
 td.search2 {padding-bottom:1em; padding-left:1em;}
 
 td.detail_label {padding-left:1.2em; padding-right:.7em; }
 
-.list_margin {padding-left:1.2em; padding-bottom:.5em;}
+.list_margin {padding-left:2em; padding-bottom:1em;}
 
 td.bot_space {padding-bottom:1em;}
 
@@ -402,7 +407,9 @@ li.qg_li {padding-top:.7em; margin-left: -1.7em;}
 
 .detail_column {width:12%;min-width:250px;}
 .bold_text {font-weight:bold;}
+.small_col_width {width:40%; min-width:250px;}
 
+.fa-coffee {padding-right:.5em;}
 
 
 

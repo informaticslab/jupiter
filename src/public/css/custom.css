@@ -361,7 +361,7 @@ td.qg_table {padding-left:.5em;}
 
 .qg_this_pg {background-color:#fcf1c7; border-style:solid; border-color:#f8e289; border-width:1px; margin-top:1.1em; min-height:450px; padding:1em; }
 
-.qg_content {margin-top:1.1em;  }
+.qg_content, .qg_term {margin-top:1.1em;  }
 
 .qg_page {font-weight:bold; margin-bottom:.5em; }
 
@@ -392,7 +392,7 @@ li.qg_li {padding-top:.7em; margin-left: -1.7em;}
 .qg_contribute {border-style:solid; border-color:#d3d9d9; border-width:1px; margin-top:1.1em; min-height:250px; padding:1em; }
 
 .toplink  {margin-bottom:1em; margin-left:1em; color:#298ccf; text-align: right;}
-.glyphicon-upload {color:#3598db; font-size:1.3em; vertical-align:top;}
+.glyphicon-upload {color:#3598db; font-size:1.3em; vertical-align:top; padding-right:.3em;}
 
 
 .fa-arrows-v, .glyphicon-ban-circle, .glyphicon-eye-close  {font-size:1.1em; padding-right:.3em; color:#e77e23;}

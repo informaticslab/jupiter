@@ -274,6 +274,8 @@
 							function clickreset(d) {
 
 								d3.selectAll("circle").classed("fixed", false);
+								togglefixnodes=true;
+								d3.select(".btn.btn-default.pull-left.link_button5").classed("active", false);
 
 								i=0;
 								for (n in json.nodes){

@@ -303,7 +303,7 @@ td.bot_space {padding-bottom:1em;}
 .link_button7 {margin-top:.3em; margin-left:.5em; width:11em;}
 
 .cluster {float:right; margin-right:.5em;}
-.cluster_text {margin-right:.4em; position:relative; top:.2em;}
+.cluster_text {position:relative; top:.2em;}
 
 .key {background-color: #f9e697; min-height:51px; border-bottom-style:solid; border-bottom-color:#ffffff; border-bottom-width:1px; padding-left:1.2em; padding-right:1.2em;  padding-bottom:.7em; padding-top:.7em;}
 

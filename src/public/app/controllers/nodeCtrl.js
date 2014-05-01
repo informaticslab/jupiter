@@ -45,10 +45,18 @@ angular.module('apolloApp').controller('nodeCtrl', function($scope, $resource, $
             };
         });
 
-   
+    
     $scope.relations = relations.query({
         id: $routeParams.id
-    },function(){
+    },function(data){
+        for (var i = 0; i < data.length; i++)
+        {
+            if (data[i].name == 'Tag')
+            {
+                $scope.nodeTags = data[i].relTypes[0].nodes;
+                $scope.hasTags = true;
+            }
+        }
         $scope.contentLoading = false;
     });
 

@@ -63,6 +63,10 @@
 					p 
 						strong &nbsp; ID: &nbsp;
 						{{node.id}}
+					p(ng-show='hasTags')
+						strong &nbsp; Tags: &nbsp;
+							a(ng-repeat='node in nodeTags' href="#/node/{{node.id}}")
+								strong {{node.name}}&nbsp;&nbsp;&nbsp;
 					.vertical_spacing
 					.row
 						.col-md-6

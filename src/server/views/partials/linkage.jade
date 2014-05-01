@@ -81,7 +81,8 @@
 							//var w = 1000,
 							var w= $("div.block_linkage").width();
 							var h = 500;
-							var r = 10;//radius of node circle
+							var r = 10;
+							var rcent=20;//radius of node circle
 							
 							
 							//var h= $("div.block_linkage").outerHeight();
@@ -128,7 +129,7 @@
 							.selectAll("circle")
 							.data(json.nodes)
 							.enter().append("svg:circle")
-							.attr("r", r)
+							.attr("r", function(d) { if(d.index==0)return rcent;else return r; })
 							.attr("class", function(d) { return "node " + d.label; })
 							.on("dblclick", dblclick)
 							.call(force.drag);

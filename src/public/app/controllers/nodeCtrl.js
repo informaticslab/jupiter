@@ -27,7 +27,7 @@ angular.module('apolloApp').controller('nodeCtrl', function($scope, $resource, $
             var len = $scope.node.attributes.length;
             for (var i = 0; i< len; i++) {
                 if(i%2 == 0){
-                    if(($scope.node.attributes[i].key == 'name') || ($scope.node.attributes[i].key == 'id')) {
+                    if(($scope.node.attributes[i].key == 'name') || ($scope.node.attributes[i].key == 'id') || ($scope.node.attributes[i].key == 'fullNameCIO') || ($scope.node.attributes[i].key == 'fullName')) {
                         //do nothing
                     }
                     else{
@@ -35,7 +35,7 @@ angular.module('apolloApp').controller('nodeCtrl', function($scope, $resource, $
                     }
                 }
                 else{
-                    if(($scope.node.attributes[i].key == 'name') || ($scope.node.attributes[i].key == 'id')){
+                    if(($scope.node.attributes[i].key == 'name') || ($scope.node.attributes[i].key == 'id') || ($scope.node.attributes[i].key == 'fullNameCIO') || ($scope.node.attributes[i].key == 'fullName')){
                         //do nothing
                     }
                     else{

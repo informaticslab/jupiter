@@ -196,8 +196,8 @@
 								//console.log($("svg").outerWidth());
 								
 
-								circle.attr("cx", function(d) { return d.x = Math.max(r, Math.min(w - r, d.x)); })
-								.attr("cy", function(d) { return d.y = Math.max(r, Math.min(h - r, d.y)); });
+								circle.attr("cx", function(d) { return d.x = Math.max(rcent+2, Math.min(w - rcent-2, d.x)); })
+								.attr("cy", function(d) { return d.y = Math.max(rcent+2, Math.min(h - rcent-2, d.y)); });
 								
 								path.attr("d", function(d) {
 								var dx = d.target.x - d.source.x,

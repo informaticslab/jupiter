@@ -21,47 +21,47 @@ circle {
 }
 
 .node.fixed {
-  stroke: red;
-  stroke-width: 1.5px;
+  stroke: black;
+  stroke-width: 2px;
 }
 
 circle.node.Program {
-  fill: #CDEC19;
+  fill: #2dcc70;
 }
 
 circle.node.Organization {
-  fill: #19EC84;
+  fill: #3598db;
 }
 
 circle.node.SurveillanceSystem {
-  fill: #F6E452;
+  fill: #f1c40f;
 }
 
 circle.node.Tool {
-  fill: #4B7ED5;
+  fill: #e77e23;
 }
 
 circle.node.Registry {
-  fill: #F4F4F4;
+  fill: #95a5a5;
 }
 circle.node.Collaborative {
-  fill: #454447;
+  fill: #16a086;
 }
 
 circle.node.HealthSurvey {
-  fill: #FF9FCA;
+  fill: #d64032;
 }
 
 circle.node.DataSet {
-  fill: #FFC393;
+  fill: #9b58b5;
 }
 
 circle.node.DataStandard {
-  fill: #75411B;
+  fill: #b0cc2d;
 }
 
 circle.node.Tag {
-  fill: #3C4F4D;
+  fill: #a34d03;
 }
 
 

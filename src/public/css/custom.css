@@ -79,9 +79,6 @@ transform: scaleX(-1);
   margin-left:2em;
    margin-right:2em;
 
-    /* drop shadow */
-    box-shadow: 4px 4px 4px #f4f4f4;
-
 border-style:solid;
 border-width:1px;
 border-color: #e3e2e2;
@@ -188,7 +185,7 @@ height: 36px; padding-left:2em; padding-top:.6em; color:#ffffff; font-size: smal
 
 .hx_side {margin-right:2em; background-color:#e1ebf4; text-align:center; height:968px; margin-bottom:3em; padding:1em;}
 
-.subnav {margin-bottom:.5em; background-color:#eeeeee; height:47px; position:relative; bottom:1.13em; padding-top:.2em;}
+.subnav {margin-bottom:.5em; height:47px; position:relative; bottom:1.13em; padding-top:.2em;}
 
 .nav-pills > li.active > a {
     background-color:#3598db;

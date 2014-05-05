@@ -141,7 +141,7 @@ height: 36px; padding-left:2em; padding-top:.6em; color:#ffffff; font-size: smal
 .content_block {margin-left:2em;}
 
 
-.top_block {padding:1.2em; border-style:solid; border-width:1px; border-color:#d3d9d9; text-align:left; min-height:450px; }
+.top_block {padding:1.2em; border-style:solid; border-width:1px; border-color:#d3d9d9; text-align:left; min-height:411px; }
 
 .top_block2 { border-style:solid; border-width:1px; border-color:#d3d9d9; text-align:left; min-height:700px; margin-bottom:1em;}
 
@@ -158,12 +158,14 @@ height: 36px; padding-left:2em; padding-top:.6em; color:#ffffff; font-size: smal
 
 .orange_header_home {font-weight:bold; font-size:1.4em; color:#e77e23; padding-bottom:1em;}
 
+.orange_header_carousel {font-weight:bold; font-size:1.3em; color:#e77e23; padding-bottom:1em;}
+
 
 .orange_header_narrow {color:#e77e23; padding:.7em; padding-left:1em; font-weight:bold;}
 
 .orange_text {color:#e77e23;}
 .carousel_text {font-size:1.1em; padding-bottom:.5em;}
-.placeholder_image {padding-left:1.5em;}
+.placeholder_image {padding-left:2.5em;}
 .sideblock {margin-right:2em; }
 .block1 {height:111px; background-color:#3598db; margin-bottom:1em; padding:1.2em; color:#ffffff;}
 .block2 {height:111px;  background-color:#1bbc9b; margin-bottom:1em; padding:1.2em; color:#ffffff;}
@@ -176,6 +178,8 @@ height: 36px; padding-left:2em; padding-top:.6em; color:#ffffff; font-size: smal
 .detail_header_link {height:55px; background-color:#f39c11; text-align:center; color:#ffffff; font-weight:bold; padding:.5em; margin-top:2em;}
 
 .detail_header_text {font-family: Tahoma, Geneva, sans-serif; letter-spacing:.03em; font-size:1.2em; padding-top:1em; padding-bottom:1em; }
+
+
 
 .search_header {height:55px; background-color:#f39c11; font-weight:bold; font-size:1.5em; padding-top:.6em; padding-left:1em;}
 
@@ -206,7 +210,8 @@ height: 36px; padding-left:2em; padding-top:.6em; color:#ffffff; font-size: smal
 .btn-custom:hover {
   color:#ffffff;
 }
-.share_button {text-align:right; float:right;}
+.share_button {text-align:right; float:right; position:relative; bottom:.3em;}
+.share_button_linkage {text-align:left; float:right; position:relative; top:.2em; margin-right:.5em; }
 
 .share_button2 {float:right; }
 
@@ -229,11 +234,12 @@ height: 36px; padding-left:2em; padding-top:.6em; color:#ffffff; font-size: smal
 
 .vertical_spacing {margin-top:2em;}
 
+.vertical_spacing_less {margin-top:1.3em;}
 .vertical_spacing_more {margin-top:4em;}
 
 .vertical_spacing_morer {margin-top:8em;}
 
-.nav_split {margin-bottom:.5em; max-width:45%; margin-left: auto;
+.nav_split {margin-bottom:2.5em; margin-top:1em; max-width:45%; margin-left: auto;
     margin-right: auto; }
 
 .small_text {font-size:smaller;}
@@ -308,8 +314,8 @@ td.bot_space {padding-bottom:1em;}
 .link_button6 {margin-top:.3em; margin-left:.5em; width:10em;}
 .link_button7 {margin-top:.3em; margin-left:.5em; width:11em;}
 
-.cluster {float:right; margin-right:.5em;}
-.cluster_text {position:relative; top:.2em;}
+.cluster {float:left; margin-left:1.2em;}
+.cluster_text {}
 
 .key {background-color: #f9e697; min-height:51px; border-bottom-style:solid; border-bottom-color:#ffffff; border-bottom-width:1px; padding-left:1.2em; padding-right:1.2em;  padding-bottom:.7em; padding-top:.7em;}
 
@@ -382,11 +388,15 @@ li.qg_li {padding-top:.7em; margin-left: -1.7em;}
 
 .qgphoto_inset {padding-bottom:1em; padding-top:1.2em;}
 
-.photo_caption {font-size:.8em; padding-right:2.5em; position:relative; bottom:1em; padding-bottom:1em;}
+.photo_caption {font-size:.8em; padding-right:2.5em; padding-left:.5em; position:relative; bottom:1em; padding-bottom:1em;}
 
 .carousel_image {float:right;}
 
-.carousel_photo_caption {font-size:.8em; padding-right:2.5em; padding-left:2.5em; padding-bottom:1em; padding-top:.7em;}
+.carousel_photo_caption {font-size:.8em; padding-right:2.5em; padding-left:3em; padding-bottom:1em; padding-top:.7em;}
+
+.carousel_bullet {margin-left:1.5em; margin-bottom:.8em;}
+
+.carousel_connector {margin-left:4.5em; margin-bottom:.8em; font-weight:bold;}
 
 .glyphicon-list-alt, .glyphicon-pushpin {color:#3598db; font-size:1.3em; padding-right:.2em;}
 

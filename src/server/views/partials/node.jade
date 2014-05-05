@@ -14,7 +14,7 @@
 					li
 						a(href='#') Favorites
 			// end subnav
-			a.btn.btn-custom(onclick='goBack()') Back
+			//- a.btn.btn-custom(onclick='goBack()') Back
 			.nav_split
 				.btn-group.btn-group-md.btn-group-justified
 					.btn-group
@@ -60,7 +60,7 @@
 						strong &nbsp; Tags: &nbsp;
 							a(ng-repeat='node in nodeTags' href="#/node/{{node.id}}")
 								strong {{node.name}}&nbsp;&nbsp;&nbsp;
-					p 
+					p(ng-show='hasDescription')
 						strong Description: &nbsp;
 						&nbsp; {{splitArr3[0].value}}
 					.vertical_spacing

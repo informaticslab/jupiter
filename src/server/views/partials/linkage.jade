@@ -28,23 +28,23 @@
 						a.btn.btn-custom(href='#/linkage/{{nodeId}}', id='btnLinkageViewer') Linkage Viewer
 				// end button group
 			// end nav_split
-			.share_button
-				//These lines, 173 - 187, were added 
-				//Single button 
-				.btn-group
-					button.btn.btn-default.dropdown-toggle(type='button', data-toggle='dropdown')
-						span.glyphicon.glyphicon-share
-						| &nbsp;Share&nbsp;&nbsp;
-						span.caret
-					ul.dropdown-menu(role='menu')
-						li
-							a(href='#') Email
-						li
-							a(href='#') Facebook
-						li
-							a(href='#') Twitter
-					//end added lines 
 			.detail_header
+				.share_button_linkage
+					//These lines, 173 - 187, were added 
+					//Single button 
+					.btn-group
+						button.btn.btn-default.dropdown-toggle(type='button', data-toggle='dropdown')
+							span.glyphicon.glyphicon-share
+							| &nbsp;Share&nbsp;&nbsp;
+							span.caret
+						ul.dropdown-menu(role='menu')
+							li
+								a(href='#') Email
+							li
+								a(href='#') Facebook
+							li
+								a(href='#') Twitter
+						//end added lines 
 				button.btn.btn-default.pull-left.link_button1(type='button')
 					span.glyphicon.glyphicon-repeat.icon-flipped
 					| Reset
@@ -55,6 +55,7 @@
 				button.btn.btn-default.pull-left.link_button4(type='button')
 					span.glyphicon.glyphicon-ban-circle
 					| Hide lines
+				img.pull-left.small_divider(src='img/small_divider.png')
 				.cluster
 					.cluster_text
 					| Cluster by:&nbsp;&nbsp;

@@ -23,24 +23,24 @@
 						a.btn.btn-default(href='#/linkage/{{nodeId}}', id='btnLinkageViewer') Linkage Viewer
 				// end button group
 			// end nav_split
-			.share_button
-				//These lines, 173 - 187, were added 
-				//Single button 
-				.btn-group
-					button.btn.btn-default.dropdown-toggle(type='button', data-toggle='dropdown')
-						span.glyphicon.glyphicon-share
-						| &nbsp;Share&nbsp;&nbsp;
-						span.caret
-					ul.dropdown-menu(role='menu')
-						li
-							a(href='#') Email
-						li
-							a(href='#') Facebook
-						li
-							a(href='#') Twitter
-					//end added lines 
 			.detail_header.detail_header_text
 				| {{node.name}}
+				.share_button
+					//These lines, 173 - 187, were added 
+					//Single button 
+					.btn-group
+						button.btn.btn-default.dropdown-toggle(type='button', data-toggle='dropdown')
+							span.glyphicon.glyphicon-share
+							| &nbsp;Share&nbsp;&nbsp;
+							span.caret
+						ul.dropdown-menu(role='menu')
+							li
+								a(href='#') Email
+							li
+								a(href='#') Facebook
+							li
+								a(href='#') Twitter
+						//end added lines 
 			// end detail header
 			.top_block
 				img(src='img/ajax-loader.gif', alt='Content is Loading', ng-show='contentLoading')

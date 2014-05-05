@@ -28,24 +28,27 @@ angular.module('apolloApp').controller('nodeCtrl', function($scope, $resource, $
             $scope.node = data;
             
             var len = $scope.node.attributes.length;
+            var tmpArr = [];
             for (var i = 0; i< len; i++) {
                
-                if(($scope.node.attributes[i].key == 'name') || ($scope.node.attributes[i].key == 'id') || ($scope.node.attributes[i].key == 'fullNameCIO') || ($scope.node.attributes[i].key == 'fullName') || ($scope.node.attributes[i].key == 'purpose')) {
+                if ($scope.node.attributes[i].value == '') {}
+                else if(($scope.node.attributes[i].key == 'name') || ($scope.node.attributes[i].key == 'id') || ($scope.node.attributes[i].key == 'fullNameCIO') || ($scope.node.attributes[i].key == 'fullName') || ($scope.node.attributes[i].key == 'purpose')) {
                     // do nothing
                     if($scope.node.attributes[i].key == 'purpose'){
                         $scope.splitArr3.push($scope.node.attributes[i]);
                     }
                 }
                 else{
-                    if(i%2 == 0){
-                        $scope.splitArr1.push($scope.node.attributes[i]);
-                    }
-                    else{
-                        $scope.splitArr2.push($scope.node.attributes[i]);
-                    }
-                    
+                    tmpArr.push($scope.node.attributes[i]);
                 }
-
+            };
+            for (var i = 0; i< tmpArr.length; i++) {
+               if(i%2 == 0){
+                    $scope.splitArr1.push(tmpArr[i]);
+               }
+               else{
+                    $scope.splitArr2.push(tmpArr[i]);
+               }
             };
 
         });

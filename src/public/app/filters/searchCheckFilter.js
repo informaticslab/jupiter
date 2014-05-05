@@ -3,9 +3,9 @@ angular.module('apolloApp').filter('searchCheckFilter', function() {
     var filtered = [];
 
     angular.forEach(items, function(item) {
-      if (types.Program== false && types.SurveillanceSystem == false && types.Registry == false 
-        && types.Tool == false && types.Dataset == false && types.DataStandard == false && types.Collaborative == false 
-        && types.HealthSurvey == false && types.Organization == false && types.Tag == false) 
+      if (!types.Program && !types.SurveillanceSystem && !types.Registry  
+        && !types.Tool  && !types.Dataset && !types.DataStandard && !types.Collaborative
+        && !types.HealthSurvey && !types.Organization && !types.Tag) 
         {
           filtered.push(item);
         }

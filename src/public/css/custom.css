@@ -209,7 +209,7 @@ height: 36px; padding-left:2em; padding-top:.6em; color:#ffffff; font-size: smal
   color:#ffffff;
 }
 .share_button {text-align:right; float:right; position:relative; bottom:.3em;}
-.share_button_linkage {text-align:right; float:right; position:relative; top:.2em;}
+.share_button_linkage {text-align:left; float:right; position:relative; top:.2em; margin-right:.5em; }
 
 .share_button2 {float:right; }
 
@@ -236,7 +236,7 @@ height: 36px; padding-left:2em; padding-top:.6em; color:#ffffff; font-size: smal
 
 .vertical_spacing_morer {margin-top:8em;}
 
-.nav_split {margin-bottom:2.5em; max-width:45%; margin-left: auto;
+.nav_split {margin-bottom:2.5em; margin-top:1em; max-width:45%; margin-left: auto;
     margin-right: auto; }
 
 .small_text {font-size:smaller;}

@@ -1,167 +1,164 @@
 doctype html
 html
-	head
-		meta(charset='utf-8')
-		title CDC Surveillance System Knowledgebase
-		meta(name='viewport', content='width=device-width, initial-scale=1.0')
-		// Bootstrap
-		link(href='css/bootstrap.min.css', rel='stylesheet')
-		link(href='css/custom.css', rel='stylesheet')
-		script(src='js/respond.js')
-	body
-		.container-fluid
-			// row1
-			.row.headerblue
-				.col-lg-7.col-md-7.col-sm-7.clearfix
-					span.visible-lg.visible-md
-						a(href='http://www.cdc.gov')
-							img.img-responsive.pull-left.cdclogo(src='img/cdc_logo.png', alt='CDC logo')
-						span.cdctext CDC Surveillance System Knowledgebase
-						span.header_icon
-							img(src='img/computer_icon.png', alt='computer icon')
-					span.visible-sm
-						a(href='http://www.cdc.gov')
-							img.img-responsive.pull-left.cdclogo2(src='img/cdc_logo_smaller.png', alt='CDC logo')
-						span.cdctext2 CDC Surveillance System Knowledgebase
-				.col-lg-3.col-md-3.col-sm-3
-					span.visible-lg.visible-md
-						.input-group.search_button
-							input.form-control(type='text')
-							span.input-group-btn
-								button.btn.btn-default(type='button') Search
-						// /input-group
-					span.visible-sm
-						.input-group.search_button
-							input.form-control(type='text')
-							span.input-group-btn
-								button.btn.btn-default(type='button') Search
-						// /input-group
-				.col-lg-2.col-md-2.col-sm-2.clearfix
-					span.visible-lg.visible-md
-						a(href='#')
-							img.img-responsive.pull-left.settings_btn(src='img/settings_icon.png', alt='Settings')
-						a(href='#')
-							img.img-responsive.help_btn(src='img/help_icon.png', alt='Help')
-					span.visible-sm
-						a(href='#')
-							img.img-responsive.pull-left.settings_btn2(src='img/settings_icon.png', alt='Settings')
-						a(href='#')
-							img.img-responsive.help_btn2(src='img/help_icon.png', alt='Help')
-			// end 1st row
-			// row 2 (navbar)
-			.row
-				nav.navbar.navbar-default.navbar-inner(role='navigation')
-					.navbar-header
-						button.navbar-toggle(type='button', data-toggle='collapse', data-target='#collapse')
-							span.sr-only Toggle navigation
-							span.icon-bar
-							span.icon-bar
-							span.icon-bar
-					#collapse.collapse.navbar-collapse
-						ul.nav.navbar-nav.scootnav
-							li.active
-								a(href='#')
-									span.glyphicon.glyphicon-home.custom_home  
-									| Home
-							li
-								a(href='#')
-									span.glyphicon.glyphicon-dashboard.custom_explore  
-									| Explore
-							li
-								a(href='#')
-									span.glyphicon.glyphicon-comment.custom_faqs.icon-flipped  
-									| FAQs
-						span.right_nav_content
-							span.glyphicon.glyphicon-user.user_custom  
-							| Welcome&comma; &commat;TimSmith37&NonBreakingSpace; &VerticalLine;
-							a(href='#') Logout
-							span.favorites_icon
-								img(src='img/filled_circle_smaller.png', alt='Favorites')
-								| Favorites
-		// end row 2 (navbar)
-		// new row
-		.row
-			.col-lg-9.col-md-9.col-sm-9
-				.content_block
-					.top_block
-						.orange_header Overview
-						img.img-responsive.placeholder_image.pull-right(src='img\bacteria.png', alt='bacteria image')
-						p
-							| Lorem ipsum dolor sit amet&comma; consectetur adipisicing elit&comma; sed do eiusmod
-							| tempor incididunt ut labore et dolore magna aliqua&period; Ut enim ad minim
-							| veniam&comma; quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
-							| commodo consequat&period; Duis aute irure dolor in reprehenderit in voluptate
-							| velit esse cillum dolore eu fugiat nulla pariatur&period; Excepteur sint occaecat
-							| cupidatat non proident&comma; sunt in culpa qui officia deserunt mollit anim id
-							| est laborum&period;
-						p
-							| Lorem ipsum dolor sit amet&comma; consectetur adipisicing elit&comma; sed do eiusmod
-							| tempor incididunt ut labore et dolore magna aliqua&period; Ut enim ad minim
-							| veniam&comma; quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
-							| commodo consequat&period; Duis aute irure dolor in reprehenderit in voluptate
-							| velit esse cillum dolore eu fugiat nulla pariatur&period;
-						p
-							| Duis aute irure dolor in reprehenderit in voluptate
-							| velit esse cillum dolore eu fugiat nulla pariatur&period; Lorem ipsum dolor sit amet&comma; consectetur adipisicing elit&comma; sed do eiusmod
-							| tempor incididunt ut labore et dolore magna aliqua&period; Ut enim ad minim
-							| veniam&comma; quis nostrud exercitation ullamco laboris nisi&period;
-						p
-							| Duis aute irure dolor in reprehenderit in voluptate
-							| velit esse cillum dolore eu fugiat nulla pariatur&period; Lorem ipsum dolor sit amet&comma; consectetur adipisicing elit&comma; sed do eiusmod
-							| tempor incididunt ut labore et dolore magna aliqua&period; Ut enim ad minim
-							| veniam&comma; quis nostrud exercitation ullamco laboris nisi&period;
-						p
-							| Consectetur adipisicing elit&comma; sed do eiusmod
-							| tempor incididunt ut labore et dolore magna aliqua&period; Ut enim ad minim
-							| veniam&comma; quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
-							| commodo consequat&period;
-					// end top_block
-					.carousel_controls
-						| &lsqb;Placeholder for controls&rsqb;
-					// end carousel controls
-					.bottom_block
-						| Live Statistics &lsqb;placeholder&semi; NEED to FIX alignment issues&rsqb;
-					// end bottom_block
-				// end content block
-			// end col spec
-			.col-lg-3.col-md-3.col-sm-3
-				.sideblock
-					.block1
-						| Searching for information&quest; &lsqb;placeholder&rsqb;
-					.block2
-						| Do you work with&quest; &lsqb;placeholder&rsqb;
-					.block3
-						| Recent activity &lsqb;placeholder&rsqb;
-				// end side block
-			// end col spec
-		// end row
-		// start footer row
-		.row.footerbottom
-			// <div class="col-md-6">
-			// share
-			.share
-				.share_corner
-					span.share_text
-						| Share site&colon;
-						a(href='#')
-							img(src='img\facebook_icon.png', alt='Share with Facebook')
-						a(href='#')
-							img(src='img\twitter_icon.png', alt='Share with Twitter')
-						a(href='#')
-							img(src='img\mail_icon.png', alt='Share with Email')
-			// end share
-			// </div> <!-- end column class
-			// <div class="col-md-6">
-			// links
-			.bottom_links
-				| Disability &NonBreakingSpace; &VerticalLine;&NonBreakingSpace;  Accessibility &NonBreakingSpace; &VerticalLine; &NonBreakingSpace; Code of Conduct &NonBreakingSpace; &VerticalLine; &NonBreakingSpace; Contact
-				span.cdc_info
-					| Centers for Disease Control and Prevention
-			// end links
-			// </div> <!-- end column class
-		// end footer row
-		//
-			 close container>
-			<!-- javascript 
-		script(src='http://code.jquery.com/jquery-latest.min.js')
-		script(src='js/bootstrap.min.js')
+  head
+    meta(charset='utf-8')
+    title Integrated Surveillance Portal
+    meta(name='viewport', content='width=device-width, initial-scale=1.0')
+    // Bootstrap
+    link(href='css/bootstrap.min.css', rel='stylesheet')
+    link(href='css/custom.css', rel='stylesheet')
+    script(src='js/respond.js')
+  body
+    .container-fluid
+      // row1
+      .row.headerblue
+        .col-lg-7.col-md-7.col-sm-7.clearfix
+          span.visible-lg.visible-md
+            a(href='http://www.cdc.gov')
+              img.img-responsive.pull-left.cdclogo(src='img/cdc_logo.png', alt='CDC logo')
+            span.cdctext Integrated Surveillance Portal
+            span.header_icon
+              img(src='img/header_graphic.png', alt='Integrated Surveillance Portal graphic')
+            // This line changed for new graphic
+          span.visible-sm
+            a(href='http://www.cdc.gov')
+              img.img-responsive.pull-left.cdclogo2(src='img/cdc_logo_smaller.png', alt='CDC logo')
+            span.cdctext2 Integrated Surveillance Portal
+            span.header_icon
+              img(src='img/header_graphic_small.png', alt='Integrated Surveillance Portal graphic')
+            // This line changed for new graphic
+        .col-lg-3.col-md-3.col-sm-3
+          span.visible-lg.visible-md
+            .input-group.search_button
+              input.form-control(type='text')
+              span.input-group-btn
+                button.btn.btn-default(type='button') Search
+            // /input-group
+          span.visible-sm
+            .input-group.search_button
+              input.form-control(type='text')
+              span.input-group-btn
+                button.btn.btn-default(type='button') Search
+            // /input-group
+        .col-lg-2.col-md-2.col-sm-2.clearfix
+          span.visible-lg.visible-md
+            a(href='#')
+              img.img-responsive.pull-left.settings_btn(src='img/settings_icon.png', alt='Settings')
+            a(href='#')
+              img.img-responsive.help_btn(src='img/help_icon.png', alt='Help')
+          span.visible-sm
+            a(href='#')
+              img.img-responsive.pull-left.settings_btn2(src='img/settings_icon.png', alt='Settings')
+            a(href='#')
+              img.img-responsive.help_btn2(src='img/help_icon.png', alt='Help')
+      // end 1st row
+      // row 2 (navbar)
+      .row
+        nav.navbar.navbar-default.navbar-inner(role='navigation')
+          .navbar-header
+            button.navbar-toggle(type='button', data-toggle='collapse', data-target='#collapse')
+              span.sr-only Toggle navigation
+              span.icon-bar
+              span.icon-bar
+              span.icon-bar
+          #collapse.collapse.navbar-collapse
+            ul.nav.navbar-nav.scootnav
+              li.active
+                a(href='#')
+                  span.glyphicon.glyphicon-home.custom_home  
+                  | Home
+              li
+                a(href='#')
+                  span.glyphicon.glyphicon-dashboard.custom_explore  
+                  | Explore
+              li
+                a(href='#')
+                  span.glyphicon.glyphicon-comment.custom_faqs.icon-flipped  
+                  | FAQs
+            span.right_nav_content
+              span.glyphicon.glyphicon-user.user_custom  
+              | Welcome, guest&#160; |
+              a(href='#') Logout
+              span.favorites_icon
+                img(src='img/filled_circle_smaller.png', alt='Favorites')
+                | Favorites
+    // end row 2 (navbar)
+    // new row
+    .row
+      .col-lg-9.col-md-9.col-sm-9
+        .content_block
+          .top_block
+            .orange_header_home Welcome
+            .carousel_image
+              img.img-responsive.placeholder_image(src='img\app_screenshot.png', alt='Screenshot of CISP')
+              .carousel_photo_caption Caption for screenshot
+            p.carousel_text
+              | The
+              strong CDC Integrated Surveillance Portal (CISP)
+              | is a comprehensive, real-time, interactive resource for CDC, its partners, and the public to explore and discover information about the full inventory of CDC&#8217;s Surveillance Systems, Programs, Registries, Health Surveys, Tools, and Collaboratives. CISP contains not only descriptive information about these CDC resources &#8212; CISP also describes the
+              em relationships
+              | between resources.
+            p.carousel_text
+              | The information in this tool has been gathered from many sources, including the National Public Health Surveillance and Biosurveillance Registry for Human Health. This portal does not contain raw surveillance data &#8212; it only contains
+              em meta-data
+              | (i.e., data about data) regarding these surveillance activities.
+            p.carousel_text
+              | Because CISP holds no surveillance data, it holds no personally identifiable information, nor personal health information about cases or persons in these systems.
+          // end top_block
+          .carousel_controls
+            .btn-group
+              button.btn.btn-default(type='button')
+                span.glyphicon.glyphicon-backward
+              button.btn.btn-default.active(type='button') 1
+              button.btn.btn-default(type='button') 2
+              button.btn.btn-default(type='button') 3
+              button.btn.btn-default(type='button') 4
+              button.btn.btn-default(type='button')
+                span.glyphicon.glyphicon-forward
+          // end carousel controls
+          .bottom_block
+            | Live Statistics [placeholder; NEED to FIX alignment issues]
+          // end bottom_block
+        // end content block
+      // end col spec
+      .col-lg-3.col-md-3.col-sm-3
+        .sideblock
+          .block1
+            | Searching for information? [placeholder]
+          .block2
+            | Do you work with? [placeholder]
+          .block3
+            | Recent activity [placeholder]
+        // end side block
+      // end col spec
+    // end row
+    // start footer row
+    .row.footerbottom
+      // <div class="col-md-6">
+      // share
+      .share
+        .share_corner
+          span.share_text
+            | Share site:
+            a(href='#')
+              img(src='img\facebook_icon.png', alt='Share with Facebook')
+            a(href='#')
+              img(src='img\twitter_icon.png', alt='Share with Twitter')
+            a(href='#')
+              img(src='img\mail_icon.png', alt='Share with Email')
+      // end share
+      // </div> <!-- end column class
+      // <div class="col-md-6">
+      // links
+      .bottom_links
+        | Disability &#160; |&#160;  Accessibility &#160; | &#160; Code of Conduct &#160; | &#160; Contact
+        span.cdc_info
+          | Centers for Disease Control and Prevention
+      // end links
+      // </div> <!-- end column class
+    // end footer row
+    //
+       close container>
+      <!-- javascript 
+    script(src='http://code.jquery.com/jquery-latest.min.js')
+    script(src='js/bootstrap.min.js')

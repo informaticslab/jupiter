@@ -128,7 +128,7 @@ exports.searchNodesByString = function(req, res) {
     //console.log("Query is " + query + " and params are " + params.qString);
     neodb.db.query(query, params, function(err, results) {
         var nodedataarr = [];
-        var nodeLabelCounts = {Program:0, SurveillanceSystem:0, Registry:0,
+        var nodeLabelCounts = {Program:0,SurveillanceSystem:0,Registry:0,
                             HealthSurvey:0,Tool:0,Dataset:0,DataStandard:0,
                             Collaborative:0,Organization:0,Tag:0};
         var returnable = {};

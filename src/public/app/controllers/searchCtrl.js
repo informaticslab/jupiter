@@ -34,4 +34,8 @@ angular.module('apolloApp').controller('searchCtrl', function($scope, $resource,
     $scope.redirectToSearch = function(){
        window.location =  '/apollo/#/search/' + $scope.queryString;
     };
+
+    $scope.checkedLabels = {Program:false,SurveillanceSystem:false,Registry:false,
+                            HealthSurvey:false,Tool:false,Dataset:false,DataStandard:false,
+                            Collaborative:false,Organization:false,Tag:false};
 });

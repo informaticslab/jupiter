@@ -50,70 +50,70 @@
 							tr
 								td
 									.input-group
-										input(type='checkbox' data-ng-model='search.labels1' data-ng-true-value='SurveillanceSystem' data-ng-false-value='')
+										input(type='checkbox' data-ng-model='checkedLabels.SurveillanceSystem')
 										| &nbsp;Surveillance System
 									// /input-group
 								td.result_number {{labelCounts.SurveillanceSystem}}
 							tr
 								td
 									.input-group
-										input(type='checkbox' data-ng-model='search.labels1' data-ng-true-value='Program' data-ng-false-value='')
+										input(type='checkbox' data-ng-model='checkedLabels.Program')
 										| &nbsp;Program
 									// /input-group
 								td.result_number {{labelCounts.Program}}
 							tr
 								td
 									.input-group
-										input(type='checkbox' data-ng-model='search.labels1' data-ng-true-value='Registry' data-ng-false-value='')
+										input(type='checkbox' data-ng-model='checkedLabels.Registry')
 										| &nbsp;Registry
 									// /input-group
 								td.result_number {{labelCounts.Registry}}
 							tr
 								td
 									.input-group
-										input(type='checkbox' data-ng-model='search.labels1' data-ng-true-value='HealthSurvey' data-ng-false-value='')
+										input(type='checkbox' data-ng-model='checkedLabels.HealthSurvey')
 										| &nbsp;Health Survey
 									// /input-group
 								td.result_number {{labelCounts.HealthSurvey}}
 							tr
 								td
 									.input-group
-										input(type='checkbox' data-ng-model='search.labels1' data-ng-true-value='Tool' data-ng-false-value='')
+										input(type='checkbox' data-ng-model='checkedLabels.Tool')
 										| &nbsp;Tool
 									// /input-group
 								td.result_number {{labelCounts.Tool}}
 							tr
 								td
 									.input-group
-										input(type='checkbox' data-ng-model='search.labels1' data-ng-true-value='Dataset' data-ng-false-value='')
+										input(type='checkbox' data-ng-model='checkedLabels.Dataset')
 										| &nbsp;Dataset
 									// /input-group
 								td.result_number {{labelCounts.Dataset}}
 							tr
 								td
 									.input-group
-										input(type='checkbox' data-ng-model='search.labels1' data-ng-true-value='Dataset' data-ng-false-value='')
+										input(type='checkbox' data-ng-model='checkedLabels.DataStandard')
 										| &nbsp;Data Standard
 									// /input-group
 								td.result_number {{labelCounts.DataStandard}}
 							tr
 								td
 									.input-group
-										input(type='checkbox' data-ng-model='search.labels1' data-ng-true-value='Collaborative' data-ng-false-value='')
+										input(type='checkbox' data-ng-model='checkedLabels.Collaborative')
 										| &nbsp;Collaborative
 									// /input-group
 								td.result_number {{labelCounts.Collaborative}}
 							tr
 								td
 									.input-group
-										input(type='checkbox' data-ng-model='search.labels1' data-ng-true-value='Organization' data-ng-false-value='')
+										input(type='checkbox' data-ng-model='checkedLabels.Organization')
 										| &nbsp;Organization
 									// /input-group
 								td.result_number {{labelCounts.Organization}}
 							tr
 								td
 									.input-group
-										input(type='checkbox' data-ng-model='search.labels1' data-ng-true-value='Tag' data-ng-false-value='')
+										input(type='checkbox' data-ng-model='checkedLabels.Tag')
 										| &nbsp;Tag
 									// /input-group
 								td.result_number {{labelCounts.Tag}}
@@ -177,7 +177,7 @@
 				.col-lg-9.col-md-8.col-sm-8(ng-show='hadSearchResults')
 					.sub_block(ng-show='hasSearchValue')
 						img(src='img/ajax-loader.gif', alt='Content is Loading', ng-show='contentLoading')
-						.span(ng-repeat="node in nodes | filter:search.labels1 | filter:search.labels2", ng-show='!contentLoading', )
+						.span(ng-repeat="node in nodes | searchCheckFilter:checkedLabels", ng-show='!contentLoading', )
 							table.search_results
 								tr
 									td.resource_name.search

@@ -15,14 +15,6 @@
 						a(href='#') Favorites
 			// end subnav
 			a.btn.btn-custom(onclick='goBack()') Back
-			//- .backlink
-			//- 	span.glyphicon.glyphicon-circle-arrow-left
-			//- 	a(href='#' onclick='goBack(); return false;') &nbsp;Back to search results
-				
-			//- // end backlink class
-			//- .entity_name
-			//- 	| &nbsp;{{node.name}}
-			//- // end entity_name class
 			.nav_split
 				.btn-group.btn-group-md.btn-group-justified
 					.btn-group
@@ -56,18 +48,21 @@
 				div(ng-show='!contentLoading')
 				
 					p
-						strong &nbsp; Name: &nbsp;
+						strong Name: &nbsp;
 						{{node.name}}
 					p 
-						strong &nbsp; Type: &nbsp; 
+						strong Type: &nbsp; 
 						{{labels.join() | unCamelCase}}
 					p 
-						strong &nbsp; ID: &nbsp;
+						strong ID: &nbsp;
 						{{node.id}}
 					p(ng-show='hasTags')
 						strong &nbsp; Tags: &nbsp;
 							a(ng-repeat='node in nodeTags' href="#/node/{{node.id}}")
 								strong {{node.name}}&nbsp;&nbsp;&nbsp;
+					p 
+						strong Description: &nbsp;
+						&nbsp; {{splitArr3[0].value}}
 					.vertical_spacing
 					.row
 						.col-md-6

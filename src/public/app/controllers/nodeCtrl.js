@@ -21,7 +21,8 @@ angular.module('apolloApp').controller('nodeCtrl', function($scope, $resource, $
 
     $scope.splitArr1 = [];
     $scope.splitArr2 = [];
-
+    $scope.splitArr3 = [];
+   
     var nodeDetails = $http.get('/apollo/api/node/' + $routeParams.id)
         .success(function(data){
             $scope.node = data;
@@ -29,8 +30,11 @@ angular.module('apolloApp').controller('nodeCtrl', function($scope, $resource, $
             var len = $scope.node.attributes.length;
             for (var i = 0; i< len; i++) {
                
-                if(($scope.node.attributes[i].key == 'name') || ($scope.node.attributes[i].key == 'id') || ($scope.node.attributes[i].key == 'fullNameCIO') || ($scope.node.attributes[i].key == 'fullName')) {
+                if(($scope.node.attributes[i].key == 'name') || ($scope.node.attributes[i].key == 'id') || ($scope.node.attributes[i].key == 'fullNameCIO') || ($scope.node.attributes[i].key == 'fullName') || ($scope.node.attributes[i].key == 'purpose')) {
                     // do nothing
+                    if($scope.node.attributes[i].key == 'purpose'){
+                        $scope.splitArr3.push($scope.node.attributes[i]);
+                    }
                 }
                 else{
                     if(i%2 == 0){

@@ -86,6 +86,10 @@ html(lang="en" ng-app='apolloApp')
 							span.favorites_icon
 								img(src='img/filled_circle_smaller.png', alt='Favorites')
 								| &nbsp;&nbsp;Favorites
+							span.favorites_icon
+								a(ng-click='toggleSidebar()')
+									img(src='img/filled_circle_smaller.png', alt='History')
+									| Show/Hide Sidebar
 		// end row 2 (navbar)
 		block main-content
 		// start footer row

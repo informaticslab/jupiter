@@ -24,4 +24,10 @@ angular.module('apolloApp').controller('rootCtrl', function($scope, $http){
     $scope.redirectToSearch = function(){
        window.location =  '/apollo/#/search/' + $scope.queryString;
     };
+
+    $scope.showSidebar = false;
+
+    $scope.toggleSidebar = function(){
+      $scope.showSidebar = !$scope.showSidebar;
+    };
 });

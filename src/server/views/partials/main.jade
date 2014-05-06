@@ -37,10 +37,83 @@
 				| [Placeholder for controls]
 			// end carousel controls
 			.bottom_block
-				| Live Statistics [placeholder] NEED to FIX alignment issues]
-				div
-					span(ng-repeat="stat in statsarr")
-						{{stat.label[0]}} , {{stat.count}}
+				div.orange_header_carousel
+					span.glyphicon.glyphicon-time
+					| Live Statistics
+
+				.row
+					.col-lg-3.col-md-3.col-sm-3
+						.stat_box
+							.stat_count {{statsarr['SurveillanceSystem']}}
+							.stat_label Surveillance Systems
+					//end column specs 
+					.col-lg-3.col-md-3.col-sm-3
+						.stat_box
+							.stat_count {{statsarr['Program']}}
+							.stat_label Programs
+					//end column specs 
+					.col-lg-3.col-md-3.col-sm-3
+						.stat_box
+							.stat_count {{statsarr['Registry']}}
+							.stat_label Registries
+					//end column specs 
+					//end column specs 
+					.col-lg-3.col-md-3.col-sm-3
+						.stat_box
+							.stat_count {{statsarr['HealthSurvey']}}
+							.stat_label Health Surveys
+					//end column specs 
+				//end nested row 
+				.vertical_spacing_less
+				//nested row 
+				.row
+					.col-lg-3.col-md-3.col-sm-3
+						.stat_box
+							.stat_count {{statsarr['Tool']}}
+							.stat_label Tools
+					//end column specs 
+					.col-lg-3.col-md-3.col-sm-3
+						.stat_box
+							.stat_count {{statsarr['Dataset']}}
+							.stat_label Datasets
+					//end column specs 
+					.col-lg-3.col-md-3.col-sm-3
+						.stat_box
+							.stat_count {{statsarr['DataStandard']}}
+							.stat_label Data Standards
+					//end column specs 
+					//end column specs 
+					.col-lg-3.col-md-3.col-sm-3
+						.stat_box
+							.stat_count {{statsarr['Collaborative']}}
+							.stat_label Collaboratives
+					//end column specs 
+				//end nested row 
+				.vertical_spacing_less
+				//nested row 
+				.row
+					.col-lg-3.col-md-3.col-sm-3
+						.stat_box
+							.stat_count {{statsarr['Organization']}}
+							.stat_label Organizations
+					//end column specs 
+					.col-lg-3.col-md-3.col-sm-3
+						.stat_box
+							.stat_count {{statsarr['Tag']}}
+							.stat_label Tags
+					//end column specs 
+					.col-lg-3.col-md-3.col-sm-3
+						.stat_box
+							.stat_count {{statsarrrel}}
+							.stat_label Interconnections
+					//end column specs 
+					//end column specs 
+					.col-lg-3.col-md-3.col-sm-3
+						.stat_box
+							.stat_count {{nodestotal+statsarrrel}}
+							.stat_label Total Items
+					//end column specs 
+				//end nested row 
 
 
 			// end bottom_block

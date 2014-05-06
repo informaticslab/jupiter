@@ -281,12 +281,11 @@ exports.getNodesForLinkageViewer = function(req, res) {
         }
     });
 };
-exports.getPortalStatistics = function(req, res) {
+exports.getPortalStatisticsNodes = function(req, res) {
     var query = ['MATCH n ',
     'return labels(n) as label, count(*) as count '
     ].join('\n');
     var params = {};
-    var viewerJson;
 
     
     neodb.db.query(query, params, function(err, r) {
@@ -302,4 +301,24 @@ exports.getPortalStatistics = function(req, res) {
     });
 };
 
+
+exports.getPortalStatisticsRelations = function(req, res) {
+    var query = ['MATCH (a)-[r]->(b)',
+    'return count(*) as count '
+    ].join('\n');
+    var params = {};
+
+    
+    neodb.db.query(query, params, function(err, r) {
+        if (err) {
+            console.error('Error retreiving statistics from database:', err);
+            res.send(404, 'no statistics available');
+        } else {
+
+            console.log(r);
+            res.send(r);
+            
+        }
+    });
+};
 

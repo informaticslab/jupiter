@@ -38,6 +38,11 @@
 			// end carousel controls
 			.bottom_block
 				| Live Statistics [placeholder] NEED to FIX alignment issues]
+				div
+					div(ng-repeat="stat in statsarr")
+						{{stat.label[0]}} , {{stat.count}}
+
+
 			// end bottom_block
 		// end content block
 	// end col spec

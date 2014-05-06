@@ -281,3 +281,25 @@ exports.getNodesForLinkageViewer = function(req, res) {
         }
     });
 };
+exports.getPortalStatistics = function(req, res) {
+    var query = ['MATCH n ',
+    'return labels(n) as label, count(*) as count '
+    ].join('\n');
+    var params = {};
+    var viewerJson;
+
+    
+    neodb.db.query(query, params, function(err, r) {
+        if (err) {
+            console.error('Error retreiving statistics from database:', err);
+            res.send(404, 'no statistics available');
+        } else {
+
+            //console.log(r);
+            res.send(r);
+            
+        }
+    });
+};
+
+

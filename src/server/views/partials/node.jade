@@ -60,7 +60,7 @@
 						strong &nbsp; Tags: &nbsp;
 							a(ng-repeat='node in nodeTags' href="#/node/{{node.id}}")
 								strong {{node.name}}&nbsp;&nbsp;&nbsp;
-					p(ng-show='hasDescription')
+					p(ng-show='splitArr3.length')
 						strong Description: &nbsp;
 						&nbsp; {{splitArr3[0].value}}
 					.vertical_spacing

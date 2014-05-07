@@ -166,6 +166,18 @@ exports.searchNodesByString = function(req, res) {
                                 'value': doohicky[prop] 
                                 })
                             }
+                            if(prop == 'purpose' || prop=='description')
+                            {
+                                var string;
+                                if(doohicky[prop].length > 160)
+                                {
+                                    string  = doohicky[prop].substring(0, 157)  + '...';
+                                }
+                                nodedata.attributes.push({
+                                'key': prop,
+                                'value': string
+                                })
+                            }
                     }
                     nodedataarr.push(nodedata);
                 }

@@ -434,3 +434,8 @@ li.qg_li {padding-top:.7em; margin-left: -1.7em;}
 
 .glyphicon-time {color:#e77e23; padding-right:.35em;}
 .glyphicon-envelope {position:relative; top:.2em; padding-left: .3em;}
+
+a:focus, :active{
+  outline: 0;
+  -moz-outline: 0;
+}

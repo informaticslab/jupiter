@@ -25,7 +25,7 @@ angular.module('apolloApp').controller('rootCtrl', function($scope, $http){
        window.location =  '/apollo/#/search/' + $scope.queryString;
     };
 
-    $scope.showSidebar = false;
+    $scope.showSidebar = true;
 
     $scope.toggleSidebar = function(){
       $scope.showSidebar = !$scope.showSidebar;

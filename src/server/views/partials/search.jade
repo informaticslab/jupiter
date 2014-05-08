@@ -181,14 +181,14 @@
 							table.search_results
 								tr
 									td.resource_name.search
-										a(href='#/node/{{node.id}}') {{node.name}}
-									td.status.search ##/##/##, Status 
+										a(href='#/node/{{node.id}}') {{node.name}} (ID: {{node.id}})
+									td.status.search  Status : {{node.status}}
 									td.resource_type.search2
 										span.labelbg {{node.labels | unCamelCase}}
 							table.search_results2
 								tr(ng-repeat="att in node.attributes")
 									td(class="text-left list_margin") 
-										strong {{att.key | unCamelCase}}:&nbsp; {{att.value}}	
+										{{att.key | unCamelCase}}:&nbsp; {{att.value}}	
 									//- td(class="text-left")															
 						//.page_controls
 						//	| Page controls (for multiple pages of results) to go here

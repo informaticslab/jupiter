@@ -149,6 +149,7 @@ exports.searchNodesByString = function(req, res) {
                      nodedata.name = doohicky.name;
                      nodedata.id = doohicky.id;
                      nodedata.labels = doohickylabels;
+                     nodedata.status = 'Not Available';
                      if (nodeLabelCounts[doohickylabels] != null)
                      {
                         nodeLabelCounts[doohickylabels]++;
@@ -159,24 +160,28 @@ exports.searchNodesByString = function(req, res) {
                      }
                      nodedata.attributes = [];
                      for (var prop in doohicky) {
-                            if(prop == 'id')
-                            {
-                                nodedata.attributes.push({
-                                'key': prop,
-                                'value': doohicky[prop] 
-                                })
-                            }
+                            // if(prop == 'id')
+                            // {
+                            //     nodedata.attributes.push({
+                            //     'key': prop,
+                            //     'value': doohicky[prop] 
+                            //     })
+                            // }
                             if(prop == 'purpose' || prop=='description')
                             {
                                 var string;
-                                if(doohicky[prop].length > 160)
+                                if(doohicky[prop].length > 320)
                                 {
-                                    string  = doohicky[prop].substring(0, 157)  + '...';
+                                    string  = doohicky[prop].substring(0, 317)  + '...';
                                 }
                                 nodedata.attributes.push({
                                 'key': prop,
                                 'value': string
                                 })
+                            }
+                            if(prop =='operationalStatus' && doohicky[prop] != null && doohicky[prop] != '')
+                            {
+                                nodedata.status = doohicky[prop];
                             }
                     }
                     nodedataarr.push(nodedata);

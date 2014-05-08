@@ -141,7 +141,7 @@ height: 36px; padding-left:2em; padding-top:.6em; color:#ffffff; font-size: smal
 .content_block {margin-left:2em;}
 
 
-.top_block {padding:1.2em; border-style:solid; border-width:1px; border-color:#d3d9d9; text-align:left; min-height:411px; }
+.top_block {padding:1.2em; border-style:solid; border-width:1px; border-color:#d3d9d9; text-align:left; min-height:487px; }
 
 .top_block2 { border-style:solid; border-width:1px; border-color:#d3d9d9; text-align:left; min-height:700px; margin-bottom:1em;}
 
@@ -153,6 +153,7 @@ height: 36px; padding-left:2em; padding-top:.6em; color:#ffffff; font-size: smal
 
 
 .orange_main {background-color:#f39c11; color:#ffffff; font-weight:bold; padding:.7em; padding-bottom:.9em; padding-left:1em; margin-bottom:1.3em; margin-right:.9em; }
+.orange_main_browse {background-color:#f39c11; color:#ffffff; font-weight:bold; padding:.7em;  padding-left:1em; margin-bottom:1.2em; margin-top:1.7em; margin-right:.9em; text-align:center; }
 .orange_header {font-weight:bold; color:#e77e23; padding-bottom:1em;}
 .orange_header_larger {font-weight:bold; font-size:1.2em; color:#e77e23; padding-bottom:1em;}
 
@@ -164,7 +165,7 @@ height: 36px; padding-left:2em; padding-top:.6em; color:#ffffff; font-size: smal
 .orange_header_narrow {color:#e77e23; padding:.7em; padding-left:1em; font-weight:bold;}
 
 .orange_text {color:#e77e23;}
-.carousel_text {font-size:1.1em; padding-bottom:.5em;}
+.carousel_text {font-size:1.1em; padding-bottom:.3em;}
 .placeholder_image {padding-left:2.5em;}
 .sideblock {margin-right:2em; }
 .block1 {height:111px; background-color:#3598db; margin-bottom:1em; padding:1.2em; color:#ffffff;}
@@ -191,7 +192,7 @@ height: 36px; padding-left:2em; padding-top:.6em; color:#ffffff; font-size: smal
 
 .sortby {float:right; padding-right:1em; position:relative; bottom:.1em;   }
 
-.hx_side {margin-right:2em; background-color:#e1ebf4; text-align:center; height:968px; margin-bottom:3em; padding:1em;}
+.hx_side {margin-right:2em; background-color:#e1ebf4; text-align:center; min-height:1000px; margin-bottom:3em; padding:1em;}
 
 .subnav {margin-bottom:.5em; height:47px; position:relative; bottom:1.13em; padding-top:.2em;}
 
@@ -234,7 +235,10 @@ height: 36px; padding-left:2em; padding-top:.6em; color:#ffffff; font-size: smal
 
 .vertical_spacing {margin-top:2em;}
 
+.vertical_spacing_browse {margin-top:2.5em;}
+
 .vertical_spacing_less {margin-top:1.3em;}
+.vertical_spacing_lesser {margin-top:.8em;}
 .vertical_spacing_more {margin-top:4em;}
 
 .vertical_spacing_morer {margin-top:8em;}
@@ -244,7 +248,7 @@ height: 36px; padding-left:2em; padding-top:.6em; color:#ffffff; font-size: smal
 
 .small_text {font-size:smaller;}
 
-.instructive_text {margin-left:0em; padding-top:1em; padding-bottom:2em;}
+.instructive_text {margin-left:0em; padding-top:1em; padding-botenvtom:2em;}
 
 .addbrowse {color:#f1c40f; font-size:1.3em; padding-right:.2em;}
 
@@ -255,7 +259,9 @@ height: 36px; padding-left:2em; padding-top:.6em; color:#ffffff; font-size: smal
 
 .block_header {background-color:#eaeced; color:#777777; padding-left:1em; padding-right:1em; padding-top:.5em; padding-bottom:.5em; font-weight:bold; font-size: 1.1em; text-align:center; margin-bottom:1em; border-bottom-style: solid; border-bottom-color:#d3d9d9; border-bottom-width:1px;  }
 
-.glyphicon-leaf {font-size:1.2em; color:#2dcc70; padding-right:.2em; }
+.glyphicon-leaf {font-size:1.2em; color:#2dcc70; padding-right:.2em; position:relative; top:.15em; }
+
+.glyphicon-globe {font-size:1.2em; color:#16a086; padding-right:.3em; position:relative; top:.1em;}
 
 .thick_border {background-color:#dddddd; height:2px;}
 
@@ -342,7 +348,7 @@ li.instruct {padding-bottom:.5em;}
 
 .highlights {width:100%; border-style:solid; min-height:300px; border-color:#d3d9d9; border-width:1px;  margin-top:.5em; }
 
-.azlist_header {text-align:center; color:#ffffff; font-weight:bold; background-color:#f39c11; font-size:1.25em; width:100%; padding-left:1em; padding-bottom:.5em; padding-top:.5em;}
+.azlist_header {text-align:center; color:#ffffff; font-weight:bold; background-color:#f39c11; font-size:1.25em; width:100%; padding-left:1em; padding-bottom:.5em; padding-top:.5em; padding-right:0.5em;}
 
 
 
@@ -388,15 +394,22 @@ li.qg_li {padding-top:.7em; margin-left: -1.7em;}
 
 .qgphoto_inset {padding-bottom:1em; padding-top:1.2em;}
 
-.photo_caption {font-size:.8em; padding-right:2.5em; padding-left:.5em; position:relative; bottom:1em; padding-bottom:1em;}
+.photo_caption {font-size:.8em; padding-right:2.5em; padding-left:.3em; position:relative; bottom:1em; padding-bottom:1em;}
 
 .carousel_image {float:right;}
+.carousel_image2{float:right; position:relative; bottom:.8em;}
 
-.carousel_photo_caption {font-size:.8em; padding-right:2.5em; padding-left:3em; padding-bottom:1em; padding-top:.7em;}
+.carousel_photo_caption {font-size:.8em; padding-right:2.5em; padding-left:3.1em; padding-bottom:1em; padding-top:.7em;}
 
-.carousel_bullet {margin-left:1.5em; margin-bottom:.8em;}
+.carousel_photo_caption2 {font-size:.8em; padding-right:2.5em; padding-left:4em; padding-bottom:1em; padding-top:.7em;}
 
-.carousel_connector {margin-left:4.5em; margin-bottom:.8em; font-weight:bold;}
+.carousel_bullet {margin-left:1.5em; margin-bottom:.5em;}
+
+.carousel_arrow_bullet { margin-bottom:.5em;}
+
+.carousel_connector {margin-left:4.5em; margin-bottom:.7em; font-weight:bold;}
+
+.carousel_connector2 {margin-left:4.5em; margin-bottom:.7em; font-weight:bold;}
 
 .glyphicon-list-alt, .glyphicon-pushpin {color:#3598db; font-size:1.3em; padding-right:.2em;}
 
@@ -433,3 +446,25 @@ li.qg_li {padding-top:.7em; margin-left: -1.7em;}
 .stat_label {color:#50595a; font-family:arial, geneva, sans-serif; font-size:1.1em;}
 
 .glyphicon-time {color:#e77e23; padding-right:.35em;}
+
+.glyphicon-envelope {position:relative; top:.2em; padding-left: .5em;}
+
+.browse {min-height:1300px;}
+.buggy {padding-right:.1em; padding-bottom:.2em;}
+.violence {padding-bottom:.1em;}
+.fa-briefcase {font-size:1.3em; padding-right:.2em; color:#2a80b9; position:relative; top:.1em;}
+.fa-comments {font-size:1.3em; padding-right:.2em; color:#e77e23;}
+.glyphicon-bullhorn {font-size:1.2em; padding-right:.2em; color:#efba03;}
+.browse_icon {padding-right:.4em; position:relative; bottom:.2em;}
+
+.glyphicon-envelope {position:relative; top:.2em; padding-left: .3em;}
+
+a:focus, :active{
+  outline: 0;
+  -moz-outline: 0;
+}
+
+.home_bullet {position:relative; bottom:.2em;}
+
+.blue_arrow {padding-left:1.5em; float:left;}
+.indent {padding-left:3em; display:block;}

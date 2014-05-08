@@ -455,3 +455,10 @@ a:focus, :active{
   outline: 0;
   -moz-outline: 0;
 }
+
+table{
+  table-layout: fixed;
+  word-wrap: break-word;
+
+
+}

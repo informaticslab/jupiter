@@ -77,7 +77,7 @@ text.shadow {
   stroke-opacity: .8;
 }
 
-div.tooltip {   
+/*div.tooltip {   
   position: absolute;           
   text-align: center;                       
   padding: 4px;             
@@ -86,4 +86,4 @@ div.tooltip {
   border: 0px;      
   border-radius: 8px;           
   pointer-events: none;         
-}
+}*/

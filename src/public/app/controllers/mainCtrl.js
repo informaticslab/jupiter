@@ -44,4 +44,38 @@ angular.module('apolloApp').controller('mainCtrl', function($scope,$resource){
 
 	});
 
+
+	//Display teh appropriate content in the carousel depending on the carousel button selections
+	$scope.carousel1 = "yes";
+	$scope.carousel2 = "no";
+	$scope.carousel3 = "no";
+	$scope.carousel4 = "no";
+	//function for displaying the selected carousel
+    $scope.goToCarousel1 = function(){
+    	$scope.carousel1 = "yes";
+    	$scope.carousel2 = "no";
+    	$scope.carousel3 = "no";
+		$scope.carousel4 = "no";
+    }
+    
+    $scope.goToCarousel2 = function(){
+    	$scope.carousel1 = "no";
+    	$scope.carousel2 = "yes";
+    	$scope.carousel3 = "no";
+		$scope.carousel4 = "no";
+    }
+    
+    $scope.goToCarousel3 = function(){
+    	$scope.carousel1 = "no";
+    	$scope.carousel2 = "no";
+    	$scope.carousel3 = "yes";
+		$scope.carousel4 = "no";
+    }
+
+    $scope.goToCarousel4 = function(){
+    	$scope.carousel1 = "no";
+    	$scope.carousel2 = "no";
+    	$scope.carousel3 = "no";
+		$scope.carousel4 = "yes";
+    }
 });

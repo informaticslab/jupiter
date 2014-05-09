@@ -7,30 +7,43 @@
 					img.img-responsive.placeholder_image.pull-right(src='img/screenshot_lv.png', alt='Screenshot of CISP')
 					.carousel_photo_caption 
 						| CISP shows the inconnectivity between resources (e.g., systems, programs, etc.).
-				p
-				.orange_header_home
-					| Welcome
-				p.carousel_text
-					| The 
-					strong CDC Integrated Surveillance Portal (CISP)
-					|  is a comprehensive, real-time, interactive resource for CDC, its partners, and the public to explore and discover information about the full inventory of CDC&#8217;s Surveillance Systems, Programs, Registries, Health Surveys, Tools, and Collaboratives. CISP contains not only descriptive information about these CDC resources &#8212; CISP also describes the
-					em  relationships
-					|  between resources.
-				p.carousel_text
-					| The information in this tool has been gathered from many sources, including the National Public Health Surveillance and Biosurveillance Registry for Human Health. This portal does not contain raw surveillance data &#8212; it only contains
-					em  meta-data
-					|  (i.e., data about data) regarding these surveillance activities.
-				p.carousel_text
-					| Because CISP holds no surveillance data, it holds no personally identifiable information, nor personal health information about cases or persons in these systems.
+				.div(ng-show='carousel1')
+					p
+					.orange_header_home
+						| Welcome
+					p.carousel_text
+						| The 
+						strong CDC Integrated Surveillance Portal (CISP)
+						|  is a comprehensive, real-time, interactive resource for CDC, its partners, and the public to explore and discover information about the full inventory of CDC&#8217;s Surveillance Systems, Programs, Registries, Health Surveys, Tools, and Collaboratives. CISP contains not only descriptive information about these CDC resources &#8212; CISP also describes the
+						em  relationships
+						|  between resources.
+					p.carousel_text
+						| The information in this tool has been gathered from many sources, including the National Public Health Surveillance and Biosurveillance Registry for Human Health. This portal does not contain raw surveillance data &#8212; it only contains
+						em  meta-data
+						|  (i.e., data about data) regarding these surveillance activities.
+					p.carousel_text
+						| Because CISP holds no surveillance data, it holds no personally identifiable information, nor personal health information about cases or persons in these systems.
+				.div(ng-show='carousel2')
+					p
+					.orange_header_home
+						| 2
+				.div(ng-show='carousel3')
+					p
+					.orange_header_home
+						| 3
+				.div(ng-show='carousel4')
+					p
+					.orange_header_home
+						| 4
 			// end top_block
 			.carousel_controls
 				.btn-group
 					button.btn.btn-default(type='button')
 						span.glyphicon.glyphicon-backward
-					button.btn.btn-default.active(type='button') 1
-					button.btn.btn-default(type='button') 2
-					button.btn.btn-default(type='button') 3
-					button.btn.btn-default(type='button') 4
+					button.btn.btn-default.active(type='button' ng-click='goToCarousel1()') 1
+					button.btn.btn-default(type='button' ng-click='goToCarousel2()') 2
+					button.btn.btn-default(type='button' ng-click='goToCarousel3()') 3
+					button.btn.btn-default(type='button' ng-click='goToCarousel4()') 4
 					button.btn.btn-default(type='button')
 						span.glyphicon.glyphicon-forward
 			// end carousel controls

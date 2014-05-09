@@ -3,6 +3,10 @@ angular.module('apolloApp').filter('attributeDescription', function() {
         'webResource': {
             'index': 0,
             'description': 'Where a user can find out more information about this resource'
+        },
+        'operationalStatus': {
+            'index': 1,
+            'description': 'Status of the system'
         }
     };
     return function(input) {
@@ -13,4 +17,4 @@ angular.module('apolloApp').filter('attributeDescription', function() {
             return null;
         }
     };
-})
+});

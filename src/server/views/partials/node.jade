@@ -50,10 +50,10 @@
 					p
 						strong Name: &nbsp;
 						{{node.name}}
-					p 
-						strong Type: &nbsp; 
+					p
+						strong Type: &nbsp;
 						{{labels.join() | unCamelCase}}
-					p 
+					p
 						strong ID: &nbsp;
 						{{node.id}}
 					p(ng-show='hasTags')
@@ -68,15 +68,17 @@
 						.col-md-6
 							table(class="table")
 									tr(ng-repeat="att in splitArr1")
-											td
+										td
+											span.cursor-help(tooltip='{{att.key | attributeDescription}}', tooltip-placement='right') 
 												strong {{att.key | unCamelCase}}: &nbsp;
-											td 
-												{{att.value}}
+										td
+											{{att.value}}
 						.col-md-6
 							table(class="table")
 									tr(ng-repeat="att in splitArr2")
-											td.small_col_width 
-												strong {{att.key | unCamelCase}}: &nbsp;
+											td.small_col_width
+												span.cursor-help(tooltip='{{att.key | attributeDescription}}', tooltip-placement='right') 
+													strong {{att.key | unCamelCase}}: &nbsp;
 											td {{att.value}}
 					.linkage
 						.vertical_spacing

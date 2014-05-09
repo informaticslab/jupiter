@@ -1,12 +1,26 @@
-h1 {{rayes}}
-table 
-    tr 
-        td This is an item
-        td 1
-        td That was the first item
-    tr
-        td this is the second item
-        td 2
-        td That was the second item {{rayes}}
-    
-    
+// new row
+.row
+	.col-lg-11.col-md-11.col-sm-11
+		.content_block
+			.top_block
+				p
+				.orange_header_larger
+					| FAQ Overview
+				p
+					| Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+					| tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
+					| veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
+					| commodo consequat. Duis aute irure dolor in reprehenderit in voluptate
+					| velit esse cillum dolore eu fugiat nulla pariatur.
+			// end top_block
+			.carousel_controls
+				| [Placeholder for controls]
+			// end carousel controls
+			.vertical_spacing
+		// end content block
+	// end col spec
+	.col-lg-1.col-md-1.col-sm-1
+		.hx_side(ng-show='showSidebar')
+			span.small_text
+			|Tab
+// end row.orange_header Overview

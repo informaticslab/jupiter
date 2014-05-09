@@ -473,3 +473,8 @@ a:focus, :active{
 .home_bullet {position:relative; bottom:.2em;}
 
 
+}
+
+.cursor-help{
+cursor: help;
+}

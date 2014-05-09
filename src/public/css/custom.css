@@ -141,7 +141,7 @@ height: 36px; padding-left:2em; padding-top:.6em; color:#ffffff; font-size: smal
 .content_block {margin-left:2em;}
 
 
-.top_block {padding:1.2em; border-style:solid; border-width:1px; border-color:#d3d9d9; text-align:left; min-height:450px; }
+.top_block {padding:1.2em; border-style:solid; border-width:1px; border-color:#d3d9d9; text-align:left; min-height:467px; }
 
 .top_block2 { border-style:solid; border-width:1px; border-color:#d3d9d9; text-align:left; min-height:700px; margin-bottom:1em;}
 
@@ -399,9 +399,9 @@ li.qg_li {padding-top:.7em; margin-left: -1.7em;}
 .carousel_image {float:right;}
 .carousel_image2{float:right; position:relative; top:.5em;}
 
-.carousel_photo_caption {font-size:.9em; padding-left:2.9em; position:relative; top:.7em; color:#8e8e8e; }
+.carousel_photo_caption {font-size:.9em; padding-left:2.9em; padding-bottom:1em; position:relative; top:.5em; margin-bottom:1.2em; color:#909090;}
 
-.carousel_photo_caption2 {font-size:.9em; padding-left:3.7em; padding-bottom:1em; padding-top:.7em;}
+.carousel_photo_caption2 {font-size:.9em; padding-left:3.5em; padding-bottom:1em; position:relative; top:.1em; margin-bottom:1.2em; color:#909090;}
 
 .carousel_bullet {margin-left:1.5em; margin-bottom:.5em;}
 
@@ -470,7 +470,7 @@ a:focus, :active{
   -moz-outline: 0;
 }
 
-.home_bullet {position:relative; bottom:.2em;}
+.home_bullet {position:relative; bottom:.2em; margin-left:1em; padding-right:.2em;}
 
 .cursor-help{
 cursor: help;

@@ -88,22 +88,37 @@ html
       .col-lg-9.col-md-9.col-sm-9
         .content_block
           .top_block
-            .orange_header_home Welcome
+            .orange_header_carousel Explore CISP
             .carousel_image2
-              img.img-responsive.placeholder_image(src='img\screenshot_lv.png', alt='Screenshot of CISP')
-              .carousel_photo_caption CISP shows the inconnectivity between resources (e.g., systems, programs, etc.).
-            p.carousel_text
-              | The
-              strong CDC Integrated Surveillance Portal (CISP)
-              | is a comprehensive, real-time, interactive resource for CDC, its partners, and the public to explore and discover information about the full inventory of CDC&#8217;s Surveillance Systems, Programs, Registries, Health Surveys, Tools, and Collaboratives. CISP contains not only descriptive information about these CDC resources &#8212; CISP also describes the
-              em relationships
-              | between resources.
-            p.carousel_text
-              | The information in this tool has been gathered from many sources, including the National Public Health Surveillance and Biosurveillance Registry for Human Health. This portal does not contain raw surveillance data &#8212; it only contains
-              em meta-data
-              | (i.e., data about data) regarding these surveillance activities.
-            p.carousel_text
-              | Because CISP holds no surveillance data, it holds no personally identifiable information, nor personal health information about cases or persons in these systems.
+              img.img-responsive.placeholder_image(src='img\screenshot_qg.png', alt='Screenshot of Quick Guide')
+              .carousel_photo_caption Quick Guide provides an overview of specific topics &#38; links to resources.
+            p.carousel_text CISP provides multiple ways to explore information:
+            .vertical_spacing_less
+            table.carousel_bullet
+              tr
+                td.arrow_align
+                  img(src='img\blue_arrow_small.png', alt='')
+                td.bullet_content
+                  strong Quick Guide
+                  | :  Provides an organized overview of specific topics, and includes relevant links to surveillance systems, datasets, data sources, and more.
+              tr
+                td.arrow_align
+                  img(src='img\blue_arrow_small.png', alt='')
+                td.bullet_content
+                  strong Browse
+                  | :  Provides a quick way to select pre-defined, popular search terms. The terms are organized by category.
+              tr
+                td.arrow_align
+                  img(src='img\blue_arrow_small.png', alt='')
+                td.bullet_content2
+                  strong Search
+                  | :  Standard Google-like search engine. Also provides several filters and sorting options for search results.
+              tr
+                td.arrow_align
+                  img(src='img\blue_arrow_small.png', alt='')
+                td.bullet_content2
+                  strong Advanced Search
+                  | :  This feature is coming soon. It will provide a way to view related terms and relationships based on your search term.
           // end top_block
           .carousel_controls
             .btn-group
@@ -117,83 +132,7 @@ html
                 span.glyphicon.glyphicon-forward
           // end carousel controls
           .bottom_block
-            .orange_header_carousel
-              span.glyphicon.glyphicon-time
-              | Live Statistics
-            // nested row
-            .row
-              .col-lg-3.col-md-3.col-sm-3
-                .stat_box
-                  .stat_count 123
-                  .stat_label Surveillance Systems
-              // end column specs
-              .col-lg-3.col-md-3.col-sm-3
-                .stat_box
-                  .stat_count 123
-                  .stat_label Programs
-              // end column specs
-              .col-lg-3.col-md-3.col-sm-3
-                .stat_box
-                  .stat_count 123
-                  .stat_label Registries
-                  // end column specs
-              // end column specs
-              .col-lg-3.col-md-3.col-sm-3
-                .stat_box
-                  .stat_count 123
-                  .stat_label Health Surveys
-                // end column specs
-            // end nested row
-            .vertical_spacing_less
-            // nested row
-            .row
-              .col-lg-3.col-md-3.col-sm-3
-                .stat_box
-                  .stat_count 123
-                  .stat_label Tools
-              // end column specs
-              .col-lg-3.col-md-3.col-sm-3
-                .stat_box
-                  .stat_count 123
-                  .stat_label Datasets
-              // end column specs
-              .col-lg-3.col-md-3.col-sm-3
-                .stat_box
-                  .stat_count 123
-                  .stat_label Data Standards
-                  // end column specs
-              // end column specs
-              .col-lg-3.col-md-3.col-sm-3
-                .stat_box
-                  .stat_count 123
-                  .stat_label Collaboratives
-                // end column specs
-            // end nested row
-            .vertical_spacing_less
-            // nested row
-            .row
-              .col-lg-3.col-md-3.col-sm-3
-                .stat_box
-                  .stat_count 123
-                  .stat_label Organizations
-              // end column specs
-              .col-lg-3.col-md-3.col-sm-3
-                .stat_box
-                  .stat_count 123
-                  .stat_label Tags
-              // end column specs
-              .col-lg-3.col-md-3.col-sm-3
-                .stat_box
-                  .stat_count 123
-                  .stat_label Interconnections
-                  // end column specs
-              // end column specs
-              .col-lg-3.col-md-3.col-sm-3
-                .stat_box
-                  .stat_count 123
-                  .stat_label Total Items
-                // end column specs
-            // end nested row
+            | Live Statistics [placeholder; NEED to FIX alignment issues]
           // end bottom_block
         // end content block
       // end col spec

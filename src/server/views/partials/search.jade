@@ -185,9 +185,8 @@
 									td.status.search  Status : {{node.status}}
 									td.resource_type.search2
 										span.labelbg {{node.labels | unCamelCase}}
-							table.search_results2
 								tr(ng-repeat="att in node.attributes")
-									td(class="text-left list_margin") 
+									td(class="text-left list_margin",colspan='3') 
 										{{att.key | unCamelCase}}:&nbsp; {{att.value}}	
 									//- td(class="text-left")															
 						//.page_controls

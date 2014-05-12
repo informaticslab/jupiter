@@ -64,12 +64,26 @@
 						strong
 							em  Linkage Viewer
 						|  tab on the following page. Enjoy exploring the connections related to your selected resource.	
-
-
 				.div(ng-show='carousel3')
+					.carousel_image2
+						img.img-responsive.placeholder_image.pull-right(src='img/home_carousel_graph.png', alt='Social Graph')
+						.carousel_photo_caption 
+							| If there is a relationship between CDC resources, a connection is created.
 					p
 					.orange_header_home
-						| 3
+						| Explore the CDC Surveillance Graph
+					p.carousel_text
+						| Just as
+						em  Facebook&#8217;s
+						|  social graph depicts the relationships between you and the people, places, and things you interact with online, our CDC Surveillance Graph depicts the relationship between the wide variety of resources (e.g., systems, programs, tools, datasets, etc.) involved in the activity of surveillance at CDC.
+					p.carousel_text
+						| The term 
+						em graph
+						| , used here, refers to graph theory. Graphs are mathematical structures used to model pairwise relations between objects. Graphs consist of distinct
+						em  nodes
+						|  or objects, which are connected to each other via lines, or
+						em  edges
+						| . Thus, each CDC resource is considered a node. If there is any type of relationship between nodes (e.g., uses, oversees, collaborates with, shares data with, etc.), a connection is created.
 				.div(ng-show='carousel4')
 					p
 					.orange_header_home

@@ -78,4 +78,42 @@ angular.module('apolloApp').controller('mainCtrl', function($scope,$resource){
     	$scope.carousel3 = "no";
 		$scope.carousel4 = "yes";
     }
+
+    $scope.goForwardInCarousel = function(){
+		if ($scope.carousel1 == "yes") {
+			
+			eval($scope.goToCarousel2());
+		}
+		if ($scope.carousel2 == "yes") {
+			
+			eval($scope.goToCarousel3());
+		}
+		else if ($scope.carousel3 == "yes") {
+    		
+    		eval($scope.goToCarousel4());
+		}
+   		else if ($scope.carousel4 == "yes") {
+    		
+    		eval($scope.goToCarousel1());
+		}
+	}
+
+	$scope.goBackwardInCarousel = function(){
+		if ($scope.carousel1 == "yes") {
+			
+			eval($scope.goToCarousel4());
+		}
+		if ($scope.carousel2 == "yes") {
+			
+			eval($scope.goToCarousel1());
+		}
+		else if ($scope.carousel3 == "yes") {
+    		
+    		eval($scope.goToCarousel2());
+		}
+   		else if ($scope.carousel4 == "yes") {
+    		
+    		eval($scope.goToCarousel3());
+		}
+	}
 });

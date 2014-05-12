@@ -6,7 +6,7 @@
 				.div(ng-show='carousel1')
 					.carousel_image2
 						img.img-responsive.placeholder_image.pull-right(src='img/screenshot_lv.png', alt='Screenshot of CISP')
-						.carousel_photo_caption 
+						.carousel_photo_caption
 							| CISP shows the inconnectivity between resources (e.g., systems, programs, etc.).
 					p
 					.orange_header_home
@@ -220,9 +220,14 @@
 	.col-lg-3.col-md-3.col-sm-3
 		.sideblock(ng-show='showSidebar')
 			.block1
-				| Searching for information? [placeholder]
+				img.img-responsive.pull-left.search_block(src='img/search_large.png', alt='Search icon')
+				.home_block_text
+					| Searching
+					| for information?
+					.home_block_sm_text
+						| Explore now >>	
 			.block2
-				| Do you work with? [placeholder]
+					| Do you work with?
 			.block3
 				| Recent activity [placeholder]
 		// end side block

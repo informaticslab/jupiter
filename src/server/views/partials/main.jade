@@ -59,7 +59,7 @@
 						strong
 							em	Browse
 						|. On the
-						em Browse
+						em  Browse
 						|  page, click a term you are interested in. A list of results will appear. Click an item in the search results list, then click the
 						strong
 							em  Linkage Viewer
@@ -70,7 +70,7 @@
 						.carousel_photo_caption 
 							| If there is a relationship between CDC resources, a connection is created.
 					p
-					.orange_header_home
+					.orange_header_carousel
 						| Explore the CDC Surveillance Graph
 					p.carousel_text
 						| Just as
@@ -85,15 +85,49 @@
 						em  edges
 						| . Thus, each CDC resource is considered a node. If there is any type of relationship between nodes (e.g., uses, oversees, collaborates with, shares data with, etc.), a connection is created.
 				.div(ng-show='carousel4')
+					.carousel_image2
+						img.img-responsive.placeholder_image.pull-right(src='img/screenshot_qg.png', alt='Screenshot of Quick Guide')
+						.carousel_photo_caption
+							| Quick Guide provides an overview of specific topics &#38; links to resources.
 					p
-					.orange_header_home
-						| 4
+					.orange_header_carousel
+						| Explore CISP
+					p.carousel_text
+						| CISP provides multiple ways to explore information:
+					.vertical_spacing_less
+					table.carousel_bullet
+						tr
+							td.arrow_align
+								img(src='img/blue_arrow_small.png', alt='')
+							td.bullet_content
+								strong Quick Guide
+								| : Provides an organized overview of specific topics, and includes relevant links to surveillance systems, datasets, data sources, and more.	
+
+						tr
+							td.arrow_align
+								img(src='img/blue_arrow_small.png', alt='')
+							td.bullet_content
+								strong Browse
+								| : Provides a quick way to select pre-defined, popular search terms. The terms are organized by category.
+						tr
+							td.arrow_align
+								img(src='img/blue_arrow_small.png', alt='')
+							td.bullet_content
+								strong Search
+								| : Standard Google-like search engine. Also provides several filters and sorting options for search results.
+						tr
+							td.arrow_align
+								img(src='img/blue_arrow_small.png', alt='')
+							td.bullet_content
+								strong Advanced Search
+								| : This feature is coming soon. It will provide a way to view related terms and relationships based on your search term.			
+
 			// end top_block
 			.carousel_controls
 				.btn-group
 					button.btn.btn-default(type='button')
 						span.glyphicon.glyphicon-backward
-					button.btn.btn-default.active(type='button' ng-click='goToCarousel1()') 1
+					button.btn.btn-default(type='button' ng-click='goToCarousel1()') 1
 					button.btn.btn-default(type='button' ng-click='goToCarousel2()') 2
 					button.btn.btn-default(type='button' ng-click='goToCarousel3()') 3
 					button.btn.btn-default(type='button' ng-click='goToCarousel4()') 4

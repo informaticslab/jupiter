@@ -50,12 +50,20 @@ angular.module('apolloApp').controller('mainCtrl', function($scope,$resource){
 	$scope.carousel2 = "no";
 	$scope.carousel3 = "no";
 	$scope.carousel4 = "no";
-	//function for displaying the selected carousel
+
+	//set the 1st carousel button as selected by default when the page is loaded.
+	$('#carouselBtn1').addClass('active');
+
     $scope.goToCarousel1 = function(){
     	$scope.carousel1 = "yes";
     	$scope.carousel2 = "no";
     	$scope.carousel3 = "no";
 		$scope.carousel4 = "no";
+
+		$('#carouselBtn1').addClass('active');
+		$('#carouselBtn2').removeClass('active');
+		$('#carouselBtn3').removeClass('active');
+		$('#carouselBtn4').removeClass('active');
     }
     
     $scope.goToCarousel2 = function(){
@@ -63,6 +71,11 @@ angular.module('apolloApp').controller('mainCtrl', function($scope,$resource){
     	$scope.carousel2 = "yes";
     	$scope.carousel3 = "no";
 		$scope.carousel4 = "no";
+
+		$('#carouselBtn1').removeClass('active');
+		$('#carouselBtn2').addClass('active');
+		$('#carouselBtn3').removeClass('active');
+		$('#carouselBtn4').removeClass('active');
     }
     
     $scope.goToCarousel3 = function(){
@@ -70,6 +83,11 @@ angular.module('apolloApp').controller('mainCtrl', function($scope,$resource){
     	$scope.carousel2 = "no";
     	$scope.carousel3 = "yes";
 		$scope.carousel4 = "no";
+
+		$('#carouselBtn1').removeClass('active');
+		$('#carouselBtn2').removeClass('active');
+		$('#carouselBtn3').addClass('active');
+		$('#carouselBtn4').removeClass('active');
     }
 
     $scope.goToCarousel4 = function(){
@@ -77,6 +95,11 @@ angular.module('apolloApp').controller('mainCtrl', function($scope,$resource){
     	$scope.carousel2 = "no";
     	$scope.carousel3 = "no";
 		$scope.carousel4 = "yes";
+
+		$('#carouselBtn1').removeClass('active');
+		$('#carouselBtn2').removeClass('active');
+		$('#carouselBtn3').removeClass('active');
+		$('#carouselBtn4').addClass('active');
     }
 
     $scope.goForwardInCarousel = function(){
@@ -84,7 +107,7 @@ angular.module('apolloApp').controller('mainCtrl', function($scope,$resource){
 			
 			eval($scope.goToCarousel2());
 		}
-		if ($scope.carousel2 == "yes") {
+		else if ($scope.carousel2 == "yes") {
 			
 			eval($scope.goToCarousel3());
 		}
@@ -103,7 +126,7 @@ angular.module('apolloApp').controller('mainCtrl', function($scope,$resource){
 			
 			eval($scope.goToCarousel4());
 		}
-		if ($scope.carousel2 == "yes") {
+		else if ($scope.carousel2 == "yes") {
 			
 			eval($scope.goToCarousel1());
 		}

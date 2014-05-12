@@ -111,15 +111,15 @@ exports.getNodeById = function(req, res) {
 };
 exports.searchNodesByString = function(req, res) {
 
-     var query = 'MATCH n WHERE n.name=~{qString} RETURN n, labels(n) skip {skipnum} limit {retNum}'+
+     var query = 'MATCH n-[r]-x WHERE n.name=~{qString} RETURN n, labels(n), count(r) as relCount order by n.name skip {skipnum} limit {retNum}'+
         'union all '+
-        'MATCH n WHERE n.fullname=~{qString} RETURN n, labels(n) skip {skipnum} limit {retNum}'+
+        'MATCH n-[r]-x WHERE n.fullname=~{qString} RETURN n, labels(n), count(r) as relCount order by n.name skip {skipnum} limit {retNum}'+
         'union all '+
-        'MATCH n WHERE n.contractphone=~{qString} RETURN n, labels(n) skip {skipnum} limit {retNum}'+
+        'MATCH n-[r]-x WHERE n.contractphone=~{qString} RETURN n, labels(n), count(r) as relCount order by n.name skip {skipnum} limit {retNum}'+
         'union all '+
-        'MATCH n WHERE n.mission=~{qString} RETURN n, labels(n) skip {skipnum} limit {retNum}'+
+        'MATCH n-[r]-x WHERE n.mission=~{qString} RETURN n, labels(n), count(r) as relCount order by n.name skip {skipnum} limit {retNum}'+
         'union all '+
-        'MATCH n WHERE n.contractname=~{qString} RETURN n, labels(n) skip {skipnum} limit {retNum}'
+        'MATCH n-[r]-x WHERE n.contractname=~{qString} RETURN n, labels(n), count(r) as relCount order by n.name skip {skipnum} limit {retNum}'
     var params = {
         qString: '(?i).*' + req.params.query + '.*',
         skipnum: 0,
@@ -143,12 +143,14 @@ exports.searchNodesByString = function(req, res) {
                 {
                     var nodedata = {};
                     var doohicky = results[i]['n']['data'];
-                    var doohickylabels = results[i]['labels(n)'].join(',')             
+                    var doohickylabels = results[i]['labels(n)'].join(',')
+                    var relCount = results[i]['relCount']           
                     //console.log(doohicky);
             
                      nodedata.name = doohicky.name;
                      nodedata.id = doohicky.id;
                      nodedata.labels = doohickylabels;
+                     nodedata.relCount = relCount;
                      nodedata.status = 'Not Available';
                      if (nodeLabelCounts[doohickylabels] != null)
                      {

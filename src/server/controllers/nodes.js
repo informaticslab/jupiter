@@ -170,9 +170,9 @@ exports.searchNodesByString = function(req, res) {
                             if(prop == 'purpose' || prop=='description')
                             {
                                 var string;
-                                if(doohicky[prop].length > 320)
+                                if(doohicky[prop].length > 450)
                                 {
-                                    string  = doohicky[prop].substring(0, 317)  + '...';
+                                    string  = doohicky[prop].substring(0, 447)  + '...';
                                 }
                                 nodedata.attributes.push({
                                 'key': prop,

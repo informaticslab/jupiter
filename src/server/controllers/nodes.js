@@ -119,7 +119,13 @@ exports.searchNodesByString = function(req, res) {
         'union all '+
         'MATCH n-[r]-x WHERE n.mission=~{qString} RETURN n, labels(n), count(r) as relCount order by n.name skip {skipnum} limit {retNum}'+
         'union all '+
-        'MATCH n-[r]-x WHERE n.contractname=~{qString} RETURN n, labels(n), count(r) as relCount order by n.name skip {skipnum} limit {retNum}'
+        'MATCH n-[r]-x WHERE n.contractname=~{qString} RETURN n, labels(n), count(r) as relCount order by n.name skip {skipnum} limit {retNum}' +
+        'union all '+
+        'MATCH n-[r]-x WHERE n.shortName=~{qString} RETURN n, labels(n), count(r) as relCount order by n.name skip {skipnum} limit {retNum}' +
+        'union all '+
+        'MATCH n-[r]-x WHERE n.purpose=~{qString} RETURN n, labels(n), count(r) as relCount order by n.name skip {skipnum} limit {retNum}' +
+        'union all '+
+        'MATCH n-[r]-x WHERE n.description=~{qString} RETURN n, labels(n), count(r) as relCount order by n.name skip {skipnum} limit {retNum}' 
     var params = {
         qString: '(?i).*' + req.params.query + '.*',
         skipnum: 0,
@@ -130,7 +136,7 @@ exports.searchNodesByString = function(req, res) {
         var nodedataarr = [];
         var nodeLabelCounts = {Program:0,SurveillanceSystem:0,Registry:0,
                             HealthSurvey:0,Tool:0,Dataset:0,DataStandard:0,
-                            Collaborative:0,Organization:0,Tag:0};
+                            Collaborative:0,Organization:0,Tag:0,Total:0};
         var returnable = {};
         if (err) {
             console.error('Error retreiving node from database:', err);
@@ -160,6 +166,7 @@ exports.searchNodesByString = function(req, res) {
                      {
                         nodeLabelCounts[doohickylabels] = 1;
                      }
+                     nodeLabelCounts['Total']++;
                      nodedata.attributes = [];
                      for (var prop in doohicky) {
                             // if(prop == 'id')

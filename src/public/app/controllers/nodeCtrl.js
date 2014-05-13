@@ -1,72 +1,87 @@
-angular.module('apolloApp').controller('nodeCtrl', function($scope, $resource, $http, $routeParams) {
-    $scope.contentLoading = true;
-    
-    $scope.$parent.q = 'explore';
-    var node = $resource('/apollo/api/node/:id', {
-        id: '@id'
-    });
-
-    var labels = $http.get('/apollo/api/node/' + $routeParams.id + '/labels')
-        .success(function(data){
+angular.module('apolloApp').controller('nodeCtrl', ['$scope', '$resource', '$http', '$routeParams', 'nodeAttributeDictionary',
+    function($scope, $resource, $http, $routeParams, nodeAttributeDictionary) {
+        $scope.contentLoading = true;
+        $scope.nodeId = $routeParams.id
+        $scope.$parent.q = 'explore';
+        var node = $resource('/apollo/api/node/:id', {
+            id: '@id'
+        });
+        var labels = $http.get('/apollo/api/node/' + $routeParams.id + '/labels').success(function(data) {
             $scope.labels = data;
         });
-
-    var relations = $resource('/apollo/api/node/:id/relations', {
-        id: '@id'
-    });
-
-    // $scope.node = node.get({
-    //     id: $routeParams.id
-    // });
-
-    $scope.splitArr1 = [];
-    $scope.splitArr2 = [];
-    $scope.splitArr3 = [];
-   
-    var nodeDetails = $http.get('/apollo/api/node/' + $routeParams.id)
-        .success(function(data){
+        var relations = $resource('/apollo/api/node/:id/relations', {
+            id: '@id'
+        });
+        var nodeDetails = $http.get('/apollo/api/node/' + $routeParams.id).success(function(data) {
+            var attributeKeys = _.pluck(data.attributes, 'key');
             $scope.node = data;
-            
             var len = $scope.node.attributes.length;
-            var tmpArr = [];
-            for (var i = 0; i< len; i++) {
-               
-                if ($scope.node.attributes[i].value == '') {}
-                else if(($scope.node.attributes[i].key == 'name') || ($scope.node.attributes[i].key == 'id') || ($scope.node.attributes[i].key == 'fullNameCIO') || ($scope.node.attributes[i].key == 'fullName') || ($scope.node.attributes[i].key == 'purpose')) {
+            for (var i = 0; i < len; i++) {
+                if ($scope.node.attributes[i].value == '') {} else if (($scope.node.attributes[i].key == 'name') || ($scope.node.attributes[i].key == 'id') || ($scope.node.attributes[i].key == 'fullNameCIO') || ($scope.node.attributes[i].key == 'fullName') || ($scope.node.attributes[i].key == 'purpose')) {
                     // do nothing
-                    if($scope.node.attributes[i].key == 'purpose'){
-                        $scope.splitArr3.push($scope.node.attributes[i]);
+                    if ($scope.node.attributes[i].key == 'purpose') {
+                        $scope.purpose = $scope.node.attributes[i].value;
                     }
                 }
-                else{
-                    tmpArr.push($scope.node.attributes[i]);
-                }
             };
-            for (var i = 0; i< tmpArr.length; i++) {
-               if(i%2 == 0){
-                    $scope.splitArr1.push(tmpArr[i]);
-               }
-               else{
-                    $scope.splitArr2.push(tmpArr[i]);
-               }
+            $scope.labelGroups = function(label) {
+                return _.toArray(nodeAttributeDictionary[label].attributeGroups);
             };
-
+            $scope.showGroup = function(group) {
+                return $scope.labelGroupAttributes(group).length > 0;
+            };
+            $scope.labelGroupAttributes = function(group) {
+                var groupAttributeKeys = Object.keys(group.attributes);
+                var intersection = _.intersection(attributeKeys, groupAttributeKeys)
+                var toRet = [];
+                _.each(intersection, function(i) {
+                    _.each(_.where(data.attributes, {
+                        'key': i
+                    }), function(j) {
+                        toRet.push(j);
+                    });
+                });
+                _.each(toRet, function(i) {
+                    i.description = group.attributes[i.key].description;
+                    i.sortIndex = group.attributes[i.key].sortIndex;
+                });
+                return _.filter(toRet, function(i) {
+                    return i.value != null && i.value.toLowerCase() != 'null' && i.value != '' && i.key != 'purpose';
+                });
+            };
+            $scope.hideGroup = function(group) {
+                return $scope.hiddenGroupAttributes(group).length > 0;
+            };
+            $scope.hiddenGroupAttributes = function(group) {
+                var groupAttributeKeys = Object.keys(group.attributes);
+                var intersection = _.intersection(attributeKeys, groupAttributeKeys)
+                var toRet = [];
+                _.each(intersection, function(i) {
+                    _.each(_.where(data.attributes, {
+                        'key': i
+                    }), function(j) {
+                        toRet.push(j);
+                    });
+                });
+                _.each(toRet, function(i) {
+                    i.description = group.attributes[i.key].description;
+                    i.sortIndex = group.attributes[i.key].sortIndex;
+                });
+                return _.filter(toRet, function(i) {
+                    return i.value == null || i.value == '';
+                });
+            };
         });
-
-   
-    $scope.relations = relations.query({
-        id: $routeParams.id
-    },function(data){
-        for (var i = 0; i < data.length; i++)
-        {
-            if (data[i].name == 'Tag')
-            {
-                $scope.nodeTags = data[i].relTypes[0].nodes;
-                $scope.hasTags = true;
+        $scope.relations = relations.query({
+            id: $routeParams.id
+        }, function(data) {
+            for (var i = 0; i < data.length; i++) {
+                if (data[i].name == 'Tag') {
+                    $scope.nodeTags = data[i].relTypes[0].nodes;
+                    $scope.hasTags = true;
+                }
             }
-        }
-        $scope.contentLoading = false;
-    });
-
-    $scope.nodeId = $routeParams.id
-});
+            $scope.contentLoading = false;
+        });
+    }
+]);

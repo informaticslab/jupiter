@@ -60,26 +60,32 @@
 						strong Tags: &nbsp;
 							a(ng-repeat='node in nodeTags' href="#/node/{{node.id}}")
 								strong {{node.name}}&nbsp;&nbsp;&nbsp;
-					p(ng-show='splitArr3.length')
+					p(ng-show='purpose')
 						strong Purpose: &nbsp;
-						&nbsp; {{splitArr3[0].value}}
+						&nbsp; {{purpose}}
 					.vertical_spacing
 					.row
-						.col-md-6
-							table(class="table")
-									tr(ng-repeat="att in splitArr1")
-										td
-											span.cursor-help(tooltip='{{att.key | attributeDescription}}', tooltip-placement='right') 
-												strong {{att.key | unCamelCase}}: &nbsp;
-										td
-											{{att.value}}
-						.col-md-6
-							table(class="table")
-									tr(ng-repeat="att in splitArr2")
-											td.small_col_width
-												span.cursor-help(tooltip='{{att.key | attributeDescription}}', tooltip-placement='right') 
-													strong {{att.key | unCamelCase}}: &nbsp;
-											td {{att.value}}
+						.col-lg-12
+							div(ng-repeat='label in labels')
+								div(ng-repeat='group in labelGroups(label) | orderBy:"sortIndex"', ng-show='showGroup(group)')
+									h3 {{group.heading}}
+									table.table
+										tr(ng-repeat='attribute in labelGroupAttributes(group) | orderBy:"sortIndex"')
+											td(style="width: 300px;")
+												span.cursor-help(tooltip='{{attribute.description}}', tooltip-placement='right') 
+													strong {{attribute.key | unCamelCase}}
+											td {{attribute.value}}
+					.row
+						.col-lg-12
+							h2 Attributes without values
+							div(ng-repeat='label in labels')
+								div(ng-repeat='group in labelGroups(label) | orderBy:"sortIndex"', ng-show='hideGroup(group)')
+									h3 {{group.heading}}
+									table.table
+										tr(ng-repeat='attribute in hiddenGroupAttributes(group) | orderBy:"sortIndex"')
+											td
+												span.cursor-help(tooltip='{{attribute.description}}', tooltip-placement='right') 
+													strong {{attribute.key | unCamelCase}}
 					.linkage
 						.vertical_spacing
 						.orange_header_larger Linkage/Relationships:

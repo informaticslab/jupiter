@@ -33,11 +33,11 @@
 						span.sr-only Toggle Dropdown
 					ul.dropdown-menu(role='menu')
 						li
-							a(href='#') Resource
+							a(href='') Resource
 						li
-							a(href='#') Date
+							a(href='') Date
 						li
-							a(href='#') Status
+							a(href='') Status
 			// end search header
 			.row
 				// nested row
@@ -181,7 +181,7 @@
 							table.search_results
 								tr
 									td.resource_name.search
-										a(href='#/node/{{node.id}}') {{node.name}} (ID: {{node.id}})
+										a(href='#/node/{{node.id}}') {{node.name}} (ID: {{node.id}}) (Connections: {{node.relCount}})
 									td.status.search  Status : {{node.status}}
 									td.resource_type.search2
 										span.labelbg {{node.labels | unCamelCase}}

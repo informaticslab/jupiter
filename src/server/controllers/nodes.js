@@ -2,7 +2,7 @@ var neodb = require('../lib/neo4jConnection');
 var _ = require('underscore');
 exports.getRelationsForNode = function(req, res) {
     var query = ['MATCH n-[r]-x ', 'where n.id={nodeId} ' //maaaaaaaagic
-        , 'return id(r) as relId,type(r) as relType, x.id as childId, ', 'labels(x) as childLabels, x.name as childName order by relType '
+        , 'return id(r) as relId,type(r) as relType, x.id as childId, ', 'labels(x) as childLabels, x.name as childName order by relType, childName '
     ].join('\n');
     var params = {
         nodeId: req.params.id
@@ -111,15 +111,21 @@ exports.getNodeById = function(req, res) {
 };
 exports.searchNodesByString = function(req, res) {
 
-     var query = 'MATCH n WHERE n.name=~{qString} RETURN n, labels(n) skip {skipnum} limit {retNum}'+
+     var query = 'MATCH n-[r]-x WHERE n.name=~{qString} RETURN n, labels(n), count(r) as relCount order by n.name skip {skipnum} limit {retNum}'+
         'union all '+
-        'MATCH n WHERE n.fullname=~{qString} RETURN n, labels(n) skip {skipnum} limit {retNum}'+
+        'MATCH n-[r]-x WHERE n.fullname=~{qString} RETURN n, labels(n), count(r) as relCount order by n.name skip {skipnum} limit {retNum}'+
         'union all '+
-        'MATCH n WHERE n.contractphone=~{qString} RETURN n, labels(n) skip {skipnum} limit {retNum}'+
+        'MATCH n-[r]-x WHERE n.contractphone=~{qString} RETURN n, labels(n), count(r) as relCount order by n.name skip {skipnum} limit {retNum}'+
         'union all '+
-        'MATCH n WHERE n.mission=~{qString} RETURN n, labels(n) skip {skipnum} limit {retNum}'+
+        'MATCH n-[r]-x WHERE n.mission=~{qString} RETURN n, labels(n), count(r) as relCount order by n.name skip {skipnum} limit {retNum}'+
         'union all '+
-        'MATCH n WHERE n.contractname=~{qString} RETURN n, labels(n) skip {skipnum} limit {retNum}'
+        'MATCH n-[r]-x WHERE n.contractname=~{qString} RETURN n, labels(n), count(r) as relCount order by n.name skip {skipnum} limit {retNum}' +
+        'union all '+
+        'MATCH n-[r]-x WHERE n.shortName=~{qString} RETURN n, labels(n), count(r) as relCount order by n.name skip {skipnum} limit {retNum}' +
+        'union all '+
+        'MATCH n-[r]-x WHERE n.purpose=~{qString} RETURN n, labels(n), count(r) as relCount order by n.name skip {skipnum} limit {retNum}' +
+        'union all '+
+        'MATCH n-[r]-x WHERE n.description=~{qString} RETURN n, labels(n), count(r) as relCount order by n.name skip {skipnum} limit {retNum}' 
     var params = {
         qString: '(?i).*' + req.params.query + '.*',
         skipnum: 0,
@@ -130,7 +136,7 @@ exports.searchNodesByString = function(req, res) {
         var nodedataarr = [];
         var nodeLabelCounts = {Program:0,SurveillanceSystem:0,Registry:0,
                             HealthSurvey:0,Tool:0,Dataset:0,DataStandard:0,
-                            Collaborative:0,Organization:0,Tag:0};
+                            Collaborative:0,Organization:0,Tag:0,Total:0};
         var returnable = {};
         if (err) {
             console.error('Error retreiving node from database:', err);
@@ -143,12 +149,14 @@ exports.searchNodesByString = function(req, res) {
                 {
                     var nodedata = {};
                     var doohicky = results[i]['n']['data'];
-                    var doohickylabels = results[i]['labels(n)'].join(',')             
+                    var doohickylabels = results[i]['labels(n)'].join(',')
+                    var relCount = results[i]['relCount']           
                     //console.log(doohicky);
             
                      nodedata.name = doohicky.name;
                      nodedata.id = doohicky.id;
                      nodedata.labels = doohickylabels;
+                     nodedata.relCount = relCount;
                      nodedata.status = 'Not Available';
                      if (nodeLabelCounts[doohickylabels] != null)
                      {
@@ -158,6 +166,7 @@ exports.searchNodesByString = function(req, res) {
                      {
                         nodeLabelCounts[doohickylabels] = 1;
                      }
+                     nodeLabelCounts['Total']++;
                      nodedata.attributes = [];
                      for (var prop in doohicky) {
                             // if(prop == 'id')
@@ -170,9 +179,9 @@ exports.searchNodesByString = function(req, res) {
                             if(prop == 'purpose' || prop=='description')
                             {
                                 var string;
-                                if(doohicky[prop].length > 320)
+                                if(doohicky[prop].length > 450)
                                 {
-                                    string  = doohicky[prop].substring(0, 317)  + '...';
+                                    string  = doohicky[prop].substring(0, 447)  + '...';
                                 }
                                 nodedata.attributes.push({
                                 'key': prop,

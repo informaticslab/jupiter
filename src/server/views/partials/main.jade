@@ -6,7 +6,7 @@
 				.div(ng-show='carousel1')
 					.carousel_image2
 						img.img-responsive.placeholder_image.pull-right(src='img/screenshot_lv.png', alt='Screenshot of CISP')
-						.carousel_photo_caption 
+						.carousel_photo_caption
 							| CISP shows the inconnectivity between resources (e.g., systems, programs, etc.).
 					p
 					.orange_header_home
@@ -125,13 +125,13 @@
 			// end top_block
 			.carousel_controls
 				.btn-group
-					button.btn.btn-default(type='button')
+					button.btn.btn-default(type='button' ng-click='goBackwardInCarousel()')
 						span.glyphicon.glyphicon-backward
-					button.btn.btn-default(type='button' ng-click='goToCarousel1()') 1
-					button.btn.btn-default(type='button' ng-click='goToCarousel2()') 2
-					button.btn.btn-default(type='button' ng-click='goToCarousel3()') 3
-					button.btn.btn-default(type='button' ng-click='goToCarousel4()') 4
-					button.btn.btn-default(type='button')
+					button.btn.btn-default(type='button' ng-click='goToCarousel1()' id='carouselBtn1') 1
+					button.btn.btn-default(type='button' ng-click='goToCarousel2()' id='carouselBtn2') 2
+					button.btn.btn-default(type='button' ng-click='goToCarousel3()' id='carouselBtn3') 3
+					button.btn.btn-default(type='button' ng-click='goToCarousel4()' id='carouselBtn4') 4
+					button.btn.btn-default(type='button' ng-click='goForwardInCarousel()')
 						span.glyphicon.glyphicon-forward
 			// end carousel controls
 			.bottom_block
@@ -220,11 +220,70 @@
 	.col-lg-3.col-md-3.col-sm-3
 		.sideblock(ng-show='showSidebar')
 			.block1
-				| Searching for information? [placeholder]
+				img.img-responsive.pull-left.search_block(src='img/search_large.png', alt='Search icon')
+				.home_block_text
+					| Searching
+					| for information?
+					.home_block_text_sm_contain
+						.home_block_sm_text
+							| Explore now >>	
 			.block2
-				| Do you work with? [placeholder]
+				img.img-responsive.pull-left.search_block(src='img/system_large.png', alt='System icon')
+				.home_block_text
+					| Do you work with a
+					| CDC system?
+					.home_block_text_sm_contain2
+						.home_block_sm_text
+							| Log in & help improve our data >>
 			.block3
-				| Recent activity [placeholder]
+				.orange_header_narrow 
+					| Recent activity:
+				.thick_border
+				table.table.table-striped
+					tr
+						td.avatar
+							img.img-responsive(src='img/avatar.png', alt='avatar')
+						td.recent_activity
+							a(href='#') Jane Doe added lorem ipsum to  dolor sit amet dataset sed do eiusmod.
+							br
+							|  04/27/2014 2:27 PM
+					tr
+						td.avatar
+							img.img-responsive(src='img/avatar.png', alt='avatar')
+
+						td.recent_activity
+							a(href='#') Thomas Doe commented on lorem ipsum to sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium.
+							br
+							|  04/26/2014 1:19 PM
+					tr
+						td.avatar
+							img.img-responsive(src='img/avatar.png', alt='avatar')
+						td.recent_activity
+							a(href='#') Betty Doe edited lorem ipsum to sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium.
+							br
+							|  04/23/2014 1:03 PM
+					tr
+						td.avatar
+							img.img-responsive(src='img/avatar.png', alt='avatar')
+						td.recent_activity
+							a(href='#') Gordon Doe provided a new data source lorem ipsum to sed ut perspiciatis.
+							br
+							|  04/18/2014 9:43 AM
+					tr
+						td.avatar
+							img.img-responsive(src='img/avatar.png', alt='avatar')
+						td.recent_activity
+							a(href='#') Sabrina Doe commented on the data source for lorem ipsum to sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium.
+							br
+							|  04/17/2014 12:17 PM				
+					tr
+						td.avatar
+							img.img-responsive(src='img/avatar.png', alt='avatar')
+						td.recent_activity
+							a(href='#') Ty Doe provided a new health survey for lorem ipsum to sed ut perspiciatis unde omnis iste.
+							br
+							|  04/15/2014 8:31 AM	
+
 		// end side block
 	// end col spec
 // end row.orange_header Overview

@@ -1,4 +1,4 @@
-angular.module('apolloApp').controller('searchCtrl', function($scope, $resource, $http, $routeParams) {
+angular.module('apolloApp').controller('searchCtrl', function($scope, $resource, $http, $routeParams, $timeout) {
 	
     $scope.$parent.q = 'explore';
 	$scope.contentLoading = true;
@@ -6,6 +6,10 @@ angular.module('apolloApp').controller('searchCtrl', function($scope, $resource,
     $scope.search=[];
     $scope.queryString = $routeParams.query;
 
+
+    var searchTimeout =  $timeout(function(){ 
+        throw new Error('Search Timeout');
+        }, 10000);
     var nodes = $resource('/apollo/api/node/search/:query', {
         query: '@query'
     },{'query': {isArray: false }});
@@ -13,6 +17,7 @@ angular.module('apolloApp').controller('searchCtrl', function($scope, $resource,
     var searchResult = nodes.query({
         query: $routeParams.query
     },function(result){
+        $timeout.cancel(searchTimeout);
         if (result.nullset)
         {
             $scope.hadSearchResults = false;
@@ -38,4 +43,10 @@ angular.module('apolloApp').controller('searchCtrl', function($scope, $resource,
     $scope.checkedLabels = {Program:false,SurveillanceSystem:false,Registry:false,
                             HealthSurvey:false,Tool:false,Dataset:false,DataStandard:false,
                             Collaborative:false,Organization:false,Tag:false};
+    searchTimeout.catch( function(err){
+            if(err != cancelled)
+            {
+                alert('The search timed out, please try again');
+            }
+        });
 });

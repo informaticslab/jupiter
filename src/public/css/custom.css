@@ -192,7 +192,14 @@ height: 36px; padding-left:2em; padding-top:.6em; color:#ffffff; font-size: smal
 
 .sortby {float:right; padding-right:1em; position:relative; bottom:.1em;   }
 
-.hx_side {margin-right:2em; background-color:#e1ebf4; text-align:center; min-height:1000px; margin-bottom:3em; padding:1em;}
+.hx_side {background-color:#ffffff; text-align:center; min-height:1000px; margin-bottom:3em;}
+
+.blue_side {width:30%; background-color:#e1ebf4; min-height:1000px; float:right; border-left-style:solid; border-bottom-style:solid; border-top-style:solid; border-width:1px; border-color:#b3cddd; border-top-left-radius: 4px;  border-bottom-left-radius: 4px;}
+
+.button_side {width:70%; min-height:1000px;}
+
+.sidebar_button {height:100px; width:37px; float:right; background-color:#e1ebf4; z-index:1; position:relative; left:2px; border-left-style:solid; border-bottom-style:solid; border-top-style:solid; 
+  border-width:1px; border-color:#b3cddd; border-top-left-radius: 7px;  border-bottom-left-radius: 7px; top:240px; padding-top:36px; box-shadow: 0px 7px 7px -3px #dddddd; }
 
 .subnav {margin-bottom:.5em; height:47px; position:relative; bottom:1.13em; padding-top:.2em;}
 

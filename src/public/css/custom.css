@@ -496,3 +496,5 @@ td.avatar {vertical-align:top;}
 
 .search_empty {display: block; margin-left: auto; margin-right: auto; margin-top:5em;  }
 
+.alpha {display:block; background-color:#71808e; width: 80px; height:24px; position:relative; top:1.9em; float:left;}
+

@@ -29,6 +29,7 @@ angular.module('apolloApp').controller('searchCtrl', function($scope, $resource,
         
     if($routeParams.query == null || $routeParams.query == '')
     {
+        $timeout.cancel(searchTimeout);
         $scope.hasSearchValue= false;
     }
     else

@@ -138,6 +138,7 @@ exports.searchNodesByString = function(req, res) {
                             HealthSurvey:0,Tool:0,Dataset:0,DataStandard:0,
                             Collaborative:0,Organization:0,Tag:0,Total:0};
         var returnable = {};
+        var duplicheck = [];
         if (err) {
             console.error('Error retreiving node from database:', err);
             res.send(404, 'No node with that text available');
@@ -146,29 +147,33 @@ exports.searchNodesByString = function(req, res) {
             //console.log("results length is" + results);
             if (results[0] != null && results[0]['n'] != null && results[0]['n']['data'] != null) {
                 for(var i=0;i<results.length;i++)
-                {
-                    var nodedata = {};
+                {   
                     var doohicky = results[i]['n']['data'];
-                    var doohickylabels = results[i]['labels(n)'].join(',')
-                    var relCount = results[i]['relCount']           
-                    //console.log(doohicky);
-            
-                     nodedata.name = doohicky.name;
-                     nodedata.id = doohicky.id;
-                     nodedata.labels = doohickylabels;
-                     nodedata.relCount = relCount;
-                     nodedata.status = 'Not Available';
-                     if (nodeLabelCounts[doohickylabels] != null)
-                     {
-                        nodeLabelCounts[doohickylabels]++;
-                     }
-                     else
-                     {
-                        nodeLabelCounts[doohickylabels] = 1;
-                     }
-                     nodeLabelCounts['Total']++;
-                     nodedata.attributes = [];
-                     for (var prop in doohicky) {
+                    if(duplicheck[doohicky.id] == null)
+                    {
+                        duplicheck[doohicky.id] = true;
+                        var nodedata = {};
+                        var doohickylabels = results[i]['labels(n)'].join(',')
+                        var relCount = results[i]['relCount']           
+                        //console.log(doohicky);
+                
+                        nodedata.name = doohicky.name;
+                        nodedata.id = doohicky.id;
+                        nodedata.labels = doohickylabels;
+                        nodedata.relCount = relCount;
+                        nodedata.status = 'Not Available';
+                        if (nodeLabelCounts[doohickylabels] != null)
+                        {
+                           nodeLabelCounts[doohickylabels]++;
+                        }
+                        else
+                        {
+                           nodeLabelCounts[doohickylabels] = 1;
+                        }
+                        nodeLabelCounts['Total']++;
+                        nodedata.attributes = [];
+                        for (var prop in doohicky) 
+                        {
                             // if(prop == 'id')
                             // {
                             //     nodedata.attributes.push({
@@ -192,8 +197,9 @@ exports.searchNodesByString = function(req, res) {
                             {
                                 nodedata.status = doohicky[prop];
                             }
+                        }
+                        nodedataarr.push(nodedata);
                     }
-                    nodedataarr.push(nodedata);
                 }
                 //console.log(JSON.stringify(nodeLabelCounts))
                 returnable.nodedataarr = nodedataarr;

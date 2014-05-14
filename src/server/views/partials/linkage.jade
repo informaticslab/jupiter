@@ -1,5 +1,5 @@
 .row
-	.col-lg-9.col-md-9.col-sm-9
+	.div(ng-class='getContentWidth()')
 		.content_block
 			.subnav
 				ul.nav.nav-pills
@@ -393,11 +393,24 @@
 			// end top_block2
 		// end content block
 	// end col spec
-	.col-lg-3.col-md-3.col-sm-3
-		.hx_side
-			| Exploration History [placeholder]
+	//- .col-lg-3.col-md-3.col-sm-3
+	//- 	.hx_side
+	//- 		| Exploration History [placeholder]
+	//- 	// end hx_side
+	//- // end col spec
+	.div(ng-class='getSidebarWidth()')
+		.hx_side(ng-show='!showSidebar' ng-click='toggleSidebar()')
+			.blue_side
+			.button_side
+				.sidebar_button
+					img(src='img/tab_button_collapse.png', alt='Collapse sidebar')			
 		// end hx_side
-	// end col spec
+		.hx_side(ng-show='showSidebar' ng-click='toggleSidebar()')
+			.blue_side
+			.button_side
+				.sidebar_button
+					img(src='img/tab_button_expand.png', alt='Expand sidebar')			
+		// end hx_side
 // end row
 // row
 

@@ -489,4 +489,5 @@ cursor: help;
 td.recent_activity {vertical-align:middle; color:#777777; padding:.5em;; padding-bottom:.7em;}
 td.avatar {vertical-align:top;}
 
+.search_empty {display: block; margin-left: auto; margin-right: auto; margin-top:5em;  }
 

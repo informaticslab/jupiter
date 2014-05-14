@@ -44,7 +44,7 @@ angular.module('apolloApp').controller('searchCtrl', function($scope, $resource,
                             HealthSurvey:false,Tool:false,Dataset:false,DataStandard:false,
                             Collaborative:false,Organization:false,Tag:false};
     searchTimeout.catch( function(err){
-            if(err != cancelled)
+            if(err != 'canceled')
             {
                 alert('The search timed out, please try again');
             }

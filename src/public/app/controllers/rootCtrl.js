@@ -34,7 +34,7 @@ angular.module('apolloApp').controller('rootCtrl', function($scope, $http){
           return 'col-lg-1 col-md-1 col-sm-1';
        }
        else if ($scope.showSidebar == false) {
-         return 'col-lg-3 col-md-3 col-sm-3';
+         return 'col-lg-2 col-md-2 col-sm-2';
        };
 
     }
@@ -46,7 +46,7 @@ angular.module('apolloApp').controller('rootCtrl', function($scope, $http){
           return 'col-lg-11 col-md-11 col-sm-11';
        }
        else if ($scope.showSidebar == false) {
-          return 'col-lg-9 col-md-9 col-sm-9';
+          return 'col-lg-10 col-md-10 col-sm-10';
        };
     }
 

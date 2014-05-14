@@ -27,7 +27,6 @@ angular.module('apolloApp').controller('rootCtrl', function($scope, $http){
 
     $scope.showSidebar = true;
 
-    //$scope.getClass = function(){
     $scope.getSidebarWidth = function(){
 
        // returning the column width for the sidebar
@@ -49,7 +48,6 @@ angular.module('apolloApp').controller('rootCtrl', function($scope, $http){
        else if ($scope.showSidebar == false) {
           return 'col-lg-9 col-md-9 col-sm-9';
        };
-
     }
 
     $scope.toggleSidebar = function(){

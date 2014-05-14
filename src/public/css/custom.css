@@ -174,7 +174,7 @@ height: 36px; padding-left:2em; padding-top:.6em; color:#ffffff; font-size: smal
 .block3 {min-height:600px;  background-color:#ffffff; margin-bottom:3em; padding-top:.7em; border-style:solid; border-width:1px; border-color:#d3d9d9; }
 
 
-.detail_header {min-height:55px;background-color:#f39c11; text-align:center; color:#ffffff; font-weight:bold; padding:.5em;}
+.detail_header {min-height:55px;background-color:#f39c11; text-align:center; color:#ffffff; font-weight:bold; padding:.5em; min-width: 920px;}
 
 .detail_header_link {height:55px; background-color:#f39c11; text-align:center; color:#ffffff; font-weight:bold; padding:.5em; margin-top:2em;}
 

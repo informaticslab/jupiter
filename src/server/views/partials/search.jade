@@ -217,15 +217,15 @@
 		// end content block
 	// end col spec
 	.div(ng-class='getSidebarWidth()')
-		.hx_side2(ng-show='!showSidebar' ng-click='toggleSidebar()')
+		.hx_side(ng-show='!showSidebar' ng-click='toggleSidebar()')
 			.blue_side
 			.button_side
 				.sidebar_button
-					img(src='img/tab_button_collapse.png', alt='Collapse sidebar')				
+					img(src='img/tab_button_collapse.png', alt='Collapse sidebar')			
 		// end hx_side
-		.hx_side2(ng-show='showSidebar' ng-click='toggleSidebar()')
-			.blue_side
-			.button_side
+		.hx_side(ng-show='showSidebar' ng-click='toggleSidebar()')
+			.blue_side_expanded
+			.button_side_expanded
 				.sidebar_button
 					img(src='img/tab_button_expand.png', alt='Expand sidebar')		
 		// end hx_side

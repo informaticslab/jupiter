@@ -40,7 +40,7 @@ angular.module('apolloApp').controller('rootCtrl', function($scope, $http){
 
     }
 
-    $scope.getBrowseContentWidth = function(){
+    $scope.getContentWidth = function(){
 
        // returning the column width for the sidebar
        if ($scope.showSidebar == true) {

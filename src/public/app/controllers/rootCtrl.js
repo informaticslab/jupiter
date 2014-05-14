@@ -27,6 +27,31 @@ angular.module('apolloApp').controller('rootCtrl', function($scope, $http){
 
     $scope.showSidebar = true;
 
+    //$scope.getClass = function(){
+    $scope.getSidebarWidth = function(){
+
+       // returning the column width for the sidebar
+       if ($scope.showSidebar == true) {
+          return 'col-lg-1 col-md-1 col-sm-1';
+       }
+       else if ($scope.showSidebar == false) {
+         return 'col-lg-3 col-md-3 col-sm-3';
+       };
+
+    }
+
+    $scope.getBrowseContentWidth = function(){
+
+       // returning the column width for the sidebar
+       if ($scope.showSidebar == true) {
+          return 'col-lg-11 col-md-11 col-sm-11';
+       }
+       else if ($scope.showSidebar == false) {
+          return 'col-lg-9 col-md-9 col-sm-9';
+       };
+
+    }
+
     $scope.toggleSidebar = function(){
       $scope.showSidebar = !$scope.showSidebar;
     };

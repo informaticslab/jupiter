@@ -182,8 +182,9 @@
 
 				.col-lg-9.col-md-8.col-sm-8(ng-show='hadSearchResults')
 					.sub_block(ng-show='hasSearchValue')
+						pagination(total-items="totalItems" ng-model="currentPage" max-size="maxSize" class="pagination-sm" boundary-links="true")
 						img(src='img/ajax-loader.gif', alt='Content is Loading', ng-show='contentLoading')
-						.span(ng-repeat="node in nodes | searchCheckFilter:checkedLabels", ng-show='!contentLoading', )
+						.span(ng-repeat="node in nodes | searchCheckFilter:checkedLabels | startFrom:(currentPage-1)*entryLimit | limitTo:entryLimit", ng-show='!contentLoading', )
 							table.search_results
 								tr
 									td.resource_name.search
@@ -194,7 +195,8 @@
 								tr(ng-repeat="att in node.attributes")
 									td(class="text-left list_margin",colspan='3') 
 										{{att.key | unCamelCase}}:&nbsp; {{att.value}}	
-									//- td(class="text-left")															
+									//- td(class="text-left")
+						pagination(total-items="totalItems" ng-model="currentPage" max-size="maxSize" class="pagination-sm" boundary-links="true")
 						//.page_controls
 						//	| Page controls (for multiple pages of results) to go here
 					// end sub block

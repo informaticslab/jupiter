@@ -1,4 +1,4 @@
-angular.module('apolloApp').controller('searchCtrl', function($scope, $resource, $http, $routeParams, $timeout) {
+angular.module('apolloApp').controller('searchCtrl', function($scope, $resource, $http, $routeParams, $timeout, $filter) {
 	
     $scope.$parent.q = 'explore';
 	$scope.contentLoading = true;
@@ -25,6 +25,7 @@ angular.module('apolloApp').controller('searchCtrl', function($scope, $resource,
         $scope.contentLoading = false;
         $scope.labelCounts = result.nodeLabelCounts;
         $scope.nodes = result.nodedataarr;
+        $scope.totalItems = result.nodedataarr.length;
     });
         
     if($routeParams.query == null || $routeParams.query == '')
@@ -50,4 +51,20 @@ angular.module('apolloApp').controller('searchCtrl', function($scope, $resource,
                 alert('The search timed out, please try again');
             }
         });
+
+    //pagination
+ 
+  $scope.currentPage = 1;
+  $scope.entryLimit = 10;
+  $scope.maxSize = 10;
+
+  // $scope.setPage = function (pageNo) {
+  //   $scope.currentPage = pageNo;
+  // };
+  $scope.$watch($scope.checkedLabels.Program, function() {
+        console.log('program changed');
+    });
+
+
+
 });

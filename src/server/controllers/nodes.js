@@ -125,11 +125,27 @@ exports.searchNodesByString = function(req, res) {
         'union all '+
         'MATCH n-[r]-x WHERE n.purpose=~{qString} RETURN n, labels(n), count(r) as relCount order by n.name skip {skipnum} limit {retNum}' +
         'union all '+
-        'MATCH n-[r]-x WHERE n.description=~{qString} RETURN n, labels(n), count(r) as relCount order by n.name skip {skipnum} limit {retNum}' 
+        'MATCH n-[r]-x WHERE n.description=~{qString} RETURN n, labels(n), count(r) as relCount order by n.name skip {skipnum} limit {retNum}' +
+        'union all '+
+        'MATCH n WHERE n.name=~{qString} RETURN n, labels(n), 0 as relCount order by n.name skip {skipnum} limit {retNum}'+
+        'union all '+
+        'MATCH n WHERE n.fullname=~{qString} RETURN n, labels(n), 0 as relCount order by n.name skip {skipnum} limit {retNum}'+
+        'union all '+
+        'MATCH n WHERE n.contractphone=~{qString} RETURN n, labels(n), 0 as relCount order by n.name skip {skipnum} limit {retNum}'+
+        'union all '+
+        'MATCH n WHERE n.mission=~{qString} RETURN n, labels(n), 0 as relCount order by n.name skip {skipnum} limit {retNum}'+
+        'union all '+
+        'MATCH n WHERE n.contractname=~{qString} RETURN n, labels(n), 0 as relCount order by n.name skip {skipnum} limit {retNum}' +
+        'union all '+
+        'MATCH n WHERE n.shortName=~{qString} RETURN n, labels(n), 0 as relCount order by n.name skip {skipnum} limit {retNum}' +
+        'union all '+
+        'MATCH n WHERE n.purpose=~{qString} RETURN n, labels(n), 0 as relCount order by n.name skip {skipnum} limit {retNum}' +
+        'union all '+
+        'MATCH n WHERE n.description=~{qString} RETURN n, labels(n), 0 as relCount order by n.name skip {skipnum} limit {retNum}' 
     var params = {
         qString: '(?i).*' + req.params.query + '.*',
         skipnum: 0,
-        retNum: 50
+        retNum: 500
     };
     //console.log("Query is " + query + " and params are " + params.qString);
     neodb.db.query(query, params, function(err, results) {
@@ -154,7 +170,11 @@ exports.searchNodesByString = function(req, res) {
                         duplicheck[doohicky.id] = true;
                         var nodedata = {};
                         var doohickylabels = results[i]['labels(n)'].join(',')
-                        var relCount = results[i]['relCount']           
+                        var relCount = results[i]['relCount'] 
+                        if (relCount == null)
+                        {
+                            relCount = 0;
+                        }          
                         //console.log(doohicky);
                 
                         nodedata.name = doohicky.name;

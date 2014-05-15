@@ -1,9 +1,10 @@
 blue/* this is a custom CSS stylesheet */
 body {
   
+
   padding-top: 0px;
   
-  color:#5c5c5c;
+  color:#777777;
 
 }
 
@@ -17,7 +18,7 @@ text-align: center;
 
 html, body { overflow-x: hidden; }
 .glyphicon {
-  color:#3f2b22;
+  color:#777777;
 }
 
 .headerblue {background-color:#34495e; height:5.4em; margin-bottom:3.1em; 
@@ -165,7 +166,9 @@ height: 36px; padding-left:2em; padding-top:.6em; color:#ffffff; font-size: smal
 .orange_header_narrow {color:#e77e23; padding:.7em; padding-left:1em; font-weight:bold;}
 
 .orange_text {color:#e77e23;}
-.carousel_text {font-size:1.1em; padding-bottom:.3em;}
+.carousel_text {font-size:1.1em; padding-bottom:.3em; color:#777777;}
+.carousel_text_disclaimer {font-size:.9em; padding-bottom:.3em; font-style:italic; color:#777777; }
+
 .placeholder_image {padding-left:2.5em;}
 .sideblock {margin-right:2em; }
 .block1 {min-height:141px; background-color:#3598db; margin-bottom:1em; padding-top:.8em; padding-left:.8em; padding-bottom:.8em; color:#ffffff; white-space: pre;}
@@ -415,7 +418,7 @@ li.qg_li {padding-top:.7em; margin-left: -1.7em;}
 
 .carousel_photo_caption2 {clear:both; font-size:.9em; padding-left:3.5em; padding-bottom:1em; position:relative; top:.1em; margin-bottom:1.2em; color:#909090;}
 
-.carousel_bullet {margin-left:1.5em; margin-bottom:.5em;}
+.carousel_bullet {margin-left:1.5em; margin-bottom:.5em; color:#777777;}
 
 
 
@@ -482,7 +485,7 @@ a:focus, :active{
   -moz-outline: 0;
 }
 
-.home_bullet {position:relative; bottom:.2em; margin-left:1em; padding-right:.2em;}
+.home_bullet {position:relative; bottom:.2em; margin-left:0em; padding-right:.2em;}
 
 .cursor-help{
 cursor: help;
@@ -492,7 +495,7 @@ cursor: help;
 .home_block_text {font-weight:bold; font-size:1.1vw; text-align:left;}
 .home_block_sm_text {font-size:.9em; font-weight:normal;  text-align:left;}
 .search_block{margin-right:1em;}
-td.recent_activity {vertical-align:middle; color:#777777; padding:.5em;; padding-bottom:.7em;}
+td.recent_activity {vertical-align:middle; color:#777777; padding:.5em;}
 td.avatar {vertical-align:top;}
 
 .search_empty {display: block; margin-left: auto; margin-right: auto; margin-top:5em;  }

@@ -9,7 +9,7 @@ angular.module('apolloApp').controller('searchCtrl', function($scope, $resource,
 
     var searchTimeout =  $timeout(function(){ 
         throw new Error('Search Timeout');
-        }, 10000);
+        }, 60000);
     var nodes = $resource('/apollo/api/node/search/:query', {
         query: '@query'
     },{'query': {isArray: false }});
@@ -26,6 +26,7 @@ angular.module('apolloApp').controller('searchCtrl', function($scope, $resource,
         $scope.labelCounts = result.nodeLabelCounts;
         $scope.nodes = result.nodedataarr;
         $scope.totalItems = result.nodedataarr.length;
+        $filter('orderBy')($scope.totalItems, 'nodes.name');
     });
         
     if($routeParams.query == null || $routeParams.query == '')
@@ -62,7 +63,7 @@ angular.module('apolloApp').controller('searchCtrl', function($scope, $resource,
    $scope.filterclick = function(){
     $timeout(function(){ 
         //timeout to avoid race condition.  Could add a watch, but they don't seem to recognize labelCount status :-/
-        
+
         //console.log('someone clicked a filter.  Program is currently ' + $scope.checkedLabels.Program);
         //check all checkboxes, if all are unchecked, then reset totalItems count for pagination
             if (!$scope.checkedLabels.Program && !$scope.checkedLabels.SurveillanceSystem && !$scope.checkedLabels.Registry 
@@ -122,7 +123,4 @@ angular.module('apolloApp').controller('searchCtrl', function($scope, $resource,
         }, 10);
     
   }
-
-
-
 });

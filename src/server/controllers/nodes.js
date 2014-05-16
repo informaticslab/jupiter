@@ -111,33 +111,33 @@ exports.getNodeById = function(req, res) {
 };
 exports.searchNodesByString = function(req, res) {
 
-     var query = 'MATCH n-[r]-x WHERE n.name=~{qString} RETURN n, labels(n), count(r) as relCount order by n.name skip {skipnum} limit {retNum}'+
+     var query = 'MATCH n-[r]-x WHERE n.name=~{qString} RETURN n, labels(n), count(r) as relCount skip {skipnum} limit {retNum}'+
         'union all '+
-        'MATCH n-[r]-x WHERE n.fullname=~{qString} RETURN n, labels(n), count(r) as relCount order by n.name skip {skipnum} limit {retNum}'+
+        'MATCH n-[r]-x WHERE n.fullname=~{qString} RETURN n, labels(n), count(r) as relCount skip {skipnum} limit {retNum}'+
         'union all '+
-        'MATCH n-[r]-x WHERE n.contractphone=~{qString} RETURN n, labels(n), count(r) as relCount order by n.name skip {skipnum} limit {retNum}'+
+        'MATCH n-[r]-x WHERE n.contractphone=~{qString} RETURN n, labels(n), count(r) as relCount skip {skipnum} limit {retNum}'+
         'union all '+
-        'MATCH n-[r]-x WHERE n.mission=~{qString} RETURN n, labels(n), count(r) as relCount order by n.name skip {skipnum} limit {retNum}'+
+        'MATCH n-[r]-x WHERE n.mission=~{qString} RETURN n, labels(n), count(r) as relCount skip {skipnum} limit {retNum}'+
         'union all '+
-        'MATCH n-[r]-x WHERE n.contractname=~{qString} RETURN n, labels(n), count(r) as relCount order by n.name skip {skipnum} limit {retNum}' +
+        'MATCH n-[r]-x WHERE n.contractname=~{qString} RETURN n, labels(n), count(r) as relCount skip {skipnum} limit {retNum}' +
         'union all '+
-        'MATCH n-[r]-x WHERE n.shortName=~{qString} RETURN n, labels(n), count(r) as relCount order by n.name skip {skipnum} limit {retNum}' +
+        'MATCH n-[r]-x WHERE n.shortName=~{qString} RETURN n, labels(n), count(r) as relCount  skip {skipnum} limit {retNum}' +
         //'union all '+
         //'MATCH n-[r]-x WHERE n.purpose=~{qString} RETURN n, labels(n), count(r) as relCount order by n.name skip {skipnum} limit {retNum}' +
         //'union all '+
         //'MATCH n-[r]-x WHERE n.description=~{qString} RETURN n, labels(n), count(r) as relCount order by n.name skip {skipnum} limit {retNum}' +
         'union all '+
-        'MATCH n WHERE n.name=~{qString} RETURN n, labels(n), 0 as relCount order by n.name skip {skipnum} limit {retNum}'+
+        'MATCH n WHERE n.name=~{qString} RETURN n, labels(n), 0 as relCount  skip {skipnum} limit {retNum}'+
         'union all '+
-        'MATCH n WHERE n.fullname=~{qString} RETURN n, labels(n), 0 as relCount order by n.name skip {skipnum} limit {retNum}'+
+        'MATCH n WHERE n.fullname=~{qString} RETURN n, labels(n), 0 as relCount  skip {skipnum} limit {retNum}'+
         'union all '+
-        'MATCH n WHERE n.contractphone=~{qString} RETURN n, labels(n), 0 as relCount order by n.name skip {skipnum} limit {retNum}'+
+        'MATCH n WHERE n.contractphone=~{qString} RETURN n, labels(n), 0 as relCount  skip {skipnum} limit {retNum}'+
         'union all '+
-        'MATCH n WHERE n.mission=~{qString} RETURN n, labels(n), 0 as relCount order by n.name skip {skipnum} limit {retNum}'+
+        'MATCH n WHERE n.mission=~{qString} RETURN n, labels(n), 0 as relCount  skip {skipnum} limit {retNum}'+
         'union all '+
-        'MATCH n WHERE n.contractname=~{qString} RETURN n, labels(n), 0 as relCount order by n.name skip {skipnum} limit {retNum}' +
+        'MATCH n WHERE n.contractname=~{qString} RETURN n, labels(n), 0 as relCount  skip {skipnum} limit {retNum}' +
         'union all '+
-        'MATCH n WHERE n.shortName=~{qString} RETURN n, labels(n), 0 as relCount order by n.name skip {skipnum} limit {retNum}' 
+        'MATCH n WHERE n.shortName=~{qString} RETURN n, labels(n), 0 as relCount  skip {skipnum} limit {retNum}' 
         //+
         //'union all '+
         //'MATCH n WHERE n.purpose=~{qString} RETURN n, labels(n), 0 as relCount order by n.name skip {skipnum} limit {retNum}' +
@@ -148,6 +148,23 @@ exports.searchNodesByString = function(req, res) {
         skipnum: 0,
         retNum: 500
     };
+
+    var sortFunction = function(a, b){
+//Compare "a" and "b" in some fashion, and return -1, 0, or 1
+    if(a.name > b.name)
+    {
+        return 1;
+    }
+    else if (a.name == b.name)
+    {
+        return 0;
+    }
+        else if (a.name < b.name)
+    {
+        return -1;
+    }
+}
+
     //console.log("Query is " + query + " and params are " + params.qString);
     neodb.db.query(query, params, function(err, results) {
         var nodedataarr = [];
@@ -223,6 +240,7 @@ exports.searchNodesByString = function(req, res) {
                     }
                 }
                 //console.log(JSON.stringify(nodeLabelCounts))
+                nodedataarr.sort(sortFunction);
                 returnable.nodedataarr = nodedataarr;
                 returnable.nodeLabelCounts = nodeLabelCounts;
                 //console.log(returnable);

@@ -522,6 +522,9 @@ cursor: help;
 
 .search_block{margin-right:1em;}
 td.recent_activity {vertical-align:middle; color:#777777; padding:.5em;}
+
+td.recent_activity_sm {vertical-align:middle; color:#777777; font-size:.9em; padding:0em;}
+
 td.avatar {vertical-align:top;}
 
 .search_empty {display: block; margin-left: auto; margin-right: auto; margin-top:5em;  }

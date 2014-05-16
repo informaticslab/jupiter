@@ -1,19 +1,34 @@
-angular.module('apolloApp').controller('searchCtrl', function($scope, $resource, $http, $routeParams, $timeout, $filter) {
+angular.module('apolloApp').controller('searchCtrl', function($scope, $resource, $http, $routeParams, $timeout, $filter, $location) {
 	
     $scope.$parent.q = 'explore';
 	$scope.contentLoading = true;
     $scope.hadSearchResults = true;
     $scope.search=[];
     $scope.queryString = $routeParams.query;
+    var currentURL = $location.path();
+    //console.log('current URL is ' + currentURL );
 
 
     var searchTimeout =  $timeout(function(){ 
         throw new Error('Search Timeout');
         }, 60000);
-    var nodes = $resource('/apollo/api/node/search/:query', {
+
+    var nodes;
+    if(currentURL.length >7 && currentURL.substring(0,14) == '/search/label/')
+    {
+        //console.log('\'tis a label search');
+        nodes = $resource('/apollo/api/node/search/label/:query', {
+        query: '@query'
+        },{'query': {isArray: false }});
+        $scope.queryString = '';
+    }
+    else
+    {
+        var nodes = $resource('/apollo/api/node/search/:query', {
         query: '@query'
     },{'query': {isArray: false }});
-
+        
+    }
     var searchResult = nodes.query({
         query: $routeParams.query
     },function(result){

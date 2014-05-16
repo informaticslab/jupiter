@@ -109,47 +109,8 @@ exports.getNodeById = function(req, res) {
         }
     });
 };
-exports.searchNodesByString = function(req, res) {
 
-     var query = 'MATCH n-[r]-x WHERE n.name=~{qString} RETURN n, labels(n), count(r) as relCount skip {skipnum} limit {retNum}'+
-        'union all '+
-        'MATCH n-[r]-x WHERE n.fullname=~{qString} RETURN n, labels(n), count(r) as relCount skip {skipnum} limit {retNum}'+
-        'union all '+
-        'MATCH n-[r]-x WHERE n.contractphone=~{qString} RETURN n, labels(n), count(r) as relCount skip {skipnum} limit {retNum}'+
-        'union all '+
-        'MATCH n-[r]-x WHERE n.mission=~{qString} RETURN n, labels(n), count(r) as relCount skip {skipnum} limit {retNum}'+
-        'union all '+
-        'MATCH n-[r]-x WHERE n.contractname=~{qString} RETURN n, labels(n), count(r) as relCount skip {skipnum} limit {retNum}' +
-        'union all '+
-        'MATCH n-[r]-x WHERE n.shortName=~{qString} RETURN n, labels(n), count(r) as relCount  skip {skipnum} limit {retNum}' +
-        //'union all '+
-        //'MATCH n-[r]-x WHERE n.purpose=~{qString} RETURN n, labels(n), count(r) as relCount order by n.name skip {skipnum} limit {retNum}' +
-        //'union all '+
-        //'MATCH n-[r]-x WHERE n.description=~{qString} RETURN n, labels(n), count(r) as relCount order by n.name skip {skipnum} limit {retNum}' +
-        'union all '+
-        'MATCH n WHERE n.name=~{qString} RETURN n, labels(n), 0 as relCount  skip {skipnum} limit {retNum}'+
-        'union all '+
-        'MATCH n WHERE n.fullname=~{qString} RETURN n, labels(n), 0 as relCount  skip {skipnum} limit {retNum}'+
-        'union all '+
-        'MATCH n WHERE n.contractphone=~{qString} RETURN n, labels(n), 0 as relCount  skip {skipnum} limit {retNum}'+
-        'union all '+
-        'MATCH n WHERE n.mission=~{qString} RETURN n, labels(n), 0 as relCount  skip {skipnum} limit {retNum}'+
-        'union all '+
-        'MATCH n WHERE n.contractname=~{qString} RETURN n, labels(n), 0 as relCount  skip {skipnum} limit {retNum}' +
-        'union all '+
-        'MATCH n WHERE n.shortName=~{qString} RETURN n, labels(n), 0 as relCount  skip {skipnum} limit {retNum}' 
-        //+
-        //'union all '+
-        //'MATCH n WHERE n.purpose=~{qString} RETURN n, labels(n), 0 as relCount order by n.name skip {skipnum} limit {retNum}' +
-        //'union all '+
-        //'MATCH n WHERE n.description=~{qString} RETURN n, labels(n), 0 as relCount order by n.name skip {skipnum} limit {retNum}' 
-    var params = {
-        qString: '(?i).*' + req.params.query + '.*',
-        skipnum: 0,
-        retNum: 500
-    };
-
-    var sortFunction = function(a, b){
+var sortFunction = function(a, b){
 //Compare "a" and "b" in some fashion, and return -1, 0, or 1
     if(a.name > b.name)
     {
@@ -165,9 +126,9 @@ exports.searchNodesByString = function(req, res) {
     }
 }
 
-    //console.log("Query is " + query + " and params are " + params.qString);
-    neodb.db.query(query, params, function(err, results) {
-        var nodedataarr = [];
+var compileSearchResults = function(req, res, err, results)
+{
+            var nodedataarr = [];
         var nodeLabelCounts = {Program:0,SurveillanceSystem:0,Registry:0,
                             HealthSurvey:0,Tool:0,Dataset:0,DataStandard:0,
                             Collaborative:0,Organization:0,Tag:0,Total:0};
@@ -212,13 +173,6 @@ exports.searchNodesByString = function(req, res) {
                         nodedata.attributes = [];
                         for (var prop in doohicky) 
                         {
-                            // if(prop == 'id')
-                            // {
-                            //     nodedata.attributes.push({
-                            //     'key': prop,
-                            //     'value': doohicky[prop] 
-                            //     })
-                            // }
                             if(prop == 'purpose' || prop=='description')
                             {
                                 var string;
@@ -252,6 +206,70 @@ exports.searchNodesByString = function(req, res) {
               res.json({"nullset":true}) ;
             }
         }
+}
+
+exports.searchNodesByLabel = function(req, res) {
+
+    //NOTE:  THIS WILL NEED TO BE CHANGED AS IT IS CYPHER INJECTION SUSCEPTIBLE
+    //for some reason query is being shady and wont work with the usual prepared statements.
+    var query = 'MATCH (n:`'+req.params.query+'`)-[r]-x RETURN n, labels(n), count(r) as relCount skip {skipnum} limit {retNum}'
+        + 'union all '
+        + 'MATCH (n:`'+req.params.query+'`) RETURN n, labels(n), 0 as relCount  skip {skipnum} limit {retNum}'
+    var params = {
+        //qString:  req.params.query ,
+        skipnum: 0,
+        retNum: 500
+        };
+        console.log(params);
+
+        neodb.db.query(query, params, function(err, results) {
+            compileSearchResults(req, res, err, results)
+    });
+}
+
+exports.searchNodesByString = function(req, res) {
+
+     var query = 'MATCH n-[r]-x WHERE n.name=~{qString} RETURN n, labels(n), count(r) as relCount skip {skipnum} limit {retNum}'+
+        'union all '+
+        'MATCH n-[r]-x WHERE n.fullname=~{qString} RETURN n, labels(n), count(r) as relCount skip {skipnum} limit {retNum}'+
+        'union all '+
+        'MATCH n-[r]-x WHERE n.contractphone=~{qString} RETURN n, labels(n), count(r) as relCount skip {skipnum} limit {retNum}'+
+        'union all '+
+        'MATCH n-[r]-x WHERE n.mission=~{qString} RETURN n, labels(n), count(r) as relCount skip {skipnum} limit {retNum}'+
+        'union all '+
+        'MATCH n-[r]-x WHERE n.contractname=~{qString} RETURN n, labels(n), count(r) as relCount skip {skipnum} limit {retNum}' +
+        'union all '+
+        'MATCH n-[r]-x WHERE n.shortName=~{qString} RETURN n, labels(n), count(r) as relCount  skip {skipnum} limit {retNum}' +
+        //'union all '+
+        //'MATCH n-[r]-x WHERE n.purpose=~{qString} RETURN n, labels(n), count(r) as relCount order by n.name skip {skipnum} limit {retNum}' +
+        //'union all '+
+        //'MATCH n-[r]-x WHERE n.description=~{qString} RETURN n, labels(n), count(r) as relCount order by n.name skip {skipnum} limit {retNum}' +
+        'union all '+
+        'MATCH n WHERE n.name=~{qString} RETURN n, labels(n), 0 as relCount  skip {skipnum} limit {retNum}'+
+        'union all '+
+        'MATCH n WHERE n.fullname=~{qString} RETURN n, labels(n), 0 as relCount  skip {skipnum} limit {retNum}'+
+        'union all '+
+        'MATCH n WHERE n.contractphone=~{qString} RETURN n, labels(n), 0 as relCount  skip {skipnum} limit {retNum}'+
+        'union all '+
+        'MATCH n WHERE n.mission=~{qString} RETURN n, labels(n), 0 as relCount  skip {skipnum} limit {retNum}'+
+        'union all '+
+        'MATCH n WHERE n.contractname=~{qString} RETURN n, labels(n), 0 as relCount  skip {skipnum} limit {retNum}' +
+        'union all '+
+        'MATCH n WHERE n.shortName=~{qString} RETURN n, labels(n), 0 as relCount  skip {skipnum} limit {retNum}' 
+        //+
+        //'union all '+
+        //'MATCH n WHERE n.purpose=~{qString} RETURN n, labels(n), 0 as relCount order by n.name skip {skipnum} limit {retNum}' +
+        //'union all '+
+        //'MATCH n WHERE n.description=~{qString} RETURN n, labels(n), 0 as relCount order by n.name skip {skipnum} limit {retNum}' 
+    var params = {
+        qString: '(?i).*' + req.params.query + '.*',
+        skipnum: 0,
+        retNum: 500
+    };
+
+    //console.log("Query is " + query + " and params are " + params.qString);
+    neodb.db.query(query, params, function(err, results) {
+       compileSearchResults(req, res, err, results);
     });
 };
 exports.getNodesForLinkageViewer = function(req, res) {

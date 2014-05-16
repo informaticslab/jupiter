@@ -259,6 +259,7 @@ exports.getNodesForLinkageViewer = function(req, res) {
     'return n.id as nodeId, labels(n) as nodeLabels, ',
     'n.name as nodeNames, ',
     'id(r) as relId,type(r) as relType, x.id as childId, ', 
+    'r.relationshipDescription as relDesc, ',
     'labels(x) as childLabels, ',
     'startNode(r).id as startNode, ',
     'x.name as childName order by childLabels[0]'
@@ -288,6 +289,10 @@ exports.getNodesForLinkageViewer = function(req, res) {
 
             var allRelations = _.map(r, function(i) {
                 return i.relType
+            });
+
+            var allRelDesc = _.map(r, function(i) {
+                return i.relDesc
             });
 
             var allRelIds = _.map(r, function(i) {
@@ -326,7 +331,8 @@ exports.getNodesForLinkageViewer = function(req, res) {
                     links.push({
                         "source": i+1,
                         "target": 0,
-                        "type":allRelations[i]
+                        "type":allRelations[i],
+                        "description":allRelDesc[i]
                     })
                 }
                 else
@@ -334,7 +340,8 @@ exports.getNodesForLinkageViewer = function(req, res) {
                     links.push({
                         "source": 0,
                         "target": i+1,
-                        "type":allRelations[i]
+                        "type":allRelations[i],
+                        "description":allRelDesc[i]
                     })
                 }
             }

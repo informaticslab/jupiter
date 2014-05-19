@@ -17,14 +17,6 @@ angular.module('apolloApp').controller('nodeCtrl', ['$scope', '$resource', '$htt
             var attributeKeys = _.pluck(data.attributes, 'key');
             $scope.node = data;
             var len = $scope.node.attributes.length;
-            for (var i = 0; i < len; i++) {
-                if ($scope.node.attributes[i].value == '') {} else if (($scope.node.attributes[i].key == 'name') || ($scope.node.attributes[i].key == 'id') || ($scope.node.attributes[i].key == 'fullNameCIO') || ($scope.node.attributes[i].key == 'fullName') || ($scope.node.attributes[i].key == 'purpose')) {
-                    // do nothing
-                    if ($scope.node.attributes[i].key == 'purpose') {
-                        $scope.purpose = $scope.node.attributes[i].value;
-                    }
-                }
-            };
             $scope.labelGroups = function(label) {
                 return _.toArray(nodeAttributeDictionary[label].attributeGroups);
             };
@@ -33,7 +25,7 @@ angular.module('apolloApp').controller('nodeCtrl', ['$scope', '$resource', '$htt
             };
             $scope.labelGroupAttributes = function(group) {
                 var groupAttributeKeys = Object.keys(group.attributes);
-                var intersection = _.intersection(attributeKeys, groupAttributeKeys)
+                var intersection = _.intersection(attributeKeys, groupAttributeKeys);
                 var toRet = [];
                 _.each(intersection, function(i) {
                     _.each(_.where(data.attributes, {
@@ -43,6 +35,7 @@ angular.module('apolloApp').controller('nodeCtrl', ['$scope', '$resource', '$htt
                     });
                 });
                 _.each(toRet, function(i) {
+                    i.displayLabel = group.attributes[i.key].displayLabel;
                     i.description = group.attributes[i.key].description;
                     i.sortIndex = group.attributes[i.key].sortIndex;
                 });
@@ -65,6 +58,7 @@ angular.module('apolloApp').controller('nodeCtrl', ['$scope', '$resource', '$htt
                     });
                 });
                 _.each(toRet, function(i) {
+                    i.displayLabel = group.attributes[i.key].displayLabel;
                     i.description = group.attributes[i.key].description;
                     i.sortIndex = group.attributes[i.key].sortIndex;
                 });

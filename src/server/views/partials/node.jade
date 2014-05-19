@@ -44,41 +44,32 @@
 			// end detail header
 			.top_block
 				img(src='img/ajax-loader.gif', alt='Content is Loading', ng-show='contentLoading')
-				.orange_header_larger Summary:
 				div(ng-show='!contentLoading')
-				
-					p
-						strong Name: &nbsp;
-						{{node.name}}
-					p
-						strong Type: &nbsp;
-						{{labels.join() | unCamelCase}}
-					p
-						strong ID: &nbsp;
-						{{node.id}}
-					p(ng-show='hasTags')
-						strong Tags: &nbsp;
-							a(ng-repeat='node in nodeTags' href="#/node/{{node.id}}")
-								strong {{node.name}}&nbsp;&nbsp;&nbsp;
-					p(ng-show='purpose')
-						strong Purpose: &nbsp;
-						&nbsp; {{purpose}}
-					.vertical_spacing
 					.row
 						.col-lg-12
 							div(ng-repeat='label in labels')
-								div(ng-repeat='group in labelGroups(label) | orderBy:"sortIndex"', ng-show='showGroup(group)')
-									h3 {{group.heading}}
+								div(ng-repeat='group in labelGroups(label)', ng-show='showGroup(group)')
+									.orange_header_larger {{group.heading}}
 									table.table
-										tr(ng-repeat='attribute in labelGroupAttributes(group) | orderBy:"sortIndex"')
+										tr(ng-repeat='attribute in labelGroupAttributes(group)')
 											td(style="width: 300px;")
 												span.cursor-help(tooltip='{{attribute.description}}', tooltip-placement='right') 
-													strong {{attribute.key | unCamelCase}}
+													strong {{attribute.displayLabel}}
 											td(ng-if='!isUrl(attribute.value)')
 												{{attribute.value}}
 											td(ng-if='isUrl(attribute.value)')
 												a(href='{{attribute.value}}' target='_blank') 
 													{{attribute.value}}
+										tr(ng-if='group.heading == "Summary"')
+											td(style="width: 300px;")
+												strong Type
+											td {{labels.join() | unCamelCase}}
+										tr(ng-if='group.heading == "Summary" && hasTags')
+											td(style="width: 300px;")
+												strong Tags
+											td
+												a(ng-repeat='node in nodeTags', href="#/node/{{node.id}}", style='padding-right:15px')
+														strong {{node.name}}
 					.row
 						.col-lg-12						
 							.panel.panel-default
@@ -86,13 +77,13 @@
 									h2.cursor-pointer.panel-title(ng-click="isCollapsed = !isCollapsed") Attributes without values
 										span.caret
 								.panel-body(collapse='isCollapsed', ng-repeat='label in labels')
-									div(ng-repeat='group in labelGroups(label) | orderBy:"sortIndex"', ng-show='hideGroup(group)')
+									div(ng-repeat='group in labelGroups(label)', ng-show='hideGroup(group)')
 										h3 {{group.heading}}
 										table.table
-											tr(ng-repeat='attribute in hiddenGroupAttributes(group) | orderBy:"sortIndex"')
+											tr(ng-repeat='attribute in hiddenGroupAttributes(group)')
 												td
 													span.cursor-help(tooltip='{{attribute.description}}', tooltip-placement='right') 
-														strong {{attribute.key | unCamelCase}}
+														strong {{attribute.displayLabel}}
 					.linkage
 						.vertical_spacing
 						.orange_header_larger Linkage/Relationships:

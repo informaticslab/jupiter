@@ -511,6 +511,10 @@ a:focus, :active{
 cursor: help;
 }
 
+.cursor-pointer{
+  cursor: pointer;
+}
+
 .nav-tabs>li>a{
   cursor: pointer;
 }

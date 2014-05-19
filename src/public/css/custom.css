@@ -168,7 +168,7 @@ li.faq {padding-bottom:.5em;}
 .orange_main_faq {background-color:#f39c11; color:#ffffff; font-weight:bold; padding:.7em;  padding-left:1em; margin-bottom:1.2em; margin-top:1em; text-align:center;}
 .orange_header {font-weight:bold; color:#e77e23; padding-bottom:1em;}
 .orange_header_larger {font-weight:bold; font-size:1.2em; color:#e77e23; padding-bottom:1em;}
-
+.orange_italic_subhead {font-weight:bold; font-size:1.1em; font-style:italic; color:#e77e23; padding-bottom:1em;}
 .orange_header_home {font-weight:bold; font-size:1.4em; color:#e77e23; padding-bottom:1em;}
 
 .orange_header_carousel {font-weight:bold; font-size:1.3em; color:#e77e23; padding-bottom:1em;}
@@ -425,7 +425,7 @@ li.qg_li {padding-top:.7em; margin-left: -1.7em;}
 .gray_divider {background-color:#d3d9d9; height:1px;}
 
 
-.qgphoto {padding-left:1em; padding-bottom:1em; }
+.qgphoto {padding-left:1em; padding-bottom:1em; float:right;}
 
 .qgphoto_inset {padding-bottom:1em; padding-top:1.2em;}
 

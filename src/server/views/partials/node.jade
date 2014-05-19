@@ -55,7 +55,11 @@
 											td(style="width: 300px;")
 												span.cursor-help(tooltip='{{attribute.description}}', tooltip-placement='right') 
 													strong {{attribute.displayLabel}}
-											td {{attribute.value}}
+											td(ng-if='!isUrl(attribute.value)')
+												{{attribute.value}}
+											td(ng-if='isUrl(attribute.value)')
+												a(href='{{attribute.value}}' target='_blank') 
+													{{attribute.value}}
 										tr(ng-if='group.heading == "Summary"')
 											td(style="width: 300px;")
 												strong Type

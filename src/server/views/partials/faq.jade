@@ -1,69 +1,90 @@
 // new row
 .row
-	.col-lg-11.col-md-11.col-sm-11
+	.div(ng-class='getContentWidth()')
 		.content_block
-			.top_block
-				p
-					.orange_header_larger
-						| What are my options to explore the system?
-				p
-					Strong Quick Guide: 
-					| Provides an organized overview of a specific topic, and includes relevant links to systems, datasets, programs etc.
-				p
-					Strong Browse: 
-					| Provides a quick way to select pre-defined search terms - organized by categories.
-				p
-					Strong Search: 
-					| Standard Google-like search engine.
-				p
-					Strong Advanced Search: 
-					| Coming soon.
-				.vertical_spacing_more
-				p
-					.orange_header_larger
-						| What types of Resources/ Activities does CISP contain?	
-				p
-					| There are 10 types of activities/ resources registered:
-				p
-					| Surveillance Systems (electronic and paper based)
-				p
-					| Surveillance Programs		
-				p
-					| Health Surveys
-				p
-					| Data Standards 
-				p
-					| Datasets
-				P 
-					| Organizations
-				P 
-					| Collaboratives
-				P
-					| Registries
-				P
-					| Tools that support surveillance
-				P 
-					| Tags
-				.vertical_spacing_more
-				p
-					.orange_header_larger
-						| What information does CISP capture?
-				P
-					| It contains general information about CDC public health surveillance activities, such as purpose, where information is obtained and how it is shared, surveillance tools employed, data standards used, data sets generated etc.
-				P 
-					| Point of contact information is also provided to enable further specific inquiries and/ or opportunities for collaboration.
-				.vertical_spacing_more
-				p
-					.orange_header_larger
-						| If I have any questions, who do I contact?
-				P
+			.top_block_faq
+				h4.orange_main_faq
+					span.glyphicon.glyphicon-comment.icon-flipped.faq_icon
+					| Frequently Asked Questions
+				.vertical_spacing_browse
+				.vertical_spacing_lesser
+					img.faq_question(src='img/question.png', alt='heart icon') 
+					.faq_question_txt
+						Strong What are my options for exploring the system?	
+				.answers_bullets
+					ul
+						li.faq
+							Strong Quick Guide: 
+							| Provides an organized overview of a specific topic, and includes relevant links to systems, datasets, programs etc.
+						li.faq
+							Strong Browse: 
+							| Provides a quick way to select pre-defined search terms &#8212; organized by categories.
+						li.faq
+							Strong Search:
+							|  Standard Google-like search engine.	
+						li.faq
+							Strong Advanced Search: 
+							| Coming soon.	
+				.vertical_spacing
+					img.faq_question(src='img/question.png', alt='heart icon')
+					.faq_question_txt
+						strong What types of Resources/ Activities does CISP contain?	
+				.answers_bullets
+					.left_cushion
+						| There are 
+						strong 10 
+						| types of activities/resources registered:
+					.vertical_spacing_lesser
+					ol
+						li.faq
+							| Surveillance Systems (electronic and paper-based)
+						li.faq
+							| Surveillance Programs
+						li.faq
+							| Health Surveys
+						li.faq
+							| Data Standards
+						li.faq
+							| Datasets
+						li.faq
+							| Organizations
+						li.faq
+							| Collaboratives
+						li.faq
+							| Registries
+						li.faq
+							| Tools that support surveillance
+						li.faq
+							| Tags			 		
+				.vertical_spacing
+					img.faq_question(src='img/question.png', alt='heart icon')
+					.faq_question_txt
+						Strong What information does CISP capture?
+				.answers		
+					| It contains general information about CDC public health surveillance activities, such as purpose, where information is obtained, how information is shared, surveillance tools employed, data standards used, data sets generated, etc.
+					.vertical_spacing_less 
+					| Point of contact information is also provided to enable specific inquiries and/or opportunities for collaboration.
+				.vertical_spacing
+					img.faq_question(src='img/question.png', alt='heart icon')
+					.faq_question_txt
+						Strong If I have any questions, who do I contact?
+				.answers
 					| Simply email us at 
-					a(href='mailto:integratedsurveillance@cdc.gov') integratedsurveillance@cdc.gov. 
-					| We'll answer your question right away.
+					a(href='mailto:integratedsurveillance@cdc.gov') integratedsurveillance@cdc.gov
+					| . We'll answer your question right away.
 		// end content block
 	// end col spec
-	.col-lg-1.col-md-1.col-sm-1
-		.hx_side(ng-show='showSidebar')
-			span.small_text
-			|Tab
+	.div(ng-class='getSidebarWidth()')
+		.hx_side(ng-show='!showSidebar' ng-click='toggleSidebar()')
+			.blue_side
+			.button_side
+				.sidebar_button
+					img(src='img/tab_button_collapse.png', alt='Collapse sidebar')				
+		// end hx_side
+		.hx_side(ng-show='showSidebar' ng-click='toggleSidebar()')
+			.blue_side_expanded
+			.button_side_expanded
+				.sidebar_button
+					img(src='img/tab_button_expand.png', alt='Expand sidebar')		
+		// end hx_side
 // end row.orange_header Overview

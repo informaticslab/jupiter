@@ -1,6 +1,6 @@
 // row
 .row
-	.col-lg-11.col-md-11.col-sm-11
+	.div(ng-class='getContentWidth()')
 		.content_block.browse
 			.subnav
 				ul.nav.nav-pills
@@ -21,7 +21,7 @@
 				|  It contains commonly used search terms. Simply look for your general area of interest, and then click the search term you're interested in. The system will automatically search that topic.
 				span.glyphicon.glyphicon-envelope.addbrowse
 				|  If you have any comments or questions, please contact us at
-				a(href='mailto:integratedsurveillance@cdc.gov')  integratedsurveillance@cdc.gov
+				a(href='mailto:informaticslab@cdc.gov')  informaticslab@cdc.gov
 				| .
 			h4.orange_main_browse 
 				img.browse_icon(src='img/browse_icon.png', alt='Browse icon')
@@ -31,7 +31,7 @@
 				.col-lg-8.col-md-8.col-sm-8
 					.topics_block
 						.block_header
-							img(src='img/germ.png', alt='bacteria icon') 
+							img(src='img/germ.png', alt='bacteria icon')
 							|  Infectious Disease
 						// end block header
 						.row
@@ -455,13 +455,17 @@
 			// end row
 	// end content block
 	// end col spec
-	.col-lg-1.col-md-1.col-sm-1
-		.hx_side(ng-show='showSidebar')
+	.div(ng-class='getSidebarWidth()')
+		.hx_side(ng-show='!showSidebar' ng-click='toggleSidebar()')
 			.blue_side
 			.button_side
 				.sidebar_button
-					img(src='img/tab_button_expand.png', alt='Expand sidebar') 
-				
+					img(src='img/tab_button_collapse.png', alt='Collapse sidebar')				
 		// end hx_side
-	// end col spec
+		.hx_side(ng-show='showSidebar' ng-click='toggleSidebar()')
+			.blue_side_expanded
+			.button_side_expanded
+				.sidebar_button
+					img(src='img/tab_button_expand.png', alt='Expand sidebar')				
+		// end hx_side
 // end row

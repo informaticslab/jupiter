@@ -1,6 +1,6 @@
 // row
 .row
-  .col-lg-11.col-md-11.col-sm-11
+  .div(ng-class='getContentWidth()')
     .content_block
       .subnav
         ul.nav.nav-pills
@@ -15,26 +15,27 @@
           li
             a(href='') Favorites
       // end subnav
-      .backlink
-        span.glyphicon.glyphicon-circle-arrow-left
-        a(href='#/quickGuide/') &nbsp; Back to Quick Guide topics
-      // end backlink class
+      //- .backlink
+      //-   span.glyphicon.glyphicon-circle-arrow-left
+      //-   a(href='#/quickGuide/') &nbsp; Back to Quick Guide topics
+      //- // end backlink class
       .vertical_spacing
-      .azlist_header Foodborne Illness Surveillance, Response, and Data Systems
-        .share_button
-          //Single button 
-          .btn-group
-            button.btn.btn-default.dropdown-toggle(type='button', data-toggle='dropdown')
-              span.glyphicon.glyphicon-share
-              | &nbsp;Share&nbsp;&nbsp;
-              span.caret
-            ul.dropdown-menu(role='menu')
-              li
-                a(href='') Email
-              li
-                a(href='') Facebook
-              li
-                a(href='') Twitter
+      .row 
+        .azlist_header Foodborne Illness Surveillance, Response, and Data Systems
+          .share_button
+            //Single button 
+            .btn-group
+              button.btn.btn-default.dropdown-toggle(type='button', data-toggle='dropdown')
+                span.glyphicon.glyphicon-share
+                | &nbsp;Share&nbsp;&nbsp;
+                span.caret
+              ul.dropdown-menu(role='menu')
+                li
+                  a(href='') Email
+                li
+                  a(href='') Facebook
+                li
+                  a(href='') Twitter
       .row
         // nested row
         .col-lg-9.col-md-9.col-sm-8
@@ -49,21 +50,25 @@
                 .white_divider
                 ul.qg_list
                   li.qg_li
-                    a(href='') NARMS
+                    a(ng-click='goToSection("overview")') Overview
                   li.qg_li
-                    a(href='') National Surveillance for Enteric Disease
+                    a(ng-click='goToSection("foodborneIllness")') Foodborne Illness Surveillance, Response and Data Systems
                   li.qg_li
-                    a(href='') FoodNet
+                    a(ng-click='goToSection("foodNet")') Foodborne Disease Active Surveillance Network (FoodNet)
                   li.qg_li
-                    a(href='') Anchor link
+                    a(ng-click='goToSection("narms")') National Antimicrobial Resistance Monitoring System - enteric bacteria (NARMS)
                   li.qg_li
-                    a(href='') Anchor link
+                    a(ng-click='goToSection("caliciNet")') National Electronic Norovirus Outbreak Network (CaliciNet)
                   li.qg_li
-                    a(href='') Anchor link
+                    a(ng-click='goToSection("pulseNet")') National Molecular Subtyping Network for Foodborne Disease Surveillance (PulseNet)
                   li.qg_li
-                    a(href='') Anchor link
+                    a(ng-click='goToSection("nndss")') National Notifiable Diseases Surveillance System (NNDSS)
                   li.qg_li
-                    a(href='') Anchor link
+                    a(ng-click='goToSection("nors")') National Outbreak Reporting System (NORS)
+                  li.qg_li
+                    a(ng-click='goToSection("ehsnet")') Contributing factor surveillance (Environmental Health Specialists Network, or EHS-Net)
+                  li.qg_li
+                    a(ng-click='goToSection("phlis")') Public health laboratory information system (PHLIS)
               .qg_resources
                 .qg_page
                   span.glyphicon.glyphicon-pushpin
@@ -71,19 +76,43 @@
                 .gray_divider
                 ul.qg_list2
                   li.qg_li
-                    a(href='') Estimates of Foodborne Illness: Fact Sheets
+                    a(href='http://www.cdc.gov/foodsafety/cdc-and-food-safety.html' target='_blank') CDC and Food Safety
                   li.qg_li
-                    a(href='') Medscape Commentaries
+                    a(href='http://www.cdc.gov/ncezid/dfwed/keyprograms/index.html' target='_blank') Key Programs
                   li.qg_li
-                    a(href='') America&#39;s Report Card for Food Safety
+                    a(href='http://www.cdc.gov/foodsafety/prevention.html' target='_blank') Prevention and Education
                   li.qg_li
-                    a(href='') Select Foodborne Illness Publications
+                    a(href='http://www.cdc.gov/foodborneburden/surveillance-systems.html' target='_blank') Foodborne Illness Surveillance Systems
                   li.qg_li
-                    a(href='') Select CDC Foodborne Illness Articles
+                    a(href='http://www.cdc.gov/foodsafety/' target='_blank') Food Safety at CDC
                   li.qg_li
-                    a(href='') CDC Director Dr. Thomas R. Frieden&#39;s &#34;Winnable Battles&#34;
+                    a(href='http://www.foodsafety.gov' target='_blank') Foodsafety.gov
                   li.qg_li
-                    a(href='') Another Resource
+                    a(href='http://www.fda.gov/Safety/Recalls/ucm2005683.htm' target='_blank') FDA Product Recall Information
+                  li.qg_li
+                    a(href='http://www.fda.gov/Food/FoodSafety/FSMA/default.htm' target='_blank') Food Safety Modernization Act
+                  li.qg_li
+                    a(href='http://www.fsis.usda.gov/Fsis_Recalls/Problems_With_Food_Products/index.asp' target='_blank') FSIS (USDA): What to do if you Have a Problem with Food Products
+                  li.qg_li
+                    a(href='http://www.cdc.gov/ncezid/dfwed/' target='_blank') Division of Foodborne, Waterborne and Environmental Diseases
+                  li.qg_li
+                    a(href='http://www.cdc.gov/foodborneburden/surveillance-systems.html#foodnet' target='_blank') FoodNet
+                  li.qg_li
+                    a(href='http://www.cdc.gov/foodborneburden/surveillance-systems.html#narms' target='_blank') NARMS
+                  li.qg_li
+                    a(href='http://www.cdc.gov/foodborneburden/surveillance-systems.html#calicinet' target='_blank') Norovirus
+                  li.qg_li
+                    a(href='http://www.cdc.gov/foodborneburden/surveillance-systems.html#pulsenet' target='_blank') PulseNet
+                  li.qg_li
+                    a(href='http://www.cdc.gov/foodborneburden/surveillance-systems.html#phlis' target='_blank') National Surveillance for Enteric Diseases
+                  li.qg_li
+                    a(href='http://www.cdc.gov/foodborneburden/surveillance-systems.html#nors' target='_blank') Foodborne Disease Outbreak Surveillance
+                  li.qg_li
+                    a(href='http://www.cdc.gov/foodborneburden/surveillance-systems.html#ehsnet' target='_blank') EHS-Net
+                  li.qg_li
+                    a(href='http://www.cdc.gov/foodborneburden/surveillance-systems.html#dpdx' target='_blank') DPDx
+                  li.qg_li
+                    a(href='http://www.cdc.gov/foodborneburden/surveillance-systems.html#nndss' target='_blank') National Notifiable Diseases Surveillance System
               // end qg_resources
               .qg_contribute
                 .qg_page
@@ -92,41 +121,106 @@
                 .gray_divider
                 ul.qg_list2
                   li.qg_li
-                    a(href='') CDC Food Safety Office
-                  li.qg_li
-                    a(href='') Another Contributor
-                  li.qg_li
-                    a(href='') Contribute to this Quick Guide Topic
+                    a(href='http://www.cdc.gov/ncezid/dfwed/' target='_blank') CDC&#8217;s Division of Foodborne, Waterborne and Environmental Diseases (DFWED)
               // end qg_contribute
             // end col specs
             .col-lg-9.col-md-9.col-sm-7
               .qg_content
+                a(id='overview')
                 .orange_header_larger Overview
                 img.pull-right.img-responsive.qgphoto(src='img/foodborne.png', alt='Foods susceptible to foodborne illness')
                 p
                   strong Foodborne Illness &nbsp;
-                  | lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                  | (sometimes called "foodborne disease," "foodborne infection," or "food poisoning) is a common, costly—yet preventable—public health problem. Each year, 1 in 6 Americans gets sick by consuming contaminated foods or beverages. Many different disease-causing microbes, or pathogens, can contaminate foods, so there are many different foodborne infections. In addition, poisonous chemicals, or other harmful substances can cause foodborne diseases if they are present in food.
+                .vertical_spacing_more
+                table.carousel_bullet
+                  tr
+                    td
+                    |• &nbsp;
+                    td.bullet_content
+                    | More than 250 different foodborne diseases have been described. Most of these diseases are infections, caused by a variety of bacteria, viruses, and parasites that can be foodborne.
+                  table.carousel_bullet
+                    tr
+                      td
+                      |• &nbsp;
+                      td.bullet_content
+                      | Other diseases are poisonings, caused by harmful toxins or chemicals that have contaminated the food, for example, poisonous mushrooms.
+                  table.carousel_bullet
+                    tr
+                      td
+                      |• &nbsp;
+                      td.bullet_content
+                      | These different diseases have many different symptoms, so there is no one "syndrome" that is foodborne illness. However, the microbe or toxin enters the body through the gastrointestinal tract, and often causes the first symptoms there, so nausea, vomiting, abdominal cramps and diarrhea are common symptoms in many foodborne diseases.
                 p
-                  | Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.
-                  a(href='') Nemo enim ipsam voluptatem quia voluptas
-                  | sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?
-                .orange_header2.orange_header_larger Another Subheader
+                | Many microbes can spread in more than one way, so we cannot always know that a disease is foodborne. The distinction matters, because public health authorities need to know how a particular disease is spreading to take the appropriate steps to stop it. 
+                a(id='foodborneIllness')
+                .orange_header2.orange_header_larger Foodborne Illness Surveillance, Response and Data Systems:
                 p
-                  | At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita distinctio.
-                  img.qgphoto_inset.img-responsive(src='img/foodnet.png', alt='Food Net')
-                  .photo_caption
-                    strong Caption goes here
-                    | . Lorem ipsum dolor sit amet accusantium doloremque laudantium, totam rem. Voluptatum deleniti atque.
-                  | Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus id quod maxime placeat facere possimus, omnis voluptas assumenda est, omnis dolor repellendus. Temporibus autem quibusdam et aut officiis debitis aut rerum necessitatibus saepe eveniet ut et voluptates repudiandae sint et molestiae non recusandae. Itaque earum rerum hic tenetur a sapiente delectus, ut aut reiciendis voluptatibus maiores alias consequatur aut perferendis doloribus asperiores repellat.
+                  | Many surveillance systems are used in the United States to provide information about the occurrence of foodborne disease. Most of CDC’s surveillance systems rely on data from state and local health agencies. Some focus on specific pathogens likely to be transmitted through food and have been used extensively for decades. More recently, new surveillance methods have emerged which improve the quality, quantity, and timeliness of data (e.g., sentinel surveillance systems and national laboratory networks).
+                P
+                  | Each surveillance system plays a role in detecting and preventing foodborne disease and outbreaks. CDC provides leadership for the following surveillance systems: 
+                  .toplink
+                    span.glyphicon.glyphicon-upload
+                    a(ng-click='goToTop()') Back to the top
+                // end backlink class
+                a(id='foodNet')
+                .orange_header2.orange_header_larger  Foodborne Disease Active Surveillance Network (FoodNet) 
+                p
+                  | FoodNet is a sentinel surveillance system that includes 10 participating state health departments in the United States working in collaboration with CDC, USDA, and FDA. The FoodNet surveillance area includes 46 million persons, which is 15% of the US population.  FoodNet is an active surveillance system (i.e., investigators regularly contact laboratories to enhance reporting). FoodNet conducts population-based surveillance for seven  bacterial and two parasitic infections transmitted commonly through food, and it conducts analyses and epidemiologic studies designed to help public health officials better understand the epidemiology of foodborne diseases in the United States. FoodNet data provides insights into the incidence of and trends in foodborne and diarrheal diseases. Data: FoodNet annual reports are summaries of information collected through active population-based surveillance for infections caused by any of nine pathogens transmitted commonly through food. A preliminary version of this report is published annually in CDC’s MMWR. The FoodNet final report becomes available after current census information becomes available. FoodNet reports and studies are available online.
                 .toplink
                   span.glyphicon.glyphicon-upload
                   a(ng-click='goToTop()') Back to the top
-                // end backlink class
-                .orange_header2.orange_header_larger  Another Subheader
-                p
-                  | Lorem at vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita distinctio.
-                p
-                  | Temporibus autem quibusdam et aut officiis debitis aut rerum necessitatibus saepe eveniet ut et voluptates repudiandae sint et molestiae non recusandae. Itaque earum rerum hic tenetur a sapiente delectus, ut aut reiciendis voluptatibus maiores alias consequatur aut perferendis doloribus asperiores repellat.
+                a(id='narms')
+                .orange_header2.orange_header_larger  National Antimicrobial Resistance Monitoring System—enteric bacteria (NARMS) 
+                P
+                  | NARMS conducts surveillance for antimicrobial resistance among foodborne bacteria in humans, retail meat, and animals. NARMS enhances collaboration among public health and agricultural agencies to detect, respond, and prevent antimicrobial resistance among foodborne bacteria. It is a joint effort between CDC, Center for Veterinary Medicine in the FDA, and USDA. Data: Annual reports are published and can be found online.
+                .toplink
+                  span.glyphicon.glyphicon-upload
+                  a(ng-click='goToTop()') Back to the top
+                a(id='caliciNet') 
+                .orange_header2.orange_header_larger National Electronic Norovirus Outbreak Network (CaliciNet) 
+                P
+                  | Caliciviruses, of which the noroviruses are the most important group of viruses, are responsible for the majority of foodborne outbreaks in the United States. To increase the quality of national norovirus surveillance, CDC has developed and implemented an electronic norovirus outbreak surveillance network (CaliciNet) with state and local public health laboratories. This network compares norovirus sequences to be able to rapidly link norovirus outbreaks with a common food source as well as to identify emerging norovirus strains. CaliciNet went live in March 2009, and currently has 15 states certified for participation. CaliciNet aims to provide a better understanding of noroviruses and to help control their spread. 
+                P
+                  strong Data: &nbsp;
+                  | Periodic outbreak investigation reports are published in CDC’s weekly publication, the MMWR and posted online. Since 2009, norovirus outbreaks, regardless of mode of transmission (i.e., foodborne or person-to-person), are reported to the National Outbreak Reporting System (NORS), which is linked to CaliciNet.
+                .toplink
+                  span.glyphicon.glyphicon-upload
+                  a(ng-click='goToTop()') Back to the top
+                a(id='pulseNet')
+                .orange_header2.orange_header_larger National Molecular Subtyping Network for Foodborne Disease Surveillance (PulseNet)  
+                P
+                  | PulseNet is a national network of local, state, territorial, agricultural, and federal laboratories coordinated by CDC and the Association of Public Health Laboratories (APHL) that uses standardized methods to perform pulsed-field gel electrophoresis (PFGE) on foodborne bacterial pathogens. PulseNet allows investigators from participating sites to upload PFGE patterns to an electronic database and compare them with patterns of other pathogens isolated from humans, animals, and foods to identify matches and possible linkages between pathogens (e.g, outbreaks). PulseNet has revolutionized the detection and investigation of foodborne disease outbreaks, especially those occurring in multiple sites across the country which before PulseNet went undetected or were not detected before they grew very large. Data: Publications and presentations of PulseNet studies are posted on-line.
+                .toplink
+                  span.glyphicon.glyphicon-upload
+                  a(ng-click='goToTop()') Back to the top
+                a(id='nndss')
+                .orange_header2.orange_header_larger National Notifiable Diseases Surveillance System (NNDSS)
+                P
+                  | individual cases of disease when selected pathogens are identified in patient specimens or specific clinical syndromes are recognized. Local public health agencies report these diseases to the state or territorial public health agency, which in turn voluntarily submits the information to the National Notifiable Diseases Surveillance System, which CDC oversees. Notifiable disease surveillance is “passive” (i.e., the investigator waits for disease reports from those required to report) and is susceptible to under-recognition and underreporting. Foodborne diseases that are reportable include botulism, hemolytic uremic syndrome (HUS), listeriosis, salmonellosis, shiga toxin-producing Escherichia coli (STEC) infections, and vibriosis. Data: Annual reports of nationally notifiable infectious diseases are published in the MMWR Summary of Notifiable Diseases, United States, with early release of state/territory counts published in CDC’s weekly publication, the MMWR. More information about NNDSS can be found online. 
+                .toplink
+                  span.glyphicon.glyphicon-upload
+                  a(ng-click='goToTop()') Back to the top 
+                a(id='nors')
+                .orange_header2.orange_header_larger National Outbreak Reporting System (NORS) 
+                P
+                  | CDC collects reports of foodborne outbreaks due to enteric bacterial, viral, parasitic, and chemical agents. State, local, and territorial public health agencies report these outbreaks through the National Outbreak Reporting System (NORS). The NORS surveillance team conducts analyses of these data to improve understanding of the human health impact of foodborne outbreaks and the pathogens, foods, settings, and contributing factors involved in these outbreaks. Starting in 2009, the system has included modules for reporting enteric disease outbreaks transmitted through water, person-to-person contact, or direct contact with animals. The system that preceded NORS was called the electronic Foodborne Outbreak Reporting System (eFORS). http://www.cdc.gov/outbreaknet/nors/ Data: Outbreak surveillance data are published in the MMWR and are available on-line. State-specific information about outbreaks, a Foodborne Outbreak Online Database (FOOD) is available online.
+                .toplink
+                  span.glyphicon.glyphicon-upload
+                  a(ng-click='goToTop()') Back to the top 
+                a(id='ehsnet')
+                .orange_header2.orange_header_larger Contributing factor surveillance (Environmental Health Specialists Network, or EHS-Net)
+                P
+                  | Investigators from state and local public health agencies gather information about contributing factors in foodborne outbreaks through environmental assessments conducted by food control officials and report the results to CDC. Contributing factors cannot be identified through general inspections of operating procedures or sanitary conditions, such as those used for licensing or routine inspection of a restaurant, but require a systematic description of what happened and how events most likely unfolded in an outbreak. CDC’s EHS-Net was established in 2000 to address the environmental causes of foodborne disease. 
+                P
+                  | Participants include environmental health specialists and epidemiologists from nine states, the US Food and Drug Administration (FDA), the Food Safety Inspection Service in the US Department of Agriculture (FSIS/USDA), and CDC. CDC has developed through EHS-Net an electronic reporting system for contributing factors and other root causes of foodborne outbreaks. In 2011, this EHS-Net activity will be launched nationally through the Conference for Food Protection as the National Voluntary Environmental Assessment Information System (NVEAIS) and participation will be open to any food regulatory program in the United States. Data: Publications and presentations of EHS-Net studies are posted on-line. Periodic reports from the NVEAIS system will be posted and made available through appropriate publications. 
+                .toplink
+                  span.glyphicon.glyphicon-upload
+                  a(ng-click='goToTop()') Back to the top 
+                a(id='phlis')
+                .orange_header2.orange_header_larger Public health laboratory information system (PHLIS)
+                P
+                  | State Public Health Laboratory Directors and State and Territorial Epidemiologists use the Public Health Laboratory Information System, an electronic reporting system, to transmit reports
                 .toplink
                   span.glyphicon.glyphicon-upload
                   a(ng-click='goToTop()') Back to the top
@@ -142,37 +236,37 @@
             table.table.table-hover
               tr
                 td
-                  a(href='') &#160;NARMS System
+                  a(ng-click='goToTop()' href='#/node/SS20') &#160;CaliciNet
                 td
                   img(src='img/fav_circle.png', alt='Favorite', title='Favorite', align='right')
               tr
                 td
-                  a(href='#/node/P3') &#160;BioSense
+                  a(ng-click='goToTop()' href='#/node/SS49') &#160;Foodborne Diseases Active Surveillance Network (FoodNet)
                 td
                   img(src='img/fav_circle_empty.png', alt='Favorite', title='Click to favorite', align='right')
               tr
                 td
-                  a(href='') &#160;Relevant link
-                td
-                  img(src='img/fav_circle_empty.png', alt='Favorite', title='Click to favorite', align='right')
-              tr
-                td
-                  a(href='') &#160;Relevant link
+                  a(ng-click='goToTop()' href='#/node/P9') &#160;Health Specialists Network
                 td
                   img(src='img/fav_circle.png', alt='Favorite', title='Favorite', align='right')
               tr
                 td
-                  a(href='') &#160;Relevant link
-                td
-                  img(src='img/fav_circle.png', alt='Favorite', title='Favorite', align='right')
-              tr
-                td
-                  a(href='') &#160;Relevant link
+                  a(ng-click='goToTop()' href='#/node/SS85') &#160;NARMS
                 td
                   img(src='img/fav_circle_empty.png', alt='Click to favorite', title='Click to favorite', align='right')
               tr
                 td
-                  a(href='') &#160;Relevant link
+                  a(ng-click='goToTop()' href='#/node/SS104') &#160;NNDSS
+                td
+                  img(src='img/fav_circle.png', alt='Favorite', title='Favorite', align='right')
+              tr
+                td
+                  a(ng-click='goToTop()' href='#/node/SS107') &#160;NORS
+                td
+                  img(src='img/fav_circle.png', alt='Favorite', title='Favorite', align='right')
+              tr
+                td
+                  a(ng-click='goToTop()' href='#/node/SS82') &#160;PulseNet
                 td
                   img(src='img/fav_circle.png', alt='Favorite', title='Favorite', align='right')
           // end qg column
@@ -180,10 +274,18 @@
       // end nested quickguide_nest row
   // end content block
   // end col spec
-  .col-lg-1.col-md-1.col-sm-1
-    .hx_side
-      span.small_text
-        | Tab
+  .div(ng-class='getSidebarWidth()')
+    .hx_side(ng-show='!showSidebar' ng-click='toggleSidebar()')
+      .blue_side
+      .button_side
+        .sidebar_button
+          img(src='img/tab_button_collapse.png', alt='Collapse sidebar')        
+    // end hx_side
+    .hx_side(ng-show='showSidebar' ng-click='toggleSidebar()')
+      .blue_side_expanded
+      .button_side_expanded
+        .sidebar_button
+          img(src='img/tab_button_expand.png', alt='Expand sidebar')        
     // end hx_side
   // end col spec
 // end row

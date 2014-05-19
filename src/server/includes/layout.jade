@@ -17,19 +17,21 @@ html(lang="en" ng-app='apolloApp')
 			// row1
 			.row.headerblue
 				.col-lg-7.col-md-7.col-sm-7.clearfix
-					span.visible-lg.visible-md
+					span.visible-lg
 						a(href='http://www.cdc.gov' target='_blank')
 							img.img-responsive.pull-left.cdclogo(src='img/cdc_logo.png', alt='CDC logo')
 						span.cdctext Integrated Surveillance Portal
 						span.header_icon
-							img(src='img/header_graphic.png', alt='Integrated Surveillance Portal graphic')
+							img(src='img/header_graphic_alpha.png', alt='Integrated Surveillance Portal graphic')
 						// This line changed for new graphic
-					span.visible-sm
+					
+
+					span.visible-sm.visible-md
 						a(href='http://www.cdc.gov' target='_blank')
 							img.img-responsive.pull-left.cdclogo2(src='img/cdc_logo_smaller.png', alt='CDC logo')
 						span.cdctext2 Integrated Surveillance Portal
 						span.header_icon
-							img(src='img/header_graphic_small.png', alt='Integrated Surveillance Portal graphic')
+							img(src='img/header_graphic_small_alpha.png', alt='Integrated Surveillance Portal graphic')
 						// This line changed for new graphic
 				.col-lg-3.col-md-3.col-sm-3
 					span.visible-lg.visible-md
@@ -112,7 +114,7 @@ html(lang="en" ng-app='apolloApp')
 			// <div class="col-md-6">
 			// links
 			.bottom_links
-				| Disability&nbsp; | &nbsp;Accessibility&nbsp; | &nbsp;Code of Conduct&nbsp; | &nbsp;Contact&nbsp; 
+				| Disclaimer&nbsp; | &nbsp;Accessibility&nbsp; | &nbsp;Code of Conduct&nbsp; | &nbsp;Contact&nbsp; 
 				span.cdc_info
 					| Centers for Disease Control and Prevention | &nbsp;Build: {{buildNumber}}
 		include scripts

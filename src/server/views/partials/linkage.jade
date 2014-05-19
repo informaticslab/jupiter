@@ -1,5 +1,5 @@
 .row
-	.col-lg-9.col-md-9.col-sm-9
+	.div(ng-class='getContentWidth()')
 		.content_block
 			.subnav
 				ul.nav.nav-pills
@@ -10,9 +10,9 @@
 					li.active
 						a(href='#/search/{{nodeId}}') Search
 					li
-						a(href='#') Advanced Search
+						a(href='') Advanced Search
 					li
-						a(href='#') Favorites
+						a(href='') Favorites
 			// end subnav
 			//- .backlink
 			//- 	span.glyphicon.glyphicon-circle-arrow-left
@@ -151,7 +151,8 @@
 							.append("svg:text")
 							.attr("x", 25)
 							.attr("y", ".31em")
-							.text(function(d) { return d.name+" ("+d.label+")"; });
+							.text(function(d) { return d.name+" ("+d.label+")"; })
+							.style("font-weight",function(d){if(d.index==0){return "bold";} else return "normal";});
 
 							//For tooltip
 							var div = d3.select("body").append("div")   
@@ -176,7 +177,7 @@
 							div.transition()        
 							.duration(200)      
 							.style("opacity", .9);      
-							div .html(d.type)  
+							div.html(d.description)  
 							.style("left", (d3.event.pageX) + "px")     
 							.style("top", (d3.event.pageY - 28) + "px");    
 							})                  
@@ -344,60 +345,101 @@
 							td.node_image_td
 								img(src='img/node.png')
 							td.node_text_td
-								| a 
-								strong node
-								|  – represents a program, system, data set,
-								|  data source, data element, or data standard.
-							td
+								strong Node:
+								|   Represents an entity, such as Program, System, Dataset,
+								|  Data Standard, Health Survey, Tool, Registry, Organization, Tag, or Collaborative.
+								| Entity types are differentiated by node color.
+							td.white_line
 								img(src='img/white_divider.png')  
 							td.line_image_td
 								img(src='img/line.png')
 							td.line_text_td
-								|  represents the relationship (manage, generate,
-								|  contain, use, etc.) between any two entities.
+								|  Represents the relationship between any two entities,
+								|  such as oversees, manages, uses, shares data with, etc. The arrow indicates
+								|  the direction of the relationship (e.g., the source to the recipient). 
 				// end class key
 				.instructions
 					.blue_subhead Instructions:
 					.left_bullets
 						ul
 							li.instruct
-								| To view
-								strong  hidden relationships
-								| , simply click on a
-								| node to bring it into the center.
+								| To 
+								strong  view a node's relationships
+								| , click on a
+								| node name. This will bring it to the center of the graph. 
 							li.instruct
-								| To view
-								strong  more information
-								| , click the
-								a(href='#/node/{{nodeId}}')  Details
-								|  link.
+								| To 
+								strong  view more information 
+								| about the center node, click the
+								em  
+									strong Details
+								|  tab. 
 							li.instruct
-								| To view
-								strong  basic information
-								| , simply place your
-								| pointer over the node.
+								| To
+								strong  lock or reposition
+								|  an individual node, click the node.
+								| A black border will display around the node, and it will be locked in position. You may then drag the node to the desired position.
+							li.instruct
+								| To 
+								strong lock all nodes
+								| , click the 
+								em 
+									strong Lock nodes
+								|  button. To release the nodes, simply click the button again, or click the 
+								em
+									strong Reset
+								|  button.
 					// end class left_bullets
 					.right_bullets
 						ul
 							li.instruct
-								strong Reset button
-								| – the original entity is reset as the center node.
+								| To
+								strong  hide the lines
+								|  in the graph, click the
+								em
+									strong  Hide lines
+								|  button. To make them reappear, simply click the button again.	
 							li.instruct
-								strong Back button
-								| – the previous entity becomes the center node.
+								| To 
+								strong cluster 
+								|  the nodes by 
+								strong  activity type
+								| , click the 
+								em
+									strong  Activity type
+								|  button. To uncluster the nodes, simply click the button again.
 							li.instruct
-								strong Forward button
-								| – the next entity becomes the center node.
+								| To 
+								strong cluster 
+								|  the nodes by 
+								strong  relationship type
+								| , click the
+								em
+									strong  Relationship type
+								|  button. To uncluster the nodes, simply click the button again.
 					// end class right_bullets
 				// end class instructions
 			// end top_block2
 		// end content block
 	// end col spec
-	.col-lg-3.col-md-3.col-sm-3
-		.hx_side
-			| Exploration History [placeholder]
+	//- .col-lg-3.col-md-3.col-sm-3
+	//- 	.hx_side
+	//- 		| Exploration History [placeholder]
+	//- 	// end hx_side
+	//- // end col spec
+	.div(ng-class='getSidebarWidth()')
+		.hx_side(ng-show='!showSidebar' ng-click='toggleSidebar()')
+			.blue_side
+			.button_side
+				.sidebar_button
+					img(src='img/tab_button_collapse.png', alt='Collapse sidebar')			
 		// end hx_side
-	// end col spec
+		.hx_side(ng-show='showSidebar' ng-click='toggleSidebar()')
+			.blue_side_expanded
+			.button_side_expanded
+				.sidebar_button
+					img(src='img/tab_button_expand.png', alt='Expand sidebar')			
+		// end hx_side
 // end row
 // row
 

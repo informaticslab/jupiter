@@ -109,35 +109,31 @@ exports.getNodeById = function(req, res) {
         }
     });
 };
-exports.searchNodesByString = function(req, res) {
 
-     var query = 'MATCH n-[r]-x WHERE n.name=~{qString} RETURN n, labels(n), count(r) as relCount order by n.name skip {skipnum} limit {retNum}'+
-        'union all '+
-        'MATCH n-[r]-x WHERE n.fullname=~{qString} RETURN n, labels(n), count(r) as relCount order by n.name skip {skipnum} limit {retNum}'+
-        'union all '+
-        'MATCH n-[r]-x WHERE n.contractphone=~{qString} RETURN n, labels(n), count(r) as relCount order by n.name skip {skipnum} limit {retNum}'+
-        'union all '+
-        'MATCH n-[r]-x WHERE n.mission=~{qString} RETURN n, labels(n), count(r) as relCount order by n.name skip {skipnum} limit {retNum}'+
-        'union all '+
-        'MATCH n-[r]-x WHERE n.contractname=~{qString} RETURN n, labels(n), count(r) as relCount order by n.name skip {skipnum} limit {retNum}' +
-        'union all '+
-        'MATCH n-[r]-x WHERE n.shortName=~{qString} RETURN n, labels(n), count(r) as relCount order by n.name skip {skipnum} limit {retNum}' +
-        'union all '+
-        'MATCH n-[r]-x WHERE n.purpose=~{qString} RETURN n, labels(n), count(r) as relCount order by n.name skip {skipnum} limit {retNum}' +
-        'union all '+
-        'MATCH n-[r]-x WHERE n.description=~{qString} RETURN n, labels(n), count(r) as relCount order by n.name skip {skipnum} limit {retNum}' 
-    var params = {
-        qString: '(?i).*' + req.params.query + '.*',
-        skipnum: 0,
-        retNum: 50
-    };
-    //console.log("Query is " + query + " and params are " + params.qString);
-    neodb.db.query(query, params, function(err, results) {
-        var nodedataarr = [];
+var sortFunction = function(a, b){
+//Compare "a" and "b" in some fashion, and return -1, 0, or 1
+    if(a.name > b.name)
+    {
+        return 1;
+    }
+    else if (a.name == b.name)
+    {
+        return 0;
+    }
+        else if (a.name < b.name)
+    {
+        return -1;
+    }
+}
+
+var compileSearchResults = function(req, res, err, results)
+{
+            var nodedataarr = [];
         var nodeLabelCounts = {Program:0,SurveillanceSystem:0,Registry:0,
                             HealthSurvey:0,Tool:0,Dataset:0,DataStandard:0,
                             Collaborative:0,Organization:0,Tag:0,Total:0};
         var returnable = {};
+        var duplicheck = [];
         if (err) {
             console.error('Error retreiving node from database:', err);
             res.send(404, 'No node with that text available');
@@ -146,36 +142,37 @@ exports.searchNodesByString = function(req, res) {
             //console.log("results length is" + results);
             if (results[0] != null && results[0]['n'] != null && results[0]['n']['data'] != null) {
                 for(var i=0;i<results.length;i++)
-                {
-                    var nodedata = {};
+                {   
                     var doohicky = results[i]['n']['data'];
-                    var doohickylabels = results[i]['labels(n)'].join(',')
-                    var relCount = results[i]['relCount']           
-                    //console.log(doohicky);
-            
-                     nodedata.name = doohicky.name;
-                     nodedata.id = doohicky.id;
-                     nodedata.labels = doohickylabels;
-                     nodedata.relCount = relCount;
-                     nodedata.status = 'Not Available';
-                     if (nodeLabelCounts[doohickylabels] != null)
-                     {
-                        nodeLabelCounts[doohickylabels]++;
-                     }
-                     else
-                     {
-                        nodeLabelCounts[doohickylabels] = 1;
-                     }
-                     nodeLabelCounts['Total']++;
-                     nodedata.attributes = [];
-                     for (var prop in doohicky) {
-                            // if(prop == 'id')
-                            // {
-                            //     nodedata.attributes.push({
-                            //     'key': prop,
-                            //     'value': doohicky[prop] 
-                            //     })
-                            // }
+                    if(duplicheck[doohicky.id] == null)
+                    {
+                        duplicheck[doohicky.id] = true;
+                        var nodedata = {};
+                        var doohickylabels = results[i]['labels(n)'].join(',')
+                        var relCount = results[i]['relCount'] 
+                        if (relCount == null)
+                        {
+                            relCount = 0;
+                        }          
+                        //console.log(doohicky);
+                
+                        nodedata.name = doohicky.name;
+                        nodedata.id = doohicky.id;
+                        nodedata.labels = doohickylabels;
+                        nodedata.relCount = relCount;
+                        nodedata.status = 'Not Available';
+                        if (nodeLabelCounts[doohickylabels] != null)
+                        {
+                           nodeLabelCounts[doohickylabels]++;
+                        }
+                        else
+                        {
+                           nodeLabelCounts[doohickylabels] = 1;
+                        }
+                        nodeLabelCounts['Total']++;
+                        nodedata.attributes = [];
+                        for (var prop in doohicky) 
+                        {
                             if(prop == 'purpose' || prop=='description')
                             {
                                 var string;
@@ -192,10 +189,12 @@ exports.searchNodesByString = function(req, res) {
                             {
                                 nodedata.status = doohicky[prop];
                             }
+                        }
+                        nodedataarr.push(nodedata);
                     }
-                    nodedataarr.push(nodedata);
                 }
                 //console.log(JSON.stringify(nodeLabelCounts))
+                nodedataarr.sort(sortFunction);
                 returnable.nodedataarr = nodedataarr;
                 returnable.nodeLabelCounts = nodeLabelCounts;
                 //console.log(returnable);
@@ -207,6 +206,70 @@ exports.searchNodesByString = function(req, res) {
               res.json({"nullset":true}) ;
             }
         }
+}
+
+exports.searchNodesByLabel = function(req, res) {
+
+    //NOTE:  THIS WILL NEED TO BE CHANGED AS IT IS CYPHER INJECTION SUSCEPTIBLE
+    //for some reason query is being shady and wont work with the usual prepared statements.
+    var query = 'MATCH (n:`'+req.params.query+'`)-[r]-x RETURN n, labels(n), count(r) as relCount skip {skipnum} limit {retNum}'
+        + 'union all '
+        + 'MATCH (n:`'+req.params.query+'`) RETURN n, labels(n), 0 as relCount  skip {skipnum} limit {retNum}'
+    var params = {
+        //qString:  req.params.query ,
+        skipnum: 0,
+        retNum: 500
+        };
+        console.log(params);
+
+        neodb.db.query(query, params, function(err, results) {
+            compileSearchResults(req, res, err, results)
+    });
+}
+
+exports.searchNodesByString = function(req, res) {
+
+     var query = 'MATCH n-[r]-x WHERE n.name=~{qString} RETURN n, labels(n), count(r) as relCount skip {skipnum} limit {retNum}'+
+        'union all '+
+        'MATCH n-[r]-x WHERE n.fullname=~{qString} RETURN n, labels(n), count(r) as relCount skip {skipnum} limit {retNum}'+
+        'union all '+
+        'MATCH n-[r]-x WHERE n.contractphone=~{qString} RETURN n, labels(n), count(r) as relCount skip {skipnum} limit {retNum}'+
+        'union all '+
+        'MATCH n-[r]-x WHERE n.mission=~{qString} RETURN n, labels(n), count(r) as relCount skip {skipnum} limit {retNum}'+
+        'union all '+
+        'MATCH n-[r]-x WHERE n.contractname=~{qString} RETURN n, labels(n), count(r) as relCount skip {skipnum} limit {retNum}' +
+        'union all '+
+        'MATCH n-[r]-x WHERE n.shortName=~{qString} RETURN n, labels(n), count(r) as relCount  skip {skipnum} limit {retNum}' +
+        //'union all '+
+        //'MATCH n-[r]-x WHERE n.purpose=~{qString} RETURN n, labels(n), count(r) as relCount order by n.name skip {skipnum} limit {retNum}' +
+        //'union all '+
+        //'MATCH n-[r]-x WHERE n.description=~{qString} RETURN n, labels(n), count(r) as relCount order by n.name skip {skipnum} limit {retNum}' +
+        'union all '+
+        'MATCH n WHERE n.name=~{qString} RETURN n, labels(n), 0 as relCount  skip {skipnum} limit {retNum}'+
+        'union all '+
+        'MATCH n WHERE n.fullname=~{qString} RETURN n, labels(n), 0 as relCount  skip {skipnum} limit {retNum}'+
+        'union all '+
+        'MATCH n WHERE n.contractphone=~{qString} RETURN n, labels(n), 0 as relCount  skip {skipnum} limit {retNum}'+
+        'union all '+
+        'MATCH n WHERE n.mission=~{qString} RETURN n, labels(n), 0 as relCount  skip {skipnum} limit {retNum}'+
+        'union all '+
+        'MATCH n WHERE n.contractname=~{qString} RETURN n, labels(n), 0 as relCount  skip {skipnum} limit {retNum}' +
+        'union all '+
+        'MATCH n WHERE n.shortName=~{qString} RETURN n, labels(n), 0 as relCount  skip {skipnum} limit {retNum}' 
+        //+
+        //'union all '+
+        //'MATCH n WHERE n.purpose=~{qString} RETURN n, labels(n), 0 as relCount order by n.name skip {skipnum} limit {retNum}' +
+        //'union all '+
+        //'MATCH n WHERE n.description=~{qString} RETURN n, labels(n), 0 as relCount order by n.name skip {skipnum} limit {retNum}' 
+    var params = {
+        qString: '(?i).*' + req.params.query + '.*',
+        skipnum: 0,
+        retNum: 500
+    };
+
+    //console.log("Query is " + query + " and params are " + params.qString);
+    neodb.db.query(query, params, function(err, results) {
+       compileSearchResults(req, res, err, results);
     });
 };
 exports.getNodesForLinkageViewer = function(req, res) {
@@ -214,6 +277,7 @@ exports.getNodesForLinkageViewer = function(req, res) {
     'return n.id as nodeId, labels(n) as nodeLabels, ',
     'n.name as nodeNames, ',
     'id(r) as relId,type(r) as relType, x.id as childId, ', 
+    'r.relationshipDescription as relDesc, ',
     'labels(x) as childLabels, ',
     'startNode(r).id as startNode, ',
     'x.name as childName order by childLabels[0]'
@@ -243,6 +307,10 @@ exports.getNodesForLinkageViewer = function(req, res) {
 
             var allRelations = _.map(r, function(i) {
                 return i.relType
+            });
+
+            var allRelDesc = _.map(r, function(i) {
+                return i.relDesc
             });
 
             var allRelIds = _.map(r, function(i) {
@@ -281,7 +349,8 @@ exports.getNodesForLinkageViewer = function(req, res) {
                     links.push({
                         "source": i+1,
                         "target": 0,
-                        "type":allRelations[i]
+                        "type":allRelations[i],
+                        "description":allRelDesc[i]
                     })
                 }
                 else
@@ -289,7 +358,8 @@ exports.getNodesForLinkageViewer = function(req, res) {
                     links.push({
                         "source": 0,
                         "target": i+1,
-                        "type":allRelations[i]
+                        "type":allRelations[i],
+                        "description":allRelDesc[i]
                     })
                 }
             }

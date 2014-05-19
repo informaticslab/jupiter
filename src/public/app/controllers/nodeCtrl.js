@@ -3,6 +3,7 @@ angular.module('apolloApp').controller('nodeCtrl', ['$scope', '$resource', '$htt
         $scope.contentLoading = true;
         $scope.nodeId = $routeParams.id
         $scope.$parent.q = 'explore';
+        $scope.isCollapsed = true;
         var node = $resource('/apollo/api/node/:id', {
             id: '@id'
         });

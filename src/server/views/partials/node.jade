@@ -76,16 +76,19 @@
 													strong {{attribute.key | unCamelCase}}
 											td {{attribute.value}}
 					.row
-						.col-lg-12
-							h2 Attributes without values
-							div(ng-repeat='label in labels')
-								div(ng-repeat='group in labelGroups(label) | orderBy:"sortIndex"', ng-show='hideGroup(group)')
-									h3 {{group.heading}}
-									table.table
-										tr(ng-repeat='attribute in hiddenGroupAttributes(group) | orderBy:"sortIndex"')
-											td
-												span.cursor-help(tooltip='{{attribute.description}}', tooltip-placement='right') 
-													strong {{attribute.key | unCamelCase}}
+						.col-lg-12						
+							.panel.panel-default
+								.panel-heading
+									h2.cursor-pointer.panel-title(ng-click="isCollapsed = !isCollapsed") Attributes without values
+										span.caret
+								.panel-body(collapse='isCollapsed', ng-repeat='label in labels')
+									div(ng-repeat='group in labelGroups(label) | orderBy:"sortIndex"', ng-show='hideGroup(group)')
+										h3 {{group.heading}}
+										table.table
+											tr(ng-repeat='attribute in hiddenGroupAttributes(group) | orderBy:"sortIndex"')
+												td
+													span.cursor-help(tooltip='{{attribute.description}}', tooltip-placement='right') 
+														strong {{attribute.key | unCamelCase}}
 					.linkage
 						.vertical_spacing
 						.orange_header_larger Linkage/Relationships:

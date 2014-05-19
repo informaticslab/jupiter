@@ -84,5 +84,13 @@ angular.module('apolloApp').controller('nodeCtrl', ['$scope', '$resource', '$htt
             }
             $scope.contentLoading = false;
         });
+
+        $scope.isUrl = function(str){
+             if((str.indexOf('http://') == 0) || (str.indexOf('https://') == 0)){
+                return true;
+             }
+             else
+                return false;
+        }
     }
 ]);

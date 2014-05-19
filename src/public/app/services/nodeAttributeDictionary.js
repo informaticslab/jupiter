@@ -5,26 +5,38 @@ angular.module('apolloApp').factory('nodeAttributeDictionary', function() {
                 'Summary': {
                     'heading': 'Summary',
                     'attributes': {
-                        'id': {
-                            'description': 'Identifier',
-                            'displayLabel': 'ID'
+                        'name': {
+                            'description': 'Organization Name',
+                            'displayLabel': 'Name'
                         },
                         'mission': {
                             'description': 'Describes the overall purpose / mission of Organization',
                             'displayLabel': 'Mission'
+                        },
+                        'id': {
+                            'description': 'Identifier',
+                            'displayLabel': 'ID'
                         }
                     }
                 },
                 'General Information': {
                     'heading': 'General Information',
                     'attributes': {
-                        'lastUpdated': {
-                            'description': 'Date of last update to information in this system',
-                            'displayLabel': 'Last Updated'
+                        'locationCity': {
+                            'description': 'City location of Organization, Center, Institute or Office',
+                            'displayLabel': 'Location - City'
+                        },
+                        'locationState': {
+                            'description': 'State location of Organization, Center, Institute or Office',
+                            'displayLabel': 'Location - State'
                         },
                         'missionLastUpdatedDate': {
                             'description': 'When was the mission last updated?',
                             'displayLabel': 'Mission - Date last updated'
+                        },
+                        'lastUpdated': {
+                            'description': 'Date of last update to information in this system',
+                            'displayLabel': 'Last Updated'
                         },
                         'informationValidated': {
                             'description': 'Has the information in this system been validated by an appropriate program / team?',
@@ -49,14 +61,6 @@ angular.module('apolloApp').factory('nodeAttributeDictionary', function() {
                         'shortNameDivision': {
                             'description': 'Abbreviation or Acronym of the Division (if applies)',
                             'displayLabel': 'Short Name'
-                        },
-                        'locationCity': {
-                            'description': 'City location of Organization, Center, Institute or Office',
-                            'displayLabel': 'Location - City'
-                        },
-                        'locationState': {
-                            'description': 'State location of Organization, Center, Institute or Office',
-                            'displayLabel': 'Location - State'
                         }
                     }
                 },
@@ -81,6 +85,19 @@ angular.module('apolloApp').factory('nodeAttributeDictionary', function() {
         },
         'Program': {
             'attributeGroups': {
+                'Summary': {
+                    'heading': 'Summary',
+                    'attributes': {
+                        'name': {
+                            'description': 'Program Name',
+                            'displayLabel': 'Name'
+                        },
+                        'id': {
+                            'description': 'Identifier',
+                            'displayLabel': 'ID'
+                        }
+                    }
+                },
                 'General Information': {
                     'heading': 'General Information',
                     'attributes': {
@@ -270,6 +287,19 @@ angular.module('apolloApp').factory('nodeAttributeDictionary', function() {
         },
         'SurveillanceSystem': {
             'attributeGroups': {
+                'Summary': {
+                    'heading': 'Summary',
+                    'attributes': {
+                        'name': {
+                            'description': 'System Name',
+                            'displayLabel': 'Name'
+                        },
+                        'id': {
+                            'description': 'Identifier',
+                            'displayLabel': 'ID'
+                        }
+                    }
+                },
                 'General Information': {
                     'heading': 'General Information',
                     'attributes': {
@@ -429,6 +459,10 @@ angular.module('apolloApp').factory('nodeAttributeDictionary', function() {
                 'Other Information': {
                     'heading': 'Other Information',
                     'attributes': {
+                        'Notes': {
+                            'description': 'Please add any relevant information that may be of use.',
+                            'displayLabel': 'Notes / Other information'
+                        },
                         'evaluationDate': {
                             'description': 'If available, please provide the date of the surveillance system\'s most recent formal evaluation.',
                             'displayLabel': ' Evaluation Date'
@@ -448,10 +482,6 @@ angular.module('apolloApp').factory('nodeAttributeDictionary', function() {
                         'nationalBiosurveillanceStrategyMapping': {
                             'description': 'Does the surveillance system map to one or more of the priorities described in the National Biosurveillance Strategy for Human Health? (e.g., Biosurveillance Workforce of the future, etc.)',
                             'displayLabel': 'National Biosurveillance Strategy Mapping'
-                        },
-                        'Notes': {
-                            'description': 'Please add any relevant information that may be of use.',
-                            'displayLabel': 'Notes / Other information'
                         }
                     }
                 }
@@ -459,9 +489,38 @@ angular.module('apolloApp').factory('nodeAttributeDictionary', function() {
         },
         'Tool': {
             'attributeGroups': {
+                'Summary': {
+                    'heading': 'Summary',
+                    'attributes': {
+                        'name': {
+                            'description': 'Name',
+                            'displayLabel': 'Name'
+                        },
+                        'id': {
+                            'description': 'Identifier',
+                            'displayLabel': 'ID'
+                        }
+                    }
+                },
                 'General Information': {
                     'heading': 'General Information',
                     'attributes': {
+                        'lastUpdated': {
+                            'description': 'Date of last update to information in this tool.',
+                            'displayLabel': 'Last Updated'
+                        },
+                        'informationValidated': {
+                            'description': 'Has the information in this tool been validated by an appropriate program / team?',
+                            'displayLabel': 'Information Validated by Program'
+                        },
+                        'fullName': {
+                            'description': 'Full name of the tool.',
+                            'displayLabel': 'Full Name'
+                        },
+                        'shortName': {
+                            'description': 'Abbreviation or Acronym of the tool.',
+                            'displayLabel': 'Short Name / Acronym'
+                        },
                         'purpose': {
                             'description': 'Provide an overview of the purpose of the tool.',
                             'displayLabel': 'Purpose / Summary'
@@ -517,22 +576,6 @@ angular.module('apolloApp').factory('nodeAttributeDictionary', function() {
                         'state': {
                             'description': 'State location of the program',
                             'displayLabel': 'Location - State'
-                        },
-                        'lastUpdated': {
-                            'description': 'Date of last update to information in this tool.',
-                            'displayLabel': 'Last Updated'
-                        },
-                        'informationValidated': {
-                            'description': 'Has the information in this tool been validated by an appropriate program / team?',
-                            'displayLabel': 'Information Validated by Program'
-                        },
-                        'fullName': {
-                            'description': 'Full name of the tool.',
-                            'displayLabel': 'Full Name'
-                        },
-                        'shortName': {
-                            'description': 'Abbreviation or Acronym of the tool.',
-                            'displayLabel': 'Short Name / Acronym'
                         }
                     }
                 },
@@ -648,6 +691,19 @@ angular.module('apolloApp').factory('nodeAttributeDictionary', function() {
         },
         'Registry': {
             'attributeGroups': {
+                'Summary': {
+                    'heading': 'Summary',
+                    'attributes': {
+                        'name': {
+                            'description': 'Name',
+                            'displayLabel': 'Name'
+                        },
+                        'id': {
+                            'description': 'Identifier',
+                            'displayLabel': 'ID'
+                        }
+                    }
+                },
                 'General Information': {
                     'heading': 'General Information',
                     'attributes': {
@@ -841,6 +897,19 @@ angular.module('apolloApp').factory('nodeAttributeDictionary', function() {
         },
         'HealthSurvey': {
             'attributeGroups': {
+                'Summary': {
+                    'heading': 'Summary',
+                    'attributes': {
+                        'name': {
+                            'description': 'Name',
+                            'displayLabel': 'Name'
+                        },
+                        'id': {
+                            'description': 'Identifier',
+                            'displayLabel': 'ID'
+                        }
+                    }
+                },
                 'General Information': {
                     'heading': 'General Information',
                     'attributes': {
@@ -1030,6 +1099,19 @@ angular.module('apolloApp').factory('nodeAttributeDictionary', function() {
         },
         'Collaborative': {
             'attributeGroups': {
+                'Summary': {
+                    'heading': 'Summary',
+                    'attributes': {
+                        'name': {
+                            'description': 'Name',
+                            'displayLabel': 'Name'
+                        },
+                        'id': {
+                            'description': 'Identifier',
+                            'displayLabel': 'ID'
+                        }
+                    }
+                },
                 'General Information': {
                     'heading': 'General Information',
                     'attributes': {
@@ -1130,6 +1212,19 @@ angular.module('apolloApp').factory('nodeAttributeDictionary', function() {
         },
         'DataSet': {
             'attributeGroups': {
+                'Summary': {
+                    'heading': 'Summary',
+                    'attributes': {
+                        'name': {
+                            'description': 'Name',
+                            'displayLabel': 'Name'
+                        },
+                        'id': {
+                            'description': 'Identifier',
+                            'displayLabel': 'ID'
+                        }
+                    }
+                },
                 'General Information': {
                     'heading': 'General Information',
                     'attributes': {
@@ -1217,6 +1312,19 @@ angular.module('apolloApp').factory('nodeAttributeDictionary', function() {
         },
         'DataStandard': {
             'attributeGroups': {
+                'Summary': {
+                    'heading': 'Summary',
+                    'attributes': {
+                        'name': {
+                            'description': 'Name',
+                            'displayLabel': 'Name'
+                        },
+                        'id': {
+                            'description': 'Identifier',
+                            'displayLabel': 'ID'
+                        }
+                    }
+                },
                 'General Information': {
                     'heading': 'General Information',
                     'attributes': {
@@ -1266,6 +1374,19 @@ angular.module('apolloApp').factory('nodeAttributeDictionary', function() {
         },
         'Tag': {
             'attributeGroups': {
+                'Summary': {
+                    'heading': 'Summary',
+                    'attributes': {
+                        'name': {
+                            'description': 'Name',
+                            'displayLabel': 'Name'
+                        },
+                        'id': {
+                            'description': 'Identifier',
+                            'displayLabel': 'ID'
+                        }
+                    }
+                },
                 'General Information': {
                     'heading': 'General Information',
                     'attributes': {

@@ -95,6 +95,10 @@ angular.module('apolloApp').factory('nodeAttributeDictionary', function() {
                         'id': {
                             'description': 'Identifier',
                             'displayLabel': 'ID'
+                        },
+                        'purpose': {
+                            'description': 'Provide an overview of the purpose of the program',
+                            'displayLabel': 'Purpose / Summary'
                         }
                     }
                 },
@@ -116,10 +120,6 @@ angular.module('apolloApp').factory('nodeAttributeDictionary', function() {
                         'shortName': {
                             'description': 'Abbreviation or Acronym of the Program',
                             'displayLabel': 'Short Name / Acronym'
-                        },
-                        'purpose': {
-                            'description': 'Provide an overview of the purpose of the program',
-                            'displayLabel': 'Purpose / Summary'
                         },
                         'webResource': {
                             'description': 'Where can someone find out more information about this resource on the web?',
@@ -259,7 +259,7 @@ angular.module('apolloApp').factory('nodeAttributeDictionary', function() {
                     'attributes': {
                         'evaluationDate': {
                             'description': 'If available, please provide the date of the program\'s most recent formal evaluation.',
-                            'displayLabel': ' Evaluation Date'
+                            'displayLabel': 'Evaluation Date'
                         },
                         'evaluationDetails': {
                             'description': 'If an evaluation was performed, what categories/areas of the program were examined? (e.g., flexibility, data quality, timeliness, stability, etc.,).',
@@ -297,6 +297,10 @@ angular.module('apolloApp').factory('nodeAttributeDictionary', function() {
                         'id': {
                             'description': 'Identifier',
                             'displayLabel': 'ID'
+                        },
+                        'purpose': {
+                            'description': 'Provide an overview of the purpose of the surveillance system',
+                            'displayLabel': 'Purpose / Summary'
                         }
                     }
                 },
@@ -318,10 +322,6 @@ angular.module('apolloApp').factory('nodeAttributeDictionary', function() {
                         'shortName': {
                             'description': 'Abbreviation or Acronym of the surveillance system',
                             'displayLabel': 'Short Name / Acronym'
-                        },
-                        'purpose': {
-                            'description': 'Provide an overview of the purpose of the surveillance system',
-                            'displayLabel': 'Purpose / Summary'
                         },
                         'webResource': {
                             'description': 'Where can someone find out more information about this surveillance system on the web?',
@@ -405,19 +405,19 @@ angular.module('apolloApp').factory('nodeAttributeDictionary', function() {
                             'description': 'What was the first year data became available or were collected from the surveillance system?',
                             'displayLabel': 'Start Data Generation'
                         },
-                        'dataProviders-Manual': {
+                        'dataProvidersManual': {
                             'description': 'The manually-provided sources of data for this surveillance system (e.g., postal mail, phone).',
                             'displayLabel': 'Data Providers - Manual'
                         },
-                        'dataProviders-Electronic': {
+                        'dataProvidersElectronic': {
                             'description': 'The electronically-provided sources of data for this surveillance system (e.g., web-based, FTP, electronic messaging).',
                             'displayLabel': 'Data Providers - Electronic'
                         },
-                        'dataRecipients-Manual': {
+                        'dataRecipientsManual': {
                             'description': 'The manually-provided recipients of data for this surveillance system (e.g., postal mail, phone).',
                             'displayLabel': 'Data Recipients - Manual'
                         },
-                        'dataRecipients-Electronic': {
+                        'dataRecipientsElectronic': {
                             'description': 'The electronically-provided recipients of data for this surveillance system (e.g., web-based, FTP, electronic messaging).',
                             'displayLabel': 'Data Recipients - Electronic'
                         },
@@ -499,6 +499,10 @@ angular.module('apolloApp').factory('nodeAttributeDictionary', function() {
                         'id': {
                             'description': 'Identifier',
                             'displayLabel': 'ID'
+                        },
+                        'purpose': {
+                            'description': 'Provide an overview of the purpose of the tool.',
+                            'displayLabel': 'Purpose / Summary'
                         }
                     }
                 },
@@ -520,10 +524,6 @@ angular.module('apolloApp').factory('nodeAttributeDictionary', function() {
                         'shortName': {
                             'description': 'Abbreviation or Acronym of the tool.',
                             'displayLabel': 'Short Name / Acronym'
-                        },
-                        'purpose': {
-                            'description': 'Provide an overview of the purpose of the tool.',
-                            'displayLabel': 'Purpose / Summary'
                         },
                         'webResource': {
                             'description': 'Where can someone find out more information about this tool on the web?',
@@ -701,6 +701,10 @@ angular.module('apolloApp').factory('nodeAttributeDictionary', function() {
                         'id': {
                             'description': 'Identifier',
                             'displayLabel': 'ID'
+                        },
+                        'purpose': {
+                            'description': 'Provide an overview of the purpose of the registry',
+                            'displayLabel': 'Purpose / Summary'
                         }
                     }
                 },
@@ -726,10 +730,6 @@ angular.module('apolloApp').factory('nodeAttributeDictionary', function() {
                         'registryType': {
                             'description': 'Does the registry focus on Surveillance or Research?',
                             'displayLabel': 'Registry Type'
-                        },
-                        'purpose': {
-                            'description': 'Provide an overview of the purpose of the registry',
-                            'displayLabel': 'Purpose / Summary'
                         },
                         'webResource': {
                             'description': 'Where can someone find out more information about this registry on the web?',
@@ -907,6 +907,10 @@ angular.module('apolloApp').factory('nodeAttributeDictionary', function() {
                         'id': {
                             'description': 'Identifier',
                             'displayLabel': 'ID'
+                        },
+                        'purpose': {
+                            'description': 'Provide an overview of the purpose of the heath survey',
+                            'displayLabel': 'Purpose / Summary'
                         }
                     }
                 },
@@ -928,10 +932,6 @@ angular.module('apolloApp').factory('nodeAttributeDictionary', function() {
                         'shortName': {
                             'description': 'Abbreviation or Acronym of the heath survey',
                             'displayLabel': 'Short Name / Acronym'
-                        },
-                        'purpose': {
-                            'description': 'Provide an overview of the purpose of the heath survey',
-                            'displayLabel': 'Purpose / Summary'
                         },
                         'webResource': {
                             'description': 'Where can someone find out more information about this heath survey on the web?',
@@ -1109,6 +1109,10 @@ angular.module('apolloApp').factory('nodeAttributeDictionary', function() {
                         'id': {
                             'description': 'Identifier',
                             'displayLabel': 'ID'
+                        },
+                        'purpose': {
+                            'description': 'Provide an overview of the purpose of the collaborative',
+                            'displayLabel': 'Mission / Summary / Purpose'
                         }
                     }
                 },
@@ -1130,10 +1134,6 @@ angular.module('apolloApp').factory('nodeAttributeDictionary', function() {
                         'shortName': {
                             'description': 'Abbreviation or Acronym of the collaborative',
                             'displayLabel': 'Short Name'
-                        },
-                        'purpose': {
-                            'description': 'Provide an overview of the purpose of the collaborative',
-                            'displayLabel': 'Mission / Summary / Purpose'
                         },
                         'operationStartDate': {
                             'description': 'What was the first year the collaborative became operational?',
@@ -1222,6 +1222,10 @@ angular.module('apolloApp').factory('nodeAttributeDictionary', function() {
                         'id': {
                             'description': 'Identifier',
                             'displayLabel': 'ID'
+                        },
+                        'description': {
+                            'description': 'An overview / summary of what the dataset contains / provides',
+                            'displayLabel': 'Description / Summary'
                         }
                     }
                 },
@@ -1243,10 +1247,6 @@ angular.module('apolloApp').factory('nodeAttributeDictionary', function() {
                         'shortName': {
                             'description': 'Abbreviation or Acronym of the dataset',
                             'displayLabel': 'Short Name'
-                        },
-                        'Description': {
-                            'description': 'An overview / summary of what the dataset contains / provides',
-                            'displayLabel': 'Description / Summary'
                         },
                         'currentlyAvailable': {
                             'description': 'Is the dataset currently available?',
@@ -1322,6 +1322,10 @@ angular.module('apolloApp').factory('nodeAttributeDictionary', function() {
                         'id': {
                             'description': 'Identifier',
                             'displayLabel': 'ID'
+                        },
+                        'description': {
+                            'description': 'Abbreviation or Acronym of the data standard',
+                            'displayLabel': 'Description'
                         }
                     }
                 },
@@ -1343,10 +1347,6 @@ angular.module('apolloApp').factory('nodeAttributeDictionary', function() {
                         'terminologyFullName': {
                             'description': 'Full name of the data standard',
                             'displayLabel': 'Terminology / Coding System / Controlled Vocabulary FULL Name'
-                        },
-                        'description': {
-                            'description': 'Abbreviation or Acronym of the data standard',
-                            'displayLabel': 'Description'
                         },
                         'terminoloyId': {
                             'description': 'The unique identifier (ID) for the data standard (e.g., LOINC OID: 2.16.840.1.113883.6.1)',

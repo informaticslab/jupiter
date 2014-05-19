@@ -54,7 +54,7 @@
 										tr(ng-repeat='attribute in labelGroupAttributes(group)')
 											td(style="width: 300px;")
 												span.cursor-help(tooltip='{{attribute.description}}', tooltip-placement='right') 
-													strong {{attribute.key | unCamelCase}}
+													strong {{attribute.displayLabel}}
 											td {{attribute.value}}
 										tr(ng-if='group.heading == "Summary"')
 											td(style="width: 300px;")
@@ -64,7 +64,7 @@
 											td(style="width: 300px;")
 												strong Tags
 											td
-												a(ng-repeat='node in nodeTags' href="#/node/{{node.id}}")
+												a(ng-repeat='node in nodeTags', href="#/node/{{node.id}}", style='padding-right:15px')
 														strong {{node.name}}
 					.row
 						.col-lg-12						
@@ -79,7 +79,7 @@
 											tr(ng-repeat='attribute in hiddenGroupAttributes(group)')
 												td
 													span.cursor-help(tooltip='{{attribute.description}}', tooltip-placement='right') 
-														strong {{attribute.key | unCamelCase}}
+														strong {{attribute.displayLabel}}
 					.linkage
 						.vertical_spacing
 						.orange_header_larger Linkage/Relationships:

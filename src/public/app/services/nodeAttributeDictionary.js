@@ -1496,7 +1496,7 @@ angular.module('apolloApp').factory('nodeAttributeDictionary', function() {
                 }
             }
         },
-        'DataSet': {
+        'Dataset': {
             'attributeGroups': {
                 'Summary': {
                     'heading': 'Summary',

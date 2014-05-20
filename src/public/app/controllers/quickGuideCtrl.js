@@ -7,8 +7,6 @@ angular.module('apolloApp').controller('quickGuideCtrl', function($scope, $locat
     }
 
     $scope.goToSection = function(anchorId){
-    	//scroll to overview
-    	// console.log("The selected anchor's id is: "+anchorId);
     	$location.hash(anchorId);
     	$anchorScroll();
     }

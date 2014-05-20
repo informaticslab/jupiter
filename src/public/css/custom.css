@@ -104,7 +104,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#e6e6e6', end
 
 .right_nav_content {float:right; padding-top:1.4em; color:#777777; font-size:.9em;}
 .user_custom {color:#45c8ad; padding-right:.15em;}
-.favorites_icon {padding-left:4em; padding-right:1em;}
+.favorites_icon {padding-left:4em; padding-right:1em; color:#aeaeae;}
 
 html {
   position: relative;
@@ -281,7 +281,7 @@ li.faq {padding-bottom:.5em;}
 .small_text {font-size:smaller;}
 .small_text_main {font-size:.85em; padding-top:.5em; color:#a3a3a3;}
 
-.instructive_text {margin-left:0em; padding-top:1em; padding-botenvtom:2em;}
+.instructive_text {margin-left:0em; padding-top:1em; color:#777777;}
 
 .addbrowse {color:#f1c40f; font-size:1.3em; padding-right:.2em;}
 
@@ -324,7 +324,7 @@ td {vertical-align:bottom; padding-top:.4em;}
 
 
 
-.status {width:20%;}
+.status {width:20%; vertical-align: top;}
 
 .resource_type {font-weight:bold; font-size:small; width:30%; text-align: right; padding-right:.5em; vertical-align: top; }
 .labelbg {background-color:#e8f1f8; padding-top:.4em; padding-bottom:.5em; padding-left:.8em; padding-right:.8em; color:#5b5b5b; position:relative; top:.4em;}
@@ -557,6 +557,11 @@ a.white_link:link {color:#ffffff;}
 a.white_link:visited {color:#ffffff;}
 a.white_link:hover {color:#ffffff;}
 a.white_link:active {color:#ffffff;}
+
+a.inactive:link {color:#aeaeae;}
+a.inactive:visited {color:#aeaeae;}
+a.inactive:hover {color:#aeaeae;}
+a.inactive:active {color:#aeaeae;}
 
 .totally {font-weight:bold; font-size:.7em; padding-left:1em; letter-spacing: .01em; }
 

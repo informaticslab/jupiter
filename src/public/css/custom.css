@@ -198,7 +198,7 @@ li.faq {padding-bottom:.5em;}
 
 .detail_header_link {height:55px; background-color:#f39c11; text-align:center; color:#ffffff; font-weight:bold; padding:.5em; margin-top:2em;}
 
-.detail_header_text {font-family: Tahoma, Geneva, sans-serif; letter-spacing:.03em; font-size:1.2em; padding-top:1em; padding-bottom:1em; }
+.detail_header_text {font-family: Tahoma, Geneva, sans-serif; letter-spacing:.03em; font-size:1.2em; padding-top:1em; padding-bottom:1em; padding-left:5em;}
 
 
 
@@ -320,7 +320,7 @@ td {vertical-align:bottom; padding-top:.4em;}
 
 /*.search_results2 {color:#777777; width:100%; padding-left:1.5em;  border-bottom-style:solid; border-bottom-width:1px; border-bottom-color:#dddddd;}*/
 
-.resource_name {padding-left:1em; width:50%; font-weight:bold; padding-top:1em;}
+.resource_name {padding-left:1em; width:50%; font-weight:bold; vertical-align: top;}
 
 
 

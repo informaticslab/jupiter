@@ -31,9 +31,11 @@
 					.btn-group
 						button.btn.btn-default.dropdown-toggle(type='button', data-toggle='dropdown')
 							span.glyphicon.glyphicon-share
-							| &nbsp;Share&nbsp;&nbsp;
+							| &nbsp;Share&nbsp; 
 							span.caret
 						ul.dropdown-menu(role='menu')
+							li
+								a(href='') (Coming soon...)
 							li
 								a(href='') Email
 							li
@@ -49,7 +51,7 @@
 						.col-lg-12
 							div(ng-repeat='label in labels')
 								div(ng-repeat='group in labelGroups(label)', ng-show='showGroup(group)')
-									.orange_header_larger {{group.heading}}
+									.orange_header_larger {{group.heading}}:
 									table.table
 										tr(ng-repeat='attribute in labelGroupAttributes(group)')
 											td(style="width: 300px;")
@@ -74,11 +76,11 @@
 						.col-lg-12						
 							.panel.panel-default
 								.panel-heading
-									h2.cursor-pointer.panel-title(ng-click="isCollapsed = !isCollapsed") Attributes without values
+									h2.cursor-pointer.panel-title(ng-click="isCollapsed = !isCollapsed") Attributes without values&nbsp; 
 										span.caret
 								.panel-body(collapse='isCollapsed', ng-repeat='label in labels')
 									div(ng-repeat='group in labelGroups(label)', ng-show='hideGroup(group)')
-										h3 {{group.heading}}
+										h4.orange_header {{group.heading}}
 										table.table
 											tr(ng-repeat='attribute in hiddenGroupAttributes(group)')
 												td
@@ -103,7 +105,7 @@
 					.vertical_spacing
 					.orange_header_larger Comments/Discussion:
 					.vertical_spacing
-					| [Placeholder for comments/discussion content]
+					| (Coming soon...)
 				// end com_discuss
 		// end content block
 	// end col spec

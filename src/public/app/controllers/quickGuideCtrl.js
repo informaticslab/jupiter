@@ -4,12 +4,12 @@ angular.module('apolloApp').controller('quickGuideCtrl', function($scope, $locat
 //function for scrolling to the top
     $scope.goToTop = function(){
     	$anchorScroll();
-    }
+    };
 
     $scope.goToSection = function(anchorId){
     	$location.hash(anchorId);
     	$anchorScroll();
-    }
+    };
 });
 
 function goBack()

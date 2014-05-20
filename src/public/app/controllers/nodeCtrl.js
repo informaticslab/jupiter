@@ -40,7 +40,7 @@ angular.module('apolloApp').controller('nodeCtrl', ['$scope', '$resource', '$htt
                     i.sortIndex = group.attributes[i.key].sortIndex;
                 });
                 return _.filter(toRet, function(i) {
-                    return i.value != null && i.value.toLowerCase() != 'null' && i.value != '' && i.key != 'purpose';
+                    return i.value != null && i.value.toLowerCase() != 'null' && i.value != '';
                 });
             };
             $scope.hideGroup = function(group) {
@@ -63,7 +63,7 @@ angular.module('apolloApp').controller('nodeCtrl', ['$scope', '$resource', '$htt
                     i.sortIndex = group.attributes[i.key].sortIndex;
                 });
                 return _.filter(toRet, function(i) {
-                    return i.value == null || i.value == '';
+                    return i.value == null || i.value == '' || i.val.toLowerCase() == 'null';
                 });
             };
         });

@@ -49,11 +49,9 @@
 				div(ng-show='!contentLoading')
 					.row
 						.col-lg-12
-							div(ng-repeat='label in labels')
-								div(ng-repeat='group in labelGroups(label)', ng-show='showGroup(group)')
-									.orange_header_larger {{group.heading}}:
+							div(ng-repeat='label in labels')								
 								div(ng-repeat='group in labelGroups(label) | orderBy:"sortIndex"', ng-show='showGroup(group)')
-									.orange_header_larger {{group.heading}}
+									.orange_header_larger {{group.heading}}:
 									table.table
 										tr(ng-repeat='attribute in labelGroupAttributes(group) | orderBy:"sortIndex"')
 											td(style="width: 300px;")

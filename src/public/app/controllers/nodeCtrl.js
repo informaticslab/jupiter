@@ -63,7 +63,7 @@ angular.module('apolloApp').controller('nodeCtrl', ['$scope', '$resource', '$htt
                     i.sortIndex = group.attributes[i.key].sortIndex;
                 });
                 return _.filter(toRet, function(i) {
-                    return i.value == null || i.value == '' || i.val.toLowerCase() == 'null';
+                    return i.value == null || i.value == '' || i.value.toLowerCase() == 'null';
                 });
             };
         });

@@ -353,6 +353,9 @@ td.bot_space {padding-bottom:1em;}
 -ms-transform: scaleX(-1);
 
 }
+.blue_side_text {color:#d3721e; margin-top:1em; margin-right:1em; margin-left:1em; font-family:tahoma, geneva, sans-serif; letter-spacing:.01em; }
+
+.sidebar_coming_soon {margin-left:1em; padding-top:.5em; font-size:.9em; color:#777777; }
 
 .link_button1 {margin-top:.3em; margin-left:.5em;}
 .link_button2 {margin-top:.3em; margin-right:1em;}
@@ -360,7 +363,7 @@ td.bot_space {padding-bottom:1em;}
 
 .link_button4 {margin-top:.3em; margin-left:1.2em;}
 .link_button5 {margin-top:.3em; margin-left:1em;}
-.link_button6 {margin-top:.3em; margin-left:.5em; width:10em;}
+.link_button6 {margin-top:.3em; margin-left:.5em; width:11em;}
 .link_button7 {margin-top:.3em; margin-left:.5em; width:11em;}
 
 .cluster {float:left; margin-left:1.2em;}

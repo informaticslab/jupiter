@@ -58,7 +58,7 @@
 										tr(ng-repeat='attribute in labelGroupAttributes(group) | orderBy:"sortIndex"')
 											td(style="width: 300px;")
 												span.cursor-help(tooltip='{{attribute.description}}', tooltip-placement='right') 
-													strong {{attribute.displayLabel}}
+													strong {{attribute.displayLabel}}:
 											td(ng-if='!isUrl(attribute.value)')
 												{{attribute.value}}
 											td(ng-if='isUrl(attribute.value)')
@@ -66,17 +66,17 @@
 													{{attribute.value}}
 										tr(ng-if='group.heading == "Summary"')
 											td(style="width: 300px;")
-												strong Type
+												strong Type:
 											td {{labels.join() | unCamelCase}}
 										tr(ng-if='group.heading == "Summary" && hasTags')
 											td(style="width: 300px;")
-												strong Tags
+												strong Tags:
 											td
 												a(ng-repeat='node in nodeTags', href="#/node/{{node.id}}", style='padding-right:15px')
 														strong {{node.name}}
 					.row
 						.col-lg-12						
-							.panel.panel-default
+							.panel.panel-default.panel_custom
 								.panel-heading
 									h2.cursor-pointer.panel-title(ng-click="isCollapsed = !isCollapsed") Attributes without values&nbsp; 
 										span.caret

@@ -369,6 +369,9 @@ td.bot_space {padding-bottom:1em;}
 .cluster {float:left; margin-left:1.2em;}
 .cluster_text {}
 
+.panel_custom {}
+
+
 .key {background-color: #f9e697; min-height:51px; border-bottom-style:solid; border-bottom-color:#ffffff; border-bottom-width:1px; padding-left:1.2em; padding-right:1.2em;  padding-bottom:.7em; padding-top:.7em;}
 
 .key_details {width:94%;}

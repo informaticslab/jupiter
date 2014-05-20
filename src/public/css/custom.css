@@ -305,7 +305,7 @@ li.faq {padding-bottom:.5em;}
 
 td {vertical-align:bottom; padding-top:.4em;}
 
-
+.gray_text {color:#777777;}
 .result_number {text-align:right; padding-right:.5em;}
 
 .result_number_total {text-align:right; padding-right:.5em;}
@@ -393,7 +393,7 @@ li.instruct {padding-bottom:1em;}
 
 .highlights {width:100%; border-style:solid; min-height:300px; border-color:#d3d9d9; border-width:1px;  margin-top:.5em; }
 
-.azlist_header {text-align:center; color:#ffffff; font-weight:bold; background-color:#f39c11; font-size:1.25em; width:100%; padding-left:1em; padding-bottom:.5em; padding-top:.5em; padding-right:0.5em;}
+.azlist_header {text-align:center; color:#ffffff; font-weight:bold; background-color:#f39c11; font-size:1.25em; width:100%; padding-left:1em; padding-bottom:.7em; padding-top:.7em; padding-right:0.5em;}
 
 
 
@@ -417,11 +417,11 @@ li.instruct {padding-bottom:1em;}
 
 td.qg_table {padding-left:.5em;}
 
-.tg_header_narrow {color:#e77e23; padding:.7em; padding-left:1em; font-weight:bold; }
+.tg_header_narrow {color:#e77e23; padding:.7em;  font-weight:bold; }
 
 .qg_this_pg {background-color:#fcf1c7; border-style:solid; border-color:#f8e289; border-width:1px; margin-top:1.1em; min-height:450px; padding:1em; }
 
-.qg_content, .qg_term {margin-top:1.1em;  }
+.qg_content, .qg_term {margin-top:1.1em; color:#777777;  }
 
 .qg_page {font-weight:bold; margin-bottom:.5em; }
 

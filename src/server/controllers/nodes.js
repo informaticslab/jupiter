@@ -175,15 +175,21 @@ var compileSearchResults = function(req, res, err, results)
                         {
                             if(prop == 'purpose' || prop=='description')
                             {
-                                var string;
                                 if(doohicky[prop].length > 450)
                                 {
-                                    string  = doohicky[prop].substring(0, 447)  + '...';
+                                    nodedata.attributes.push({
+                                    'key': prop,
+                                    'value': doohicky[prop].substring(0, 447)  + '...'
+                                    });
+
                                 }
-                                nodedata.attributes.push({
-                                'key': prop,
-                                'value': string
-                                })
+                                else
+                                {
+                                    nodedata.attributes.push({
+                                    'key': prop,
+                                    'value': doohicky[prop]
+                                    });
+                                }
                             }
                             if(prop =='operationalStatus' && doohicky[prop] != null && doohicky[prop] != '')
                             {

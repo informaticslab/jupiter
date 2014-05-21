@@ -408,7 +408,10 @@ li.instruct {padding-bottom:1em;}
 
 .azlist_header {text-align:center; color:#ffffff; font-weight:bold; background-color:#f39c11; font-size:1.25em; width:100%; padding-left:1em; padding-bottom:.7em; padding-top:.7em; padding-right:0.5em;}
 
-
+.row .col:not(:first-child),.row .col:not(:last-child) {
+  padding-right:0;
+  padding-left:0;
+}
 
 .inside_title {padding-left:1.2em; padding-top:1em; font-weight:bold; color:#e77e23; font-size:1.3em; }
 .highlight_txt {padding-left:1.2em; padding-bottom:1em; padding-top:1em;  }

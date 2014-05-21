@@ -193,7 +193,7 @@
 							table.search_results
 								tr
 									td.resource_name.search
-										a(href='#/node/{{node.id}}') {{node.name}} (ID: {{node.id}}) (Connections: {{node.relCount}})
+										a(ng-click='goToTop()' href='#/node/{{node.id}}') {{node.name}} (ID: {{node.id}}) (Connections: {{node.relCount}})
 									td.status.search  
 										Strong Status: 
 										| {{node.status}}
@@ -218,7 +218,7 @@
 				// end col specs
 				.col-lg-9.col-md-8.col-sm-8
 					.sub_block(ng-show='!hasSearchValue')
-						img(src='img/search_empty_bg.png' alt='Please enter a search term above' class='img-responsive search_empty')									
+						img(src='img/search_empty_bg.png' alt='Please enter a search term above' class='img-responsive search_empty')								
 						//.page_controls
 						//	| Page controls (for multiple pages of results) to go here
 					// end sub block

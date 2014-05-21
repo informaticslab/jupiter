@@ -1,4 +1,4 @@
-angular.module('apolloApp').controller('searchCtrl', function($scope, $resource, $http, $routeParams, $timeout, $filter, $location) {
+angular.module('apolloApp').controller('searchCtrl', function($scope, $resource, $http, $routeParams, $timeout, $filter, $location, $anchorScroll) {
 	
     $scope.$parent.q = 'explore';
 	$scope.contentLoading = true;
@@ -138,4 +138,8 @@ angular.module('apolloApp').controller('searchCtrl', function($scope, $resource,
         }, 10);
     
   }
+
+    $scope.goToTop = function(){
+        $anchorScroll();
+    }
 });

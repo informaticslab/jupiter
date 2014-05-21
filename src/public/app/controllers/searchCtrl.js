@@ -142,4 +142,6 @@ angular.module('apolloApp').controller('searchCtrl', function($scope, $resource,
     $scope.goToTop = function(){
         $anchorScroll();
     }
+
+    $scope.pageChanged = eval($scope.goToTop);
 });

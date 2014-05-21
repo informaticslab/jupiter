@@ -187,7 +187,7 @@
 				.col-lg-9.col-md-8.col-sm-8(ng-show='hadSearchResults')
 					.sub_block(ng-show='hasSearchValue')
 						.pages_block
-							pagination(total-items="totalItems" ng-model="currentPage" max-size="maxSize" class="pagination-sm" boundary-links="true" ng-show='!contentLoading')
+							pagination(total-items="totalItems" ng-model="currentPage" max-size="maxSize" class="pagination-sm" boundary-links="true" ng-show='!contentLoading' ng-change='pageChanged()')
 						img(src='img/ajax-loader.gif', alt='Content is Loading', ng-show='contentLoading')
 						.span(ng-repeat="node in nodes | searchCheckFilter:checkedLabels | startFrom:(currentPage-1)*entryLimit | limitTo:entryLimit", ng-show='!contentLoading', )
 							table.search_results
@@ -204,7 +204,7 @@
 										{{att.key | unCamelCase}}:&nbsp; {{att.value}}	
 									//- td(class="text-left")
 						.pages_block
-							pagination(total-items="totalItems" ng-model="currentPage" max-size="maxSize" class="pagination-sm" boundary-links="true" ng-show='!contentLoading')
+							pagination(total-items="totalItems" ng-model="currentPage" max-size="maxSize" class="pagination-sm" boundary-links="true" ng-show='!contentLoading' ng-change='pageChanged()')
 						//.page_controls
 						//	| Page controls (for multiple pages of results) to go here
 					// end sub block

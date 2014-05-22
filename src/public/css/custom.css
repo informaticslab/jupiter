@@ -560,7 +560,9 @@ td.recent_activity {vertical-align:middle; color:#777777; padding:.5em;}
 
 td.recent_activity_sm {vertical-align:middle; color:#777777; font-size:.9em; padding:0em;}
 
-td.avatar {vertical-align:top; width:15%;}
+td.avatar {vertical-align:text-top; width:10%;}
+
+.glyphicon-user.avatar {color:#c4c8cc; font-size:1.7em; padding-top:.1em; padding-left:.2em;}
 
 .search_empty {display: block; margin-left: auto; margin-right: auto; margin-top:5em;  }
 

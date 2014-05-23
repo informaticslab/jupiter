@@ -424,3 +424,184 @@ exports.getPortalStatisticsRelations = function(req, res) {
     });
 };
 
+exports.getPlayData = function(req, res) {
+    var query = ['MATCH p=(a)-[*2]->(b)<-[*2]-(c) where a.id={leftId} and c.id={rightId}',
+    'return extract(x in nodes(p) |x.name) as Nodes, extract(y in nodes(p) |y.id) as NodesId, extract(z in relationships(p) | type(z)) as Relations, ',
+    'extract(r in relationships(p) | startNode(r).id) as StartNodes'
+    ].join('\n');
+
+    console.log(query);
+
+    var nodes=req.params.id;
+    var nodesarr=nodes.split("-");
+
+
+    var params = {
+        leftId: nodesarr[0],
+        rightId: nodesarr[1]
+    };
+
+
+    //console.log(params);
+
+    var viewerJson;
+    neodb.db.query(query, params, function(err, r) {
+        if (err) {
+            console.error('Error retreiving relations from database:', err);
+            res.send(404, 'no node at that location');
+        } else {
+            //console.log(r);
+
+
+            //console.log(nodes);
+            //console.log(relations);
+
+            var obj = eval (r);
+             var nodesA = [];
+
+            obj.forEach(function (d){
+            //console.log("Nodes",d.Nodes);
+
+            var dnodes=eval(d.Nodes);
+            var dnodesid=eval(d.NodesId);
+            var drelations=eval(d.Relations);
+            var dstartnodes=eval(d.StartNodes);
+
+
+            //console.log("dnodes",dnodes);
+               
+
+                for (var i=0;i<dnodes.length-1;i++)
+                { 
+                    
+                    //console.log("1--",dnodes[i]);
+                    nodesA.push({
+                        "source":dnodes[i],
+                        "sourceid":dnodesid[i],
+                        "target":dnodes[i+1],
+                        "targetid":dnodesid[i+1],
+                        "type":drelations[i],
+                        "startnode":dstartnodes[i],
+                        "objectid":dnodes[i]+dnodesid[i]+dnodes[i+1]+dnodesid[i+1]+drelations[i]+dstartnodes[i]
+                    });
+
+                    //console.log("nodesA",nodesA[i]);
+
+                }
+
+
+            //d3.pairs(nodesA);
+            //console.log(nodesA);
+
+            //keys = Object.keys(myObj),
+
+            /*
+
+            var drelations=eval(d.Relations);
+            //console.log("dnodes",dnodes);
+                var relationsA = [];
+
+                for (var i=0;i<drelations.length;i++)
+                { 
+                    
+                    //console.log("1--",dnodes[i]);
+                    relationsA.push({
+                        "name":dnodes[i]
+                    });
+
+                }    */
+
+
+
+            });
+
+
+            //console.log("nodesA----------------------------",nodesA);
+
+
+            
+
+            nodesA.sort(function(a,b){
+                if (a.objectid < b.objectid) //sort string ascending
+                  return -1 
+                 if (a.objectid > b.objectid)
+                  return 1
+                 return 0 //default return value (no sorting)
+            });
+
+            console.log("nodesA sorted***************************",nodesA.length);
+
+            
+            var nodesAunique=[];
+
+            nodesAunique.push(nodesA[0]);
+            for (var i=1;i<nodesA.length;i++)
+            { 
+                if(nodesA[i-1].objectid==nodesA[i].objectid)
+                {
+
+                }
+                else
+                {
+                    nodesAunique.push(nodesA[i])    
+                }
+                
+
+            }
+
+            console.log("nodesA sorted unique",nodesAunique.length);
+
+            //nodesA.sort();
+
+            for (var i=0;i<nodesAunique.length;i++)
+            { 
+                
+                console.log("----value of",nodesAunique[i]);
+
+            }
+
+
+            //console.log("Relationships",nodesA.length);
+
+
+            //divs = jQuery.unique( divs );
+            
+
+           // nodesArr=obj[0].Nodes;
+            //relationsArr=obj[0].Relations;
+
+
+
+
+            /*
+            var nodes = [];
+            //console.log(nodes);
+            var links = [];
+            for (var i=0;i<nodesArr.length;i++)
+            { 
+                nodes.push({
+                    "name":nodesArr[i]
+                });
+
+            }
+
+            for (var i=0;i<relationsArr.length;i++)
+            { 
+                links.push({
+                    "source": i,
+                    "target": i+1,
+                });
+
+            }
+
+
+            viewerJson = {
+                "nodes": nodes,
+                "links": links
+                        }
+            res.send(viewerJson);   
+            */                     
+
+        }
+    });
+};

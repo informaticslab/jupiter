@@ -1,0 +1,695 @@
+.row
+	.div(ng-class='getContentWidth()')
+		.content_block
+			.subnav
+				ul.nav.nav-pills
+					li
+						a(href='#/quickGuide/') Quick Guide
+					li
+						a(href='#/browse/') Browse
+					li.active
+						a(href='#/search/{{nodeId}}') Search
+					li
+						a(href='' class='inactive') Advanced Search
+					li
+						a(href='' class='inactive') Favorites
+					li
+						a(href='' class='inactive') In the Lab
+			// end subnav
+			//- .backlink
+			//- 	span.glyphicon.glyphicon-circle-arrow-left
+			//- 	| &nbsp;Back to search results
+			// end backlink class
+			//- .entity_name
+			//- 	| &nbsp;{{node.name}}
+			.nav_split
+				.btn-group.btn-group-md.btn-group-justified
+					.btn-group
+						a.btn.btn-default(href="#/node/{{nodeId}}", id='btnDetails') Details
+					.btn-group
+						a.btn.btn-custom(href='#/linkage/{{nodeId}}', id='btnLinkageViewer') Linkage Viewer
+				// end button group
+			// end nav_split
+			.detail_header
+				.share_button_linkage
+					//These lines, 173 - 187, were added 
+					//Single button 
+					.btn-group
+						button.btn.btn-default.dropdown-toggle(type='button', data-toggle='dropdown')
+							span.glyphicon.glyphicon-share
+							| &nbsp;Share&nbsp;&nbsp;
+							span.caret
+						ul.dropdown-menu(role='menu')
+							li
+								a(href='#') (Coming soon)
+							li
+								a(href='#') Email
+							li
+								a(href='#') Facebook
+							li
+								a(href='#') Twitter
+						//end added lines 
+				button.btn.btn-default.pull-left.link_button1(type='button')
+					span.glyphicon.glyphicon-repeat.icon-flipped
+					| Reset
+				img.pull-left.small_divider(src='img/small_divider.png')
+				button.btn.btn-default.pull-left.link_button5(type='button')
+					i.fa.fa-lock
+					| Lock nodes
+				button.btn.btn-default.pull-left.link_button4(type='button')
+					span.glyphicon.glyphicon-ban-circle
+					| Hide lines
+				.form-group
+					input(type='text',ng-model='leftnode',id='leftnode')
+
+					input(type='text',ng-model='rightnode',id='rightnode')
+					
+				button.btn.btn-default.pull-left.link_buttone(type='button')
+					span.glyphicon.glyphicon-ban-circle
+					| {{ leftnode }}
+				img.pull-left.small_divider(src='img/small_divider.png')
+				.cluster
+					.cluster_text
+					| Organize by:&nbsp;&nbsp;
+					.btn-group
+						button.btn.btn-default.link_button6(type='button')
+							i.fa.fa-gears
+							| Activity type
+						button.btn.btn-default.link_button7.disabled(type='button')
+							span.glyphicon.glyphicon-link
+							| Relationship type
+			// end detail header
+			.top_block2
+				.block_linkage
+					.vertical_spacing1
+						script.
+
+							d3.select(".btn.btn-default.pull-left.link_buttone").on("click", expandnode);
+
+							function startanim(leftnodeid,rightnodeid)
+							{
+
+							console.log(leftnodeid,rightnodeid);
+							var url = $(location).attr('href');
+							var split = url.split('/');
+							var id = split[split.length - 1];
+							//d3.json("/apollo/api/node/viewer/" + id, function(error, json) {
+							var leftnodeid=document.getElementById('leftnode').value;
+							var rightnodeid=document.getElementById('rightnode').value;
+
+							jsonret=d3.json("/apollo/api/node/play/"+leftnodeid+"-"+rightnodeid, function(error, json) {
+
+
+							var togglehidelinks=true;
+							var togglefixnodes=true;
+							//var w = 1000,
+							var w= $("div.block_linkage").width();
+							var h = 900;
+							var r = 10;
+							var rcent=15;//radius of node circle
+							
+							
+							//var h= $("div.block_linkage").outerHeight();
+							
+							var force = d3.layout.force()
+							.nodes(json.nodes)
+							.links(json.links)
+							.size([w, h])
+							.linkDistance(200)
+							.charge(-1850)
+							.on("tick", tick)
+							.start();
+							
+							//console.log($("div.block_linkage").outerWidth(),$("div.block_linkage").outerHeight());
+							
+							
+							var svg = d3.select(".block_linkage").append("svg:svg")
+							.attr("width", w)
+							.attr("height", h);
+
+
+							d3.select(window).on('resize', svgresize);
+							
+
+							d3.select(".btn.btn-default.pull-left.link_button1").on("click", clickreset);
+							d3.select(".btn.btn-default.pull-left.link_button5").on("click", locknodes);
+							d3.select(".btn.btn-default.pull-left.link_button4").on("click", hidelinks);
+
+							
+
+							d3.select(".btn.btn-default.link_button6").on("click", clusterlayout);
+
+
+							var drag = force.drag()
+							.on("dragstart", dragstart);  
+
+
+							var path = svg.append("svg:g")
+							.selectAll("path")
+							.data(json.links)
+							.enter().append("svg:path")
+							.attr("id", function(d) { return d.source.index + "_" + d.target.index; })
+							.attr("class", "link");
+							
+							
+
+							var circle = svg.append("svg:g")
+							.selectAll("circle")
+							.data(json.nodes)
+							.enter().append("svg:circle")
+							.attr("r", function(d) { if(d.index==0)return rcent;else return r; })
+							.attr("class", function(d) { return "node " + d.label; })
+							.on("dblclick", dblclick)
+							.call(force.drag);
+
+							var text = svg.append("svg:g")
+							.selectAll("g")
+							.data(json.nodes)
+							.enter().append("svg:g");
+
+							// A copy of the text with a thick white stroke for legibility.
+							/*text.append("svg:text")
+							.attr("x", 8)
+							.attr("y", ".31em")
+							.attr("class", "shadow")
+							.text(function(d) { return d.name; });*/
+
+							text.append("a").attr("xlink:href",function(d) { return "/apollo/#/linkage/" + d.id; })
+							.append("svg:text")
+							.attr("x", 25)
+							.attr("y", ".31em")
+							.text(function(d) { return d.name+" ("+d.label+")"; })
+							.style("font-weight",function(d){if(d.index==0){return "bold";} else return "normal";});
+
+							//For tooltip
+							var div = d3.select("body").append("div")   
+							.attr("class", "tooltip")               
+							.style("opacity", 0);
+
+
+
+							var path_label = svg.append("svg:g").selectAll(".path_label")
+							.data(json.links)
+							.enter().append("svg:text")
+							.attr("class", "path_label")
+							.append("svg:textPath")
+							.attr("startOffset", "50%")
+							.attr("text-anchor", "middle")
+							.attr("xlink:href", function(d) { return "#" + d.source.index + "_" + d.target.index; })
+							.attr("testattr","hello")
+							.style("fill", "#000")
+							.style("font-family", "Arial")
+							.text(function(d) { return d.type; })
+							.on("click", function(d) {      
+							div.transition()        
+							.duration(200)      
+							.style("opacity", .9);      
+							div.html(d.description)  
+							.style("left", (d3.event.pageX) + "px")     
+							.style("top", (d3.event.pageY - 28) + "px");    
+							})                  
+							.on("mouseout", function(d) {       
+							div.transition()        
+							.duration(500)      
+							.style("opacity", 0);   
+							});
+							//.on("mouseover", linkmouseover);
+
+							function tick() {
+							
+								w= $("svg").outerWidth();
+								h= $("svg").outerHeight();
+								
+								
+								
+								//console.log($("svg").outerWidth());
+								
+
+								circle.attr("cx", function(d) { return d.x = Math.max(rcent+2, Math.min(w - rcent-2, d.x)); })
+								.attr("cy", function(d) { return d.y = Math.max(rcent+2, Math.min(h - rcent-2, d.y)); });
+								
+								path.attr("d", function(d) {
+								var dx = d.target.x - d.source.x,
+								dy = d.target.y - d.source.y,
+								dr = Math.sqrt(dx * dx + dy * dy),
+								theta = Math.atan2(dy, dx) + Math.PI / 100, //orientation of the arrow
+								d90 = Math.PI / 2,
+								dtxs = d.target.x - 10 * Math.cos(theta), //distance of arrow from the node
+								dtys = d.target.y - 10 * Math.sin(theta);
+								//return "M" + d.source.x + "," + d.source.y + "A" + dr + "," + dr + " 0 0 1," + d.target.x + "," + d.target.y + "A" + dr + "," + dr + " 0 0 0," + d.source.x + "," + d.source.y + "M" + dtxs + "," + dtys +  "l" + (3.5 * Math.cos(d90 - theta) - 10 * Math.cos(theta)) + "," + (-3.5 * Math.sin(d90 - theta) - 10 * Math.sin(theta)) + "L" + (dtxs - 3.5 * Math.cos(d90 - theta) - 10 * Math.cos(theta)) + "," + (dtys + 3.5 * Math.sin(d90 - theta) - 10 * Math.sin(theta)) + "z";
+								return "M" + d.source.x + "," + d.source.y + "L" + d.target.x + "," + d.target.y + "M" + dtxs + "," + dtys +  "l" + (3.5 * Math.cos(d90 - theta) - 10 * Math.cos(theta)) + "," + (-3.5 * Math.sin(d90 - theta) - 10 * Math.sin(theta)) + "L" + (dtxs - 3.5 * Math.cos(d90 - theta) - 10 * Math.cos(theta)) + "," + (dtys + 3.5 * Math.sin(d90 - theta) - 10 * Math.sin(theta)) + "z";
+								//return "M" + d.source.x + "," + d.source.y + "L" + d.target.x + "," + d.target.y +"m0,-5l10,0l0,5z";
+								//return "M" + d.source.x + "," + d.source.y + "L" + d.target.x + "," + d.target.y + "A" + dr + "," + dr + " 0 0 0," + d.source.x + "," + d.source.y + "M" + dtxs + "," + dtys +  "l" + (3.5 * Math.cos(d90 - theta) - 10 * Math.cos(theta)) + "," + (-3.5 * Math.sin(d90 - theta) - 10 * Math.sin(theta)) + "L" + (dtxs - 3.5 * Math.cos(d90 - theta) - 10 * Math.cos(theta)) + "," + (dtys + 3.5 * Math.sin(d90 - theta) - 10 * Math.sin(theta)) + "z";
+								})
+								.style("fill", "#8D8D91");
+
+
+								
+
+
+								path_label.attr("transform", function(d) {
+									return "translate(" + d.x + "," + d.y + ")";
+								});
+
+								text.attr("transform", function(d) {
+									return "translate(" + d.x + "," + d.y + ")";
+								});
+								force.size([w, h]);
+								//force.start();
+								//console.log(w,h);
+							}
+
+							function dblclick(d) {
+								d.fixed=false;
+								d3.select(this).classed("fixed",false);
+							}
+
+
+							function locknodes(lock) {
+
+								if(lock=="lock")
+									{
+										d3.selectAll("circle").classed("fixed", true);
+											d3.select(".btn.btn-default.pull-left.link_button5").classed("active", true);
+											i=0;
+												for (n in json.nodes){
+														//alert(n.id);
+													json.nodes[i].fixed=true;
+													i++;
+
+												}
+											
+										togglefixnodes=false;
+
+									}
+
+								else{
+
+									if(togglefixnodes){
+
+											d3.selectAll("circle").classed("fixed", true);
+											d3.select(".btn.btn-default.pull-left.link_button5").classed("active", true);
+											i=0;
+												for (n in json.nodes){
+														//alert(n.id);
+													json.nodes[i].fixed=true;
+													i++;
+
+												}
+											
+										togglefixnodes=false;
+									}
+									else{
+										
+										d3.selectAll("circle").classed("fixed", false);
+										d3.select(".btn.btn-default.pull-left.link_button5").classed("active", false);
+										i=0;
+										for (n in json.nodes){
+												//alert(n.id);
+											json.nodes[i].fixed=false;
+											i++;
+
+										}
+										//force.start();
+										togglefixnodes=true;
+
+									}
+								}
+							
+							}
+
+
+
+							function clickreset(d) {
+
+								d3.selectAll("circle").classed("fixed", false);
+								togglefixnodes=true;
+								d3.select(".btn.btn-default.pull-left.link_button5").classed("active", false);
+
+								i=0;
+								for (n in json.nodes){
+								//alert(n.id);
+								json.nodes[i].fixed=false;
+								i++;
+
+								}
+
+								d3.selectAll("path").attr("visibility", "visible");
+								d3.selectAll("text.path_label").attr("visibility", "visible");
+								d3.select(".btn.btn-default.pull-left.link_button4").classed("active", false);
+								togglehidelinks=true;
+
+								force.start();							
+							
+							}
+
+							function hidelinks(x) {
+
+							if(x=="hide")
+								{
+									d3.selectAll("path").attr("visibility", "hidden");
+									d3.selectAll("text.path_label").attr("visibility", "hidden");
+									d3.select(".btn.btn-default.pull-left.link_button4").classed("active", true);
+										
+									togglehidelinks=false;
+
+								}
+							else
+								{
+									if(togglehidelinks){
+										d3.selectAll("path").attr("visibility", "hidden");
+										d3.selectAll("text.path_label").attr("visibility", "hidden");
+										d3.select(".btn.btn-default.pull-left.link_button4").classed("active", true);
+										
+										togglehidelinks=false;
+										}
+									else{
+										d3.selectAll("path").attr("visibility", "visible");
+										d3.selectAll("text.path_label").attr("visibility", "visible");
+										d3.select(".btn.btn-default.pull-left.link_button4").classed("active", false);
+										togglehidelinks=true;
+										}
+
+								}
+							
+							
+						
+							}
+
+							function svgresize()
+							{
+							//alert("aa");
+
+							w= $("div.block_linkage").width();
+							//h= $("div.block_linkage").outerHeight();
+
+							d3.select("svg").attr("width", w).attr("height", h);
+							force.size([w, h]);
+							force.start();
+
+							}
+
+							
+
+							function clusterlayout(){
+
+								//console.log("cluster layout");
+								force.stop();
+
+								circle.sort(function(a, b) { return d3.ascending(a.label, b.label); });
+								text.sort(function(a, b) { return d3.ascending(a.label, b.label); });
+
+								sw= $("svg").outerWidth();
+								sh= $("svg").outerHeight();
+
+
+								var n = circle[0].length;      // number of child nodes
+
+								var step = 2*Math.PI/n;  
+								var h = sw/2; 
+								var k = sh/2;
+
+
+								var r = 220;
+
+								if(n>40)
+								{
+									r=300;
+								}
+
+								if(n>80)
+								{
+									r=350;
+								}
+								var pos = []; 
+
+
+								for(var theta=0;  theta < 2*Math.PI;  theta+=step)
+								{
+									var x = h + r*Math.cos(theta);
+									var y = k - r*Math.sin(theta);    //note 2.
+									pos.push([x,y]);
+								}
+
+								//console.log(pos);
+								
+
+								circle.transition()
+								.duration(1000)
+								.delay(function(d, i) { return i * 5; })
+								.attr("cx",function(d,i){d.px=pos[i][0];; return d.x=pos[i][0];})
+								.attr("cy",function(d,i){d.py=pos[i][1]; return d.y=pos[i][1];});
+
+
+								text.transition()
+								.duration(1000)
+								.delay(function(d, i) { return i * 5; })
+								.attr("transform", function(d,i) {
+									return "translate(" + pos[i][0] + "," + pos[i][1] + ")";
+								});
+
+								path.transition()
+								.duration(1000)
+								.delay(function(d, i) { return i * 5; })
+								.attr("d", function(d) {
+
+								circle.each(function(d1,i1){
+									
+										if(d.target.id==d1.id & d.target.index==d1.index)
+										{
+
+											d.target.x=d1.x;
+											d.target.y=d1.y;
+										
+										}
+
+										else if(d.source.id==d1.id & d.source.index==d1.index)
+										{
+											d.source.x=d1.x;
+											d.source.y=d1.y;
+										}
+									else
+										{
+
+										}
+									});
+
+								path
+								.append("svg:title")
+								.text(function(d) { return d.source.x+" "+d.source.y+" "+d.target.x+" "+d.target.y;; });
+
+								var dx = d.target.x - d.source.x,
+								dy = d.target.y - d.source.y,
+								dr = Math.sqrt(dx * dx + dy * dy),
+								theta = Math.atan2(dy, dx) + Math.PI / 100, //orientation of the arrow
+								d90 = Math.PI / 2,
+								dtxs = d.target.x - 10 * Math.cos(theta), //distance of arrow from the node
+								dtys = d.target.y - 10 * Math.sin(theta);
+								return "M" + d.source.x + "," + d.source.y + "L" + d.target.x + "," + d.target.y + "M" + dtxs + "," + dtys +  "l" + (3.5 * Math.cos(d90 - theta) - 10 * Math.cos(theta)) + "," + (-3.5 * Math.sin(d90 - theta) - 10 * Math.sin(theta)) + "L" + (dtxs - 3.5 * Math.cos(d90 - theta) - 10 * Math.cos(theta)) + "," + (dtys + 3.5 * Math.sin(d90 - theta) - 10 * Math.sin(theta)) + "z";
+								});
+								//.style("fill", "#8D8D91");
+
+								
+
+								hidelinks("hide");
+								locknodes("lock");
+
+
+							}
+
+
+							function linkmouseover(d) { 
+							
+							alert(d3.select(this).attr("testattr"));
+						
+							}
+
+							function dragstart(d) {
+								d3.select(this).classed("fixed",true);
+								//d3.select(this).attr("class","node fixed");
+								d.fixed=true;
+							}
+
+
+							
+
+							});
+
+							}//startanim
+
+							function expandnode(){
+
+
+
+								console.log("expandnode");
+
+								var leftnodeid=document.getElementById('leftnode').value;
+								var rightnodeid=document.getElementById('rightnode').value;
+
+								startanim(leftnodeid,rightnodeid);
+
+								
+
+							}
+
+
+
+
+				// end block_linkage
+				.key
+					table.key_details
+						tr
+							td.key_td
+								.blue_subhead Key:
+							td.node_image_td
+								img(src='img/node.png')
+							td.node_text_td
+								strong Node:
+								|   Represents an entity, such as Program, System, Dataset,
+								|  Data Standard, Health Survey, Tool, Registry, Organization, Tag, or Collaborative.
+								| Entity types are differentiated by node color.
+							td.white_line
+								img(src='img/white_divider.png')  
+							td.line_image_td
+								img(src='img/line.png')
+							td.line_text_td
+								|  Represents the relationship between any two entities,
+								|  such as oversees, manages, uses, shares data with, etc. The arrow indicates
+								|  the direction of the relationship (e.g., the source to the recipient). 
+				// end class key
+				.legend
+					table.legend_details
+						tr
+							td.legend_td
+								.blue_subhead Legend:
+							td.node_legend_image_td
+								img.move_legend(src='img/node_ss.png')
+								| Surveillance System
+							td.node_legend_image_td
+								img.move_legend(src='img/node_program.png')
+								| Program
+							td.node_legend_image_td
+								img.move_legend(src='img/node_registry.png')
+								| Registry
+							td.node_legend_image_td
+								img.move_legend(src='img/node_hs.png')
+								| Health Survey
+						tr
+							td.legend_td
+								.blue_subhead
+							td.node_legend_image_td
+								img.move_legend(src='img/node_tool.png')
+								| Tool
+							td.node_legend_image_td
+								img.move_legend(src='img/node_dataset.png')
+								| Dataset
+							td.node_legend_image_td
+								img.move_legend(src='img/node_ds.png')
+								| Data Standard		
+							td.node_legend_image_td
+								img.move_legend(src='img/node_col.png')
+								| Collaborative			
+						tr
+							td.legend_td
+								.blue_subhead
+							td.node_legend_image_td
+								img.move_legend(src='img/node_org.png')
+								| Organization
+							td.node_legend_image_td
+								img.move_legend(src='img/node_tag.png')
+								| Tag
+				// end class legend				
+				.instructions
+					.blue_subhead Instructions:
+					.left_bullets
+						ul
+							li.instruct
+								| To 
+								strong  view a node's relationships
+								| , click on a
+								| node name. This will bring it to the center of the graph. 
+							li.instruct
+								| To 
+								strong  view more information 
+								| about the center node, click the
+								em  
+									strong Details
+								|  tab. 
+							li.instruct
+								| To
+								strong  lock or reposition
+								|  an individual node, click the node.
+								| A black border will display around the node, and it will be locked in position. You may then drag the node to the desired position.
+							li.instruct
+								| To 
+								strong lock all nodes
+								| , click the 
+								em 
+									strong Lock nodes
+								|  button. To release the nodes, simply click the button again, or click the 
+								em
+									strong Reset
+								|  button.
+					// end class left_bullets
+					.right_bullets
+						ul
+							li.instruct
+								| To
+								strong  hide the lines
+								|  in the graph, click the
+								em
+									strong  Hide lines
+								|  button. To make them reappear, simply click the button again.	
+							li.instruct
+								| To 
+								strong organize 
+								|  the nodes by 
+								strong  activity type
+								| , click the 
+								em
+									strong  Activity type
+								|  button. To disperse the nodes, simply click the button again.
+							// li.instruct
+							//	| To 
+							//	strong cluster 
+							//	|  the nodes by 
+							//	strong  relationship type
+							//	| , click the
+							//	em
+							//		strong  Relationship type
+							//	|  button. To disperse the nodes, simply click the button again.
+					// end class right_bullets
+				// end class instructions
+			// end top_block2
+		// end content block
+	// end col spec
+	//- .col-lg-3.col-md-3.col-sm-3
+	//- 	.hx_side
+	//- 		| Exploration History [placeholder]
+	//- 	// end hx_side
+	//- // end col spec
+	.div(ng-class='getSidebarWidth()')
+		.hx_side(ng-show='!showSidebar' ng-click='toggleSidebar()')
+			.blue_side
+				.blue_side_text
+					| Your Exploration History:
+				.sidebar_coming_soon
+					Em (Coming soon...)
+			.button_side
+				.sidebar_button
+					img(src='img/tab_button_collapse.png', alt='Collapse sidebar')			
+		// end hx_side
+		.hx_side(ng-show='showSidebar' ng-click='toggleSidebar()')
+			.blue_side_expanded
+			.button_side_expanded
+				.sidebar_button
+					img(src='img/tab_button_expand.png', alt='Expand sidebar')			
+		// end hx_side
+// end row
+// row
+
+
+
+
+
+		

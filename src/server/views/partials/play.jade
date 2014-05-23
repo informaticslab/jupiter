@@ -99,6 +99,7 @@
 
 							jsonret=d3.json("/apollo/api/node/play/"+leftnodeid+"-"+rightnodeid, function(error, json) {
 
+							console.log("json",json);
 
 							var togglehidelinks=true;
 							var togglefixnodes=true;
@@ -107,6 +108,31 @@
 							var h = 900;
 							var r = 10;
 							var rcent=15;//radius of node circle
+							
+							var svg = d3.select(".block_linkage").append("svg:svg")
+							.attr("width", w)
+							.attr("height", h);
+
+
+
+							if(json==undefined)
+							{
+							
+							console.log("no json!!");
+							var errortext = svg
+							.append("svg:text")
+							.attr("x", h/2)
+							.attr("y", w/2)
+							.text("The two nodes are not connected")
+							;
+
+							}
+							else
+							{
+
+
+
+							
 							
 							
 							//var h= $("div.block_linkage").outerHeight();
@@ -123,9 +149,10 @@
 							//console.log($("div.block_linkage").outerWidth(),$("div.block_linkage").outerHeight());
 							
 							
-							var svg = d3.select(".block_linkage").append("svg:svg")
-							.attr("width", w)
-							.attr("height", h);
+							
+
+							
+
 
 
 							d3.select(window).on('resize', svgresize);
@@ -511,7 +538,7 @@
 							}
 
 
-							
+							}//else json undefined
 
 							});
 

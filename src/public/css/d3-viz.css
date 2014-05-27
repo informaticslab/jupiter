@@ -10,6 +10,7 @@ marker {
 
 .path_label{
   cursor:pointer;
+  font-weight:normal; 
 }
 
 

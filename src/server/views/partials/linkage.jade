@@ -175,8 +175,6 @@
 							.attr("startOffset", "50%")
 							.attr("text-anchor", "middle")
 							.attr("xlink:href", function(d) { return "#" + d.source.index + "_" + d.target.index; })
-							.attr("testattr","hello")
-							.style("fill", "#000")
 							.style("font-family", "Arial")
 							.text(function(d) { return d.type; })
 							.on("click", function(d) {      
@@ -226,9 +224,7 @@
 								
 
 
-								path_label.attr("transform", function(d) {
-									return "translate(" + d.x + "," + d.y + ")";
-								});
+
 
 								text.attr("transform", function(d) {
 									return "translate(" + d.x + "," + d.y + ")";

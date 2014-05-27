@@ -36,6 +36,10 @@ html, body { overflow-x: hidden; }
   padding-left:1em; position:relative; top:1.8em;
 }
 
+.cdctext3 {color:#ecf0f1; font-size:1.1em; font-family: Tahoma, Geneva, sans-serif; letter-spacing:.01em;  
+  padding-left:1em; position:relative; top:1.8em;
+}
+
 .header_icon {position:relative; top:1.9em; left:.5em;
 
 }
@@ -511,6 +515,7 @@ li.qg_li {padding-top:.7em; margin-left: -1.7em;}
 .stat_count {font-weight:bold; color:#3598db; font-family:arial, geneva, sans-serif; font-size:1.8em;}
 
 .stat_label {color:#50595a; font-family:arial, geneva, sans-serif; font-size:1.1em;}
+.stat_label_sm {color:#50595a; font-family:arial, geneva, sans-serif; font-size:.9em;}
 
 .glyphicon-time {color:#e77e23; padding-right:.35em;}
 
@@ -560,7 +565,9 @@ td.recent_activity {vertical-align:middle; color:#777777; padding:.5em;}
 
 td.recent_activity_sm {vertical-align:middle; color:#777777; font-size:.9em; padding:0em;}
 
-td.avatar {vertical-align:top; width:15%;}
+td.avatar {vertical-align:text-top; width:10%;}
+
+.glyphicon-user.avatar {color:#c4c8cc; font-size:1.7em; padding-top:.1em; padding-left:.2em;}
 
 .search_empty {display: block; margin-left: auto; margin-right: auto; margin-top:5em;  }
 

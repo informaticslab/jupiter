@@ -425,8 +425,8 @@ exports.getPortalStatisticsRelations = function(req, res) {
 };
 
 exports.getPlayData = function(req, res) {
-    var query = ['MATCH p=(a)-[*2]->(b)<-[*2]-(c) where a.id={leftId} and c.id={rightId}',
-    'return extract(x in nodes(p) |x.name) as Nodes, extract(y in nodes(p) |y.id) as NodesId, extract(z in relationships(p) | type(z)) as Relations, ',
+    var query = ['MATCH p=(a)-[*0..2]-(b)-[*0..2]-(c) where a.id={leftId} and c.id={rightId}',
+    'return extract(x in nodes(p) |x.name) as Nodes, extract(y in nodes(p) |y.id) as NodesId, extract(s in nodes(p) |labels(s)) as NodesLabel, extract(z in relationships(p) | type(z)) as Relations, ',
     'extract(r in relationships(p) | startNode(r).id) as StartNodes'
     ].join('\n');
 
@@ -472,6 +472,7 @@ exports.getPlayData = function(req, res) {
 
                     var dnodes=eval(d.Nodes);
                     var dnodesid=eval(d.NodesId);
+                    var dnodeslabel=eval(d.NodesLabel);
                     var drelations=eval(d.Relations);
                     var dstartnodes=eval(d.StartNodes);
 
@@ -488,6 +489,8 @@ exports.getPlayData = function(req, res) {
                                 "sourceid":dnodesid[i],
                                 "target":dnodes[i+1],
                                 "targetid":dnodesid[i+1],
+                                "sourcelabel":dnodeslabel[i],
+                                "targetabel":dnodeslabel[i+1],
                                 "type":drelations[i],
                                 "startnode":dstartnodes[i],
                                 "objectid":dnodes[i]+dnodesid[i]+dnodes[i+1]+dnodesid[i+1]+drelations[i]+dstartnodes[i]
@@ -554,7 +557,7 @@ exports.getPlayData = function(req, res) {
                 
                 var nodes=[];
 
-                nodes.push({"name":nodesAunique[0].source,"id":nodesAunique[0].sourceid});
+                nodes.push({"name":nodesAunique[0].source,"id":nodesAunique[0].sourceid,"label":nodesAunique[0].sourcelabel});
 
                 for (var i=0;i<nodesAunique.length;i++)
                 { 
@@ -571,7 +574,7 @@ exports.getPlayData = function(req, res) {
                     }
                     if(!found)
                     {
-                        nodes.push({"name":nodesAunique[i].source,"id":nodesAunique[i].sourceid});
+                        nodes.push({"name":nodesAunique[i].source,"id":nodesAunique[i].sourceid,"label":nodesAunique[i].sourcelabel});
                     }
 
                 }
@@ -593,7 +596,7 @@ exports.getPlayData = function(req, res) {
                     }
                     if(!found)
                     {
-                        nodes.push({"name":nodesAunique[i].target,"id":nodesAunique[i].targetid});
+                        nodes.push({"name":nodesAunique[i].target,"id":nodesAunique[i].targetid,"label":nodesAunique[i].targetlabel});
                     }
 
                 }

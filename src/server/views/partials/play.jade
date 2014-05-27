@@ -142,7 +142,7 @@
 							.links(json.links)
 							.size([w, h])
 							.linkDistance(200)
-							.charge(-1850)
+							.charge(-250)
 							.on("tick", tick)
 							.start();
 							
@@ -184,7 +184,7 @@
 							.selectAll("circle")
 							.data(json.nodes)
 							.enter().append("svg:circle")
-							.attr("r", function(d) { if(d.index==0)return rcent;else return r; })
+							.attr("r", function(d) { if(d.id==leftnodeid || d.id==rightnodeid)return rcent;else return r; })
 							.attr("class", function(d) { return "node " + d.label; })
 							.on("dblclick", dblclick)
 							.call(force.drag);
@@ -242,6 +242,7 @@
 							});
 							//.on("mouseover", linkmouseover);
 
+
 							function tick() {
 							
 								w= $("svg").outerWidth();
@@ -252,8 +253,11 @@
 								//console.log($("svg").outerWidth());
 								
 
-								circle.attr("cx", function(d) { return d.x = Math.max(rcent+2, Math.min(w - rcent-2, d.x)); })
-								.attr("cy", function(d) { return d.y = Math.max(rcent+2, Math.min(h - rcent-2, d.y)); });
+								circle.attr("cx", function(d) { if(d.id==leftnodeid){ return d.x=100; } if(d.id==rightnodeid){ return d.x=w-100; } return d.x = Math.max(rcent+2, Math.min(w - rcent-2, d.x)); })
+								.attr("cy", function(d) { if(d.id==leftnodeid){ return d.y=h/2; } if(d.id==rightnodeid){ return d.y=h/2; } return d.y = Math.max(rcent+2, Math.min(h - rcent-2, d.y)); });
+
+								//circle.attr("cx", function(d) { if(d.id==leftnodeid){ return d.x=200; } else { return d.x = Math.max(rcent+2, Math.min(w - rcent-2, d.x)); })
+								//.attr("cy", function(d) { if(d.id==leftnodeid){ return d.y=200; } else {return d.y = Math.max(rcent+2, Math.min(h - rcent-2, d.y)); });
 								
 								path.attr("d", function(d) {
 								var dx = d.target.x - d.source.x,
@@ -275,7 +279,7 @@
 
 
 								path_label.attr("transform", function(d) {
-									return "translate(" + d.x + "," + d.y + ")";
+									console.log(d); return "translate(" + d.x + "," + d.y + ")";
 								});
 
 								text.attr("transform", function(d) {

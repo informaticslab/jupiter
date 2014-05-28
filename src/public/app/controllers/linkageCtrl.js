@@ -1,4 +1,4 @@
-angular.module('apolloApp').controller('linkageCtrl', function($scope, $routeParams, $resource){
+angular.module('apolloApp').controller('linkageCtrl', function($scope, $routeParams, $resource, $location){
 	$scope.$parent.q = 'explore';
     $scope.nodeId = $routeParams.id;
 

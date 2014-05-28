@@ -11,9 +11,13 @@ angular.module('apolloApp').controller('quickGuideCtrl', function($scope, $locat
     	$location.hash(anchorId);
     	$anchorScroll();
     }
+    
+    $scope.twitterBlurb = encodeURIComponent($location.absUrl());
 });
 
 function goBack()
 {
   window.history.back();
 }
+
+

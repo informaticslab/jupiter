@@ -59,6 +59,10 @@ apolloApp.config(['$routeProvider',
         templateUrl: 'partials/play',
         controller: 'playCtrl'
       }).
+          when('/play/', {
+        templateUrl: 'partials/play',
+        controller: 'playCtrl'
+      }).
         otherwise({
         redirectTo: '/main'
       });

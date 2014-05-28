@@ -84,22 +84,41 @@
 					.vertical_spacing1
 						script.
 
-							d3.select(".btn.btn-default.pull-left.link_buttone").on("click", expandnode);
+							//d3.select(".btn.btn-default.pull-left.link_buttone").on("click", function(){
 
-							function startanim(leftnodeid,rightnodeid)
-							{
+							$( ".btn.btn-default.pull-left.link_buttone" ).click(function() {
 
-							console.log(leftnodeid,rightnodeid);
-							var url = $(location).attr('href');
-							var split = url.split('/');
-							var id = split[split.length - 1];
-							//d3.json("/apollo/api/node/viewer/" + id, function(error, json) {
 							var leftnodeid=document.getElementById('leftnode').value;
 							var rightnodeid=document.getElementById('rightnode').value;
 
+							window.open("#/play/"+leftnodeid+"-"+rightnodeid,"_self","",false);
+
+							});
+
+
+							$( document ).ready(function() {
+
+							
+
+
+							
+							var url = $(location).attr('href');
+							var split = url.split('/');
+							var id = split[split.length - 1];
+
+							console.log("i--d");
+
+
+							//d3.json("/apollo/api/node/viewer/" + id, function(error, json) {
+							var leftnodeid=id.split("-")[0];
+							var rightnodeid=id.split("-")[1];
+
+
+
 							jsonret=d3.json("/apollo/api/node/play/"+leftnodeid+"-"+rightnodeid, function(error, json) {
 
-							console.log("json",json);
+
+							//console.log("json",json);
 
 							var togglehidelinks=true;
 							var togglefixnodes=true;
@@ -115,15 +134,14 @@
 
 
 
-							if(json==undefined)
+							if(json==undefined | error)
 							{
 							
-							console.log("no json!!");
 							var errortext = svg
 							.append("svg:text")
-							.attr("x", h/2)
-							.attr("y", w/2)
-							.text("The two nodes are not connected")
+							.attr("x", 100)
+							.attr("y", 100)
+							.text("No nodes or relationships found.")
 							;
 
 							}
@@ -538,24 +556,9 @@
 
 							});
 
-							}//startanim
-
-							function expandnode(){
 
 
-
-								console.log("expandnode");
-
-								var leftnodeid=document.getElementById('leftnode').value;
-								var rightnodeid=document.getElementById('rightnode').value;
-
-								startanim(leftnodeid,rightnodeid);
-
-								
-
-							}
-
-
+							});//doument ready
 
 
 				// end block_linkage

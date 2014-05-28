@@ -10,5 +10,5 @@ angular.module('apolloApp').controller('linkageCtrl', function($scope, $routePar
         id: $routeParams.id
     });
     
-
+	$scope.twitterBlurb = encodeURIComponent($location.absUrl());
 });

@@ -1,4 +1,4 @@
-angular.module('apolloApp').controller('rootCtrl', function($scope, $http){
+angular.module('apolloApp').controller('rootCtrl', function($scope, $http, $location){
     
     $scope.q = 'home';
     $scope.loginuser = 'guest';
@@ -53,4 +53,5 @@ angular.module('apolloApp').controller('rootCtrl', function($scope, $http){
     $scope.toggleSidebar = function(){
       $scope.showSidebar = !$scope.showSidebar;
     };
+    $scope.twitterRootBlurb = encodeURIComponent($location.absUrl());
 });

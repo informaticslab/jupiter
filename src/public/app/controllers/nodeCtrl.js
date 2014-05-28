@@ -1,5 +1,5 @@
-angular.module('apolloApp').controller('nodeCtrl', ['$scope', '$resource', '$http', '$routeParams', 'nodeAttributeDictionary',
-    function($scope, $resource, $http, $routeParams, nodeAttributeDictionary) {
+angular.module('apolloApp').controller('nodeCtrl', ['$scope', '$location', '$resource', '$http', '$routeParams', 'nodeAttributeDictionary',
+    function($scope, $location, $resource, $http, $routeParams, nodeAttributeDictionary) {
         $scope.contentLoading = true;
         $scope.nodeId = $routeParams.id
         $scope.$parent.q = 'explore';
@@ -86,5 +86,6 @@ angular.module('apolloApp').controller('nodeCtrl', ['$scope', '$resource', '$htt
              else
                 return false;
         }
+        $scope.twitterBlurb = encodeURIComponent($location.absUrl());
     }
 ]);

@@ -131,7 +131,7 @@ body {
   width:100%; padding:0em; margin:0em;
 }
 
-.share {height:38px; background-color: #ffffff;}
+.share {height:48px; background-color: #ffffff; padding-top:10px;}
 
 .share_corner {background-color: #ecf0f1; height:38px; width:13em; float:right; }
 
@@ -511,6 +511,7 @@ li.qg_li {padding-top:.7em; margin-left: -1.7em;}
 .fa-coffee {padding-right:.5em;}
 
 .stat_box {border-style:solid; border-color:#c7d1d1; border-width:1px; padding:.5em; background-color:#f2f5f5; text-align:center;}
+.stat_box_sm {border-style:solid; border-color:#c7d1d1; min-height:88px; border-width:1px; padding:.5em; background-color:#f2f5f5; text-align:center;}
 
 .stat_count {font-weight:bold; color:#3598db; font-family:arial, geneva, sans-serif; font-size:1.8em;}
 

@@ -113,6 +113,7 @@
 							var leftnodeid=id.split("-")[0];
 							var rightnodeid=id.split("-")[1];
 
+							
 
 
 							jsonret=d3.json("/apollo/api/node/play/"+leftnodeid+"-"+rightnodeid, function(error, json) {
@@ -258,6 +259,8 @@
 							});
 							//.on("mouseover", linkmouseover);
 
+							clickreset();
+
 
 							function tick() {
 							
@@ -269,8 +272,14 @@
 								//console.log($("svg").outerWidth());
 								
 
-								circle.attr("cx", function(d) { if(d.id==leftnodeid){ return d.x=100; } if(d.id==rightnodeid){ return d.x=w-100; } return d.x = Math.max(rcent+2, Math.min(w - rcent-2, d.x)); })
-								.attr("cy", function(d) { if(d.id==leftnodeid){ return d.y=h/2; } if(d.id==rightnodeid){ return d.y=h/2; } return d.y = Math.max(rcent+2, Math.min(h - rcent-2, d.y)); });
+
+								//circle.attr("cx", function(d) { if(d.id==leftnodeid){ return d.x=100; } if(d.id==rightnodeid){ return d.x=w-100; } return d.x = Math.max(rcent+2, Math.min(w - rcent-2, d.x)); })
+								//.attr("cy", function(d) { if(d.id==leftnodeid){ return d.y=h/2; } if(d.id==rightnodeid){ return d.y=h/2; } return d.y = Math.max(rcent+2, Math.min(h - rcent-2, d.y)); });
+
+
+								circle.attr("cx", function(d) { return d.x = Math.max(rcent+2, Math.min(w - rcent-2, d.x)); })
+								.attr("cy", function(d) { return d.y = Math.max(rcent+2, Math.min(h - rcent-2, d.y)); });
+
 
 								//circle.attr("cx", function(d) { if(d.id==leftnodeid){ return d.x=200; } else { return d.x = Math.max(rcent+2, Math.min(w - rcent-2, d.x)); })
 								//.attr("cy", function(d) { if(d.id==leftnodeid){ return d.y=200; } else {return d.y = Math.max(rcent+2, Math.min(h - rcent-2, d.y)); });
@@ -361,7 +370,8 @@
 
 
 
-							function clickreset(d) {
+							/*
+							function aaclickreset(d) {
 
 								d3.selectAll("circle").classed("fixed", false);
 								togglefixnodes=true;
@@ -374,6 +384,55 @@
 								i++;
 
 								}
+
+								d3.selectAll("path").attr("visibility", "visible");
+								d3.selectAll("text.path_label").attr("visibility", "visible");
+								d3.select(".btn.btn-default.pull-left.link_button4").classed("active", false);
+								togglehidelinks=true;
+
+								force.start();							
+							
+							}
+							*/
+
+							function clickreset(d) {
+
+								d3.selectAll("circle").classed("fixed", false);
+								//togglefixnodes=true;
+								d3.select(".btn.btn-default.pull-left.link_button5").classed("active", false);
+
+								//i=0;
+								json.nodes.forEach(function(d,i){
+								
+								d.fixed=false;
+								if(d.id==leftnodeid | d.id==rightnodeid)
+								{
+									d.fixed=true;
+								}
+
+								if(d.id==leftnodeid)
+								{
+									d.px=200;
+									d.x=200;
+
+									d.py=h/2;
+									d.y=h/2;
+								}
+
+								if(d.id==rightnodeid)
+								{
+									d.px=w-200;
+									d.x=w-200;
+
+									d.py=h/2;
+									d.y=h/2;
+								}
+
+								//i++;
+								console.log(d);
+
+								});
+
 
 								d3.selectAll("path").attr("visibility", "visible");
 								d3.selectAll("text.path_label").attr("visibility", "visible");

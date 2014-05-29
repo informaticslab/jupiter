@@ -31,135 +31,266 @@
 			.row
 				// nested row
 				.col-lg-8.col-md-8.col-sm-8
-					.topics_block
-						.block_header
-							img(src='img/germ.png', alt='bacteria icon')
-							|  Infectious Disease
-						// end block header
-						.row
-							.col-lg-3.col-md-3.col-sm-3
-								.browse_topics
-									p
-										a(ng-click='goToTop()' href='#/search/Botulism') Botulism
-									p
-										a(ng-click='goToTop()' href='#/search/Cholera') Cholera
-									// p Sara: I don't know what rayses is, so just commenting it out rather than removing it.
-										// a(href='#/node/{{rayses}}') {{rayses}}
+					span.visible-lg.visible-md
+						.topics_block
+							.block_header
+								img(src='img/germ.png', alt='bacteria icon')
+								|  Infectious Disease
+							// end block header
+							.row
+								.col-lg-3.col-md-3.col-sm-3
+									.browse_topics
+										p
+											a(ng-click='goToTop()' href='#/search/Botulism') Botulism
+										p
+											a(ng-click='goToTop()' href='#/search/Cholera') Cholera
+										// p Sara: I don't know what rayses is, so just commenting it out rather than removing it.
+											// a(href='#/node/{{rayses}}') {{rayses}}
 
-									P   
-										a(ng-click='goToTop()' href='#/search/Chlamydia') Chlamydia
-									p
-										a(ng-click='goToTop()' href='#/search/Cyclosporiasis') Cyclosporiasis
-									p
-										a(ng-click='goToTop()' href='#/search/Encephalitis') Encephalitis
-									p
-										a(ng-click='goToTop()' href='#/search/Foodborne') Foodborne
-									p
-										a(ng-click='goToTop()' href='#/search/Gastroenteritis') Gastroenteritis
-									p
-										a(ng-click='goToTop()' href='#/search/Gonorrhea') Gonorrhea			
-							// end col specs
-							.col-lg-3.col-md-3.col-sm-3
-								.browse_topics
-									p
-										a(ng-click='goToTop()' href='#/search/H1N1') H1N1
-									p
-										a(ng-click='goToTop()' href='#/search/HIV') HIV
-									P   
-										a(ng-click='goToTop()' href='#/search/Immunization') Immunization
-									p
-										a(ng-click='goToTop()' href='#/search/Influenza') Influenza
-									p
-										a(ng-click='goToTop()' href='#/search/Listeria') Listeria
-									p
-										a(ng-click='goToTop()' href='#/search/Lyme Disease') Lyme Disease
-									p
-										a(ng-click='goToTop()' href='#/search/Malaria') Malaria
-									p
-										a(ng-click='goToTop()' href='#/search/Measles') Measles	
+										P   
+											a(ng-click='goToTop()' href='#/search/Chlamydia') Chlamydia
+										p
+											a(ng-click='goToTop()' href='#/search/Cyclosporiasis') Cyclosporiasis
+										p
+											a(ng-click='goToTop()' href='#/search/Encephalitis') Encephalitis
+										p
+											a(ng-click='goToTop()' href='#/search/Foodborne') Foodborne
+										p
+											a(ng-click='goToTop()' href='#/search/Gastroenteritis') Gastroenteritis
+										p
+											a(ng-click='goToTop()' href='#/search/Gonorrhea') Gonorrhea			
+								// end col specs
+								.col-lg-3.col-md-3.col-sm-3
+									.browse_topics
+										p
+											a(ng-click='goToTop()' href='#/search/H1N1') H1N1
+										p
+											a(ng-click='goToTop()' href='#/search/HIV') HIV
+										P   
+											a(ng-click='goToTop()' href='#/search/Immunization') Immunization
+										p
+											a(ng-click='goToTop()' href='#/search/Influenza') Influenza
+										p
+											a(ng-click='goToTop()' href='#/search/Listeria') Listeria
+										p
+											a(ng-click='goToTop()' href='#/search/Lyme Disease') Lyme Disease
+										p
+											a(ng-click='goToTop()' href='#/search/Malaria') Malaria
+										p
+											a(ng-click='goToTop()' href='#/search/Measles') Measles	
 											
-							// end col specs
-							.col-lg-3.col-md-3.col-sm-3
-								.browse_topics
-									p
-										a(ng-click='goToTop()' href='#/search/Meningitis') Meningitis
-									p
-										a(ng-click='goToTop()' href='#/search/Mumps') Mumps
-									P   
-										a(ng-click='goToTop()' href='#/search/Polio') Polio
-									p
-										a(ng-click='goToTop()' href='#/search/Quarantine') Quarantine	
-									p
-										a(ng-click='goToTop()' href='#/search/Rabies') Rabies
-									p
-										a(ng-click='goToTop()' href='#/search/Rubella') Rubella
-									p
-										a(ng-click='goToTop()' href='#/search/SARS') SARS
-									p
-										a(ng-click='goToTop()' href='#/search/TB') TB
-							// end col specs
-							.col-lg-3.col-md-3.col-sm-3
-								.browse_topics
-									p
-										a(ng-click='goToTop()' href='#/search/Trichinellosis') Trichinellosis
-									p
-										a(ng-click='goToTop()' href='#/search/Tuberculosis') Tuberculosis
-									p
-										a(ng-click='goToTop()' href='#/search/Vaccine') Vaccine
-									p
-										a(ng-click='goToTop()' href='#/search/Varicella') Varicella
-									p
-										a(ng-click='goToTop()' href='#/search/Vibrio') Vibrio
-									p
-										a(ng-click='goToTop()' href='#/search/Viral') Viral
-									p
-										a(ng-click='goToTop()' href='#/search/Yellow Fever') Yellow Fever		
-							// end col specs
+								// end col specs
+								.col-lg-3.col-md-3.col-sm-3
+									.browse_topics
+										p
+											a(ng-click='goToTop()' href='#/search/Meningitis') Meningitis
+										p
+											a(ng-click='goToTop()' href='#/search/Mumps') Mumps
+										P   
+											a(ng-click='goToTop()' href='#/search/Polio') Polio
+										p
+											a(ng-click='goToTop()' href='#/search/Quarantine') Quarantine	
+										p
+											a(ng-click='goToTop()' href='#/search/Rabies') Rabies
+										p
+											a(ng-click='goToTop()' href='#/search/Rubella') Rubella
+										p
+											a(ng-click='goToTop()' href='#/search/SARS') SARS
+										p
+											a(ng-click='goToTop()' href='#/search/TB') TB
+								// end col specs
+								.col-lg-3.col-md-3.col-sm-3
+									.browse_topics
+										p
+											a(ng-click='goToTop()' href='#/search/Trichinellosis') Trichinellosis
+										p
+											a(ng-click='goToTop()' href='#/search/Tuberculosis') Tuberculosis
+										p
+											a(ng-click='goToTop()' href='#/search/Vaccine') Vaccine
+										p
+											a(ng-click='goToTop()' href='#/search/Varicella') Varicella
+										p
+											a(ng-click='goToTop()' href='#/search/Vibrio') Vibrio
+										p
+											a(ng-click='goToTop()' href='#/search/Viral') Viral
+										p
+											a(ng-click='goToTop()' href='#/search/Yellow Fever') Yellow Fever
+					span.visible-sm
+						.topics_block_sm
+							.block_header
+								img(src='img/germ.png', alt='bacteria icon')
+								|  Infectious Disease
+							// end block header
+							.row
+								.col-lg-3.col-md-3.col-sm-3
+									.browse_topics_sm_left
+										p.browse_small
+											a(ng-click='goToTop()' href='#/search/Botulism') Botulism
+										p.browse_small
+											a(ng-click='goToTop()' href='#/search/Cholera') Cholera
+										// p Sara: I don't know what rayses is, so just commenting it out rather than removing it.
+											// a(href='#/node/{{rayses}}') {{rayses}}
+
+										P.browse_small   
+											a(ng-click='goToTop()' href='#/search/Chlamydia') Chlamydia
+										p.browse_small
+											a(ng-click='goToTop()' href='#/search/Cyclosporiasis') Cyclosporiasis
+										p.browse_small
+											a(ng-click='goToTop()' href='#/search/Encephalitis') Encephalitis
+										p.browse_small
+											a(ng-click='goToTop()' href='#/search/Foodborne') Foodborne
+										p.browse_small
+											a(ng-click='goToTop()' href='#/search/Gastroenteritis') Gastroenteritis
+										p.browse_small
+											a(ng-click='goToTop()' href='#/search/Gonorrhea') Gonorrhea			
+								// end col specs
+								.col-lg-3.col-md-3.col-sm-3
+									.browse_topics_sm
+										p.browse_small
+											a(ng-click='goToTop()' href='#/search/H1N1') H1N1
+										p.browse_small
+											a(ng-click='goToTop()' href='#/search/HIV') HIV
+										P.browse_small   
+											a(ng-click='goToTop()' href='#/search/Immunization') Immunization
+										p.browse_small
+											a(ng-click='goToTop()' href='#/search/Influenza') Influenza
+										p.browse_small
+											a(ng-click='goToTop()' href='#/search/Listeria') Listeria
+										p.browse_small
+											a(ng-click='goToTop()' href='#/search/Lyme Disease') Lyme Disease
+										p.browse_small
+											a(ng-click='goToTop()' href='#/search/Malaria') Malaria
+										p.browse_small
+											a(ng-click='goToTop()' href='#/search/Measles') Measles	
+											
+								// end col specs
+								.col-lg-3.col-md-3.col-sm-3
+									.browse_topics_sm
+										p.browse_small
+											a(ng-click='goToTop()' href='#/search/Meningitis') Meningitis
+										p.browse_small
+											a(ng-click='goToTop()' href='#/search/Mumps') Mumps
+										P.browse_small 
+											a(ng-click='goToTop()' href='#/search/Polio') Polio
+										p.browse_small
+											a(ng-click='goToTop()' href='#/search/Quarantine') Quarantine	
+										p.browse_small
+											a(ng-click='goToTop()' href='#/search/Rabies') Rabies
+										p.browse_small
+											a(ng-click='goToTop()' href='#/search/Rubella') Rubella
+										p.browse_small
+											a(ng-click='goToTop()' href='#/search/SARS') SARS
+										p.browse_small
+											a(ng-click='goToTop()' href='#/search/TB') TB
+								// end col specs
+								.col-lg-3.col-md-3.col-sm-3
+									.browse_topics_sm_right
+										p.browse_small
+											a(ng-click='goToTop()' href='#/search/Trichinellosis') Trichinellosis
+										p.browse_small
+											a(ng-click='goToTop()' href='#/search/Tuberculosis') Tuberculosis
+										p.browse_small
+											a(ng-click='goToTop()' href='#/search/Vaccine') Vaccine
+										p.browse_small
+											a(ng-click='goToTop()' href='#/search/Varicella') Varicella
+										p.browse_small
+											a(ng-click='goToTop()' href='#/search/Vibrio') Vibrio
+										p.browse_small
+											a(ng-click='goToTop()' href='#/search/Viral') Viral
+										p.browse_small
+											a(ng-click='goToTop()' href='#/search/Yellow Fever') Yellow Fever
+
+								// end col specs
 						// end topics_block
 					// end nested sub-row
 				// end column specs
 				.col-lg-4.col-md-4.col-sm-4
-					.topics_block
-						.block_header
-							img(src='img/heart.png', alt='heart icon') 
-							|  Chronic Disease
-						// end block header
-						.row
-							.col-lg-6.col-md-6.col-sm-6
-								.browse_topics
-									p
-										a(ng-click='goToTop()' href='#/search/Alcohol') Alcohol
-									p
-										a(ng-click='goToTop()' href='#/search/ALS') ALS
-									p
-										a(ng-click='goToTop()' href='#/search/Asthma') Asthma
-									p
-										a(ng-click='goToTop()' href='#/search/Behavioral') Behavioral
-									p
-										a(ng-click='goToTop()' href='#/search/Cancer') Cancer
-									p
-										a(ng-click='goToTop()' href='#/search/Cardiac') Cardiac
-									p
-										a(ng-click='goToTop()' href='#/search/Diabetes') Diabetes
-									p
-										a(ng-click='goToTop()' href='#/search/Heart') Heart			
-							// end col specs
-							.col-lg-6.col-md-6.col-sm-6
-								.browse_topics
-									p
-										a(ng-click='goToTop()' href='#/search/Kidney') Kidney
-									p
-										a(ng-click='goToTop()' href='#/search/Muscular Dystrophy') Muscular Dystrophy
-									p
-										a(ng-click='goToTop()' href='#/search/Oral Health') Oral Health
-									p
-										a(ng-click='goToTop()' href='#/search/Smoking') Smoking
-									p
-										a(ng-click='goToTop()' href='#/search/Stroke') Stroke
-									p
-										a(ng-click='goToTop()' href='#/search/Tobacco') Tobacco	
-							// end col specs
+					span.visible-lg.visible-md
+						.topics_block
+							.block_header
+								img(src='img/heart.png', alt='heart icon') 
+								|  Chronic Disease
+							// end block header
+							.row
+								.col-lg-6.col-md-6.col-sm-6
+									.browse_topics
+										p
+											a(ng-click='goToTop()' href='#/search/Alcohol') Alcohol
+										p
+											a(ng-click='goToTop()' href='#/search/ALS') ALS
+										p
+											a(ng-click='goToTop()' href='#/search/Asthma') Asthma
+										p
+											a(ng-click='goToTop()' href='#/search/Behavioral') Behavioral
+										p
+											a(ng-click='goToTop()' href='#/search/Cancer') Cancer
+										p
+											a(ng-click='goToTop()' href='#/search/Cardiac') Cardiac
+										p
+											a(ng-click='goToTop()' href='#/search/Diabetes') Diabetes
+										p
+											a(ng-click='goToTop()' href='#/search/Heart') Heart			
+								// end col specs
+								.col-lg-6.col-md-6.col-sm-6
+									.browse_topics
+										p
+											a(ng-click='goToTop()' href='#/search/Kidney') Kidney
+										p
+											a(ng-click='goToTop()' href='#/search/Muscular Dystrophy') Muscular Dystrophy
+										p
+											a(ng-click='goToTop()' href='#/search/Oral Health') Oral Health
+										p
+											a(ng-click='goToTop()' href='#/search/Smoking') Smoking
+										p
+											a(ng-click='goToTop()' href='#/search/Stroke') Stroke
+										p
+											a(ng-click='goToTop()' href='#/search/Tobacco') Tobacco	
+								// end col specs
 						// end topics_block
+
+					span.visible-sm
+						.topics_block_sm2
+							.block_header
+								img(src='img/heart.png', alt='heart icon')
+								|  Chronic Disease
+							// end block header
+							.row
+								.col-lg-6.col-md-6.col-sm-6
+									.browse_topics_sm_left
+										p.browse_small
+											a(ng-click='goToTop()' href='#/search/Alcohol') Alcohol
+										p.browse_small
+											a(ng-click='goToTop()' href='#/search/ALS') ALS
+										p.browse_small
+											a(ng-click='goToTop()' href='#/search/Asthma') Asthma
+										p.browse_small
+											a(ng-click='goToTop()' href='#/search/Behavioral') Behavioral
+										p.browse_small
+											a(ng-click='goToTop()' href='#/search/Cancer') Cancer
+										p.browse_small
+											a(ng-click='goToTop()' href='#/search/Cardiac') Cardiac
+										p.browse_small
+											a(ng-click='goToTop()' href='#/search/Diabetes') Diabetes
+										p.browse_small
+											a(ng-click='goToTop()' href='#/search/Heart') Heart	
+								// end col specs
+								.col-lg-6.col-md-6.col-sm-6
+									.browse_topics_sm_right
+										p.browse_small
+											a(ng-click='goToTop()' href='#/search/Kidney') Kidney
+										p.browse_small
+											a(ng-click='goToTop()' href='#/search/Muscular Dystrophy') Muscular Dystrophy
+										p.browse_small
+											a(ng-click='goToTop()' href='#/search/Oral Health') Oral Health
+										p.browse_small
+											a(ng-click='goToTop()' href='#/search/Smoking') Smoking
+										p.browse_small
+											a(ng-click='goToTop()' href='#/search/Stroke') Stroke
+										p.browse_small
+											a(ng-click='goToTop()' href='#/search/Tobacco') Tobacco
+								// end col specs
+						// end topics_block
+						
 					// end nested sub-row
 				// end column specs
 			// end row
@@ -167,128 +298,250 @@
 			.row.vertical_spacing_browse
 				// nested row
 				.col-lg-6.col-md-6.col-sm-6
-					.topics_block
-						.block_header
-							span.glyphicon.glyphicon-leaf
-							|  Environmental Health
-						// end block header
-						.row
-							.col-lg-4.col-md-4.col-sm-4
-								.browse_topics
-									p
-										a(ng-click='goToTop()' href='#/search/Alaska') Alaska
-									p
-										a(ng-click='goToTop()' href='#/search/Algal Bloom') Algal Bloom
-									p
-										a(ng-click='goToTop()' href='#/search/Arctic') Arctic
-									p
-										a(ng-click='goToTop()' href='#/search/Asbestos') Asbestos
-									p
-										a(ng-click='goToTop()' href='#/search/Diet') Diet
-									p
-										a(ng-click='goToTop()' href='#/search/Fishing') Fishing
-									p
-										a(ng-click='goToTop()' href='#/search/Fluoridation') Fluoridation
-									p
-										a(ng-click='goToTop()' href='#/search/Fruit') Fruit					
-							// end col specs
-							.col-lg-4.col-md-4.col-sm-4
-								.browse_topics
-									p
-										a(ng-click='goToTop()' href='#/search/Home') Home
-									p
-										a(ng-click='goToTop()' href='#/search/Hospice') Hospice
-									p
-										a(ng-click='goToTop()' href='#/search/Lead') Lead
-									p
-										a(ng-click='goToTop()' href='#/search/Maritime') Maritime
-									p
-										a(ng-click='goToTop()' href='#/search/Nutrition') Nutrition
-									p
-										a(ng-click='goToTop()' href='#/search/Radiation') Radiation
-									p
-										a(ng-click='goToTop()' href='#/search/Safety') Safety
-									p
-										a(ng-click='goToTop()' href='#/search/Sanitation') Sanitation					
-							// end col specs
-							.col-lg-4.col-md-4.col-sm-4
-								.browse_topics
-									p
-										a(ng-click='goToTop()' href='#/search/School') School
-									p
-										a(ng-click='goToTop()' href='#/search/Silicosis') Silicosis
-									p
-										a(ng-click='goToTop()' href='#/search/Toxic') Toxic
-									p
-										a(ng-click='goToTop()' href='#/search/Vegetable') Vegetable
-									p
-										a(ng-click='goToTop()' href='#/search/Vessel') Vessel
-									p
-										a(ng-click='goToTop()' href='#/search/Water') Water
-									p
-										a(ng-click='goToTop()' href='#/search/World Trade Center') World Trade Center				
-						// end col specs						
+					span.visible-md.visible-lg
+						.topics_block
+							.block_header
+								span.glyphicon.glyphicon-leaf
+								|  Environmental Health
+							// end block header
+							.row
+								.col-lg-4.col-md-4.col-sm-4
+									.browse_topics
+										p
+											a(ng-click='goToTop()' href='#/search/Alaska') Alaska
+										p
+											a(ng-click='goToTop()' href='#/search/Algal Bloom') Algal Bloom
+										p
+											a(ng-click='goToTop()' href='#/search/Arctic') Arctic
+										p
+											a(ng-click='goToTop()' href='#/search/Asbestos') Asbestos
+										p
+											a(ng-click='goToTop()' href='#/search/Diet') Diet
+										p
+											a(ng-click='goToTop()' href='#/search/Fishing') Fishing
+										p
+											a(ng-click='goToTop()' href='#/search/Fluoridation') Fluoridation
+										p
+											a(ng-click='goToTop()' href='#/search/Fruit') Fruit					
+								// end col specs
+								.col-lg-4.col-md-4.col-sm-4
+									.browse_topics
+										p
+											a(ng-click='goToTop()' href='#/search/Home') Home
+										p
+											a(ng-click='goToTop()' href='#/search/Hospice') Hospice
+										p
+											a(ng-click='goToTop()' href='#/search/Lead') Lead
+										p
+											a(ng-click='goToTop()' href='#/search/Maritime') Maritime
+										p
+											a(ng-click='goToTop()' href='#/search/Nutrition') Nutrition
+										p
+											a(ng-click='goToTop()' href='#/search/Radiation') Radiation
+										p
+											a(ng-click='goToTop()' href='#/search/Safety') Safety
+										p
+											a(ng-click='goToTop()' href='#/search/Sanitation') Sanitation					
+								// end col specs
+								.col-lg-4.col-md-4.col-sm-4
+									.browse_topics
+										p
+											a(ng-click='goToTop()' href='#/search/School') School
+										p
+											a(ng-click='goToTop()' href='#/search/Silicosis') Silicosis
+										p
+											a(ng-click='goToTop()' href='#/search/Toxic') Toxic
+										p
+											a(ng-click='goToTop()' href='#/search/Vegetable') Vegetable
+										p
+											a(ng-click='goToTop()' href='#/search/Vessel') Vessel
+										p
+											a(ng-click='goToTop()' href='#/search/Water') Water
+										p
+											a(ng-click='goToTop()' href='#/search/World Trade Center') World Trade Center				
+							// end col specs						
+						// end topics_block
+					span.visible-sm
+						.topics_block_sm3_left
+							.block_header
+								span.glyphicon.glyphicon-leaf
+								|  Environmental Health
+							// end block header
+							.row
+								.col-lg-4.col-md-4.col-sm-4
+									.browse_topics_sm_left
+										p.browse_small
+											a(ng-click='goToTop()' href='#/search/Alaska') Alaska
+										p.browse_small
+											a(ng-click='goToTop()' href='#/search/Algal Bloom') Algal Bloom
+										p.browse_small
+											a(ng-click='goToTop()' href='#/search/Arctic') Arctic
+										p.browse_small
+											a(ng-click='goToTop()' href='#/search/Asbestos') Asbestos
+										p.browse_small
+											a(ng-click='goToTop()' href='#/search/Diet') Diet
+										p.browse_small
+											a(ng-click='goToTop()' href='#/search/Fishing') Fishing
+										p.browse_small
+											a(ng-click='goToTop()' href='#/search/Fluoridation') Fluoridation
+										p.browse_small
+											a(ng-click='goToTop()' href='#/search/Fruit') Fruit					
+								// end col specs
+								.col-lg-4.col-md-4.col-sm-4
+									.browse_topics
+										p.browse_small
+											a(ng-click='goToTop()' href='#/search/Home') Home
+										p.browse_small
+											a(ng-click='goToTop()' href='#/search/Hospice') Hospice
+										p.browse_small
+											a(ng-click='goToTop()' href='#/search/Lead') Lead
+										p.browse_small
+											a(ng-click='goToTop()' href='#/search/Maritime') Maritime
+										p.browse_small
+											a(ng-click='goToTop()' href='#/search/Nutrition') Nutrition
+										p.browse_small
+											a(ng-click='goToTop()' href='#/search/Radiation') Radiation
+										p.browse_small
+											a(ng-click='goToTop()' href='#/search/Safety') Safety
+										p.browse_small
+											a(ng-click='goToTop()' href='#/search/Sanitation') Sanitation					
+								// end col specs
+								.col-lg-4.col-md-4.col-sm-4
+									.browse_topics_sm_right
+										p.browse_small
+											a(ng-click='goToTop()' href='#/search/School') School
+										p.browse_small
+											a(ng-click='goToTop()' href='#/search/Silicosis') Silicosis
+										p.browse_small
+											a(ng-click='goToTop()' href='#/search/Toxic') Toxic
+										p.browse_small
+											a(ng-click='goToTop()' href='#/search/Vegetable') Vegetable
+										p.browse_small
+											a(ng-click='goToTop()' href='#/search/Vessel') Vessel
+										p.browse_small
+											a(ng-click='goToTop()' href='#/search/Water') Water
+										p.browse_small
+											a(ng-click='goToTop()' href='#/search/World Trade Center') World Trade Center				
+							// end col specs						
 						// end topics_block
 					// end nested sub-row
 				// end column specs
 				.col-lg-6.col-md-6.col-sm-6
-					.topics_block
-						.block_header
-							img.buggy(src='img/buggy.png', alt='buggy icon') 
-							|  Maternal & Child Health
-						// end block header
-						.row
-							.col-lg-4.col-md-4.col-sm-4
-								.browse_topics
-									p
-										a(ng-click='goToTop()' href='#/search/Abortion') Abortion
-									p
-										a(ng-click='goToTop()' href='#/search/Autism') Autism
-									p
-										a(ng-click='goToTop()' href='#/search/Breast Cancer') Breast Cancer
-									p
-										a(ng-click='goToTop()' href='#/search/Breastfeeding') Breastfeeding
-									p
-										a(ng-click='goToTop()' href='#/search/Cervical Cancer') Cervical Cancer
-									p
-										a(ng-click='goToTop()' href='#/search/Child') Child
-									p
-										a(ng-click='goToTop()' href='#/search/Congenital Defects') Congenital Defects
-									p
-										a(ng-click='goToTop()' href='#/search/Development') Development					
-							// end col specs
-							.col-lg-4.col-md-4.col-sm-4
-								.browse_topics
-									p
-										a(ng-click='goToTop()' href='#/search/Fetal Alcohol') Fetal Alcohol
-									p
-										a(ng-click='goToTop()' href='#/search/Hearing') Hearing
-									p
-										a(ng-click='goToTop()' href='#/search/Infant') Infant
-									p
-										a(ng-click='goToTop()' href='#/search/Lead') Lead
-									p
-										a(ng-click='goToTop()' href='#/search/Maternal') Maternal
-									p
-										a(ng-click='goToTop()' href='#/search/Maternity') Maternity
-									p
-										a(ng-click='goToTop()' href='#/search/Perinatal') Perinatal
-									p
-										a(ng-click='goToTop()' href='#/search/Pregnancy') Pregnancy					
-							// end col specs
-							.col-lg-4.col-md-4.col-sm-4
-								.browse_topics
-									p
-										a(ng-click='goToTop()' href='#/search/Reproductive') Reproductive
-									p
-										a(ng-click='goToTop()' href='#/search/Spina Bifida') Spina Bifida
-									p
-										a(ng-click='goToTop()' href='#/search/Stillbirth') Stillbirth
-									p
-										a(ng-click='goToTop()' href='#/search/Women') Women
-									p
-										a(ng-click='goToTop()' href='#/search/Youth') Youth		
-							// end col specs
+					span.visible-md.visible-lg
+						.topics_block
+							.block_header
+								img.buggy(src='img/buggy.png', alt='buggy icon') 
+								|  Maternal & Child Health
+							// end block header
+							.row
+								.col-lg-4.col-md-4.col-sm-4
+									.browse_topics
+										p
+											a(ng-click='goToTop()' href='#/search/Abortion') Abortion
+										p
+											a(ng-click='goToTop()' href='#/search/Autism') Autism
+										p
+											a(ng-click='goToTop()' href='#/search/Breast Cancer') Breast Cancer
+										p
+											a(ng-click='goToTop()' href='#/search/Breastfeeding') Breastfeeding
+										p
+											a(ng-click='goToTop()' href='#/search/Cervical Cancer') Cervical Cancer
+										p
+											a(ng-click='goToTop()' href='#/search/Child') Child
+										p
+											a(ng-click='goToTop()' href='#/search/Congenital Defects') Congenital Defects
+										p
+											a(ng-click='goToTop()' href='#/search/Development') Development					
+								// end col specs
+								.col-lg-4.col-md-4.col-sm-4
+									.browse_topics
+										p
+											a(ng-click='goToTop()' href='#/search/Fetal Alcohol') Fetal Alcohol
+										p
+											a(ng-click='goToTop()' href='#/search/Hearing') Hearing
+										p
+											a(ng-click='goToTop()' href='#/search/Infant') Infant
+										p
+											a(ng-click='goToTop()' href='#/search/Lead') Lead
+										p
+											a(ng-click='goToTop()' href='#/search/Maternal') Maternal
+										p
+											a(ng-click='goToTop()' href='#/search/Maternity') Maternity
+										p
+											a(ng-click='goToTop()' href='#/search/Perinatal') Perinatal
+										p
+											a(ng-click='goToTop()' href='#/search/Pregnancy') Pregnancy					
+								// end col specs
+								.col-lg-4.col-md-4.col-sm-4
+									.browse_topics
+										p
+											a(ng-click='goToTop()' href='#/search/Reproductive') Reproductive
+										p
+											a(ng-click='goToTop()' href='#/search/Spina Bifida') Spina Bifida
+										p
+											a(ng-click='goToTop()' href='#/search/Stillbirth') Stillbirth
+										p
+											a(ng-click='goToTop()' href='#/search/Women') Women
+										p
+											a(ng-click='goToTop()' href='#/search/Youth') Youth
+					span.visible-sm
+						.topics_block_sm3
+							.block_header
+								img.buggy(src='img/buggy.png', alt='buggy icon')
+								|  Maternal & Child Health
+							// end block header
+							.row
+								.col-lg-4.col-md-4.col-sm-4
+									.browse_topics_sm_left
+										p.browse_small
+											a(ng-click='goToTop()' href='#/search/Abortion') Abortion
+										p.browse_small
+											a(ng-click='goToTop()' href='#/search/Autism') Autism
+										p.browse_small
+											a(ng-click='goToTop()' href='#/search/Breast Cancer') Breast Cancer
+										p.browse_small
+											a(ng-click='goToTop()' href='#/search/Breastfeeding') Breastfeeding
+										p.browse_small
+											a(ng-click='goToTop()' href='#/search/Cervical Cancer') Cervical Cancer
+										p.browse_small
+											a(ng-click='goToTop()' href='#/search/Child') Child
+										p.browse_small
+											a(ng-click='goToTop()' href='#/search/Congenital Defects') Congenital Defects
+								// end col specs
+								.col-lg-4.col-md-4.col-sm-4
+									.browse_topics
+										p.browse_small
+											a(ng-click='goToTop()' href='#/search/Development') Development
+										p.browse_small
+											a(ng-click='goToTop()' href='#/search/Fetal Alcohol') Fetal Alcohol
+										p.browse_small
+											a(ng-click='goToTop()' href='#/search/Hearing') Hearing
+										p.browse_small
+											a(ng-click='goToTop()' href='#/search/Infant') Infant
+										p.browse_small
+											a(ng-click='goToTop()' href='#/search/Lead') Lead
+										p.browse_small
+											a(ng-click='goToTop()' href='#/search/Maternal') Maternal
+										p.browse_small
+											a(ng-click='goToTop()' href='#/search/Maternity') Maternity
+										p.browse_small
+											a(ng-click='goToTop()' href='#/search/Perinatal') Perinatal
+								// end col specs
+								.col-lg-4.col-md-4.col-sm-4
+									.browse_topics_sm_right
+										p.browse_small
+											a(ng-click='goToTop()' href='#/search/Pregnancy') Pregnancy
+										p.browse_small
+											a(ng-click='goToTop()' href='#/search/Reproductive') Reproductive
+										p.browse_small
+											a(ng-click='goToTop()' href='#/search/Spina Bifida') Spina Bifida
+										p.browse_small
+											a(ng-click='goToTop()' href='#/search/Stillbirth') Stillbirth
+										p.browse_small
+											a(ng-click='goToTop()' href='#/search/Women') Women
+										p.browse_small
+											a(ng-click='goToTop()' href='#/search/Youth') Youth						
+								// end col specs
 						// end topics_block
 					// end nested sub-row
 				// end column specs

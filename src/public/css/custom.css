@@ -207,12 +207,15 @@ li.faq {padding-bottom:.5em;}
 
 
 .search_header {height:55px; background-color:#f39c11; font-weight:bold; font-size:1.5em; padding-top:.6em; padding-left:1em;}
+.search_header_sm {height:55px; background-color:#f39c11; font-weight:bold; font-size:1.3em; padding-top:.7em; padding-left:.8em;}
 
 .search_text {float:left; color:#ffffff;}
 
 .search_term {width:33%; float:left; margin-left:.3em; position:relative; bottom:.1em; }
+.search_term_sm {width:25%; float:left; margin-left:.3em; position:relative; bottom:.1em; }
 
 .search_intro {font-weight:normal; font-size:.8em;}
+
 
 .sortby {float:right; padding-right:1em; position:relative; bottom:.1em;}
 
@@ -570,7 +573,7 @@ td.avatar {vertical-align:text-top; width:10%;}
 
 .glyphicon-user.avatar {color:#c4c8cc; font-size:1.7em; padding-top:.1em; padding-left:.2em;}
 
-.search_empty {display: block; margin-left: auto; margin-right: auto; margin-top:5em;  }
+.search_empty {display: block; margin-left: auto; margin-right: auto; margin-top:5em; padding-left:.5em; padding-right:.5em;  }
 
 .alpha {background-color:#71808e; width: 80px; height:24px; position:relative; top:1.9em;}
 
@@ -588,6 +591,7 @@ a.inactive:hover {color:#aeaeae;}
 a.inactive:active {color:#aeaeae;}
 
 .totally {font-weight:bold; font-size:.7em; padding-left:1em; letter-spacing: .01em; }
+.totally_sm {font-weight:bold; font-size:.7em; padding-left:1.2em; letter-spacing: .01em; }
 
 .total_column {font-weight: bold; padding-left:1.2em;}
 

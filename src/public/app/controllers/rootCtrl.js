@@ -55,9 +55,26 @@ angular.module('apolloApp').controller('rootCtrl', function($scope, $http, $loca
     };
     $scope.twitterRootBlurb = encodeURIComponent($location.absUrl());
 
-
+    
+    // FACEBOOK CONNECT
+    $scope.facebook_appID = '';
+    $scope.facebook_link = '';
     window.fbAsyncInit = function() {
-      FB.init({appId: '293314017511951', status: true, cookie: true,
+      
+      if(window.location.hostname == 'localhost'){
+        $scope.facebook_appID = '236193566580095';
+        $scope.facebook_link = 'http://www.localhost:8089';
+      }
+      else if(window.location.hostname == 'edemo.phiresearchlab.org'){
+        $scope.facebook_appID = '293314017511951';
+        $scope.facebook_link = 'http://www.edemo.phiresearchlab.org';
+      }
+      else if(window.location.hostname == 'cloudev.phiresearchlab.org'){
+        $scope.facebook_appID = '507747656017817';
+        $scope.facebook_link = 'http://www.cloudev.phiresearchlab.org';
+      }
+
+      FB.init({appId: $scope.facebook_appID, status: true, cookie: true,
       xfbml: true});
     };
     
@@ -71,12 +88,11 @@ angular.module('apolloApp').controller('rootCtrl', function($scope, $http, $loca
     //START Facebook Share
     $scope.post = {id:1,title:"Integrated Surveillance Sharing on Facebook",content:"content1",caption:"Integrated Surveillance"};
     $scope.share = function(){
-      console.log($location.absUrl);
       FB.ui(
       {
           method: 'feed',
           name: 'Name: Integrated Surveillance',
-          link: $location.absUrl,
+          link: $scope.facebook_link,
           picture: '',
           caption: $scope.post.caption,
           description: 'This is the content of the "description" field, below the caption.',

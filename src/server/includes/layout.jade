@@ -107,7 +107,7 @@ html(lang="en" ng-app='apolloApp')
 				.share_corner
 					span.share_text
 						| Share site:
-						a(href='')
+						a(href='' ng-click='share()' id='fb-root')
 							img(src='img/facebook_icon.png', alt='Share with Facebook')
 						a(target='_blank' href='http://twitter.com/home?status=CDC iSurv Portal: {{twitterRootBlurb}}')
 							img(src='img/twitter_icon.png', alt='Share with Twitter')

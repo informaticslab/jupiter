@@ -54,4 +54,35 @@ angular.module('apolloApp').controller('rootCtrl', function($scope, $http, $loca
       $scope.showSidebar = !$scope.showSidebar;
     };
     $scope.twitterRootBlurb = encodeURIComponent($location.absUrl());
+
+
+    window.fbAsyncInit = function() {
+      FB.init({appId: '293314017511951', status: true, cookie: true,
+      xfbml: true});
+    };
+    
+    (function() {
+      var e = document.createElement('script'); e.async = true;
+      e.src = document.location.protocol +
+      '//connect.facebook.net/en_US/all.js';
+      document.getElementById('fb-root').appendChild(e);
+    }());
+
+    //START Facebook Share
+    $scope.post = {id:1,title:"Integrated Surveillance Sharing on Facebook",content:"content1",caption:"Integrated Surveillance"};
+    $scope.share = function(){
+      console.log($location.absUrl);
+      FB.ui(
+      {
+          method: 'feed',
+          name: 'Name: Integrated Surveillance',
+          link: $location.absUrl,
+          picture: '',
+          caption: $scope.post.caption,
+          description: 'This is the content of the "description" field, below the caption.',
+          message: ''
+      });
+  }
+  //END Facebook Share
+
 });

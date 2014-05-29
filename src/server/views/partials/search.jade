@@ -17,31 +17,88 @@
 					li
 						a(href='' class='inactive') In the Lab
 			// end subnav
-			.search_header
-				.search_text
-					| Search
-					span.search_intro   |  Enter a search term:
-				.input-group.search_term
-					input.form-control(type='text', ng-model='queryString', id='searchPageBawks', ng-enter='redirectToSearch()')
-					span.input-group-btn
-						a.btn.btn-default(type='button', id='searchPageButton', ng-click='redirectToSearch()')
-							span.glyphicon.glyphicon-search
-				// /input-group
-				.search_text
-					span.search_intro.totally Total Results: {{labelCounts.Total}}
-				// Split button
-				.btn-group.sortby
-					button.btn.btn-default(type='button') Sort by...   (Coming soon)
-					button.btn.btn-default.dropdown-toggle(type='button', data-toggle='dropdown')
-						span.caret
-						span.sr-only Toggle Dropdown
-					ul.dropdown-menu(role='menu')
-						li
-							a(href='') Resource
-						li
-							a(href='') Date
-						li
-							a(href='') Status
+			span.visible-lg
+				.search_header
+					.search_text
+						| Search
+						span.search_intro   |  Enter a search term:
+					.input-group.search_term
+						input.form-control(type='text', ng-model='queryString', id='searchPageBawks', ng-enter='redirectToSearch()')
+						span.input-group-btn
+							a.btn.btn-default(type='button', id='searchPageButton', ng-click='redirectToSearch()')
+								span.glyphicon.glyphicon-search
+					// /input-group
+					.search_text
+						span.search_intro.totally Total Results: {{labelCounts.Total}}
+					// Split button
+					.btn-group.sortby
+						button.btn.btn-default(type='button') Sort by... (Coming soon)
+						button.btn.btn-default.dropdown-toggle(type='button', data-toggle='dropdown')
+							span.caret
+							span.sr-only Toggle Dropdown
+						ul.dropdown-menu(role='menu')
+							li
+								a(href='') Resource
+							li
+								a(href='') Date
+							li
+								a(href='') Status
+			span.visible-md
+				.search_header
+					.search_text
+						| Search
+						span.search_intro   |  Enter a search term:
+					.input-group.search_term
+						input.form-control(type='text', ng-model='queryString', id='searchPageBawks', ng-enter='redirectToSearch()')
+						span.input-group-btn
+							a.btn.btn-default(type='button', id='searchPageButton', ng-click='redirectToSearch()')
+								span.glyphicon.glyphicon-search
+					// /input-group
+					.search_text
+						span.search_intro.totally Total Results: {{labelCounts.Total}}
+					// Split button
+					.btn-group.sortby
+						button.btn.btn-default(type='button') Sort by...
+						button.btn.btn-default.dropdown-toggle(type='button', data-toggle='dropdown')
+							span.caret
+							span.sr-only Toggle Dropdown
+						ul.dropdown-menu(role='menu')
+							li
+									a(href='') COMING SOON...
+							li
+								a(href='') Resource
+							li
+								a(href='') Date
+							li
+								a(href='') Status
+			span.visible-sm
+				.search_header_sm
+					.search_text
+						| Search
+						span.search_intro   |  Enter a search term:
+					.input-group.search_term_sm
+						input.form-control(type='text', ng-model='queryString', id='searchPageBawks', ng-enter='redirectToSearch()')
+						span.input-group-btn
+							a.btn.btn-default(type='button', id='searchPageButton', ng-click='redirectToSearch()')
+								span.glyphicon.glyphicon-search
+					// /input-group
+					.search_text
+						span.search_intro.totally_sm Total Results: {{labelCounts.Total}}
+					// Split button
+					.btn-group.sortby
+						button.btn.btn-default(type='button') Sort by...
+						button.btn.btn-default.dropdown-toggle(type='button', data-toggle='dropdown')
+							span.caret
+							span.sr-only Toggle Dropdown
+						ul.dropdown-menu(role='menu')
+							li
+									a(href='') COMING SOON...
+							li
+								a(href='') Resource
+							li
+								a(href='') Date
+							li
+								a(href='') Status
 			// end search header
 			.row
 				// nested row
@@ -127,7 +184,7 @@
 										span.total_column Total Results:
 									// /input-group
 								td.result_number_total {{labelCounts.Total}}
-						.gray_header_filters.vertical_spacing By Date: (Coming soon...)
+						.gray_header_filters.vertical_spacing By Date: (Coming soon)
 						table.table_filter
 							tr
 								td
@@ -164,7 +221,7 @@
 							a(href='')
 								span.glyphicon.glyphicon-calendar
 								| Select date
-						.gray_header_filters.vertical_spacing By Status: (Coming soon...)
+						.gray_header_filters.vertical_spacing By Status: (Coming soon)
 						table.table_filter
 							tr
 								td

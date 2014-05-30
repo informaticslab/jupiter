@@ -551,81 +551,156 @@
 			.row.vertical_spacing_browse
 				// nested row
 				.col-lg-4.col-md-4.col-sm-4
-					.topics_block
-						.block_header
-							span.glyphicon.glyphicon-globe
-							| Global Health
-						// end block header
-						.row
-							.col-lg-6.col-md-6.col-sm-6
-								.browse_topics
-									p
-										a(ng-click='goToTop()' href='#/search/Africa') Africa
-									p
-										a(ng-click='goToTop()' href='#/search/FAA') FAA
-									p
-										a(ng-click='goToTop()' href='#/search/Global') Global
-							// end col specs
-							.col-lg-6.col-md-6.col-sm-6
-								.browse_topics
-									p
-										a(ng-click='goToTop()' href='#/search/WHO') WHO
-									p
-										a(ng-click='goToTop()' href='#/search/World') World
-									p
-										a(ng-click='goToTop()' href='#/search/Migration') Migration
-							// end col specs
-						// end topics_block
+					span.visible-md.visible-lg
+						.topics_block
+							.block_header
+								span.glyphicon.glyphicon-globe
+								| Global Health
+							// end block header
+							.row
+								.col-lg-6.col-md-6.col-sm-6
+									.browse_topics
+										p
+											a(ng-click='goToTop()' href='#/search/Africa') Africa
+										p
+											a(ng-click='goToTop()' href='#/search/FAA') FAA
+										p
+											a(ng-click='goToTop()' href='#/search/Global') Global
+								// end col specs
+								.col-lg-6.col-md-6.col-sm-6
+									.browse_topics
+										p
+											a(ng-click='goToTop()' href='#/search/WHO') WHO
+										p
+											a(ng-click='goToTop()' href='#/search/World') World
+										p
+											a(ng-click='goToTop()' href='#/search/Migration') Migration
+								// end col specs
+							// end topics_block
+					span.visible-sm
+						.topics_block_sm4
+							.block_header
+								span.glyphicon.glyphicon-globe
+								| Global Health
+							// end block header
+							.row
+								.col-lg-6.col-md-6.col-sm-6
+									.browse_topics_sm_left
+										p.browse_small
+											a(ng-click='goToTop()' href='#/search/Africa') Africa
+										p.browse_small
+											a(ng-click='goToTop()' href='#/search/FAA') FAA
+										p.browse_small
+											a(ng-click='goToTop()' href='#/search/Global') Global
+								// end col specs
+								.col-lg-6.col-md-6.col-sm-6
+									.browse_topics_sm_right
+										p.browse_small
+											a(ng-click='goToTop()' href='#/search/WHO') WHO
+										p.browse_small
+											a(ng-click='goToTop()' href='#/search/World') World
+										p.browse_small
+											a(ng-click='goToTop()' href='#/search/Migration') Migration
+								// end col specs
+							// end topics_block		
 					// end nested sub-row
 				// end column specs
 				.col-lg-4.col-md-4.col-sm-4
-					.topics_block
-						.block_header
-							img.violence(src='img/violence.png', alt='violence icon') 
-							|  Injury, Violence, & Safety
-						// end block header
-						.row
-							.col-lg-6.col-md-6.col-sm-6
-								.browse_topics
-									p
-										a(ng-click='goToTop()' href='#/search/Farm') Farm
-									p
-										a(ng-click='goToTop()' href='#/search/Red Cross') Red Cross
-									p
-										a(ng-click='goToTop()' href='#/search/Violence') Violence
-							// end col specs
-							.col-lg-6.col-md-6.col-sm-6
-								.browse_topics
-									p
-										a(ng-click='goToTop()' href='#/search/Violent') Violent
-									p
-										a(ng-click='goToTop()' href='#/search/War') War
-							// end col specs
+					span.visible-md.visible-lg
+						.topics_block
+							.block_header
+								img.violence(src='img/violence.png', alt='violence icon')
+								|  Injury, Violence, & Safety
+							// end block header
+							.row
+								.col-lg-6.col-md-6.col-sm-6
+									.browse_topics
+										p
+											a(ng-click='goToTop()' href='#/search/Farm') Farm
+										p
+											a(ng-click='goToTop()' href='#/search/Red Cross') Red Cross
+										p
+											a(ng-click='goToTop()' href='#/search/Violence') Violence
+								// end col specs
+								.col-lg-6.col-md-6.col-sm-6
+									.browse_topics
+										p
+											a(ng-click='goToTop()' href='#/search/Violent') Violent
+										p
+											a(ng-click='goToTop()' href='#/search/War') War
+								// end col specs
 						// end topics_block
+					span.visible-sm
+						.topics_block
+							.block_header
+								img.violence(src='img/violence.png', alt='violence icon')
+								|  Injury, Violence, & Safety
+							// end block header
+							.row
+								.col-lg-6.col-md-6.col-sm-6
+									.browse_topics
+										p
+											a(ng-click='goToTop()' href='#/search/Farm') Farm
+										p
+											a(ng-click='goToTop()' href='#/search/Red Cross') Red Cross
+										p
+											a(ng-click='goToTop()' href='#/search/Violence') Violence
+								// end col specs
+								.col-lg-6.col-md-6.col-sm-6
+									.browse_topics
+										p
+											a(ng-click='goToTop()' href='#/search/Violent') Violent
+										p
+											a(ng-click='goToTop()' href='#/search/War') War
+								// end col specs
+						// end topics_block	
 					// end nested sub-row
 				// end column specs
 				.col-lg-4.col-md-4.col-sm-4
-					.topics_block
-						.block_header
-							span.glyphicon.glyphicon-bullhorn
-							|  Emergency Preparedness
-						// end block header
-						.row
-							.col-lg-6.col-md-6.col-sm-6
-								.browse_topics
-									p
-										a(ng-click='goToTop()' href='#/search/Hurricane') Hurricane
-									p
-										a(ng-click='goToTop()' href='#/search/Rapid') Rapid
-									p
-										a(ng-click='goToTop()' href='#/search/Response') Response
-							// end col specs
-							.col-lg-6.col-md-6.col-sm-6
-								.browse_topics
-									p
-										a(ng-click='goToTop()' href='#/search/Terrorism') Terrorism
-							// end col specs
-						// end topics_block
+					span.visible-md.visible-lg
+						.topics_block
+							.block_header
+								span.glyphicon.glyphicon-bullhorn
+								|  Emergency Preparedness
+							// end block header
+							.row
+								.col-lg-6.col-md-6.col-sm-6
+									.browse_topics
+										p
+											a(ng-click='goToTop()' href='#/search/Hurricane') Hurricane
+										p
+											a(ng-click='goToTop()' href='#/search/Rapid') Rapid
+										p
+											a(ng-click='goToTop()' href='#/search/Response') Response
+								// end col specs
+								.col-lg-6.col-md-6.col-sm-6
+									.browse_topics
+										p
+											a(ng-click='goToTop()' href='#/search/Terrorism') Terrorism
+								// end col specs
+							// end topics_block
+					span.visible-sm
+						.topics_block
+							.block_header
+								span.glyphicon.glyphicon-bullhorn
+								|  Emergency Preparedness
+							// end block header
+							.row
+								.col-lg-6.col-md-6.col-sm-6
+									.browse_topics
+										p
+											a(ng-click='goToTop()' href='#/search/Hurricane') Hurricane
+										p
+											a(ng-click='goToTop()' href='#/search/Rapid') Rapid
+										p
+											a(ng-click='goToTop()' href='#/search/Response') Response
+								// end col specs
+								.col-lg-6.col-md-6.col-sm-6
+									.browse_topics
+										p
+											a(ng-click='goToTop()' href='#/search/Terrorism') Terrorism
+								// end col specs
+							// end topics_block		
 					// end nested sub-row
 				// end column specs
 			// end row

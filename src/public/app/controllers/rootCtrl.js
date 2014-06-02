@@ -64,20 +64,24 @@ angular.module('apolloApp').controller('rootCtrl', function($scope, $http, $loca
     
     // FACEBOOK CONNECT
     $scope.facebook_appID = '';
-    $scope.facebook_link = '';
+    $scope.app_link = '';
+    $scope.app_image = '';
     window.fbAsyncInit = function() {
       
       if(window.location.hostname == 'localhost'){
         $scope.facebook_appID = '236193566580095';
-        $scope.facebook_link = 'http://www.localhost:8089';
+        $scope.app_link = 'www.localhost:8089/apollo';
+        $scope.app_image = 'http://edemo.phiresearchlab.org/apollo/img/header_graphic_alpha.png';
       }
       else if(window.location.hostname == 'edemo.phiresearchlab.org'){
         $scope.facebook_appID = '293314017511951';
-        $scope.facebook_link = 'http://www.edemo.phiresearchlab.org';
+        $scope.app_link = 'edemo.phiresearchlab.org/apollo';
+        $scope.app_image = 'http://edemo.phiresearchlab.org/apollo/img/header_graphic_alpha.png';
       }
       else if(window.location.hostname == 'cloudev.phiresearchlab.org'){
         $scope.facebook_appID = '507747656017817';
-        $scope.facebook_link = 'http://www.cloudev.phiresearchlab.org';
+        $scope.app_link = 'cloudev.phiresearchlab.org/apollo';
+        $scope.app_image = 'http://cloudev.phiresearchlab.org/apollo/img/header_graphic_alpha.png';
       }
 
       FB.init({appId: $scope.facebook_appID, status: true, cookie: true,
@@ -92,16 +96,16 @@ angular.module('apolloApp').controller('rootCtrl', function($scope, $http, $loca
     }());
 
     //START Facebook Share
-    $scope.post = {id:1,title:"Integrated Surveillance Sharing on Facebook",content:"content1",caption:"Integrated Surveillance"};
+    $scope.post = {id:1, title:"CDC Integrated Surveillance Portal", caption:"Sharing CISP..", content:"The CDC Integrated Surveillance Portal (CISP) is a comprehensive, real-time, interactive resource for CDC, its partners, and the public to explore and discover information about the full inventory of CDC’s Surveillance Systems, Programs, Registries, Health Surveys, Tools, and Collaboratives. CISP contains not only descriptive information about these CDC resources"};
     $scope.share = function(){
       FB.ui(
       {
           method: 'feed',
-          name: 'Name: Integrated Surveillance',
-          link: $scope.facebook_link,
-          picture: '',
+          name: $scope.post.title,
+          link: $scope.app_link,
+          picture: $scope.app_image,
           caption: $scope.post.caption,
-          description: 'This is the content of the "description" field, below the caption.',
+          description: 'About CISP: '+$scope.post.content,
           message: ''
       });
   }

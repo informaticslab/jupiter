@@ -3,6 +3,12 @@ angular.module('apolloApp').controller('rootCtrl', function($scope, $http, $loca
     $scope.q = 'home';
     $scope.loginuser = 'guest';
     $scope.queryString = '';
+
+    $scope.browseHistory = {
+      'sites':
+      [
+      ]
+    }
     
     $http.get('build.json')
       .then(function(res){

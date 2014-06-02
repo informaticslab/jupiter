@@ -69,17 +69,17 @@ angular.module('apolloApp').controller('rootCtrl', function($scope, $http, $loca
     window.fbAsyncInit = function() {
       
       if(window.location.hostname == 'localhost'){
-        $scope.facebook_appID = '236193566580095';
+        $scope.facebook_appID = '1429109474024840';
         $scope.app_link = 'www.localhost:8089/apollo';
         $scope.app_image = 'http://edemo.phiresearchlab.org/apollo/img/header_graphic_alpha.png';
       }
       else if(window.location.hostname == 'edemo.phiresearchlab.org'){
-        $scope.facebook_appID = '293314017511951';
+        $scope.facebook_appID = '1501295270085876';
         $scope.app_link = 'edemo.phiresearchlab.org/apollo';
         $scope.app_image = 'http://edemo.phiresearchlab.org/apollo/img/header_graphic_alpha.png';
       }
       else if(window.location.hostname == 'cloudev.phiresearchlab.org'){
-        $scope.facebook_appID = '507747656017817';
+        $scope.facebook_appID = '669609933094570';
         $scope.app_link = 'cloudev.phiresearchlab.org/apollo';
         $scope.app_image = 'http://cloudev.phiresearchlab.org/apollo/img/header_graphic_alpha.png';
       }

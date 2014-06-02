@@ -509,7 +509,7 @@
 											a(ng-click='goToTop()' href='#/search/Congenital Defects') Congenital Defects
 								// end col specs
 								.col-lg-4.col-md-4.col-sm-4
-									.browse_topics
+									.browse_topicsb
 										p.browse_small
 											a(ng-click='goToTop()' href='#/search/Development') Development
 										p.browse_small
@@ -528,7 +528,7 @@
 											a(ng-click='goToTop()' href='#/search/Perinatal') Perinatal
 								// end col specs
 								.col-lg-4.col-md-4.col-sm-4
-									.browse_topics_sm_right
+									.browse_topics_sm_rightb
 										p.browse_small
 											a(ng-click='goToTop()' href='#/search/Pregnancy') Pregnancy
 										p.browse_small
@@ -578,8 +578,8 @@
 								// end col specs
 							// end topics_block
 					span.visible-sm
-						.topics_block_sm4
-							.block_header
+						.topics_block_sm4_left
+							.block_header2
 								span.glyphicon.glyphicon-globe
 								| Global Health
 							// end block header
@@ -631,26 +631,26 @@
 								// end col specs
 						// end topics_block
 					span.visible-sm
-						.topics_block
-							.block_header
+						.topics_block_sm4_left
+							.block_header2
 								img.violence(src='img/violence.png', alt='violence icon')
 								|  Injury, Violence, & Safety
 							// end block header
 							.row
 								.col-lg-6.col-md-6.col-sm-6
-									.browse_topics
-										p
+									.browse_topics_sm_left
+										p.browse_small
 											a(ng-click='goToTop()' href='#/search/Farm') Farm
-										p
+										p.browse_small
 											a(ng-click='goToTop()' href='#/search/Red Cross') Red Cross
-										p
+										p.browse_small
 											a(ng-click='goToTop()' href='#/search/Violence') Violence
 								// end col specs
 								.col-lg-6.col-md-6.col-sm-6
-									.browse_topics
-										p
+									.browse_topics_sm_right
+										p.browse_small
 											a(ng-click='goToTop()' href='#/search/Violent') Violent
-										p
+										p.browse_small
 											a(ng-click='goToTop()' href='#/search/War') War
 								// end col specs
 						// end topics_block	
@@ -680,24 +680,24 @@
 								// end col specs
 							// end topics_block
 					span.visible-sm
-						.topics_block
-							.block_header
+						.topics_block_sm4
+							.block_header2
 								span.glyphicon.glyphicon-bullhorn
 								|  Emergency Preparedness
 							// end block header
 							.row
 								.col-lg-6.col-md-6.col-sm-6
-									.browse_topics
-										p
+									.browse_topics_sm_left
+										p.browse_small
 											a(ng-click='goToTop()' href='#/search/Hurricane') Hurricane
-										p
+										p.browse_small
 											a(ng-click='goToTop()' href='#/search/Rapid') Rapid
-										p
+										p.browse_small
 											a(ng-click='goToTop()' href='#/search/Response') Response
 								// end col specs
 								.col-lg-6.col-md-6.col-sm-6
-									.browse_topics
-										p
+									.browse_topics_sm_right
+										p.browse_small
 											a(ng-click='goToTop()' href='#/search/Terrorism') Terrorism
 								// end col specs
 							// end topics_block		
@@ -709,79 +709,152 @@
 			.row.vertical_spacing_browse
 				// nested row
 				.col-lg-6.col-md-6.col-sm-6
-					.topics_block
-						.block_header
-							i.fa.fa-briefcase
-							|  Occupational Health
-						// end block header
-						.row
-							.col-lg-4.col-md-4.col-sm-4
-								.browse_topics
-									p
-										a(ng-click='goToTop()' href='#/search/Agricultural') Agricultural
-									p
-										a(ng-click='goToTop()' href='#/search/Coal') Coal
-									p
-										a(ng-click='goToTop()' href='#/search/Displaced Persons') Displaced Persons
-							// end col specs
-							.col-lg-4.col-md-4.col-sm-4
-								.browse_topics
-									p
-										a(ng-click='goToTop()' href='#/search/Farm') Farm
-									p
-										a(ng-click='goToTop()' href='#/search/Maritime') Maritime
-									p
-										a(ng-click='goToTop()' href='#/search/Migrant') Migrant
-							// end col specs
-							.col-lg-4.col-md-4.col-sm-4
-								.browse_topics
-									p
-										a(ng-click='goToTop()' href='#/search/Miners') Miners
-									p
-										a(ng-click='goToTop()' href='#/search/NIOSH') NIOSH
-									p
-										a(ng-click='goToTop()' href='#/search/Silicosis') Silicosis
-						// end col specs						
+					span.visible-md.visible-lg
+						.topics_block
+							.block_header
+								i.fa.fa-briefcase
+								|  Occupational Health
+							// end block header
+							.row
+								.col-lg-4.col-md-4.col-sm-4
+									.browse_topics
+										p
+											a(ng-click='goToTop()' href='#/search/Agricultural') Agricultural
+										p
+											a(ng-click='goToTop()' href='#/search/Coal') Coal
+										p
+											a(ng-click='goToTop()' href='#/search/Displaced Persons') Displaced Persons
+								// end col specs
+								.col-lg-4.col-md-4.col-sm-4
+									.browse_topics
+										p
+											a(ng-click='goToTop()' href='#/search/Farm') Farm
+										p
+											a(ng-click='goToTop()' href='#/search/Maritime') Maritime
+										p
+											a(ng-click='goToTop()' href='#/search/Migrant') Migrant
+								// end col specs
+								.col-lg-4.col-md-4.col-sm-4
+									.browse_topics
+										p
+											a(ng-click='goToTop()' href='#/search/Miners') Miners
+										p
+											a(ng-click='goToTop()' href='#/search/NIOSH') NIOSH
+										p
+											a(ng-click='goToTop()' href='#/search/Silicosis') Silicosis
+								// end col specs						
+						// end topics_block
+					span.visible-sm
+						.topics_block_sm4_left
+							.block_header
+								i.fa.fa-briefcase
+								|  Occupational Health
+							// end block header
+							.row
+								.col-lg-4.col-md-4.col-sm-4
+									.browse_topics_sm_left
+										p.browse_small
+											a(ng-click='goToTop()' href='#/search/Agricultural') Agricultural
+										p.browse_small
+											a(ng-click='goToTop()' href='#/search/Coal') Coal
+										p.browse_small
+											a(ng-click='goToTop()' href='#/search/Displaced Persons') Displaced Persons
+								// end col specs
+								.col-lg-4.col-md-4.col-sm-4
+									.browse_topics
+										p.browse_small
+											a(ng-click='goToTop()' href='#/search/Farm') Farm
+										p.browse_small
+											a(ng-click='goToTop()' href='#/search/Maritime') Maritime
+										p.browse_small
+											a(ng-click='goToTop()' href='#/search/Migrant') Migrant
+								// end col specs
+								.col-lg-4.col-md-4.col-sm-4
+									.browse_topics_sm_right
+										p.browse_small
+											a(ng-click='goToTop()' href='#/search/Miners') Miners
+										p.browse_small
+											a(ng-click='goToTop()' href='#/search/NIOSH') NIOSH
+										p.browse_small
+											a(ng-click='goToTop()' href='#/search/Silicosis') Silicosis
+								// end col specs					
 						// end topics_block
 					// end nested sub-row
-				// end column specs
+					// end column specs
 				.col-lg-6.col-md-6.col-sm-6
-					.topics_block
-						.block_header
-							i.fa.fa-comments
-							|  Other Topics
-						// end block header
-						.row
-							.col-lg-4.col-md-4.col-sm-4
-								.browse_topics
-									p
-										a(ng-click='goToTop()' href='#/search/CMS') CMS
-									p
-										a(ng-click='goToTop()' href='#/search/Death') Death
-									p
-										a(ng-click='goToTop()' href='#/search/Genomic') Genomic
-							// end col specs
-							.col-lg-4.col-md-4.col-sm-4
-								.browse_topics
-									p
-										a(ng-click='goToTop()' href='#/search/Laboratory') Laboratory
-									p
-										a(ng-click='goToTop()' href='#/search/Medicare') Medicare
-									p
-										a(ng-click='goToTop()' href='#/search/Mortality') Mortality					
-							// end col specs
-							.col-lg-4.col-md-4.col-sm-4
-								.browse_topics
-									p
-										a(ng-click='goToTop()' href='#/search/Nursing') Nursing
-									p
-										a(ng-click='goToTop()' href='#/search/Statistics') Statistics
-									p
-										a(ng-click='goToTop()' href='#/search/Transplant') Transplant	
-							// end col specs
+					span.visible-md.visible-lg
+						.topics_block
+							.block_header
+								i.fa.fa-comments
+								|  Other Topics
+							// end block header
+							.row
+								.col-lg-4.col-md-4.col-sm-4
+									.browse_topics
+										p
+											a(ng-click='goToTop()' href='#/search/CMS') CMS
+										p
+											a(ng-click='goToTop()' href='#/search/Death') Death
+										p
+											a(ng-click='goToTop()' href='#/search/Genomic') Genomic
+								// end col specs
+								.col-lg-4.col-md-4.col-sm-4
+									.browse_topics
+										p
+											a(ng-click='goToTop()' href='#/search/Laboratory') Laboratory
+										p
+											a(ng-click='goToTop()' href='#/search/Medicare') Medicare
+										p
+											a(ng-click='goToTop()' href='#/search/Mortality') Mortality					
+								// end col specs
+								.col-lg-4.col-md-4.col-sm-4
+									.browse_topics
+										p
+											a(ng-click='goToTop()' href='#/search/Nursing') Nursing
+										p
+											a(ng-click='goToTop()' href='#/search/Statistics') Statistics
+										p
+											a(ng-click='goToTop()' href='#/search/Transplant') Transplant	
+								// end col specs
+						// end topics_block
+					span.visible-sm
+						.topics_block_sm5
+							.block_header
+								i.fa.fa-comments
+								|  Other Topics
+							// end block header
+							.row
+								.col-lg-4.col-md-4.col-sm-4
+									.browse_topics_sm_left
+										p.browse_small
+											a(ng-click='goToTop()' href='#/search/CMS') CMS
+										p.browse_small
+											a(ng-click='goToTop()' href='#/search/Death') Death
+										p.browse_small
+											a(ng-click='goToTop()' href='#/search/Genomic') Genomic
+								// end col specs
+								.col-lg-4.col-md-4.col-sm-4
+									.browse_topics_sm_right
+										p.browse_small
+											a(ng-click='goToTop()' href='#/search/Laboratory') Laboratory
+										p.browse_small
+											a(ng-click='goToTop()' href='#/search/Medicare') Medicare
+										p.browse_small
+											a(ng-click='goToTop()' href='#/search/Mortality') Mortality					
+								// end col specs
+								.col-lg-4.col-md-4.col-sm-4
+									.browse_topics_sm_right
+										p.browse_small
+											a(ng-click='goToTop()' href='#/search/Nursing') Nursing
+										p.browse_small
+											a(ng-click='goToTop()' href='#/search/Statistics') Statistics
+										p.browse_small
+											a(ng-click='goToTop()' href='#/search/Transplant') Transplant	
+								// end col specs
 						// end topics_block
 					// end nested sub-row
-				// end column specs
+					// end column specs
+			br		
 			// end row
 	// end content block
 	// end col spec

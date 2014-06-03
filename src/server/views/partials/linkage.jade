@@ -243,7 +243,10 @@
 								
 
 
-
+								path_label.attr("transform", function(d) {
+									//console.log(d);
+									return "translate(" + d.source.x + "," + d.source.y + ")";
+								});
 
 								text.attr("transform", function(d) {
 									return "translate(" + d.x + "," + d.y + ")";

@@ -75,11 +75,11 @@
 				.block_linkage
 					.vertical_spacing1
 						script.
+							
 							var url = $(location).attr('href');
 							var split = url.split('/');
 							var id = split[split.length - 1];
 							d3.json("/apollo/api/node/viewer/" + id, function(error, json) {
-
 
 							var togglehidelinks=true;
 							var togglefixnodes=true;
@@ -88,6 +88,30 @@
 							var h = 900;
 							var r = 10;
 							var rcent=15;//radius of node circle
+
+							var svg = d3.select(".block_linkage").append("svg:svg")
+							.attr("width", w)
+							.attr("height", h);
+
+
+							d3.select(window).on('resize', svgresize);
+
+							if(json==undefined | error)
+							{
+
+								var errormsg=svg.append("text")
+								.text("HIV TB Prevalence Public Use Dataset (Dataset) has no relationships with other entities.")
+								.attr("class","linkageerrormsg")
+								.attr("x",w/4)
+								.attr("y",h/4);
+
+								
+							}
+							else
+							{
+
+
+							
 							
 							
 							//var h= $("div.block_linkage").outerHeight();
@@ -104,12 +128,7 @@
 							//console.log($("div.block_linkage").outerWidth(),$("div.block_linkage").outerHeight());
 							
 							
-							var svg = d3.select(".block_linkage").append("svg:svg")
-							.attr("width", w)
-							.attr("height", h);
-
-
-							d3.select(window).on('resize', svgresize);
+							
 							
 
 							d3.select(".btn.btn-default.pull-left.link_button1").on("click", clickreset);
@@ -484,6 +503,9 @@
 								//d3.select(this).attr("class","node fixed");
 								d.fixed=true;
 							}
+
+
+							}//else if undefined or error
 
 							});
 				// end block_linkage

@@ -100,23 +100,7 @@ html(lang="en" ng-app='apolloApp')
 		// end row 2 (navbar)
 		block main-content
 		// start footer row
-		.row.footerbottom
-			// <div class="col-md-6">
-			// share
-			.share
-				.share_corner
-					span.share_text
-						| Share site:
-						a(href='')
-							img(src='img/facebook_icon.png', alt='Share with Facebook')
-						a(target='_blank' href='http://twitter.com/home?status=CDC iSurv Portal: {{twitterRootBlurb}}')
-							img(src='img/twitter_icon.png', alt='Share with Twitter')
-						| &nbsp;
-						a(href='') 
-							img(src='img/mail_icon.png', alt='Share with Email')
-			// end share
-			// </div> <!-- end column class
-			// <div class="col-md-6">
+		.row.footerbottom(id='fb-root')
 			// links
 			.bottom_links
 				| Disclaimer&nbsp; | &nbsp;Accessibility&nbsp; | &nbsp;Code of Conduct&nbsp; | &nbsp;Contact&nbsp; 

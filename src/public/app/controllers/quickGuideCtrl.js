@@ -13,11 +13,18 @@ angular.module('apolloApp').controller('quickGuideCtrl', function($scope, $locat
     }
     
     $scope.twitterBlurb = encodeURIComponent($location.absUrl());
+    var site = {
+  'name':'Quick Guide: ' + $scope.queryString,
+  'url':$location.absUrl()
+}
+$scope.$parent.browseHistory.sites.push(site);
 });
 
 function goBack()
 {
   window.history.back();
 }
+
+
 
 

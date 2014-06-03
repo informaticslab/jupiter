@@ -144,4 +144,9 @@ angular.module('apolloApp').controller('searchCtrl', function($scope, $resource,
     }
 
     $scope.pageChanged = eval($scope.goToTop);
+    var site = {
+      'name':'Search: ' + $scope.queryString,
+      'url':$location.absUrl()
+    }
+    $scope.$parent.browseHistory.sites.push(site);
 });

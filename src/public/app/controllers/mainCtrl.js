@@ -1,4 +1,4 @@
-angular.module('apolloApp').controller('mainCtrl', function($scope,$resource){
+angular.module('apolloApp').controller('mainCtrl', function($scope,$resource,$location){
 	$scope.$parent.q = 'home';
     $scope.rays = 'sunshine';
 
@@ -139,4 +139,10 @@ angular.module('apolloApp').controller('mainCtrl', function($scope,$resource){
     		eval($scope.goToCarousel3());
 		}
 	}
+	var site = {
+          'name':'Home',
+          'url':$location.absUrl()
+        }
+	$scope.$parent.browseHistory.sites.push(site);
+	console.log($scope.$parent.browseHistory)
 });

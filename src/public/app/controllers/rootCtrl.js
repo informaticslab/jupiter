@@ -3,6 +3,12 @@ angular.module('apolloApp').controller('rootCtrl', function($scope, $http, $loca
     $scope.q = 'home';
     $scope.loginuser = 'guest';
     $scope.queryString = '';
+
+    $scope.browseHistory = {
+      'sites':
+      [
+      ]
+    }
     
     $http.get('build.json')
       .then(function(res){
@@ -54,4 +60,55 @@ angular.module('apolloApp').controller('rootCtrl', function($scope, $http, $loca
       $scope.showSidebar = !$scope.showSidebar;
     };
     $scope.twitterRootBlurb = encodeURIComponent($location.absUrl());
+
+    
+    // FACEBOOK CONNECT
+    $scope.facebook_appID = '';
+    $scope.app_link = '';
+    $scope.app_image = '';
+    window.fbAsyncInit = function() {
+      
+      if(window.location.hostname == 'localhost'){
+        $scope.facebook_appID = '1429109474024840';
+        $scope.app_link = 'www.localhost:8089/apollo';
+        $scope.app_image = 'http://edemo.phiresearchlab.org/apollo/img/header_graphic_alpha.png';
+      }
+      else if(window.location.hostname == 'edemo.phiresearchlab.org'){
+        $scope.facebook_appID = '1501295270085876';
+        $scope.app_link = 'edemo.phiresearchlab.org/apollo';
+        $scope.app_image = 'http://edemo.phiresearchlab.org/apollo/img/header_graphic_alpha.png';
+      }
+      else if(window.location.hostname == 'cloudev.phiresearchlab.org'){
+        $scope.facebook_appID = '669609933094570';
+        $scope.app_link = 'cloudev.phiresearchlab.org/apollo';
+        $scope.app_image = 'http://cloudev.phiresearchlab.org/apollo/img/header_graphic_alpha.png';
+      }
+
+      FB.init({appId: $scope.facebook_appID, status: true, cookie: true,
+      xfbml: true});
+    };
+    
+    (function() {
+      var e = document.createElement('script'); e.async = true;
+      e.src = document.location.protocol +
+      '//connect.facebook.net/en_US/all.js';
+      document.getElementById('fb-root').appendChild(e);
+    }());
+
+    //START Facebook Share
+    $scope.post = {id:1, title:"CDC Integrated Surveillance Portal", caption:"Sharing CISP..", content:"The CDC Integrated Surveillance Portal (CISP) is a comprehensive, real-time, interactive resource for CDC, its partners, and the public to explore and discover information about the full inventory of CDC’s Surveillance Systems, Programs, Registries, Health Surveys, Tools, and Collaboratives. CISP contains not only descriptive information about these CDC resources"};
+    $scope.share = function(){
+      FB.ui(
+      {
+          method: 'feed',
+          name: $scope.post.title,
+          link: $scope.app_link,
+          picture: $scope.app_image,
+          caption: $scope.post.caption,
+          description: 'About CISP: '+$scope.post.content,
+          message: ''
+      });
+  }
+  //END Facebook Share
+
 });

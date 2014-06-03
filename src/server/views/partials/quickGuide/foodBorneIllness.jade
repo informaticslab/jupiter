@@ -39,7 +39,7 @@ a(id='top')
                 li
                   a(href='') Email
                 li
-                  a(href='') Facebook
+                  a(href='' ng-click='share()' id='fb-root') Facebook
                 li
                   a(target='_blank' href='http://twitter.com/home?status=CDC iSurv Portal QuickGuide: Foodborne Ilness: {{twitterBlurb}}') Twitter
       .row
@@ -326,6 +326,8 @@ a(id='top')
           | Your Exploration History:
         .sidebar_coming_soon
           Em (Coming soon...)
+          div(ng-repeat='site in browseHistory.sites')
+            a(ng-click='goToTop()' href='{{site.url}}') {{site.name}}
       .button_side
         .sidebar_button
           img(src='img/tab_button_collapse.png', alt='Collapse sidebar')        

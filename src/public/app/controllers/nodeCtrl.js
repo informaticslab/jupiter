@@ -87,5 +87,13 @@ angular.module('apolloApp').controller('nodeCtrl', ['$scope', '$location', '$res
                 return false;
         }
         $scope.twitterBlurb = encodeURIComponent($location.absUrl());
+
+    var site = {
+      'name':'Node Viewer',
+      'url':$location.absUrl()
     }
+    $scope.$parent.browseHistory.sites.push(site);
+
+    }
+    
 ]);

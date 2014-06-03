@@ -5,4 +5,9 @@ angular.module('apolloApp').controller('browseCtrl', function($scope, $location,
     $scope.goToTop = function(){
     	$anchorScroll();
     }
+	var site = {
+      'name':'Browse',
+      'url':$location.absUrl()
+    }
+    $scope.$parent.browseHistory.sites.push(site);
 });

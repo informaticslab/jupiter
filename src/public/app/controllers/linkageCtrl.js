@@ -11,4 +11,10 @@ angular.module('apolloApp').controller('linkageCtrl', function($scope, $routePar
     });
     
 	$scope.twitterBlurb = encodeURIComponent($location.absUrl());
+
+	var site = {
+      'name':'Linkage Viewer',
+      'url':$location.absUrl()
+    }
+    $scope.$parent.browseHistory.sites.push(site);
 });

@@ -65,7 +65,7 @@ angular.module('apolloApp').controller('rootCtrl', function($scope, $http, $loca
 
     if ($cookies.browseHistory != null)
     {
-      console.log('browsehistory pull succeeded.  It was: ' + $cookies.browseHistory);
+      //console.log('browsehistory pull succeeded.  It was: ' + $cookies.browseHistory);
       try
       {
         var browseHistoryJson = angular.fromJson($cookies.browseHistory);
@@ -86,7 +86,7 @@ angular.module('apolloApp').controller('rootCtrl', function($scope, $http, $loca
         $scope.browseHistory.sites = $scope.browseHistory.sites.slice(0,29);
       }
       $cookies.browseHistory = angular.toJson($scope.browseHistory)
-      console.log('Just saved browse history as ' + angular.toJson($scope.browseHistory))
+      //console.log('Just saved browse history as ' + angular.toJson($scope.browseHistory))
     }
 
     //TWITTER CONNECT

@@ -14,7 +14,7 @@ angular.module('apolloApp').controller('quickGuideCtrl', function($scope, $locat
     
     $scope.twitterBlurb = encodeURIComponent($location.absUrl());
     var name = 'QuickGuide';
-    console.log('route params is giving me: '+ $routeParams);
+    //console.log('route params is giving me: '+ $routeParams);
     if ($routeParams.topic!= null)
     {
         name = name + ': ' + $scope.$parent.toCapitalizedWords($routeParams.topic) ;

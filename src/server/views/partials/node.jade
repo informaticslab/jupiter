@@ -1,21 +1,38 @@
 .row
 	.div(ng-class='getContentWidth()')
 		.content_block
-			.subnav
-				ul.nav.nav-pills
-					li
-						a(href='#/quickGuide/') Quick Guide
-					li
-						a(href='#/browse/') Browse
-					li.active
-						a(href='#/search/') Search
-					li
-						a(href='' class='inactive') Advanced Search
-					li
-						a(href='' class='inactive') Favorites
-					li
-						a(href='' class='inactive') In the Lab
-			// end subnav
+			span.visible-md.visible-lg
+				.subnav
+					ul.nav.nav-pills
+						li
+							a(href='#/quickGuide/') Quick Guide
+						li
+							a(href='#/browse/') Browse
+						li.active
+							a(href='#/search/') Search
+						li
+							a(href='' class='inactive') Advanced Search
+						li
+							a(href='' class='inactive') Favorites
+						li
+							a(href='' class='inactive') In the Lab
+				// end subnav
+			span.visible-sm
+				.subnav_sm
+					ul.nav.nav-pills
+						li
+							a(href='#/quickGuide/') Quick Guide
+						li
+							a(href='#/browse/') Browse
+						li.active
+							a(href='#/search/') Search
+						li
+							a(href='' class='inactive') Advanced Search
+						li
+							a(href='' class='inactive') Favorites
+						li
+							a(href='' class='inactive') In the Lab
+				// end subnav
 			//- a.btn.btn-custom(onclick='goBack()') Back
 			.nav_split
 				.btn-group.btn-group-md.btn-group-justified
@@ -25,25 +42,69 @@
 						a.btn.btn-default(href='#/linkage/{{nodeId}}', id='btnLinkageViewer') Linkage Viewer
 				// end button group
 			// end nav_split
-			.detail_header.detail_header_text
-				| {{node.name}}
-				.share_button
-					//These lines, 173 - 187, were added 
-					//Single button 
-					.btn-group
-						button.btn.btn-default.dropdown-toggle(type='button', data-toggle='dropdown')
-							span.glyphicon.glyphicon-share
-							| &nbsp;Share&nbsp; 
-							span.caret
-						ul.dropdown-menu(role='menu')
-							li
-								a(href='mailto:?') Email
-							li
-								a(href='' ng-click='share([node.name, "#/node/{{nodeId}}"])' id='fb-root') Facebook
-							li
-								a(target='_blank' href='http://twitter.com/home?status=CDC iSurv Portal: {{node.name}}: {{twitterBlurb}}') Twitter
-						//end added lines 
-			// end detail header
+			span.visible-lg
+				.detail_header.detail_header_text
+					| {{node.name}}
+					.share_button
+						//These lines, 173 - 187, were added 
+						//Single button 
+						.btn-group
+							button.btn.btn-default.dropdown-toggle(type='button', data-toggle='dropdown')
+								span.glyphicon.glyphicon-share
+								| &nbsp;Share&nbsp; 
+								span.caret
+							ul.dropdown-menu(role='menu')
+								li
+									a(href='mailto:?') Email
+								li
+									a(href='' ng-click='share([node.name, "#/node/{{nodeId}}"])' id='fb-root') Facebook
+								li
+									a(target='_blank' href='http://twitter.com/home?status=CDC iSurv Portal: {{node.name}}: {{twitterBlurb}}') Twitter
+							//end added lines
+				// end detail header
+			span.visible-md
+				.detail_header
+					.detail_header_text_contain_md
+						.detail_header_text_md
+							| {{node.name}}
+					.share_button
+						//These lines, 173 - 187, were added 
+						//Single button 
+						.btn-group
+							button.btn.btn-default.dropdown-toggle(type='button', data-toggle='dropdown')
+								span.glyphicon.glyphicon-share
+								| &nbsp;Share&nbsp; 
+								span.caret
+							ul.dropdown-menu(role='menu')
+								li
+									a(href='mailto:?') Email
+								li
+									a(href='' ng-click='share([node.name, "#/node/{{nodeId}}"])' id='fb-root') Facebook
+								li
+									a(target='_blank' href='http://twitter.com/home?status=CDC iSurv Portal: {{node.name}}: {{twitterBlurb}}') Twitter
+							//end added lines
+				// end detail header
+			span.visible-sm
+				.detail_header_sm
+					span.detail_header_text_sm
+						| {{node.name}}
+					.share_button-sm
+						//These lines, 173 - 187, were added
+						//Single button 
+						.btn-group
+							button.btn.btn-default.dropdown-toggle(type='button', data-toggle='dropdown')
+								span.glyphicon.glyphicon-share
+								| &nbsp;Share&nbsp; 
+								span.caret
+							ul.dropdown-menu(role='menu')
+								li
+									a(href='mailto:?') Email
+								li
+									a(href='' ng-click='share([node.name, "#/node/{{nodeId}}"])' id='fb-root') Facebook
+								li
+									a(target='_blank' href='http://twitter.com/home?status=CDC iSurv Portal: {{node.name}}: {{twitterBlurb}}') Twitter
+						//end added lines
+				// end detail header
 			.top_block
 				img(src='img/ajax-loader.gif', alt='Content is Loading', ng-show='contentLoading')
 				div(ng-show='!contentLoading')
@@ -108,6 +169,7 @@
 					| (Coming soon...)
 				// end com_discuss
 		// end content block
+		br
 	// end col spec
 	.div(ng-class='getSidebarWidth()')
 		.hx_side(ng-show='!showSidebar' ng-click='toggleSidebar()')

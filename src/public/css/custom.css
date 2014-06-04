@@ -198,11 +198,13 @@ li.faq {padding-bottom:.5em;}
 .block3 {clear:both; min-height:600px;  background-color:#ffffff; margin-bottom:3em; padding-top:.7em; border-style:solid; border-width:1px; border-color:#d3d9d9;}
 
 
-.detail_header {min-height:55px;background-color:#f39c11; color:#ffffff; font-weight:bold; padding:.5em; }
+.detail_header {min-height:55px;background-color:#f39c11; text-align:center; color:#ffffff; font-weight:bold; padding:.5em; }
+/*.detail_header {min-height:55px;background-color:#f39c11; --text-align:center;-- color:#ffffff; font-weight:bold; padding:.5em;}*/
 
-.detail_header_text {font-family: Tahoma, Geneva, sans-serif; letter-spacing:.03em; font-size:1.2em;  }
+.detail_header_text {font-family: Tahoma, Geneva, sans-serif; letter-spacing:.03em; font-size:1.2em; padding-top:1em; padding-bottom:1em; padding-left:5em;  }
+/*.detail_header_text {font-family: Tahoma, Geneva, sans-serif; letter-spacing:.03em; font-size:1.2em; --padding-top:1em; padding-bottom:1em;-- }*/
 
-.detail_header_text_contain {padding-left:.9em; max-width:90%; float:left; padding-top:.5em;}
+.detail_header_text_contain {padding-left:.9em; max-width:90%; float:left; padding-top:.5em; }
 
 
 .detail_header_text_md {font-family: Tahoma, Geneva, sans-serif; letter-spacing:.01em; font-size:1.1em;  }
@@ -266,7 +268,8 @@ li.faq {padding-bottom:.5em;}
 .btn-custom:hover {
   color:#ffffff;
 }
-.share_button {text-align:right; float:right; padding-right:.8em; padding-top:.2em; padding-left:.5em;}
+.share_button_node {text-align:right; float:right; padding-right:.8em; padding-top:.2em; padding-left:.5em;}
+.share_button {text-align:right; float:right; position:relative; bottom:.3em;}
 .share_button-sm {text-align:right; float:right; }
 .share_button_linkage {text-align:left; float:right; position:relative; top:.2em; margin-right:.5em; }
 

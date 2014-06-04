@@ -425,7 +425,7 @@ exports.getPortalStatisticsRelations = function(req, res) {
     });
 };
 
-exports.getPlayData = function(req, res) {
+exports.getAdvancedSearchData = function(req, res) {
 
 
     var nodes=req.params.id;
@@ -435,7 +435,7 @@ exports.getPlayData = function(req, res) {
 
     var hops=nodesarr[2];
 
-    //console.log(nodesarr[0],nodesarr[1],nodesarr[2]);
+
 
     var query, params;
 
@@ -470,11 +470,7 @@ exports.getPlayData = function(req, res) {
 
     }
 
-
-
-    console.log(query);
-
-    
+   
 
 
     var params = {
@@ -545,26 +541,7 @@ exports.getPlayData = function(req, res) {
                 });
 
 
-                //console.log("nodesA----------------------------",nodesA);
-
-
-                
-                /*
-                nodesA.sort(function(a,b){
-                    if (a.objectid < b.objectid) //sort string ascending
-                      return -1 
-                     if (a.objectid > b.objectid)
-                      return 1
-                     return 0 //default return value (no sorting)
-                });
-
-                
-                */
-
-                //console.log("nodesA sorted***************************",nodesA.length);
-
-
-                
+               
                 var nodesAunique=[];
 
                 nodesAunique.push(nodesA[0]);
@@ -703,39 +680,6 @@ exports.getPlayData = function(req, res) {
                 }
 
 
-                //console.log("links",links);
-                
-                //divs = jQuery.unique( divs );
-                
-
-               // nodesArr=obj[0].Nodes;
-                //relationsArr=obj[0].Relations;
-
-
-
-
-                /*
-                var nodes = [];
-                //console.log(nodes);
-                var links = [];
-                for (var i=0;i<nodesArr.length;i++)
-                { 
-                    nodes.push({
-                        "name":nodesArr[i]
-                    });
-
-                }
-
-                for (var i=0;i<relationsArr.length;i++)
-                { 
-                    links.push({
-                        "source": i,
-                        "target": i+1,
-                    });
-
-                }
-
-                */  
                 viewerJson = {
                     "nodes": nodes,
                     "links": links

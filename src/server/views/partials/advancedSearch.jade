@@ -79,9 +79,9 @@
 					| 3
 					input(type='radio', id='hop4' name='hop', value='4') 
 					| 4
-					input.form-control(type='text',ng-model='leftnode',id='leftnode')
-					input.form-control(type='text',ng-model='rightnode',id='rightnode')
-					button.btn.btn-default.pull-left.link_buttone(type='button')
+					input.pull-left.form-control(type='text',ng-model='leftnode',id='leftnode')
+					input.pull-left.form-control(type='text',ng-model='rightnode',id='rightnode')
+					button.pull-left.btn.btn-default.pull-left.link_buttone(type='button')
 						span.glyphicon.glyphicon-ban-circle
 						| Find
 					
@@ -108,7 +108,7 @@
 							}
 							else
 							{
-								window.open("#/play/"+leftnodeid+"-"+rightnodeid+"-"+hops,"_self","",false);
+								window.open("#/advancedSearch/"+leftnodeid+"-"+rightnodeid+"-"+hops,"_self","",false);
 							}
 
 							
@@ -137,7 +137,7 @@
 							//console.log(leftnodeid,rightnodeid);
 
 
-							jsonret=d3.json("/apollo/api/node/play/"+leftnodeid+"-"+rightnodeid+"-"+hop, function(error, json) {
+							jsonret=d3.json("/apollo/api/node/advancedSearch/"+leftnodeid+"-"+rightnodeid+"-"+hop, function(error, json) {
 
 
 							//console.log("json",json);
@@ -182,10 +182,7 @@
 							document.getElementById('leftnode').value=leftnodeid;
 							document.getElementById('rightnode').value=rightnodeid;
 							$('#hop'+hop).prop('checked', true);
-							//$("input[name=hop]:checked").val()
-							
-							
-							//var h= $("div.block_linkage").outerHeight();
+
 							
 							var force = d3.layout.force()
 							.nodes(json.nodes)
@@ -196,14 +193,6 @@
 							.on("tick", tick)
 							.start();
 							
-							//console.log($("div.block_linkage").outerWidth(),$("div.block_linkage").outerHeight());
-							
-							
-							
-
-							
-
-
 
 							d3.select(window).on('resize', svgresize);
 							
@@ -244,12 +233,6 @@
 							.data(json.nodes)
 							.enter().append("svg:g");
 
-							// A copy of the text with a thick white stroke for legibility.
-							/*text.append("svg:text")
-							.attr("x", 8)
-							.attr("y", ".31em")
-							.attr("class", "shadow")
-							.text(function(d) { return d.name; });*/
 
 							text.append("a").attr("xlink:href",function(d) { return "/apollo/#/linkage/" + d.id; })
 							.append("svg:text")
@@ -298,23 +281,12 @@
 								w= $("svg").outerWidth();
 								h= $("svg").outerHeight();
 								
-								
-								
-								//console.log($("svg").outerWidth());
-								
-
-
-								//circle.attr("cx", function(d) { if(d.id==leftnodeid){ return d.x=100; } if(d.id==rightnodeid){ return d.x=w-100; } return d.x = Math.max(rcent+2, Math.min(w - rcent-2, d.x)); })
-								//.attr("cy", function(d) { if(d.id==leftnodeid){ return d.y=h/2; } if(d.id==rightnodeid){ return d.y=h/2; } return d.y = Math.max(rcent+2, Math.min(h - rcent-2, d.y)); });
 
 
 								circle.attr("cx", function(d) { return d.x = Math.max(rcent+2, Math.min(w - rcent-2, d.x)); })
 								.attr("cy", function(d) { return d.y = Math.max(rcent+2, Math.min(h - rcent-2, d.y)); });
 
 
-								//circle.attr("cx", function(d) { if(d.id==leftnodeid){ return d.x=200; } else { return d.x = Math.max(rcent+2, Math.min(w - rcent-2, d.x)); })
-								//.attr("cy", function(d) { if(d.id==leftnodeid){ return d.y=200; } else {return d.y = Math.max(rcent+2, Math.min(h - rcent-2, d.y)); });
-								
 								path.attr("d", function(d) {
 								var dx = d.target.x - d.source.x,
 								dy = d.target.y - d.source.y,
@@ -399,32 +371,6 @@
 							
 							}
 
-
-
-							/*
-							function aaclickreset(d) {
-
-								d3.selectAll("circle").classed("fixed", false);
-								togglefixnodes=true;
-								d3.select(".btn.btn-default.pull-left.link_button5").classed("active", false);
-
-								i=0;
-								for (n in json.nodes){
-								//alert(n.id);
-								json.nodes[i].fixed=false;
-								i++;
-
-								}
-
-								d3.selectAll("path").attr("visibility", "visible");
-								d3.selectAll("text.path_label").attr("visibility", "visible");
-								d3.select(".btn.btn-default.pull-left.link_button4").classed("active", false);
-								togglehidelinks=true;
-
-								force.start();							
-							
-							}
-							*/
 
 							function clickreset(d) {
 

@@ -9,5 +9,5 @@ angular.module('apolloApp').controller('browseCtrl', function($scope, $location,
       'name':'Browse',
       'url':$location.absUrl()
     }
-    $scope.$parent.browseHistory.sites.push(site);
+    $scope.$parent.unshiftSiteHistory(site);(site);
 });

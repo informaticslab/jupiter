@@ -143,6 +143,6 @@ angular.module('apolloApp').controller('mainCtrl', function($scope,$resource,$lo
           'name':'Home',
           'url':$location.absUrl()
         }
-	$scope.$parent.browseHistory.sites.push(site);
-	console.log($scope.$parent.browseHistory)
+	$scope.$parent.unshiftSiteHistory(site);
+	//console.log($scope.$parent.browseHistory)
 });

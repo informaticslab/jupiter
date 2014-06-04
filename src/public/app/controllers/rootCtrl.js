@@ -1,14 +1,8 @@
-angular.module('apolloApp').controller('rootCtrl', function($scope, $http, $location){
+angular.module('apolloApp').controller('rootCtrl', function($scope, $http, $location, $cookies){
     
     $scope.q = 'home';
     $scope.loginuser = 'guest';
     $scope.queryString = '';
-
-    $scope.browseHistory = {
-      'sites':
-      [
-      ]
-    }
     
     $http.get('build.json')
       .then(function(res){
@@ -59,6 +53,44 @@ angular.module('apolloApp').controller('rootCtrl', function($scope, $http, $loca
     $scope.toggleSidebar = function(){
       $scope.showSidebar = !$scope.showSidebar;
     };
+
+
+    //SITE HISTORY
+    $scope.browseHistory = {
+       'sites':
+       [
+       ]
+     }
+
+
+    if ($cookies.browseHistory != null)
+    {
+      console.log('browsehistory pull succeeded.  It was: ' + $cookies.browseHistory);
+      try
+      {
+        var browseHistoryJson = angular.fromJson($cookies.browseHistory);
+        if (browseHistoryJson.sites != null && browseHistoryJson.sites[0] != null)
+        {
+          $scope.browseHistory = browseHistoryJson;
+        }
+      } catch(e)
+      {console.log ('BrowseHistory cookie unparsable, error given was ' + e)}
+    }
+
+    
+
+    $scope.unshiftSiteHistory = function unshiftSiteHistory(node){
+      $scope.browseHistory.sites.unshift(node);
+      if ($scope.browseHistory.sites.length >30)
+      {
+        $scope.browseHistory.sites = $scope.browseHistory.sites.slice(0,29);
+      }
+      $cookies.browseHistory = angular.toJson($scope.browseHistory)
+      console.log('Just saved browse history as ' + angular.toJson($scope.browseHistory))
+    }
+
+    //TWITTER CONNECT
+
     $scope.twitterRootBlurb = encodeURIComponent($location.absUrl());
 
     

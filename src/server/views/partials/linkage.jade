@@ -58,11 +58,9 @@
 							span.caret
 						ul.dropdown-menu(role='menu')
 							li
-								a(href='#') (Coming soon)
+								a(href='mailto:?') Email
 							li
-								a(href='#') Email
-							li
-								a(href='#') Facebook
+								a(href='' ng-click='share([node.name, "#/node/{{nodeId}}"])' id='fb-root') Facebook
 							li
 								a(target='_blank' href='http://twitter.com/home?status=CDC iSurv Portal: {{node.name}}: {{twitterBlurb}}') Twitter
 						//end added lines 

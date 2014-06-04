@@ -72,7 +72,6 @@ angular.module('apolloApp').controller('rootCtrl', function($scope, $http, $loca
       if(window.location.hostname == 'localhost'){
         $scope.facebook_appID = '1429109474024840';
         $scope.app_domain = 'localhost:8089/apollo/';
-      //  $scope.app_domain = 'edemo.phiresearchlab.org/apollo/';
         $scope.app_image = 'http://edemo.phiresearchlab.org/apollo/img/header_graphic_alpha.png';
       }
       else if(window.location.hostname == 'edemo.phiresearchlab.org'){

@@ -2,7 +2,7 @@ var neodb = require('../lib/neo4jConnection');
 var _ = require('underscore');
 exports.getRelationsForNode = function(req, res) {
     var query = ['MATCH n-[r]-x ', 'where n.id={nodeId} ' //maaaaaaaagic
-        , 'return id(r) as relId,type(r) as relType, x.id as childId, ', 'labels(x) as childLabels, x.name as childName order by relType, childName '
+        , 'return id(r) as relId,type(r) as relType, x.id as childId, ','startNode(r).id as startNode,', 'labels(x) as childLabels, x.name as childName order by relType, childName '
     ].join('\n');
     var params = {
         nodeId: req.params.id
@@ -40,7 +40,8 @@ exports.getRelationsForNode = function(req, res) {
                     }).each(function(a) {
                         relTypeToAdd.nodes.push({
                             'id': a.childId,
-                            'name': a.childName
+                            'name': a.childName,
+                            'startNode' : a.startNode
                         });
                     });
                     labelToAdd.relTypes.push(relTypeToAdd);

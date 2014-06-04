@@ -6,6 +6,6 @@ angular.module('apolloApp').controller('faqCtrl', function($scope){
       'name':'FAQ',
       'url':$location.absUrl()
     }
-    $scope.$parent.browseHistory.sites.push(site);
+    $scope.$parent.unshiftSiteHistory(site);
 });
 

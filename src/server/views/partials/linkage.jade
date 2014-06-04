@@ -1,21 +1,38 @@
 .row
 	.div(ng-class='getContentWidth()')
 		.content_block
-			.subnav
-				ul.nav.nav-pills
-					li
-						a(href='#/quickGuide/') Quick Guide
-					li
-						a(href='#/browse/') Browse
-					li.active
-						a(href='#/search/{{nodeId}}') Search
-					li
-						a(href='' class='inactive') Advanced Search
-					li
-						a(href='' class='inactive') Favorites
-					li
-						a(href='' class='inactive') In the Lab
-			// end subnav
+			span.visible-md.visible-lg
+				.subnav
+					ul.nav.nav-pills
+						li
+							a(href='#/quickGuide/') Quick Guide
+						li
+							a(href='#/browse/') Browse
+						li.active
+							a(href='#/search/') Search
+						li
+							a(href='' class='inactive') Advanced Search
+						li
+							a(href='' class='inactive') Favorites
+						li
+							a(href='#/inTheLab/') In the Lab
+				// end subnav
+			span.visible-sm
+				.subnav_sm
+					ul.nav.nav-pills
+						li
+							a(href='#/quickGuide/') Quick Guide
+						li
+							a(href='#/browse/') Browse
+						li.active
+							a(href='#/search/') Search
+						li
+							a(href='' class='inactive') Advanced Search
+						li
+							a(href='' class='inactive') Favorites
+						li
+							a(href='#/inTheLab/') In the Lab
+				// end subnav
 			//- .backlink
 			//- 	span.glyphicon.glyphicon-circle-arrow-left
 			//- 	| &nbsp;Back to search results
@@ -41,11 +58,9 @@
 							span.caret
 						ul.dropdown-menu(role='menu')
 							li
-								a(href='#') (Coming soon)
+								a(href='mailto:?subject={{node.name}}&body=http://{{app_domain}}#/linkage/{{nodeId}}') Email
 							li
-								a(href='#') Email
-							li
-								a(href='#') Facebook
+								a(href='' ng-click='share([node.name, "#/linkage/{{nodeId}}"])' id='fb-root') Facebook
 							li
 								a(target='_blank' href='http://twitter.com/home?status=CDC iSurv Portal: {{node.name}}: {{twitterBlurb}}') Twitter
 						//end added lines 
@@ -211,7 +226,11 @@
 							});
 							//.on("mouseover", linkmouseover);
 
-							function tick() {
+
+							}//else if undefined or error
+
+
+														function tick() {
 							
 								w= $("svg").outerWidth();
 								h= $("svg").outerHeight();
@@ -243,7 +262,10 @@
 								
 
 
-
+								path_label.attr("transform", function(d) {
+									//console.log(d);
+									return "translate(" + d.source.x + "," + d.source.y + ")";
+								});
 
 								text.attr("transform", function(d) {
 									return "translate(" + d.x + "," + d.y + ")";
@@ -503,9 +525,6 @@
 								//d3.select(this).attr("class","node fixed");
 								d.fixed=true;
 							}
-
-
-							}//else if undefined or error
 
 							});
 				// end block_linkage

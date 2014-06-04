@@ -3,21 +3,38 @@ a(id='top')
 .row
   .div(ng-class='getContentWidth()')
     .content_block
-      .subnav
-        ul.nav.nav-pills
-          li.active
-            a(href='#/quickGuide/') Quick Guide
-          li
-            a(href='#/browse/') Browse
-          li
-            a(href='#/search/') Search
-          li
-            a(href='' class='inactive') Advanced Search
-          li
-            a(href='' class='inactive') Favorites
-          li
-            a(href='' class='inactive') In the Lab
-      // end subnav
+      span.visible-md.visible-lg
+        .subnav
+          ul.nav.nav-pills
+            li.active
+              a(href='#/quickGuide/') Quick Guide
+            li
+              a(href='#/browse/') Browse
+            li
+              a(href='#/search/') Search
+            li
+              a(href='' class='inactive') Advanced Search
+            li
+              a(href='' class='inactive') Favorites
+            li
+              a(href='#/inTheLab/') In the Lab
+        // end subnav
+      span.visible-sm
+        .subnav_sm
+          ul.nav.nav-pills
+            li.active
+              a(href='#/quickGuide/') Quick Guide
+            li
+              a(href='#/browse/') Browse
+            li
+              a(href='#/search/') Search
+            li
+              a(href='' class='inactive') Advanced Search
+            li
+              a(href='' class='inactive') Favorites
+            li
+              a(href='#/inTheLab/') In the Lab
+        // end subnav 
       //- .backlink
       //-   span.glyphicon.glyphicon-circle-arrow-left
       //-   a(href='#/quickGuide/') &nbsp; Back to Quick Guide topics
@@ -35,11 +52,9 @@ a(id='top')
                 span.caret
               ul.dropdown-menu(role='menu')
                 li
-                  a(href='') (Coming soon...)
+                  a(href='mailto:?subject=Foodborne Illness Surveillance, Response and Data Systems&body=http://{{app_domain}}#/quickGuide/foodBorneIllness') Email
                 li
-                  a(href='') Email
-                li
-                  a(href='' ng-click='share()' id='fb-root') Facebook
+                  a(href='' ng-click='share(["Foodborne Illness Surveillance, Response and Data Systems", "#/quickGuide/foodBorneIllness"])' id='fb-root') Facebook
                 li
                   a(target='_blank' href='http://twitter.com/home?status=CDC iSurv Portal QuickGuide: Foodborne Ilness: {{twitterBlurb}}') Twitter
       .row

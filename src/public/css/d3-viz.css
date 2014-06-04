@@ -10,7 +10,8 @@ marker {
 
 .path_label{
   cursor:pointer;
-  font-weight:normal; 
+  font-weight:normal;
+  font: 9px sans-serif;
 }
 
 .linkageerrormsg{

@@ -2,21 +2,38 @@
 .row
 	.div(ng-class='getContentWidth()')
 		.content_block.browse
-			.subnav
-				ul.nav.nav-pills
-					li
-						a(href='#/quickGuide/') Quick Guide
-					li.active
-						a(href='#/browse/') Browse
-					li
-						a(ng-click='goToTop()' href='#/search/') Search
-					li
-						a(href='' class='inactive') Advanced Search
-					li
-						a(href='' class='inactive') Favorites
-					li
-						a(href='' class='inactive') In the Lab	
-			// end subnav
+			span.visible-md.visible-lg
+				.subnav
+					ul.nav.nav-pills
+						li
+							a(href='#/quickGuide/') Quick Guide
+						li.active
+							a(href='#/browse/') Browse
+						li
+							a(href='#/search/') Search
+						li
+							a(href='' class='inactive') Advanced Search
+						li
+							a(href='' class='inactive') Favorites
+						li
+							a(href='#/inTheLab/') In the Lab
+				// end subnav
+			span.visible-sm
+				.subnav_sm
+					ul.nav.nav-pills
+						li
+							a(href='#/quickGuide/') Quick Guide
+						li.active
+							a(href='#/browse/') Browse
+						li
+							a(href='#/search/') Search
+						li
+							a(href='' class='inactive') Advanced Search
+						li
+							a(href='' class='inactive') Favorites
+						li
+							a(href='#/inTheLab/') In the Lab
+				// end subnav
 			.instructive_text
 				|  Browse provides a fast way to 
 				strong narrow your search.

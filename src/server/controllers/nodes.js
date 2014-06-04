@@ -425,15 +425,55 @@ exports.getPortalStatisticsRelations = function(req, res) {
 };
 
 exports.getPlayData = function(req, res) {
-    var query = ['MATCH p=(a)-[*0..2]-(b)-[*0..2]-(c) where a.id={leftId} and c.id={rightId}',
-    'return extract(x in nodes(p) |x.name) as Nodes, extract(y in nodes(p) |y.id) as NodesId, extract(s in nodes(p) |labels(s)) as NodesLabel, extract(z in relationships(p) | type(z)) as Relations, ',
-    'extract(r in relationships(p) | startNode(r).id) as StartNodes'
-    ].join('\n');
+
+
+    var nodes=req.params.id;
+    //console.log(nodes);
+
+    var nodesarr=nodes.split("-");
+
+    var hops=nodesarr[2];
+
+    //console.log(nodesarr[0],nodesarr[1],nodesarr[2]);
+
+    var query, params;
+
+    if(hops==2)
+    {
+        query = ['MATCH p=(a)-[*1]-(b)-[*1]-(c) where a.id={leftId} and c.id={rightId}',
+        'return extract(x in nodes(p) |x.name) as Nodes, extract(y in nodes(p) |y.id) as NodesId, extract(s in nodes(p) |labels(s)) as NodesLabel, extract(z in relationships(p) | type(z)) as Relations, ',
+        'extract(r in relationships(p) | startNode(r).id) as StartNodes'
+        ].join('\n');
+
+    }
+    else if(hops==3)
+    {
+        query = ['MATCH p=(a)-[*1..2]-(b)-[*1..2]-(c) where a.id={leftId} and c.id={rightId}',
+        'return extract(x in nodes(p) |x.name) as Nodes, extract(y in nodes(p) |y.id) as NodesId, extract(s in nodes(p) |labels(s)) as NodesLabel, extract(z in relationships(p) | type(z)) as Relations, ',
+        'extract(r in relationships(p) | startNode(r).id) as StartNodes'
+        ].join('\n');
+
+    }
+    else if(hops==4)
+    {
+        query = ['MATCH p=(a)-[*2]-(b)-[*2]-(c) where a.id={leftId} and c.id={rightId}',
+        'return extract(x in nodes(p) |x.name) as Nodes, extract(y in nodes(p) |y.id) as NodesId, extract(s in nodes(p) |labels(s)) as NodesLabel, extract(z in relationships(p) | type(z)) as Relations, ',
+        'extract(r in relationships(p) | startNode(r).id) as StartNodes'
+        ].join('\n');
+
+    }
+    else
+    {
+        console.error('Error retreiving degrees of seperation from database:');
+        res.send(404, 'no degree indicated');
+
+    }
+
+
 
     console.log(query);
 
-    var nodes=req.params.id;
-    var nodesarr=nodes.split("-");
+    
 
 
     var params = {
@@ -450,7 +490,7 @@ exports.getPlayData = function(req, res) {
             console.error('Error retreiving relations from database:', err);
             res.send(404, 'no node at that location');
         } else {
-            console.log(r);
+            //console.log(r);
 
             if(r=="")
             {
@@ -602,7 +642,7 @@ exports.getPlayData = function(req, res) {
                 }
 
 
-                console.log("nodes",nodes);
+                //console.log("nodes",nodes);
                 
 
                 var links=[];
@@ -662,7 +702,7 @@ exports.getPlayData = function(req, res) {
                 }
 
 
-                console.log("links",links);
+                //console.log("links",links);
                 
                 //divs = jQuery.unique( divs );
                 

@@ -1,8 +1,9 @@
 angular.module('apolloApp').controller('playCtrl', function($scope, $routeParams, $resource){
 	$scope.$parent.q = 'explore';
     $scope.nodeId = $routeParams.id;
+    //$scope.nodeId = $routeParams.deg;
 
-    //console.log("routeparams id",$routeParams.id)
+    //console.log("routeparams deg",$routeParams.deg)
 
     /*
     var node = $resource('/apollo/api/node/:id', {

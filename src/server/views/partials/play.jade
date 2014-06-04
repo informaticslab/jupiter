@@ -58,15 +58,7 @@
 					| Lock nodes
 				button.btn.btn-default.pull-left.link_button4(type='button')
 					span.glyphicon.glyphicon-ban-circle
-					| Hide lines
-				.form-group
-					input(type='text',ng-model='leftnode',id='leftnode')
-
-					input(type='text',ng-model='rightnode',id='rightnode')
-					
-				button.btn.btn-default.pull-left.link_buttone(type='button')
-					span.glyphicon.glyphicon-ban-circle
-					| {{ leftnode }}
+					| Hide lines					
 				img.pull-left.small_divider(src='img/small_divider.png')
 				.cluster
 					.cluster_text
@@ -78,6 +70,21 @@
 						button.btn.btn-default.link_button7.disabled(type='button')
 							span.glyphicon.glyphicon-link
 							| Relationship type
+			.detail_header
+				.share_button_linkage
+					| Number of hops
+					input(type='radio', id='hop2' name='hop', value='2') 
+					| 2
+					input(type='radio', id='hop3' name='hop', value='3') 
+					| 3
+					input(type='radio', id='hop4' name='hop', value='4') 
+					| 4
+					input.form-control(type='text',ng-model='leftnode',id='leftnode')
+					input.form-control(type='text',ng-model='rightnode',id='rightnode')
+					button.btn.btn-default.pull-left.link_buttone(type='button')
+						span.glyphicon.glyphicon-ban-circle
+						| Find
+					
 			// end detail header
 			.top_block2
 				.block_linkage
@@ -90,8 +97,21 @@
 
 							var leftnodeid=document.getElementById('leftnode').value;
 							var rightnodeid=document.getElementById('rightnode').value;
+							var hops=$("input[name=hop]:checked").val();
 
-							window.open("#/play/"+leftnodeid+"-"+rightnodeid,"_self","",false);
+							//console.log(hops+"*");
+
+							if(leftnodeid=="" | rightnodeid=="" | hops=="" | leftnodeid==undefined| rightnodeid==undefined| hops==undefined)
+							{
+								alert('error');
+
+							}
+							else
+							{
+								window.open("#/play/"+leftnodeid+"-"+rightnodeid+"-"+hops,"_self","",false);
+							}
+
+							
 
 							});
 
@@ -106,17 +126,18 @@
 							var split = url.split('/');
 							var id = split[split.length - 1];
 
-							console.log("i--d");
-
+							
+							//console.log(".."+id+"..");
 
 							//d3.json("/apollo/api/node/viewer/" + id, function(error, json) {
 							var leftnodeid=id.split("-")[0];
 							var rightnodeid=id.split("-")[1];
+							var hop=id.split("-")[2];
 
-							
+							//console.log(leftnodeid,rightnodeid);
 
 
-							jsonret=d3.json("/apollo/api/node/play/"+leftnodeid+"-"+rightnodeid, function(error, json) {
+							jsonret=d3.json("/apollo/api/node/play/"+leftnodeid+"-"+rightnodeid+"-"+hop, function(error, json) {
 
 
 							//console.log("json",json);
@@ -134,8 +155,11 @@
 							.attr("height", h);
 
 
-
-							if(json==undefined | error)
+							if(id=="" | id=="-")
+							{
+								
+							}
+							else if(json==undefined | error)
 							{
 							
 							var errortext = svg
@@ -145,13 +169,20 @@
 							.text("No nodes or relationships found.")
 							;
 
+							document.getElementById('leftnode').value=leftnodeid;
+							document.getElementById('rightnode').value=rightnodeid;
+							$('#hop'+hop).prop('checked', true);
+
 							}
 							else
 							{
 
 
 
-							
+							document.getElementById('leftnode').value=leftnodeid;
+							document.getElementById('rightnode').value=rightnodeid;
+							$('#hop'+hop).prop('checked', true);
+							//$("input[name=hop]:checked").val()
 							
 							
 							//var h= $("div.block_linkage").outerHeight();
@@ -429,7 +460,7 @@
 								}
 
 								//i++;
-								console.log(d);
+								//console.log(d);
 
 								});
 

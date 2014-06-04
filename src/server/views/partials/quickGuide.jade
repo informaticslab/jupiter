@@ -2,21 +2,38 @@
 .row
   .div(ng-class='getContentWidth()')
     .content_block
-      .subnav
-        ul.nav.nav-pills
-          li.active
-            a(href='#/quickGuide/') Quick Guide
-          li
-            a(href='#/browse/') Browse
-          li
-            a(href='#/search/') Search
-          li
-            a(href='' class='inactive') Advanced Search
-          li
-            a(href='' class='inactive') Favorites
-          li
-            a(href='' class='inactive') In the Lab
-      // end subnav
+      span.visible-md.visible-lg
+        .subnav
+          ul.nav.nav-pills
+            li
+              a(href='#/quickGuide/') Quick Guide
+            li
+              a(href='#/browse/') Browse
+            li.active
+              a(href='#/search/') Search
+            li
+              a(href='' class='inactive') Advanced Search
+            li
+              a(href='' class='inactive') Favorites
+            li
+              a(href='' class='inactive') In the Lab
+        // end subnav
+      span.visible-sm
+        .subnav_sm
+          ul.nav.nav-pills
+            li
+              a(href='#/quickGuide/') Quick Guide
+            li
+              a(href='#/browse/') Browse
+            li.active
+              a(href='#/search/') Search
+            li
+              a(href='' class='inactive') Advanced Search
+            li
+              a(href='' class='inactive') Favorites
+            li
+              a(href='' class='inactive') In the Lab
+        // end subnav 
       .instructive_text
           p.gray_text
             | If you're not sure where to start, 

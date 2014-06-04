@@ -198,12 +198,26 @@ li.faq {padding-bottom:.5em;}
 .block3 {clear:both; min-height:600px;  background-color:#ffffff; margin-bottom:3em; padding-top:.7em; border-style:solid; border-width:1px; border-color:#d3d9d9;}
 
 
-.detail_header {min-height:55px;background-color:#f39c11; text-align:center; color:#ffffff; font-weight:bold; padding:.5em; min-width: 920px;}
+.detail_header {min-height:55px;background-color:#f39c11; color:#ffffff; font-weight:bold; padding:.5em; }
+
+.detail_header_text {font-family: Tahoma, Geneva, sans-serif; letter-spacing:.03em; font-size:1.2em;  }
+
+.detail_header_text_contain {padding-left:.9em; max-width:90%; float:left; padding-top:.5em;}
+
+
+.detail_header_text_md {font-family: Tahoma, Geneva, sans-serif; letter-spacing:.01em; font-size:1.1em;  }
+
+.detail_header_text_contain_md {padding-left:.9em; max-width:85%; float:left; padding-top:.5em; padding-bottom:.5em;}
+
+
+
+
+.detail_header_sm {min-height:55px;background-color:#f39c11; color:#ffffff; font-weight:bold; padding:.5em; padding-bottom:1em; font-family: Tahoma, Geneva, sans-serif; font-size:1em; letter-spacing:.01em; }
+.detail_header_text_sm {padding-left:1em; max-width:80%; float:left; display: inline-block;
+  vertical-align: middle;
+  line-height: normal;  }
 
 .detail_header_link {height:55px; background-color:#f39c11; text-align:center; color:#ffffff; font-weight:bold; padding:.5em; margin-top:2em;}
-
-.detail_header_text {font-family: Tahoma, Geneva, sans-serif; letter-spacing:.03em; font-size:1.2em; padding-top:1em; padding-bottom:1em; padding-left:5em;}
-
 
 
 .search_header {height:55px; background-color:#f39c11; font-weight:bold; font-size:1.5em; padding-top:.6em; padding-left:1em;}
@@ -233,7 +247,9 @@ li.faq {padding-bottom:.5em;}
   border-width:1px; border-color:#b3cddd; border-top-left-radius: 7px;  border-bottom-left-radius: 7px; top:240px; padding-top:36px; box-shadow: 0px 7px 7px -3px #dddddd; }
 
 
-.subnav {margin-bottom:.5em; height:47px; position:relative; bottom:1.13em; padding-top:.2em;}
+.subnav {margin-bottom:.5em; height:47px; position:relative; bottom:1.13em; padding-top:.2em; }
+
+.subnav_sm {margin-bottom:.5em; height:47px; position:relative; bottom:1.13em; padding-top:.2em; font-size:.9em;}
 
 .nav-pills > li.active > a {
     background-color:#3598db;
@@ -250,7 +266,8 @@ li.faq {padding-bottom:.5em;}
 .btn-custom:hover {
   color:#ffffff;
 }
-.share_button {text-align:right; float:right; position:relative; bottom:.3em;}
+.share_button {text-align:right; float:right; padding-right:.8em; padding-top:.2em; padding-left:.5em;}
+.share_button-sm {text-align:right; float:right; }
 .share_button_linkage {text-align:left; float:right; position:relative; top:.2em; margin-right:.5em; }
 
 .share_button2 {float:right; }

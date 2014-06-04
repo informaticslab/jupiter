@@ -132,7 +132,7 @@
 												strong Tags:
 											td
 												a(ng-repeat='node in nodeTags', href="#/node/{{node.id}}", style='padding-right:15px')
-														strong {{node.name}}
+													strong {{node.name}}
 					.row
 						.col-lg-12						
 							.panel.panel-default.panel_custom
@@ -154,13 +154,20 @@
 							tab(ng-repeat="relation in relations", heading="{{relation.name | unCamelCase}}")
 								div(ng-repeat="relType in relation.relTypes")
 									.vertical_spacing		
-									.orange_header {{relType.name}}
+									.orange_header {{relType.name  | unCamelCase}}
 									table(class="table table-striped")
-										tr(ng-repeat="node in relType.nodes")
+										tr(ng-repeat="child in relType.nodes")
 											td.col-xs-1
-												a(href="#/node/{{node.id}}")
-													strong {{node.id}}
-											td {{node.name}}
+												a(href="#/node/{{child.id}}")
+													strong {{child.id}}
+											td(ng-if="child.startNode === nodeId") 
+												span {{node.name}}  
+												strong {{relType.name  | unCamelCase}}  
+												span {{child.name}}
+											td(ng-if="child.startNode !== nodeId") 
+												span {{child.name}}  
+												strong {{relType.name  | unCamelCase}}  
+												span {{node.name}} 
 					// end linkage
 				.com_discuss
 					.vertical_spacing

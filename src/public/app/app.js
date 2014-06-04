@@ -2,6 +2,7 @@ var apolloApp = angular.module('apolloApp', [
   'ngRoute'
   ,'ngResource'
   ,'ngAnimate'
+  ,'ngCookies'
   ,'ui.bootstrap'
   ,'chieffancypants.loadingBar'
   //'apolloAppAnimations',
@@ -62,6 +63,10 @@ apolloApp.config(['$routeProvider',
           when('/play/', {
         templateUrl: 'partials/play',
         controller: 'playCtrl'
+      }).
+          when('/inTheLab', {
+        templateUrl: 'partials/inTheLab',
+        controller: 'inTheLabCtrl'
       }).
         otherwise({
         redirectTo: '/main'

@@ -112,5 +112,4 @@ angular.module('apolloApp').controller('rootCtrl', function($scope, $http, $loca
       });
   }
   //END Facebook Share
-
 });

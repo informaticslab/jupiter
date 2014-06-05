@@ -396,7 +396,7 @@ exports.getPortalStatisticsNodes = function(req, res) {
             res.send(404, 'no statistics available');
         } else {
 
-            //console.log(r);
+            console.log(r);
             res.send(r);
             
         }
@@ -424,3 +424,18 @@ exports.getPortalStatisticsRelations = function(req, res) {
     });
 };
 
+exports.getAllNodesForInTheLab = function(req, res) {
+
+    var query = ['MATCH n return labels(n) as label'].join('\n');
+    var params = {};
+
+    neodb.db.query(query, params, function(err, r) {
+        if (err) {
+            console.error('Error retreiving all the nodes from database:', err);
+            res.send(404, 'no statistics available');
+        } else {
+            res.send(r);
+            
+        }
+    });
+};

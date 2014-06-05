@@ -88,6 +88,8 @@ angular.module('apolloApp').controller('nodeCtrl', ['$scope', '$location', '$res
         }
         $scope.twitterBlurb = encodeURIComponent($location.absUrl());
 
+        $scope.emailBlurb = encodeURIComponent($location.absUrl());
+
     var site = {
       'name':'Node Viewer',
       'url':$location.absUrl()

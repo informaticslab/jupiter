@@ -18,6 +18,8 @@ angular.module('apolloApp').controller('quickGuideCtrl', function($scope, $locat
   'url':$location.absUrl()
 }
 $scope.$parent.browseHistory.sites.push(site);
+
+$scope.emailBlurb = encodeURIComponent($location.absUrl());
 });
 
 function goBack()

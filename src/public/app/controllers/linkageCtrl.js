@@ -17,4 +17,6 @@ angular.module('apolloApp').controller('linkageCtrl', function($scope, $routePar
       'url':$location.absUrl()
     }
     $scope.$parent.browseHistory.sites.push(site);
+
+    $scope.emailBlurb = encodeURIComponent($location.absUrl());
 });

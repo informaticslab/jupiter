@@ -55,7 +55,7 @@
 								span.caret
 							ul.dropdown-menu(role='menu')
 								li
-									a(href='mailto:?subject={{node.name}}&body=http://{{app_domain}}#/node/{{nodeId}}') Email
+									a(href='mailto:?subject={{node.name}}&body={{emailBlurb}}') Email
 								li
 									a(href='' ng-click='share([node.name, "#/node/{{nodeId}}"])' id='fb-root') Facebook
 								li
@@ -77,7 +77,7 @@
 								span.caret
 							ul.dropdown-menu(role='menu')
 								li
-									a(href='mailto:?subject={{node.name}}&body=http://{{app_domain}}#/node/{{nodeId}}') Email
+									a(href='mailto:?subject={{node.name}}&body=http://{{app_domain}}/#/node/{{nodeId}}') Email
 								li
 									a(href='' ng-click='share([node.name, "#/node/{{nodeId}}"])' id='fb-root') Facebook
 								li

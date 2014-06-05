@@ -231,17 +231,19 @@ li.faq {padding-bottom:.5em;}
 
 
 .search_header {height:55px; background-color:#f39c11; font-weight:bold; font-size:1.5em; padding-top:.6em; padding-left:1em;}
-.search_header_sm {height:55px; background-color:#f39c11; font-weight:bold; font-size:1.3em; padding-top:.8em; padding-left:.8em;}
+.search_header_sm {height:55px; background-color:#f39c11; font-weight:bold; font-size:1.3em; padding-top:.8em; padding-left:.7em;}
 
 .search_text {float:left; color:#ffffff;}
 
 .search_term {width:33%; float:left; margin-left:.3em; position:relative; bottom:.1em; }
-.search_term_sm {width:25%; float:left; margin-left:.3em; position:relative; bottom:.1em; }
+.search_term_sm {width:23%; float:left; margin-left:.3em; position:relative; bottom:.1em; }
 
 .search_intro {font-weight:normal; font-size:.8em;}
 
 
 .sortby {float:right; padding-right:1em; position:relative; bottom:.1em;}
+
+.sortby_sm {float:right; padding-right:.6em; position:relative; bottom:.1em;}
 
 .hx_side {background-color:#ffffff;  min-height:1000px; margin-bottom:3em;}
 
@@ -637,7 +639,7 @@ a.inactive:hover {color:#aeaeae;}
 a.inactive:active {color:#aeaeae;}
 
 .totally {font-weight:bold; font-size:.7em; padding-left:1em; letter-spacing: .01em; }
-.totally_sm {font-weight:bold; font-size:.7em; padding-left:1.2em; letter-spacing: .01em; }
+.totally_sm {font-weight:normal; font-size:.7em; padding-left:.8em; letter-spacing: .01em; }
 
 .total_column {font-weight: bold; padding-left:1.2em;}
 

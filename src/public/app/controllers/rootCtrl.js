@@ -1,4 +1,4 @@
-angular.module('apolloApp').controller('rootCtrl', function($scope, $http, $location, $cookies){
+angular.module('apolloApp').controller('rootCtrl', function($scope, $http, $location, localStorageService){
     
     $scope.q = 'home';
     $scope.loginuser = 'guest';
@@ -56,26 +56,41 @@ angular.module('apolloApp').controller('rootCtrl', function($scope, $http, $loca
 
 
     //SITE HISTORY
+
+
     $scope.browseHistory = {
        'sites':
        [
        ]
      }
 
-
-    if ($cookies.browseHistory != null)
+      if (localStorageService.get('browseHistory') != null)
     {
       //console.log('browsehistory pull succeeded.  It was: ' + $cookies.browseHistory);
       try
       {
-        var browseHistoryJson = angular.fromJson($cookies.browseHistory);
+        var browseHistoryJson = angular.fromJson(localStorageService.get('browseHistory'));
         if (browseHistoryJson.sites != null && browseHistoryJson.sites[0] != null)
         {
           $scope.browseHistory = browseHistoryJson;
         }
       } catch(e)
-      {console.log ('BrowseHistory cookie unparsable, error given was ' + e)}
+      {console.log ('BrowseHistory LocalStorage/cookie unparsable, error given was ' + e)}
     }
+
+    // if ($cookies.browseHistory != null)
+    // {
+    //   //console.log('browsehistory pull succeeded.  It was: ' + $cookies.browseHistory);
+    //   try
+    //   {
+    //     var browseHistoryJson = angular.fromJson($cookies.browseHistory);
+    //     if (browseHistoryJson.sites != null && browseHistoryJson.sites[0] != null)
+    //     {
+    //       $scope.browseHistory = browseHistoryJson;
+    //     }
+    //   } catch(e)
+    //   {console.log ('BrowseHistory cookie unparsable, error given was ' + e)}
+    // }
 
     
 
@@ -85,7 +100,8 @@ angular.module('apolloApp').controller('rootCtrl', function($scope, $http, $loca
       {
         $scope.browseHistory.sites = $scope.browseHistory.sites.slice(0,29);
       }
-      $cookies.browseHistory = angular.toJson($scope.browseHistory)
+      //$cookies.browseHistory = angular.toJson($scope.browseHistory)
+      localStorageService.set('browseHistory', angular.toJson($scope.browseHistory))
       //console.log('Just saved browse history as ' + angular.toJson($scope.browseHistory))
     }
 

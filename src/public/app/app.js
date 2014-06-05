@@ -2,7 +2,7 @@ var apolloApp = angular.module('apolloApp', [
   'ngRoute'
   ,'ngResource'
   ,'ngAnimate'
-  ,'ngCookies'
+  ,'LocalStorageModule'
   ,'ui.bootstrap'
   ,'chieffancypants.loadingBar'
   //'apolloAppAnimations',

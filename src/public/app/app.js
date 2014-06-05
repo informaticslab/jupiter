@@ -2,6 +2,7 @@ var apolloApp = angular.module('apolloApp', [
   'ngRoute'
   ,'ngResource'
   ,'ngAnimate'
+  ,'LocalStorageModule'
   ,'ui.bootstrap'
   ,'chieffancypants.loadingBar'
   //'apolloAppAnimations',
@@ -54,6 +55,14 @@ apolloApp.config(['$routeProvider',
           when('/linkage/:id', {
         templateUrl: 'partials/linkage',
         controller: 'linkageCtrl'
+      }).
+          when('/advancedSearch/:id', {
+        templateUrl: 'partials/advancedSearch',
+        controller: 'advancedSearchCtrl'
+      }).
+          when('/advancedSearch/', {
+        templateUrl: 'partials/advancedSearch',
+        controller: 'advancedSearchCtrl'
       }).
           when('/inTheLab', {
         templateUrl: 'partials/inTheLab',

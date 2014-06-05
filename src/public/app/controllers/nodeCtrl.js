@@ -4,6 +4,7 @@ angular.module('apolloApp').controller('nodeCtrl', ['$scope', '$location', '$res
         $scope.nodeId = $routeParams.id
         $scope.$parent.q = 'explore';
         $scope.isCollapsed = true;
+        var siteName = 'Node Viewer: ' + $scope.nodeId
         var node = $resource('/apollo/api/node/:id', {
             id: '@id'
         });
@@ -16,6 +17,7 @@ angular.module('apolloApp').controller('nodeCtrl', ['$scope', '$location', '$res
         var nodeDetails = $http.get('/apollo/api/node/' + $routeParams.id).success(function(data) {
             var attributeKeys = _.pluck(data.attributes, 'key');
             $scope.node = data;
+            siteName = 'Node Viewer: ' + data.name;
             var len = $scope.node.attributes.length;
             $scope.labelGroups = function(label) {
                 return _.toArray(nodeAttributeDictionary[label].attributeGroups);
@@ -91,10 +93,10 @@ angular.module('apolloApp').controller('nodeCtrl', ['$scope', '$location', '$res
         $scope.emailBlurb = encodeURIComponent($location.absUrl());
 
     var site = {
-      'name':'Node Viewer',
+      'name':siteName,
       'url':$location.absUrl()
     }
-    $scope.$parent.browseHistory.sites.push(site);
+    $scope.$parent.unshiftSiteHistory(site);
 
     }
     

@@ -9,14 +9,21 @@ angular.module('apolloApp').controller('linkageCtrl', function($scope, $routePar
     $scope.node = node.get({
         id: $routeParams.id
     });
+
     
 	$scope.twitterBlurb = encodeURIComponent($location.absUrl());
 
+	var siteName = 'Linkage Viewer: ' + $routeParams.id;
+	if ($scope.node.name != null)
+	{
+		'Linkage Viewer: ' + $scope.node.name;
+	}
+
 	var site = {
-      'name':'Linkage Viewer',
+      'name':siteName,
       'url':$location.absUrl()
     }
-    $scope.$parent.browseHistory.sites.push(site);
 
+    $scope.$parent.unshiftSiteHistory(site);
     $scope.emailBlurb = encodeURIComponent($location.absUrl());
 });

@@ -1,38 +1,21 @@
 .row
 	.div(ng-class='getContentWidth()')
 		.content_block
-			span.visible-md.visible-lg
-				.subnav
-					ul.nav.nav-pills
-						li
-							a(href='#/quickGuide/') Quick Guide
-						li
-							a(href='#/browse/') Browse
-						li.active
-							a(href='#/search/') Search
-						li
-							a(href='#/advancedSearch/') Advanced Search
-						li
-							a(href='' class='inactive') Favorites
-						li
-							a(href='#/inTheLab/') In the Lab
-				// end subnav
-			span.visible-sm
-				.subnav_sm
-					ul.nav.nav-pills
-						li
-							a(href='#/quickGuide/') Quick Guide
-						li
-							a(href='#/browse/') Browse
-						li.active
-							a(href='#/search/') Search
-						li
-							a(href='#/advancedSearch/') Advanced Search
-						li
-							a(href='' class='inactive') Favorites
-						li
-							a(href='#/inTheLab/') In the Lab
-				// end subnav
+			.subnav
+				ul.nav.nav-pills
+					li
+						a(href='#/quickGuide/') Quick Guide
+					li
+						a(href='#/browse/') Browse
+					li.active
+						a(href='#/search/{{nodeId}}') Search
+					li
+						a(href='#/advancedSearch/') Advanced Search
+					li
+						a(href='' class='inactive') Favorites
+					li
+						a(href='' class='inactive') In the Lab
+			// end subnav
 			//- .backlink
 			//- 	span.glyphicon.glyphicon-circle-arrow-left
 			//- 	| &nbsp;Back to search results
@@ -58,11 +41,13 @@
 							span.caret
 						ul.dropdown-menu(role='menu')
 							li
-								a(href='mailto:?subject={{node.name}}&body={{emailBlurb}}') Email
+								a(href='#') (Coming soon)
 							li
-								a(href='' ng-click='share([node.name, "#/linkage/{{nodeId}}"])' id='fb-root') Facebook
+								a(href='#') Email
 							li
-								a(target='_blank' href='http://twitter.com/home?status=CDC iSurv Portal: {{node.name}}: {{twitterBlurb}}') Twitter
+								a(href='#') Facebook
+							li
+								a(href='#') Twitter
 						//end added lines 
 				button.btn.btn-default.pull-left.link_button1(type='button')
 					span.glyphicon.glyphicon-repeat.icon-flipped
@@ -73,7 +58,7 @@
 					| Lock nodes
 				button.btn.btn-default.pull-left.link_button4(type='button')
 					span.glyphicon.glyphicon-ban-circle
-					| Hide lines
+					| Hide lines					
 				img.pull-left.small_divider(src='img/small_divider.png')
 				.cluster
 					.cluster_text
@@ -85,16 +70,77 @@
 						button.btn.btn-default.link_button7.disabled(type='button')
 							span.glyphicon.glyphicon-link
 							| Relationship type
+			.detail_header
+				.share_button_linkage
+					| Number of hops
+					input(type='radio', id='hop2' name='hop', value='2') 
+					| 2
+					input(type='radio', id='hop3' name='hop', value='3') 
+					| 3
+					input(type='radio', id='hop4' name='hop', value='4') 
+					| 4
+					input.pull-left.form-control(type='text',ng-model='leftnode',id='leftnode')
+					input.pull-left.form-control(type='text',ng-model='rightnode',id='rightnode')
+					button.pull-left.btn.btn-default.pull-left.link_buttone(type='button')
+						span.glyphicon.glyphicon-ban-circle
+						| Find
+					
 			// end detail header
 			.top_block2
 				.block_linkage
 					.vertical_spacing1
 						script.
+
+							//d3.select(".btn.btn-default.pull-left.link_buttone").on("click", function(){
+
+							$( ".btn.btn-default.pull-left.link_buttone" ).click(function() {
+
+							var leftnodeid=document.getElementById('leftnode').value;
+							var rightnodeid=document.getElementById('rightnode').value;
+							var hops=$("input[name=hop]:checked").val();
+
+							//console.log(hops+"*");
+
+							if(leftnodeid=="" | rightnodeid=="" | hops=="" | leftnodeid==undefined| rightnodeid==undefined| hops==undefined)
+							{
+								alert('error');
+
+							}
+							else
+							{
+								window.open("#/advancedSearch/"+leftnodeid+"-"+rightnodeid+"-"+hops,"_self","",false);
+							}
+
+							
+
+							});
+
+
+							$( document ).ready(function() {
+
+							
+
+
 							
 							var url = $(location).attr('href');
 							var split = url.split('/');
 							var id = split[split.length - 1];
-							d3.json("/apollo/api/node/viewer/" + id, function(error, json) {
+
+							
+							//console.log(".."+id+"..");
+
+							//d3.json("/apollo/api/node/viewer/" + id, function(error, json) {
+							var leftnodeid=id.split("-")[0];
+							var rightnodeid=id.split("-")[1];
+							var hop=id.split("-")[2];
+
+							//console.log(leftnodeid,rightnodeid);
+
+
+							jsonret=d3.json("/apollo/api/node/advancedSearch/"+leftnodeid+"-"+rightnodeid+"-"+hop, function(error, json) {
+
+
+							//console.log("json",json);
 
 							var togglehidelinks=true;
 							var togglefixnodes=true;
@@ -103,52 +149,59 @@
 							var h = 900;
 							var r = 10;
 							var rcent=15;//radius of node circle
-
+							
 							var svg = d3.select(".block_linkage").append("svg:svg")
 							.attr("width", w)
 							.attr("height", h);
 
 
-							d3.select(window).on('resize', svgresize);
-
-							if(json==undefined | error)
+							if(id=="" | id=="-")
 							{
-
-								var errormsg=svg.append("text")
-								.text("HIV TB Prevalence Public Use Dataset (Dataset) has no relationships with other entities.")
-								.attr("class","linkageerrormsg")
-								.attr("x",w/4)
-								.attr("y",h/4);
-
 								
+							}
+							else if(json==undefined | error)
+							{
+							
+							var errortext = svg
+							.append("svg:text")
+							.attr("x", 100)
+							.attr("y", 100)
+							.text("No nodes or relationships found.")
+							;
+
+							document.getElementById('leftnode').value=leftnodeid;
+							document.getElementById('rightnode').value=rightnodeid;
+							$('#hop'+hop).prop('checked', true);
+
 							}
 							else
 							{
 
 
-							
-							
-							
-							//var h= $("div.block_linkage").outerHeight();
+
+							document.getElementById('leftnode').value=leftnodeid;
+							document.getElementById('rightnode').value=rightnodeid;
+							$('#hop'+hop).prop('checked', true);
+
 							
 							var force = d3.layout.force()
 							.nodes(json.nodes)
 							.links(json.links)
 							.size([w, h])
 							.linkDistance(200)
-							.charge(-1850)
+							.charge(-250)
 							.on("tick", tick)
 							.start();
 							
-							//console.log($("div.block_linkage").outerWidth(),$("div.block_linkage").outerHeight());
-							
-							
-							
+
+							d3.select(window).on('resize', svgresize);
 							
 
 							d3.select(".btn.btn-default.pull-left.link_button1").on("click", clickreset);
 							d3.select(".btn.btn-default.pull-left.link_button5").on("click", locknodes);
 							d3.select(".btn.btn-default.pull-left.link_button4").on("click", hidelinks);
+
+							
 
 							d3.select(".btn.btn-default.link_button6").on("click", clusterlayout);
 
@@ -170,7 +223,7 @@
 							.selectAll("circle")
 							.data(json.nodes)
 							.enter().append("svg:circle")
-							.attr("r", function(d) { if(d.index==0)return rcent;else return r; })
+							.attr("r", function(d) { if(d.id==leftnodeid || d.id==rightnodeid)return rcent;else return r; })
 							.attr("class", function(d) { return "node " + d.label; })
 							.on("dblclick", dblclick)
 							.call(force.drag);
@@ -180,12 +233,6 @@
 							.data(json.nodes)
 							.enter().append("svg:g");
 
-							// A copy of the text with a thick white stroke for legibility.
-							/*text.append("svg:text")
-							.attr("x", 8)
-							.attr("y", ".31em")
-							.attr("class", "shadow")
-							.text(function(d) { return d.name; });*/
 
 							text.append("a").attr("xlink:href",function(d) { return "/apollo/#/linkage/" + d.id; })
 							.append("svg:text")
@@ -226,8 +273,14 @@
 							});
 							//.on("mouseover", linkmouseover);
 
+							clickreset();
 
-							}//else if undefined or error
+
+
+
+
+							}//else json undefined
+
 
 
 														function tick() {
@@ -235,14 +288,12 @@
 								w= $("svg").outerWidth();
 								h= $("svg").outerHeight();
 								
-								
-								
-								//console.log($("svg").outerWidth());
-								
+
 
 								circle.attr("cx", function(d) { return d.x = Math.max(rcent+2, Math.min(w - rcent-2, d.x)); })
 								.attr("cy", function(d) { return d.y = Math.max(rcent+2, Math.min(h - rcent-2, d.y)); });
-								
+
+
 								path.attr("d", function(d) {
 								var dx = d.target.x - d.source.x,
 								dy = d.target.y - d.source.y,
@@ -259,13 +310,6 @@
 								.style("fill", "#8D8D91");
 
 
-								
-
-
-								path_label.attr("transform", function(d) {
-									//console.log(d);
-									return "translate(" + d.source.x + "," + d.source.y + ")";
-								});
 
 								text.attr("transform", function(d) {
 									return "translate(" + d.x + "," + d.y + ")";
@@ -335,20 +379,44 @@
 							}
 
 
-
 							function clickreset(d) {
 
 								d3.selectAll("circle").classed("fixed", false);
-								togglefixnodes=true;
+								//togglefixnodes=true;
 								d3.select(".btn.btn-default.pull-left.link_button5").classed("active", false);
 
-								i=0;
-								for (n in json.nodes){
-								//alert(n.id);
-								json.nodes[i].fixed=false;
-								i++;
-
+								//i=0;
+								json.nodes.forEach(function(d,i){
+								
+								d.fixed=false;
+								if(d.id==leftnodeid | d.id==rightnodeid)
+								{
+									d.fixed=true;
 								}
+
+								if(d.id==leftnodeid)
+								{
+									d.px=200;
+									d.x=200;
+
+									d.py=h/2;
+									d.y=h/2;
+								}
+
+								if(d.id==rightnodeid)
+								{
+									d.px=w-200;
+									d.x=w-200;
+
+									d.py=h/2;
+									d.y=h/2;
+								}
+
+								//i++;
+								//console.log(d);
+
+								});
+
 
 								d3.selectAll("path").attr("visibility", "visible");
 								d3.selectAll("text.path_label").attr("visibility", "visible");
@@ -527,6 +595,12 @@
 							}
 
 							});
+
+
+
+							});//doument ready
+
+
 				// end block_linkage
 				.key
 					table.key_details
@@ -667,8 +741,6 @@
 					| Your Exploration History:
 				.sidebar_coming_soon
 					Em (Coming soon...)
-					div(ng-repeat='site in browseHistory.sites')
-						a(ng-click='goToTop()' href='{{site.url}}') {{site.name}}
 			.button_side
 				.sidebar_button
 					img(src='img/tab_button_collapse.png', alt='Collapse sidebar')			

@@ -13,13 +13,20 @@ angular.module('apolloApp').controller('quickGuideCtrl', function($scope, $locat
     }
     
     $scope.twitterBlurb = encodeURIComponent($location.absUrl());
+    var name = 'QuickGuide';
+    //console.log('route params is giving me: '+ $routeParams);
+    if ($routeParams.topic!= null)
+    {
+        name = name + ': ' + $scope.$parent.toCapitalizedWords($routeParams.topic) ;
+    }
     var site = {
-  'name':'Quick Guide: ' + $scope.queryString,
+  'name':name,
   'url':$location.absUrl()
 }
-$scope.$parent.browseHistory.sites.push(site);
 
+$scope.$parent.unshiftSiteHistory(site);
 $scope.emailBlurb = encodeURIComponent($location.absUrl());
+
 });
 
 function goBack()

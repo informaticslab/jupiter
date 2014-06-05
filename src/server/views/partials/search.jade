@@ -12,11 +12,11 @@
 						li.active
 							a(href='#/search/') Search
 						li
-							a(href='' class='inactive') Advanced Search
+							a(href='#/advancedSearch/') Advanced Search
 						li
 							a(href='' class='inactive') Favorites
 						li
-							a(href='' class='inactive') In the Lab
+							a(href='#/inTheLab/') In the Lab
 				// end subnav
 			span.visible-sm
 				.subnav_sm
@@ -28,11 +28,11 @@
 						li.active
 							a(href='#/search/') Search
 						li
-							a(href='' class='inactive') Advanced Search
+							a(href='#/advancedSearch/') Advanced Search
 						li
 							a(href='' class='inactive') Favorites
 						li
-							a(href='' class='inactive') In the Lab
+							a(href='#/inTheLab/') In the Lab
 				// end subnav	
 			span.visible-lg
 				.search_header
@@ -102,8 +102,8 @@
 					.search_text
 						span.search_intro.totally_sm Total Results: {{labelCounts.Total}}
 					// Split button
-					.btn-group.sortby
-						button.btn.btn-default(type='button') Sort by...
+					.btn-group.sortby_sm
+						button.btn.btn-default(type='button') Sort by
 						button.btn.btn-default.dropdown-toggle(type='button', data-toggle='dropdown')
 							span.caret
 							span.sr-only Toggle Dropdown

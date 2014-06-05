@@ -2,7 +2,7 @@ var neodb = require('../lib/neo4jConnection');
 var _ = require('underscore');
 exports.getRelationsForNode = function(req, res) {
     var query = ['MATCH n-[r]-x ', 'where n.id={nodeId} ' //maaaaaaaagic
-        , 'return id(r) as relId,type(r) as relType, x.id as childId, ', 'labels(x) as childLabels, x.name as childName order by relType, childName '
+        , 'return id(r) as relId,type(r) as relType, x.id as childId, ','startNode(r).id as startNode,', 'labels(x) as childLabels, x.name as childName order by relType, childName '
     ].join('\n');
     var params = {
         nodeId: req.params.id
@@ -40,7 +40,8 @@ exports.getRelationsForNode = function(req, res) {
                     }).each(function(a) {
                         relTypeToAdd.nodes.push({
                             'id': a.childId,
-                            'name': a.childName
+                            'name': a.childName,
+                            'startNode' : a.startNode
                         });
                     });
                     labelToAdd.relTypes.push(relTypeToAdd);
@@ -435,7 +436,271 @@ exports.getAllNodesForInTheLab = function(req, res) {
             res.send(404, 'no statistics available');
         } else {
             res.send(r);
-            
         }
     });
+}
+
+
+exports.getAdvancedSearchData = function(req, res) {
+
+
+    var nodes=req.params.id;
+    //console.log(nodes);
+
+    var nodesarr=nodes.split("-");
+
+    var hops=nodesarr[2];
+
+
+
+    var query, params;
+
+    if(hops==2)
+    {
+        query = ['MATCH p=(a)-[*1]-(b)-[*1]-(c) where a.id={leftId} and c.id={rightId}',
+        'return extract(x in nodes(p) |x.name) as Nodes, extract(y in nodes(p) |y.id) as NodesId, extract(s in nodes(p) |labels(s)) as NodesLabel, extract(z in relationships(p) | type(z)) as Relations, ',
+        'extract(r in relationships(p) | startNode(r).id) as StartNodes'
+        ].join('\n');
+
+    }
+    else if(hops==3)
+    {
+        query = ['MATCH p=(a)-[*1..2]-(b)-[*1..2]-(c) where a.id={leftId} and c.id={rightId}',
+        'return extract(x in nodes(p) |x.name) as Nodes, extract(y in nodes(p) |y.id) as NodesId, extract(s in nodes(p) |labels(s)) as NodesLabel, extract(z in relationships(p) | type(z)) as Relations, ',
+        'extract(r in relationships(p) | startNode(r).id) as StartNodes'
+        ].join('\n');
+
+    }
+    else if(hops==4)
+    {
+        query = ['MATCH p=(a)-[*2]-(b)-[*2]-(c) where a.id={leftId} and c.id={rightId}',
+        'return extract(x in nodes(p) |x.name) as Nodes, extract(y in nodes(p) |y.id) as NodesId, extract(s in nodes(p) |labels(s)) as NodesLabel, extract(z in relationships(p) | type(z)) as Relations, ',
+        'extract(r in relationships(p) | startNode(r).id) as StartNodes'
+        ].join('\n');
+
+    }
+    else
+    {
+        console.error('Error retreiving degrees of seperation from database:');
+        res.send(404, 'no degree indicated');
+
+    }
+
+   
+
+
+    var params = {
+        leftId: nodesarr[0],
+        rightId: nodesarr[1]
+    };
+
+
+    //console.log(params);
+
+    var viewerJson;
+    neodb.db.query(query, params, function(err, r) {
+        if (err) {
+            console.error('Error retreiving relations from database:', err);
+            res.send(404, 'no node at that location');
+        } else {
+            //console.log(r);
+
+            if(r=="")
+            {
+
+                res.send(404, 'no node at that location');
+            }
+            else
+            {
+
+
+                //console.log(nodes);
+                //console.log(relations);
+
+                var obj = eval (r);
+                var nodesA = [];
+
+                obj.forEach(function (d){
+                //console.log("Nodes",d.Nodes);
+
+                    var dnodes=eval(d.Nodes);
+                    var dnodesid=eval(d.NodesId);
+                    var dnodeslabel=eval(d.NodesLabel);
+                    var drelations=eval(d.Relations);
+                    var dstartnodes=eval(d.StartNodes);
+
+
+                    //console.log("dnodes",dnodes);
+                       
+
+                    for (var i=0;i<dnodes.length-1;i++)
+                    { 
+                            
+                            //console.log("1--",dnodes[i]);
+                            nodesA.push({
+                                "source":dnodes[i],
+                                "sourceid":dnodesid[i],
+                                "target":dnodes[i+1],
+                                "targetid":dnodesid[i+1],
+                                "sourcelabel":dnodeslabel[i],
+                                "targetabel":dnodeslabel[i+1],
+                                "type":drelations[i],
+                                "startnode":dstartnodes[i],
+                                "objectid":dnodes[i]+dnodesid[i]+dnodes[i+1]+dnodesid[i+1]+drelations[i]+dstartnodes[i]
+                            });
+
+                            //console.log("nodesA",nodesA[i]);
+
+                    }
+
+
+                });
+
+
+               
+                var nodesAunique=[];
+
+                nodesAunique.push(nodesA[0]);
+                //console.log("push",nodesAunique[0].objectid);
+
+                for (var i=0;i<nodesA.length;i++)
+                {
+                    var found=false; 
+                    for(j=0;j<nodesAunique.length;j++)
+                    {
+                        if(nodesA[i].objectid==nodesAunique[j].objectid)
+                        {
+                            //console.log("break");
+                            //continue;
+                            found=true;
+                            break;
+                        }
+
+                    }
+
+                    if(!found)
+                    {
+                        nodesAunique.push(nodesA[i]);
+
+                    }
+
+                }
+
+                //console.log("nodesAunique",nodesAunique.length);
+
+                
+                var nodes=[];
+
+                nodes.push({"name":nodesAunique[0].source,"id":nodesAunique[0].sourceid,"label":nodesAunique[0].sourcelabel});
+
+                for (var i=0;i<nodesAunique.length;i++)
+                { 
+                    var found=false;
+                    for(j=0;j<nodes.length;j++)
+                    {
+                        if(nodesAunique[i].sourceid==nodes[j].id)
+                        {
+                            found=true;
+                            break;
+                        }
+                        
+
+                    }
+                    if(!found)
+                    {
+                        nodes.push({"name":nodesAunique[i].source,"id":nodesAunique[i].sourceid,"label":nodesAunique[i].sourcelabel});
+                    }
+
+                }
+
+
+
+                for (var i=0;i<nodesAunique.length;i++)
+                { 
+                    var found=false;
+                    for(j=0;j<nodes.length;j++)
+                    {
+                        if(nodesAunique[i].targetid==nodes[j].id)
+                        {
+                            found=true;
+                            break;
+                        }
+                        
+
+                    }
+                    if(!found)
+                    {
+                        nodes.push({"name":nodesAunique[i].target,"id":nodesAunique[i].targetid,"label":nodesAunique[i].targetlabel});
+                    }
+
+                }
+
+
+                //console.log("nodes",nodes);
+                
+
+                var links=[];
+
+
+           
+                for (var i=0;i<nodesAunique.length;i++)
+                { 
+                    
+                    var sourcenodeid=nodesAunique[i].sourceid;
+                    var targetnodeid=nodesAunique[i].targetid;
+                    var sourcenodeindex;
+                    var targetnodeindex;
+                    var startnodeid=nodesAunique[i].startnode;
+
+                    
+
+                    for(var j=0; j<nodes.length;j++)
+                    {
+                        //console.log(i,j, nodes.id,sourcenodeid);
+                        if(nodes[j].id==sourcenodeid)
+                        {
+                            sourcenodeindex=j;
+                            break;
+
+                        }
+
+                    }
+                    //console.log(sourcenodeid, sourcenodeindex,targetnodeid, targetnodeindex);
+
+                    
+
+                    for(var j=0; j<nodes.length;j++)
+                    {
+                        if(nodes[j].id==targetnodeid)
+                        {
+                            targetnodeindex=j;
+                            break;
+
+                        }
+
+                    }
+
+
+                    //console.log(sourcenodeid, sourcenodeindex,targetnodeid, targetnodeindex);
+
+                    if(sourcenodeid==startnodeid)
+                    {
+                        links.push({"source":sourcenodeindex,"target":targetnodeindex,"type":nodesAunique[i].type});
+                    }
+                    else
+                    {
+                        links.push({"source":targetnodeindex,"target":sourcenodeindex,"type":nodesAunique[i].type});
+                    }
+                    
+
+                }
+
+
+                viewerJson = {
+                    "nodes": nodes,
+                    "links": links
+                            }
+                res.send(viewerJson);
+            }    
+    });        
 };

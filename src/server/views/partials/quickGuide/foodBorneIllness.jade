@@ -6,34 +6,34 @@ a(id='top')
       span.visible-md.visible-lg
         .subnav
           ul.nav.nav-pills
-            li
+            li.active
               a(href='#/quickGuide/') Quick Guide
             li
               a(href='#/browse/') Browse
-            li.active
+            li
               a(href='#/search/') Search
             li
-              a(href='' class='inactive') Advanced Search
+              a(href='#/advancedSearch/') Advanced Search
             li
               a(href='' class='inactive') Favorites
             li
-              a(href='' class='inactive') In the Lab
+              a(href='#/inTheLab/') In the Lab
         // end subnav
       span.visible-sm
         .subnav_sm
           ul.nav.nav-pills
-            li
+            li.active
               a(href='#/quickGuide/') Quick Guide
             li
               a(href='#/browse/') Browse
-            li.active
+            li
               a(href='#/search/') Search
             li
-              a(href='' class='inactive') Advanced Search
+              a(href='#/advancedSearch/') Advanced Search
             li
               a(href='' class='inactive') Favorites
             li
-              a(href='' class='inactive') In the Lab
+              a(href='#/inTheLab/') In the Lab
         // end subnav 
       //- .backlink
       //-   span.glyphicon.glyphicon-circle-arrow-left
@@ -43,7 +43,7 @@ a(id='top')
       .row
       .col-lg-12.col-md-12.col-sm-12.col 
         .azlist_header Foodborne Illness Surveillance, Response, and Data Systems
-          .share_button
+          .share_button_qg
             //Single button 
             .btn-group
               button.btn.btn-default.dropdown-toggle(type='button', data-toggle='dropdown')

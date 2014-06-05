@@ -702,5 +702,6 @@ exports.getAdvancedSearchData = function(req, res) {
                             }
                 res.send(viewerJson);
             }    
+        }    
     });        
 };

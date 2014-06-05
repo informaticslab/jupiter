@@ -206,14 +206,16 @@ li.faq {padding-bottom:.5em;}
 
 .detail_header_text_contain_lg {float:left; display: block; min-width:85%; padding-left:.7em; }
 
-.detail_header_text_contain {padding-left:.9em; max-width:85%; float:left; padding-top:.5em; }
 
-
-.detail_header_text_md {font-family: Tahoma, Geneva, sans-serif; letter-spacing:.01em; font-size:1em; display: inline-block;
+.detail_header_text_md_sm {font-family: Tahoma, Geneva, sans-serif; letter-spacing:.01em; font-size:1em; display: inline-block;
   vertical-align: middle;
   line-height: normal;  padding-top:.3em; }
 
 .detail_header_text_contain_md {padding-left:.7em; max-width:85%; float:left; display: block;
+  height: 32px;
+  line-height: 32px; }
+
+  .detail_header_text_contain_sm {padding-left:.7em; max-width:80%; float:left; display: block;
   height: 32px;
   line-height: 32px; }
 

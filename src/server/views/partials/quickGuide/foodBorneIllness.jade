@@ -41,22 +41,39 @@ a(id='top')
       //- // end backlink class
       .vertical_spacing
       .row
-      .col-lg-12.col-md-12.col-sm-12.col 
-        .azlist_header Foodborne Illness Surveillance, Response, and Data Systems
-          .share_button_qg
-            //Single button 
-            .btn-group
-              button.btn.btn-default.dropdown-toggle(type='button', data-toggle='dropdown')
-                span.glyphicon.glyphicon-share
-                | &nbsp;Share&nbsp;&nbsp;
-                span.caret
-              ul.dropdown-menu(role='menu')
-                li
-                  a(href='mailto:?subject=Foodborne Illness Surveillance, Response and Data Systems&body={{emailBlurb}}') Email
-                li
-                  a(href='' ng-click='share(["Foodborne Illness Surveillance, Response and Data Systems", "#/quickGuide/foodBorneIllness"])' id='fb-root') Facebook
-                li
-                  a(target='_blank' href='http://twitter.com/home?status=CDC iSurv Portal QuickGuide: Foodborne Ilness: {{twitterBlurb}}') Twitter
+      .col-lg-12.col-md-12.col-sm-12.col
+        span.visible-md.visible-lg
+          .azlist_header Foodborne Illness Surveillance, Response, and Data Systems
+            .share_button_qg
+              //Single button 
+              .btn-group
+                button.btn.btn-default.dropdown-toggle(type='button', data-toggle='dropdown')
+                  span.glyphicon.glyphicon-share
+                  | &nbsp;Share&nbsp;&nbsp;
+                  span.caret
+                ul.dropdown-menu(role='menu')
+                  li
+                    a(href='mailto:?subject=Foodborne Illness Surveillance, Response and Data Systems&body={{emailBlurb}}') Email
+                  li
+                    a(href='' ng-click='share(["Foodborne Illness Surveillance, Response and Data Systems", "#/quickGuide/foodBorneIllness"])' id='fb-root') Facebook
+                  li
+                    a(target='_blank' href='http://twitter.com/home?status=CDC iSurv Portal QuickGuide: Foodborne Ilness: {{twitterBlurb}}') Twitter
+        span.visible-sm
+          .azlist_header_sm Foodborne Illness Surveillance, Response, and Data Systems
+            .share_button_qg
+              //Single button 
+              .btn-group
+                button.btn.btn-default.dropdown-toggle(type='button', data-toggle='dropdown')
+                  span.glyphicon.glyphicon-share
+                  | &nbsp;Share&nbsp;&nbsp;
+                  span.caret
+                ul.dropdown-menu(role='menu')
+                  li
+                    a(href='mailto:?subject=Foodborne Illness Surveillance, Response and Data Systems&body={{emailBlurb}}') Email
+                  li
+                    a(href='' ng-click='share(["Foodborne Illness Surveillance, Response and Data Systems", "#/quickGuide/foodBorneIllness"])' id='fb-root') Facebook
+                  li
+                    a(target='_blank' href='http://twitter.com/home?status=CDC iSurv Portal QuickGuide: Foodborne Ilness: {{twitterBlurb}}') Twitter            
       .row
         // nested row
         .col-lg-9.col-md-9.col-sm-8

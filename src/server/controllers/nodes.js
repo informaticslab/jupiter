@@ -705,3 +705,40 @@ exports.getAdvancedSearchData = function(req, res) {
         }    
     });        
 };
+
+exports.getNodeNameById = function(req, res) {
+     var query = 'MATCH n WHERE n.id ={nodeId} RETURN n.name as name, labels(n) as label'
+    var params = {
+        nodeId: req.params.id
+    };
+    
+    neodb.db.query(query, params, function(err, results) {
+        
+        var nodename="";
+        if (err!=null) {
+            console.error('Error retreiving node from database:', err);
+            console.log(err);
+            res.send(404, 'No node at that location.');
+        } else {
+            
+            
+            if(results[0]==null)
+            {
+                //console.log("no name");
+                res.send("Not Found");
+            }
+            else
+            {
+                resultsobj= eval(results);
+
+                nodename= resultsobj[0].name;
+                nodelabel= resultsobj[0].label;
+
+                res.send(nodename+" ("+nodelabel[0]+")");
+            }
+
+            
+
+        }
+    });
+};

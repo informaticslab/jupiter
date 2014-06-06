@@ -100,11 +100,19 @@ html(lang="en" ng-app='apolloApp')
 		// end row 2 (navbar)
 		block main-content
 		// start footer row
-		.row.footerbottom(id='fb-root')
-			// links
-			.bottom_links
-				| Disclaimer&nbsp; | &nbsp;Accessibility&nbsp; | &nbsp;Code of Conduct&nbsp; | &nbsp;Contact&nbsp; 
-				span.cdc_info
-					| Centers for Disease Control and Prevention | &nbsp;Build: {{buildNumber}}
+		span.visible-lg.visible-md
+			.row.footerbottom(id='fb-root')
+				// links
+				.bottom_links
+					| Disclaimer&nbsp; | &nbsp;Accessibility&nbsp; | &nbsp;Code of Conduct&nbsp; | &nbsp;Contact&nbsp; 
+					span.cdc_info
+						| Centers for Disease Control and Prevention | &nbsp;Build: {{buildNumber}}
+		span.visible-sm
+			.row.footerbottom(id='fb-root')
+				// links
+				.bottom_links_sm
+					| Disclaimer&nbsp; | &nbsp;Accessibility&nbsp; | &nbsp;Code of Conduct&nbsp; | &nbsp;Contact&nbsp; 
+					span.cdc_info_sm
+						| Centers for Disease Control and Prevention | &nbsp;Build: {{buildNumber}}				
 		include scripts
 		

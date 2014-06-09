@@ -666,109 +666,219 @@
 								|  such as oversees, manages, uses, shares data with, etc. The arrow indicates
 								|  the direction of the relationship (e.g., the source to the recipient). 
 				// end class key
-				.legend
-					table.legend_details
-						tr
-							td.legend_td
-								.blue_subhead Legend:
-							td.node_legend_image_td
-								img.move_legend(src='img/node_ss.png')
-								| Surveillance System
-							td.node_legend_image_td
-								img.move_legend(src='img/node_program.png')
-								| Program
-							td.node_legend_image_td
-								img.move_legend(src='img/node_registry.png')
-								| Registry
-							td.node_legend_image_td
-								img.move_legend(src='img/node_hs.png')
-								| Health Survey
-						tr
-							td.legend_td
-								.blue_subhead
-							td.node_legend_image_td
-								img.move_legend(src='img/node_tool.png')
-								| Tool
-							td.node_legend_image_td
-								img.move_legend(src='img/node_dataset.png')
-								| Dataset
-							td.node_legend_image_td
-								img.move_legend(src='img/node_ds.png')
-								| Data Standard		
-							td.node_legend_image_td
-								img.move_legend(src='img/node_col.png')
-								| Collaborative			
-						tr
-							td.legend_td
-								.blue_subhead
-							td.node_legend_image_td
-								img.move_legend(src='img/node_org.png')
-								| Organization
-							td.node_legend_image_td
-								img.move_legend(src='img/node_tag.png')
-								| Tag
-				// end class legend				
-				.instructions
-					.blue_subhead Instructions:
-					.left_bullets
-						ul
-							li.instruct
-								| To 
-								strong  view a node's relationships
-								| , click on a
-								| node name. This will bring it to the center of the graph. 
-							li.instruct
-								| To 
-								strong  view more information 
-								| about the center node, click the
-								em  
-									strong Details
-								|  tab. 
-							li.instruct
-								| To
-								strong  lock or reposition
-								|  an individual node, click the node.
-								| A black border will display around the node, and it will be locked in position. You may then drag the node to the desired position.
-							li.instruct
-								| To 
-								strong lock all nodes
-								| , click the 
-								em 
-									strong Lock nodes
-								|  button. To release the nodes, simply click the button again, or click the 
-								em
-									strong Reset
-								|  button.
-					// end class left_bullets
-					.right_bullets
-						ul
-							li.instruct
-								| To
-								strong  hide the lines
-								|  in the graph, click the
-								em
-									strong  Hide lines
-								|  button. To make them reappear, simply click the button again.	
-							li.instruct
-								| To 
-								strong organize 
-								|  the nodes by 
-								strong  activity type
-								| , click the 
-								em
-									strong  Activity type
-								|  button. To disperse the nodes, simply click the button again.
-							// li.instruct
-							//	| To 
-							//	strong cluster 
-							//	|  the nodes by 
-							//	strong  relationship type
-							//	| , click the
-							//	em
-							//		strong  Relationship type
-							//	|  button. To disperse the nodes, simply click the button again.
-					// end class right_bullets
-				// end class instructions
+				span.visible-lg.visible-md
+					.legend
+						table.legend_details
+							tr
+								td.legend_td
+									.blue_subhead Legend:
+								td.node_legend_image_td
+									img.move_legend(src='img/node_ss.png')
+									| Surveillance System
+								td.node_legend_image_td
+									img.move_legend(src='img/node_program.png')
+									| Program
+								td.node_legend_image_td
+									img.move_legend(src='img/node_registry.png')
+									| Registry
+								td.node_legend_image_td
+									img.move_legend(src='img/node_hs.png')
+									| Health Survey
+							tr
+								td.legend_td
+									.blue_subhead
+								td.node_legend_image_td
+									img.move_legend(src='img/node_tool.png')
+									| Tool
+								td.node_legend_image_td
+									img.move_legend(src='img/node_dataset.png')
+									| Dataset
+								td.node_legend_image_td
+									img.move_legend(src='img/node_ds.png')
+									| Data Standard		
+								td.node_legend_image_td
+									img.move_legend(src='img/node_col.png')
+									| Collaborative			
+							tr
+								td.legend_td
+									.blue_subhead
+								td.node_legend_image_td
+									img.move_legend(src='img/node_org.png')
+									| Organization
+								td.node_legend_image_td
+									img.move_legend(src='img/node_tag.png')
+									| Tag
+					// end class legend
+				span.visible-sm
+					.legend
+						table.legend_details
+							tr
+								td.legend_td_sm
+									.blue_subhead Legend:
+								td.node_legend_image_td_sm_1
+									img.move_legend(src='img/node_ss.png')
+									| Surveillance System
+								td.node_legend_image_td_sm_2
+									img.move_legend(src='img/node_program.png')
+									| Program
+								td.node_legend_image_td_sm_3
+									img.move_legend(src='img/node_registry.png')
+									| Registry
+								td.node_legend_image_td_sm_4
+									img.move_legend(src='img/node_hs.png')
+									| Health Survey
+							tr
+								td.legend_td_sm
+									.blue_subhead
+								td.node_legend_image_td_sm_1
+									img.move_legend(src='img/node_tool.png')
+									| Tool
+								td.node_legend_image_td_sm_2
+									img.move_legend(src='img/node_dataset.png')
+									| Dataset
+								td.node_legend_image_td_sm_3
+									img.move_legend(src='img/node_ds.png')
+									| Data Standard		
+								td.node_legend_image_td_sm_4
+									img.move_legend(src='img/node_col.png')
+									| Collaborative			
+							tr
+								td.legend_td_sm
+									.blue_subhead
+								td.node_legend_image_td_sm_1
+									img.move_legend(src='img/node_org.png')
+									| Organization
+								td.node_legend_image_td_sm_2
+									img.move_legend(src='img/node_tag.png')
+									| Tag
+					// end class legend					
+				span.visible-lg.visible-md
+					.instructions_md_lg
+						.blue_subhead Instructions:
+						.left_bullets
+							ul
+								li.instruct
+									| To 
+									strong  view a node's relationships
+									| , click on a
+									| node name. This will bring it to the center of the graph. 
+								li.instruct
+									| To 
+									strong  view more information 
+									| about the center node, click the
+									em  
+										strong Details
+									|  tab. 
+								li.instruct
+									| To
+									strong  lock or reposition
+									|  an individual node, click the node.
+									| A black border will display around the node, and it will be locked in position. You may then drag the node to the desired position.
+						// end class left_bullets
+						.right_bullets
+							ul
+								li.instruct
+									| To 
+									strong lock all nodes
+									| , click the 
+									em 
+										strong Lock nodes
+									|  button. To release the nodes, simply click the button again, or click the 
+									em
+										strong Reset
+									|  button.
+								li.instruct
+									| To
+									strong  hide the lines
+									|  in the graph, click the
+									em
+										strong  Hide lines
+									|  button. To make them reappear, simply click the button again.	
+								li.instruct
+									| To 
+									strong organize 
+									|  the nodes by 
+									strong  activity type
+									| , click the 
+									em
+										strong  Activity type
+									|  button. To disperse the nodes, simply click the button again.
+								// li.instruct
+								//	| To 
+								//	strong cluster 
+								//	|  the nodes by 
+								//	strong  relationship type
+								//	| , click the
+								//	em
+								//		strong  Relationship type
+								//	|  button. To disperse the nodes, simply click the button again.
+						// end class right_bullets
+					// end class instructions
+				// end lg md
+				span.visible-sm
+					.instructions
+						.blue_subhead Instructions:
+						.left_bullets
+							ul
+								li.instruct
+									| To 
+									strong  view a node's relationships
+									| , click on a
+									| node name. This will bring it to the center of the graph. 
+								li.instruct
+									| To 
+									strong  view more information 
+									| about the center node, click the
+									em  
+										strong Details
+									|  tab. 
+								li.instruct
+									| To
+									strong  lock or reposition
+									|  an individual node, click the node.
+									| A black border will display around the node, and it will be locked in position. You may then drag the node to the desired position.
+								
+						// end class left_bullets
+						.right_bullets
+							ul
+								li.instruct
+									| To 
+									strong lock all nodes
+									| , click the 
+									em 
+										strong Lock nodes
+									|  button. To release the nodes, simply click the button again, or click the 
+									em
+										strong Reset
+									|   button.
+								li.instruct
+									| To
+									strong  hide the lines
+									|  in the graph, click the
+									em
+										strong  Hide lines
+									|  button. To make them reappear, simply click the button again.	
+								li.instruct
+									| To 
+									strong organize 
+									|  the nodes by 
+									strong  activity type
+									| , click the 
+									em
+										strong  Activity type
+									|  button. To disperse the nodes, simply click the button again.
+								// li.instruct
+								//	| To 
+								//	strong cluster 
+								//	|  the nodes by 
+								//	strong  relationship type
+								//	| , click the
+								//	em
+								//		strong  Relationship type
+								//	|  button. To disperse the nodes, simply click the button again.
+						// end class right_bullets
+					// end class instructions
+				// end lg md	
 			// end top_block2
 		// end content block
 	// end col spec

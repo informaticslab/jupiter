@@ -200,11 +200,11 @@ var compileSearchResults = function(req, res, err, results)
                         nodedataarr.push(nodedata);
                     }
                 }
-                //console.log(JSON.stringify(nodeLabelCounts))
+
                 nodedataarr.sort(sortFunction);
                 returnable.nodedataarr = nodedataarr;
                 returnable.nodeLabelCounts = nodeLabelCounts;
-                //console.log(returnable);
+                console.log(returnable);
                 res.json(returnable);
         }
         else
@@ -374,7 +374,7 @@ exports.getNodesForLinkageViewer = function(req, res) {
                 "nodes": nodes,
                 "links": links
                         }
-            //console.log(viewerJson);
+            console.log(viewerJson);
             res.send(viewerJson);
             }
             else
@@ -425,21 +425,111 @@ exports.getPortalStatisticsRelations = function(req, res) {
     });
 };
 
-exports.getAllNodesForInTheLab = function(req, res) {
-
-    var query = ['MATCH n return labels(n) as label'].join('\n');
-    var params = {};
-
-    neodb.db.query(query, params, function(err, r) {
+var compileSearchResultsForInTheLab= function(req, res, err, results)
+{
+        var nodedataarr = [];
+        var nodeLabelCounts = {Program:0,SurveillanceSystem:0,Registry:0,
+                            HealthSurvey:0,Tool:0,Dataset:0,DataStandard:0,
+                            Collaborative:0,Organization:0,Tag:0,Total:0};
+    
+        var returnable = {};
+        var duplicheck = [];
         if (err) {
-            console.error('Error retreiving all the nodes from database:', err);
-            res.send(404, 'no statistics available');
+            console.error('Error retreiving node from database:', err);
+            res.send(404, 'No node with that text available');
         } else {
-            res.send(r);
+            //console.log("results were" + results);
+            //console.log("results length is" + results);
+            if (results[0] != null && results[0]['n'] != null && results[0]['n']['data'] != null) {
+                for(var i=0;i<results.length;i++)
+                {   
+                    var doohicky = results[i]['n']['data'];
+                    if(duplicheck[doohicky.id] == null)
+                    {
+                        duplicheck[doohicky.id] = true;
+                        var nodedata = {};
+                        var doohickylabels = results[i]['labels(n)'].join(',')
+                        var relCount = results[i]['relCount'] 
+                        if (relCount == null)
+                        {
+                            relCount = 0;
+                        }          
+                        //console.log(doohicky);
+                
+                        nodedata.name = doohicky.name;
+                        nodedata.id = doohicky.id;
+                        nodedata.labels = doohickylabels;
+                        nodedata.relCount = relCount;
+                        nodedata.status = 'Not Available';
+                        if (nodeLabelCounts[doohickylabels] != null)
+                        {
+                           nodeLabelCounts[doohickylabels]++;
+                        }
+                        else
+                        {
+                           nodeLabelCounts[doohickylabels] = 1;
+                        }
+                        nodeLabelCounts['Total']++;
+                        nodedata.attributes = [];
+                        for (var prop in doohicky) 
+                        {
+                            if(prop == 'purpose' || prop=='description')
+                            {
+                                if(doohicky[prop].length > 450)
+                                {
+                                    nodedata.attributes.push({
+                                    'key': prop,
+                                    'value': doohicky[prop].substring(0, 447)  + '...'
+                                    });
+
+                                }
+                                else
+                                {
+                                    nodedata.attributes.push({
+                                    'key': prop,
+                                    'value': doohicky[prop]
+                                    });
+                                }
+                            }
+                            if(prop =='operationalStatus' && doohicky[prop] != null && doohicky[prop] != '')
+                            {
+                                nodedata.status = doohicky[prop];
+                            }
+                            nodedata.children = [];
+                        }
+                        nodedataarr.push(nodedata);
+                    }
+                }
+                
+                nodedataarr.sort(sortFunction);
+
+                returnable.name = "root";
+                returnable.children = nodedataarr;
+                // returnable.nodeLabelCounts = nodeLabelCounts;
+                
+                var mainReturnable = [];
+                mainReturnable.push(returnable);
+                res.json(mainReturnable);
         }
-    });
+        else
+            {
+              //res.send(404, "No node with that text available");
+              res.json({"nullset":true}) ;
+            }
+        }
 }
 
+
+exports.getAllNodesForInTheLab = function(req, res) {
+
+    var query = 'MATCH (n:SurveillanceSystem)-[r]-x RETURN n, labels(n), count(r) as relCount UNION MATCH (n:Program)-[r]-x RETURN n, labels(n), count(r) as relCount UNION MATCH (n:Registry)-[r]-x RETURN n, labels(n), count(r) as relCount UNION MATCH (n:HealthSurvey)-[r]-x RETURN n, labels(n), count(r) as relCount'
+    var params ={};
+   
+    neodb.db.query(query, params, function(err, results) {
+        //console.log("The total of surveillance systems and programs are: "+ results);
+        compileSearchResultsForInTheLab(req, res, err, results)
+    });
+};
 
 exports.getAdvancedSearchData = function(req, res) {
 

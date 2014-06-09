@@ -823,9 +823,17 @@ exports.getNodeNameById = function(req, res) {
                 resultsobj= eval(results);
 
                 nodename= resultsobj[0].name;
-                nodelabel= resultsobj[0].label;
+                nodelabel= resultsobj[0].label[0];
 
-                res.send(nodename+" ("+nodelabel[0]+")");
+
+                                
+                nodelabel=nodelabel.replace(/([a-z])([A-Z])/g, '$1 $2');
+                nodelabel=nodelabel.replace(/_/g, ' ');
+                nodelabel=nodelabel.replace(/\b([A-Z]+)([A-Z])([a-z])/, '$1 $2$3');
+                nodelabel=nodelabel.replace(/^./, function(nodelabel){ return nodelabel.toUpperCase(); });
+
+                
+                res.send(nodename+" ("+nodelabel+")");
             }
 
             

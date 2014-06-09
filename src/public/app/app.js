@@ -5,6 +5,9 @@ var apolloApp = angular.module('apolloApp', [
   ,'LocalStorageModule'
   ,'ui.bootstrap'
   ,'chieffancypants.loadingBar'
+  ,'angulartics'
+  ,'angulartics.google.analytics'
+  ,'angulartics.adobe.analytics'
   //'apolloAppAnimations',
  // 'apolloAppControllers',
  // 'apolloAppFilters',

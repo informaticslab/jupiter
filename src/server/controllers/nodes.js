@@ -434,12 +434,28 @@ var compileSearchResultsForInTheLab= function(req, res, err, results)
     
         var returnable = {};
         var duplicheck = [];
+
+        var surveillanceSys = {};
+        surveillanceSys.name = 'SurveillanceSystem';
+        surveillanceSys.children = [];
+
+        var programs = {};
+        programs.name = 'Program';
+        programs.children = [];
+
+        var healthSurveys = {};
+        healthSurveys.name = 'HealthSurvey';
+        healthSurveys.children = [];
+
+        var registries = {};
+        registries.name = 'Registry';
+        registries.children = [];
+
         if (err) {
             console.error('Error retreiving node from database:', err);
             res.send(404, 'No node with that text available');
         } else {
-            //console.log("results were" + results);
-            //console.log("results length is" + results);
+            
             if (results[0] != null && results[0]['n'] != null && results[0]['n']['data'] != null) {
                 for(var i=0;i<results.length;i++)
                 {   
@@ -454,58 +470,43 @@ var compileSearchResultsForInTheLab= function(req, res, err, results)
                         {
                             relCount = 0;
                         }          
-                        //console.log(doohicky);
-                
+                    
                         nodedata.name = doohicky.name;
                         nodedata.id = doohicky.id;
                         nodedata.labels = doohickylabels;
                         nodedata.relCount = relCount;
-                        nodedata.status = 'Not Available';
-                        if (nodeLabelCounts[doohickylabels] != null)
-                        {
-                           nodeLabelCounts[doohickylabels]++;
-                        }
-                        else
-                        {
-                           nodeLabelCounts[doohickylabels] = 1;
-                        }
-                        nodeLabelCounts['Total']++;
-                        nodedata.attributes = [];
-                        for (var prop in doohicky) 
-                        {
-                            if(prop == 'purpose' || prop=='description')
-                            {
-                                if(doohicky[prop].length > 450)
-                                {
-                                    nodedata.attributes.push({
-                                    'key': prop,
-                                    'value': doohicky[prop].substring(0, 447)  + '...'
-                                    });
+                        nodedata.children = [];
 
-                                }
-                                else
-                                {
-                                    nodedata.attributes.push({
-                                    'key': prop,
-                                    'value': doohicky[prop]
-                                    });
-                                }
-                            }
-                            if(prop =='operationalStatus' && doohicky[prop] != null && doohicky[prop] != '')
-                            {
-                                nodedata.status = doohicky[prop];
-                            }
-                            nodedata.children = [];
+                        if(nodedata.labels == 'SurveillanceSystem'){
+                            console.log("The nodedata label matches with SurveillanceSystem");
+                            surveillanceSys.children.push(nodedata);
                         }
-                        nodedataarr.push(nodedata);
+                        else if(nodedata.labels == 'Program'){
+                            programs.children.push(nodedata);
+                        }
+                        else if(nodedata.labels == 'HealthSurvey'){
+                            healthSurveys.children.push(nodedata);
+                        }
+                        else if(nodedata.labels == 'Registry'){
+                            registries.children.push(nodedata);
+                        }
                     }
                 }
+
+                healthSurveys.children.sort(sortFunction);
+                nodedataarr.push(healthSurveys);
+
+                registries.children.sort(sortFunction);
+                nodedataarr.push(registries);
                 
-                nodedataarr.sort(sortFunction);
+                programs.children.sort(sortFunction);
+                nodedataarr.push(programs);
+
+                surveillanceSys.children.sort(sortFunction);
+                nodedataarr.push(surveillanceSys);
 
                 returnable.name = "root";
                 returnable.children = nodedataarr;
-                // returnable.nodeLabelCounts = nodeLabelCounts;
                 
                 var mainReturnable = [];
                 mainReturnable.push(returnable);

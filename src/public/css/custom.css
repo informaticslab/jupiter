@@ -472,12 +472,12 @@ td.white_line  {vertical-align:text-top; padding-left:1em;}
 
 .node_image_td {vertical-align:top;}
 
-.node_legend_image_td {vertical-align:top; width:23%;}
+.node_legend_image_td {vertical-align:middle; width:23%;}
 
-.node_legend_image_td_sm_1 {vertical-align:top; width:32%; font-size:.8em;}
-.node_legend_image_td_sm_2 {vertical-align:top; width:20%; font-size:.8em;}
-.node_legend_image_td_sm_3 {vertical-align:top; width:23%; font-size:.8em;}
-.node_legend_image_td_sm_4 {vertical-align:top; width:22%; font-size:.8em;}
+.node_legend_image_td_sm_1 {vertical-align:top; width:32%; font-size:.8em; vertical-align:middle;}
+.node_legend_image_td_sm_2 {vertical-align:top; width:20%; font-size:.8em; vertical-align:middle;}
+.node_legend_image_td_sm_3 {vertical-align:top; width:23%; font-size:.8em; vertical-align:middle;}
+.node_legend_image_td_sm_4 {vertical-align:top; width:22%; font-size:.8em; vertical-align:middle;}
 
 .move_legend {padding-bottom:.3em; padding-right:.1em;}
 .node_text_td {padding-left:.7em; vertical-align:top;}

@@ -319,31 +319,30 @@
 
 
 							var path_label = svg.append("svg:g").selectAll(".path_label")
-							.data(json.links)
-							.enter().append("svg:text")
-							.attr("class", "path_label")
-							.append("svg:textPath")
-							.attr("startOffset", "50%")
-							.attr("text-anchor", "middle")
-							.attr("xlink:href", function(d) { return "#" + d.source.index + "_" + d.target.index; })
-							.style("font-family", "Arial")
-							.text(function(d) { return d.type; })
-							.on("click", function(d) {      
-							div.transition()        
-							.duration(200)      
-							.style("opacity", .9);      
-							div.html(d.description)  
-							.style("left", (d3.event.pageX) + "px")     
-							.style("top", (d3.event.pageY - 28) + "px");    
-							})                  
-							.on("mouseout", function(d) {       
-							div.transition()        
-							.duration(500)      
-							.style("opacity", 0);   
-							});
-							//.on("mouseover", linkmouseover);
-
-
+								.data(json.links)
+								.enter()
+								.append("svg:text")
+								.attr("class", "path_label");
+								
+								path_label.append("svg:textPath")
+								.attr("startOffset", "50%")
+								.attr("text-anchor", "middle")
+								.attr("xlink:href", function(d) { return "#" + d.source.index + "_" + d.target.index; })
+								.style("font-family", "Arial")
+								.text(function(d) { return d.type; })
+								.on("click", function(d) {      
+									div.transition()        
+										.duration(200)      
+										.style("opacity", .9);      
+									div.html(d.description)  
+										.style("left", (d3.event.pageX) + "px")     
+										.style("top", (d3.event.pageY - 28) + "px");    
+								})                  
+								.on("mouseout", function(d) {       
+									div.transition()        
+									.duration(500)      
+									.style("opacity", 0);   
+								});						
 							}//else if undefined or error
 
 
@@ -376,20 +375,24 @@
 								.style("fill", "#8D8D91");
 
 
-								
+								path_label.attr('transform', function(d) {
+									//return 'translate(' + d.source.x + ',' + d.source.y + );
+									if (d.target.x < d.source.x){
+										bbox = this.getBBox();
+										rx = bbox.x+bbox.width/2;
+										ry = bbox.y+bbox.height/2;
 
-
-								path_label.attr("transform", function(d) {
-									//console.log(d);
-									return "translate(" + d.source.x + "," + d.source.y + ")";
+										return 'rotate(180 '+rx+' '+ry+') ';
+									}
+									else {
+										return 'rotate(0)';
+									}
 								});
 
 								text.attr("transform", function(d) {
 									return "translate(" + d.x + "," + d.y + ")";
 								});
 								force.size([w, h]);
-								//force.start();
-								//console.log(w,h);
 							}
 
 							function dblclick(d) {

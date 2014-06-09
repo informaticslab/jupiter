@@ -208,6 +208,8 @@ li.faq {padding-bottom:.5em;}
 
 .detail_header_linkage_md {min-height:55px;background-color:#f39c11; color:#ffffff; font-weight:bold; padding:.5em; padding-top:.6em; }
 
+.detail_header_linkage_sm {min-height:55px;background-color:#f39c11; color:#ffffff; font-weight:bold; padding-right:.5em; padding-left:.5em; padding-top:.6em; border-bottom-style: solid; border-width: 1px; border-color: #d18710; }
+.detail_header_linkage_sm2 {min-height:49px;background-color:#f39c11; color:#ffffff; font-weight:bold; padding-right:.7em; border-top-style: solid; border-width: 1px; border-color: #f6ba5a; }
 
 .detail_header_text {font-family: Tahoma, Geneva, sans-serif; letter-spacing:.03em; font-size:1.1em;  padding-top:.6em;}
 
@@ -295,6 +297,7 @@ li.faq {padding-bottom:.5em;}
 .share_button-sm {text-align:right; float:right; }
 .share_button_linkage {text-align:left; float:right; position:relative; top:.2em; margin-right:.5em;} 
 .share_button_linkage_md {text-align:left; float:right; position:relative; top:.2em; margin-right:.2em;} 
+.share_button_linkage_sm {text-align:left; float:right; position:relative; top:.2em; margin-right:.2em;} 
 
 .share_button2 {float:right; }
 
@@ -444,7 +447,9 @@ td.bot_space {padding-bottom:1em;}
 
 .cluster {float:left; margin-left:1.2em;}
 .cluster_md {float:left; font-weight: normal; font-size:.9em; }
+.cluster_sm {float:right; font-weight: normal; font-size:.9em; display: block; padding-top:.3em;  }
 .cluster_text_md {font-weight: bold; font-size:.9em; margin-left:1em; margin-right:.5em; margin-top:.5em; text-align: right; line-height:98% }
+.cluster_text_sm {font-weight: bold; font-size:.9em; margin-right:.3em; margin-top:1em;  }
 
 
 .panel_custom {}

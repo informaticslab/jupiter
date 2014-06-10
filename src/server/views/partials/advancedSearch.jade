@@ -71,8 +71,10 @@
 							span.glyphicon.glyphicon-link
 							| Relationship type
 							
-				input(type="text" ng-model="nodeA"  placeholder="Activity A" typeahead-min-length='3' typeahead="node.name for node in getNodes($viewValue)" class="form-control")			
-				input(type="text" ng-model="nodeB"  placeholder="Activity B" typeahead-min-length='3' typeahead="node.name for node in getNodes($viewValue)" class="form-control")							
+				input(type="text" ng-model="nodeA"  placeholder="Activity A" typeahead-on-select="itemSelectedA($item, $model, $label)" typeahead-min-length='3' typeahead="node.name for node in getNodes($viewValue)" class="form-control")			
+				input(type="text" ng-model="nodeB"  placeholder="Activity B" typeahead-on-select="itemSelectedB($item, $model, $label)" typeahead-min-length='3' typeahead="node.name for node in getNodes($viewValue)" class="form-control")							
+				input(type="hidden" id="nodeAId" ng-value="nodeAId")
+				input(type="hidden" id="nodeBId" ng-value="nodeBId")
 			.detail_header
 				.share_button_linkage
 					| Number of hops

@@ -46,7 +46,7 @@ $( ".btn.btn-default.pull-left.link_buttone" ).click(function() {
 							jsonret=d3.json("/apollo/api/node/advancedSearch/"+leftnodeid+"-"+rightnodeid+"-"+hop, function(error, json) {
 
 
-							//console.log("json",json);
+							//console.log("json",json,error.status);
 
 							var togglehidelinks=true;
 							var togglefixnodes=true;
@@ -83,17 +83,13 @@ $( ".btn.btn-default.pull-left.link_buttone" ).click(function() {
 									;
 
 
-
-
-									document.getElementById('leftnode').value=leftnodeid;
-									document.getElementById('rightnode').value=rightnodeid;
 									$('#hop'+hop).prop('checked', true);
 
 								}
 								else
 								{
 
-									var msg="No relationships were found for the specified nodes.";
+									var msg="No relationships found.";
 									var xcoord=(w/2)-(msg.length*9/2);
 
 									var errortext = svg
@@ -104,8 +100,7 @@ $( ".btn.btn-default.pull-left.link_buttone" ).click(function() {
 									.text(msg)
 									;
 
-									document.getElementById('leftnode').value=leftnodeid;
-									document.getElementById('rightnode').value=rightnodeid;
+									
 									$('#hop'+hop).prop('checked', true);
 								}
 
@@ -113,7 +108,7 @@ $( ".btn.btn-default.pull-left.link_buttone" ).click(function() {
 							else if(json==undefined)
 							{
 							
-							var msg="No relationships were found for the specified nodes.";
+							var msg="No relationships found.";
 							var xcoord=(w/2)-(msg.length*9/2);
 
 							var errortext = svg
@@ -124,8 +119,7 @@ $( ".btn.btn-default.pull-left.link_buttone" ).click(function() {
 							.text(msg)
 							;
 
-							document.getElementById('leftnode').value=leftnodeid;
-							document.getElementById('rightnode').value=rightnodeid;
+							
 							$('#hop'+hop).prop('checked', true);
 
 							}
@@ -133,9 +127,6 @@ $( ".btn.btn-default.pull-left.link_buttone" ).click(function() {
 							{
 
 
-
-							document.getElementById('leftnode').value=leftnodeid;
-							document.getElementById('rightnode').value=rightnodeid;
 							$('#hop'+hop).prop('checked', true);
 
 							
@@ -194,7 +185,7 @@ $( ".btn.btn-default.pull-left.link_buttone" ).click(function() {
 							.attr("x", 25)
 							.attr("y", ".31em")
 							.text(function(d) { return d.name+" ("+d.label+")"; })
-							.style("font-weight",function(d){if(d.id==leftnodeid || d.id==rightnodeid){return "bold";} else return "normal";});
+							.style("font-weight",function(d){if(d.index==0){return "bold";} else return "normal";});
 
 							//For tooltip
 							var div = d3.select("body").append("div")   

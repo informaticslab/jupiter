@@ -820,7 +820,7 @@ exports.getAdvancedSearchData = function(req, res) {
 
                 //console.log(nodes.length);
 
-                if(nodes.length>50)
+                if(nodes.length>40)
                 {
 
                     res.send(413,"Too many nodes returned");

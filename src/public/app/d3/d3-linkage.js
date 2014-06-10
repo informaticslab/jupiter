@@ -169,7 +169,7 @@ var url = $(location).attr('href');
 							}//else if undefined or error
 
 
-														function tick() {
+							function tick() {
 							
 								w= $("svg").outerWidth();
 								h= $("svg").outerHeight();

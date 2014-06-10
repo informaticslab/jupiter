@@ -8,7 +8,7 @@ $( ".btn.btn-default.pull-left.link_buttone" ).click(function() {
 
 							if(leftnodeid=="" | rightnodeid=="" | hops=="" | leftnodeid==undefined| rightnodeid==undefined| hops==undefined)
 							{
-								alert('error');
+								alert('Please enter left node, right node and select the number of hops.');
 
 							}
 							else
@@ -70,7 +70,7 @@ $( ".btn.btn-default.pull-left.link_buttone" ).click(function() {
 								if(error.status==413)
 								{
 
-									var msg="Too many nodes returned. Reduce the number of hops.";
+									var msg="Due to the large number of relationships we recommend reducing the number of hops.";
 									var xcoord=(w/2)-(msg.length*9/2);
 
 									var errortext = svg
@@ -203,28 +203,30 @@ $( ".btn.btn-default.pull-left.link_buttone" ).click(function() {
 
 
 							var path_label = svg.append("svg:g").selectAll(".path_label")
-							.data(json.links)
-							.enter().append("svg:text")
-							.attr("class", "path_label")
-							.append("svg:textPath")
-							.attr("startOffset", "50%")
-							.attr("text-anchor", "middle")
-							.attr("xlink:href", function(d) { return "#" + d.source.index + "_" + d.target.index; })
-							.style("font-family", "Arial")
-							.text(function(d) { return d.type; })
-							.on("click", function(d) {      
-							div.transition()        
-							.duration(200)      
-							.style("opacity", .9);      
-							div.html(d.description)  
-							.style("left", (d3.event.pageX) + "px")     
-							.style("top", (d3.event.pageY - 28) + "px");    
-							})                  
-							.on("mouseout", function(d) {       
-							div.transition()        
-							.duration(500)      
-							.style("opacity", 0);   
-							});
+								.data(json.links)
+								.enter()
+								.append("svg:text")
+								.attr("class", "path_label");
+								
+								path_label.append("svg:textPath")
+								.attr("startOffset", "50%")
+								.attr("text-anchor", "middle")
+								.attr("xlink:href", function(d) { return "#" + d.source.index + "_" + d.target.index; })
+								.style("font-family", "Arial")
+								.text(function(d) { return d.type; })
+								.on("click", function(d) {      
+									div.transition()        
+										.duration(200)      
+										.style("opacity", .9);      
+									div.html(d.description)  
+										.style("left", (d3.event.pageX) + "px")     
+										.style("top", (d3.event.pageY - 28) + "px");    
+								})                  
+								.on("mouseout", function(d) {       
+									div.transition()        
+									.duration(500)      
+									.style("opacity", 0);   
+								});	
 							//.on("mouseover", linkmouseover);
 
 							clickreset();
@@ -263,6 +265,19 @@ $( ".btn.btn-default.pull-left.link_buttone" ).click(function() {
 								})
 								.style("fill", "#8D8D91");
 
+								path_label.attr('transform', function(d) {
+									//return 'translate(' + d.source.x + ',' + d.source.y + );
+									if (d.target.x < d.source.x){
+										bbox = this.getBBox();
+										rx = bbox.x+bbox.width/2;
+										ry = bbox.y+bbox.height/2;
+
+										return 'rotate(180 '+rx+' '+ry+') ';
+									}
+									else {
+										return 'rotate(0)';
+									}
+								});
 
 
 								text.attr("transform", function(d) {
@@ -350,20 +365,20 @@ $( ".btn.btn-default.pull-left.link_buttone" ).click(function() {
 
 								if(d.id==leftnodeid)
 								{
-									d.px=200;
-									d.x=200;
+									d.px=300;
+									d.x=300;
 
-									d.py=h/2;
-									d.y=h/2;
+									d.py=h/3;
+									d.y=h/3;
 								}
 
 								if(d.id==rightnodeid)
 								{
-									d.px=w-200;
-									d.x=w-200;
+									d.px=w-300;
+									d.x=w-300;
 
-									d.py=h/2;
-									d.y=h/2;
+									d.py=h/1.5;
+									d.y=h/1.5;
 								}
 
 								//i++;
@@ -538,7 +553,7 @@ $( ".btn.btn-default.pull-left.link_buttone" ).click(function() {
 
 							function linkmouseover(d) { 
 							
-							alert(d3.select(this).attr("testattr"));
+							//alert(d3.select(this).attr("testattr"));
 						
 							}
 

@@ -70,6 +70,9 @@
 						button.btn.btn-default.link_button7.disabled(type='button')
 							span.glyphicon.glyphicon-link
 							| Relationship type
+							
+				input(type="text" ng-model="nodeA"  placeholder="Activity A" typeahead-min-length='3' typeahead="node.name for node in getNodes($viewValue)" class="form-control")			
+				input(type="text" ng-model="nodeB"  placeholder="Activity B" typeahead-min-length='3' typeahead="node.name for node in getNodes($viewValue)" class="form-control")							
 			.detail_header
 				.share_button_linkage
 					| Number of hops

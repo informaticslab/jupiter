@@ -14,4 +14,13 @@ angular.module('apolloApp').controller('advancedSearchCtrl', function($scope, $h
 		    });
   	};
 
+  	$scope.itemSelectedA = function($item, $model, $label)
+  	{
+		$scope.nodeAId = $item.id;
+  	};
+  	
+	$scope.itemSelectedB = function($item, $model, $label)
+  	{
+		$scope.nodeBId = $item.id;
+  	};
 });

@@ -15,21 +15,7 @@
 						a(href='' class='inactive') Favorites
 					li
 						a(href='' class='inactive') In the Lab
-			// end subnav
-			//- .backlink
-			//- 	span.glyphicon.glyphicon-circle-arrow-left
-			//- 	| &nbsp;Back to search results
-			// end backlink class
-			//- .entity_name
-			//- 	| &nbsp;{{node.name}}
-			.nav_split
-				.btn-group.btn-group-md.btn-group-justified
-					.btn-group
-						a.btn.btn-default(href="#/node/{{nodeId}}", id='btnDetails') Details
-					.btn-group
-						a.btn.btn-custom(href='#/linkage/{{nodeId}}', id='btnLinkageViewer') Linkage Viewer
-				// end button group
-			// end nav_split
+
 			.detail_header
 				.share_button_linkage
 					//These lines, 173 - 187, were added 
@@ -70,26 +56,28 @@
 						button.btn.btn-default.link_button7.disabled(type='button')
 							span.glyphicon.glyphicon-link
 							| Relationship type
-							
-				input(type="text" ng-model="nodeA"  placeholder="Activity A" typeahead-on-select="itemSelectedA($item, $model, $label)" typeahead-min-length='3' typeahead="node.name for node in getNodes($viewValue)" class="form-control")			
-				input(type="text" ng-model="nodeB"  placeholder="Activity B" typeahead-on-select="itemSelectedB($item, $model, $label)" typeahead-min-length='3' typeahead="node.name for node in getNodes($viewValue)" class="form-control")							
-				input(type="hidden" id="nodeAId" ng-value="nodeAId")
-				input(type="hidden" id="nodeBId" ng-value="nodeBId")
-			.detail_header
-				.share_button_linkage
-					| Number of hops
-					input(type='radio', id='hop2' name='hop', value='2') 
-					| 2
-					input(type='radio', id='hop3' name='hop', value='3') 
-					| 3
-					input(type='radio', id='hop4' name='hop', value='4') 
-					| 4
-					input.pull-left.form-control(type='text',ng-model='leftnode',id='leftnode')
-					input.pull-left.form-control(type='text',ng-model='rightnode',id='rightnode')
-					button.pull-left.btn.btn-default.pull-left.link_buttone(type='button')
-						span.glyphicon.glyphicon-ban-circle
-						| Find
-					
+				.clearfix
+				br
+				.row
+					.col-md-4
+						input(type="text" ng-model="nodeA"  placeholder="Activity A" typeahead-on-select="itemSelectedA($item, $model, $label)" typeahead-min-length='3' typeahead="node.name for node in getNodes($viewValue)" class="form-control")			
+						input(type="hidden" id="nodeAId" ng-value="nodeAId")
+					.col-md-2
+						| Steps
+						input(type='radio', id='hop2' name='hop', value='2') 
+						| 2
+						input(type='radio', id='hop3' name='hop', value='3') 
+						| 3
+						input(type='radio', id='hop4' name='hop', value='4') 
+						| 4
+					.col-md-4
+						input(type="text" ng-model="nodeB"  placeholder="Activity B" typeahead-on-select="itemSelectedB($item, $model, $label)" typeahead-min-length='3' typeahead="node.name for node in getNodes($viewValue)" class="form-control")							
+						input(type="hidden" id="nodeBId" ng-value="nodeBId")
+					.col-md-2
+						button.pull-left.btn.btn-default.pull-left.link_buttone(type='button')
+							span.glyphicon.glyphicon-ban-circle
+							| Find
+
 			// end detail header
 			.top_block2
 				.block_linkage

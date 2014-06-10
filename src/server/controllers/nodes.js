@@ -651,10 +651,73 @@ exports.getAdvancedSearchData = function(req, res) {
 
                     //console.log("dnodes",dnodes);
                     //console.log("dnodes length",dnodes.length);
-                       
-                    if(hops==3)
+
+
+                    //check for redundant hops in path
+
+                    var nodesRedundancyCheck=[];
+                    nodesRedundancyCheck.push(dnodes[0]);
+
+                    var found=false;
+                    for (var i=1;i<dnodes.length;i++)
+                    { 
+                        found=false;
+                        for(j=0;j<nodesRedundancyCheck.length;j++)
+                        {
+                            if(dnodes[i]==nodesRedundancyCheck[j])
+                            {
+                                found=true;
+                                break;
+                            }
+                            
+
+                        }
+                        if(!found)
+                        {
+                            nodesRedundancyCheck.push(dnodes[i]);
+                            //console.log("ushed",nodesRedundancyCheck);
+                        }
+                        else
+                        {
+                            break;
+                        }
+
+                    }
+                    if(found)
                     {
-                        if(dnodes.length==4)
+
+                    }
+                    else
+                    {
+
+                        if(hops==3)
+                        {
+                            if(dnodes.length==4)
+                            {
+                                for (var i=0;i<dnodes.length-1;i++)
+                                { 
+                                        
+                                        //console.log("1--",dnodes[i]);
+                                        nodesA.push({
+                                            "source":dnodes[i],
+                                            "sourceid":dnodesid[i],
+                                            "target":dnodes[i+1],
+                                            "targetid":dnodesid[i+1],
+                                            "sourcelabel":dnodeslabel[i],
+                                            "targetlabel":dnodeslabel[i+1],
+                                            "type":drelations[i],
+                                            "startnode":dstartnodes[i],
+                                            "objectid":dnodes[i]+dnodesid[i]+dnodes[i+1]+dnodesid[i+1]+drelations[i]+dstartnodes[i]
+                                        });
+
+                                        //console.log("nodesA",nodesA[i]);
+
+                                }
+
+                            }
+
+                        }
+                        else
                         {
                             for (var i=0;i<dnodes.length-1;i++)
                             { 
@@ -666,7 +729,7 @@ exports.getAdvancedSearchData = function(req, res) {
                                         "target":dnodes[i+1],
                                         "targetid":dnodesid[i+1],
                                         "sourcelabel":dnodeslabel[i],
-                                        "targetabel":dnodeslabel[i+1],
+                                        "targetlabel":dnodeslabel[i+1],
                                         "type":drelations[i],
                                         "startnode":dstartnodes[i],
                                         "objectid":dnodes[i]+dnodesid[i]+dnodes[i+1]+dnodesid[i+1]+drelations[i]+dstartnodes[i]
@@ -675,32 +738,15 @@ exports.getAdvancedSearchData = function(req, res) {
                                     //console.log("nodesA",nodesA[i]);
 
                             }
-
                         }
 
-                    }
-                    else
-                    {
-                        for (var i=0;i<dnodes.length-1;i++)
-                        { 
-                                
-                                //console.log("1--",dnodes[i]);
-                                nodesA.push({
-                                    "source":dnodes[i],
-                                    "sourceid":dnodesid[i],
-                                    "target":dnodes[i+1],
-                                    "targetid":dnodesid[i+1],
-                                    "sourcelabel":dnodeslabel[i],
-                                    "targetabel":dnodeslabel[i+1],
-                                    "type":drelations[i],
-                                    "startnode":dstartnodes[i],
-                                    "objectid":dnodes[i]+dnodesid[i]+dnodes[i+1]+dnodesid[i+1]+drelations[i]+dstartnodes[i]
-                                });
 
-                                //console.log("nodesA",nodesA[i]);
 
-                        }
                     }
+
+
+                       
+
 
 
 
@@ -708,160 +754,184 @@ exports.getAdvancedSearchData = function(req, res) {
                 });
 
 
+               //console.log("nodesA",nodesA);
+
+               if(nodesA.length==0)
+               {
+                res.send(404,"No nodes retuned");
+
+               }
+
+               else
+               {
+
+
+                    var nodesAunique=[];
+
+                    nodesAunique.push(nodesA[0]);
+                    //console.log("push",nodesAunique[0].objectid);
+
+                    for (var i=0;i<nodesA.length;i++)
+                    {
+                        var found=false; 
+                        for(j=0;j<nodesAunique.length;j++)
+                        {
+                            if(nodesA[i].objectid==nodesAunique[j].objectid)
+                            {
+                                //console.log("break");
+                                //continue;
+                                found=true;
+                                break;
+                            }
+
+                        }
+
+                        if(!found)
+                        {
+                            nodesAunique.push(nodesA[i]);
+
+                        }
+
+                    }
+
+                    //console.log("nodesAunique",nodesAunique);
+
+
+
+                    
+                    var nodes=[];
+
+                    nodes.push({"name":nodesAunique[0].source,"id":nodesAunique[0].sourceid,"label":nodesAunique[0].sourcelabel});
+
+                    for (var i=0;i<nodesAunique.length;i++)
+                    { 
+                        var found=false;
+                        for(j=0;j<nodes.length;j++)
+                        {
+                            if(nodesAunique[i].sourceid==nodes[j].id)
+                            {
+                                found=true;
+                                break;
+                            }
+                            
+
+                        }
+                        if(!found)
+                        {
+                            nodes.push({"name":nodesAunique[i].source,"id":nodesAunique[i].sourceid,"label":nodesAunique[i].sourcelabel});
+                        }
+
+                    }
+
+
+
+                    for (var i=0;i<nodesAunique.length;i++)
+                    { 
+                        var found=false;
+                        for(j=0;j<nodes.length;j++)
+                        {
+                            if(nodesAunique[i].targetid==nodes[j].id)
+                            {
+                                found=true;
+                                break;
+                            }
+                            
+
+                        }
+                        if(!found)
+                        {
+                            nodes.push({"name":nodesAunique[i].target,"id":nodesAunique[i].targetid,"label":nodesAunique[i].targetlabel});
+                        }
+
+                    }
+
+
+                    //console.log("nodes",nodes);
+                    
+
+                    var links=[];
+
+
                
-                var nodesAunique=[];
+                    for (var i=0;i<nodesAunique.length;i++)
+                    { 
+                        
+                        var sourcenodeid=nodesAunique[i].sourceid;
+                        var targetnodeid=nodesAunique[i].targetid;
+                        var sourcenodeindex;
+                        var targetnodeindex;
+                        var startnodeid=nodesAunique[i].startnode;
 
-                nodesAunique.push(nodesA[0]);
-                //console.log("push",nodesAunique[0].objectid);
+                        
 
-                for (var i=0;i<nodesA.length;i++)
-                {
-                    var found=false; 
-                    for(j=0;j<nodesAunique.length;j++)
-                    {
-                        if(nodesA[i].objectid==nodesAunique[j].objectid)
+                        for(var j=0; j<nodes.length;j++)
                         {
-                            //console.log("break");
-                            //continue;
-                            found=true;
-                            break;
+                            //console.log(i,j, nodes.id,sourcenodeid);
+                            if(nodes[j].id==sourcenodeid)
+                            {
+                                sourcenodeindex=j;
+                                break;
+
+                            }
+
+                        }
+                        //console.log(sourcenodeid, sourcenodeindex,targetnodeid, targetnodeindex);
+
+                        
+
+                        for(var j=0; j<nodes.length;j++)
+                        {
+                            if(nodes[j].id==targetnodeid)
+                            {
+                                targetnodeindex=j;
+                                break;
+
+                            }
+
                         }
 
-                    }
 
-                    if(!found)
-                    {
-                        nodesAunique.push(nodesA[i]);
+                        //console.log(sourcenodeid, sourcenodeindex,targetnodeid, targetnodeindex);
 
-                    }
-
-                }
-
-                //console.log("nodesAunique",nodesAunique.length);
-
-                
-                var nodes=[];
-
-                nodes.push({"name":nodesAunique[0].source,"id":nodesAunique[0].sourceid,"label":nodesAunique[0].sourcelabel});
-
-                for (var i=0;i<nodesAunique.length;i++)
-                { 
-                    var found=false;
-                    for(j=0;j<nodes.length;j++)
-                    {
-                        if(nodesAunique[i].sourceid==nodes[j].id)
+                        if(sourcenodeid==startnodeid)
                         {
-                            found=true;
-                            break;
+                            links.push({"source":sourcenodeindex,"target":targetnodeindex,"type":nodesAunique[i].type});
+                        }
+                        else
+                        {
+                            links.push({"source":targetnodeindex,"target":sourcenodeindex,"type":nodesAunique[i].type});
                         }
                         
 
                     }
-                    if(!found)
+
+
+                    if(nodes.length>40)
                     {
-                        nodes.push({"name":nodesAunique[i].source,"id":nodesAunique[i].sourceid,"label":nodesAunique[i].sourcelabel});
-                    }
 
-                }
-
-
-
-                for (var i=0;i<nodesAunique.length;i++)
-                { 
-                    var found=false;
-                    for(j=0;j<nodes.length;j++)
-                    {
-                        if(nodesAunique[i].targetid==nodes[j].id)
-                        {
-                            found=true;
-                            break;
-                        }
-                        
-
-                    }
-                    if(!found)
-                    {
-                        nodes.push({"name":nodesAunique[i].target,"id":nodesAunique[i].targetid,"label":nodesAunique[i].targetlabel});
-                    }
-
-                }
-
-
-                //console.log("nodes",nodes);
-                
-
-                var links=[];
-
-
-           
-                for (var i=0;i<nodesAunique.length;i++)
-                { 
-                    
-                    var sourcenodeid=nodesAunique[i].sourceid;
-                    var targetnodeid=nodesAunique[i].targetid;
-                    var sourcenodeindex;
-                    var targetnodeindex;
-                    var startnodeid=nodesAunique[i].startnode;
-
-                    
-
-                    for(var j=0; j<nodes.length;j++)
-                    {
-                        //console.log(i,j, nodes.id,sourcenodeid);
-                        if(nodes[j].id==sourcenodeid)
-                        {
-                            sourcenodeindex=j;
-                            break;
-
-                        }
-
-                    }
-                    //console.log(sourcenodeid, sourcenodeindex,targetnodeid, targetnodeindex);
-
-                    
-
-                    for(var j=0; j<nodes.length;j++)
-                    {
-                        if(nodes[j].id==targetnodeid)
-                        {
-                            targetnodeindex=j;
-                            break;
-
-                        }
-
-                    }
-
-
-                    //console.log(sourcenodeid, sourcenodeindex,targetnodeid, targetnodeindex);
-
-                    if(sourcenodeid==startnodeid)
-                    {
-                        links.push({"source":sourcenodeindex,"target":targetnodeindex,"type":nodesAunique[i].type});
+                        res.send(413,"Too many nodes returned");
                     }
                     else
                     {
-                        links.push({"source":targetnodeindex,"target":sourcenodeindex,"type":nodesAunique[i].type});
-                    }
-                    
+                        viewerJson = {
+                        "nodes": nodes,
+                        "links": links
+                        }
+                        res.send(viewerJson);
 
-                }
+                    }
+
+
+
+
+
+
+               }
+
+
 
                 //console.log(nodes.length);
 
-                if(nodes.length>40)
-                {
-
-                    res.send(413,"Too many nodes returned");
-                }
-                else
-                {
-                    viewerJson = {
-                    "nodes": nodes,
-                    "links": links
-                    }
-                    res.send(viewerJson);
-
-                }
 
 
 

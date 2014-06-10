@@ -1,7 +1,8 @@
 $( ".btn.btn-default.pull-left.link_buttone" ).click(function() {
 
-							var leftnodeid=document.getElementById('leftnode').value;
-							var rightnodeid=document.getElementById('rightnode').value;
+							var leftnodeid=$('#nodeAId').val();
+							var rightnodeid=$('#nodeBId').val();
+							
 							var hops=$("input[name=hop]:checked").val();
 
 							//console.log(hops+"*");

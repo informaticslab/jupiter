@@ -622,27 +622,59 @@ exports.getAdvancedSearchData = function(req, res) {
 
 
                     //console.log("dnodes",dnodes);
+                    //console.log("dnodes length",dnodes.length);
                        
+                    if(hops==3)
+                    {
+                        if(dnodes.length==4)
+                        {
+                            for (var i=0;i<dnodes.length-1;i++)
+                            { 
+                                    
+                                    //console.log("1--",dnodes[i]);
+                                    nodesA.push({
+                                        "source":dnodes[i],
+                                        "sourceid":dnodesid[i],
+                                        "target":dnodes[i+1],
+                                        "targetid":dnodesid[i+1],
+                                        "sourcelabel":dnodeslabel[i],
+                                        "targetabel":dnodeslabel[i+1],
+                                        "type":drelations[i],
+                                        "startnode":dstartnodes[i],
+                                        "objectid":dnodes[i]+dnodesid[i]+dnodes[i+1]+dnodesid[i+1]+drelations[i]+dstartnodes[i]
+                                    });
 
-                    for (var i=0;i<dnodes.length-1;i++)
-                    { 
-                            
-                            //console.log("1--",dnodes[i]);
-                            nodesA.push({
-                                "source":dnodes[i],
-                                "sourceid":dnodesid[i],
-                                "target":dnodes[i+1],
-                                "targetid":dnodesid[i+1],
-                                "sourcelabel":dnodeslabel[i],
-                                "targetabel":dnodeslabel[i+1],
-                                "type":drelations[i],
-                                "startnode":dstartnodes[i],
-                                "objectid":dnodes[i]+dnodesid[i]+dnodes[i+1]+dnodesid[i+1]+drelations[i]+dstartnodes[i]
-                            });
+                                    //console.log("nodesA",nodesA[i]);
 
-                            //console.log("nodesA",nodesA[i]);
+                            }
+
+                        }
 
                     }
+                    else
+                    {
+                        for (var i=0;i<dnodes.length-1;i++)
+                        { 
+                                
+                                //console.log("1--",dnodes[i]);
+                                nodesA.push({
+                                    "source":dnodes[i],
+                                    "sourceid":dnodesid[i],
+                                    "target":dnodes[i+1],
+                                    "targetid":dnodesid[i+1],
+                                    "sourcelabel":dnodeslabel[i],
+                                    "targetabel":dnodeslabel[i+1],
+                                    "type":drelations[i],
+                                    "startnode":dstartnodes[i],
+                                    "objectid":dnodes[i]+dnodesid[i]+dnodes[i+1]+dnodesid[i+1]+drelations[i]+dstartnodes[i]
+                                });
+
+                                //console.log("nodesA",nodesA[i]);
+
+                        }
+                    }
+
+
 
 
                 });
@@ -786,12 +818,25 @@ exports.getAdvancedSearchData = function(req, res) {
 
                 }
 
+                //console.log(nodes.length);
 
-                viewerJson = {
+                if(nodes.length>50)
+                {
+
+                    res.send(413,"Too many nodes returned");
+                }
+                else
+                {
+                    viewerJson = {
                     "nodes": nodes,
                     "links": links
-                            }
-                res.send(viewerJson);
+                    }
+                    res.send(viewerJson);
+
+                }
+
+
+
             }    
         }    
     });        

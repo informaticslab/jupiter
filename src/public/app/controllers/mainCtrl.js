@@ -139,10 +139,10 @@ angular.module('apolloApp').controller('mainCtrl', function($scope,$resource,$lo
     		eval($scope.goToCarousel3());
 		}
 	}
-	var site = {
-          'name':'Home',
-          'url':$location.absUrl()
-        }
-	$scope.$parent.unshiftSiteHistory(site);
+	// var site = {
+ //          'name':'Home',
+ //          'url':$location.absUrl()
+ //        }
+	// $scope.$parent.unshiftSiteHistory(site);
 	//console.log($scope.$parent.browseHistory)
 });

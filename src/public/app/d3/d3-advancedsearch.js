@@ -265,11 +265,9 @@ $( ".btn.btn-default.pull-left.link_buttone" ).click(function() {
 								path_label.attr('transform', function(d) {
 									//return 'translate(' + d.source.x + ',' + d.source.y + );
 									if (d.target.x < d.source.x){
-										bbox = this.getBBox();
-										rx = bbox.x+bbox.width/2;
-										ry = bbox.y+bbox.height/2;
-
-										return 'rotate(180 '+rx+' '+ry+') ';
+										midx=(d.source.x+d.target.x)/2;
+										midy=(d.source.y+d.target.y)/2;
+										return 'rotate(180 '+midx+' '+midy+') ';
 									}
 									else {
 										return 'rotate(0)';

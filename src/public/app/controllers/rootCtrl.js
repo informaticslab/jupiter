@@ -25,6 +25,21 @@ angular.module('apolloApp').controller('rootCtrl', function($scope, $http, $loca
        window.location =  '/apollo/#/search/' + $scope.queryString;
     };
 
+    $scope.itemSelected = function($item, $model, $label) {
+        window.location =  '/apollo/#/node/' + $item.id;
+        $scope.queryString = null;
+    };
+
+    $scope.getNodes = function(val) {
+        return $http.get('/apollo/api/node/searchByName/' + val).then(function(res) {
+            var nodes = [];
+            angular.forEach(res.data, function(item) {
+                nodes.push(item);
+            });
+            return nodes;
+        });
+    };
+
     $scope.showSidebar = true;
 
     $scope.getSidebarWidth = function(){

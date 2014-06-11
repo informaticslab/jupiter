@@ -42,13 +42,13 @@ html(lang="en" ng-app='apolloApp')
 				.col-lg-3.col-md-3.col-sm-3
 					span.visible-lg.visible-md
 						.input-group.search_button
-							input.form-control(id='bigSearchBawks', type='text', ng-model='queryString', ng-enter='redirectToSearch()')
+							input.form-control(id='bigSearchBawks', typeahead-on-select="itemSelected($item, $model, $label)", typeahead-min-length='3', typeahead="node.name for node in getNodes($viewValue)", type='text', ng-model='queryString')							
 							span.input-group-btn
 								button.btn.btn-default(type='button', id='bigSearchButton', ng-click='redirectToSearch()') Search
 						// /input-group
 					span.visible-sm
 						.input-group.search_button
-							input.form-control(id='lilSearchBawks', type='text', ng-model='queryString', ng-enter='redirectToSearch()')
+							input.form-control(id='lilSearchBawks', typeahead-on-select="itemSelected($item, $model, $label)", typeahead-min-length='3', typeahead="node.name for node in getNodes($viewValue)",  type='text', ng-model='queryString', ng-enter='redirectToSearch()')
 							span.input-group-btn
 								button.btn.btn-default(type='button' id='lilSearchButton', ng-click='redirectToSearch()') Search
 						// /input-group

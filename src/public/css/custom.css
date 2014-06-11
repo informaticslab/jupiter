@@ -208,6 +208,14 @@ li.faq {padding-bottom:.5em;}
 
 .detail_header {min-height:55px;background-color:#f39c11; color:#ffffff; font-weight:bold; padding:.5em; }
 
+.adv_search_controls {margin-bottom:2px; min-height: 50px; background-color:#fdf0dc; color:#e77e23; font-weight:bold; padding:.5em; border-style:solid; border-color: #f8e3c1; border-width:1px;  }
+.input1_adv_search {float:left; }
+.input2_adv_search {float:left;}
+.adv_search_label1 {float:left; padding-right:.4em; padding-left:.5em; padding-top:.4em;}
+.adv_search_field1 {float:right; width:15em; padding-right:.5em;}
+
+.step_number {float:left;}
+
 .detail_header_linkage_md {min-height:55px;background-color:#f39c11; color:#ffffff; font-weight:bold; padding:.5em; padding-top:.6em; }
 
 .detail_header_linkage_sm {min-height:55px;background-color:#f39c11; color:#ffffff; font-weight:bold; padding-right:.5em; padding-left:.5em; padding-top:.6em; border-bottom-style: solid; border-width: 1px; border-color: #d18710; }

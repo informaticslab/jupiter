@@ -578,7 +578,7 @@ exports.getAdvancedSearchData = function(req, res) {
     {
         query = ['MATCH p=(a)-[*1]-(b)-[*1]-(c) where a.id={leftId} and c.id={rightId}',
         'return extract(x in nodes(p) |x.name) as Nodes, extract(y in nodes(p) |y.id) as NodesId, extract(s in nodes(p) |labels(s)) as NodesLabel, extract(z in relationships(p) | type(z)) as Relations, ',
-        'extract(r in relationships(p) | startNode(r).id) as StartNodes'
+        'extract(r in relationships(p) | startNode(r).id) as StartNodes, extract(t in relationships(p) | t.relationshipDescription ) as Description'
         ].join('\n');
 
     }
@@ -586,7 +586,7 @@ exports.getAdvancedSearchData = function(req, res) {
     {
         query = ['MATCH p=(a)-[*1..2]-(b)-[*1..2]-(c) where a.id={leftId} and c.id={rightId}',
         'return extract(x in nodes(p) |x.name) as Nodes, extract(y in nodes(p) |y.id) as NodesId, extract(s in nodes(p) |labels(s)) as NodesLabel, extract(z in relationships(p) | type(z)) as Relations, ',
-        'extract(r in relationships(p) | startNode(r).id) as StartNodes'
+        'extract(r in relationships(p) | startNode(r).id) as StartNodes, extract(t in relationships(p) | t.relationshipDescription ) as Description'
         ].join('\n');
 
     }
@@ -594,7 +594,7 @@ exports.getAdvancedSearchData = function(req, res) {
     {
         query = ['MATCH p=(a)-[*2]-(b)-[*2]-(c) where a.id={leftId} and c.id={rightId}',
         'return extract(x in nodes(p) |x.name) as Nodes, extract(y in nodes(p) |y.id) as NodesId, extract(s in nodes(p) |labels(s)) as NodesLabel, extract(z in relationships(p) | type(z)) as Relations, ',
-        'extract(r in relationships(p) | startNode(r).id) as StartNodes'
+        'extract(r in relationships(p) | startNode(r).id) as StartNodes, extract(t in relationships(p) | t.relationshipDescription ) as Description'
         ].join('\n');
 
     }
@@ -647,6 +647,7 @@ exports.getAdvancedSearchData = function(req, res) {
                     var dnodeslabel=eval(d.NodesLabel);
                     var drelations=eval(d.Relations);
                     var dstartnodes=eval(d.StartNodes);
+                    var drelationsdescription=eval(d.Description);
 
 
                     //console.log("dnodes",dnodes);
@@ -707,6 +708,7 @@ exports.getAdvancedSearchData = function(req, res) {
                                             "targetlabel":dnodeslabel[i+1],
                                             "type":drelations[i],
                                             "startnode":dstartnodes[i],
+                                            "description":drelationsdescription[i],
                                             "objectid":dnodes[i]+dnodesid[i]+dnodes[i+1]+dnodesid[i+1]+drelations[i]+dstartnodes[i]
                                         });
 
@@ -732,6 +734,7 @@ exports.getAdvancedSearchData = function(req, res) {
                                         "targetlabel":dnodeslabel[i+1],
                                         "type":drelations[i],
                                         "startnode":dstartnodes[i],
+                                        "description":drelationsdescription[i],
                                         "objectid":dnodes[i]+dnodesid[i]+dnodes[i+1]+dnodesid[i+1]+drelations[i]+dstartnodes[i]
                                     });
 
@@ -895,11 +898,11 @@ exports.getAdvancedSearchData = function(req, res) {
 
                         if(sourcenodeid==startnodeid)
                         {
-                            links.push({"source":sourcenodeindex,"target":targetnodeindex,"type":nodesAunique[i].type});
+                            links.push({"source":sourcenodeindex,"target":targetnodeindex,"type":nodesAunique[i].type,"description":nodesAunique[i].description});
                         }
                         else
                         {
-                            links.push({"source":targetnodeindex,"target":sourcenodeindex,"type":nodesAunique[i].type});
+                            links.push({"source":targetnodeindex,"target":sourcenodeindex,"type":nodesAunique[i].type,"description":nodesAunique[i].description});
                         }
                         
 

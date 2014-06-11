@@ -42,6 +42,14 @@ $( ".btn.btn-default.pull-left.link_buttone" ).click(function() {
 
 							//console.log(leftnodeid,rightnodeid);
 
+							if(id=="" | id=="-")
+							{
+								
+							}
+							else
+							{
+
+
 
 							jsonret=d3.json("/apollo/api/node/advancedSearch/"+leftnodeid+"-"+rightnodeid+"-"+hop, function(error, json) {
 
@@ -61,11 +69,8 @@ $( ".btn.btn-default.pull-left.link_buttone" ).click(function() {
 							.attr("height", h);
 
 
-							if(id=="" | id=="-")
-							{
-								
-							}
-							else if(error)
+
+							if(error)
 							{
 							
 								if(error.status==413)
@@ -519,9 +524,6 @@ $( ".btn.btn-default.pull-left.link_buttone" ).click(function() {
 										}
 									});
 
-								path
-								.append("svg:title")
-								.text(function(d) { return d.source.x+" "+d.source.y+" "+d.target.x+" "+d.target.y;; });
 
 								var dx = d.target.x - d.source.x,
 								dy = d.target.y - d.source.y,
@@ -534,7 +536,11 @@ $( ".btn.btn-default.pull-left.link_buttone" ).click(function() {
 								});
 								//.style("fill", "#8D8D91");
 
-								
+								//Set values to 0,0 since these are relative postions. Any value greater than 0,0 will offset the path label by a and y values.
+								path_label
+								.attr('transform', function(d) {
+									return 'translate(' + 0 + ',' + 0 + ')';
+								});
 
 								hidelinks("hide");
 								locknodes("lock");
@@ -555,7 +561,9 @@ $( ".btn.btn-default.pull-left.link_buttone" ).click(function() {
 								d.fixed=true;
 							}
 
-							});
+							});//jsonret
+
+							}//else id=blank	
 
 
 

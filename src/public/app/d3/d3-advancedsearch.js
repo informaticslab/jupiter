@@ -42,6 +42,14 @@ $( ".btn.btn-default.pull-left.link_buttone" ).click(function() {
 
 							//console.log(leftnodeid,rightnodeid);
 
+							if(id=="" | id=="-")
+							{
+								
+							}
+							else
+							{
+
+
 
 							jsonret=d3.json("/apollo/api/node/advancedSearch/"+leftnodeid+"-"+rightnodeid+"-"+hop, function(error, json) {
 
@@ -61,11 +69,8 @@ $( ".btn.btn-default.pull-left.link_buttone" ).click(function() {
 							.attr("height", h);
 
 
-							if(id=="" | id=="-")
-							{
-								
-							}
-							else if(error)
+
+							if(error)
 							{
 							
 								if(error.status==413)
@@ -556,7 +561,9 @@ $( ".btn.btn-default.pull-left.link_buttone" ).click(function() {
 								d.fixed=true;
 							}
 
-							});
+							});//jsonret
+
+							}//else id=blank	
 
 
 

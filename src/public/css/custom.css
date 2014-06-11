@@ -207,15 +207,17 @@ li.faq {padding-bottom:.5em;}
 
 
 .detail_header {min-height:55px;background-color:#f39c11; color:#ffffff; font-weight:bold; padding:.5em; }
+.detail_header_adv_search {min-height:57px;background-color:#f39c11; color:#ffffff; font-weight:bold; padding:.5em; border-top-style: solid; border-color: #f6b956; border-width: 1px;  }
 
-.adv_search_controls { min-height: 65px; background-color:#f39c11; color:#ffffff; font-weight:bold; padding:.5em; }
-.input1_adv_search {float:left; }
-.input2_adv_search {float:left; padding-left:.3em;}
+.adv_search_controls { width:100%; min-height: 70px; background-color:#f39c11; color:#ffffff; font-weight:bold; padding:.5em; border-bottom-style: solid; border-color:#c57f10; border-width:1px; }
+.input1_adv_search {float:left; width:33%; padding-top:.7em; }
+.input2_adv_search {float:left;  width:33%; padding-top:.7em;}
 .adv_search_label {float:left; padding-right:.4em; padding-left:.5em; padding-top:.4em;}
-.adv_search_field {float:right; width:21em; padding-right:.5em; font-weight:normal;}
+.adv_search_field {float:left; width:80%;  font-weight:normal;}
+.adv_search_button {float:right; padding-right:.5em; padding-top:.7em;}
 
-
-.step_number {float:left; padding-left:1em; padding-top:.4em;}
+.adv_button {width:10em;}
+.step_number {float:left;  padding-top:1em; }
 
 .detail_header_linkage_md {min-height:55px;background-color:#f39c11; color:#ffffff; font-weight:bold; padding:.5em; padding-top:.6em; }
 
@@ -290,6 +292,7 @@ li.faq {padding-bottom:.5em;}
     
  }
 
+.fa-chevron-circle-right {color:#27ae61; font-size:1.3em; padding-right:.4em; }
 
 .btn-custom {
   color: #ffffff;
@@ -297,6 +300,20 @@ li.faq {padding-bottom:.5em;}
   }
 
 .btn-custom:hover {
+  color:#ffffff;
+}
+
+
+.btn-custom2 {
+  color: #27ae61;
+  background-color: #ffffff;
+  border-style: solid;
+  border-color: #cccccc;
+  border-width:1px;
+  font-weight: bold;
+  }
+
+.btn-custom2:hover {
   color:#ffffff;
 }
 .share_button_node {text-align:right; float:right; padding-right:.8em; padding-top:.2em; padding-left:.5em;}
@@ -444,7 +461,7 @@ td.bot_space {padding-bottom:1em;}
 .link_button1_md {margin-top:.3em; margin-left:.2em;}
 .link_button2 {margin-top:.3em; margin-right:1em;}
 .link_button3 {margin-top:.3em; margin-right:6.2em;}
-
+.find_button {float:right;}
 .link_button4 {margin-top:.3em; margin-left:1.2em;}
 .link_button5 {margin-top:.3em; margin-left:1em;}
 
@@ -500,6 +517,7 @@ td.white_line  {vertical-align:text-top; padding-left:1em;}
 .instructions {display:block; min-height:340px; background-color: #fcf1c7; padding-left:1.2em; padding-right:1.2em; padding-bottom:1em; padding-top:.7em;}
 
 .instructions_md_lg {display:block; min-height:290px; background-color: #fcf1c7; padding-left:1.2em; padding-right:1.2em; padding-bottom:1em; padding-top:.7em;}
+.instructions_md_lg_adv {display:block; min-height:200px; background-color: #fcf1c7; padding-left:1.2em; padding-right:1.2em; padding-bottom:1em; padding-top:.7em;}
 
 .left_bullets {padding-top:1em; float:left; width:47%; padding-bottom:.7em;}
 

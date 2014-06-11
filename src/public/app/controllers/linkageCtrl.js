@@ -11,7 +11,7 @@ angular.module('apolloApp').controller('linkageCtrl', function($scope, $routePar
     $scope.node = node.get({
         id: $routeParams.id
     }, function() {
-        //console.log('node name was: ' + $scope.node.name)
+        console.log('node name was: ' + $scope.node.name)
         if ($scope.node.name != null)
          {
            siteName = 'Linkage: ' + $scope.node.name;
@@ -30,7 +30,7 @@ angular.module('apolloApp').controller('linkageCtrl', function($scope, $routePar
 
 	if ($scope.node.name != null)
 	{
-         //console.log('node name 2 was: ' + $scope.node.name)
+         console.log('node name 2 was: ' + $scope.node.name)
 		'Linkage Viewer: ' + $scope.node.name;
 	}
 

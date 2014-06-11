@@ -10,13 +10,56 @@
 					li
 						a(href='#/search/{{nodeId}}') Search
 					li.active
-						a(href='#/advancedSearch/') Advanced Search
+						a(href='#/advancedSearch/') Relationship Explorer
 					li
 						a(href='' class='inactive') Favorites
 					li
-						a(href='' class='inactive') In the Lab
-
-			.detail_header
+						a(href='#/inTheLab/') In the Lab
+			.instructive_text
+				P
+				|  The 
+				strong Relationship Explorer 
+				|  allows you to view the 
+				strong degrees of separation 
+				|  between any two activities (e.g., Programs, Systems Datasets, Data Standards, Health Surveys, Tools, Registries, Organizations, Tags, or Collaboratives) so you may see the relationships they have in common. 
+				P
+				| To view the degrees of separation on the graph below, enter the activity from where you want to  
+				strong  start
+				|  and the activity where you want to
+				strong  end
+				| , then specify the number of
+				strong  steps
+				|  between the two activities and click View.
+				// The starting and ending activities are represented by the two larger nodes on the graph.
+			.vertical_spacing
+			.adv_search_controls
+				.input1_adv_search
+					.adv_search_label
+						| Start: 
+					.adv_search_field
+						input(type="text" ng-model="nodeA"  placeholder="Enter activity name" typeahead-on-select="itemSelectedA($item, $model, $label)" typeahead-min-length='3' typeahead="node.name for node in getNodes($viewValue)" class="form-control")			
+						input(type="hidden" id="nodeAId" ng-value="nodeAId")
+				.input2_adv_search
+					.adv_search_label
+						| End:
+					.adv_search_field
+						input(type="text" ng-model="nodeB"  placeholder="Enter activity name" typeahead-on-select="itemSelectedB($item, $model, $label)" typeahead-min-length='3' typeahead="node.name for node in getNodes($viewValue)" class="form-control")			
+						input(type="hidden" id="nodeBId" ng-value="nodeBId")
+				.step_number
+					| Number of steps: &nbsp;
+					input(type='radio', id='hop2' name='hop', value='2' checked)
+					| 2 &nbsp;
+					input(type='radio', id='hop3' name='hop', value='3') 
+					| 3 &nbsp;
+					input(type='radio', id='hop4' name='hop', value='4') 
+					| 4
+				//end step number
+				.adv_search_button		
+					button.pull-left.btn.btn-default.pull-left.link_buttone.adv_button(type='button')
+						i.fa.fa-chevron-circle-right
+						| View
+			// end adv search controls
+			.detail_header_adv_search
 				.share_button_linkage
 					//These lines, 173 - 187, were added 
 					//Single button 
@@ -45,39 +88,16 @@
 				button.btn.btn-default.pull-left.link_button4(type='button')
 					span.glyphicon.glyphicon-ban-circle
 					| Hide lines					
-				img.pull-left.small_divider(src='img/small_divider.png')
-				.cluster
-					.cluster_text
-					| Organize by:&nbsp;&nbsp;
-					.btn-group
-						button.btn.btn-default.link_button6(type='button')
-							i.fa.fa-gears
-							| Activity type
-						button.btn.btn-default.link_button7.disabled(type='button')
-							span.glyphicon.glyphicon-link
-							| Relationship type
-				.clearfix
-				br
-				.row
-					.col-md-4
-						input(type="text" ng-model="nodeA"  placeholder="Activity A" typeahead-on-select="itemSelectedA($item, $model, $label)" typeahead-min-length='3' typeahead="node.name for node in getNodes($viewValue)" class="form-control")			
-						input(type="hidden" id="nodeAId" ng-value="nodeAId")
-					.col-md-2
-						| Steps
-						input(type='radio', id='hop2' name='hop', value='2') 
-						| 2
-						input(type='radio', id='hop3' name='hop', value='3') 
-						| 3
-						input(type='radio', id='hop4' name='hop', value='4') 
-						| 4
-					.col-md-4
-						input(type="text" ng-model="nodeB"  placeholder="Activity B" typeahead-on-select="itemSelectedB($item, $model, $label)" typeahead-min-length='3' typeahead="node.name for node in getNodes($viewValue)" class="form-control")							
-						input(type="hidden" id="nodeBId" ng-value="nodeBId")
-					.col-md-2
-						button.pull-left.btn.btn-default.pull-left.link_buttone(type='button')
-							span.glyphicon.glyphicon-ban-circle
-							| Find
-
+				//.cluster
+					//.cluster_text
+					//| Organize by:&nbsp;&nbsp;
+					//.btn-group
+						//button.btn.btn-default.link_button6(type='button')
+							//i.fa.fa-gears
+							//| Activity type
+						//button.btn.btn-default.link_button7.disabled(type='button')
+							//span.glyphicon.glyphicon-link
+							//| Relationship type
 			// end detail header
 			.top_block2
 				.block_linkage
@@ -95,121 +115,203 @@
 								img(src='img/node.png')
 							td.node_text_td
 								strong Node:
-								|   Represents an entity, such as Program, System, Dataset,
+								|   Represents an activity, such as Program, System, Dataset,
 								|  Data Standard, Health Survey, Tool, Registry, Organization, Tag, or Collaborative.
-								| Entity types are differentiated by node color.
+								| Activity types are differentiated by node color.
 							td.white_line
 								img(src='img/white_divider.png')  
 							td.line_image_td
 								img(src='img/line.png')
 							td.line_text_td
-								|  Represents the relationship between any two entities,
+								|  Represents the relationship between any two activities,
 								|  such as oversees, manages, uses, shares data with, etc. The arrow indicates
 								|  the direction of the relationship (e.g., the source to the recipient). 
 				// end class key
-				.legend
-					table.legend_details
-						tr
-							td.legend_td
-								.blue_subhead Legend:
-							td.node_legend_image_td
-								img.move_legend(src='img/node_ss.png')
-								| Surveillance System
-							td.node_legend_image_td
-								img.move_legend(src='img/node_program.png')
-								| Program
-							td.node_legend_image_td
-								img.move_legend(src='img/node_registry.png')
-								| Registry
-							td.node_legend_image_td
-								img.move_legend(src='img/node_hs.png')
-								| Health Survey
-						tr
-							td.legend_td
-								.blue_subhead
-							td.node_legend_image_td
-								img.move_legend(src='img/node_tool.png')
-								| Tool
-							td.node_legend_image_td
-								img.move_legend(src='img/node_dataset.png')
-								| Dataset
-							td.node_legend_image_td
-								img.move_legend(src='img/node_ds.png')
-								| Data Standard		
-							td.node_legend_image_td
-								img.move_legend(src='img/node_col.png')
-								| Collaborative			
-						tr
-							td.legend_td
-								.blue_subhead
-							td.node_legend_image_td
-								img.move_legend(src='img/node_org.png')
-								| Organization
-							td.node_legend_image_td
-								img.move_legend(src='img/node_tag.png')
-								| Tag
-				// end class legend				
-				.instructions
-					.blue_subhead Instructions:
-					.left_bullets
-						ul
-							li.instruct
-								| To 
-								strong  view a node's relationships
-								| , click on a
-								| node name. This will bring it to the center of the graph. 
-							li.instruct
-								| To 
-								strong  view more information 
-								| about the center node, click the
-								em  
-									strong Details
-								|  tab. 
-							li.instruct
-								| To
-								strong  lock or reposition
-								|  an individual node, click the node.
-								| A black border will display around the node, and it will be locked in position. You may then drag the node to the desired position.
-							li.instruct
-								| To 
-								strong lock all nodes
-								| , click the 
-								em 
-									strong Lock nodes
-								|  button. To release the nodes, simply click the button again, or click the 
-								em
-									strong Reset
-								|  button.
-					// end class left_bullets
-					.right_bullets
-						ul
-							li.instruct
-								| To
-								strong  hide the lines
-								|  in the graph, click the
-								em
-									strong  Hide lines
-								|  button. To make them reappear, simply click the button again.	
-							li.instruct
-								| To 
-								strong organize 
-								|  the nodes by 
-								strong  activity type
-								| , click the 
-								em
-									strong  Activity type
-								|  button. To disperse the nodes, simply click the button again.
-							// li.instruct
-							//	| To 
-							//	strong cluster 
-							//	|  the nodes by 
-							//	strong  relationship type
-							//	| , click the
-							//	em
-							//		strong  Relationship type
-							//	|  button. To disperse the nodes, simply click the button again.
-					// end class right_bullets
-				// end class instructions
+				span.visible-lg.visible-md
+					.legend
+						table.legend_details
+							tr
+								td.legend_td
+									.blue_subhead Legend:
+								td.node_legend_image_td
+									img.move_legend(src='img/node_ss.png')
+									| Surveillance System
+								td.node_legend_image_td
+									img.move_legend(src='img/node_program.png')
+									| Program
+								td.node_legend_image_td
+									img.move_legend(src='img/node_registry.png')
+									| Registry
+								td.node_legend_image_td
+									img.move_legend(src='img/node_hs.png')
+									| Health Survey
+							tr
+								td.legend_td
+									.blue_subhead
+								td.node_legend_image_td
+									img.move_legend(src='img/node_tool.png')
+									| Tool
+								td.node_legend_image_td
+									img.move_legend(src='img/node_dataset.png')
+									| Dataset
+								td.node_legend_image_td
+									img.move_legend(src='img/node_ds.png')
+									| Data Standard		
+								td.node_legend_image_td
+									img.move_legend(src='img/node_col.png')
+									| Collaborative			
+							tr
+								td.legend_td
+									.blue_subhead
+								td.node_legend_image_td
+									img.move_legend(src='img/node_org.png')
+									| Organization
+								td.node_legend_image_td
+									img.move_legend(src='img/node_tag.png')
+									| Tag
+					// end class legend
+				span.visible-sm
+					.legend
+						table.legend_details
+							tr
+								td.legend_td_sm
+									.blue_subhead Legend:
+								td.node_legend_image_td_sm_1
+									img.move_legend(src='img/node_ss.png')
+									| Surveillance System
+								td.node_legend_image_td_sm_2
+									img.move_legend(src='img/node_program.png')
+									| Program
+								td.node_legend_image_td_sm_3
+									img.move_legend(src='img/node_registry.png')
+									| Registry
+								td.node_legend_image_td_sm_4
+									img.move_legend(src='img/node_hs.png')
+									| Health Survey
+							tr
+								td.legend_td_sm
+									.blue_subhead
+								td.node_legend_image_td_sm_1
+									img.move_legend(src='img/node_tool.png')
+									| Tool
+								td.node_legend_image_td_sm_2
+									img.move_legend(src='img/node_dataset.png')
+									| Dataset
+								td.node_legend_image_td_sm_3
+									img.move_legend(src='img/node_ds.png')
+									| Data Standard		
+								td.node_legend_image_td_sm_4
+									img.move_legend(src='img/node_col.png')
+									| Collaborative			
+							tr
+								td.legend_td_sm
+									.blue_subhead
+								td.node_legend_image_td_sm_1
+									img.move_legend(src='img/node_org.png')
+									| Organization
+								td.node_legend_image_td_sm_2
+									img.move_legend(src='img/node_tag.png')
+									| Tag
+					// end class legend					
+				span.visible-lg.visible-md
+					.instructions_md_lg_adv
+						.blue_subhead Instructions:
+						.left_bullets
+							ul
+								li.instruct
+									| To 
+									strong  view a node's relationships
+									| , click on a
+									| node name. This will bring it to the center of the graph. 
+								
+								li.instruct
+									| To
+									strong  lock or reposition
+									|  an individual node, click the node.
+									| A black border will display around the node, and it will be locked in position. You may then drag the node to the desired position.
+						// end class left_bullets
+						.right_bullets
+							ul
+								li.instruct
+									| To 
+									strong lock all nodes
+									| , click the 
+									em 
+										strong Lock nodes
+									|  button. To release the nodes, simply click the button again, or click the 
+									em
+										strong Reset
+									|  button.
+								li.instruct
+									| To
+									strong  hide the lines
+									|  in the graph, click the
+									em
+										strong  Hide lines
+									|  button. To make them reappear, simply click the button again.	
+								
+								// li.instruct
+								//	| To 
+								//	strong cluster 
+								//	|  the nodes by 
+								//	strong  relationship type
+								//	| , click the
+								//	em
+								//		strong  Relationship type
+								//	|  button. To disperse the nodes, simply click the button again.
+						// end class right_bullets
+					// end class instructions
+				// end lg md
+				span.visible-sm
+					.instructions
+						.blue_subhead Instructions:
+						.left_bullets
+							ul
+								li.instruct
+									| To 
+									strong  view a node's relationships
+									| , click on a
+									| node name. This will bring it to the center of the graph. 
+								
+								li.instruct
+									| To
+									strong  lock or reposition
+									|  an individual node, click the node.
+									| A black border will display around the node, and it will be locked in position. You may then drag the node to the desired position.
+								
+						// end class left_bullets
+						.right_bullets
+							ul
+								li.instruct
+									| To 
+									strong lock all nodes
+									| , click the 
+									em 
+										strong Lock nodes
+									|  button. To release the nodes, simply click the button again, or click the 
+									em
+										strong Reset
+									|   button.
+								li.instruct
+									| To
+									strong  hide the lines
+									|  in the graph, click the
+									em
+										strong  Hide lines
+									|  button. To make them reappear, simply click the button again.	
+								
+								// li.instruct
+								//	| To 
+								//	strong cluster 
+								//	|  the nodes by 
+								//	strong  relationship type
+								//	| , click the
+								//	em
+								//		strong  Relationship type
+								//	|  button. To disperse the nodes, simply click the button again.
+						// end class right_bullets
+					// end class instructions
+				// end lg md	
 			// end top_block2
 		// end content block
 	// end col spec

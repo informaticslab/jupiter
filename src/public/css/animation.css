@@ -20,11 +20,3 @@
   left:0;
   opacity:1;
 }
-
-/* override to turn off animation on angular-ui drop-down menu*/
-.dropdown-menu.ng-enter, .dropdown-menu li.ng-enter{
-	-webkit-transition: inherit !important;
-	-moz-transition: inherit !important;
-	-o-transition: inherit !importants;
-	transition: inherit !important;
-}

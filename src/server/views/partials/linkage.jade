@@ -11,7 +11,7 @@
 						li.active
 							a(href='#/search/') Search
 						li
-							a(href='#/advancedSearch/') Advanced Search
+							a(href='#/advancedSearch/') Relationship Explorer
 						li
 							a(href='' class='inactive') Favorites
 						li
@@ -27,7 +27,7 @@
 						li.active
 							a(href='#/search/') Search
 						li
-							a(href='#/advancedSearch/') Advanced Search
+							a(href='#/advancedSearch/') Relationship Explorer
 						li
 							a(href='' class='inactive') Favorites
 						li
@@ -44,7 +44,7 @@
 					.btn-group
 						a.btn.btn-default(href="#/node/{{nodeId}}", id='btnDetails') Details
 					.btn-group
-						a.btn.btn-custom(href='#/linkage/{{nodeId}}', id='btnLinkageViewer') Linkage Viewer
+						a.btn.btn-custom(href='#/linkage/{{nodeId}}', id='btnLinkageViewer') Relationship Viewer
 				// end button group
 			// end nav_split
 			span.visible-lg
@@ -184,15 +184,15 @@
 								img(src='img/node.png')
 							td.node_text_td
 								strong Node:
-								|   Represents an entity, such as Program, System, Dataset,
+								|   Represents an activity, such as Program, System, Dataset,
 								|  Data Standard, Health Survey, Tool, Registry, Organization, Tag, or Collaborative.
-								| Entity types are differentiated by node color.
+								| Activity types are differentiated by node color.
 							td.white_line
 								img(src='img/white_divider.png')  
 							td.line_image_td
 								img(src='img/line.png')
 							td.line_text_td
-								|  Represents the relationship between any two entities,
+								|  Represents the relationship between any two activities,
 								|  such as oversees, manages, uses, shares data with, etc. The arrow indicates
 								|  the direction of the relationship (e.g., the source to the recipient). 
 				// end class key

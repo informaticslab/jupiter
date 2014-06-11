@@ -17,7 +17,13 @@ angular.module('apolloApp').controller('nodeCtrl', ['$scope', '$location', '$res
         var nodeDetails = $http.get('/apollo/api/node/' + $routeParams.id).success(function(data) {
             var attributeKeys = _.pluck(data.attributes, 'key');
             $scope.node = data;
-            siteName = 'Node Viewer: ' + data.name;
+            siteName = 'Details: ' + data.name;
+                var site = {
+                'name':siteName,
+                 'url':$location.absUrl()
+            }
+            $scope.$parent.unshiftSiteHistory(site);
+            
             var len = $scope.node.attributes.length;
             $scope.labelGroups = function(label) {
                 return _.toArray(nodeAttributeDictionary[label].attributeGroups);
@@ -92,11 +98,7 @@ angular.module('apolloApp').controller('nodeCtrl', ['$scope', '$location', '$res
 
         $scope.emailBlurb = encodeURIComponent($location.absUrl());
 
-    var site = {
-      'name':siteName,
-      'url':$location.absUrl()
-    }
-    $scope.$parent.unshiftSiteHistory(site);
+
 
     }
     

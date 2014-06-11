@@ -14,9 +14,10 @@ angular.module('apolloApp').controller('searchCtrl', function($scope, $resource,
         }, 60000);
 
     var nodes;
-    var pageName = 'Search';
+    var pageName = '';
     if(currentURL.length >7 && currentURL.substring(0,14) == '/search/label/')
     {
+
         pageName = 'Label Search: ' + $routeParams.query;
         //console.log('\'tis a label search');
         nodes = $resource('/apollo/api/node/search/label/:query', {
@@ -26,7 +27,10 @@ angular.module('apolloApp').controller('searchCtrl', function($scope, $resource,
     }
     else
     {
-        pageName = 'Search: ' + $routeParams.query;
+        if($routeParams.query != null)
+        {
+            pageName = 'Search: ' + $routeParams.query;
+        }
         var nodes = $resource('/apollo/api/node/search/:query', {
         query: '@query'
     },{'query': {isArray: false }});
@@ -149,10 +153,11 @@ angular.module('apolloApp').controller('searchCtrl', function($scope, $resource,
 
     $scope.pageChanged = eval($scope.goToTop);
 
-    
-    var site = {
-      'name':pageName,
-      'url':$location.absUrl()
+    if(pageName.length >0){
+        var site = {
+          'name':pageName,
+          'url':$location.absUrl()
+        }
+        $scope.$parent.unshiftSiteHistory(site);
     }
-    $scope.$parent.unshiftSiteHistory(site);
 });

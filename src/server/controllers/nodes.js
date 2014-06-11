@@ -113,6 +113,34 @@ exports.getNodeById = function(req, res) {
     });
 };
 
+exports.searchByName = function(req, res) {
+    var searchTerm = req.params.searchTerm.toLowerCase();
+    var query = 'MATCH n WHERE lower(n.name)=~".*' + searchTerm + '.*" RETURN n.id as id, n.name as name';
+    console.log(query);
+    var params = {
+        searchTerm: req.params.searchTerm
+    };
+    neodb.db.query(query, params, function(err, results) {
+        console.log(results);
+
+        if (err) {
+            console.error('Error retreiving node from database:', err);
+            res.send(404, 'No node at that location');
+        } else {
+            if (results != null) {
+                var nodedata = [];
+                _.each(results, function(i){
+                    nodedata.push({id: i.id, name:i.name});
+                })
+                res.json(nodedata);
+            }
+            else{
+                res.json([]);
+            }
+        }
+    });
+};
+
 var sortFunction = function(a, b){
 //Compare "a" and "b" in some fashion, and return -1, 0, or 1
     if(a.name > b.name)
@@ -603,176 +631,291 @@ exports.getAdvancedSearchData = function(req, res) {
 
 
                     //console.log("dnodes",dnodes);
-                       
+                    //console.log("dnodes length",dnodes.length);
 
-                    for (var i=0;i<dnodes.length-1;i++)
+
+                    //check for redundant hops in path
+
+                    var nodesRedundancyCheck=[];
+                    nodesRedundancyCheck.push(dnodes[0]);
+
+                    var found=false;
+                    for (var i=1;i<dnodes.length;i++)
                     { 
+                        found=false;
+                        for(j=0;j<nodesRedundancyCheck.length;j++)
+                        {
+                            if(dnodes[i]==nodesRedundancyCheck[j])
+                            {
+                                found=true;
+                                break;
+                            }
                             
-                            //console.log("1--",dnodes[i]);
-                            nodesA.push({
-                                "source":dnodes[i],
-                                "sourceid":dnodesid[i],
-                                "target":dnodes[i+1],
-                                "targetid":dnodesid[i+1],
-                                "sourcelabel":dnodeslabel[i],
-                                "targetabel":dnodeslabel[i+1],
-                                "type":drelations[i],
-                                "startnode":dstartnodes[i],
-                                "objectid":dnodes[i]+dnodesid[i]+dnodes[i+1]+dnodesid[i+1]+drelations[i]+dstartnodes[i]
-                            });
 
-                            //console.log("nodesA",nodesA[i]);
+                        }
+                        if(!found)
+                        {
+                            nodesRedundancyCheck.push(dnodes[i]);
+                            //console.log("ushed",nodesRedundancyCheck);
+                        }
+                        else
+                        {
+                            break;
+                        }
 
                     }
+                    if(found)
+                    {
+
+                    }
+                    else
+                    {
+
+                        if(hops==3)
+                        {
+                            if(dnodes.length==4)
+                            {
+                                for (var i=0;i<dnodes.length-1;i++)
+                                { 
+                                        
+                                        //console.log("1--",dnodes[i]);
+                                        nodesA.push({
+                                            "source":dnodes[i],
+                                            "sourceid":dnodesid[i],
+                                            "target":dnodes[i+1],
+                                            "targetid":dnodesid[i+1],
+                                            "sourcelabel":dnodeslabel[i],
+                                            "targetlabel":dnodeslabel[i+1],
+                                            "type":drelations[i],
+                                            "startnode":dstartnodes[i],
+                                            "objectid":dnodes[i]+dnodesid[i]+dnodes[i+1]+dnodesid[i+1]+drelations[i]+dstartnodes[i]
+                                        });
+
+                                        //console.log("nodesA",nodesA[i]);
+
+                                }
+
+                            }
+
+                        }
+                        else
+                        {
+                            for (var i=0;i<dnodes.length-1;i++)
+                            { 
+                                    
+                                    //console.log("1--",dnodes[i]);
+                                    nodesA.push({
+                                        "source":dnodes[i],
+                                        "sourceid":dnodesid[i],
+                                        "target":dnodes[i+1],
+                                        "targetid":dnodesid[i+1],
+                                        "sourcelabel":dnodeslabel[i],
+                                        "targetlabel":dnodeslabel[i+1],
+                                        "type":drelations[i],
+                                        "startnode":dstartnodes[i],
+                                        "objectid":dnodes[i]+dnodesid[i]+dnodes[i+1]+dnodesid[i+1]+drelations[i]+dstartnodes[i]
+                                    });
+
+                                    //console.log("nodesA",nodesA[i]);
+
+                            }
+                        }
+
+
+
+                    }
+
+
+                       
+
+
+
 
 
                 });
 
 
+               //console.log("nodesA",nodesA);
+
+               if(nodesA.length==0)
+               {
+                res.send(404,"No nodes retuned");
+
+               }
+
+               else
+               {
+
+
+                    var nodesAunique=[];
+
+                    nodesAunique.push(nodesA[0]);
+                    //console.log("push",nodesAunique[0].objectid);
+
+                    for (var i=0;i<nodesA.length;i++)
+                    {
+                        var found=false; 
+                        for(j=0;j<nodesAunique.length;j++)
+                        {
+                            if(nodesA[i].objectid==nodesAunique[j].objectid)
+                            {
+                                //console.log("break");
+                                //continue;
+                                found=true;
+                                break;
+                            }
+
+                        }
+
+                        if(!found)
+                        {
+                            nodesAunique.push(nodesA[i]);
+
+                        }
+
+                    }
+
+                    //console.log("nodesAunique",nodesAunique);
+
+
+
+                    
+                    var nodes=[];
+
+                    nodes.push({"name":nodesAunique[0].source,"id":nodesAunique[0].sourceid,"label":nodesAunique[0].sourcelabel});
+
+                    for (var i=0;i<nodesAunique.length;i++)
+                    { 
+                        var found=false;
+                        for(j=0;j<nodes.length;j++)
+                        {
+                            if(nodesAunique[i].sourceid==nodes[j].id)
+                            {
+                                found=true;
+                                break;
+                            }
+                            
+
+                        }
+                        if(!found)
+                        {
+                            nodes.push({"name":nodesAunique[i].source,"id":nodesAunique[i].sourceid,"label":nodesAunique[i].sourcelabel});
+                        }
+
+                    }
+
+
+
+                    for (var i=0;i<nodesAunique.length;i++)
+                    { 
+                        var found=false;
+                        for(j=0;j<nodes.length;j++)
+                        {
+                            if(nodesAunique[i].targetid==nodes[j].id)
+                            {
+                                found=true;
+                                break;
+                            }
+                            
+
+                        }
+                        if(!found)
+                        {
+                            nodes.push({"name":nodesAunique[i].target,"id":nodesAunique[i].targetid,"label":nodesAunique[i].targetlabel});
+                        }
+
+                    }
+
+
+                    //console.log("nodes",nodes);
+                    
+
+                    var links=[];
+
+
                
-                var nodesAunique=[];
+                    for (var i=0;i<nodesAunique.length;i++)
+                    { 
+                        
+                        var sourcenodeid=nodesAunique[i].sourceid;
+                        var targetnodeid=nodesAunique[i].targetid;
+                        var sourcenodeindex;
+                        var targetnodeindex;
+                        var startnodeid=nodesAunique[i].startnode;
 
-                nodesAunique.push(nodesA[0]);
-                //console.log("push",nodesAunique[0].objectid);
+                        
 
-                for (var i=0;i<nodesA.length;i++)
-                {
-                    var found=false; 
-                    for(j=0;j<nodesAunique.length;j++)
-                    {
-                        if(nodesA[i].objectid==nodesAunique[j].objectid)
+                        for(var j=0; j<nodes.length;j++)
                         {
-                            //console.log("break");
-                            //continue;
-                            found=true;
-                            break;
+                            //console.log(i,j, nodes.id,sourcenodeid);
+                            if(nodes[j].id==sourcenodeid)
+                            {
+                                sourcenodeindex=j;
+                                break;
+
+                            }
+
+                        }
+                        //console.log(sourcenodeid, sourcenodeindex,targetnodeid, targetnodeindex);
+
+                        
+
+                        for(var j=0; j<nodes.length;j++)
+                        {
+                            if(nodes[j].id==targetnodeid)
+                            {
+                                targetnodeindex=j;
+                                break;
+
+                            }
+
                         }
 
-                    }
 
-                    if(!found)
-                    {
-                        nodesAunique.push(nodesA[i]);
+                        //console.log(sourcenodeid, sourcenodeindex,targetnodeid, targetnodeindex);
 
-                    }
-
-                }
-
-                //console.log("nodesAunique",nodesAunique.length);
-
-                
-                var nodes=[];
-
-                nodes.push({"name":nodesAunique[0].source,"id":nodesAunique[0].sourceid,"label":nodesAunique[0].sourcelabel});
-
-                for (var i=0;i<nodesAunique.length;i++)
-                { 
-                    var found=false;
-                    for(j=0;j<nodes.length;j++)
-                    {
-                        if(nodesAunique[i].sourceid==nodes[j].id)
+                        if(sourcenodeid==startnodeid)
                         {
-                            found=true;
-                            break;
+                            links.push({"source":sourcenodeindex,"target":targetnodeindex,"type":nodesAunique[i].type});
+                        }
+                        else
+                        {
+                            links.push({"source":targetnodeindex,"target":sourcenodeindex,"type":nodesAunique[i].type});
                         }
                         
 
                     }
-                    if(!found)
+
+
+                    if(nodes.length>40)
                     {
-                        nodes.push({"name":nodesAunique[i].source,"id":nodesAunique[i].sourceid,"label":nodesAunique[i].sourcelabel});
-                    }
 
-                }
-
-
-
-                for (var i=0;i<nodesAunique.length;i++)
-                { 
-                    var found=false;
-                    for(j=0;j<nodes.length;j++)
-                    {
-                        if(nodesAunique[i].targetid==nodes[j].id)
-                        {
-                            found=true;
-                            break;
-                        }
-                        
-
-                    }
-                    if(!found)
-                    {
-                        nodes.push({"name":nodesAunique[i].target,"id":nodesAunique[i].targetid,"label":nodesAunique[i].targetlabel});
-                    }
-
-                }
-
-
-                //console.log("nodes",nodes);
-                
-
-                var links=[];
-
-
-           
-                for (var i=0;i<nodesAunique.length;i++)
-                { 
-                    
-                    var sourcenodeid=nodesAunique[i].sourceid;
-                    var targetnodeid=nodesAunique[i].targetid;
-                    var sourcenodeindex;
-                    var targetnodeindex;
-                    var startnodeid=nodesAunique[i].startnode;
-
-                    
-
-                    for(var j=0; j<nodes.length;j++)
-                    {
-                        //console.log(i,j, nodes.id,sourcenodeid);
-                        if(nodes[j].id==sourcenodeid)
-                        {
-                            sourcenodeindex=j;
-                            break;
-
-                        }
-
-                    }
-                    //console.log(sourcenodeid, sourcenodeindex,targetnodeid, targetnodeindex);
-
-                    
-
-                    for(var j=0; j<nodes.length;j++)
-                    {
-                        if(nodes[j].id==targetnodeid)
-                        {
-                            targetnodeindex=j;
-                            break;
-
-                        }
-
-                    }
-
-
-                    //console.log(sourcenodeid, sourcenodeindex,targetnodeid, targetnodeindex);
-
-                    if(sourcenodeid==startnodeid)
-                    {
-                        links.push({"source":sourcenodeindex,"target":targetnodeindex,"type":nodesAunique[i].type});
+                        res.send(413,"Too many nodes returned");
                     }
                     else
                     {
-                        links.push({"source":targetnodeindex,"target":sourcenodeindex,"type":nodesAunique[i].type});
+                        viewerJson = {
+                        "nodes": nodes,
+                        "links": links
+                        }
+                        res.send(viewerJson);
+
                     }
-                    
-
-                }
 
 
-                viewerJson = {
-                    "nodes": nodes,
-                    "links": links
-                            }
-                res.send(viewerJson);
+
+
+
+
+               }
+
+
+
+                //console.log(nodes.length);
+
+
+
+
             }    
         }    
     });        
@@ -804,9 +947,17 @@ exports.getNodeNameById = function(req, res) {
                 resultsobj= eval(results);
 
                 nodename= resultsobj[0].name;
-                nodelabel= resultsobj[0].label;
+                nodelabel= resultsobj[0].label[0];
 
-                res.send(nodename+" ("+nodelabel[0]+")");
+
+                                
+                nodelabel=nodelabel.replace(/([a-z])([A-Z])/g, '$1 $2');
+                nodelabel=nodelabel.replace(/_/g, ' ');
+                nodelabel=nodelabel.replace(/\b([A-Z]+)([A-Z])([a-z])/, '$1 $2$3');
+                nodelabel=nodelabel.replace(/^./, function(nodelabel){ return nodelabel.toUpperCase(); });
+
+                
+                res.send(nodename+" ("+nodelabel+")");
             }
 
             

@@ -6,24 +6,34 @@ angular.module('apolloApp').controller('linkageCtrl', function($scope, $routePar
         id: '@id'
     });
 
+    var siteName = 'Linkage: ' + $routeParams.id;
+
     $scope.node = node.get({
         id: $routeParams.id
-    });
-
-    
-	$scope.twitterBlurb = encodeURIComponent($location.absUrl());
-
-	var siteName = 'Linkage Viewer: ' + $routeParams.id;
-	if ($scope.node.name != null)
-	{
-		'Linkage Viewer: ' + $scope.node.name;
-	}
-
-	var site = {
+    }, function() {
+        console.log('node name was: ' + $scope.node.name)
+        if ($scope.node.name != null)
+         {
+           siteName = 'Linkage: ' + $scope.node.name;
+            var site = {
       'name':siteName,
       'url':$location.absUrl()
     }
 
     $scope.$parent.unshiftSiteHistory(site);
+        }
+        });
+
+    
+	$scope.twitterBlurb = encodeURIComponent($location.absUrl());
+
+
+	if ($scope.node.name != null)
+	{
+         console.log('node name 2 was: ' + $scope.node.name)
+		'Linkage Viewer: ' + $scope.node.name;
+	}
+
+
     $scope.emailBlurb = encodeURIComponent($location.absUrl());
 });

@@ -95,15 +95,35 @@ angular.module('apolloApp').controller('rootCtrl', function($scope, $http, $loca
     
 
     $scope.unshiftSiteHistory = function unshiftSiteHistory(node){
-      $scope.browseHistory.sites.unshift(node);
-      if ($scope.browseHistory.sites.length >30)
+      //check scope history for node
+      var foundMatch = false;
+      for (var i=0; i<$scope.browseHistory.sites.length; i++)
       {
-        $scope.browseHistory.sites = $scope.browseHistory.sites.slice(0,29);
+        if(node.name == $scope.browseHistory.sites[i].name)
+        {
+          arraymove($scope.browseHistory.sites, i, 0);
+          // console.log ('found a match in the unshift site thingy');
+          foundMatch=true;
+        }
+      }
+      if(!foundMatch)
+      {
+        $scope.browseHistory.sites.unshift(node);
+        if ($scope.browseHistory.sites.length >30)
+        {
+          $scope.browseHistory.sites = $scope.browseHistory.sites.slice(0,29);
+        }
       }
       //$cookies.browseHistory = angular.toJson($scope.browseHistory)
       localStorageService.set('browseHistory', angular.toJson($scope.browseHistory))
       //console.log('Just saved browse history as ' + angular.toJson($scope.browseHistory))
     }
+
+    function arraymove(arr, fromIndex, toIndex) {
+    var element = arr[fromIndex]
+    arr.splice(fromIndex, 1);
+    arr.splice(toIndex, 0, element);
+}
 
     //TWITTER CONNECT
 

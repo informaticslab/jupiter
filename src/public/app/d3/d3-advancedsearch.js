@@ -140,7 +140,7 @@ $( ".btn.btn-default.pull-left.link_buttone" ).click(function() {
 							.links(json.links)
 							.size([w, h])
 							.linkDistance(200)
-							.charge(-250)
+							.charge(-5000)
 							.on("tick", tick)
 							.start();
 							

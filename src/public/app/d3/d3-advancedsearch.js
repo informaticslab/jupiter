@@ -185,7 +185,7 @@ $( ".btn.btn-default.pull-left.link_buttone" ).click(function() {
 							.attr("x", 25)
 							.attr("y", ".31em")
 							.text(function(d) { return d.name+" ("+d.label+")"; })
-							.style("font-weight",function(d){if(d.index==0){return "bold";} else return "normal";});
+							.style("font-weight",function(d){if(d.id==leftnodeid || d.id==rightnodeid){return "bold";} else return "normal";});
 
 							//For tooltip
 							var div = d3.select("body").append("div")   

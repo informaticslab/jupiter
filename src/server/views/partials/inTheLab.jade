@@ -54,137 +54,159 @@
 						//end added lines 
 			// end detail header
 			.top_block2
-				.block_linkage
+				.block_edge
 					.vertical_spacing1
 						script.
-						
-							var diameter = 960,
-								radius = diameter/2,
-								innerRadius = radius - 120;
+														// var diameter = 960,
+														// 	radius = diameter / 2,
+														// 	innerRadius = radius - 120;
 
-							var cluster = d3.layout.cluster()
-								.size([360, innerRadius])
-								.sort(null)
-								.value(function(d) { return d.size; });
+														var diameter = 1300,
+															radius = diameter/2,
+															innerRadius = radius - 240;
 
-							var bundle = d3.layout.bundle();
+														var cluster = d3.layout.cluster()
+																		.size([360, innerRadius])
+																		.sort(null)
+																		.value(function(d) { return d.size; });
 
-							var line = d3.svg.line.radial()
-								.interpolate(bundle)
-								.tension(85)
-								.radius(function(d){ return d.y;})
-								.angle(function(d){return d.x / 180 * Math.PI});
+														var bundle = d3.layout.bundle();
 
-							var svg = d3.select(".block_linkage").append("svg")
-								.attr("width", diameter)
-								.attr("height", diameter)
-								.append("g")
-								.attr("transform", "translate(" + radius + "," + radius + ")");
+														var line = d3.svg.line.radial()
+																		.interpolate("bundle")
+																		.tension(.85)
+																		.radius(function(d) { return d.y; })
+																		.angle(function(d) { return d.x / 180 * Math.PI; });
 
-							var link = svg.append("g").selectAll(".link"),
-								node = svg.append("g").selectAll(".node");
-				
-							d3.json("/apollo/api/inTheLab/nodes", function(error, json) {
-								if(json==undefined | error)
-								{	
-									var errormsg=svg.append("text")
-									.text("Could not retrieve all the nodes")
-									.attr("class","linkageerrormsg")
-									.attr("x",w/4)
-									.attr("y",h/4);
-								}
-								else
-								{	
-									var nodes = cluster.nodes(packageHierarchy(json));
-									//- 	links = cluster.links(nodes);
-									
-									//- link = link
-									//- 	.data(bundle(links))
-									//- 	.enter().append("path")
-									//- 	.each(function(d) { d.source = d[0], d.target = d[d.length - 1]; })
-									//- 	.attr("class", "link")
-									//- 	.attr("d", line);
+														var svg = d3.select(".block_edge").append("svg")
+																.attr("width", diameter)
+																.attr("height", diameter)
+																.append("g")
+																.attr("transform", "translate(" + radius + "," + radius + ")");
 
-									node = node
-										.data(nodes.filter(function(n){return !n.children; }))
-										.enter().append("text")
-										.attr("class", "node")
-										.attr("dy", ".31em")
-										.attr("transform", function(d) { return "rotate(" + (d.x - 90) + ")translate(" + (d.y + 8) + ",0)" + (d.x < 180 ? "" : "rotate(180)"); })
-										.style("text-anchor", function(d) { return d.x < 180 ? "start" : "end"; })
-										.text(function(d) { return d.name})
-										.on("mouseover", mouseovered)
-										.on("mouseout", mouseouted);
+														var link = svg.append("g").selectAll(".link"),
+																		node = svg.append("g").selectAll(".node");
 
-									d3.select(self.frameElement).style("height", diameter + "px");
+														d3.json("/apollo/api/inTheLab/relations", function(error, json){
 
-									function packageHierarchy(json){
-										var map = {};
+															if(json==undefined | error)
+															{	
+																var errormsg=svg.append("text")
+																.text("Could not retrieve all the nodes")
+																.attr("class","linkageerrormsg")
+																.attr("x",w/4)
+																.attr("y",h/4);
+															}
+															else{
+																//- relationsArr = json;
+															}
+														});
 
-										function find(name, data){
-											var node = map[name], i;
-											if (!node) {
-												node = map[name] = data || {name: name, children: []};
-												if (name.length) {
-													node.parent = find(name.substring(0, i = name.lastIndexOf(".")));
-													node.parent.children.push(node);
-													node.key = name.substring(i + 1);
-												}
-												return node;
-											}
-										}
+														//- d3.json("/apollo/img/readme-flare-imports.json", function(error, classes) {
+														//- d3.json("/apollo/img/readme-apollo-imports.json", function(error, classes) {
+														d3.json("/apollo/api/inTheLab/nodes", function(error, classes) {
 
-										json.forEach(function(d){
-											find(d.name, d);
-										});
-										return map[""];
-									}
+																var nodes = cluster.nodes(packageHierarchy(classes)),
+																				links = packageImports(nodes);
 
-									function packageImports(nodes) {
-										var map = {};
-										var children = [];
+																link = link
+																				.data(bundle(links))
+																				.enter().append("path")
+																				.each(function(d) { d.source = d[0], d.target = d[d.length - 1]; })
+																				.attr("class", "linkLab")
+																				.attr("d", line);
 
-										nodes.forEach(function(d){
-											map[d.name] = d;
-										});
+																node = node
+																				.data(nodes.filter(function(n) { return !n.children; }))
+																				.enter().append("text")
+																				.attr("class", "nodeLab")
+																				.attr("dy", ".31em")
+																				.attr("transform", function(d) { return "rotate(" + (d.x - 90) + ")translate(" + (d.y + 8) + ",0)" + (d.x < 180 ? "" : "rotate(180)"); })
+																				.style("text-anchor", function(d) { return d.x < 180 ? "start" : "end"; })
+																				.text(function(d) { return d.key; })
+																				.on("mouseover", mouseovered)
+																				.on("mouseout", mouseouted);
+														});
 
-										nodes.forEach(function(d){
-											if (d.children) d.children.forEach(function(i){
-												children.push({source: map[d.name], target: map[i]});
-											});
-										});
+														function mouseovered(d) {
+																node
+																				.each(function(n) { n.target = n.source = false; });
 
-										return children;
-									}
+																link
+																				.classed("linkLab--target", function(l) { if (l.target === d) return l.source.source = true; })
+																				.classed("linkLab--source", function(l) { if (l.source === d) return l.target.target = true; })
+																				.filter(function(l) { return l.target === d || l.source === d; })
+																				.each(function() { this.parentNode.appendChild(this); });
 
-									function mouseovered(d) {
-										node
-											.each(function(n) { n.target = n.source = false; });
-										link
-											.classed("link--target", function(l) { if (l.target === d) return l.source.source = true; })
-											.classed("link--source", function(l) { if (l.source === d) return l.target.target = true; })
-											.filter(function(l) { return l.target === d || l.source === d; })
-											.each(function() { this.parentNode.appendChild(this); });
-										node 
-											.classed("node--target", function(n) { return n.target; })
-											.classed("node--source", function(n) { return n.source; });
-									}
+																node
+																				.classed("nodeLab--target", function(n) { return n.target; })
+																				.classed("nodeLab--source", function(n) { return n.source; });
+														}
 
-									function mouseouted(d) {
-										link
-											.classed("link--target", false)
-											.classed("link--source", false);
-										node
-											.classed("link--target", false)
-											.classed("link--source", false);
-									}
-								
-									d3.select(self.frameElement).style("height", diameter + "px");
+														function mouseouted(d) {
+																link
+																				.classed("linkLab--target", false)
+																				.classed("linkLab--source", false);
 
-								}
-							});
-							
-				// end block_linkage
+																node
+																				.classed("nodeLab--target", false)
+																				.classed("nodeLab--source", false);
+														}
+
+														d3.select(self.frameElement).style("height", diameter + "px");
+
+														// Lazily construct the package hierarchy from class names.
+														function packageHierarchy(classes) {
+																var map = {};
+
+																function find(name, data) {
+																		var node = map[name], i;
+																		if (!node) {
+																				node = map[name] = data || {name: name, children: []};
+																				
+																				if (name.length){
+																					node.parent = find(name.substring(0, i = name.lastIndexOf("!")));
+																					node.parent.children.push(node);
+																					node.key = name.substring(i+1);
+																				}
+																		}
+																		return node;
+																}
+
+																classes.forEach(function(d) {
+																		find(d.name, d);
+																});
+
+																return map[""];
+														}
+
+														// Return a list of imports for the given array of nodes.
+														function packageImports(nodes) {
+																var map = {},
+																				imports = [];
+
+																// Compute a map from name to node.
+																nodes.forEach(function(d) {
+																		
+																		if(d != null){
+																			map[d.name] = d;
+																		}
+																});
+
+																// For each import, construct a link from the source to target node.
+																nodes.forEach(function(d) {
+
+																		if (d.imports) d.imports.forEach(function(i) {
+																				if(i != null){
+																					//- console.log("packageImports :: the name of d is: "+d.name);
+																					//- console.log("packageImports :: the value of i is: "+i);
+																					imports.push({source: map[d.name], target: map[i]});
+																				}
+																		});
+																});
+																return imports;
+														}
+				// end block_edge
 	.div(ng-class='getSidebarWidth()')
 		.hx_side(ng-show='!showSidebar' ng-click='toggleSidebar()')
 			.blue_side
@@ -196,12 +218,12 @@
 						a(ng-click='goToTop()' href='{{site.url}}') {{site.name}}
 			.button_side
 				.sidebar_button
-					img(src='img/tab_button_collapse.png', alt='Collapse sidebar')			
+					img(src='img/tab_button_collapse.png', alt='Collapse sidebar')   
 		// end hx_side
 		.hx_side(ng-show='showSidebar' ng-click='toggleSidebar()')
 			.blue_side_expanded
 			.button_side_expanded
 				.sidebar_button
-					img(src='img/tab_button_expand.png', alt='Expand sidebar')			
-		// end hx_side			
+					img(src='img/tab_button_expand.png', alt='Expand sidebar')   
+		// end hx_side   
 // row

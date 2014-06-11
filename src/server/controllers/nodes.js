@@ -1,5 +1,7 @@
 var neodb = require('../lib/neo4jConnection');
 var _ = require('underscore');
+
+var relationsArr = [];
 exports.getRelationsForNode = function(req, res) {
     var query = ['MATCH n-[r]-x ', 'where n.id={nodeId} ' //maaaaaaaagic
         , 'return id(r) as relId,type(r) as relType, x.id as childId, ','startNode(r).id as startNode,', 'labels(x) as childLabels, x.name as childName order by relType, childName '
@@ -463,25 +465,9 @@ var compileSearchResultsForInTheLab= function(req, res, err, results)
         var returnable = {};
         var duplicheck = [];
 
-        var surveillanceSys = {};
-        surveillanceSys.name = 'SurveillanceSystem';
-        surveillanceSys.children = [];
-
-        var programs = {};
-        programs.name = 'Program';
-        programs.children = [];
-
-        var healthSurveys = {};
-        healthSurveys.name = 'HealthSurvey';
-        healthSurveys.children = [];
-
-        var registries = {};
-        registries.name = 'Registry';
-        registries.children = [];
-
         if (err) {
             console.error('Error retreiving node from database:', err);
-            res.send(404, 'No node with that text available');
+            res.send(404, 'Nodes not available');
         } else {
             
             if (results[0] != null && results[0]['n'] != null && results[0]['n']['data'] != null) {
@@ -492,8 +478,9 @@ var compileSearchResultsForInTheLab= function(req, res, err, results)
                     {
                         duplicheck[doohicky.id] = true;
                         var nodedata = {};
-                        var doohickylabels = results[i]['labels(n)'].join(',')
-                        var relCount = results[i]['relCount'] 
+                        // var doohickylabels = results[i]['labels(n)'].join(',')
+                        var doohickylabels = results[i]['labels(n)'];
+                        var relCount = results[i]['relCount'];
                         if (relCount == null)
                         {
                             relCount = 0;
@@ -502,43 +489,21 @@ var compileSearchResultsForInTheLab= function(req, res, err, results)
                         nodedata.name = doohicky.name;
                         nodedata.id = doohicky.id;
                         nodedata.labels = doohickylabels;
-                        nodedata.relCount = relCount;
-                        nodedata.children = [];
+                        nodedata.imports = [];
 
-                        if(nodedata.labels == 'SurveillanceSystem'){
-                            console.log("The nodedata label matches with SurveillanceSystem");
-                            surveillanceSys.children.push(nodedata);
-                        }
-                        else if(nodedata.labels == 'Program'){
-                            programs.children.push(nodedata);
-                        }
-                        else if(nodedata.labels == 'HealthSurvey'){
-                            healthSurveys.children.push(nodedata);
-                        }
-                        else if(nodedata.labels == 'Registry'){
-                            registries.children.push(nodedata);
-                        }
+                        var tmpArr = _.where(relationsArr, {p: nodedata.id});
+                        
+                        tmpArr.forEach(function (d){
+                            nodedata.imports.push('Root!'.concat(d.name));
+                            // nodedata.imports.push(d.name);
+                        });
+                       
+                        nodedata.name = 'Root!'.concat(nodedata.name);
+                        nodedataarr.push(nodedata);
                     }
                 }
-
-                healthSurveys.children.sort(sortFunction);
-                nodedataarr.push(healthSurveys);
-
-                registries.children.sort(sortFunction);
-                nodedataarr.push(registries);
-                
-                programs.children.sort(sortFunction);
-                nodedataarr.push(programs);
-
-                surveillanceSys.children.sort(sortFunction);
-                nodedataarr.push(surveillanceSys);
-
-                returnable.name = "root";
-                returnable.children = nodedataarr;
-                
-                var mainReturnable = [];
-                mainReturnable.push(returnable);
-                res.json(mainReturnable);
+                nodedataarr.sort(sortFunction);
+                res.json(nodedataarr);
         }
         else
             {
@@ -548,15 +513,31 @@ var compileSearchResultsForInTheLab= function(req, res, err, results)
         }
 }
 
-
 exports.getAllNodesForInTheLab = function(req, res) {
 
-    var query = 'MATCH (n:SurveillanceSystem)-[r]-x RETURN n, labels(n), count(r) as relCount UNION MATCH (n:Program)-[r]-x RETURN n, labels(n), count(r) as relCount UNION MATCH (n:Registry)-[r]-x RETURN n, labels(n), count(r) as relCount UNION MATCH (n:HealthSurvey)-[r]-x RETURN n, labels(n), count(r) as relCount'
+    var query = 'START n=node(*) RETURN n;'
     var params ={};
    
     neodb.db.query(query, params, function(err, results) {
-        //console.log("The total of surveillance systems and programs are: "+ results);
-        compileSearchResultsForInTheLab(req, res, err, results)
+        compileSearchResultsForInTheLab(req, res, err, results);
+    });
+};
+
+exports.getAllRealtionsForInTheLab = function(req, res) {
+
+    var query = 'MATCH n-[r]-x return n.id as p, n.name as pname, x.name as name';
+    var params ={};
+   
+    neodb.db.query(query, params, function(err, results) {
+        
+        if(err){
+            console.log("Could not get all the relations for the nodes from the database");
+        }
+        else{
+
+            relationsArr = results;
+            res.send(results);
+        }
     });
 };
 

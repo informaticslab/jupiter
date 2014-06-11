@@ -17,6 +17,7 @@ module.exports = function(app) {
     app.get('/apollo/api/node/advancedSearch/:id', nodes.getAdvancedSearchData);
     app.get('/apollo/api/node/searchByName/:searchTerm', nodes.searchByName);
     app.get('/apollo/api/node/name/:id', nodes.getNodeNameById);
+    app.get('/apollo/api/inTheLab/relations', nodes.getAllRealtionsForInTheLab);
     //this goes at the bottom.  It is the catchall for everything not defined above.  Silly.
     app.get('/apollo/*', index.index);
 };	

@@ -157,7 +157,7 @@
 							tab(ng-repeat="relation in relations", heading="{{relation.name | unCamelCase}}")
 								div(ng-repeat="relType in relation.relTypes")
 									.vertical_spacing		
-									.orange_header {{relType.name  | unCamelCase}}
+									.relationship_header {{relType.name  | unCamelCase}}
 									table(class="table table-striped")
 										tr(ng-repeat="child in relType.nodes")
 											td.col-xs-1

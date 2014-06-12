@@ -7,7 +7,7 @@ angular.module('apolloApp').directive('ngHistorybar', function () {
                   '</a' +
                 '</div>',
       link: function (scope, elem, attrs) {
-        console.log("Recognized the historybar directive usage");
+        //console.log("Recognized the historybar directive usage");
       }
     }
 });

@@ -14,7 +14,7 @@ angular.module('apolloApp').controller('linkageCtrl', function($scope, $routePar
         //console.log('node name was: ' + $scope.node.name)
         if ($scope.node.name != null)
          {
-           siteName = 'Linkage: ' + $scope.node.name;
+           siteName = 'Relationships: ' + $scope.node.name;
             var site = {
       'name':siteName,
       'url':$location.absUrl()
@@ -27,12 +27,6 @@ angular.module('apolloApp').controller('linkageCtrl', function($scope, $routePar
     
 	$scope.twitterBlurb = encodeURIComponent($location.absUrl());
 
-
-	if ($scope.node.name != null)
-	{
-         //console.log('node name 2 was: ' + $scope.node.name)
-		'Linkage Viewer: ' + $scope.node.name;
-	}
 
 
     $scope.emailBlurb = encodeURIComponent($location.absUrl());

@@ -40,7 +40,7 @@
 						| Search
 						span.search_intro   |  Enter a search term:
 					.input-group.search_term
-						input.form-control(type='text', ng-model='queryString', id='searchPageBawks', ng-enter='redirectToSearch()')
+						input.form-control(type='text', typeahead-on-select="itemSelected($item, $model, $label)", typeahead-min-length='3', typeahead="node.name for node in getNodes($viewValue)", ng-model='queryString', id='searchPageBawks')
 						span.input-group-btn
 							a.btn.btn-default(type='button', id='searchPageButton', ng-click='redirectToSearch()')
 								span.glyphicon.glyphicon-search

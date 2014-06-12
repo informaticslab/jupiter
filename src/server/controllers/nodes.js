@@ -487,7 +487,8 @@ var compileSearchResultsForInTheLab= function(req, res, err, results)
 
 exports.getAllNodesForInTheLab = function(req, res) {
 
-    var query = 'START n=node(*) RETURN n;'
+    // var query = 'START n=node(*) RETURN n;'
+    var query = 'MATCH (n) where labels(n)[0]<>"Tag" return n';
     var params ={};
    
     neodb.db.query(query, params, function(err, results) {
@@ -497,7 +498,8 @@ exports.getAllNodesForInTheLab = function(req, res) {
 
 exports.getAllRealtionsForInTheLab = function(req, res) {
 
-    var query = 'MATCH n-[r]-x return n.id as p, n.name as pname, x.name as name';
+    // var query = 'MATCH n-[r]-x return n.id as p, n.name as pname, x.name as name';
+    var query = 'MATCH n-[r]-x where labels(x)[0]<>"Tag" return n.id as p, n.name as pname, x.name as name';
     var params ={};
    
     neodb.db.query(query, params, function(err, results) {
@@ -506,7 +508,7 @@ exports.getAllRealtionsForInTheLab = function(req, res) {
             console.log("Could not get all the relations for the nodes from the database");
         }
         else{
-
+            console.log("THE TOTAL NUMBER OF RELATIONS ARE: "+results.length);
             relationsArr = results;
             res.send(results);
         }

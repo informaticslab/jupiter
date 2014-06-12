@@ -145,7 +145,7 @@ var url = $(location).attr('href');
 								.data(json.links)
 								.enter()
 								.append("svg:text")
-								.attr("class", "path_label");
+								.attr("class", "path_label")
 								
 								path_label.append("svg:textPath")
 								.attr("startOffset", "50%")
@@ -201,11 +201,10 @@ var url = $(location).attr('href');
 								path_label.attr('transform', function(d) {
 									//return 'translate(' + d.source.x + ',' + d.source.y + );
 									if (d.target.x < d.source.x){
-										bbox = this.getBBox();
-										rx = bbox.x+bbox.width/2;
-										ry = bbox.y+bbox.height/2;
 
-										return 'rotate(180 '+rx+' '+ry+') ';
+										midx=(d.source.x+d.target.x)/2;
+										midy=(d.source.y+d.target.y)/2;
+										return 'rotate(180 '+midx+' '+midy+') ';
 									}
 									else {
 										return 'rotate(0)';
@@ -412,30 +411,27 @@ var url = $(location).attr('href');
 								.delay(function(d, i) { return i * 5; })
 								.attr("d", function(d) {
 
-								circle.each(function(d1,i1){
-									
-										if(d.target.id==d1.id & d.target.index==d1.index)
-										{
-
-											d.target.x=d1.x;
-											d.target.y=d1.y;
+									circle.each(function(d1,i1){
 										
-										}
+											if(d.target.id==d1.id & d.target.index==d1.index)
+											{
 
-										else if(d.source.id==d1.id & d.source.index==d1.index)
-										{
-											d.source.x=d1.x;
-											d.source.y=d1.y;
-										}
-									else
-										{
+												d.target.x=d1.x;
+												d.target.y=d1.y;
+											
+											}
 
-										}
+											else if(d.source.id==d1.id & d.source.index==d1.index)
+											{
+												d.source.x=d1.x;
+												d.source.y=d1.y;
+											}
+										else
+											{
+
+											}
 									});
 
-								path
-								.append("svg:title")
-								.text(function(d) { return d.source.x+" "+d.source.y+" "+d.target.x+" "+d.target.y;; });
 
 								var dx = d.target.x - d.source.x,
 								dy = d.target.y - d.source.y,
@@ -446,12 +442,20 @@ var url = $(location).attr('href');
 								dtys = d.target.y - 10 * Math.sin(theta);
 								return "M" + d.source.x + "," + d.source.y + "L" + d.target.x + "," + d.target.y + "M" + dtxs + "," + dtys +  "l" + (3.5 * Math.cos(d90 - theta) - 10 * Math.cos(theta)) + "," + (-3.5 * Math.sin(d90 - theta) - 10 * Math.sin(theta)) + "L" + (dtxs - 3.5 * Math.cos(d90 - theta) - 10 * Math.cos(theta)) + "," + (dtys + 3.5 * Math.sin(d90 - theta) - 10 * Math.sin(theta)) + "z";
 								});
+								
+								//Set values to 0,0 since these are relative postions. Any value greater than 0,0 will offset the path label by a and y values.
+								path_label
+								.attr('transform', function(d) {
+									return 'translate(' + 0 + ',' + 0 + ')';
+								});
+								
 								//.style("fill", "#8D8D91");
 
 								
 
 								hidelinks("hide");
 								locknodes("lock");
+
 
 
 							}

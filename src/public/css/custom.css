@@ -456,7 +456,7 @@ td.bot_space {padding-bottom:1em;}
 -ms-transform: scaleX(-1);
 
 }
-.blue_side_text {color:#d3721e; margin-top:1em; margin-right:1em; margin-left:1em; font-family:tahoma, geneva, sans-serif; letter-spacing:.01em; }
+.blue_side_text {color:#d3721e; font-weight:bold; margin-top:1em; margin-right:1em; margin-left:1em; padding-bottom:.5em; font-size:.9em; font-family:tahoma, geneva, sans-serif; letter-spacing:.01em; }
 
 .sidebar_coming_soon {margin-left:1em; padding-top:.5em; font-size:.9em; color:#777777; }
 

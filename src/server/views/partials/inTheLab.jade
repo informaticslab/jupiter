@@ -102,12 +102,13 @@
 															}
 														});
 
-														//- d3.json("/apollo/img/readme-flare-imports.json", function(error, classes) {
-														//- d3.json("/apollo/img/readme-apollo-imports.json", function(error, classes) {
 														d3.json("/apollo/api/inTheLab/nodes", function(error, classes) {
 
 																var nodes = cluster.nodes(packageHierarchy(classes)),
 																				links = packageImports(nodes);
+
+																console.log("The total number of nodes are: "+ nodes.length);
+																console.log("The total number of links are: "+ links.length);
 
 																link = link
 																				.data(bundle(links))

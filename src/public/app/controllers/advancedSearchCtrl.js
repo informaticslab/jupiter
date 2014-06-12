@@ -1,6 +1,7 @@
 angular.module('apolloApp').controller('advancedSearchCtrl', function($scope, $http, $routeParams, $resource) {
     $scope.$parent.q = 'explore';
     $scope.nodeId = $routeParams.id;
+    $scope.showImage = true;
     $scope.getNodes = function(val) {
         return $http.get('/apollo/api/node/searchByName/' + val).then(function(res) {
             var nodes = [];
@@ -24,7 +25,9 @@ angular.module('apolloApp').controller('advancedSearchCtrl', function($scope, $h
             $scope.nodeBId = id.split("-")[1];
             $scope.hops = id.split("-")[2];
         }
+        $scope.showImage = false;
     }
+
     $scope.itemSelectedA = function($item, $model, $label) {
         $scope.nodeAId = $item.id;
     };

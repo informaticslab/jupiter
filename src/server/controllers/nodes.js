@@ -478,8 +478,8 @@ var compileSearchResultsForInTheLab= function(req, res, err, results)
                     {
                         duplicheck[doohicky.id] = true;
                         var nodedata = {};
-                        // var doohickylabels = results[i]['labels(n)'].join(',')
-                        var doohickylabels = results[i]['labels(n)'];
+                        
+                        var doohickylabels = results[i]['labels'];
                         var relCount = results[i]['relCount'];
                         if (relCount == null)
                         {
@@ -516,11 +516,17 @@ var compileSearchResultsForInTheLab= function(req, res, err, results)
 exports.getAllNodesForInTheLab = function(req, res) {
 
     // var query = 'START n=node(*) RETURN n;'
-    var query = 'MATCH (n) where labels(n)[0]<>"Tag" return n';
+    var query = 'MATCH (n) where labels(n)[0]<>"Tag" return n, labels(n) as labels';
     var params ={};
    
     neodb.db.query(query, params, function(err, results) {
-        compileSearchResultsForInTheLab(req, res, err, results);
+        if(err){
+            console.log("Could not get all the nodes from the database");
+        }
+        else{
+            // console.log("The list of nodes are: "+JSON.stringify(results));
+            compileSearchResultsForInTheLab(req, res, err, results);
+        }
     });
 };
 

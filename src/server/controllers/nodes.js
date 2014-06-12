@@ -536,7 +536,6 @@ exports.getAllRealtionsForInTheLab = function(req, res) {
             console.log("Could not get all the relations for the nodes from the database");
         }
         else{
-            console.log("THE TOTAL NUMBER OF RELATIONS ARE: "+results.length);
             relationsArr = results;
             res.send(results);
         }

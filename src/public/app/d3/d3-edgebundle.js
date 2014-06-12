@@ -1,4 +1,4 @@
-// var diameter = 960,
+														// var diameter = 960,
 														// 	radius = diameter / 2,
 														// 	innerRadius = radius - 120;
 
@@ -33,41 +33,49 @@
 															if(json==undefined | error)
 															{	
 																var errormsg=svg.append("text")
-																.text("Could not retrieve all the nodes")
+																.text("Could not retrieve all the relations")
 																.attr("class","linkageerrormsg")
 																.attr("x",w/4)
 																.attr("y",h/4);
 															}
 															else{
-																//- relationsArr = json;
+																d3.json("/apollo/api/inTheLab/nodes", function(error, classes) {
+
+																		if(classes == undefined | error){
+																			var errormsg=svg.append("text")
+																			.text("Could not retrieve all the nodes")
+																			.attr("class","linkageerrormsg")
+																			.attr("x",w/4)
+																			.attr("y",h/4);
+																		}
+																		else{
+																			var nodes = cluster.nodes(packageHierarchy(classes)),
+																							links = packageImports(nodes);
+
+																			console.log("The total number of nodes are: "+ nodes.length);
+																			console.log("The total number of links are: "+ links.length);
+
+																			link = link
+																							.data(bundle(links))
+																							.enter().append("path")
+																							.each(function(d) { d.source = d[0], d.target = d[d.length - 1]; })
+																							.attr("class", "linkLab")
+																							.attr("d", line);
+
+																			node = node
+																							.data(nodes.filter(function(n) { return !n.children; }))
+																							.enter().append("text")
+																							.attr("class", "nodeLab")
+																							.attr("dy", ".31em")
+																							.attr("transform", function(d) { return "rotate(" + (d.x - 90) + ")translate(" + (d.y + 8) + ",0)" + (d.x < 180 ? "" : "rotate(180)"); })
+																							.style("text-anchor", function(d) { return d.x < 180 ? "start" : "end"; })
+																							.text(function(d) { return d.key; })
+																							.on("mouseover", mouseovered)
+																							.on("mouseout", mouseouted);
+																		}
+																		
+																});
 															}
-														});
-
-														d3.json("/apollo/api/inTheLab/nodes", function(error, classes) {
-
-																var nodes = cluster.nodes(packageHierarchy(classes)),
-																				links = packageImports(nodes);
-
-																console.log("The total number of nodes are: "+ nodes.length);
-																console.log("The total number of links are: "+ links.length);
-
-																link = link
-																				.data(bundle(links))
-																				.enter().append("path")
-																				.each(function(d) { d.source = d[0], d.target = d[d.length - 1]; })
-																				.attr("class", "linkLab")
-																				.attr("d", line);
-
-																node = node
-																				.data(nodes.filter(function(n) { return !n.children; }))
-																				.enter().append("text")
-																				.attr("class", "nodeLab")
-																				.attr("dy", ".31em")
-																				.attr("transform", function(d) { return "rotate(" + (d.x - 90) + ")translate(" + (d.y + 8) + ",0)" + (d.x < 180 ? "" : "rotate(180)"); })
-																				.style("text-anchor", function(d) { return d.x < 180 ? "start" : "end"; })
-																				.text(function(d) { return d.key; })
-																				.on("mouseover", mouseovered)
-																				.on("mouseout", mouseouted);
 														});
 
 														function mouseovered(d) {

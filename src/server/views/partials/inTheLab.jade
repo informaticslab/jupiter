@@ -67,8 +67,8 @@
 			.blue_side
 				.blue_side_text
 					| Your Exploration History:
-				.sidebar_coming_soon
-					div(ng-repeat='site in browseHistory.sites')
+				.sidebar_now
+					div.sidebar_repeat(ng-repeat='site in browseHistory.sites')
 						a(ng-click='goToTop()' href='{{site.url}}') {{site.name}}
 			.button_side
 				.sidebar_button

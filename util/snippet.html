@@ -1,0 +1,7 @@
+
+<div class="blue_side">
+  <div class="blue_side_text">Your Exploration History:</div>
+  <div class="sidebar_now">
+    <div ng-repeat="site in browseHistory.sites" class="sidebar_repeat"><a ng-click="goToTop()" href="{{site.url}}">{{site.name}}</a></div>
+  </div>
+</div>

@@ -1,9 +1,16 @@
-.blue_side
-	.blue_side_text
-		| Your Exploration History:
-	.sidebar_now
-		div.sidebar_repeat(ng-repeat='site in browseHistory.sites')
-			a(ng-click='goToTop()' href='{{site.url}}') {{site.name}}
+ul.nav.nav-pills
+	li
+		a(href='#/quickGuide/') Quick Guide
+	li.active
+		a(href='#/browse/') Browse
+	li
+		a(href='#/search/') Search
+	li
+		a(href='#/advancedSearch/') Relationship Explorer
+	li
+		a(href='' class='inactive') Favorites
+	li
+		a(href='#/inTheLab/') In the Lab
 
 
 

@@ -210,15 +210,30 @@ li.faq {padding-bottom:.5em;}
 .detail_header {min-height:55px;background-color:#f39c11; color:#ffffff; font-weight:bold; padding:.5em; }
 .detail_header_adv_search {min-height:57px;background-color:#f39c11; color:#ffffff; font-weight:bold; padding:.5em; border-top-style: solid; border-color: #f6b956; border-width: 1px;  }
 
-.adv_search_controls { width:100%; min-height: 70px; background-color:#f39c11; color:#ffffff; font-weight:bold; padding:.5em; border-bottom-style: solid; border-color:#c57f10; border-width:1px; }
-.input1_adv_search {float:left; width:33%; padding-top:.7em; }
-.input2_adv_search {float:left;  width:33%; padding-top:.7em;}
+.adv_search_controls { width:100%; min-height: 70px; background-color:#f39c11; color:#ffffff; font-weight:bold; padding-top:.5em; padding-bottom:.5em; padding-left:.5em; padding-right:.2em; border-bottom-style: solid; border-color:#c57f10; border-width:1px; }
+.input1_adv_search {float:left; width:31%; padding-top:.7em; }
+.input2_adv_search {float:left;  width:31%; padding-top:.7em;}
+
+.input1_adv_search_md {float:left; width:30%; padding-top:.7em; }
+.input2_adv_search_md {float:left;  width:30%; padding-top:.7em;}
+
+.input1_adv_search_sm {float:left; width:30%; padding-top:.7em; }
+.input2_adv_search_sm {float:left;  width:30%; padding-top:.7em;}
+
 .adv_search_label {float:left; padding-right:.4em; padding-left:.5em; padding-top:.4em;}
+.adv_search_label_sm {float:left; padding-right:.4em; padding-left:.2em; padding-top:.4em;}
 .adv_search_field {float:left; width:80%;  font-weight:normal;}
+.adv_search_field_md {float:left; width:75%;  font-weight:normal;}
+.adv_search_field_sm {float:left; width:70%;  font-weight:normal;}
+
+
 .adv_search_button {float:right; padding-right:.5em; padding-top:.7em;}
 
-.adv_button {width:10em;}
-.step_number {float:left;  padding-top:1em; }
+.adv_button {width:9.5em;}
+.adv_button_md {width:6em;}
+.adv_button_sm {width:5em;}
+.step_number {float:left;  padding-top:1em;  }
+.step_number_sm {float:left; font-size:.9em;  padding-top:1em; line-height: 98%; }
 
 .detail_header_linkage_md {min-height:55px;background-color:#f39c11; color:#ffffff; font-weight:bold; padding:.5em; padding-top:.6em; }
 

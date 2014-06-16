@@ -545,49 +545,42 @@ exports.getAllRealtionsForInTheLab = function(req, res) {
 exports.getAdvancedSearchData = function(req, res) {
 
 
-    var nodes=req.params.id;
+    var nodes = req.params.id;
     //console.log(nodes);
 
-    var nodesarr=nodes.split("-");
+    var nodesarr = nodes.split("-");
 
-    var hops=nodesarr[2];
+    var hops = nodesarr[2];
 
 
 
     var query, params;
 
-    if(hops==2)
-    {
+    if (hops == 2) {
         query = ['MATCH p=(a)-[*1]-(b)-[*1]-(c) where a.id={leftId} and c.id={rightId}',
-        'return extract(x in nodes(p) |x.name) as Nodes, extract(y in nodes(p) |y.id) as NodesId, extract(s in nodes(p) |labels(s)) as NodesLabel, extract(z in relationships(p) | type(z)) as Relations, ',
-        'extract(r in relationships(p) | startNode(r).id) as StartNodes, extract(t in relationships(p) | t.relationshipDescription ) as Description'
+            'return extract(x in nodes(p) |x.name) as Nodes, extract(y in nodes(p) |y.id) as NodesId, extract(s in nodes(p) |labels(s)) as NodesLabel, extract(z in relationships(p) | type(z)) as Relations, ',
+            'extract(r in relationships(p) | startNode(r).id) as StartNodes, extract(t in relationships(p) | t.relationshipDescription ) as Description'
         ].join('\n');
 
-    }
-    else if(hops==3)
-    {
+    } else if (hops == 3) {
         query = ['MATCH p=(a)-[*1..2]-(b)-[*1..2]-(c) where a.id={leftId} and c.id={rightId}',
-        'return extract(x in nodes(p) |x.name) as Nodes, extract(y in nodes(p) |y.id) as NodesId, extract(s in nodes(p) |labels(s)) as NodesLabel, extract(z in relationships(p) | type(z)) as Relations, ',
-        'extract(r in relationships(p) | startNode(r).id) as StartNodes, extract(t in relationships(p) | t.relationshipDescription ) as Description'
+            'return extract(x in nodes(p) |x.name) as Nodes, extract(y in nodes(p) |y.id) as NodesId, extract(s in nodes(p) |labels(s)) as NodesLabel, extract(z in relationships(p) | type(z)) as Relations, ',
+            'extract(r in relationships(p) | startNode(r).id) as StartNodes, extract(t in relationships(p) | t.relationshipDescription ) as Description'
         ].join('\n');
 
-    }
-    else if(hops==4)
-    {
+    } else if (hops == 4) {
         query = ['MATCH p=(a)-[*2]-(b)-[*2]-(c) where a.id={leftId} and c.id={rightId}',
-        'return extract(x in nodes(p) |x.name) as Nodes, extract(y in nodes(p) |y.id) as NodesId, extract(s in nodes(p) |labels(s)) as NodesLabel, extract(z in relationships(p) | type(z)) as Relations, ',
-        'extract(r in relationships(p) | startNode(r).id) as StartNodes, extract(t in relationships(p) | t.relationshipDescription ) as Description'
+            'return extract(x in nodes(p) |x.name) as Nodes, extract(y in nodes(p) |y.id) as NodesId, extract(s in nodes(p) |labels(s)) as NodesLabel, extract(z in relationships(p) | type(z)) as Relations, ',
+            'extract(r in relationships(p) | startNode(r).id) as StartNodes, extract(t in relationships(p) | t.relationshipDescription ) as Description'
         ].join('\n');
 
-    }
-    else
-    {
+    } else {
         console.error('Error retreiving degrees of seperation from database:');
         res.send(404, 'no degree indicated');
 
     }
 
-   
+
 
 
     var params = {
@@ -606,30 +599,27 @@ exports.getAdvancedSearchData = function(req, res) {
         } else {
             //console.log(r);
 
-            if(r=="")
-            {
+            if (r == "") {
 
                 res.send(404, 'no node at that location');
-            }
-            else
-            {
+            } else {
 
 
                 //console.log(nodes);
                 //console.log(relations);
 
-                var obj = eval (r);
+                var obj = eval(r);
                 var nodesA = [];
 
-                obj.forEach(function (d){
-                //console.log("Nodes",d.Nodes);
+                obj.forEach(function(d) {
+                    //console.log("Nodes",d.Nodes);
 
-                    var dnodes=eval(d.Nodes);
-                    var dnodesid=eval(d.NodesId);
-                    var dnodeslabel=eval(d.NodesLabel);
-                    var drelations=eval(d.Relations);
-                    var dstartnodes=eval(d.StartNodes);
-                    var drelationsdescription=eval(d.Description);
+                    var dnodes = eval(d.Nodes);
+                    var dnodesid = eval(d.NodesId);
+                    var dnodeslabel = eval(d.NodesLabel);
+                    var drelations = eval(d.Relations);
+                    var dstartnodes = eval(d.StartNodes);
+                    var drelationsdescription = eval(d.Description);
 
 
                     //console.log("dnodes",dnodes);
@@ -638,89 +628,74 @@ exports.getAdvancedSearchData = function(req, res) {
 
                     //check for redundant hops in path
 
-                    var nodesRedundancyCheck=[];
+                    var nodesRedundancyCheck = [];
                     nodesRedundancyCheck.push(dnodes[0]);
 
-                    var found=false;
-                    for (var i=1;i<dnodes.length;i++)
-                    { 
-                        found=false;
-                        for(j=0;j<nodesRedundancyCheck.length;j++)
-                        {
-                            if(dnodes[i]==nodesRedundancyCheck[j])
-                            {
-                                found=true;
+                    var found = false;
+                    for (var i = 1; i < dnodes.length; i++) {
+                        found = false;
+                        for (j = 0; j < nodesRedundancyCheck.length; j++) {
+                            if (dnodes[i] == nodesRedundancyCheck[j]) {
+                                found = true;
                                 break;
                             }
-                            
+
 
                         }
-                        if(!found)
-                        {
+                        if (!found) {
                             nodesRedundancyCheck.push(dnodes[i]);
                             //console.log("ushed",nodesRedundancyCheck);
-                        }
-                        else
-                        {
+                        } else {
                             break;
                         }
 
                     }
-                    if(found)
-                    {
+                    if (found) {
 
-                    }
-                    else
-                    {
+                    } else {
 
-                        if(hops==3)
-                        {
-                            if(dnodes.length==4)
-                            {
-                                for (var i=0;i<dnodes.length-1;i++)
-                                { 
-                                        
-                                        //console.log("1--",dnodes[i]);
-                                        nodesA.push({
-                                            "source":dnodes[i],
-                                            "sourceid":dnodesid[i],
-                                            "target":dnodes[i+1],
-                                            "targetid":dnodesid[i+1],
-                                            "sourcelabel":dnodeslabel[i],
-                                            "targetlabel":dnodeslabel[i+1],
-                                            "type":drelations[i],
-                                            "startnode":dstartnodes[i],
-                                            "description":drelationsdescription[i],
-                                            "objectid":dnodes[i]+dnodesid[i]+dnodes[i+1]+dnodesid[i+1]+drelations[i]+dstartnodes[i]
-                                        });
+                        if (hops == 3) {
+                            if (dnodes.length == 4) {
+                                for (var i = 0; i < dnodes.length - 1; i++) {
 
-                                        //console.log("nodesA",nodesA[i]);
+                                    //console.log("1--",dnodes[i]);
+                                    nodesA.push({
+                                        "source": dnodes[i],
+                                        "sourceid": dnodesid[i],
+                                        "target": dnodes[i + 1],
+                                        "targetid": dnodesid[i + 1],
+                                        "sourcelabel": dnodeslabel[i],
+                                        "targetlabel": dnodeslabel[i + 1],
+                                        "type": drelations[i],
+                                        "startnode": dstartnodes[i],
+                                        "description": drelationsdescription[i],
+                                        "objectid": dnodes[i] + dnodesid[i] + dnodes[i + 1] + dnodesid[i + 1] + drelations[i] + dstartnodes[i]
+                                    });
+
+                                    //console.log("nodesA",nodesA[i]);
 
                                 }
 
                             }
 
-                        }
-                        else
-                        {
-                            for (var i=0;i<dnodes.length-1;i++)
-                            { 
-                                    
-                                    //console.log("1--",dnodes[i]);
-                                    nodesA.push({
-                                        "source":dnodes[i],
-                                        "sourceid":dnodesid[i],
-                                        "target":dnodes[i+1],
-                                        "targetid":dnodesid[i+1],
-                                        "sourcelabel":dnodeslabel[i],
-                                        "targetlabel":dnodeslabel[i+1],
-                                        "type":drelations[i],
-                                        "startnode":dstartnodes[i],
-                                        "description":drelationsdescription[i],
-                                        "objectid":dnodes[i]+dnodesid[i]+dnodes[i+1]+dnodesid[i+1]+drelations[i]+dstartnodes[i]
-                                    });
+                        } else {
+                            for (var i = 0; i < dnodes.length - 1; i++) {
 
-                                    //console.log("nodesA",nodesA[i]);
+                                //console.log("1--",dnodes[i]);
+                                nodesA.push({
+                                    "source": dnodes[i],
+                                    "sourceid": dnodesid[i],
+                                    "target": dnodes[i + 1],
+                                    "targetid": dnodesid[i + 1],
+                                    "sourcelabel": dnodeslabel[i],
+                                    "targetlabel": dnodeslabel[i + 1],
+                                    "type": drelations[i],
+                                    "startnode": dstartnodes[i],
+                                    "description": drelationsdescription[i],
+                                    "objectid": dnodes[i] + dnodesid[i] + dnodes[i + 1] + dnodesid[i + 1] + drelations[i] + dstartnodes[i]
+                                });
+
+                                //console.log("nodesA",nodesA[i]);
 
                             }
                         }
@@ -730,7 +705,7 @@ exports.getAdvancedSearchData = function(req, res) {
                     }
 
 
-                       
+
 
 
 
@@ -739,40 +714,32 @@ exports.getAdvancedSearchData = function(req, res) {
                 });
 
 
-               //console.log("nodesA",nodesA);
+                //console.log("nodesA",nodesA);
 
-               if(nodesA.length==0)
-               {
-                res.send(404,"No nodes retuned");
+                if (nodesA.length == 0) {
+                    res.send(404, "No nodes retuned");
 
-               }
-
-               else
-               {
+                } else {
 
 
-                    var nodesAunique=[];
+                    var nodesAunique = [];
 
                     nodesAunique.push(nodesA[0]);
                     //console.log("push",nodesAunique[0].objectid);
 
-                    for (var i=0;i<nodesA.length;i++)
-                    {
-                        var found=false; 
-                        for(j=0;j<nodesAunique.length;j++)
-                        {
-                            if(nodesA[i].objectid==nodesAunique[j].objectid)
-                            {
+                    for (var i = 0; i < nodesA.length; i++) {
+                        var found = false;
+                        for (j = 0; j < nodesAunique.length; j++) {
+                            if (nodesA[i].objectid == nodesAunique[j].objectid) {
                                 //console.log("break");
                                 //continue;
-                                found=true;
+                                found = true;
                                 break;
                             }
 
                         }
 
-                        if(!found)
-                        {
+                        if (!found) {
                             nodesAunique.push(nodesA[i]);
 
                         }
@@ -783,78 +750,79 @@ exports.getAdvancedSearchData = function(req, res) {
 
 
 
-                    
-                    var nodes=[];
 
-                    nodes.push({"name":nodesAunique[0].source,"id":nodesAunique[0].sourceid,"label":nodesAunique[0].sourcelabel});
+                    var nodes = [];
 
-                    for (var i=0;i<nodesAunique.length;i++)
-                    { 
-                        var found=false;
-                        for(j=0;j<nodes.length;j++)
-                        {
-                            if(nodesAunique[i].sourceid==nodes[j].id)
-                            {
-                                found=true;
+                    nodes.push({
+                        "name": nodesAunique[0].source,
+                        "id": nodesAunique[0].sourceid,
+                        "label": nodesAunique[0].sourcelabel
+                    });
+
+                    for (var i = 0; i < nodesAunique.length; i++) {
+                        var found = false;
+                        for (j = 0; j < nodes.length; j++) {
+                            if (nodesAunique[i].sourceid == nodes[j].id) {
+                                found = true;
                                 break;
                             }
-                            
+
 
                         }
-                        if(!found)
-                        {
-                            nodes.push({"name":nodesAunique[i].source,"id":nodesAunique[i].sourceid,"label":nodesAunique[i].sourcelabel});
+                        if (!found) {
+                            nodes.push({
+                                "name": nodesAunique[i].source,
+                                "id": nodesAunique[i].sourceid,
+                                "label": nodesAunique[i].sourcelabel
+                            });
                         }
 
                     }
 
 
 
-                    for (var i=0;i<nodesAunique.length;i++)
-                    { 
-                        var found=false;
-                        for(j=0;j<nodes.length;j++)
-                        {
-                            if(nodesAunique[i].targetid==nodes[j].id)
-                            {
-                                found=true;
+                    for (var i = 0; i < nodesAunique.length; i++) {
+                        var found = false;
+                        for (j = 0; j < nodes.length; j++) {
+                            if (nodesAunique[i].targetid == nodes[j].id) {
+                                found = true;
                                 break;
                             }
-                            
+
 
                         }
-                        if(!found)
-                        {
-                            nodes.push({"name":nodesAunique[i].target,"id":nodesAunique[i].targetid,"label":nodesAunique[i].targetlabel});
+                        if (!found) {
+                            nodes.push({
+                                "name": nodesAunique[i].target,
+                                "id": nodesAunique[i].targetid,
+                                "label": nodesAunique[i].targetlabel
+                            });
                         }
 
                     }
 
 
                     //console.log("nodes",nodes);
-                    
-
-                    var links=[];
 
 
-               
-                    for (var i=0;i<nodesAunique.length;i++)
-                    { 
-                        
-                        var sourcenodeid=nodesAunique[i].sourceid;
-                        var targetnodeid=nodesAunique[i].targetid;
+                    var links = [];
+
+
+
+                    for (var i = 0; i < nodesAunique.length; i++) {
+
+                        var sourcenodeid = nodesAunique[i].sourceid;
+                        var targetnodeid = nodesAunique[i].targetid;
                         var sourcenodeindex;
                         var targetnodeindex;
-                        var startnodeid=nodesAunique[i].startnode;
+                        var startnodeid = nodesAunique[i].startnode;
 
-                        
 
-                        for(var j=0; j<nodes.length;j++)
-                        {
+
+                        for (var j = 0; j < nodes.length; j++) {
                             //console.log(i,j, nodes.id,sourcenodeid);
-                            if(nodes[j].id==sourcenodeid)
-                            {
-                                sourcenodeindex=j;
+                            if (nodes[j].id == sourcenodeid) {
+                                sourcenodeindex = j;
                                 break;
 
                             }
@@ -862,13 +830,11 @@ exports.getAdvancedSearchData = function(req, res) {
                         }
                         //console.log(sourcenodeid, sourcenodeindex,targetnodeid, targetnodeindex);
 
-                        
 
-                        for(var j=0; j<nodes.length;j++)
-                        {
-                            if(nodes[j].id==targetnodeid)
-                            {
-                                targetnodeindex=j;
+
+                        for (var j = 0; j < nodes.length; j++) {
+                            if (nodes[j].id == targetnodeid) {
+                                targetnodeindex = j;
                                 break;
 
                             }
@@ -878,29 +844,33 @@ exports.getAdvancedSearchData = function(req, res) {
 
                         //console.log(sourcenodeid, sourcenodeindex,targetnodeid, targetnodeindex);
 
-                        if(sourcenodeid==startnodeid)
-                        {
-                            links.push({"source":sourcenodeindex,"target":targetnodeindex,"type":nodesAunique[i].type,"description":nodesAunique[i].description});
+                        if (sourcenodeid == startnodeid) {
+                            links.push({
+                                "source": sourcenodeindex,
+                                "target": targetnodeindex,
+                                "type": nodesAunique[i].type,
+                                "description": nodesAunique[i].description
+                            });
+                        } else {
+                            links.push({
+                                "source": targetnodeindex,
+                                "target": sourcenodeindex,
+                                "type": nodesAunique[i].type,
+                                "description": nodesAunique[i].description
+                            });
                         }
-                        else
-                        {
-                            links.push({"source":targetnodeindex,"target":sourcenodeindex,"type":nodesAunique[i].type,"description":nodesAunique[i].description});
-                        }
-                        
+
 
                     }
 
 
-                    if(nodes.length>40)
-                    {
+                    if (nodes.length > 40) {
 
-                        res.send(413,"Too many nodes returned");
-                    }
-                    else
-                    {
+                        res.send(413, "Too many nodes returned");
+                    } else {
                         viewerJson = {
-                        "nodes": nodes,
-                        "links": links
+                            "nodes": nodes,
+                            "links": links
                         }
                         res.send(viewerJson);
 
@@ -911,7 +881,7 @@ exports.getAdvancedSearchData = function(req, res) {
 
 
 
-               }
+                }
 
 
 
@@ -920,51 +890,50 @@ exports.getAdvancedSearchData = function(req, res) {
 
 
 
-            }    
-        }    
-    });        
+            }
+        }
+    });
 };
 
 exports.getNodeNameById = function(req, res) {
-     var query = 'MATCH n WHERE n.id ={nodeId} RETURN n.name as name, labels(n) as label'
+    var query = 'MATCH n WHERE n.id ={nodeId} RETURN n.name as name, labels(n) as label'
     var params = {
         nodeId: req.params.id
     };
-    
+
     neodb.db.query(query, params, function(err, results) {
-        
-        var nodename="";
-        if (err!=null) {
+
+        var nodename = "";
+        if (err != null) {
             console.error('Error retreiving node from database:', err);
             console.log(err);
             res.send(404, 'No node at that location.');
         } else {
-            
-            
-            if(results[0]==null)
-            {
+
+
+            if (results[0] == null) {
                 //console.log("no name");
                 res.send("Not Found");
+            } else {
+                resultsobj = eval(results);
+
+                nodename = resultsobj[0].name;
+                nodelabel = resultsobj[0].label[0];
+
+
+
+                nodelabel = nodelabel.replace(/([a-z])([A-Z])/g, '$1 $2');
+                nodelabel = nodelabel.replace(/_/g, ' ');
+                nodelabel = nodelabel.replace(/\b([A-Z]+)([A-Z])([a-z])/, '$1 $2$3');
+                nodelabel = nodelabel.replace(/^./, function(nodelabel) {
+                    return nodelabel.toUpperCase();
+                });
+
+
+                res.send(nodename + " (" + nodelabel + ")");
             }
-            else
-            {
-                resultsobj= eval(results);
-
-                nodename= resultsobj[0].name;
-                nodelabel= resultsobj[0].label[0];
 
 
-                                
-                nodelabel=nodelabel.replace(/([a-z])([A-Z])/g, '$1 $2');
-                nodelabel=nodelabel.replace(/_/g, ' ');
-                nodelabel=nodelabel.replace(/\b([A-Z]+)([A-Z])([a-z])/, '$1 $2$3');
-                nodelabel=nodelabel.replace(/^./, function(nodelabel){ return nodelabel.toUpperCase(); });
-
-                
-                res.send(nodename+" ("+nodelabel+")");
-            }
-
-            
 
         }
     });

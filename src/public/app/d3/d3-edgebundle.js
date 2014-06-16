@@ -2,7 +2,7 @@
 														// 	radius = diameter / 2,
 														// 	innerRadius = radius - 240;
 
-														var diameter = 1300,
+														var diameter = 1200,
 															radius = diameter/2,
 															innerRadius = radius - 240;
 
@@ -28,7 +28,7 @@
 														var link = svg.append("g").selectAll(".link"),
 																		node = svg.append("g").selectAll(".node");
 
-														d3.json("/apollo/api/inTheLab/relations", function(error, json){
+														d3.json("/apollo/api/lab/relations", function(error, json){
 
 															if(json==undefined | error)
 															{	
@@ -39,8 +39,8 @@
 																.attr("y",h/4);
 															}
 															else{
-																d3.json("/apollo/api/inTheLab/nodes", function(error, classes) {
-																// d3.json("/apollo/app/d3/readme-arcs-test.json", function(error, classes) {
+																// d3.json("/apollo/api/lab/nodes", function(error, classes) {
+																d3.json("/apollo/api/lab/nodesAscending", function(error, classes) {
 																		if(classes == undefined | error){
 																			var errormsg=svg.append("text")
 																			.text("Could not retrieve all the nodes")
@@ -51,9 +51,6 @@
 																		else{
 																			var nodes = cluster.nodes(packageHierarchy(classes)),
 																							links = packageImports(nodes);
-
-																			console.log("The total number of nodes are: "+ nodes.length);
-																			console.log("The total number of links are: "+ links.length);
 
 																			link = link
 																							.data(bundle(links))
@@ -148,8 +145,6 @@
 
 																		if (d.imports) d.imports.forEach(function(i) {
 																				if(i != null){
-																					//- console.log("packageImports :: the name of d is: "+d.name);
-																					//- console.log("packageImports :: the value of i is: "+i);
 																					imports.push({source: map[d.name], target: map[i]});
 																				}
 																		});

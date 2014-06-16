@@ -455,7 +455,7 @@ exports.getPortalStatisticsRelations = function(req, res) {
     });
 };
 
-var compileSearchResultsForInTheLab= function(req, res, err, results)
+var compileSearchResultsForLab= function(req, res, err, results)
 {
         var nodedataarr = [];
         var nodeLabelCounts = {Program:0,SurveillanceSystem:0,Registry:0,
@@ -502,6 +502,7 @@ var compileSearchResultsForInTheLab= function(req, res, err, results)
                     }
                 }
                 
+                nodedataarr.sort(sortFunction);
                 res.json(nodedataarr);
         }
         else
@@ -512,21 +513,18 @@ var compileSearchResultsForInTheLab= function(req, res, err, results)
         }
 }
 
-exports.getAllNodesForInTheLab = function(req, res) {
+exports.getAllNodes = function(req, res) {
 
-    // var query = 'MATCH (n) where labels(n)[0]<>"Tag" return n';
     var query = 'MATCH (n) where labels(n)[0]<>"Tag" return n, labels(n) as labels';
     var params ={};
    
     neodb.db.query(query, params, function(err, results) {
-        compileSearchResultsForInTheLab(req, res, err, results);
+        compileSearchResultsForLab(req, res, err, results);
     });
 };
 
-exports.getAllRealtionsForInTheLab = function(req, res) {
+exports.getAllRealtionsForAllNodes = function(req, res) {
 
-    // var query = 'MATCH n-[r]-x return n.id as p, n.name as pname, x.name as name';
-    // var query = 'MATCH n-[r]-x where labels(x)[0]<>"Tag" return n.id as p, n.name as pname, x.name as name';
     var query = 'MATCH n-[r]-x where labels(x)[0]<>"Tag" return n.id as p, n.name as pname, labels(x)[0] as clabel, x.name as cname';
     var params ={};
    

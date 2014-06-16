@@ -11,13 +11,13 @@ module.exports = function(app) {
     app.get('/apollo/api/node/search/:query', nodes.searchNodesByString);
     app.get('/apollo/api/node/search/label/:query', nodes.searchNodesByLabel);
     app.get('/apollo/api/node/viewer/:id', nodes.getNodesForLinkageViewer);
-    app.get('/apollo/api/inTheLab/nodes', nodes.getAllNodesForInTheLab);
     app.get('/apollo/api/stats/nodes', nodes.getPortalStatisticsNodes);
     app.get('/apollo/api/stats/relations', nodes.getPortalStatisticsRelations);
     app.get('/apollo/api/node/advancedSearch/:id', nodes.getAdvancedSearchData);
     app.get('/apollo/api/node/searchByName/:searchTerm', nodes.searchByName);
     app.get('/apollo/api/node/name/:id', nodes.getNodeNameById);
-    app.get('/apollo/api/inTheLab/relations', nodes.getAllRealtionsForInTheLab);
+    app.get('/apollo/api/lab/nodes', nodes.getAllNodes);
+    app.get('/apollo/api/lab/relations', nodes.getAllRealtionsForAllNodes);
     //this goes at the bottom.  It is the catchall for everything not defined above.  Silly.
     app.get('/apollo/*', index.index);
 };	

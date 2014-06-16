@@ -116,7 +116,7 @@ exports.getNodeById = function(req, res) {
 exports.searchByName = function(req, res) {
     var searchTerm = req.params.searchTerm.toLowerCase();
     var query = 'MATCH n WHERE lower(n.name)=~".*' + searchTerm + '.*" RETURN n.id as id, n.name as name';
-    console.log(query);
+    //console.log(query);
     var params = {
         searchTerm: req.params.searchTerm
     };
@@ -552,44 +552,88 @@ exports.getAdvancedSearchData = function(req, res) {
 
     var hops = nodesarr[2];
 
+    var hopsarr = hops.split(",");
+
 
 
     var query, params;
 
-    if (hops == 2) {
-        query = ['MATCH p=(a)-[*1]-(b)-[*1]-(c) where a.id={leftId} and c.id={rightId}',
+    query="";
+
+        query1 = ['MATCH p1=(a)-[*1]-(c) where a.id={leftId} and c.id={rightId}',
+            'return extract(x in nodes(p1) |x.name) as Nodes, extract(y in nodes(p1) |y.id) as NodesId, extract(s in nodes(p1) |labels(s)) as NodesLabel, extract(z in relationships(p1) | type(z)) as Relations, ',
+            'extract(r in relationships(p1) | startNode(r).id) as StartNodes, extract(t in relationships(p1) | t.relationshipDescription ) as Description'
+        ].join('\n');
+
+
+        query2 = ['MATCH p=(a)-[*1]-(b)-[*1]-(c) where a.id={leftId} and c.id={rightId}',
             'return extract(x in nodes(p) |x.name) as Nodes, extract(y in nodes(p) |y.id) as NodesId, extract(s in nodes(p) |labels(s)) as NodesLabel, extract(z in relationships(p) | type(z)) as Relations, ',
             'extract(r in relationships(p) | startNode(r).id) as StartNodes, extract(t in relationships(p) | t.relationshipDescription ) as Description'
         ].join('\n');
 
-    } else if (hops == 3) {
-        query = ['MATCH p=(a)-[*1..2]-(b)-[*1..2]-(c) where a.id={leftId} and c.id={rightId}',
+        query3 = ['MATCH p1=(a)-[*1]-(b)-[*2]-(c) where a.id={leftId} and c.id={rightId}',
+            'return extract(x in nodes(p1) |x.name) as Nodes, extract(y in nodes(p1) |y.id) as NodesId, extract(s in nodes(p1) |labels(s)) as NodesLabel, extract(z in relationships(p1) | type(z)) as Relations, ',
+            'extract(r in relationships(p1) | startNode(r).id) as StartNodes, extract(t in relationships(p1) | t.relationshipDescription ) as Description',
+            'union',
+            'MATCH p=(a)-[*2]-(b)-[*1]-(c) where a.id={leftId} and c.id={rightId}',
             'return extract(x in nodes(p) |x.name) as Nodes, extract(y in nodes(p) |y.id) as NodesId, extract(s in nodes(p) |labels(s)) as NodesLabel, extract(z in relationships(p) | type(z)) as Relations, ',
             'extract(r in relationships(p) | startNode(r).id) as StartNodes, extract(t in relationships(p) | t.relationshipDescription ) as Description'
         ].join('\n');
 
-    } else if (hops == 4) {
-        query = ['MATCH p=(a)-[*2]-(b)-[*2]-(c) where a.id={leftId} and c.id={rightId}',
+        query4 = ['MATCH p=(a)-[*2]-(b)-[*2]-(c) where a.id={leftId} and c.id={rightId}',
             'return extract(x in nodes(p) |x.name) as Nodes, extract(y in nodes(p) |y.id) as NodesId, extract(s in nodes(p) |labels(s)) as NodesLabel, extract(z in relationships(p) | type(z)) as Relations, ',
             'extract(r in relationships(p) | startNode(r).id) as StartNodes, extract(t in relationships(p) | t.relationshipDescription ) as Description'
         ].join('\n');
 
-    } else {
+
+
+    for(var i=0;i<hopsarr.length;i++)
+    {
+
+        
+        if (hopsarr[i] == 1) {
+            query=query+query1+" union ";
+
+        }
+        if (hopsarr[i] == 2) {
+            query=query+query2+" union ";
+
+        }
+        if (hopsarr[i] == 3) {
+
+            query=query+query3+" union ";
+        }
+        if (hopsarr[i] == 4) {
+            query=query+query4+" union ";
+
+        }
+    }
+
+/*
+     else {
         console.error('Error retreiving degrees of seperation from database:');
         res.send(404, 'no degree indicated');
 
     }
 
+*/
+
+//query=query2;//+" union "+query2;
 
 
+query=query.trim();
+var lastIndex = query.lastIndexOf(" ")
+
+
+
+query = query.substring(0, lastIndex);
 
     var params = {
         leftId: nodesarr[0],
         rightId: nodesarr[1]
     };
 
-
-    //console.log(params);
+        //console.log(params);
 
     var viewerJson;
     neodb.db.query(query, params, function(err, r) {

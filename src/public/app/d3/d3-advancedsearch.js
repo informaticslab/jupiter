@@ -2,24 +2,37 @@ $( ".btn.btn-default.pull-left.link_buttone" ).click(function() {
 
 							var leftnodeid=$('#nodeAId').val();
 							var rightnodeid=$('#nodeBId').val();
-							
-							var hops=$("input[name=hop]:checked").val();
 
-							//console.log(hops+"*");
 
-							if(leftnodeid=="" | rightnodeid=="" | hops=="" | leftnodeid==undefined| rightnodeid==undefined| hops==undefined)
+							hops="";
+
+							$('input[name=hop]:checked').each(function(){
+								
+								hops=hops+$(this).val()+",";
+								
+							});
+
+
+							hops=hops.trim();
+							var lastIndex = hops.lastIndexOf(",")
+							hops = hops.substring(0, lastIndex);
+
+
+							if(leftnodeid=="" | rightnodeid=="" | hops=="" | leftnodeid==undefined | rightnodeid==undefined| hops==undefined | hops==0)
 							{
 								alert('Please enter left node, right node and select the number of hops.');
 
 							}
 							else
 							{
+								
 								window.open("#/advancedSearch/"+leftnodeid+"-"+rightnodeid+"-"+hops,"_self","",false);
+								hops="";
 							}
 
 							
 
-							});
+});
 
 
 							$( document ).ready(function() {
@@ -39,6 +52,9 @@ $( ".btn.btn-default.pull-left.link_buttone" ).click(function() {
 							var leftnodeid=id.split("-")[0];
 							var rightnodeid=id.split("-")[1];
 							var hop=id.split("-")[2];
+							
+
+							//var hoparray=hop.split(",");
 
 							//console.log(leftnodeid,rightnodeid);
 
@@ -68,6 +84,14 @@ $( ".btn.btn-default.pull-left.link_buttone" ).click(function() {
 							.attr("width", w)
 							.attr("height", h);
 
+							var hoparr=hop.split(","); 
+							for(var i=0; i<hoparr.length;i++)
+							{
+								$('#hop'+hoparr[i]).prop('checked', true);
+
+							}
+
+							//$('#hop'+hop).prop('checked', true);
 
 
 							if(error)
@@ -88,7 +112,7 @@ $( ".btn.btn-default.pull-left.link_buttone" ).click(function() {
 									;
 
 
-									$('#hop'+hop).prop('checked', true);
+									
 
 								}
 								else
@@ -106,7 +130,7 @@ $( ".btn.btn-default.pull-left.link_buttone" ).click(function() {
 									;
 
 									
-									$('#hop'+hop).prop('checked', true);
+									
 								}
 
 							}
@@ -125,14 +149,14 @@ $( ".btn.btn-default.pull-left.link_buttone" ).click(function() {
 							;
 
 							
-							$('#hop'+hop).prop('checked', true);
+							
 
 							}
 							else
 							{
 
 
-							$('#hop'+hop).prop('checked', true);
+							
 
 							
 							var force = d3.layout.force()

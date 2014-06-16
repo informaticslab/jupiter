@@ -478,7 +478,7 @@ var compileSearchResultsForInTheLab= function(req, res, err, results)
                     {
                         duplicheck[doohicky.id] = true;
                         var nodedata = {};
-                        
+
                         var doohickylabels = results[i]['labels'];
                         var relCount = results[i]['relCount'];
                         if (relCount == null)
@@ -494,15 +494,14 @@ var compileSearchResultsForInTheLab= function(req, res, err, results)
                         var tmpArr = _.where(relationsArr, {p: nodedata.id});
                         
                         tmpArr.forEach(function (d){
-                            nodedata.imports.push('Root!'.concat(d.name));
-                            // nodedata.imports.push(d.name);
+                           nodedata.imports.push('root!'.concat(d.clabel).concat('!').concat(d.cname));
                         });
                        
-                        nodedata.name = 'Root!'.concat(nodedata.name);
+                        nodedata.name = 'root!'.concat( nodedata.labels[0]).concat('!').concat(nodedata.name);
                         nodedataarr.push(nodedata);
                     }
                 }
-                nodedataarr.sort(sortFunction);
+                
                 res.json(nodedataarr);
         }
         else
@@ -515,25 +514,20 @@ var compileSearchResultsForInTheLab= function(req, res, err, results)
 
 exports.getAllNodesForInTheLab = function(req, res) {
 
-    // var query = 'START n=node(*) RETURN n;'
+    // var query = 'MATCH (n) where labels(n)[0]<>"Tag" return n';
     var query = 'MATCH (n) where labels(n)[0]<>"Tag" return n, labels(n) as labels';
     var params ={};
    
     neodb.db.query(query, params, function(err, results) {
-        if(err){
-            console.log("Could not get all the nodes from the database");
-        }
-        else{
-            // console.log("The list of nodes are: "+JSON.stringify(results));
-            compileSearchResultsForInTheLab(req, res, err, results);
-        }
+        compileSearchResultsForInTheLab(req, res, err, results);
     });
 };
 
 exports.getAllRealtionsForInTheLab = function(req, res) {
 
     // var query = 'MATCH n-[r]-x return n.id as p, n.name as pname, x.name as name';
-    var query = 'MATCH n-[r]-x where labels(x)[0]<>"Tag" return n.id as p, n.name as pname, x.name as name';
+    // var query = 'MATCH n-[r]-x where labels(x)[0]<>"Tag" return n.id as p, n.name as pname, x.name as name';
+    var query = 'MATCH n-[r]-x where labels(x)[0]<>"Tag" return n.id as p, n.name as pname, labels(x)[0] as clabel, x.name as cname';
     var params ={};
    
     neodb.db.query(query, params, function(err, results) {

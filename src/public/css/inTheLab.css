@@ -1,5 +1,6 @@
 .nodeLab {
 	font: 300 5px "Helvetica Neue", Helvetica, Arial, sans-serif;
+	/*font: 300 12px "Helvetica Neue", Helvetica, Arial, sans-serif;*/
 	font-weight:700;
 	fill: #bbb;
 }
@@ -43,4 +44,9 @@
 .linkLab--target {
 	/*stroke: #2ca02c;*/
 	stroke: #2a80b9;
+}
+
+path.arc {
+  cursor: move;
+  fill: #fff;
 }

@@ -1,6 +1,6 @@
 														// var diameter = 960,
 														// 	radius = diameter / 2,
-														// 	innerRadius = radius - 120;
+														// 	innerRadius = radius - 240;
 
 														var diameter = 1300,
 															radius = diameter/2,
@@ -40,7 +40,7 @@
 															}
 															else{
 																d3.json("/apollo/api/inTheLab/nodes", function(error, classes) {
-
+																// d3.json("/apollo/app/d3/readme-arcs-test.json", function(error, classes) {
 																		if(classes == undefined | error){
 																			var errormsg=svg.append("text")
 																			.text("Could not retrieve all the nodes")

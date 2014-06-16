@@ -491,14 +491,15 @@ var compileSearchResultsForLab= function(req, res, err, results)
                         nodedata.labels = doohickylabels;
                         nodedata.imports = [];
 
-                        var tmpArr = _.where(relationsArr, {p: nodedata.id});
+                        // var tmpArr = _.where(relationsArr, {p: nodedata.id});
                         
-                        tmpArr.forEach(function (d){
-                           nodedata.imports.push('root!'.concat(d.clabel).concat('!').concat(d.cname));
-                        });
+                        // tmpArr.forEach(function (d){
+                        //    nodedata.imports.push('root!'.concat(d.clabel).concat('!').concat(d.cname));
+                        // });
                        
-                        nodedata.name = 'root!'.concat( nodedata.labels[0]).concat('!').concat(nodedata.name);
+                        // nodedata.name = 'root!'.concat( nodedata.labels[0]).concat('!').concat(nodedata.name);
                         nodedataarr.push(nodedata);
+
                     }
                 }
                 

@@ -28,9 +28,9 @@
 														var link = svg.append("g").selectAll(".link"),
 																		node = svg.append("g").selectAll(".node");
 
-														d3.json("/apollo/api/lab/relations", function(error, json){
+														d3.json("/apollo/api/lab/relations", function(error, relations){
 
-															if(json==undefined | error)
+															if(relations==undefined | error)
 															{	
 																var errormsg=svg.append("text")
 																.text("Could not retrieve all the relations")
@@ -40,7 +40,7 @@
 															}
 															else{
 																// d3.json("/apollo/api/lab/nodes", function(error, classes) {
-																d3.json("/apollo/api/lab/nodesAscending", function(error, classes) {
+																d3.json("/apollo/api/lab/nodes", function(error, classes) {
 																		if(classes == undefined | error){
 																			var errormsg=svg.append("text")
 																			.text("Could not retrieve all the nodes")
@@ -49,6 +49,17 @@
 																			.attr("y",h/4);
 																		}
 																		else{
+
+																			classes.forEach(function(node){
+
+										                                        var tmpArr = _.where(relations, {p: node.id});
+										                                        tmpArr.forEach(function (d){
+										                                            node.imports.push('root!'.concat(d.cname));
+										                                        });
+
+									                                          	node.name = 'root!'.concat(node.name);
+										                                    });
+
 																			var nodes = cluster.nodes(packageHierarchy(classes)),
 																							links = packageImports(nodes);
 

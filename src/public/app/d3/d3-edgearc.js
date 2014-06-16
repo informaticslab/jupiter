@@ -31,32 +31,41 @@
                            
                             var arc = d3.svg.arc().outerRadius(radius-10).innerRadius(radius-50);
 
-                            d3.json("/apollo/api/lab/relations", function(error, json){
+                            d3.json("/apollo/api/lab/relations", function(error, relations){
 
-                              if(json==undefined | error)
+                              if(relations==undefined | error)
                               { 
                                 var errormsg=svg.append("text")
                                 .text("Could not retrieve all the relations")
                                 .attr("class","linkageerrormsg")
-                                .attr("x",w/4)
-                                .attr("y",h/4);
+                                .attr("x",diameter/4)
+                                .attr("y",diameter/4);
                               }
                               else{
+                                
                                 d3.json("/apollo/api/lab/nodes", function(error, classes) {
                                     if(classes == undefined | error){
                                       var errormsg=svg.append("text")
                                       .text("Could not retrieve all the nodes")
                                       .attr("class","linkageerrormsg")
-                                      .attr("x",w/4)
-                                      .attr("y",h/4);
+                                      .attr("x",diameter/4)
+                                      .attr("y",diameter/4);
                                     }
-                                    else{
+                                    else{ 
+
+                                      classes.forEach(function(node){
+
+                                          var tmpArr = _.where(relations, {p: node.id});
+                                          tmpArr.forEach(function (d){
+                                             node.imports.push('root!'.concat(d.clabel).concat('!').concat(d.cname));
+                                          });
+
+                                          node.name = 'root!'.concat( node.labels[0]).concat('!').concat(node.name);
+                                      });
+
                                       var nodes = cluster.nodes(packageHierarchy(classes)),
                                               links = packageImports(nodes);
-
-                                      console.log("The total number of nodes are: "+ nodes.length);
-                                      console.log("The total number of links are: "+ links.length);
-
+                                      
                                       link = link
                                               .data(bundle(links))
                                               .enter().append("path")

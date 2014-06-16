@@ -31,7 +31,7 @@
                            
                             var arc = d3.svg.arc().outerRadius(radius-10).innerRadius(radius-50);
 
-                            d3.json("/apollo/api/inTheLab/relations", function(error, json){
+                            d3.json("/apollo/api/lab/relations", function(error, json){
 
                               if(json==undefined | error)
                               { 
@@ -42,7 +42,7 @@
                                 .attr("y",h/4);
                               }
                               else{
-                                d3.json("/apollo/api/inTheLab/nodes", function(error, classes) {
+                                d3.json("/apollo/api/lab/nodes", function(error, classes) {
                                     if(classes == undefined | error){
                                       var errormsg=svg.append("text")
                                       .text("Could not retrieve all the nodes")

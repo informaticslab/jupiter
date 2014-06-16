@@ -967,3 +967,57 @@ exports.getNodeNameById = function(req, res) {
         }
     });
 };
+
+
+exports.getManagedSystems = function(req, res) {
+
+    var query = 'match p=(n)-[r:OVERSEES|MANAGES*]->x where n.id={nodeId} '
+                + 'return extract(a in nodes(p) | a.name) as byName, extract(a in nodes(p) |  a.id ) as byId, ' 
+                + 'extract(a in nodes(p) |  a.informationValidated ) as byVal, length(p) as len'
+    var params = {
+        nodeId: req.params.id
+    };
+    
+    neodb.db.query(query, params, function(err, results) {
+        
+        var managestack=[];
+        if (err!=null) {
+            console.error('Error retreiving node from database:', err);
+            console.log(err);
+            res.send(404, 'No node at that location.');
+        } else {
+            
+            
+            if(results[0]==null)
+            {
+                //console.log("no name");
+                res.send("Not Found");
+            }
+            else
+            {
+
+                resultsobj= eval(results);
+                for (var k=0; k<resultsobj.length; k++)
+                {
+                    var manage = {};
+                    manage.name= resultsobj[k].byName;
+                    manage.id= resultsobj[k].byId;
+                    manage.isValidated = resultsobj[k].byVal;
+                    manage.len = resultsobj[k].len;
+                    managestack.push(manage);
+                }
+                                
+                // nodelabel=nodelabel.replace(/([a-z])([A-Z])/g, '$1 $2');
+                // nodelabel=nodelabel.replace(/_/g, ' ');
+                // nodelabel=nodelabel.replace(/\b([A-Z]+)([A-Z])([a-z])/, '$1 $2$3');
+                // nodelabel=nodelabel.replace(/^./, function(nodelabel){ return nodelabel.toUpperCase(); });
+
+                
+                 res.send(managestack);
+            }
+
+            
+
+        }
+    });
+};

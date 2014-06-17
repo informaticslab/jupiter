@@ -56,24 +56,26 @@
 						.adv_search_label
 							| Start: 
 						.adv_search_field
-							input(type="text" ng-model="nodeA"  placeholder="Enter activity name" typeahead-on-select="itemSelectedA($item, $model, $label)" typeahead-min-length='3' typeahead="node.name for node in getNodes($viewValue)" class="form-control")			
+							input(type="text" ng-model="nodeA"  placeholder="Enter activity name" typeahead-on-select="itemSelectedA($item, $model, $label)" typeahead-min-length='3' typeahead="node.name for node in getNodes($viewValue)" class="form-control")
 							input(type="hidden" id="nodeAId" ng-value="nodeAId")
 					.input2_adv_search
 						.adv_search_label
 							| End:
 						.adv_search_field
-							input(type="text" ng-model="nodeB"  placeholder="Enter activity name" typeahead-on-select="itemSelectedB($item, $model, $label)" typeahead-min-length='3' typeahead="node.name for node in getNodes($viewValue)" class="form-control")			
+							input(type="text" ng-model="nodeB"  placeholder="Enter activity name" typeahead-on-select="itemSelectedB($item, $model, $label)" typeahead-min-length='3' typeahead="node.name for node in getNodes($viewValue)" class="form-control")
 							input(type="hidden" id="nodeBId" ng-value="nodeBId")
 					.step_number
 						| Number of steps: &nbsp;
-						input(type='radio', id='hop2' name='hop', value='2', checked='')
+						input(type='checkbox', id='hop1', name='hop', value='1')
+						| 1 &nbsp;
+						input(type='checkbox', id='hop2', name='hop', value='2')
 						| 2 &nbsp;
-						input(type='radio', id='hop3' name='hop', value='3') 
+						input(type='checkbox', id='hop3', name='hop', value='3') 
 						| 3 &nbsp;
-						input(type='radio', id='hop4' name='hop', value='4') 
+						input(type='checkbox', id='hop4', name='hop', value='4') 
 						| 4 
 					//end step number
-					.adv_search_button		
+					.adv_search_button
 						button.pull-left.btn.btn-default.pull-left.link_buttone.adv_button(type='button')
 							i.fa.fa-chevron-circle-right
 							| View
@@ -84,21 +86,23 @@
 						.adv_search_label
 							| Start: 
 						.adv_search_field_md
-							input(type="text" ng-model="nodeA"  placeholder="Enter activity name" typeahead-on-select="itemSelectedA($item, $model, $label)" typeahead-min-length='3' typeahead="node.name for node in getNodes($viewValue)" class="form-control")			
+							input(type="text" ng-model="nodeA"  placeholder="Enter activity name" typeahead-on-select="itemSelectedA($item, $model, $label)" typeahead-min-length='3' typeahead="node.name for node in getNodes($viewValue)" class="form-control")
 							input(type="hidden" id="nodeAId" ng-value="nodeAId")
 					.input2_adv_search_md
 						.adv_search_label
 							| End:
 						.adv_search_field_md
-							input(type="text" ng-model="nodeB"  placeholder="Enter activity name" typeahead-on-select="itemSelectedB($item, $model, $label)" typeahead-min-length='3' typeahead="node.name for node in getNodes($viewValue)" class="form-control")			
+							input(type="text" ng-model="nodeB"  placeholder="Enter activity name" typeahead-on-select="itemSelectedB($item, $model, $label)" typeahead-min-length='3' typeahead="node.name for node in getNodes($viewValue)" class="form-control")
 							input(type="hidden" id="nodeBId" ng-value="nodeBId")
 					.step_number
 						| Number of steps: &nbsp;
-						input(type='radio', id='hop2' name='hop', value='2', checked='')
+						input(type='checkbox', id='hop1', name='hop', value='1')
+						| 1 &nbsp;
+						input(type='checkbox', id='hop2', name='hop', value='2')
 						| 2 &nbsp;
-						input(type='radio', id='hop3' name='hop', value='3') 
+						input(type='checkbox', id='hop3', name='hop', value='3') 
 						| 3 &nbsp;
-						input(type='radio', id='hop4' name='hop', value='4') 
+						input(type='checkbox', id='hop4', name='hop', value='4') 
 						| 4 
 					//end step number
 					.adv_search_button
@@ -112,23 +116,25 @@
 						.adv_search_label_sm
 							| Start: 
 						.adv_search_field_sm
-							input(type="text" ng-model="nodeA"  placeholder="Activity name" typeahead-on-select="itemSelectedA($item, $model, $label)" typeahead-min-length='3' typeahead="node.name for node in getNodes($viewValue)" class="form-control")			
+							input(type="text" ng-model="nodeA"  placeholder="Activity name" typeahead-on-select="itemSelectedA($item, $model, $label)" typeahead-min-length='3' typeahead="node.name for node in getNodes($viewValue)" class="form-control")
 							input(type="hidden" id="nodeAId" ng-value="nodeAId")
 					.input2_adv_search_sm
 						.adv_search_label_sm
 							| End:
 						.adv_search_field_sm
-							input(type="text" ng-model="nodeB"  placeholder="Activity name" typeahead-on-select="itemSelectedB($item, $model, $label)" typeahead-min-length='3' typeahead="node.name for node in getNodes($viewValue)" class="form-control")			
+							input(type="text" ng-model="nodeB"  placeholder="Activity name" typeahead-on-select="itemSelectedB($item, $model, $label)" typeahead-min-length='3' typeahead="node.name for node in getNodes($viewValue)" class="form-control")
 							input(type="hidden" id="nodeBId" ng-value="nodeBId")
 					.step_number_sm
 						| Number
 						br
 						| of steps: &nbsp;
-						input(type='radio', id='hop2' name='hop', value='2', checked='')
+						input(type='checkbox', id='hop1', name='hop', value='1')
+						| 1 &nbsp;
+						input(type='checkbox', id='hop2', name='hop', value='2')
 						| 2 &nbsp;
-						input(type='radio', id='hop3' name='hop', value='3') 
+						input(type='checkbox', id='hop3', name='hop', value='3') 
 						| 3 &nbsp;
-						input(type='radio', id='hop4' name='hop', value='4') 
+						input(type='checkbox', id='hop4', name='hop', value='4') 
 						| 4 
 					//end step number
 					.adv_search_button
@@ -408,13 +414,13 @@
 			//- 		div.sidebar_repeat(ng-Historybar)
 			.button_side
 				.sidebar_button
-					img(src='img/tab_button_collapse.png', alt='Collapse sidebar')			
+					img(src='img/tab_button_collapse.png', alt='Collapse sidebar')
 		// end hx_side
 		.hx_side(ng-show='showSidebar' ng-click='toggleSidebar()')
 			.blue_side_expanded
 			.button_side_expanded
 				.sidebar_button
-					img(src='img/tab_button_expand.png', alt='Expand sidebar')			
+					img(src='img/tab_button_expand.png', alt='Expand sidebar')
 		// end hx_side
 // end row
 // row

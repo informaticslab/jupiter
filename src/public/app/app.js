@@ -70,6 +70,10 @@ apolloApp.config(['$routeProvider',
         templateUrl: 'partials/inTheLab',
         controller: 'inTheLabCtrl'
       }).
+          when('/sysTree/:id', {
+        templateUrl: 'partials/sysTree',
+        controller: 'sysTreeCtrl'
+      }).
         otherwise({
         redirectTo: '/main'
       });

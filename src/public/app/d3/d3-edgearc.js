@@ -16,7 +16,7 @@
 
                             var line = d3.svg.line.radial()
                                     .interpolate("bundle")
-                                    .tension(.85)
+                                    .tension(.75)
                                     .radius(function(d) { return d.y; })
                                     .angle(function(d) { return d.x / 180 * Math.PI; });
 
@@ -96,7 +96,7 @@
 
                                       var groupArc = d3.svg.arc()
                                                       .innerRadius(radius - 260)
-                                                      .outerRadius(radius - 240)
+                                                      .outerRadius(radius - 235)
                                                       .startAngle(function(d) { return (findStartAngle(d.__data__.children)) * Math.PI / 180;})
                                                       .endAngle(function(d) { return (findEndAngle(d.__data__.children)) * Math.PI / 180});
                                                       
@@ -130,6 +130,8 @@
                                         .attr("xlink:href", function(d, i) { return "#arc" + i; })
                                         .attr("class","arc_text_path")
                                         .style("fill","#ffffff")
+                                        .style("font-weight", "bold")
+                                        .style("font-size", "10px")
                                         .text(function(d, i) { return d.__data__.key; });
 
                                     }
@@ -226,8 +228,6 @@
 
                                     if (d.imports) d.imports.forEach(function(i) {
                                         if(i != null){
-                                          //- console.log("packageImports :: the name of d is: "+d.name);
-                                          //- console.log("packageImports :: the value of i is: "+i);
                                           imports.push({source: map[d.name], target: map[i]});
                                         }
                                     });

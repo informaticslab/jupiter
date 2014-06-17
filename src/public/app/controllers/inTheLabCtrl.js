@@ -7,6 +7,4 @@ angular.module('apolloApp').controller('inTheLabCtrl', function($scope, $routePa
       'url':$location.absUrl()
     }
     $scope.$parent.browseHistory.sites.push(site);
-
-    $scope.relationsArr = [];
 });

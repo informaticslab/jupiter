@@ -172,7 +172,8 @@ function buildTree(containerName, customOptions)
         .attr("class", "node-dot")
         .attr("r", options.nodeRadius);
 
-    nodeGroup.append("svg:text")
+    nodeGroup.append("a").attr("xlink:href",function(d) { return "/apollo/#/node/" + d.id; })
+        .append("svg:text")
         .attr("text-anchor", function(d)
         {
             if(d == nodes[0])

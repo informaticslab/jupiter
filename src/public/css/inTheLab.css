@@ -22,11 +22,9 @@
 	background-color: #FFFFFF;
 }
 .nodeLab--source {
-	/*fill: #2ca02c;*/
 	fill: #e77e23;
 }
 .nodeLab--target {
-	/*fill: #d62728;*/
 	fill: #626266;
 	background-color: #FFFFFF;
 
@@ -38,15 +36,64 @@
 	stroke-width: 1.0;
 }
 .linkLab--source {
-	/*stroke: #d62728;*/
 	stroke: #2a80b9;
 }
 .linkLab--target {
-	/*stroke: #2ca02c;*/
 	stroke: #2a80b9;
 }
 
 path.arc {
   cursor: move;
   fill: #fff;
+}
+
+.arcColor_org {
+	fill: #1f77b4;
+	fill-opacity: 1.0;
+}
+
+.arcColor_sSystem {
+	fill: #1f77b4;
+	fill-opacity: 1.0;
+}
+
+.arcColor_tool {
+	fill: #1f77b4;
+	fill-opacity: 1.0;
+}
+
+.arcColor_dataset {
+	fill: #1f77b4;
+	fill-opacity: 1.0;
+}
+
+.arcColor_registry {
+	fill: #1f77b4;
+	fill-opacity: 1.0;
+}
+
+.arcColor_collaborative {
+	fill: #1f77b4;
+	fill-opacity: 1.0;
+}
+
+.arcColor_hSurvey {
+	fill: #1f77b4;
+	fill-opacity: 1.0;
+}
+
+.arcColor_dStandard {
+	fill: #1f77b4;
+	fill-opacity: 1.0;
+}
+
+.arcColor_program {
+	fill: #1f77b4;
+	fill-opacity: 1.0;
+}
+
+.arcText{
+	fill: #ffffff;
+	font-weight: bold;
+	font-size: 10px;
 }

@@ -33,14 +33,35 @@
 						li.active
 							a(href='#/inTheLab/') In the Lab
 				// end subnav
-			.nav_split
-				.btn-group.btn-group-md.btn-group-justified
-					.btn-group
-						a.btn(href="#/inTheLab/inTheLabBundle", id='btnDetails') Bundle
-					.btn-group
-						a.btn(href='#/inTheLab/inTheLabArc', id='btnLinkageViewer') Arc
-				// end button group
-			// end nav_split
+			.detail_header 
+				.detail_header
+					.detail_header_text_contain_lg
+						.detail_header_text
+							| Advanced Visualization: Ordered Alphabetically
+					.share_button_linkage
+						//These lines, 173 - 187, were added 
+						//Single button 
+						.btn-group
+							button.btn.btn-default.dropdown-toggle(type='button', data-toggle='dropdown')
+								span.glyphicon.glyphicon-share
+								| &nbsp;Share &nbsp;&nbsp;
+								span.caret
+							ul.dropdown-menu(role='menu')
+								li
+									a(href='') Coming soon..
+								li
+									a(href='') Email
+								li
+									a(href='') Facebook
+								li
+									a(href='') Twitter
+						//end added lines 
+			// end detail header
+			.top_block2
+				.block_edge
+					.vertical_spacing1
+						script(type="text/javascript", src="/apollo/app/d3/d3-edgebundle.js")
+				// end block_edge
 	.div(ng-class='getSidebarWidth()')
 		.hx_side(ng-show='!showSidebar' ng-click='toggleSidebar()')
 			div(ng-Historybar)

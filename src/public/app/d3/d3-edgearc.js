@@ -87,12 +87,12 @@
                                                        .enter().append("group")
                                                        .attr("class", "group");
 
-                                       link = link
-                                              .data(bundle(links))
-                                              .enter().append("path")
-                                              .each(function(d) { d.source = d[0], d.target = d[d.length - 1]; })
-                                              .attr("d", line)
-                                              .attr("class", function(){ return "linkLab" });
+                                          link = link
+                                                .data(bundle(links))
+                                                .enter().append("path")
+                                                .each(function(d) { d.source = d[0], d.target = d[d.length - 1]; })
+                                                .attr("d", line)
+                                                .attr("class", function(){ return "linkLab" });
 
                                       var groupArc = d3.svg.arc()
                                                       .innerRadius(radius - 260)
@@ -122,14 +122,19 @@
 
                                       var arc_text = arc_and_text.append("text")
                                         .attr("class","arc_text")
-                                        .attr("x", 3)
+                                        .attr("x", 10)
                                         .attr("dy", 15);
 
                                       arc_text.append("textPath")
                                         .attr("xlink:href", function(d, i) { return "#arc" + i; })
                                         .attr("class","arc_text_path")
                                         .attr("class", "arcText")
-                                        .text(function(d, i) { return d.__data__.key; });
+                                        .text(function(d, i) {  if(d.__data__.key == 'SurveillanceSystem'){ return "Surveillance System";}
+                                                                else if(d.__data__.key == 'Dataset'){ return "Data Set";}
+                                                                else if(d.__data__.key == 'HealthSurvey'){ return "Survey";}
+                                                                else if(d.__data__.key == 'DataStandard'){ return "Data Standard";}
+                                                                else{ return d.__data__.key}
+                                                             });
                                     }
                                 });
                               }

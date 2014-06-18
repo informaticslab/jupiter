@@ -6,7 +6,7 @@
                               radius = diameter/2,
                               innerRadius = radius - 240;
 
-                            var cluster = d3.layout.cluster()
+                            var clusterArc = d3.layout.cluster()
                                     .size([360, innerRadius])
                                     .sort(null)
                                     .value(function(d) { return d.size; })
@@ -16,54 +16,56 @@
 
                             var line = d3.svg.line.radial()
                                     .interpolate("bundle")
-                                    .tension(.85)
+                                    .tension(.75)
                                     .radius(function(d) { return d.y; })
                                     .angle(function(d) { return d.x / 180 * Math.PI; });
 
-                            var svg = d3.select(".block_edge").append("svg")
+                            var svgArc = d3.select(".block_edge").append("svg")
                                 .attr("width", diameter)
                                 .attr("height", diameter)
                                 .append("g")
                                 .attr("transform", "translate(" + radius + "," + radius + ")");
 
-                            var link = svg.append("g").selectAll(".link"),
-                                node = svg.append("g").selectAll(".node");
+                            var link = svgArc.append("g").selectAll(".link"),
+                                node = svgArc.append("g").selectAll(".node");
                            
                             var arc = d3.svg.arc().outerRadius(radius-10).innerRadius(radius-50);
 
-                            d3.json("/apollo/api/lab/relations", function(error, json){
+                            d3.json("/apollo/api/lab/relations", function(error, relations){
 
-                              if(json==undefined | error)
+                              if(relations==undefined | error)
                               { 
-                                var errormsg=svg.append("text")
+                                var errormsg=svgArc.append("text")
                                 .text("Could not retrieve all the relations")
                                 .attr("class","linkageerrormsg")
-                                .attr("x",w/4)
-                                .attr("y",h/4);
+                                .attr("x",diameter/4)
+                                .attr("y",diameter/4);
                               }
                               else{
+                                
                                 d3.json("/apollo/api/lab/nodes", function(error, classes) {
                                     if(classes == undefined | error){
-                                      var errormsg=svg.append("text")
+                                      var errormsg=svgArc.append("text")
                                       .text("Could not retrieve all the nodes")
                                       .attr("class","linkageerrormsg")
-                                      .attr("x",w/4)
-                                      .attr("y",h/4);
+                                      .attr("x",diameter/4)
+                                      .attr("y",diameter/4);
                                     }
-                                    else{
-                                      var nodes = cluster.nodes(packageHierarchy(classes)),
+                                    else{ 
+
+                                      classes.forEach(function(node){
+
+                                          var tmpArr = _.where(relations, {p: node.id});
+                                          tmpArr.forEach(function (d){
+                                             node.imports.push('root!'.concat(d.clabel).concat('!').concat(d.cname));
+                                          });
+
+                                          node.name = 'root!'.concat( node.labels[0]).concat('!').concat(node.name);
+                                      });
+
+                                      var nodes = clusterArc.nodes(packageHierarchy(classes)),
                                               links = packageImports(nodes);
-
-                                      console.log("The total number of nodes are: "+ nodes.length);
-                                      console.log("The total number of links are: "+ links.length);
-
-                                      link = link
-                                              .data(bundle(links))
-                                              .enter().append("path")
-                                              .each(function(d) { d.source = d[0], d.target = d[d.length - 1]; })
-                                              .attr("class", "linkLab")
-                                              .attr("d", line);
-
+                                      
                                       node = node
                                               .data(nodes.filter(function(n) { return !n.children; }))
                                               .enter().append("text")
@@ -75,7 +77,7 @@
                                               .on("mouseover", mouseovered)
                                               .on("mouseout", mouseouted);
 
-                                      var groupData = svg.selectAll("g.groups")
+                                      var groupData = svgArc.selectAll("g.groups")
                                                         .data(nodes.filter(function(d) {  return (d.key == 'Organization' || d.key == 'SurveillanceSystem' || 
                                                                                                  d.key == 'Tool' || d.key == 'Dataset' || d.key == 'Registry' ||
                                                                                                  d.key == 'Collaborative' || d.key == 'HealthSurvey' || 
@@ -83,23 +85,22 @@
                                                                                                 ) 
                                                                                                 && d.children; }))
                                                        .enter().append("group")
-                                                       .attr("class", "group"); 
+                                                       .attr("class", "group");
+
+                                          link = link
+                                                .data(bundle(links))
+                                                .enter().append("path")
+                                                .each(function(d) { d.source = d[0], d.target = d[d.length - 1]; })
+                                                .attr("d", line)
+                                                .attr("class", function(){ return "linkLab" });
 
                                       var groupArc = d3.svg.arc()
                                                       .innerRadius(radius - 260)
-                                                      .outerRadius(radius - 240)
+                                                      .outerRadius(radius - 235)
                                                       .startAngle(function(d) { return (findStartAngle(d.__data__.children)) * Math.PI / 180;})
                                                       .endAngle(function(d) { return (findEndAngle(d.__data__.children)) * Math.PI / 180});
-                                                      
-                                      svg.selectAll("g.arc")
-                                      .data(groupData[0])
-                                      .enter().append("svg:path")
-                                      .attr("d", groupArc)
-                                      .attr("class", "groupArc")
-                                      .style("fill", "#1f77b4")
-                                      .style("fill-opacity", 0.8);
                                      
-                                      var arc_and_text = svg.selectAll("g.arc")
+                                      var arc_and_text = svgArc.selectAll("g.arc")
                                         .data(groupData[0])
                                         .enter().append("svg:g")
                                         .attr("class","arc_and_text");
@@ -108,23 +109,33 @@
                                         .attr("d", groupArc)
                                         .attr("class", "groupArc")
                                         .attr("id", function(d, i) { return "arc" + i; })
-                                        .style("fill", "#1f77b4")
-                                        .style("fill-opacity", 0.5);
-
+                                        .attr("class", function(d){ if(d.__data__.key == 'Organization'){ return "arcColor_org";}
+                                                                    else if(d.__data__.key == 'SurveillanceSystem'){ return "arcColor_sSystem";}
+                                                                    else if(d.__data__.key == 'Tool'){ return "arcColor_tool";}
+                                                                    else if(d.__data__.key == 'Dataset'){ return "arcColor_dataset";}
+                                                                    else if(d.__data__.key == 'Registry'){ return "arcColor_registry";}
+                                                                    else if(d.__data__.key == 'Collaborative'){ return "arcColor_collaborative";}
+                                                                    else if(d.__data__.key == 'HealthSurvey'){ return "arcColor_hSurvey";}
+                                                                    else if(d.__data__.key == 'DataStandard'){ return "arcColor_dStandard";}
+                                                                    else if(d.__data__.key == 'Program'){ return "arcColor_program";}
+                                                                  });
 
                                       var arc_text = arc_and_text.append("text")
                                         .attr("class","arc_text")
-                                        .attr("x", 3)
+                                        .attr("x", 10)
                                         .attr("dy", 15);
 
                                       arc_text.append("textPath")
                                         .attr("xlink:href", function(d, i) { return "#arc" + i; })
                                         .attr("class","arc_text_path")
-                                        .style("fill","#ffffff")
-                                        .text(function(d, i) { return d.__data__.key; });
-
+                                        .attr("class", "arcText")
+                                        .text(function(d, i) {  if(d.__data__.key == 'SurveillanceSystem'){ return "Surveillance System";}
+                                                                else if(d.__data__.key == 'Dataset'){ return "Data Set";}
+                                                                else if(d.__data__.key == 'HealthSurvey'){ return "Survey";}
+                                                                else if(d.__data__.key == 'DataStandard'){ return "Data Standard";}
+                                                                else{ return d.__data__.key}
+                                                             });
                                     }
-                                    
                                 });
                               }
                             });
@@ -201,6 +212,7 @@
 
                             // Return a list of imports for the given array of nodes.
                             function packageImports(nodes) {
+
                                 var map = {},
                                         imports = [];
 
@@ -217,8 +229,6 @@
 
                                     if (d.imports) d.imports.forEach(function(i) {
                                         if(i != null){
-                                          //- console.log("packageImports :: the name of d is: "+d.name);
-                                          //- console.log("packageImports :: the value of i is: "+i);
                                           imports.push({source: map[d.name], target: map[i]});
                                         }
                                     });

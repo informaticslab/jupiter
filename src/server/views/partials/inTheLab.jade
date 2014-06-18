@@ -24,7 +24,7 @@
 							a(href='#/quickGuide/') Quick Guide
 						li
 							a(href='#/browse/') Browse
-						li.active
+						li
 							a(href='#/search/') Search
 						li
 							a(href='#/advancedSearch/') Relationship Explorer
@@ -33,36 +33,42 @@
 						li.active
 							a(href='#/inTheLab/') In the Lab
 				// end subnav
-			.detail_header 
-				.detail_header
-					.detail_header_text_contain_lg
-						.detail_header_text
-							| Advanced Visualization X: Universal Viewer
-					.share_button_linkage
-						//These lines, 173 - 187, were added 
-						//Single button 
-						.btn-group
-							button.btn.btn-default.dropdown-toggle(type='button', data-toggle='dropdown')
-								span.glyphicon.glyphicon-share
-								| &nbsp;Share &nbsp;&nbsp;
-								span.caret
-							ul.dropdown-menu(role='menu')
-								li
-									a(href='') Coming soon..
-								li
-									a(href='') Email
-								li
-									a(href='') Facebook
-								li
-									a(href='') Twitter
-						//end added lines 
+			.detail_header
+				.detail_header_text_cntr
+					i.fa.fa-laptop
+					|  In the Lab
 			// end detail header
-			.top_block2
-				.block_edge
-					.vertical_spacing1
-						script(type="text/javascript", src="/apollo/app/d3/d3-edgearc.js")
-						// script(type="text/javascript", src="/apollo/app/d3/d3-edgebundle.js")
-				// end block_edge
+			.top_block_lab
+				.row
+					.col-lg-4.col-md-4.col-sm-4
+						.lab_block
+							.lab_block_title
+								| Lab Research: 
+								br
+								| Visualization Technologies  
+							P 
+							| Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. 
+							P
+							| Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+							P
+							| Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium.
+					.col-lg-8.col-md-8.col-sm-8
+						.lab_block_right
+							.lab_title
+								| Advanced Visualizations
+							.visual_divider
+							.visual_section
+								img.pull-left.lab_icon(src='img/a_to_z.png', alt='Visualization ordered alphabetically')
+								.visual_section_text
+									a.bold_link(href="#/inTheLab/inTheLabBundle", id='btnDetails') Universal Viewer: Ordered Alphabetically
+									br
+									| Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum.
+							.visual_section
+								img.pull-left.lab_icon(src='img/by_type.png', alt='Visualization ordered by activity type')
+								.visual_section_text
+									a.bold_link(href='#/inTheLab/inTheLabArc', id='btnLinkageViewer') Universal Viewer: Ordered by Activity Type
+									br
+									| Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia.
 	.div(ng-class='getSidebarWidth()')
 		.hx_side(ng-show='!showSidebar' ng-click='toggleSidebar()')
 			div(ng-Historybar)

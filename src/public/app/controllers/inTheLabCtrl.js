@@ -7,4 +7,7 @@ angular.module('apolloApp').controller('inTheLabCtrl', function($scope, $routePa
       'url':$location.absUrl()
     }
     $scope.$parent.browseHistory.sites.push(site);
+
+    // $.getScript("/apollo/app/d3/d3-edgearc.js");
+    // $.getScript("/apollo/app/d3/d3-edgeBundle.js");
 });

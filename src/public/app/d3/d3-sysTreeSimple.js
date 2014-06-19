@@ -169,7 +169,12 @@ function buildTree(containerName, customOptions)
         });
 
     nodeGroup.append("svg:circle")
-        .attr("class", "node-dot")
+        .attr("class", function (d) {
+            if(d.valid != null && d.valid)
+                {return "circle node valid"}
+            else
+                {return "circle node invalid"}
+        })
         .attr("r", options.nodeRadius);
 
     nodeGroup.append("a").attr("xlink:href",function(d) { return "/apollo/#/node/" + d.id; })

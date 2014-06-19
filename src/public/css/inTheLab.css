@@ -3,10 +3,11 @@
 	/*font: 300 12px "Helvetica Neue", Helvetica, Arial, sans-serif;*/
 	font-weight:700;
 	fill: #bbb;
+	
 }
 .nodeLab:hover {
 	fill: #2a80b9;
-	/*background-color: #FFFFFF;*/
+	background-color: #ffffff;
 }
 .linkLab {
 	stroke: #CCC;
@@ -63,12 +64,12 @@ path.arc {
 }
 
 .arcColor_dataset {
-	fill: #c2c1c1;
+	fill: #acacac;
 	fill-opacity: 1.0;
 }
 
 .arcColor_registry {
-	fill: #95a5a5;
+	fill: #6b8787;
 	fill-opacity: 1.0;
 }
 

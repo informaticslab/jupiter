@@ -48,47 +48,47 @@ path.arc {
 }
 
 .arcColor_org {
-	fill: #1f77b4;
+	fill: #3598db;
 	fill-opacity: 1.0;
 }
 
 .arcColor_sSystem {
-	fill: #1f77b4;
+	fill: #edc00a;
 	fill-opacity: 1.0;
 }
 
 .arcColor_tool {
-	fill: #1f77b4;
+	fill: #e57e31;
 	fill-opacity: 1.0;
 }
 
 .arcColor_dataset {
-	fill: #1f77b4;
+	fill: #c2c1c1;
 	fill-opacity: 1.0;
 }
 
 .arcColor_registry {
-	fill: #1f77b4;
+	fill: #95a5a5;
 	fill-opacity: 1.0;
 }
 
 .arcColor_collaborative {
-	fill: #1f77b4;
+	fill: #16a086;
 	fill-opacity: 1.0;
 }
 
 .arcColor_hSurvey {
-	fill: #1f77b4;
+	fill: #d44138;
 	fill-opacity: 1.0;
 }
 
 .arcColor_dStandard {
-	fill: #1f77b4;
+	fill: #93ae24;
 	fill-opacity: 1.0;
 }
 
 .arcColor_program {
-	fill: #1f77b4;
+	fill: #2dcc70;
 	fill-opacity: 1.0;
 }
 
@@ -96,4 +96,5 @@ path.arc {
 	fill: #fff;
 	font-weight: bold;
 	font-size: 12px;
+	
 }

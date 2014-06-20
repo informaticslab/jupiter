@@ -441,54 +441,47 @@ angular.module('apolloApp')
 								
 
 							});
-							d3.selectAll("path.link." + nodetype)
-							.attr("style",function(d){
 
-								if(nodetype==rootnodelabel)
-								{
+							
+							if(nodetype==rootnodelabel)
+							{
+								
 
-									/*if((d.source.label[0]==rootnodelabel & d.target.label==rootnodelabel)) 
-									{
-										console.log(d);
-										return 'visibility:'+ showflg;
-									}*/
+								
+								d3.selectAll("path.link." + nodetype+"."+nodetype)
+								.attr("style",function(d){
 
-									d3.selectAll("path.link." + nodetype+"."+nodetype)
-									.attr("style",function(d1){
-										console.log(d1);
-										return 'visibility:'+ showflg;
-									});
-
-								}
-								else
-								{
+									console.log("=","path.link." + nodetype+"."+nodetype);
 									return 'visibility:'+ showflg;
-								}
+
+								});
+	
+
+							}
+							else
+							{
+								
+								d3.selectAll("path.link." + rootnodelabel+"."+nodetype)
+								.attr("style",function(d){
+
+									console.log("!=","path.link." + rootnodelabel+"."+nodetype);
+									return 'visibility:'+ showflg;
+
+								});
+									
+							}
 							
 
-							});
+							
 
 							d3.selectAll("text.path_label." + nodetype)
 							.attr("style",function(d){
-								
-								
-								if(nodetype==rootnodelabel)
-								{
 
-									if((d.source.label[0]==rootnodelabel & d.target.label==rootnodelabel)) 
-									{
-										//console.log(d.source.label[0],rootnodelabel ,d.target.label);
-										return 'visibility:'+ showflg;
-									}
-
-								}
-								else
-								{
-									return 'visibility:'+ showflg;
-								}
 								
 
 							});
+
+							
 							//attr("visibility", "hidden");
 
 						}

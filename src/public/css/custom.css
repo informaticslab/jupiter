@@ -162,6 +162,25 @@ height: 36px; padding-left:1em; padding-top:.6em; color:#ffffff; font-size: smal
 
 .top_block {padding:1.2em; border-style:solid; border-width:1px; border-color:#d3d9d9; text-align:left; min-height:467px; }
 
+.top_block_lab {padding:1.2em; border-style:solid; border-width:1px; border-color:#d3d9d9; text-align:left; min-height:370px; }
+
+.lab_block {padding:1.3em; padding-bottom:2em; background-color: #f1f0f0; min-height:330px; margin:.5em; color:#686868;}
+
+.lab_block_right {min-height:370px;  color:#777777; padding-top:1.7em;  }
+
+.lab_block_title {font-weight: bold; font-size:1.4em; }
+.visual_divider {height:1em; border-bottom-style: solid; border-color: #d3d9d9; border-width: 1px;}
+.visual_section {min-height:100px; border-bottom-style: solid; border-color: #d3d9d9; border-width: 1px; padding-top:1em;}
+
+
+.visual_section_text {color:#777777; position:relative; left:1.5em; padding-right:2em; padding-bottom:1em;}
+
+.lab_title {color:#e77e23; font-weight:bold; font-size:1.6em; }
+
+.lab_icon {}
+
+.bold_link {font-weight: bold;}
+
 .top_block2 { border-style:solid; border-width:1px; border-color:#d3d9d9; text-align:left; margin-bottom:1em;}
 
 .top_block_faq {padding-right:1.2em; padding-left:1.2em; padding-bottom:1.2em; border-style:solid; border-width:1px; border-color:#d3d9d9; text-align:left; min-height:467px; }
@@ -241,7 +260,7 @@ li.faq {padding-bottom:.5em;}
 .detail_header_linkage_sm2 {min-height:49px;background-color:#f39c11; color:#ffffff; font-weight:bold; padding-right:.7em; border-top-style: solid; border-width: 1px; border-color: #f6ba5a; }
 
 .detail_header_text {font-family: Tahoma, Geneva, sans-serif; letter-spacing:.03em; font-size:1.1em;  padding-top:.6em;}
-
+.detail_header_text_cntr {letter-spacing:.03em; font-size:1.3em; text-align: center; padding-bottom:.2m; }
 
 .detail_header_text_contain_lg {float:left; display: block; min-width:85%; padding-left:.7em; }
 
@@ -637,6 +656,8 @@ li.qg_li {padding-top:.7em; margin-left: -1.7em;}
 .fa-arrows-v, .glyphicon-ban-circle, .glyphicon-eye-close  {font-size:1.1em; padding-right:.3em; color:#e77e23;}
 
 .fa-lock {font-size:1.2em; padding-right:.4em; color:#ebbd05;}
+.fa-laptop {font-size:1.7em; padding-right:.1em; position:relative; top:.1em;}
+.lab_text {}
 .fa-gears {font-size:1.2em; padding-right:.4em; color:#3598db;}
 .glyphicon-link {font-size:1.1em; padding-right:.3em; color:#3598db;}
 

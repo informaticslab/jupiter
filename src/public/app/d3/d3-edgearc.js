@@ -26,6 +26,22 @@
                                 .append("g")
                                 .attr("transform", "translate(" + radius + "," + radius + ")");
 
+                            //new code for text hover
+                            var filter = svgArc.append("filter")
+                                        .attr( "id", "highlight") 
+                                        .attr( "x", 0)
+                                        .attr( "y", 0)
+                                        .attr( "width", 1)
+                                        .attr( "height", 1);
+
+                            // append feFlood to filter
+                            filter.append( "feFlood" )
+                                  .attr( "flood-color", "#fff" );
+
+                            // append feFlood to filter
+                            filter.append( "feComposite" )
+                                  .attr( "in", "SourceGraphic" );
+
                             var link = svgArc.append("g").selectAll(".link"),
                                 node = svgArc.append("g").selectAll(".node");
                            

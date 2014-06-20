@@ -6,8 +6,9 @@
 	
 }
 .nodeLab:hover {
+	filter:url(#highlight);
 	fill: #2a80b9;
-	background-color: #ffffff;
+	/*background-color: #ffffff;*/
 }
 .linkLab {
 	stroke: #CCC;
@@ -20,14 +21,14 @@
 .nodeLab--target {
 	font-size: 12px;
 	font-weight:700;
-	background-color: #FFFFFF;
+	/*background-color: #FFFFFF;*/
 }
 .nodeLab--source {
 	fill: #e77e23;
 }
 .nodeLab--target {
 	fill: #626266;
-	background-color: #FFFFFF;
+	/*background-color: #FFFFFF;*/
 
 }
 

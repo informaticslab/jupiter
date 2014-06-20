@@ -1,14 +1,13 @@
 .nodeLab {
 	font: 300 5px "Helvetica Neue", Helvetica, Arial, sans-serif;
-	/*font: 300 12px "Helvetica Neue", Helvetica, Arial, sans-serif;*/
 	font-weight:700;
 	fill: #bbb;
-	
 }
 .nodeLab:hover {
-	filter:url(#highlight);
 	fill: #2a80b9;
-	/*background-color: #ffffff;*/
+	font-size: 12px;
+	font-weight:700;
+	filter:url(#highlight);
 }
 .linkLab {
 	stroke: #CCC;
@@ -16,20 +15,21 @@
 	fill: none;
 	pointer-events: none;
 }
-.nodeLab:hover,
+
 .nodeLab--source,
 .nodeLab--target {
+	
 	font-size: 12px;
 	font-weight:700;
-	/*background-color: #FFFFFF;*/
+	filter:url(#highlight);
 }
+
 .nodeLab--source {
-	fill: #e77e23;
+	fill: #626266;
 }
+
 .nodeLab--target {
 	fill: #626266;
-	/*background-color: #FFFFFF;*/
-
 }
 
 .linkLab--source,
@@ -98,5 +98,4 @@ path.arc {
 	fill: #fff;
 	font-weight: bold;
 	font-size: 12px;
-	
 }

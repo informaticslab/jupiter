@@ -36,7 +36,8 @@
 
                             // append feFlood to filter
                             filter.append( "feFlood" )
-                                  .attr( "flood-color", "#fff" );
+                                  .attr( "flood-color", "#ffffff" )
+                                  .attr( "flood-opacity", 1.0);
 
                             // append feFlood to filter
                             filter.append( "feComposite" )

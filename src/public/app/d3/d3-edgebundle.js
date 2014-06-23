@@ -25,6 +25,23 @@
 																.append("g")
 																.attr("transform", "translate(" + radius + "," + radius + ")");
 
+														//new code for text hover
+							                            var filter = svg.append("filter")
+							                                        .attr( "id", "highlight") 
+							                                        .attr( "x", 0)
+							                                        .attr( "y", 0)
+							                                        .attr( "width", 1)
+							                                        .attr( "height", 1);
+
+							                            // append feFlood to filter
+							                            filter.append( "feFlood" )
+							                                  .attr( "flood-color", "#ffffff" )
+							                                  .attr( "flood-opacity", 1.0);
+
+							                            // append feFlood to filter
+							                            filter.append( "feComposite" )
+							                                  .attr( "in", "SourceGraphic" );
+
 														var link = svg.append("g").selectAll(".link"),
 																		node = svg.append("g").selectAll(".node");
 

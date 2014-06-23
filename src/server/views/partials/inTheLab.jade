@@ -43,15 +43,16 @@
 					.col-lg-4.col-md-4.col-sm-4
 						.lab_block
 							.lab_block_title
-								| Lab Research: 
+								| In The ISP R&D Lab: 
 								br
-								| Visualization Technologies  
+								| Advanced Tools 
 							P 
-							| Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. 
+							| This page provides access to ISP-related advanced tools and technologies - still very early in their development. Some of the tools will graduate out of this section and be incorporated into the main site, while others may need to go back to the drawing board for a fresh start. 
 							P
-							| Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+							| We sincerely look forward to your feedback - on any tool you've tried out - or any tool you'd like to see.  Please contact us at 
+							a(href='mailto:informaticslab@cdc.gov') informaticslab@cdc.gov
 							P
-							| Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium.
+							| Please note that some of the tools may act a bit odd a times - and if they do, please let us know.
 					.col-lg-8.col-md-8.col-sm-8
 						.lab_block_right
 							.lab_title
@@ -60,15 +61,32 @@
 							.visual_section
 								img.pull-left.lab_icon(src='img/a_to_z.png', alt='Visualization ordered alphabetically')
 								.visual_section_text
-									a.bold_link(href="#/inTheLab/inTheLabBundle", id='btnDetails') Universal Viewer: Ordered Alphabetically
+									a.bold_link(href="#/inTheLab/inTheLabBundle", id='btnDetails') Universal Viewer I: Hierarchical Edge Bundling - Alphabetically Only
 									br
-									| Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum.
+									| This tool, called the Universal Viewer I, provides a visualization into the entire database using a D3 
+									a(href='http://d3js.org') http://d3js.org &nbsp;
+									| visualization known as a hierarchical edge bundling. Hierarchical edge bundling is based on the principle of visually bundling adjacency edges together analogous to the way electrical wires and network cables are merged into bundles along their joint paths and fanned out again at the end, in order to make an otherwise tangled web of wires and cables more manageable.
+									br
+									br
+									| When you place your pointer on an entity outside the ring, you can automatically see the relationships which exist between the selected and other attributes. The data is organized only alphabetically.
+									br
+									br
+									| Because of the large amount of data displayed on the screen, this tool does run a bit slowly on laptops and desktops, and, though it is able to run on tablet devices, its performance needs improvement.
+
 							.visual_section
 								img.pull-left.lab_icon(src='img/by_type.png', alt='Visualization ordered by activity type')
 								.visual_section_text
-									a.bold_link(href='#/inTheLab/inTheLabArc', id='btnLinkageViewer') Universal Viewer: Ordered by Activity Type
+									a.bold_link(href='#/inTheLab/inTheLabArc', id='btnLinkageViewer') Universal Viewer II: Hierarchical Edge Bundling - Alphabetically with Activity Arcs
 									br
-									| Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia.
+									| This tool, called the Universal Viewer I, provides a visualization into the entire database using a D3 
+									a(href='http://d3js.org') http://d3js.org &nbsp;
+									| visualization known as a hierarchical edge bundling. Hierarchical edge bundling is based on the principle of visually bundling adjacency edges together analogous to the way electrical wires and network cables are merged into bundles along their joint paths and fanned out again at the end, in order to make an otherwise tangled web of wires and cables more manageable.
+									br
+									br
+									| When you place your pointer on an entity outside the ring, you can automatically see the relationships which exist between the selected and other attributes. Instead of being organized only alphabetically, the information is grouped by activity group/category (alphabetically), and then alphabetically within each group/category.
+									br
+									br
+									| Because of the large amount of data displayed on the screen, this tool does run a bit slowly on laptops and desktops, and, though it is able to run on tablet devices, its performance needs improvement.
 	.div(ng-class='getSidebarWidth()')
 		.hx_side(ng-show='!showSidebar' ng-click='toggleSidebar()')
 			div(ng-Historybar)

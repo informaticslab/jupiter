@@ -138,6 +138,9 @@ angular.module('apolloApp')
 								.attr("id", function(d) {
 									return d.source.index + "_" + d.target.index;
 								})
+								.attr("pseudo_id", function(d) {
+									return d.source.label + "_" + d.target.label;
+								})
 								//.attr("class", "link")
 								.attr("class", function(d) {
 									return "link " + d.source.label + " " + d.target.label;
@@ -205,6 +208,9 @@ angular.module('apolloApp')
 								.enter()
 								.append("svg:text")
 								//.attr("class", "path_label")
+								.attr("pseudo_id", function(d) {
+									return d.source.label + "_" + d.target.label;
+								})
 								.attr("class", function(d) {
 									return "path_label " + d.source.label + " " + d.target.label;
 								});
@@ -218,6 +224,9 @@ angular.module('apolloApp')
 								.style("font-family", "Arial")
 								.text(function(d) {
 									return d.type;
+								})
+								.attr("pseudo_id", function(d) {
+									return d.source.label + "_" + d.target.label;
 								})
 								.on("click", function(d) {
 									div.transition()
@@ -357,8 +366,9 @@ angular.module('apolloApp')
 
 							}
 
+							d3.selectAll("circle").attr("visibility", "visible");
 							d3.selectAll("path").attr("visibility", "visible");
-							d3.selectAll("text.path_label").attr("visibility", "visible");
+							d3.selectAll("text").attr("visibility", "visible");
 							d3.select(".btn.btn-default.pull-left.link_button4").classed("active", false);
 							togglehidelinks = true;
 
@@ -421,65 +431,40 @@ angular.module('apolloApp')
 							}
 
 							d3.selectAll("circle.node." + nodetype)
-							.attr("style",function(d){
+							.attr("visibility",function(d){
 								
 								if(d.id!=id)
 								{
-									return 'visibility:'+ showflg;	
+									return showflg;	
 								}
 								
 
 							});
 
 							d3.selectAll("text.nodetext." + nodetype)
-							.attr("style",function(d){
+							.attr("visibility",function(d){
 								
 								if(d.id!=id)
 								{
-									return 'visibility:'+ showflg;	
+									return showflg;	
 								}
 								
 
 							});
 
-							
-							if(nodetype==rootnodelabel)
-							{
-								
 
-								
-								d3.selectAll("path.link." + nodetype+"."+nodetype)
-								.attr("style",function(d){
+							d3.selectAll("path.link[pseudo_id=\""+rootnodelabel+"_"+nodetype+"\"]")
+							.attr("visibility",showflg);
 
-									console.log("=","path.link." + nodetype+"."+nodetype);
-									return 'visibility:'+ showflg;
-
-								});
-	
-
-							}
-							else
-							{
-								
-								d3.selectAll("path.link." + rootnodelabel+"."+nodetype)
-								.attr("style",function(d){
-
-									console.log("!=","path.link." + rootnodelabel+"."+nodetype);
-									return 'visibility:'+ showflg;
-
-								});
-									
-							}
+							d3.selectAll("path.link[pseudo_id=\""+nodetype+"_"+rootnodelabel+"\"]")
+							.attr("visibility",showflg);
 							
 
-							
+							d3.selectAll("text[pseudo_id='"+nodetype+"_"+rootnodelabel+"']")
+							.attr("visibility",showflg);
 
-							d3.selectAll("text.path_label." + nodetype)
-							.attr("style",function(d){
-
-								
-
-							});
+							d3.selectAll("text[pseudo_id='"+rootnodelabel+"_"+nodetype+"']")
+							.attr("visibility",showflg);
 
 							
 							//attr("visibility", "hidden");

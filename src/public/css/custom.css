@@ -173,13 +173,15 @@ height: 36px; padding-left:1em; padding-top:.6em; color:#ffffff; font-size: smal
 .visual_section {min-height:100px; border-bottom-style: solid; border-color: #d3d9d9; border-width: 1px; padding-top:1em;}
 
 
-.visual_section_text {color:#777777; position:relative; left:1.5em; padding-right:2em; padding-bottom:1em;}
+.visual_section_text {color:#777777; position:relative;  padding-right:2em; padding-bottom:2em;}
 
 .lab_title {color:#e77e23; font-weight:bold; font-size:1.6em; }
 
-.lab_icon {}
+.lab_icon {padding-right:1.3em; padding-bottom:.2em;}
 
 .bold_link {font-weight: bold;}
+
+
 
 .top_block2 { border-style:solid; border-width:1px; border-color:#d3d9d9; text-align:left; margin-bottom:1em;}
 

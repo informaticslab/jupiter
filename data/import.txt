@@ -2574,7 +2574,7 @@ MERGE (tag96:`Tag`{`id`:'TAG96',`name`:'WIC',`tagRelationship`:''}) return tag96
  MATCH (node11750{id:'CO3'}), (node21750{id:'TL95'}) create unique (node11750)-[:`USES`{`relationshipDescription`:'Used for Data Collection'}]->(node21750);
  MATCH (node11751{id:'P25'}), (node21751{id:'TL91'}) create unique (node11751)-[:`USES`{`relationshipDescription`:'Used for Data Collection'}]->(node21751);
  MATCH (node11752{id:'P25'}), (node21752{id:'TL95'}) create unique (node11752)-[:`USES`{`relationshipDescription`:'Used for Data Collection'}]->(node21752);
-
+ MATCH (n) set n.informationValidated='No';
 create index on :SurveillanceSystem(name);
 create index on :SurveillanceSystem(fullname);
 create index on :SurveillanceSystem(contractphone);

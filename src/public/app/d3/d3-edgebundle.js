@@ -97,6 +97,8 @@
 																							.text(function(d) { return d.key; })
 																							.on("mouseover", mouseovered)
 																							.on("mouseout", mouseouted);
+
+																			document.getElementById('loadingImg').style.display = 'none';
 																		}
 																		
 																});

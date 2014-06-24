@@ -58,6 +58,7 @@
 						//end added lines 
 			// end detail header
 			.top_block2
+				img(src='img/ajax-loader.gif', alt='Content is Loading', ng-show='true', id='loadingImg')
 				.block_edge
 					.vertical_spacing1
 						style.
@@ -70,7 +71,8 @@
 								fill: #2a80b9;
 								font-size: 12px;
 								font-weight:700;
-								filter:url(#highlight);
+								-webkit-filter: url(#highlight);
+								-moz-filter: url(#highlight);
 							}
 							.linkLab {
 								stroke: #CCC;
@@ -84,7 +86,8 @@
 								
 								font-size: 12px;
 								font-weight:700;
-								filter:url(#highlight);
+								-webkit-filter: url(#highlight);
+								-moz-filter: url(#highlight);
 							}
 
 							.nodeLab--source {

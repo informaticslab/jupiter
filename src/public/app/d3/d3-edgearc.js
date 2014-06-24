@@ -115,7 +115,7 @@
                                       var groupArc = d3.svg.arc()
                                                       // .innerRadius(radius - 260)
                                                       // .outerRadius(radius - 235)
-                                                      .innerRadius(radius - 280)
+                                                      .innerRadius(radius - 270)
                                                       .outerRadius(radius - 235)
                                                       .startAngle(function(d) { return (findStartAngle(d.__data__.children)) * Math.PI / 180;})
                                                       .endAngle(function(d) { return (findEndAngle(d.__data__.children)) * Math.PI / 180});
@@ -126,6 +126,7 @@
                                         .attr("class","arc_and_text");
 
                                       var arc_path = arc_and_text.append("svg:path")
+                                        .attr("text-anchor", "middle")
                                         .attr("d", groupArc)
                                         .attr("class", "groupArc")
                                         .attr("id", function(d, i) { return "arc" + i; })
@@ -142,8 +143,8 @@
 
                                       var arc_text = arc_and_text.append("text")
                                         .attr("class","arc_text")
-                                        .attr("dx", 15)
-                                        .attr("dy", 30);
+                                        .attr("dx", 10)
+                                        .attr("dy",30);
 
                                       arc_text.append("textPath")
                                         .attr("xlink:href", function(d, i) { return "#arc" + i; })
@@ -155,7 +156,8 @@
                                                                 else if(d.__data__.key == 'DataStandard'){ return "Data Standard";}
                                                                 else{ return d.__data__.key}
                                                              });
-                                    
+
+                                        document.getElementById('loadingImg').style.display = 'none';
                                     }
                                 });
                               }

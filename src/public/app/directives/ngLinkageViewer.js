@@ -55,12 +55,6 @@ angular.module('apolloApp')
 							.attr("width", w)
 							.attr("height", h);
 
-						d3.select("svg")
-							.append("input")
-							.attr("type", "checkbox")
-							.style("position", "absolute")
-							.style("top", "320")
-							.style("left", "150");
 
 						d3.select(window).on('resize', svgresize);
 

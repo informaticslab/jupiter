@@ -1,12 +1,12 @@
-.nodeLab {
+/*.nodeLab {
 	font: 300 5px "Helvetica Neue", Helvetica, Arial, sans-serif;
-	/*font: 300 12px "Helvetica Neue", Helvetica, Arial, sans-serif;*/
 	font-weight:700;
 	fill: #bbb;
 }
 .nodeLab:hover {
 	fill: #2a80b9;
-	/*background-color: #FFFFFF;*/
+	font-size: 12px;
+	font-weight:700;
 }
 .linkLab {
 	stroke: #CCC;
@@ -14,20 +14,20 @@
 	fill: none;
 	pointer-events: none;
 }
-.nodeLab:hover,
+
 .nodeLab--source,
 .nodeLab--target {
+	
 	font-size: 12px;
 	font-weight:700;
-	background-color: #FFFFFF;
 }
+
 .nodeLab--source {
-	fill: #e77e23;
+	fill: #626266;
 }
+
 .nodeLab--target {
 	fill: #626266;
-	background-color: #FFFFFF;
-
 }
 
 .linkLab--source,
@@ -40,7 +40,7 @@
 }
 .linkLab--target {
 	stroke: #2a80b9;
-}
+}*/
 
 path.arc {
   cursor: move;
@@ -48,47 +48,47 @@ path.arc {
 }
 
 .arcColor_org {
-	fill: #1f77b4;
+	fill: #3598db;
 	fill-opacity: 1.0;
 }
 
 .arcColor_sSystem {
-	fill: #1f77b4;
+	fill: #edc00a;
 	fill-opacity: 1.0;
 }
 
 .arcColor_tool {
-	fill: #1f77b4;
+	fill: #e57e31;
 	fill-opacity: 1.0;
 }
 
 .arcColor_dataset {
-	fill: #1f77b4;
+	fill: #acacac;
 	fill-opacity: 1.0;
 }
 
 .arcColor_registry {
-	fill: #1f77b4;
+	fill: #6b8787;
 	fill-opacity: 1.0;
 }
 
 .arcColor_collaborative {
-	fill: #1f77b4;
+	fill: #16a086;
 	fill-opacity: 1.0;
 }
 
 .arcColor_hSurvey {
-	fill: #1f77b4;
+	fill: #d44138;
 	fill-opacity: 1.0;
 }
 
 .arcColor_dStandard {
-	fill: #1f77b4;
+	fill: #93ae24;
 	fill-opacity: 1.0;
 }
 
 .arcColor_program {
-	fill: #1f77b4;
+	fill: #2dcc70;
 	fill-opacity: 1.0;
 }
 
@@ -96,4 +96,5 @@ path.arc {
 	fill: #fff;
 	font-weight: bold;
 	font-size: 12px;
+	z-index:50;
 }

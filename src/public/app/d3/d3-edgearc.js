@@ -26,11 +26,29 @@
                                 .append("g")
                                 .attr("transform", "translate(" + radius + "," + radius + ")");
 
+                            //new code for text hover
+                            var filter = svgArc.append("filter")
+                                        .attr( "id", "highlight") 
+                                        .attr( "x", 0)
+                                        .attr( "y", 0)
+                                        .attr( "width", 1)
+                                        .attr( "height", 1);
+
+                            // append feFlood to filter
+                            filter.append( "feFlood" )
+                                  .attr( "flood-color", "#ffffff" )
+                                  .attr( "flood-opacity", 1.0);
+
+                            // append feFlood to filter
+                            filter.append( "feComposite" )
+                                  .attr( "in", "SourceGraphic" );
+
+                            var arc = d3.svg.arc().outerRadius(radius-10).innerRadius(radius-50);
+
                             var link = svgArc.append("g").selectAll(".link"),
                                 node = svgArc.append("g").selectAll(".node");
                            
-                            var arc = d3.svg.arc().outerRadius(radius-10).innerRadius(radius-50);
-
+                            
                             d3.json("/apollo/api/lab/relations", function(error, relations){
 
                               if(relations==undefined | error)
@@ -95,7 +113,9 @@
                                                 .attr("class", function(){ return "linkLab" });
 
                                       var groupArc = d3.svg.arc()
-                                                      .innerRadius(radius - 260)
+                                                      // .innerRadius(radius - 260)
+                                                      // .outerRadius(radius - 235)
+                                                      .innerRadius(radius - 280)
                                                       .outerRadius(radius - 235)
                                                       .startAngle(function(d) { return (findStartAngle(d.__data__.children)) * Math.PI / 180;})
                                                       .endAngle(function(d) { return (findEndAngle(d.__data__.children)) * Math.PI / 180});
@@ -122,8 +142,8 @@
 
                                       var arc_text = arc_and_text.append("text")
                                         .attr("class","arc_text")
-                                        .attr("x", 10)
-                                        .attr("dy", 15);
+                                        .attr("dx", 15)
+                                        .attr("dy", 30);
 
                                       arc_text.append("textPath")
                                         .attr("xlink:href", function(d, i) { return "#arc" + i; })
@@ -135,6 +155,7 @@
                                                                 else if(d.__data__.key == 'DataStandard'){ return "Data Standard";}
                                                                 else{ return d.__data__.key}
                                                              });
+                                    
                                     }
                                 });
                               }

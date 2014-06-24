@@ -158,9 +158,17 @@ angular.module('apolloApp')
 								})
 								.attr("class", function(d) {
 									//console.log(d.label);
-									if(d.id==id) rootnodelabel=d.label;
 									var labelname="show"+d.label;
-									scope[labelname]=true;
+									if(d.id==id)
+									{
+										rootnodelabel=d.label;
+
+									}
+									else
+									{
+										scope[labelname]=true;
+									}
+									
 									return "node " + d.label;
 								})
 								.on("dblclick", dblclick)

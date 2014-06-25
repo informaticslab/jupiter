@@ -46,7 +46,11 @@ html, body { overflow-x: hidden; }
 
 .search_button {position:relative; top:1.5em; }
 
+.hide_activity {background-color:#fdf3d0; border-bottom-style:solid; border-color:#f8ecc1; border-width:1px; min-height:45px; padding-top:.8em; padding-bottom:.7em; padding-left:1em; padding-right:1em;}
 
+.hide_activity_label {font-weight:bold; color:#555758; font-size:small; float:right; }
+
+.hide_activity_check {font-weight:normal; padding-left:1.3em; }
 
 .glyphicon-search {color:#7e8c8d;}
 

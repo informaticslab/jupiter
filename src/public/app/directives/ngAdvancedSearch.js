@@ -298,17 +298,56 @@ angular.module('apolloApp')
 										})
 											.style("fill", "#8D8D91");
 
+										var labeloverlaparr=[];
+										var i=0;
+										var offset=false;
 										path_label.attr('transform', function(d) {
+
+
+											//console.log(labeloverlaparr);
+											var tokens = d.source.x+"-"+d.source.y+"-"+d.target.x+"-"+d.target.y;
+											var tokent = d.target.x+"-"+d.target.y+"-"+d.target.x+"-"+d.target.y;
+											//token ="ss";
+											var found1 = jQuery.inArray(tokens, labeloverlaparr);
+											var found2 = jQuery.inArray(tokent, labeloverlaparr);
+											
+											if(found1<0 & found2<0)
+											{
+												labeloverlaparr[i]=d.source.x+"-"+d.source.y+"-"+d.target.x+"-"+d.target.y;
+												//labeloverlaparr[i]=d.source.y;
+												//console.log(labeloverlaparr);
+												i++;
+											}
+											else
+											{
+												offset=true;
+											}
+												
+											
+											//console.log(offset);
 											//return 'translate(' + d.source.x + ',' + d.source.y + );
 											if (d.target.x < d.source.x) {
 												midx = (d.source.x + d.target.x) / 2;
 												midy = (d.source.y + d.target.y) / 2;
-												return 'rotate(180 ' + midx + ' ' + midy + ') ';
+												if(offset)
+												{
+													offset=false;
+													return 'translate(0,10) rotate(180 ' + midx + ' ' + midy + ') ';
+												}
+												else
+													return 'rotate(180 ' + midx + ' ' + midy + ') ';
 											} else {
-												return 'rotate(0)';
+												if(offset)
+												{
+													offset=false;
+													return 'translate(0,10) rotate(0)';
+												}
+												else
+													return 'rotate(0)';
 											}
-										});
 
+											
+										});
 
 										text.attr("transform", function(d) {
 											return "translate(" + d.x + "," + d.y + ")";

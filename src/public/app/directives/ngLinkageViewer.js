@@ -19,6 +19,7 @@ angular.module('apolloApp')
 						Tag:false
 					};
 
+					scope.disableHideLines=false;
 
 					scope.showOrganization=false;
 					scope.showProgram=false;
@@ -421,15 +422,39 @@ angular.module('apolloApp')
 
 						scope.hidenodes= function(nodetype,flg) {
 
-							
+							//scope.checkModel[nodetype]=!scope.checkModel[nodetype];
+							//chmod=(scope.checkModel);
+							//console.log(nodetype,flg,scope.checkModel);
+							var allunchecked=true;
+
+							angular.forEach(scope.checkModel, function(value, key){
+								
+								
+								if(value)
+								{
+									allunchecked=false;
+									//console.log(value);
+								}
+								if(allunchecked)
+								{
+									scope.disableHideLines=false;
+								}
+								else
+								{
+									scope.disableHideLines=true;
+								}
+
+							});
+
 							var showflg;
+
 							if(flg==true)
 							{
-								showflg='visible';
+								showflg='hidden';
 							}
 							else
 							{
-								showflg='hidden';
+								showflg='visible';
 							}
 
 							d3.selectAll("circle.node." + nodetype)
@@ -468,6 +493,7 @@ angular.module('apolloApp')
 							d3.selectAll("text[pseudo_id='"+rootnodelabel+"_"+nodetype+"']")
 							.attr("visibility",showflg);
 
+							//console.log(scope.checkModel);
 							
 							//attr("visibility", "hidden");
 
@@ -609,19 +635,7 @@ angular.module('apolloApp')
 					});
 
 
-				},
-				template: 	'<div class="btn-group">' +
-							'<label class="btn btn-primary" id="chk1" ng-click="hidenodes(\'Organization\',checkModel.Organization)" ng-model="checkModel.Organization" btn-checkbox ng-show="showOrganization">Organization</label>' +
-							'<label class="btn btn-primary" id="chk1" ng-click="hidenodes(\'Program\',checkModel.Program)" ng-model="checkModel.Program" btn-checkbox ng-show="showProgram">Program</label>' +
-							'<label class="btn btn-primary" id="chk1" ng-click="hidenodes(\'SurveillanceSystem\',checkModel.SurveillanceSystem)" ng-model="checkModel.SurveillanceSystem" btn-checkbox ng-show="showSurveillanceSystem">SurveillanceSystem</label>' +
-							'<label class="btn btn-primary" id="chk1" ng-click="hidenodes(\'Tool\',checkModel.Tool)" ng-model="checkModel.Tool" btn-checkbox ng-show="showTool">Tool</label>' +
-							'<label class="btn btn-primary" id="chk1" ng-click="hidenodes(\'Registry\',checkModel.Registry)" ng-model="checkModel.Registry" btn-checkbox ng-show="showRegistry">Registry</label>' +
-							'<label class="btn btn-primary" id="chk1" ng-click="hidenodes(\'HealthSurvey\',checkModel.HealthSurvey)" ng-model="checkModel.HealthSurvey" btn-checkbox ng-show="showHealthSurvey">HealthSurvey</label>' +
-							'<label class="btn btn-primary" id="chk1" ng-click="hidenodes(\'Collaborative\',checkModel.Collaborative)" ng-model="checkModel.Collaborative" btn-checkbox ng-show="showCollaborative">Collaborative</label>' +
-							'<label class="btn btn-primary" id="chk1" ng-click="hidenodes(\'Dataset\',checkModel.Dataset)" ng-model="checkModel.Dataset" btn-checkbox ng-show="showDataset">Dataset</label>' +
-							'<label class="btn btn-primary" id="chk1" ng-click="hidenodes(\'DataStandard\',checkModel.DataStandard)" ng-model="checkModel.DataStandard" btn-checkbox ng-show="showDataStandard">DataStandard</label>' +
-							'<label class="btn btn-primary" id="chk1" ng-click="hidenodes(\'Tag\',checkModel.Tag)" ng-model="checkModel.Tag" btn-checkbox ng-show="showTag">Tag</label>' +
-							'</div>'
+				}
 			}
 		}
 	]);

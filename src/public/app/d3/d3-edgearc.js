@@ -47,7 +47,6 @@
 
                             var link = svgArc.append("g").selectAll(".link"),
                                 node = svgArc.append("g").selectAll(".node");
-                           
                             
                             d3.json("/apollo/api/lab/relations", function(error, relations){
 

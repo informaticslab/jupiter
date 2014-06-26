@@ -5,6 +5,7 @@ angular.module('apolloApp')
 			return {
 				link: function(scope, element, attrs) {
 
+				$(document).ready(function() {
 
 					scope.checkModel = {
 						Organization:false,
@@ -634,7 +635,7 @@ angular.module('apolloApp')
 
 					});
 
-
+				}); 
 				}
 			}
 		}

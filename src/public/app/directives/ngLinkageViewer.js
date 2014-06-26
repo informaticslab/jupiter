@@ -116,11 +116,11 @@ angular.module('apolloApp')
 
 
 
-							d3.select(".btn.btn-default.pull-left.link_button1").on("click", clickreset);
-							d3.select(".btn.btn-default.pull-left.link_button5").on("click", locknodes);
-							d3.select(".btn.btn-default.pull-left.link_button4").on("click", hidelinks);
+							d3.select("#btn_lv_reset").on("click", clickreset);
+							d3.select("#btn_lv_lock").on("click", locknodes);
+							d3.select("#btn_lv_hide").on("click", hidelinks);
 
-							d3.select(".btn.btn-default.link_button6").on("click", clusterlayout);
+							d3.select("#btn_lv_activity").on("click", clusterlayout);
 
 
 							var drag = force.drag()
@@ -309,7 +309,7 @@ angular.module('apolloApp')
 
 							if (lock == "lock") {
 								d3.selectAll("circle").classed("fixed", true);
-								d3.select(".btn.btn-default.pull-left.link_button5").classed("active", true);
+								d3.select("#btn_lv_lock").classed("active", true);
 								i = 0;
 								for (n in json.nodes) {
 									//alert(n.id);
@@ -325,7 +325,7 @@ angular.module('apolloApp')
 								if (togglefixnodes) {
 
 									d3.selectAll("circle").classed("fixed", true);
-									d3.select(".btn.btn-default.pull-left.link_button5").classed("active", true);
+									d3.select("#btn_lv_lock").classed("active", true);
 									i = 0;
 									for (n in json.nodes) {
 										//alert(n.id);
@@ -338,7 +338,7 @@ angular.module('apolloApp')
 								} else {
 
 									d3.selectAll("circle").classed("fixed", false);
-									d3.select(".btn.btn-default.pull-left.link_button5").classed("active", false);
+									d3.select("#btn_lv_lock").classed("active", false);
 									i = 0;
 									for (n in json.nodes) {
 										//alert(n.id);
@@ -360,7 +360,7 @@ angular.module('apolloApp')
 
 							d3.selectAll("circle").classed("fixed", false);
 							togglefixnodes = true;
-							d3.select(".btn.btn-default.pull-left.link_button5").classed("active", false);
+							d3.select("#btn_lv_lock").classed("active", false);
 
 							i = 0;
 							for (n in json.nodes) {
@@ -373,7 +373,7 @@ angular.module('apolloApp')
 							d3.selectAll("circle").attr("visibility", "visible");
 							d3.selectAll("path").attr("visibility", "visible");
 							d3.selectAll("text").attr("visibility", "visible");
-							d3.select(".btn.btn-default.pull-left.link_button4").classed("active", false);
+							d3.select("#btn_lv_hide").classed("active", false);
 							togglehidelinks = true;
 
 							force.start();
@@ -385,7 +385,7 @@ angular.module('apolloApp')
 							if (x == "hide") {
 								d3.selectAll("path").attr("visibility", "hidden");
 								d3.selectAll("text.path_label").attr("visibility", "hidden");
-								d3.select(".btn.btn-default.pull-left.link_button4").classed("active", true);
+								d3.select("#btn_lv_hide").classed("active", true);
 
 								togglehidelinks = false;
 
@@ -393,13 +393,13 @@ angular.module('apolloApp')
 								if (togglehidelinks) {
 									d3.selectAll("path").attr("visibility", "hidden");
 									d3.selectAll("text.path_label").attr("visibility", "hidden");
-									d3.select(".btn.btn-default.pull-left.link_button4").classed("active", true);
+									d3.select("#btn_lv_hide").classed("active", true);
 
 									togglehidelinks = false;
 								} else {
 									d3.selectAll("path").attr("visibility", "visible");
 									d3.selectAll("text.path_label").attr("visibility", "visible");
-									d3.select(".btn.btn-default.pull-left.link_button4").classed("active", false);
+									d3.select("#btn_lv_hide").classed("active", false);
 									togglehidelinks = true;
 								}
 

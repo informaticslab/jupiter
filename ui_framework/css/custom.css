@@ -7,6 +7,13 @@ body {
 
 }
 
+.disclaimer_title {color:#e77e23; font-weight:bold; font-size:1.3em; padding-bottom:1em; }
+.header_dark {background-color:#34495e; color:#ffffff; border-radius:5px 5px 0px 0px; }
+.disclaimer_intro {margin-top:.7em;}
+.footer_disclaimer {background-color: #f4f0f0;  border-radius:0px 0px 5px 5px;}
+.modal_close {color:#ffffff; margin-right:.3em; position:relative; bottom:.5em; }
+.modal_show {font-weight:normal; float:left; color:#777777; font-size:.9em;}
+
 footer {
   padding: 2em 0;
   margin: 3em 0;

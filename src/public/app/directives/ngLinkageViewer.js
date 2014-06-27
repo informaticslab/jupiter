@@ -163,6 +163,7 @@ angular.module('apolloApp')
 									else
 									{
 										scope[labelname]=true;
+										scope.$apply();
 									}
 									
 									return "node " + d.label;
@@ -376,6 +377,25 @@ angular.module('apolloApp')
 							d3.select("#btn_lv_hide").classed("active", false);
 							togglehidelinks = true;
 
+							
+							scope.checkModel = {
+								Organization:true,
+								Program:true,
+								SurveillanceSystem:true,
+								Tool:true,
+								Registry:true,
+								HealthSurvey:true,
+								Collaborative:true,
+								Dataset:true,
+								DataStandard:true,
+								Tag:true
+							};
+
+							
+							scope.$apply();
+
+							
+
 							force.start();
 
 						}
@@ -389,7 +409,16 @@ angular.module('apolloApp')
 
 								togglehidelinks = false;
 
-							} else {
+							}
+							else if(x == "show") {
+								d3.selectAll("path").attr("visibility", "visible");
+								d3.selectAll("text.path_label").attr("visibility", "visible");
+								//d3.select("#btn_lv_hide").classed("active", true);
+
+								//togglehidelinks = false;
+
+							}
+							 else {
 								if (togglehidelinks) {
 									d3.selectAll("path").attr("visibility", "hidden");
 									d3.selectAll("text.path_label").attr("visibility", "hidden");
@@ -427,6 +456,7 @@ angular.module('apolloApp')
 							//chmod=(scope.checkModel);
 							//console.log(nodetype,flg,scope.checkModel);
 							var allunchecked=false;
+							var firstuncheck=0;
 
 							angular.forEach(scope.checkModel, function(value, key){
 								
@@ -434,19 +464,31 @@ angular.module('apolloApp')
 								if(!value)
 								{
 									allunchecked=true;
+									firstuncheck++;
 									//console.log(value);
 								}
-								
+															
 
 							});
+
+							//console.log(firstuncheck);
+
+							if(firstuncheck==1 && !scope.disableHideLines)
+							{
+								hidelinks("show");
+								console.log("first show");
+							}
 
 							if(allunchecked)
 							{
 								scope.disableHideLines=true;
+								
 							}
 							else
 							{
 								scope.disableHideLines=false;
+								d3.select("#btn_lv_hide").classed("active",false);
+								togglehidelinks = true;
 							}
 
 							var showflg;

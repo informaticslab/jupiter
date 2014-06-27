@@ -517,8 +517,8 @@ exports.getAllNodes = function(req, res) {
             console.log("Could not get all the nodes from the database");
         }
         else{
-            // compileSearchResultsForLab(req, res, err, results);
-            res.send(results);
+            compileSearchResultsForLab(req, res, err, results);
+            // res.send(results);
         }
     });
 };

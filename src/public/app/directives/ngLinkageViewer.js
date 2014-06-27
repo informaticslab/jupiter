@@ -657,7 +657,7 @@ angular.module('apolloApp')
 
 
 
-							hidelinks("hide");
+							//hidelinks("hide");
 							locknodes("lock");
 
 

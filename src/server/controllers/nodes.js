@@ -490,14 +490,6 @@ var compileSearchResultsForLab= function(req, res, err, results)
                         nodedata.id = doohicky.id;
                         nodedata.labels = doohickylabels;
                         nodedata.imports = [];
-
-                        // var tmpArr = _.where(relationsArr, {p: nodedata.id});
-                        
-                        // tmpArr.forEach(function (d){
-                        //    nodedata.imports.push('root!'.concat(d.clabel).concat('!').concat(d.cname));
-                        // });
-                       
-                        // nodedata.name = 'root!'.concat( nodedata.labels[0]).concat('!').concat(nodedata.name);
                         nodedataarr.push(nodedata);
 
                     }
@@ -520,7 +512,14 @@ exports.getAllNodes = function(req, res) {
     var params ={};
    
     neodb.db.query(query, params, function(err, results) {
-        compileSearchResultsForLab(req, res, err, results);
+
+        if(err){
+            console.log("Could not get all the nodes from the database");
+        }
+        else{
+            // compileSearchResultsForLab(req, res, err, results);
+            res.send(results);
+        }
     });
 };
 

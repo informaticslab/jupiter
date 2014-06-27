@@ -9,7 +9,7 @@ var treemap = d3.layout.treemap()
     .sticky(true)
     .value(function(d) { return d.size; });
 
-var div = d3.select("body").append("div")
+var div = d3.select(".block_tree").append("div")
     .style("position", "relative")
     .style("width", (width + margin.left + margin.right) + "px")
     .style("height", (height + margin.top + margin.bottom) + "px")
@@ -20,7 +20,7 @@ d3.json("img/flare.json", function(error, root) {
   var node = div.datum(root).selectAll(".node")
       .data(treemap.nodes)
     .enter().append("div")
-      .attr("class", "node")
+      .attr("class", "nodeTree")
       .call(position)
       .style("background", function(d) { return d.children ? color(d.name) : null; })
       .text(function(d) { return d.children ? null : d.name; });

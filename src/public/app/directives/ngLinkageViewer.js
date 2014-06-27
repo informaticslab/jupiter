@@ -8,16 +8,16 @@ angular.module('apolloApp')
 				$(document).ready(function() {
 
 					scope.checkModel = {
-						Organization:false,
-						Program:false,
-						SurveillanceSystem:false,
-						Tool:false,
-						Registry:false,
-						HealthSurvey:false,
-						Collaborative:false,
-						Dataset:false,
-						DataStandard:false,
-						Tag:false
+						Organization:true,
+						Program:true,
+						SurveillanceSystem:true,
+						Tool:true,
+						Registry:true,
+						HealthSurvey:true,
+						Collaborative:true,
+						Dataset:true,
+						DataStandard:true,
+						Tag:true
 					};
 
 					scope.disableHideLines=false;
@@ -426,36 +426,38 @@ angular.module('apolloApp')
 							//scope.checkModel[nodetype]=!scope.checkModel[nodetype];
 							//chmod=(scope.checkModel);
 							//console.log(nodetype,flg,scope.checkModel);
-							var allunchecked=true;
+							var allunchecked=false;
 
 							angular.forEach(scope.checkModel, function(value, key){
 								
 								
-								if(value)
+								if(!value)
 								{
-									allunchecked=false;
+									allunchecked=true;
 									//console.log(value);
 								}
-								if(allunchecked)
-								{
-									scope.disableHideLines=false;
-								}
-								else
-								{
-									scope.disableHideLines=true;
-								}
+								
 
 							});
+
+							if(allunchecked)
+							{
+								scope.disableHideLines=true;
+							}
+							else
+							{
+								scope.disableHideLines=false;
+							}
 
 							var showflg;
 
 							if(flg==true)
 							{
-								showflg='hidden';
+								showflg='visible';
 							}
 							else
 							{
-								showflg='visible';
+								showflg='hidden';
 							}
 
 							d3.selectAll("circle.node." + nodetype)

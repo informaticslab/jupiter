@@ -391,7 +391,7 @@ angular.module('apolloApp')
 								Tag:true
 							};
 
-							
+							scope.disableHideLines=false;
 							scope.$apply();
 
 							

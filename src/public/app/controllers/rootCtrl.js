@@ -1,9 +1,9 @@
-angular.module('apolloApp').controller('rootCtrl', function($scope, $http, $location, localStorageService){
+angular.module('apolloApp').controller('rootCtrl', function($scope, $http, $location, localStorageService, $modal){
     
     $scope.q = 'home';
     $scope.loginuser = 'guest';
     $scope.queryString = '';
-    
+
     $http.get('build.json')
       .then(function(res){
       	
@@ -195,4 +195,55 @@ angular.module('apolloApp').controller('rootCtrl', function($scope, $http, $loca
       });
   }
   //END Facebook Share
+
+  $scope.donotshowDisclaimer = false;
+  $scope.items = ['donotshow'];
+  
+  $scope.open = function(size){
+
+    if(!$scope.donotshowDisclaimer){
+
+      var modalInstance = $modal.open({
+        templateUrl: 'myModalContent.html',
+        controller: ModalInstanceCtrl,
+        size: size,
+        resolve: {
+          items: function () {
+            return $scope.items;
+          }
+        }
+      });
+
+    modalInstance.result.then(function (selectedItem) {
+        $scope.selected = selectedItem;
+      }, function () {
+        // $log.info('Modal dismissed at: ' + new Date());
+      });
+    };
+
+  }
+
+  // $scope.resetCheckbox = function(){
+  //   $scope.donotshowDisclaimer = true;
+  // }
+
+     
+
 });
+
+var ModalInstanceCtrl = function ($scope, $modalInstance, items) {
+
+  $scope.items = items;
+  $scope.selected = {
+    item: $scope.items[0]
+  };
+
+  $scope.ok = function () {
+    $modalInstance.close($scope.selected.item);
+    // modalInstance.dismiss('cancel');
+  };
+
+  // $scope.cancel = function () {
+  //   $modalInstance.dismiss('cancel');
+  // }; 
+};

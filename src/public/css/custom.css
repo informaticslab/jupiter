@@ -385,7 +385,8 @@ li.faq {padding-bottom:.5em;}
 
 .block_linkage {margin-top:.2em; text-align:center;  min-height:400px; padding:0.2em;}
 
-.block_edge {margin-top:.2em; text-align:center;  min-height:400px; padding:0.2em;}
+.block_edge {margin-top:.2em; text-align:center;  min-height:400px; padding:0.2em; position: relative;}
+.block_tree {font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; margin: auto; position: relative; width: 960px; height: 600px;}
 
 .vertical_spacing {margin-top:2em;}
 

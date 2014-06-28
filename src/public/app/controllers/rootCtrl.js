@@ -196,54 +196,46 @@ angular.module('apolloApp').controller('rootCtrl', function($scope, $http, $loca
   }
   //END Facebook Share
 
-  $scope.donotshowDisclaimer = false;
-  $scope.items = ['donotshow'];
-  
+  //Displaying the Disclaimer Modal Dialog
+  $scope.showDisclaimer = true;
   $scope.open = function(size){
 
-    if(!$scope.donotshowDisclaimer){
+    if($scope.showDisclaimer){
 
       var modalInstance = $modal.open({
         templateUrl: 'myModalContent.html',
         controller: ModalInstanceCtrl,
         size: size,
         resolve: {
-          items: function () {
-            return $scope.items;
+          showDisclaimer: function () {
+            return $scope.showDisclaimer;
           }
         }
       });
 
-    modalInstance.result.then(function (selectedItem) {
-        $scope.selected = selectedItem;
-      }, function () {
-        // $log.info('Modal dismissed at: ' + new Date());
-      });
+    modalInstance.result.then(function (disclaimerVal) {
+        console.log("After the modal is closed ::"+disclaimerVal);
+        $scope.showDisclaimer = disclaimerVal;
+        console.log("The scope.showDisclaimer value is ::"+$scope.showDisclaimer);
+    });
+    
     };
 
-  }
+  } 
 
-  // $scope.resetCheckbox = function(){
-  //   $scope.donotshowDisclaimer = true;
-  // }
-
-     
 
 });
 
-var ModalInstanceCtrl = function ($scope, $modalInstance, items) {
+var ModalInstanceCtrl = function ($scope, $modalInstance, showDisclaimer) {
 
-  $scope.items = items;
-  $scope.selected = {
-    item: $scope.items[0]
-  };
+  $scope.disclaimerVal = showDisclaimer;
+
+  $scope.resetCheckbox = function($event){
+    $scope.disclaimerVal = !$scope.disclaimerVal;
+  }  
 
   $scope.ok = function () {
-    $modalInstance.close($scope.selected.item);
-    // modalInstance.dismiss('cancel');
+    $modalInstance.close($scope.disclaimerVal);
   };
-
-  // $scope.cancel = function () {
-  //   $modalInstance.dismiss('cancel');
-  // }; 
 };
+

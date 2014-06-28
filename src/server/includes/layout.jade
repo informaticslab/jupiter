@@ -114,7 +114,7 @@ html(lang="en" ng-app='apolloApp')
 					a(href='mailto:informaticslab@cdc.gov')  informaticslab@cdc.gov
 				div(class='modal-footer')
 					.modal_show
-						input(type='checkbox' data-ng-model='donotshowDisclaimer')
+						input(type='checkbox' data-ng-model='donotshowDisclaimer' ng-change='resetCheckbox()')
 						| &nbsp; Do not show this message again
 					// button.btn.btn-default(data-dismiss='modal', type='button', ng-click='cancel()')  Cancel 
 					button.btn.btn-primary(data-dismiss='modal', type='button', ng-click='ok()')  I understand

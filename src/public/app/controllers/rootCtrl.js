@@ -237,5 +237,9 @@ var ModalInstanceCtrl = function ($scope, $modalInstance, showDisclaimer) {
   $scope.ok = function () {
     $modalInstance.close($scope.disclaimerVal);
   };
+
+  $scope.cancel = function () {
+    $modalInstance.dismiss('cancel');
+  };
 };
 

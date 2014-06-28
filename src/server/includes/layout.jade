@@ -101,23 +101,29 @@ html(lang="en" ng-app='apolloApp')
 		// end row 2 (navbar)
 		div
 			script(type="text/ng-template", id="myModalContent.html")
-				div(class='modal-header')
-					h4.modal-title &nbsp;CDC Integrated Surveillance Portal
-						img(alt='icon', src='img/modal_icon.png')
-						img(alt='Alpha', src='img/modal_alpha.png')
-				div(class='modal-body')
-					div.disclaimer_title Disclaimer:
-					P
-					| Please be aware that this online application is still early in its development, and it may function in unexpected ways. Some parts of the application have not yet been activated. The data in the system is still incomplete and has not yet been validated.
-					P
-					| Please send your comments and suggestions to
-					a(href='mailto:informaticslab@cdc.gov')  informaticslab@cdc.gov
-				div(class='modal-footer')
-					.modal_show
-						input(type='checkbox' data-ng-model='donotshowDisclaimer' ng-change='resetCheckbox()')
-						| &nbsp; Do not show this message again
-					// button.btn.btn-default(data-dismiss='modal', type='button', ng-click='cancel()')  Cancel 
-					button.btn.btn-primary(data-dismiss='modal', type='button', ng-click='ok()')  I understand
+				.modal-content
+					.modal-header.header_dark
+						.disclaimer_intro
+							button.close.modal_close(data-dismiss='modal', type='button')
+								span(aria-hidden='true') ×
+								span.sr-only Close
+						h4.modal-title(id='myModalLabel') &nbsp;CDC Integrated Surveillance Portal
+							img(alt='icon', src='img/modal_icon.png')
+							img(alt='Alpha', src='img/modal_alpha.png')
+					.modal-body
+						.disclaimer_title Disclaimer:
+						P
+						| Please be aware that this online application is still early in its development, and it may function in unexpected ways. Some parts of the application have not yet been activated. The data in the system is still incomplete and has not yet been validated.
+						P
+						| Please send your comments and suggestions to
+						a(href='mailto:informaticslab@cdc.gov')  informaticslab@cdc.gov
+					// div(class='modal-footer')
+					.modal-footer.footer_disclaimer
+						.modal_show
+							input(type='checkbox' data-ng-model='donotshowDisclaimer' ng-change='resetCheckbox()')
+							| &nbsp; Do not show this message again
+						button.btn.btn-default(data-dismiss='modal', type='button', ng-click='cancel()')  Cancel 
+						button.btn.btn-primary(data-dismiss='modal', type='button', ng-click='ok()')  I understand
 		block main-content
 		// start footer row
 		span.visible-lg.visible-md

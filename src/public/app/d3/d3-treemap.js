@@ -1,4 +1,4 @@
-var margin = {top: 10, right: 10, bottom: 10, left: 10},
+var margin = {top: 20, right: 0, bottom: 0, left: 0},
     // width = 960 - margin.left - margin.right,
     // height = 500 - margin.top - margin.bottom;
     width = 1280 - margin.left - margin.right,
@@ -17,7 +17,27 @@ var div = d3.select(".block_tree").append("div")
     .style("height", (height + margin.top + margin.bottom) + "px")
     .style("left", margin.left + "px")
     .style("top", margin.top + "px");
-    
+
+var mousemove = function(d) {
+  console.log("Mouse moved");
+  var xPosition = d3.event.pageX + 5;
+  var yPosition = d3.event.pageY + 5;
+
+  d3.select("#tooltip")
+    .style("left", xPosition + "px")
+    .style("top", yPosition + "px");
+  d3.select("#tooltip #name")
+    .text(d.name);
+  d3.select("#tooltip #relations")
+    .text(d.size);
+  d3.select("#tooltip").classed("hidden", false);
+};
+
+var mouseout = function() {
+  d3.select("#tooltip").classed("hidden", true);
+};
+
+
 d3.json("/apollo/api/lab/relations", function(error, relations){
 
   var treemapObj = {};
@@ -147,8 +167,6 @@ d3.json("/apollo/api/lab/relations", function(error, relations){
             }
           });
 
-          console.log("The collabObj data is ::"+JSON.stringify(collabObj));
-
           children.push(collabObj);
           children.push(dataStandardObj);
           children.push(dataSetObj);
@@ -168,7 +186,9 @@ d3.json("/apollo/api/lab/relations", function(error, relations){
                         .attr("class", "nodeTree")
                         .call(position)
                         .style("background", function(d) { return d.children ? color(d.name) : null; })
-                        .text(function(d) { return d.children ? null : d.name; });
+                        .text(function(d) { return d.children ? null : d.name; })
+                        .on("mousemove", mousemove)
+                        .on("mouseout", mouseout);
 
           node
               .data(treemap.value(value).nodes)

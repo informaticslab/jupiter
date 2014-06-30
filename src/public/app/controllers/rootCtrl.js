@@ -197,40 +197,37 @@ angular.module('apolloApp').controller('rootCtrl', function($scope, $http, $loca
   //END Facebook Share
 
   //Displaying the Disclaimer Modal Dialog
-  $scope.showDisclaimer = true;
-  // $cookieStore.put('disclaimerAcceptStatus', $scope.showDisclaimer);
-  localStorageService.set('disclaimerAcceptStatus', $scope.showDisclaimer);
-
   $scope.open = function(size){
 
-    if($scope.showDisclaimer){
-
+    $scope.disclaimerStatus = localStorageService.get('disclaimerAcceptStatus');
+    if ((localStorageService.get('disclaimerAcceptStatus') == false) || (localStorageService.get('disclaimerAcceptStatus') == null)){
       var modalInstance = $modal.open({
+        backdrop: 'static',
+        keyboard: false,
         templateUrl: 'myModalContent.html',
         controller: ModalInstanceCtrl,
         size: size,
         resolve: {
-          showDisclaimer: function () {
-            return $scope.showDisclaimer;
+          disclaimerStatus: function () {
+            return $scope.disclaimerStatus;
           }
         }
       });
 
-    modalInstance.result.then(function (disclaimerVal) {
-        // console.log("After the modal is closed ::"+disclaimerVal);
-        $scope.showDisclaimer = disclaimerVal;
-        // console.log("The scope.showDisclaimer value is ::"+$scope.showDisclaimer);
+    modalInstance.result.then(function (disclaimerStatus) {
+        $scope.disclaimerStatus = disclaimerStatus;
+        localStorageService.set('disclaimerAcceptStatus', angular.toJson($scope.disclaimerStatus));
     });
     
     };
 
-  } 
+  }
 
 });
 
-var ModalInstanceCtrl = function ($scope, $modalInstance, showDisclaimer) {
+var ModalInstanceCtrl = function ($scope, $modalInstance, disclaimerStatus) {
 
-  $scope.disclaimerVal = showDisclaimer;
+  $scope.disclaimerVal = disclaimerStatus;
 
   $scope.resetCheckbox = function($event){
     $scope.disclaimerVal = !$scope.disclaimerVal;
@@ -238,9 +235,5 @@ var ModalInstanceCtrl = function ($scope, $modalInstance, showDisclaimer) {
 
   $scope.ok = function () {
     $modalInstance.close($scope.disclaimerVal);
-  };
-
-  $scope.cancel = function () {
-    $modalInstance.dismiss('cancel');
   };
 };

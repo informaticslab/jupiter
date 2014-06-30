@@ -104,9 +104,6 @@ html(lang="en" ng-app='apolloApp')
 				.modal-content
 					.modal-header.header_dark
 						.disclaimer_intro
-							// button.close.modal_close(data-dismiss='modal', type='button', ng-click='cancel()')
-							// 	span(aria-hidden='true') ×
-							// 	span.sr-only Close
 						h4.modal-title(id='myModalLabel') &nbsp;CDC Integrated Surveillance Portal
 							img(alt='icon', src='img/modal_icon.png')
 							img(alt='Alpha', src='img/modal_alpha.png')
@@ -117,12 +114,10 @@ html(lang="en" ng-app='apolloApp')
 						P
 						| Please send your comments and suggestions to
 						a(href='mailto:informaticslab@cdc.gov')  informaticslab@cdc.gov
-					// div(class='modal-footer')
 					.modal-footer.footer_disclaimer
 						.modal_show
-							input(type='checkbox' data-ng-model='donotshowDisclaimer' ng-change='resetCheckbox()')
+							input(type='checkbox' data-ng-model='disclaimerStatus' ng-change='resetCheckbox()')
 							| &nbsp; Do not show this message again
-						// button.btn.btn-default(data-dismiss='modal', type='button', ng-click='cancel()')  Cancel 
 						button.btn.btn-primary(data-dismiss='modal', type='button', ng-click='ok()')  I understand
 		block main-content
 		// start footer row

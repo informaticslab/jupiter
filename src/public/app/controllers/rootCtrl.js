@@ -214,7 +214,7 @@ angular.module('apolloApp').controller('rootCtrl', function($scope, $http, $loca
 
     modalInstance.result.then(function (disclaimerStatus) {
         $scope.disclaimerStatus = disclaimerStatus;
-        localStorageService.set('disclaimerAcceptStatus', angular.toJson(!$scope.disclaimerStatus));
+        localStorageService.set('disclaimerAcceptStatus', angular.toJson($scope.disclaimerStatus));
     });
     
     };
@@ -229,6 +229,8 @@ var ModalInstanceCtrl = function ($scope, $modalInstance, disclaimerStatus) {
 
   $scope.resetCheckbox = function($event){
     $scope.disclaimerVal = !$scope.disclaimerVal;
+    // localStorageService.set('disclaimerAcceptStatus', angular.toJson($scope.disclaimerStatus));
+    // console.log("The disclaimer status is ::"+localStorageService.get('disclaimerAcceptStatus'));
   }  
 
   $scope.ok = function () {

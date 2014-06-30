@@ -80,6 +80,22 @@ apolloApp.config(['$routeProvider',
           },
           controller: 'inTheLabCtrl'
       }).
+           when('/disclaimer', {
+        templateUrl: 'partials/disclaimer',
+        controller: 'rootCtrl'
+      }).
+          when('/accessibility', {
+        templateUrl: 'partials/accessibility',
+        controller: 'rootCtrl'
+      }).
+          when('/codeofconduct', {
+        templateUrl: 'partials/codeofconduct',
+        controller: 'rootCtrl'
+      }).
+          when('/contact', {
+        templateUrl: 'partials/contact',
+        controller: 'rootCtrl'
+      }).
         otherwise({
         redirectTo: '/main'
       });

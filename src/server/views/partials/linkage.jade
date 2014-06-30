@@ -47,128 +47,46 @@
 						a.btn.btn-custom(href='#/linkage/{{nodeId}}', id='btnLinkageViewer') Relationship Viewer
 				// end button group
 			// end nav_split
-			span.visible-lg
-				.detail_header
-					.share_button_linkage
-						//These lines, 173 - 187, were added 
-						//Single button 
-						.btn-group
-							button.btn.btn-default.dropdown-toggle(type='button', data-toggle='dropdown')
-								span.glyphicon.glyphicon-share
-								| &nbsp;Share&nbsp;&nbsp;
-								span.caret
-							ul.dropdown-menu(role='menu')
-								li
-									a(href='mailto:?subject={{node.name}}&body={{emailBlurb}}') Email
-								li
-									a(href='' ng-click='share([node.name, "#/linkage/{{nodeId}}"])' id='fb-root') Facebook
-								li
-									a(target='_blank' href='http://twitter.com/home?status=CDC iSurv Portal: {{node.name}}: {{twitterBlurb}}') Twitter
-							//end added lines 
-					button.btn.btn-default.pull-left.link_button1(id='btn_lv_reset' type='button')
-						span.glyphicon.glyphicon-repeat.icon-flipped
-						| Reset
-					img.pull-left.small_divider(src='img/small_divider.png')
-					button.btn.btn-default.pull-left.link_button5(id='btn_lv_lock' type='button')
-						i.fa.fa-lock
-						| Lock nodes
-					button.btn.btn-default.pull-left.link_button4(id='btn_lv_hide' type='button' ng-disabled='disableHideLines')
-						span.glyphicon.glyphicon-ban-circle
-						| Hide lines
-					img.pull-left.small_divider(src='img/small_divider.png')
-					.cluster
-						.cluster_text
-						| Organize by:&nbsp;&nbsp;
-						.btn-group
-							button.btn.btn-default.link_button6(id='btn_lv_activity' type='button')
-								i.fa.fa-gears
-								| Activity type
-							button.btn.btn-default.link_button7.disabled(id='btn_lv_relationship' type='button')
-								span.glyphicon.glyphicon-link
-								| Relationship type
-				// end detail header
-			span.visible-md
-				.detail_header_linkage_md
-					.share_button_linkage_md
-						//These lines, 173 - 187, were added 
-						//Single button 
-						.btn-group
-							button.btn.btn-default.dropdown-toggle.linkage_md(type='button', data-toggle='dropdown')
-								span.glyphicon.glyphicon-share
-								| &nbsp;Share&nbsp;
-								span.caret
-							ul.dropdown-menu(role='menu')
-								li
-									a(href='mailto:?subject={{node.name}}&body={{emailBlurb}}') Email
-								li
-									a(href='' ng-click='share([node.name, "#/linkage/{{nodeId}}"])' id='fb-root') Facebook
-								li
-									a(target='_blank' href='http://twitter.com/home?status=CDC iSurv Portal: {{node.name}}: {{twitterBlurb}}') Twitter
-							//end added lines 
-					button.btn.btn-default.pull-left.linkage_md.link_button1_md(id='btn_lv_reset' type='button')
-						span.glyphicon.glyphicon-repeat.icon-flipped
-						| Reset
-					img.pull-left.small_divider_md(src='img/small_divider.png')
-					button.btn.btn-default.pull-left.link_button5_md(id='btn_lv_lock' type='button')
-						i.fa.fa-lock
-						| Lock nodes
-					button.btn.btn-default.pull-left.link_button4_md(id='btn_lv_hide' type='button' ng-disabled='disableHideLines')
-						span.glyphicon.glyphicon-ban-circle
-						| Hide lines
-					
-					.cluster_md
-						.cluster_text_md.pull-left
-							| Organize 
-							br
-							| by:&nbsp;
-						.btn-group
-							button.btn.btn-default.link_button6_md(id='btn_lv_activity' type='button')
-								i.fa.fa-gears
-								| Activity type
-							button.btn.btn-default.link_button7_md.disabled(id='btn_lv_relationship' type='button')
-								span.glyphicon.glyphicon-link
-								| Relationship type&nbsp;
-				// end detail header
-			span.visible-sm
-				.detail_header_linkage_sm
-					.share_button_linkage_sm
-						//These lines, 173 - 187, were added 
-						//Single button 
-						.btn-group
-							button.btn.btn-default.dropdown-toggle.linkage_md(type='button', data-toggle='dropdown')
-								span.glyphicon.glyphicon-share
-								| &nbsp;Share&nbsp;
-								span.caret
-							ul.dropdown-menu(role='menu')
-								li
-									a(href='mailto:?subject={{node.name}}&body={{emailBlurb}}') Email
-								li
-									a(href='' ng-click='share([node.name, "#/linkage/{{nodeId}}"])' id='fb-root') Facebook
-								li
-									a(target='_blank' href='http://twitter.com/home?status=CDC iSurv Portal: {{node.name}}: {{twitterBlurb}}') Twitter
-							//end added lines 
-					button.btn.btn-default.pull-left.linkage_md.link_button1_md(id='btn_lv_reset' type='button')
-						span.glyphicon.glyphicon-repeat.icon-flipped
-						| Reset
-					img.pull-left.small_divider_md(src='img/small_divider.png')
-					button.btn.btn-default.pull-left.link_button5_md(id='btn_lv_lock' type='button')
-						i.fa.fa-lock
-						| Lock nodes
-					button.btn.btn-default.pull-left.link_button4_md(id='btn_lv_hide' type='button' ng-disabled='disableHideLines')
-						span.glyphicon.glyphicon-ban-circle
-						| Hide lines
-				.detail_header_linkage_sm2		
-					.cluster_sm
-						.cluster_text_sm.pull-left
-							| Organize by:&nbsp;
-						.btn-group
-							button.btn.btn-default.link_button6_md(id='btn_lv_activity' type='button')
-								i.fa.fa-gears
-								| Activity type
-							button.btn.btn-default.link_button7_md.disabled(id='btn_lv_relationship' type='button')
-								span.glyphicon.glyphicon-link
-								| Relationship type&nbsp;
-				// end detail header	
+			
+			.detail_header_linkage_sm
+				.share_button_linkage
+					//These lines, 173 - 187, were added 
+					//Single button 
+					.btn-group
+						button.btn.btn-default.dropdown-toggle.linkage_md(type='button', data-toggle='dropdown')
+							span.glyphicon.glyphicon-share
+							| &nbsp;Share&nbsp;
+							span.caret
+						ul.dropdown-menu(role='menu')
+							li
+								a(href='mailto:?subject={{node.name}}&body={{emailBlurb}}') Email
+							li
+								a(href='' ng-click='share([node.name, "#/linkage/{{nodeId}}"])' id='fb-root') Facebook
+							li
+								a(target='_blank' href='http://twitter.com/home?status=CDC iSurv Portal: {{node.name}}: {{twitterBlurb}}') Twitter
+						//end added lines 
+				button.btn.btn-default.pull-left.link_button1(id='btn_lv_reset' type='button')
+					span.glyphicon.glyphicon-repeat.icon-flipped
+					| Reset
+				img.pull-left.small_divider(src='img/small_divider.png')
+				button.btn.btn-default.pull-left.link_button5(id='btn_lv_lock' type='button')
+					i.fa.fa-lock
+					| Lock nodes
+				button.btn.btn-default.pull-left.link_button4(id='btn_lv_hide' type='button' ng-disabled='disableHideLines')
+					span.glyphicon.glyphicon-ban-circle
+					| Hide lines
+			.detail_header_linkage_sm2		
+				.cluster_sm
+					.cluster_text_sm.pull-left
+						| Organize by:&nbsp;
+					.btn-group
+						button.btn.btn-default.link_button6_md(id='btn_lv_activity' type='button')
+							i.fa.fa-gears
+							| Activity type
+						button.btn.btn-default.link_button7_md.disabled(id='btn_lv_relationship' type='button')
+							span.glyphicon.glyphicon-link
+							| Relationship type&nbsp;
+			// end detail header	
 				
 			.top_block2
 				.hide_activity

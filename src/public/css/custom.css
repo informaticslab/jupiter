@@ -229,7 +229,8 @@ li.faq {padding-bottom:.5em;}
 
 .orange_text {color:#e77e23;}
 .carousel_text {font-size:1.1em; padding-bottom:.3em; color:#777777;}
-.carousel_text_disclaimer {font-size:.9em; padding-bottom:.3em; font-style:italic; color:#777777; }
+.carousel_text_disclaimer {font-size:.9em; padding-bottom:.3em; color:#23313f; background-color:#fcf1c7; padding:1.2em; margin-bottom:1.5em; border-style:solid; border-width:1px; border-radius:0px; border-color:#f9e697;}
+
 
 .placeholder_image {padding-left:2.5em;}
 .sideblock {margin-right:2em; }

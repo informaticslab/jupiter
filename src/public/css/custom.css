@@ -770,3 +770,6 @@ a.inactive:active {color:#aeaeae;}
 td.result_number_total {font-weight: bold; padding-top:.7em;}
 .input_total {padding-top:.7em; }
 .pagination_custom {color:red;}
+
+/*temporary styles for the treemap - to be reviewed by Sara */
+.stat_label {color:#50595a; font-family:arial, geneva, sans-serif; font-size:1.1em;}

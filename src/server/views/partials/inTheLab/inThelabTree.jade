@@ -61,10 +61,14 @@
 				//- img(src='img/ajax-loader.gif', alt='Content is Loading', ng-show='true', id='loadingImg')
 				div#tooltip
 					P
-					strong Name:
-					#name
-					strong Relations:
-					#relations
+						strong Name: &nbsp;&nbsp;
+						stat_label(id='name')
+					P
+						strong Type: &nbsp;&nbsp;
+						stat_label(id='type')
+					P
+						strong Relationship# &nbsp;&nbsp;
+						stat_label(id='relations')
 				.block_tree
 					.vertical_spacing1
 						script(type="text/javascript", src="/apollo/app/d3/d3-treemap.js")

@@ -141,6 +141,39 @@ exports.searchByName = function(req, res) {
     });
 };
 
+exports.searchSysTreeByName = function(req, res) {
+    var searchTerm = req.params.searchTerm.toLowerCase();
+    var query = 'match p=(n)-[r:OVERSEES|MANAGES*]->x where lower(n.name)=~".*' + searchTerm 
+            + '.*" return distinct n.name as name, n.id as id'
+    var params = {
+        searchTerm: req.params.searchTerm
+    };
+    // var query = 'MATCH n WHERE lower(n.name)=~".*' + searchTerm + '.*" RETURN n.id as id, n.name as name';
+    // //console.log(query);
+    // var params = {
+    //     searchTerm: req.params.searchTerm
+    // };
+    neodb.db.query(query, params, function(err, results) {
+        //console.log(results);
+
+        if (err) {
+            console.error('Error retreiving node from database:', err);
+            res.send(404, 'No node at that location');
+        } else {
+            if (results != null) {
+                var nodedata = [];
+                _.each(results, function(i){
+                    nodedata.push({id: i.id, name:i.name});
+                })
+                res.json(nodedata);
+            }
+            else{
+                res.json([]);
+            }
+        }
+    });
+};
+
 var sortFunction = function(a, b){
 //Compare "a" and "b" in some fashion, and return -1, 0, or 1
     if(a.name > b.name)

@@ -15,6 +15,7 @@ module.exports = function(app) {
     app.get('/apollo/api/stats/relations', nodes.getPortalStatisticsRelations);
     app.get('/apollo/api/node/advancedSearch/:id', nodes.getAdvancedSearchData);
     app.get('/apollo/api/node/searchByName/:searchTerm', nodes.searchByName);
+    app.get('/apollo/api/node/searchSysTreeByName/:searchTerm',nodes.searchSysTreeByName);
     app.get('/apollo/api/node/name/:id', nodes.getNodeNameById);
     app.get('/apollo/api/lab/nodes', nodes.getAllNodes);
     app.get('/apollo/api/lab/relations', nodes.getAllRealtionsForAllNodes);

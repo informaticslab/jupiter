@@ -34,7 +34,12 @@ var mousemove = function(d) {
 };
 
 var mouseout = function() {
-  d3.select("#tooltip").classed("hidden", true);
+  d3.select("#tooltip");
+  d3.select("#tooltip #name")
+    .text("Name");
+  d3.select("#tooltip #relations")
+    .text("Number of relations");
+  d3.select("#tooltip").classed("hidden", false);
 };
 
 

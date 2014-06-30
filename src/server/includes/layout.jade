@@ -120,7 +120,7 @@ html(lang="en" ng-app='apolloApp')
 					// div(class='modal-footer')
 					.modal-footer.footer_disclaimer
 						.modal_show
-							input(type='checkbox' data-ng-model='donotshowDisclaimer' ng-change='resetCheckbox()')
+							input(type='checkbox' data-ng-model='disclaimerStatus' ng-change='resetCheckbox()')
 							| &nbsp; Do not show this message again
 						// button.btn.btn-default(data-dismiss='modal', type='button', ng-click='cancel()')  Cancel 
 						button.btn.btn-primary(data-dismiss='modal', type='button', ng-click='ok()')  I understand

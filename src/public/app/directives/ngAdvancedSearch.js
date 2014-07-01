@@ -92,8 +92,7 @@ angular.module('apolloApp')
 							if (id == "" | id == "-") {
 
 							} else {
-								
-								
+
 
 
 								jsonret = d3.json("/apollo/api/node/advancedSearch/" + leftnodeid + "-" + rightnodeid + "-" + hop, function(error, json) {
@@ -517,7 +516,7 @@ angular.module('apolloApp')
 										d3.selectAll("circle").attr("visibility", "visible");
 										d3.selectAll("path").attr("visibility", "visible");
 										d3.selectAll("text.path_label").attr("visibility", "visible");
-										d3.select("#btn_as_hide").classed("active", false);
+										d3.select("#btv_as_hide").classed("active", false);
 										togglehidelinks = true;
 
 										scope.checkModel = {
@@ -586,36 +585,29 @@ angular.module('apolloApp')
 									//scope.checkModel[nodetype]=!scope.checkModel[nodetype];
 									//chmod=(scope.checkModel);
 									//console.log(nodetype,flg,scope.checkModel);
-									var allunchecked = false;
-									var firstuncheck = 0;
+									var allunchecked=false;
 
-									angular.forEach(scope.checkModel, function(value, key) {
-
-
-										if (!value) {
-											allunchecked = true;
-											firstuncheck++;
-											//console.log(value);
-										}
-
+									angular.forEach(scope.checkModel, function(value, key){
+										
+										
+									if(!value)
+									{
+										allunchecked=true;
+										//console.log(value);
+									}
+										
 
 									});
 
-									//console.log(firstuncheck);
-
-									if (firstuncheck == 1 && !scope.disableHideLines) {
-										hidelinks("show");
-										//console.log("first show");
+									if(allunchecked)
+									{
+										scope.disableHideLines=true;
+									}
+									else
+									{
+										scope.disableHideLines=false;
 									}
 
-									if (allunchecked) {
-										scope.disableHideLines = true;
-
-									} else {
-										scope.disableHideLines = false;
-										d3.select("#btn_lv_hide").classed("active", false);
-										togglehidelinks = true;
-									}
 									var showflg;
 
 									if(flg==true)

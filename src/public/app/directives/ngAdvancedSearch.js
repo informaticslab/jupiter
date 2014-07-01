@@ -42,7 +42,34 @@ angular.module('apolloApp')
 						$(document).ready(function() {
 
 
+							scope.checkModel = {
+								Organization:true,
+								Program:true,
+								SurveillanceSystem:true,
+								Tool:true,
+								Registry:true,
+								HealthSurvey:true,
+								Collaborative:true,
+								Dataset:true,
+								DataStandard:true,
+								Tag:true
+							};
 
+							scope.disableHideLines=false;
+
+							scope.showOrganization=false;
+							scope.showProgram=false;
+							scope.showSurveillanceSystem=false;
+							scope.showTool=false;
+							scope.showRegistry=false;
+							scope.showHealthSurvey=false;
+							scope.showCollaborative=false;
+							scope.showDataset=false;
+							scope.showDataStandard=false;
+							scope.showTag=false;
+
+							var rootnodelabell="";
+							var rootnodelabelr="";
 
 
 							var url = $(location).attr('href');
@@ -65,7 +92,8 @@ angular.module('apolloApp')
 							if (id == "" | id == "-") {
 
 							} else {
-
+								
+								
 
 
 								jsonret = d3.json("/apollo/api/node/advancedSearch/" + leftnodeid + "-" + rightnodeid + "-" + hop, function(error, json) {
@@ -181,6 +209,12 @@ angular.module('apolloApp')
 											.attr("id", function(d) {
 												return d.source.index + "_" + d.target.index;
 											})
+											.attr("pseudo_label", function(d) {
+												return d.source.label + "_" + d.target.label;
+											})
+											.attr("pseudo_id", function(d) {
+												return d.source.id + "_" + d.target.id;
+											})
 											.attr("class", "link");
 
 
@@ -194,6 +228,23 @@ angular.module('apolloApp')
 												else return r;
 											})
 											.attr("class", function(d) {
+
+												var labelname="show"+d.label;
+												if(d.id == leftnodeid)
+												{
+													rootnodelabell=d.label;
+
+												}
+												else if(d.id == rightnodeid)
+												{
+													rootnodelabelr=d.label;
+
+												}
+												else
+												{
+													scope[labelname]=true;
+													scope.$apply();
+												}
 												return "node " + d.label;
 											})
 											.on("dblclick", dblclick)
@@ -214,6 +265,9 @@ angular.module('apolloApp')
 											.text(function(d) {
 												return d.name + " (" + d.label + ")";
 											})
+								.attr("class", function(d) {
+									return "nodetext " + d.label;
+								})
 											.style("font-weight", function(d) {
 												if (d.id == leftnodeid || d.id == rightnodeid) {
 													return "bold";
@@ -231,7 +285,13 @@ angular.module('apolloApp')
 											.data(json.links)
 											.enter()
 											.append("svg:text")
-											.attr("class", "path_label");
+											.attr("class", "path_label")
+											.attr("pseudo_label", function(d) {
+												return d.source.label + "_" + d.target.label;
+											})
+											.attr("pseudo_id", function(d) {
+												return d.source.id + "_" + d.target.id;
+											});
 
 										path_label.append("svg:textPath")
 											.attr("startOffset", "50%")
@@ -242,6 +302,12 @@ angular.module('apolloApp')
 											.style("font-family", "Arial")
 											.text(function(d) {
 												return d.type;
+											})
+											.attr("pseudo_label", function(d) {
+												return d.source.label + "_" + d.target.label;
+											})
+											.attr("pseudo_id", function(d) {
+												return d.source.id + "_" + d.target.id;
 											})
 											.on("click", function(d) {
 												div.transition()
@@ -417,7 +483,7 @@ angular.module('apolloApp')
 
 										d3.selectAll("circle").classed("fixed", false);
 										//togglefixnodes=true;
-										d3.select(".btn.btn-default.pull-left.link_button5").classed("active", false);
+										d3.select("#btn_as_lock").classed("active", false);
 
 										//i=0;
 										json.nodes.forEach(function(d, i) {
@@ -448,11 +514,27 @@ angular.module('apolloApp')
 
 										});
 
-
+										d3.selectAll("circle").attr("visibility", "visible");
 										d3.selectAll("path").attr("visibility", "visible");
 										d3.selectAll("text.path_label").attr("visibility", "visible");
-										d3.select(".btn.btn-default.pull-left.link_button4").classed("active", false);
+										d3.select("#btn_as_hide").classed("active", false);
 										togglehidelinks = true;
+
+										scope.checkModel = {
+											Organization: true,
+											Program: true,
+											SurveillanceSystem: true,
+											Tool: true,
+											Registry: true,
+											HealthSurvey: true,
+											Collaborative: true,
+											Dataset: true,
+											DataStandard: true,
+											Tag: true
+										};
+
+										scope.disableHideLines = false;
+										scope.$apply();
 
 										force.start();
 
@@ -499,6 +581,349 @@ angular.module('apolloApp')
 
 									}
 
+									scope.hidenodes= function(nodetype,flg) {
+
+									//scope.checkModel[nodetype]=!scope.checkModel[nodetype];
+									//chmod=(scope.checkModel);
+									//console.log(nodetype,flg,scope.checkModel);
+									var allunchecked = false;
+									var firstuncheck = 0;
+
+									angular.forEach(scope.checkModel, function(value, key) {
+
+
+										if (!value) {
+											allunchecked = true;
+											firstuncheck++;
+											//console.log(value);
+										}
+
+
+									});
+
+									//console.log(firstuncheck);
+
+									if (firstuncheck == 1 && !scope.disableHideLines) {
+										hidelinks("show");
+										//console.log("first show");
+									}
+
+									if (allunchecked) {
+										scope.disableHideLines = true;
+
+									} else {
+										scope.disableHideLines = false;
+										d3.select("#btn_lv_hide").classed("active", false);
+										togglehidelinks = true;
+									}
+									var showflg;
+
+									if(flg==true)
+									{
+										showflg='visible';
+									}
+									else
+									{
+										showflg='hidden';
+									}
+
+									d3.selectAll("circle.node." + nodetype)
+									.attr("visibility",function(d){
+										
+										if(d.id==leftnodeid)
+										{
+											//return showflg;	
+										}
+										else if(d.id==rightnodeid)
+										{
+											//return showflg;	
+										}
+										else
+										{
+											return showflg;
+										}
+										
+
+									});
+
+									d3.selectAll("text.nodetext." + nodetype)
+									.attr("visibility",function(d){
+										
+										if(d.id==leftnodeid)
+										{
+											//return showflg;	
+										}
+										else if(d.id==rightnodeid)
+										{
+											//return showflg;	
+										}
+										else
+										{
+											return showflg;
+										}
+										
+
+									});
+
+
+									
+											
+												
+									if(!flg)
+									{
+										
+										d3.selectAll("path.link[pseudo_label*=\""+nodetype+"\"]")
+										.attr("visibility",function(d){
+
+
+											var sourcenodelabel=d.source.label;
+											var targetnodelabel=d.target.label;
+											var sourcenodeid=d.source.id;
+											var targetnodeid=d.target.id;
+
+											var sourceyes=false;
+											var targetyes=false;
+											//var i=0;
+											angular.forEach(scope.checkModel, function(value, key){
+												
+												//console.log("**********",value,key);
+												if(!value & key==sourcenodelabel)
+												{
+													sourceyes=true;
+													
+												}
+												if(!value & key==targetnodelabel)
+												{
+													targetyes=true;
+													
+												}
+											});
+
+
+
+											if(sourceyes | targetyes  )
+											{
+												
+												if(sourceyes&targetyes)
+												{
+													
+													return "hidden";
+												}
+												if(sourceyes & !targetyes & (sourcenodeid==leftnodeid | sourcenodeid == rightnodeid))
+												{
+													
+													return "visible";
+												}
+												if(!sourceyes & targetyes & (targetnodeid==leftnodeid | targetnodeid == rightnodeid))
+												{
+													
+													return "visible";
+												}
+												else
+												{
+													
+													return "hidden";
+												}
+												
+
+											}
+
+										
+									});
+											
+
+									//var i=0;
+									d3.selectAll("text[pseudo_label*=\""+nodetype+"\"]")
+										.attr("visibility",function(d){
+
+
+											var sourcenodelabel=d.source.label;
+											var targetnodelabel=d.target.label;
+											var sourcenodeid=d.source.id;
+											var targetnodeid=d.target.id;
+
+											var sourceyes=false;
+											var targetyes=false;
+											//var i=0;
+											angular.forEach(scope.checkModel, function(value, key){
+												
+												//console.log("**********",value,key);
+												if(!value & key==sourcenodelabel)
+												{
+													sourceyes=true;
+													//console.log("left",key,value,leftnodelabel);
+												}
+												if(!value & key==targetnodelabel)
+												{
+													targetyes=true;
+													//console.log("right",key,value,rightnodelabel);
+												}
+											});
+
+											if(sourceyes | targetyes  )
+											{
+												
+												if(sourceyes&targetyes)
+												{
+													
+													return "hidden";
+												}
+												if(sourceyes & !targetyes & (sourcenodeid==leftnodeid | sourcenodeid == rightnodeid))
+												{
+													
+													return "visible";
+												}
+												if(!sourceyes & targetyes & (targetnodeid==leftnodeid | targetnodeid == rightnodeid))
+												{
+													
+													return "visible";
+												}
+												else
+												{
+													
+													return "hidden";
+												}
+												
+
+											}
+
+										
+									});
+
+
+
+
+
+
+
+
+
+
+								}
+									
+									if(flg)
+									{
+										
+
+										d3.selectAll("path.link[pseudo_label*=\""+nodetype+"\"]")
+											.attr("visibility",function(d){
+												var sourcenodelabel=d.source.label;
+												var targetnodelabel=d.target.label;
+												var sourcenodeid=d.source.id;
+												var targetnodeid=d.target.id;
+
+												var sourceyes=false;
+												var targetyes=false;
+												//var i=0;
+												angular.forEach(scope.checkModel, function(value, key){
+													
+													//console.log("**********",value,key);
+													if(value & key==sourcenodelabel)
+													{
+														sourceyes=true;
+														//console.log("left",key,value,leftnodelabel);
+													}
+													if(value & key==targetnodelabel)
+													{
+														targetyes=true;
+														//console.log("right",key,value,rightnodelabel);
+													}
+												});
+
+									
+												if(sourceyes | targetyes  )
+												{
+													
+													if(sourceyes&targetyes)
+													{
+														
+														return "visible";
+													}
+													if(!sourceyes & targetyes & (sourcenodeid==leftnodeid | sourcenodeid == rightnodeid))
+													{
+														
+														return "visible";
+													}
+													if(sourceyes & !targetyes & (targetnodeid==leftnodeid | targetnodeid == rightnodeid))
+													{
+														
+														return "visible";
+													}
+													else
+													{
+														
+														return "hidden";
+													}
+													
+
+												}
+
+										});
+										d3.selectAll("text[pseudo_label*=\""+nodetype+"\"]")
+											.attr("visibility",function(d){
+												var sourcenodelabel=d.source.label;
+												var targetnodelabel=d.target.label;
+												var sourcenodeid=d.source.id;
+												var targetnodeid=d.target.id;
+
+												var sourceyes=false;
+												var targetyes=false;
+												//var i=0;
+												angular.forEach(scope.checkModel, function(value, key){
+													
+													//console.log("**********",value,key);
+													if(value & key==sourcenodelabel)
+													{
+														sourceyes=true;
+														//console.log("left",key,value,leftnodelabel);
+													}
+													if(value & key==targetnodelabel)
+													{
+														targetyes=true;
+														//console.log("right",key,value,rightnodelabel);
+													}
+												});
+
+
+												if(sourceyes | targetyes  )
+												{
+													
+													if(sourceyes&targetyes)
+													{
+													
+														return "visible";
+													}
+													if(!sourceyes & targetyes & (sourcenodeid==leftnodeid | sourcenodeid == rightnodeid))
+													{
+														
+														return "visible";
+													}
+													if(sourceyes & !targetyes & (targetnodeid==leftnodeid | targetnodeid == rightnodeid))
+													{
+														
+														return "visible";
+													}
+													else
+													{
+														
+														return "hidden";
+													}
+													
+
+												}
+
+										});
+
+
+
+										
+									}
+
+									
+
+									
+
+									}
 
 
 									function clusterlayout() {

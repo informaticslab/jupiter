@@ -168,7 +168,7 @@
 				button.btn.btn-default.pull-left.link_button5(id='btn_as_lock' type='button')
 					i.fa.fa-lock
 					| Lock nodes
-				button.btn.btn-default.pull-left.link_button4(id='btn_as_hide' type='button')
+				button.btn.btn-default.pull-left.link_button4(id='btn_as_hide' type='button' ng-disabled='disableHideLines')
 					span.glyphicon.glyphicon-ban-circle
 					| Hide lines					
 				//.cluster
@@ -183,6 +183,40 @@
 							//| Relationship type
 			// end detail header
 			.top_block2
+				.hide_activity
+					.hide_activity_label
+						span.glyphicon.glyphicon-ban-circle
+						| Hide activity type:
+						span.hide_activity_check(ng-show="showOrganization")
+							input(type='checkbox' ng-change="hidenodes(\'Organization\',checkModel.Organization)" ng-model="checkModel.Organization" ng-show="showOrganization")
+							| &nbsp;Organization
+						span.hide_activity_check(ng-show="showProgram")
+							input(type='checkbox', ng-change="hidenodes(\'Program\',checkModel.Program)" ng-model="checkModel.Program" ng-show="showProgram")
+							| &nbsp;Program
+						span.hide_activity_check(ng-show="showSurveillanceSystem")
+							input(type='checkbox', ng-change="hidenodes(\'SurveillanceSystem\',checkModel.SurveillanceSystem)" ng-model="checkModel.SurveillanceSystem" ng-show="showSurveillanceSystem")
+							| &nbsp;Surveillance System
+						span.hide_activity_check(ng-show="showTool")
+							input(type='checkbox', ng-change="hidenodes(\'Tool\',checkModel.Tool)" ng-model="checkModel.Tool" ng-show="showTool")
+							| &nbsp;Tool
+						span.hide_activity_check(ng-show="showRegistry")
+							input(type='checkbox', ng-change="hidenodes(\'Registry\',checkModel.Registry)" ng-model="checkModel.Registry" ng-show="showRegistry")
+							| &nbsp;Registry
+						span.hide_activity_check(ng-show="showHealthSurvey")
+							input(type='checkbox', ng-change="hidenodes(\'HealthSurvey\',checkModel.HealthSurvey)" ng-model="checkModel.HealthSurvey" ng-show="showHealthSurvey")
+							| &nbsp;Health Survey
+						span.hide_activity_check(ng-show="showCollaborative")
+							input(type='checkbox', ng-change="hidenodes(\'Collaborative\',checkModel.Collaborative)" ng-model="checkModel.Collaborative" ng-show="showCollaborative")
+							| &nbsp;Collaborative
+						span.hide_activity_check(ng-show="showDataset")
+							input(type='checkbox', ng-change="hidenodes(\'Dataset\',checkModel.Dataset)" ng-model="checkModel.Dataset" ng-show="showDataset")
+							| &nbsp;Dataset
+						span.hide_activity_check(ng-show="showDataStandard")
+							input(type='checkbox', ng-change="hidenodes(\'DataStandard\',checkModel.DataStandard)" ng-model="checkModel.DataStandard" ng-show="showDataStandard")
+							| &nbsp;Data Standard
+						span.hide_activity_check(ng-show="showTag")
+							input(type='checkbox', ng-change="hidenodes(\'Tag\',checkModel.Tag)" ng-model="checkModel.Tag" ng-show="showTag")
+							| &nbsp;Tag
 				.block_linkage(ng-advanced-search)
 					.vertical_spacing1
 

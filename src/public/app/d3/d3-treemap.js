@@ -169,6 +169,8 @@ d3.json("/apollo/api/lab/relations", function(error, relations){
               
               toolObj.children.push(tmpObj);
             }
+
+            document.getElementById('loadingImg').style.display = 'none';
           });
 
           children.push(collabObj);
@@ -180,6 +182,8 @@ d3.json("/apollo/api/lab/relations", function(error, relations){
           children.push(registryObj);
           children.push(surSysObj);
           children.push(toolObj);
+
+          console.log("The children object is: "+JSON.stringify(children));
           
           treemapObj.name = "cisp";
           treemapObj.children = children;
@@ -199,13 +203,12 @@ d3.json("/apollo/api/lab/relations", function(error, relations){
               .transition()
               .duration(1500)
               .call(position);
-
         } // end else
+
     });
   }
 
 });
-
 
 function position() {
   this.style("left", function(d) { return d.x + "px"; })

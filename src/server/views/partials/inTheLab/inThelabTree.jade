@@ -58,7 +58,7 @@
 						//end added lines 
 			// end detail header
 			.top_block2
-				//- img(src='img/ajax-loader.gif', alt='Content is Loading', ng-show='true', id='loadingImg')
+				img(src='img/ajax-loader.gif', alt='Content is Loading', ng-show='true', id='loadingImg')
 				div#tooltip
 					P
 						strong Name: &nbsp;&nbsp;
@@ -67,12 +67,92 @@
 						strong Type: &nbsp;&nbsp;
 						stat_label(id='type')
 					P
-						strong Relationship# &nbsp;&nbsp;
+						strong Relationship # &nbsp;&nbsp;
 						stat_label(id='relations')
 				.block_tree
 					.vertical_spacing1
 						script(type="text/javascript", src="/apollo/app/d3/d3-treemap.js")
 				// end block_edge
+			span.visible-lg.visible-md
+					.legend
+						table.legend_details
+							tr
+								td.legend_td
+									.blue_subhead Legend:
+								td.node_legend_image_td
+									img.move_legend(src='img/node_ss.png')
+									| Surveillance System
+								td.node_legend_image_td
+									img.move_legend(src='img/node_program.png')
+									| Program
+								td.node_legend_image_td
+									img.move_legend(src='img/node_registry.png')
+									| Registry
+								td.node_legend_image_td
+									img.move_legend(src='img/node_hs.png')
+									| Health Survey
+							tr
+								td.legend_td
+									.blue_subhead
+								td.node_legend_image_td
+									img.move_legend(src='img/node_tool.png')
+									| Tool
+								td.node_legend_image_td
+									img.move_legend(src='img/node_dataset.png')
+									| Dataset
+								td.node_legend_image_td
+									img.move_legend(src='img/node_ds.png')
+									| Data Standard		
+								td.node_legend_image_td
+									img.move_legend(src='img/node_col.png')
+									| Collaborative			
+							tr
+								td.legend_td
+									.blue_subhead
+								td.node_legend_image_td
+									img.move_legend(src='img/node_org.png')
+									| Organization
+					// end class legend
+			span.visible-sm
+					.legend
+						table.legend_details
+							tr
+								td.legend_td_sm
+									.blue_subhead Legend:
+								td.node_legend_image_td_sm_1
+									img.move_legend(src='img/node_ss.png')
+									| Surveillance System
+								td.node_legend_image_td_sm_2
+									img.move_legend(src='img/node_program.png')
+									| Program
+								td.node_legend_image_td_sm_3
+									img.move_legend(src='img/node_registry.png')
+									| Registry
+								td.node_legend_image_td_sm_4
+									img.move_legend(src='img/node_hs.png')
+									| Health Survey
+							tr
+								td.legend_td_sm
+									.blue_subhead
+								td.node_legend_image_td_sm_1
+									img.move_legend(src='img/node_tool.png')
+									| Tool
+								td.node_legend_image_td_sm_2
+									img.move_legend(src='img/node_dataset.png')
+									| Dataset
+								td.node_legend_image_td_sm_3
+									img.move_legend(src='img/node_ds.png')
+									| Data Standard		
+								td.node_legend_image_td_sm_4
+									img.move_legend(src='img/node_col.png')
+									| Collaborative			
+							tr
+								td.legend_td_sm
+									.blue_subhead
+								td.node_legend_image_td_sm_1
+									img.move_legend(src='img/node_org.png')
+									| Organization
+					// end class legend							
 	.div(ng-class='getSidebarWidth()')
 		.hx_side(ng-show='!showSidebar' ng-click='toggleSidebar()')
 			div(ng-Historybar)

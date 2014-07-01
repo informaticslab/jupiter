@@ -28,6 +28,8 @@ var mousemove = function(d) {
     .style("top", yPosition + "px");
   d3.select("#tooltip #name")
     .text(d.name);
+  d3.select("#tooltip #type")
+    .text(d.group);
   d3.select("#tooltip #relations")
     .text(d.size);
   d3.select("#tooltip").classed("hidden", false);

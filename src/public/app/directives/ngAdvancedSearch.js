@@ -516,7 +516,7 @@ angular.module('apolloApp')
 										d3.selectAll("circle").attr("visibility", "visible");
 										d3.selectAll("path").attr("visibility", "visible");
 										d3.selectAll("text.path_label").attr("visibility", "visible");
-										d3.select("#btv_as_hide").classed("active", false);
+										d3.select("#btn_as_hide").classed("active", false);
 										togglehidelinks = true;
 
 										scope.checkModel = {
@@ -544,21 +544,28 @@ angular.module('apolloApp')
 										if (x == "hide") {
 											d3.selectAll("path").attr("visibility", "hidden");
 											d3.selectAll("text.path_label").attr("visibility", "hidden");
-											d3.select(".btn.btn-default.pull-left.link_button4").classed("active", true);
+											d3.select("#btn_as_hide").classed("active", true);
 
 											togglehidelinks = false;
+
+										} else if (x == "show") {
+											d3.selectAll("path").attr("visibility", "visible");
+											d3.selectAll("text.path_label").attr("visibility", "visible");
+											//d3.select("#btn_lv_hide").classed("active", true);
+
+											//togglehidelinks = false;
 
 										} else {
 											if (togglehidelinks) {
 												d3.selectAll("path").attr("visibility", "hidden");
 												d3.selectAll("text.path_label").attr("visibility", "hidden");
-												d3.select(".btn.btn-default.pull-left.link_button4").classed("active", true);
+												d3.select("#btn_as_hide").classed("active", true);
 
 												togglehidelinks = false;
 											} else {
 												d3.selectAll("path").attr("visibility", "visible");
 												d3.selectAll("text.path_label").attr("visibility", "visible");
-												d3.select(".btn.btn-default.pull-left.link_button4").classed("active", false);
+												d3.select("#btn_as_hide").classed("active", false);
 												togglehidelinks = true;
 											}
 
@@ -586,6 +593,7 @@ angular.module('apolloApp')
 									//chmod=(scope.checkModel);
 									//console.log(nodetype,flg,scope.checkModel);
 									var allunchecked=false;
+									var firstuncheck = 0;
 
 									angular.forEach(scope.checkModel, function(value, key){
 										
@@ -593,11 +601,17 @@ angular.module('apolloApp')
 									if(!value)
 									{
 										allunchecked=true;
+										firstuncheck++;
 										//console.log(value);
 									}
 										
 
 									});
+
+									if (firstuncheck == 1 && !scope.disableHideLines) {
+										hidelinks("show");
+									//console.log("first show");
+									}
 
 									if(allunchecked)
 									{
@@ -606,6 +620,8 @@ angular.module('apolloApp')
 									else
 									{
 										scope.disableHideLines=false;
+										d3.select("#btn_as_hide").classed("active", false);
+										togglehidelinks = true;
 									}
 
 									var showflg;

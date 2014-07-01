@@ -80,6 +80,18 @@ apolloApp.config(['$routeProvider',
           },
           controller: 'inTheLabCtrl'
       }).
+          when('/inTheLab/:topic', { 
+            templateUrl: function(params){
+          return 'partials/inTheLab/' + params.topic
+          },
+          controller: 'inTheLabCtrl'
+      }).
+          when('/bottomNav/:topic', { 
+            templateUrl: function(params){
+          return 'partials/bottomNav/' + params.topic
+          },
+          controller: 'rootCtrl'
+      }).
         otherwise({
         redirectTo: '/main'
       });

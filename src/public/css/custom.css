@@ -165,11 +165,13 @@ height: 36px; padding-left:1em; padding-top:.6em; color:#ffffff; font-size: smal
 .content_block_faq {margin-left:2em; margin-right:2em;}
 
 .faq_question {margin-left:1em;  padding-right:.5em; float:left;}
+.disclaimer_indent {margin-left:.5em;  padding-right:.3em; float:left;}
 .faq_question_txt {font-size:1.2em;padding-top:.5em; color:#3598db; }
 .left_cushion {padding-left:1em;}
 
 .answers {display:block; margin-left: 5em; margin-top:.8em; padding:1em; background-color: #ecf3fa; border-style:solid; border-radius: 5px; border-width: 1px; border-color:#e2ecf7;  }
 .answers_bullets {display:block; margin-left: 5em; margin-top:.8em;  padding-top:1em; padding-right:.8em; padding-left:0em; background-color: #ecf3fa; border-style:solid; border-radius: 5px; border-width: 1px; border-color:#e2ecf7;  }
+.aux_content {display:block; margin-left: 4.5em; margin-top:1.2em;  padding-top:.3em; padding-left:1em; padding-right:1em; padding-bottom:1em; background-color: #ecf3fa; border-style:solid; border-radius: 5px; border-width: 1px; border-color:#e2ecf7;  }
 
 .top_block {padding:1.2em; border-style:solid; border-width:1px; border-color:#d3d9d9; text-align:left; min-height:467px; }
 
@@ -205,6 +207,7 @@ height: 36px; padding-left:1em; padding-top:.6em; color:#ffffff; font-size: smal
 .pagination {
 margin-top: 12px !important; margin-bottom:0px;
 }
+.aux_header {font-weight:bold; color:#3598db; font-size:1.2em; padding-top:1em;}
 
 .bottom_block {margin-top:2em; padding:1.5em; padding-bottom:1.5em; border-style:solid; border-width:1px; border-color:#d3d9d9;}
 .carousel_controls {background-color:#f39c11; text-align:center; color:#ffffff; padding:.6em;}
@@ -224,8 +227,10 @@ li.faq {padding-bottom:.5em;}
 
 .orange_header_carousel {font-weight:bold; font-size:1.3em; color:#e77e23; padding-bottom:1em;}
 
-
+.orange_main_disclaimer {background-color:#f39c11; color:#ffffff; font-weight:bold; padding:.7em; padding-bottom:1em;  text-align:center;}
 .orange_header_narrow {color:#e77e23; padding:.7em; padding-left:1em; font-weight:bold;}
+.disclaimer_icon {color:#ffffff; margin-right:.4em; position:relative; top:.1em; font-size:1.2em;}
+.disclaimer_icon_lg {color:#3598db; font-size:2.3em; padding-right:.4em;}
 
 .orange_text {color:#e77e23;}
 .carousel_text {font-size:1.1em; padding-bottom:.3em; color:#777777;}

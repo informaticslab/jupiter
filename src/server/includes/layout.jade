@@ -125,15 +125,27 @@ html(lang="en" ng-app='apolloApp')
 			.row.footerbottom(id='fb-root')
 				// links
 				.bottom_links
-					| Disclaimer&nbsp; | &nbsp;Accessibility&nbsp; | &nbsp;Code of Conduct&nbsp; | &nbsp;Contact&nbsp; 
+					a.white_link(href='#/bottomNav/disclaimer/' target='_blank') Disclaimer
+					| &nbsp; | &nbsp;
+					a.white_link(href='#/bottomNav/accessibility/' target='_blank') Accessibility
+					| &nbsp; | &nbsp;
+					a.white_link(href='#/bottomNav/codeofconduct/' target='_blank') Code of Conduct
+					| &nbsp; | &nbsp;
+					a.white_link(href='#/bottomNav/contact/' target='_blank') Contact
 					span.cdc_info
 						| Centers for Disease Control and Prevention | &nbsp;Build: {{buildNumber}}
 		span.visible-sm
 			.row.footerbottom(id='fb-root')
 				// links
 				.bottom_links_sm
-					| Disclaimer&nbsp; | &nbsp;Accessibility&nbsp; | &nbsp;Code of Conduct&nbsp; | &nbsp;Contact&nbsp; 
-					span.cdc_info_sm
-						| Centers for Disease Control and Prevention | &nbsp;Build: {{buildNumber}}				
+					a.white_link(href='#/bottomNav/disclaimer/' target='_blank') Disclaimer
+					| &nbsp; | &nbsp;
+					a.white_link(href='#/bottomNav/accessibility/' target='_blank') Accessibility
+					| &nbsp; | &nbsp;
+					a.white_link(href='#/bottomNav/codeofconduct/' target='_blank') Code of Conduct
+					| &nbsp; | &nbsp;
+					a.white_link(href='#/bottomNav/contact/' target='_blank') Contact
+					span.cdc_info
+						| Centers for Disease Control and Prevention | &nbsp;Build: {{buildNumber}}		
 		include scripts
 		

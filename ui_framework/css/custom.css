@@ -7,6 +7,13 @@ body {
 
 }
 
+.disclaimer_title {color:#e77e23; font-weight:bold; font-size:1.3em; padding-bottom:1em; }
+.header_dark {background-color:#34495e; color:#ffffff; border-radius:5px 5px 0px 0px; }
+.disclaimer_intro {margin-top:.7em;}
+.footer_disclaimer {background-color: #f4f0f0;  border-radius:0px 0px 5px 5px;}
+.modal_close {color:#ffffff; margin-right:.3em; position:relative; bottom:.5em; }
+.modal_show {font-weight:normal; float:left; color:#777777; font-size:.9em;}
+
 footer {
   padding: 2em 0;
   margin: 3em 0;
@@ -42,6 +49,11 @@ html, body { overflow-x: hidden; }
 .search_button {position:relative; top:1.5em; }
 
 
+.hide_activity {background-color:#fdf3d0; border-bottom-style:solid; border-color:#f8ecc1; border-width:1px; min-height:45px; padding-top:.8em; padding-bottom:.7em; padding-left:1em; padding-right:1em;}
+
+.hide_activity_label {font-weight:bold; color:#555758; font-size:small; float:right; }
+
+.hide_activity_check {font-weight:normal; padding-left:1.3em; }
 
 .glyphicon-search {color:#7e8c8d;}
 

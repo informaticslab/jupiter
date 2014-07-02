@@ -47,133 +47,105 @@
 						a.btn.btn-custom(href='#/linkage/{{nodeId}}', id='btnLinkageViewer') Relationship Viewer
 				// end button group
 			// end nav_split
-			span.visible-lg
-				.detail_header
-					.share_button_linkage
-						//These lines, 173 - 187, were added 
-						//Single button 
-						.btn-group
-							button.btn.btn-default.dropdown-toggle(type='button', data-toggle='dropdown')
-								span.glyphicon.glyphicon-share
-								| &nbsp;Share&nbsp;&nbsp;
-								span.caret
-							ul.dropdown-menu(role='menu')
-								li
-									a(href='mailto:?subject={{node.name}}&body={{emailBlurb}}') Email
-								li
-									a(href='' ng-click='share([node.name, "#/linkage/{{nodeId}}"])' id='fb-root') Facebook
-								li
-									a(target='_blank' href='http://twitter.com/home?status=CDC iSurv Portal: {{node.name}}: {{twitterBlurb}}') Twitter
-							//end added lines 
-					button.btn.btn-default.pull-left.link_button1(type='button')
-						span.glyphicon.glyphicon-repeat.icon-flipped
-						| Reset
-					img.pull-left.small_divider(src='img/small_divider.png')
-					button.btn.btn-default.pull-left.link_button5(type='button')
-						i.fa.fa-lock
-						| Lock nodes
-					button.btn.btn-default.pull-left.link_button4(type='button')
-						span.glyphicon.glyphicon-ban-circle
-						| Hide lines
-					img.pull-left.small_divider(src='img/small_divider.png')
-					.cluster
-						.cluster_text
-						| Organize by:&nbsp;&nbsp;
-						.btn-group
-							button.btn.btn-default.link_button6(type='button')
-								i.fa.fa-gears
-								| Activity type
-							button.btn.btn-default.link_button7.disabled(type='button')
-								span.glyphicon.glyphicon-link
-								| Relationship type
-				// end detail header
-			span.visible-md
-				.detail_header_linkage_md
-					.share_button_linkage_md
-						//These lines, 173 - 187, were added 
-						//Single button 
-						.btn-group
-							button.btn.btn-default.dropdown-toggle.linkage_md(type='button', data-toggle='dropdown')
-								span.glyphicon.glyphicon-share
-								| &nbsp;Share&nbsp;
-								span.caret
-							ul.dropdown-menu(role='menu')
-								li
-									a(href='mailto:?subject={{node.name}}&body={{emailBlurb}}') Email
-								li
-									a(href='' ng-click='share([node.name, "#/linkage/{{nodeId}}"])' id='fb-root') Facebook
-								li
-									a(target='_blank' href='http://twitter.com/home?status=CDC iSurv Portal: {{node.name}}: {{twitterBlurb}}') Twitter
-							//end added lines 
-					button.btn.btn-default.pull-left.linkage_md.link_button1_md(type='button')
-						span.glyphicon.glyphicon-repeat.icon-flipped
-						| Reset
-					img.pull-left.small_divider_md(src='img/small_divider.png')
-					button.btn.btn-default.pull-left.link_button5_md(type='button')
-						i.fa.fa-lock
-						| Lock nodes
-					button.btn.btn-default.pull-left.link_button4_md(type='button')
-						span.glyphicon.glyphicon-ban-circle
-						| Hide lines
-					
-					.cluster_md
-						.cluster_text_md.pull-left
-							| Organize 
-							br
-							| by:&nbsp;
-						.btn-group
-							button.btn.btn-default.link_button6_md(type='button')
-								i.fa.fa-gears
-								| Activity type
-							button.btn.btn-default.link_button7_md.disabled(type='button')
-								span.glyphicon.glyphicon-link
-								| Relationship type&nbsp;
-				// end detail header
-			span.visible-sm
-				.detail_header_linkage_sm
-					.share_button_linkage_sm
-						//These lines, 173 - 187, were added 
-						//Single button 
-						.btn-group
-							button.btn.btn-default.dropdown-toggle.linkage_md(type='button', data-toggle='dropdown')
-								span.glyphicon.glyphicon-share
-								| &nbsp;Share&nbsp;
-								span.caret
-							ul.dropdown-menu(role='menu')
-								li
-									a(href='mailto:?subject={{node.name}}&body={{emailBlurb}}') Email
-								li
-									a(href='' ng-click='share([node.name, "#/linkage/{{nodeId}}"])' id='fb-root') Facebook
-								li
-									a(target='_blank' href='http://twitter.com/home?status=CDC iSurv Portal: {{node.name}}: {{twitterBlurb}}') Twitter
-							//end added lines 
-					button.btn.btn-default.pull-left.linkage_md.link_button1_md(type='button')
-						span.glyphicon.glyphicon-repeat.icon-flipped
-						| Reset
-					img.pull-left.small_divider_md(src='img/small_divider.png')
-					button.btn.btn-default.pull-left.link_button5_md(type='button')
-						i.fa.fa-lock
-						| Lock nodes
-					button.btn.btn-default.pull-left.link_button4_md(type='button')
-						span.glyphicon.glyphicon-ban-circle
-						| Hide lines
-				.detail_header_linkage_sm2		
-					.cluster_sm
-						.cluster_text_sm.pull-left
-							| Organize by:&nbsp;
-						.btn-group
-							button.btn.btn-default.link_button6_md(type='button')
-								i.fa.fa-gears
-								| Activity type
-							button.btn.btn-default.link_button7_md.disabled(type='button')
-								span.glyphicon.glyphicon-link
-								| Relationship type&nbsp;
-				// end detail header	
+			
+			.detail_header_linkage_sm
+				.share_button_linkage
+					//These lines, 173 - 187, were added 
+					//Single button 
+					.btn-group
+						button.btn.btn-default.dropdown-toggle.linkage_md(type='button', data-toggle='dropdown')
+							span.glyphicon.glyphicon-share
+							| &nbsp;Share&nbsp;
+							span.caret
+						ul.dropdown-menu(role='menu')
+							li
+								a(href='mailto:?subject={{node.name}}&body={{emailBlurb}}') Email
+							li
+								a(href='' ng-click='share([node.name, "#/linkage/{{nodeId}}"])' id='fb-root') Facebook
+							li
+								a(target='_blank' href='http://twitter.com/home?status=CDC iSurv Portal: {{node.name}}: {{twitterBlurb}}') Twitter
+						//end added lines 
+				button.btn.btn-default.pull-left.link_button1(id='btn_lv_reset' type='button')
+					span.glyphicon.glyphicon-repeat.icon-flipped
+					| Reset
+				img.pull-left.small_divider(src='img/small_divider.png')
+				button.btn.btn-default.pull-left.link_button5(id='btn_lv_lock' type='button')
+					i.fa.fa-lock
+					| Lock nodes
+				button.btn.btn-default.pull-left.link_button4(id='btn_lv_hide' type='button' ng-disabled='disableHideLines')
+					span.glyphicon.glyphicon-ban-circle
+					| Hide lines
+			.detail_header_linkage_sm2		
+				.cluster_sm
+					.cluster_text_sm.pull-left
+						| Organize by:&nbsp;
+					.btn-group
+						button.btn.btn-default.link_button6_md(id='btn_lv_activity' type='button')
+							i.fa.fa-gears
+							| Activity type
+						button.btn.btn-default.link_button7_md.disabled(id='btn_lv_relationship' type='button')
+							span.glyphicon.glyphicon-link
+							| Relationship type&nbsp;
+			// end detail header	
 				
 			.top_block2
-				.block_linkage
+				.hide_activity
+					.hide_activity_label
+						| Show activity type:
+						span.hide_activity_check(ng-show="showOrganization")
+							input(type='checkbox' ng-change="hidenodes(\'Organization\',checkModel.Organization)" ng-model="checkModel.Organization" ng-show="showOrganization")
+							| &nbsp;Organization
+						span.hide_activity_check(ng-show="showProgram")
+							input(type='checkbox', ng-change="hidenodes(\'Program\',checkModel.Program)" ng-model="checkModel.Program" ng-show="showProgram")
+							| &nbsp;Program
+						span.hide_activity_check(ng-show="showSurveillanceSystem")
+							input(type='checkbox', ng-change="hidenodes(\'SurveillanceSystem\',checkModel.SurveillanceSystem)" ng-model="checkModel.SurveillanceSystem" ng-show="showSurveillanceSystem")
+							| &nbsp;Surveillance System
+						span.hide_activity_check(ng-show="showTool")
+							input(type='checkbox', ng-change="hidenodes(\'Tool\',checkModel.Tool)" ng-model="checkModel.Tool" ng-show="showTool")
+							| &nbsp;Tool
+						span.hide_activity_check(ng-show="showRegistry")
+							input(type='checkbox', ng-change="hidenodes(\'Registry\',checkModel.Registry)" ng-model="checkModel.Registry" ng-show="showRegistry")
+							| &nbsp;Registry
+						span.hide_activity_check(ng-show="showHealthSurvey")
+							input(type='checkbox', ng-change="hidenodes(\'HealthSurvey\',checkModel.HealthSurvey)" ng-model="checkModel.HealthSurvey" ng-show="showHealthSurvey")
+							| &nbsp;Health Survey
+						span.hide_activity_check(ng-show="showCollaborative")
+							input(type='checkbox', ng-change="hidenodes(\'Collaborative\',checkModel.Collaborative)" ng-model="checkModel.Collaborative" ng-show="showCollaborative")
+							| &nbsp;Collaborative
+						span.hide_activity_check(ng-show="showDataset")
+							input(type='checkbox', ng-change="hidenodes(\'Dataset\',checkModel.Dataset)" ng-model="checkModel.Dataset" ng-show="showDataset")
+							| &nbsp;Dataset
+						span.hide_activity_check(ng-show="showDataStandard")
+							input(type='checkbox', ng-change="hidenodes(\'DataStandard\',checkModel.DataStandard)" ng-model="checkModel.DataStandard" ng-show="showDataStandard")
+							| &nbsp;Data Standard
+						span.hide_activity_check(ng-show="showTag")
+							input(type='checkbox', ng-change="hidenodes(\'Tag\',checkModel.Tag)" ng-model="checkModel.Tag" ng-show="showTag")
+							| &nbsp;Tag
+				.block_linkage(ng-linkage-viewer)
+					//- .btn-group
+					//- 	label.btn.btn-primary(id='chk1' ng-model='checkModel.Organization' btn-checkbox ng-show='showOrganization')
+					//- 		| Organization
+					//- 	label.btn.btn-primary(ng-model='checkModel.Program' btn-checkbox ng-show='showProgram')
+					//- 		| Program
+					//- 	label.btn.btn-primary(ng-model='checkModel.SurveillanceSystem' btn-checkbox ng-show='showSurveillanceSystem')
+					//- 		| SurveillanceSystem
+					//- 	label.btn.btn-primary(ng-model='checkModel.Tool' btn-checkbox ng-show='showTool')
+					//- 		| Tool
+					//- 	label.btn.btn-primary(ng-model='checkModel.Registry' btn-checkbox ng-show='showRegistry') 
+					//- 		| Registry
+					//- 	label.btn.btn-primary(ng-model='checkModel.HealthSurvey' btn-checkbox ng-show='showHealthSurvey')
+					//- 		| HealthSurvey
+					//- 	label.btn.btn-primary(ng-model='checkModel.Collaborative' btn-checkbox ng-show='showCollaborative')
+					//- 		| Collaborative
+					//- 	label.btn.btn-primary(ng-model='checkModel.Dataset' btn-checkbox ng-show='showDataset')
+					//- 		| Dataset
+					//- 	label.btn.btn-primary(ng-model='checkModel.DataStandard' btn-checkbox ng-show='showDataStandard')
+					//- 		| DataStandard
+					//- 	label.btn.btn-primary(ng-model='checkModel.Tag' btn-checkbox ng-show='showTag')
+					//- 		| Tag
 					.vertical_spacing1
-						script(type="text/javascript", src="/apollo/app/d3/d3-linkage.js")
+						//script(type="text/javascript", src="/apollo/app/d3/d3-linkage.js")
 				// end block_linkage
 				.key
 					table.key_details

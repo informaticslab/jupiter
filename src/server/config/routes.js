@@ -15,10 +15,12 @@ module.exports = function(app) {
     app.get('/apollo/api/stats/relations', nodes.getPortalStatisticsRelations);
     app.get('/apollo/api/node/advancedSearch/:id', nodes.getAdvancedSearchData);
     app.get('/apollo/api/node/searchByName/:searchTerm', nodes.searchByName);
+    app.get('/apollo/api/node/searchSysTreeByName/:searchTerm',nodes.searchSysTreeByName);
     app.get('/apollo/api/node/name/:id', nodes.getNodeNameById);
     app.get('/apollo/api/lab/nodes', nodes.getAllNodes);
     app.get('/apollo/api/lab/relations', nodes.getAllRealtionsForAllNodes);
     app.get('/apollo/api/node/managed/:id', nodes.getManagedSystems);
+    
     //this goes at the bottom.  It is the catchall for everything not defined above.  Silly.
     app.get('/apollo/*', index.index);
 };	

@@ -1404,6 +1404,11 @@ angular.module('apolloApp').factory('nodeAttributeDictionary', function() {
                             'displayLabel': 'Short Name',
                             'sortIndex': '233'
                         },
+                        'webResource': {
+                            'description': 'Where can someone find out more information about this surveillance system on the web?',
+                            'displayLabel': 'Web Resource',
+                            'sortIndex': '234'
+                        },
                         'operationStartDate': {
                             'description': 'What was the first year the collaborative became operational?',
                             'displayLabel': 'Operation Start Date',
@@ -1440,25 +1445,50 @@ angular.module('apolloApp').factory('nodeAttributeDictionary', function() {
                     'heading': 'Data-Related Information',
                     'sortIndex': '4',
                     'attributes': {
+                        'startDateGeneration': {
+                            'description': 'What was the first year data became available or were collected from the program?',
+                            'displayLabel': 'Start Data Collection / Generation',
+                            'sortIndex': '241'
+                        },
                         'dataProvidersManual': {
                             'description': 'The manually-provided sources of data for this collaborative (e.g., postal mail, phone).',
                             'displayLabel': 'Data Providers - Manual',
-                            'sortIndex': '241'
+                            'sortIndex': '242'
                         },
                         'dataProvidersElectronic': {
                             'description': 'The electronically-provided sources of data for this collaborative (e.g., web-based, FTP, electronic messaging).',
                             'displayLabel': 'Data Providers - Electronic',
-                            'sortIndex': '242'
+                            'sortIndex': '243'
                         },
                         'dataRecipientsManual': {
                             'description': 'The manually-provided recipients of data for this collaborative (e.g., postal mail, phone).',
                             'displayLabel': 'Data Recipients - Manual',
-                            'sortIndex': '243'
+                            'sortIndex': '244'
                         },
                         'dataRecipientsElectronic': {
                             'description': 'The electronically-provided recipients of data for this collaborative (e.g., web-based, FTP, electronic messaging).',
                             'displayLabel': 'Data Recipients - Electronic',
-                            'sortIndex': '244'
+                            'sortIndex': '244.1'
+                        },
+                        'patientTrackingCapability': {
+                            'description': 'Can the program track patient-level data to support an authorized public health investigation?',
+                            'displayLabel': 'Patient Tracking Capability',
+                            'sortIndex': '244.2'
+                        },
+                        'ageFormat': {
+                            'description': 'If it is collected, how is age collected in this program?  (e.g., year cohorts, complete or partial birth date).',
+                            'displayLabel': 'Age Format',
+                            'sortIndex': '244.3'
+                        },
+                        'dataPayloadFormat': {
+                            'description': 'If information is transmitted electronically in the program, how is it structured/organized? (e.g., HL7 v3, HL7 v2.X, CDA, ebXML, JSON, SOAP, etc.)',
+                            'displayLabel': 'Data Payload Format',
+                            'sortIndex': '244.4'
+                        },
+                        'dataPayloadTransmissionType': {
+                            'description': 'If information is transmitted as part of the program, how is it carried out? (e.g., postal mail, email, FTP, web services, eFax, EDI, etc.)',
+                            'displayLabel': 'Data Payload Transmission Type',
+                            'sortIndex': '244.5'
                         }
                     }
                 },

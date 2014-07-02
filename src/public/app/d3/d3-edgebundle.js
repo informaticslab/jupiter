@@ -15,7 +15,7 @@
 
 														var line = d3.svg.line.radial()
 																		.interpolate("bundle")
-																		.tension(.85)
+																		.tension(.75)
 																		.radius(function(d) { return d.y; })
 																		.angle(function(d) { return d.x / 180 * Math.PI; });
 
@@ -25,12 +25,29 @@
 																.append("g")
 																.attr("transform", "translate(" + radius + "," + radius + ")");
 
+														//new code for text hover
+							                            var filter = svg.append("filter")
+							                                        .attr( "id", "highlight") 
+							                                        .attr( "x", 0)
+							                                        .attr( "y", 0)
+							                                        .attr( "width", 1)
+							                                        .attr( "height", 1);
+
+							                            // append feFlood to filter
+							                            filter.append( "feFlood" )
+							                                  .attr( "flood-color", "#ffffff" )
+							                                  .attr( "flood-opacity", 1.0);
+
+							                            // append feFlood to filter
+							                            filter.append( "feComposite" )
+							                                  .attr( "in", "SourceGraphic" );
+
 														var link = svg.append("g").selectAll(".link"),
 																		node = svg.append("g").selectAll(".node");
 
-														d3.json("/apollo/api/lab/relations", function(error, json){
+														d3.json("/apollo/api/lab/relations", function(error, relations){
 
-															if(json==undefined | error)
+															if(relations==undefined | error)
 															{	
 																var errormsg=svg.append("text")
 																.text("Could not retrieve all the relations")
@@ -40,7 +57,7 @@
 															}
 															else{
 																// d3.json("/apollo/api/lab/nodes", function(error, classes) {
-																d3.json("/apollo/api/lab/nodesAscending", function(error, classes) {
+																d3.json("/apollo/api/lab/nodes", function(error, classes) {
 																		if(classes == undefined | error){
 																			var errormsg=svg.append("text")
 																			.text("Could not retrieve all the nodes")
@@ -49,6 +66,17 @@
 																			.attr("y",h/4);
 																		}
 																		else{
+
+																			classes.forEach(function(node){
+
+										                                        var tmpArr = _.where(relations, {p: node.id});
+										                                        tmpArr.forEach(function (d){
+										                                            node.imports.push('root!'.concat(d.cname));
+										                                        });
+
+									                                          	node.name = 'root!'.concat(node.name);
+										                                    });
+
 																			var nodes = cluster.nodes(packageHierarchy(classes)),
 																							links = packageImports(nodes);
 
@@ -69,6 +97,8 @@
 																							.text(function(d) { return d.key; })
 																							.on("mouseover", mouseovered)
 																							.on("mouseout", mouseouted);
+
+																			document.getElementById('loadingImg').style.display = 'none';
 																		}
 																		
 																});

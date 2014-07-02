@@ -13,7 +13,7 @@ html(lang="en" ng-app='apolloApp')
 		link(rel="stylesheet" href="/apollo/css/d3-viz.css")
 		link(rel="stylesheet" href="/apollo/css/loading-bar.min.css")
 		link(rel="stylesheet" href="/apollo/css/inTheLab.css")
-	body(ng-controller='rootCtrl')
+	body(ng-controller='rootCtrl' data-ng-init="open()")
 		.container-fluid
 			// row1
 			.row.headerblue
@@ -99,21 +99,53 @@ html(lang="en" ng-app='apolloApp')
 							//- 		img(src='img/filled_circle_smaller.png', alt='History')
 							//- 		| Show/Hide Sidebar
 		// end row 2 (navbar)
+		div
+			script(type="text/ng-template", id="myModalContent.html")
+				.modal-content
+					.modal-header.header_dark
+						.disclaimer_intro
+						h4.modal-title(id='myModalLabel') &nbsp;CDC Integrated Surveillance Portal
+							img(alt='icon', src='img/modal_icon.png')
+							img(alt='Alpha', src='img/modal_alpha.png')
+					.modal-body
+						.disclaimer_title Disclaimer:
+						P
+						| Please be aware that this online application is still early in its development, and it may function in unexpected ways. Some parts of the application have not yet been activated. The data in the system is still incomplete and has not yet been validated.
+						P
+						| Please send your comments and suggestions to
+						a(href='mailto:informaticslab@cdc.gov')  informaticslab@cdc.gov
+					.modal-footer.footer_disclaimer
+						.modal_show
+							input(type='checkbox' data-ng-model='disclaimerStatus' ng-change='resetCheckbox()')
+							| &nbsp; Do not show this message again
+						button.btn.btn-primary(data-dismiss='modal', type='button', ng-click='ok()')  I understand
 		block main-content
 		// start footer row
 		span.visible-lg.visible-md
 			.row.footerbottom(id='fb-root')
 				// links
 				.bottom_links
-					| Disclaimer&nbsp; | &nbsp;Accessibility&nbsp; | &nbsp;Code of Conduct&nbsp; | &nbsp;Contact&nbsp; 
+					a.white_link(href='#/bottomNav/disclaimer/') Disclaimer
+					| &nbsp; | &nbsp;
+					a.white_link(href='#/bottomNav/accessibility/') Accessibility
+					| &nbsp; | &nbsp;
+					a.white_link(href='#/bottomNav/codeofconduct/') Code of Conduct
+					| &nbsp; | &nbsp;
+					a.white_link(href='#/bottomNav/contact/') Contact
 					span.cdc_info
 						| Centers for Disease Control and Prevention | &nbsp;Build: {{buildNumber}}
 		span.visible-sm
 			.row.footerbottom(id='fb-root')
 				// links
 				.bottom_links_sm
-					| Disclaimer&nbsp; | &nbsp;Accessibility&nbsp; | &nbsp;Code of Conduct&nbsp; | &nbsp;Contact&nbsp; 
-					span.cdc_info_sm
-						| Centers for Disease Control and Prevention | &nbsp;Build: {{buildNumber}}				
+					a.white_link(href='#/bottomNav/disclaimer/') Disclaimer
+					| &nbsp; | &nbsp;
+					a.white_link(href='#/bottomNav/accessibility/') Accessibility
+					| &nbsp; | &nbsp;
+					a.white_link(href='#/bottomNav/codeofconduct/') Code of Conduct
+					| &nbsp; | &nbsp;
+					a.white_link(href='#/bottomNav/contact/') Contact
+					span.cdc_info
+						| Centers for Disease Control and Prevention | &nbsp;Build: {{buildNumber}}		
 		include scripts
 		

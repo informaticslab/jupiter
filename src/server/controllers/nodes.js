@@ -116,12 +116,45 @@ exports.getNodeById = function(req, res) {
 exports.searchByName = function(req, res) {
     var searchTerm = req.params.searchTerm.toLowerCase();
     var query = 'MATCH n WHERE lower(n.name)=~".*' + searchTerm + '.*" RETURN n.id as id, n.name as name';
-    //console.log(query);
+    console.log(query);
     var params = {
         searchTerm: req.params.searchTerm
     };
     neodb.db.query(query, params, function(err, results) {
         console.log(results);
+
+        if (err) {
+            console.error('Error retreiving node from database:', err);
+            res.send(404, 'No node at that location');
+        } else {
+            if (results != null) {
+                var nodedata = [];
+                _.each(results, function(i){
+                    nodedata.push({id: i.id, name:i.name});
+                })
+                res.json(nodedata);
+            }
+            else{
+                res.json([]);
+            }
+        }
+    });
+};
+
+exports.searchSysTreeByName = function(req, res) {
+    var searchTerm = req.params.searchTerm.toLowerCase();
+    var query = 'match p=(n)-[r:OVERSEES|MANAGES*]->x where lower(n.name)=~".*' + searchTerm 
+            + '.*" return distinct n.name as name, n.id as id'
+    var params = {
+        searchTerm: req.params.searchTerm
+    };
+    // var query = 'MATCH n WHERE lower(n.name)=~".*' + searchTerm + '.*" RETURN n.id as id, n.name as name';
+    // //console.log(query);
+    // var params = {
+    //     searchTerm: req.params.searchTerm
+    // };
+    neodb.db.query(query, params, function(err, results) {
+        //console.log(results);
 
         if (err) {
             console.error('Error retreiving node from database:', err);
@@ -490,15 +523,8 @@ var compileSearchResultsForLab= function(req, res, err, results)
                         nodedata.id = doohicky.id;
                         nodedata.labels = doohickylabels;
                         nodedata.imports = [];
-
-                        var tmpArr = _.where(relationsArr, {p: nodedata.id});
-                        
-                        tmpArr.forEach(function (d){
-                           nodedata.imports.push('root!'.concat(d.clabel).concat('!').concat(d.cname));
-                        });
-                       
-                        nodedata.name = 'root!'.concat( nodedata.labels[0]).concat('!').concat(nodedata.name);
                         nodedataarr.push(nodedata);
+
                     }
                 }
                 
@@ -519,7 +545,14 @@ exports.getAllNodes = function(req, res) {
     var params ={};
    
     neodb.db.query(query, params, function(err, results) {
-        compileSearchResultsForLab(req, res, err, results);
+
+        if(err){
+            console.log("Could not get all the nodes from the database");
+        }
+        else{
+            compileSearchResultsForLab(req, res, err, results);
+            // res.send(results);
+        }
     });
 };
 
@@ -936,46 +969,46 @@ query = query.substring(0, lastIndex);
         }
     });
 };
-
 exports.getNodeNameById = function(req, res) {
-    var query = 'MATCH n WHERE n.id ={nodeId} RETURN n.name as name, labels(n) as label'
+     var query = 'MATCH n WHERE n.id ={nodeId} RETURN n.name as name, labels(n) as label'
     var params = {
         nodeId: req.params.id
     };
-
+    
     neodb.db.query(query, params, function(err, results) {
-
-        var nodename = "";
-        if (err != null) {
+        
+        var nodename="";
+        if (err!=null) {
             console.error('Error retreiving node from database:', err);
             console.log(err);
             res.send(404, 'No node at that location.');
         } else {
-
-
-            if (results[0] == null) {
+            
+            
+            if(results[0]==null)
+            {
                 //console.log("no name");
                 res.send("Not Found");
-            } else {
-                resultsobj = eval(results);
+            }
+            else
+            {
+                resultsobj= eval(results);
 
-                nodename = resultsobj[0].name;
-                nodelabel = resultsobj[0].label[0];
-
-
-
-                nodelabel = nodelabel.replace(/([a-z])([A-Z])/g, '$1 $2');
-                nodelabel = nodelabel.replace(/_/g, ' ');
-                nodelabel = nodelabel.replace(/\b([A-Z]+)([A-Z])([a-z])/, '$1 $2$3');
-                nodelabel = nodelabel.replace(/^./, function(nodelabel) {
-                    return nodelabel.toUpperCase();
-                });
+                nodename= resultsobj[0].name;
+                nodelabel= resultsobj[0].label[0];
 
 
-                res.send(nodename + " (" + nodelabel + ")");
+                                
+                nodelabel=nodelabel.replace(/([a-z])([A-Z])/g, '$1 $2');
+                nodelabel=nodelabel.replace(/_/g, ' ');
+                nodelabel=nodelabel.replace(/\b([A-Z]+)([A-Z])([a-z])/, '$1 $2$3');
+                nodelabel=nodelabel.replace(/^./, function(nodelabel){ return nodelabel.toUpperCase(); });
+
+                
+                res.send(nodename+" ("+nodelabel+")");
             }
 
-
+            
 
         }
     });
@@ -992,45 +1025,66 @@ exports.getManagedSystems = function(req, res) {
     };
     
     neodb.db.query(query, params, function(err, results) {
-        
-        var managestack=[];
+        var managestack={};
         if (err!=null) {
             console.error('Error retreiving node from database:', err);
             console.log(err);
             res.send(404, 'No node at that location.');
-        } else {
-            
-            
+        } 
+        else 
+        {
             if(results[0]==null)
             {
-                //console.log("no name");
                 res.send("Not Found");
             }
             else
             {
-
+                //pack the parent object
                 resultsobj= eval(results);
+                managestack.name = resultsobj[0].byName[0];
+                managestack.id = resultsobj[0].byId[0];
+                managestack.valid = resultsobj[0].byVal[0];
+                managestack.children = [];
+                //iterate over children
                 for (var k=0; k<resultsobj.length; k++)
                 {
-                    var manage = {};
-                    manage.name= resultsobj[k].byName;
-                    manage.id= resultsobj[k].byId;
-                    manage.isValidated = resultsobj[k].byVal;
-                    manage.len = resultsobj[k].len;
-                    managestack.push(manage);
+                   //iterate over an item, building out tree if unable to find item in managestack
+                   var parentschildren=managestack.children;
+                   for (var i=1; i <= resultsobj[k].len; i++)
+                   {
+                        var searchId = resultsobj[k].byId[i]
+                        var foundChild = null;
+                        for (var q = parentschildren.length-1; q>=0; q--)
+                        {
+                            if(parentschildren[q].id == searchId)
+                            {
+                                foundChild = parentschildren[q];
+                                break;
+                            }
+                        }
+                        if (foundChild === null)
+                        {
+                            var child = {};
+                            child.name = resultsobj[k].byName[i];
+                            child.id = resultsobj[k].byId[i];
+                            child.valid = resultsobj[k].byVal[i];
+                            foundChild = child;
+                            parentschildren.push(foundChild)
+                        }
+                        if(i<resultsobj[k].len) //there are grandchildren.  If there is not a children array, create it
+                        {
+                            if(foundChild.children == null)
+                            {
+                                foundChild.children = []
+                            }
+                        }
+                        parentschildren = foundChild.children;
+                   }
                 }
-                                
-                // nodelabel=nodelabel.replace(/([a-z])([A-Z])/g, '$1 $2');
-                // nodelabel=nodelabel.replace(/_/g, ' ');
-                // nodelabel=nodelabel.replace(/\b([A-Z]+)([A-Z])([a-z])/, '$1 $2$3');
-                // nodelabel=nodelabel.replace(/^./, function(nodelabel){ return nodelabel.toUpperCase(); });
-
-                
-                 res.send(managestack);
+                //send the whole thing up to the people who are gonna view it.
+                res.send(managestack);
+                //res.send(flare);
             }
-
-            
-
         }
     });
 };

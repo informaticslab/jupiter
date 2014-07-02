@@ -1,9 +1,9 @@
-angular.module('apolloApp').controller('rootCtrl', function($scope, $http, $location, localStorageService){
+angular.module('apolloApp').controller('rootCtrl', function($scope, $http, $location, localStorageService, $modal){
     
     $scope.q = 'home';
     $scope.loginuser = 'guest';
     $scope.queryString = '';
-    
+
     $http.get('build.json')
       .then(function(res){
       	
@@ -195,4 +195,45 @@ angular.module('apolloApp').controller('rootCtrl', function($scope, $http, $loca
       });
   }
   //END Facebook Share
+
+  //Displaying the Disclaimer Modal Dialog
+  $scope.open = function(size){
+
+    $scope.disclaimerStatus = localStorageService.get('disclaimerAcceptStatus');
+    if ((localStorageService.get('disclaimerAcceptStatus') == false) || (localStorageService.get('disclaimerAcceptStatus') == null)){
+      var modalInstance = $modal.open({
+        backdrop: 'static',
+        keyboard: false,
+        templateUrl: 'myModalContent.html',
+        controller: ModalInstanceCtrl,
+        size: size,
+        resolve: {
+          disclaimerStatus: function () {
+            return $scope.disclaimerStatus;
+          }
+        }
+      });
+
+    modalInstance.result.then(function (disclaimerStatus) {
+        $scope.disclaimerStatus = disclaimerStatus;
+        localStorageService.set('disclaimerAcceptStatus', angular.toJson($scope.disclaimerStatus));
+    });
+    
+    };
+
+  }
+
 });
+
+var ModalInstanceCtrl = function ($scope, $modalInstance, disclaimerStatus) {
+
+  $scope.disclaimerVal = disclaimerStatus;
+
+  $scope.resetCheckbox = function($event){
+    $scope.disclaimerVal = !$scope.disclaimerVal;
+  }  
+
+  $scope.ok = function () {
+    $modalInstance.close($scope.disclaimerVal);
+  };
+};

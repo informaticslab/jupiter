@@ -2,6 +2,8 @@ angular.module('apolloApp').controller('linkageCtrl', function($scope, $routePar
 	$scope.$parent.q = 'explore';
     $scope.nodeId = $routeParams.id;
 
+    //console.log("linkageCtrl",$scope.showOrganization);
+
     var node = $resource('/apollo/api/node/:id', {
         id: '@id'
     });
@@ -30,4 +32,6 @@ angular.module('apolloApp').controller('linkageCtrl', function($scope, $routePar
 
 
     $scope.emailBlurb = encodeURIComponent($location.absUrl());
+
+    
 });

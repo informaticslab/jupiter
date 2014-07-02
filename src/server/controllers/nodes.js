@@ -1,7 +1,6 @@
 var neodb = require('../lib/neo4jConnection');
 var _ = require('underscore');
 
-var relationsArr = [];
 exports.getRelationsForNode = function(req, res) {
     var query = ['MATCH n-[r]-x ', 'where n.id={nodeId} ' //maaaaaaaagic
         , 'return id(r) as relId,type(r) as relType, x.id as childId, ','startNode(r).id as startNode,', 'labels(x) as childLabels, x.name as childName order by relType, childName '
@@ -567,7 +566,6 @@ exports.getAllRealtionsForAllNodes = function(req, res) {
             console.log("Could not get all the relations for the nodes from the database");
         }
         else{
-            relationsArr = results;
             res.send(results);
         }
     });

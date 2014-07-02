@@ -48,13 +48,13 @@
 								span.caret
 							ul.dropdown-menu(role='menu')
 								li
-									a(href='') Coming soon..
+									a(href='mailto:?subject=CDC iSurv Portal: Universal Viewer II&body={{uvBlurb}}') Email
+
 								li
-									a(href='') Email
+									a(href='' ng-click='share(["CDC iSurv Portal: Universal Viewer II: ", "#/inTheLab/inTheLabArc"])' id='fb-root') Facebook
+
 								li
-									a(href='') Facebook
-								li
-									a(href='') Twitter
+									a(target='_blank' href='http://twitter.com/home?status=CDC iSurv Portal: Universal Viewer II:{{uvBlurb}}') Twitter
 						//end added lines 
 			// end detail header
 			.top_block2

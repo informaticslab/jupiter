@@ -203,10 +203,16 @@ var sortFunction = function(a, b){
 }
 
 var compileSearchResults = function(req, res, err, results){
-            var nodedataarr = [];
+        var nodedataarr = [];
+        // var nodeLabelCounts = {Program:0,SurveillanceSystem:0,Registry:0,
+        //                     HealthSurvey:0,Tool:0,Dataset:0,DataStandard:0,
+        //                     Collaborative:0,Organization:0,Tag:0,Total:0};
+        // var nodeStatusCounts = { FutureDev:0, UnderDev:0, PartOperational:0, FullOperational:0, Retired:0};
         var nodeLabelCounts = {Program:0,SurveillanceSystem:0,Registry:0,
                             HealthSurvey:0,Tool:0,Dataset:0,DataStandard:0,
-                            Collaborative:0,Organization:0,Tag:0,Total:0};
+                            Collaborative:0,Organization:0,Tag:0,Total:0,
+                            FutureDev:0,UnderDev:0,PartOperational:0, 
+                            FullOperational:0,Retired:0};
         var returnable = {};
         var duplicheck = [];
         if (err) {
@@ -266,9 +272,32 @@ var compileSearchResults = function(req, res, err, results){
                                     });
                                 }
                             }
+
+                            //declaring constant variables for checking and counting the types of Status
+                            var FutureDev = 'Planned for Future Development';
+                            var UnderDev = 'Under Development, but not yet Operational';
+                            var PartOperational = 'Partially Operational and Implemented';
+                            var FullOperational = 'Fully Operational and Implemented';
+                            var Retired = 'Retired';
+
                             if(prop =='operationalStatus' && doohicky[prop] != null && doohicky[prop] != '')
                             {
                                 nodedata.status = doohicky[prop];
+                                if (doohicky[prop] == 'Planned for Future Development'){
+                                    nodeLabelCounts['FutureDev']++;
+                                }
+                                else if (doohicky[prop] == 'Under Development, but not yet Operational'){
+                                    nodeLabelCounts['UnderDev']++;
+                                }
+                                else if (doohicky[prop] == 'Partially Operational and Implemented'){
+                                    nodeLabelCounts['PartOperational']++;
+                                }
+                                else if (doohicky[prop] == 'Fully Operational and Implemented'){
+                                    nodeLabelCounts['FullOperational']++;
+                                }
+                                else if (doohicky[prop] == 'Retired'){
+                                    nodeLabelCounts['Retired']++;
+                                }
                             }
                         }
 
@@ -278,7 +307,7 @@ var compileSearchResults = function(req, res, err, results){
 
                 nodedataarr.sort(sortFunction);
                 returnable.nodedataarr = nodedataarr;
-                returnable.nodeLabelCounts = nodeLabelCounts;                
+                returnable.nodeLabelCounts = nodeLabelCounts;              
                 console.log(returnable);
                 res.json(returnable);
         }

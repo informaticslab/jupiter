@@ -162,28 +162,19 @@ angular.module('apolloApp').controller('searchCtrl', function($scope, $resource,
                 {
                     filteredTotalItems = filteredTotalItems +  $scope.labelCounts.Tag;
                 }
-                // if ($scope.checkedLabels.FutureDev)
-                // {
-                // }
-                // if ($scope.checkedLabels.UnderDev)
-                // {
-                // }
-                // if ($scope.checkedLabels.PartOperational)
-                // {
-                // }
-                // if ($scope.checkedLabels.FullOperational)
-                // {
-                // }
-                // if ($scope.checkedLabels.Retired)
-                // {
-                // }
                 $scope.totalItems =  filteredTotalItems;
             }        
 
 
         }, 10);
-    
-  }
+    }
+
+    //sort by ...
+    $scope.selectedSortType = '';
+    $scope.setSortValue = function(sortType){
+        $scope.selectedSortType = sortType;
+        console.log('The selected sortType is ::'+ $scope.selectedSortType);
+    }
 
     $scope.goToTop = function(){
         $anchorScroll();

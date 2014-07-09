@@ -201,59 +201,43 @@
 										span.total_column Total Results:
 									// /input-group
 								td.result_number_total {{labelCounts.Total}}
-						.gray_header_filters.vertical_spacing By Date: (Coming soon)
-						table.table_filter
-							tr
-								td
-									.input-group
-										input(type='checkbox')
-										| &nbsp;Start Date
-									// /input-group
-								td.result_number ##/##/##
-							tr
-								td
-									.input-group
-										input(type='checkbox')
-										| &nbsp;End Date
-									// /input-group
-								td.result_number ##/##/##
-						.divider_line
+						.gray_header_filters.vertical_spacing By Operational Status: (Coming soon)
 						table.table_filter
 							tr
 								td
 									.input-group.check_filter
-										input(type='checkbox' )
-										| &nbsp;Newer than
+										input(type='checkbox' data-ng-model='checkedLabels.FutureDev' ng-click='filterclick()')
+										| &nbsp;Planned for Future Development
 									// /input-group
-								td.result_number ##/##/##
+								td.result_number {{labelCounts.FutureDev}}
 							tr
 								td
 									.input-group.check_filter
-										input(type='checkbox' )
-										| &nbsp;Older than
+										input(type='checkbox' data-ng-model='checkedLabels.UnderDev' ng-click='filterclick()')
+										| &nbsp;Under Development, but not yet Operational
 									// /input-group
-								td.result_number ##/##/##
-						.divider_line
-						.select_date
-							a(href='')
-								span.glyphicon.glyphicon-calendar
-								| Select date
-						.gray_header_filters.vertical_spacing By Status: (Coming soon)
-						table.table_filter
+								td.result_number {{labelCounts.UnderDev}}
 							tr
 								td
 									.input-group.check_filter
-										input(type='checkbox')
-										| &nbsp;Active
+										input(type='checkbox' data-ng-model='checkedLabels.PartOperational' ng-click='filterclick()')
+										| &nbsp;Partially Operational and Implemented
 									// /input-group
-								td.result_number ##
+								td.result_number {{labelCounts.PartOperational}}
 							tr
 								td
 									.input-group.check_filter
-										input(type='checkbox')
-										| &nbsp;Archived
+										input(type='checkbox' data-ng-model='checkedLabels.FullOperational' ng-click='filterclick()')
+										| &nbsp;Fully Operational and Implemented
 									// /input-group
-								td.result_number ##
+								td.result_number {{labelCounts.FullOperational}}
+							tr
+								td
+									.input-group.check_filter
+										input(type='checkbox' data-ng-model='checkedLabels.Retired' ng-click='filterclick()')
+										| &nbsp;Retired
+									// /input-group
+								td.result_number {{labelCounts.Retired}}
 						.vertical_spacing_morer
 					// end filter block
 				// end col specs

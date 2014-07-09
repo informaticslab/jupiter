@@ -82,7 +82,14 @@ angular.module('apolloApp').controller('searchCtrl', function($scope, $resource,
 
     $scope.checkedLabels = {Program:false,SurveillanceSystem:false,Registry:false,
                             HealthSurvey:false,Tool:false,Dataset:false,DataStandard:false,
-                            Collaborative:false,Organization:false,Tag:false};
+                            Collaborative:false,Organization:false,Tag:false, 
+                            FutureDev:false, UnderDev:false, PartOperational:false,
+                            FullOperational:false, Retired:false};
+
+    $scope.checkedStatusTypes = { FutureDev:'Planned for Future Development', UnderDev:'Under Development, but not yet Operational', 
+                                  PartOperational:'Partially Operational and Implemented', FullOperational: 'Fully Operational and Implemented', 
+                                  Retired:'Retired'};                  
+
     searchTimeout.catch( function(err){
             if(err != 'canceled')
             {
@@ -105,7 +112,9 @@ angular.module('apolloApp').controller('searchCtrl', function($scope, $resource,
         //check all checkboxes, if all are unchecked, then reset totalItems count for pagination
             if (!$scope.checkedLabels.Program && !$scope.checkedLabels.SurveillanceSystem && !$scope.checkedLabels.Registry 
                                 && !$scope.checkedLabels.HealthSurvey&& !$scope.checkedLabels.Tool&& !$scope.checkedLabels.Dataset&& !$scope.checkedLabels.DataStandard
-                                && !$scope.checkedLabels.Collaborative && !$scope.checkedLabels.Organization && !$scope.checkedLabels.Tag)
+                                && !$scope.checkedLabels.Collaborative && !$scope.checkedLabels.Organization && !$scope.checkedLabels.Tag
+                                && !$scope.checkedLabels.FutureDev && !$scope.checkedLabels.UnderDev && !$scope.checkedLabels.PartOperational
+                                && !$scope.checkedLabels.FullOperational && !$scope.checkedLabels.Retired)
             {
                 $scope.totalItems =  $scope.nodes.length;
             }
@@ -153,6 +162,21 @@ angular.module('apolloApp').controller('searchCtrl', function($scope, $resource,
                 {
                     filteredTotalItems = filteredTotalItems +  $scope.labelCounts.Tag;
                 }
+                // if ($scope.checkedLabels.FutureDev)
+                // {
+                // }
+                // if ($scope.checkedLabels.UnderDev)
+                // {
+                // }
+                // if ($scope.checkedLabels.PartOperational)
+                // {
+                // }
+                // if ($scope.checkedLabels.FullOperational)
+                // {
+                // }
+                // if ($scope.checkedLabels.Retired)
+                // {
+                // }
                 $scope.totalItems =  filteredTotalItems;
             }        
 
@@ -174,5 +198,9 @@ angular.module('apolloApp').controller('searchCtrl', function($scope, $resource,
           'url':$location.absUrl()
         }
         $scope.$parent.unshiftSiteHistory(site);
+    }
+
+    $scope.evalStatusCheck = function(){
+
     }
 });

@@ -1,7 +1,7 @@
 angular.module('apolloApp').filter('searchCheckFilter', function() {
    return function( items, types) {
     var filtered = [];
-
+    
     angular.forEach(items, function(item) {
       if (!types.Program && !types.SurveillanceSystem && !types.Registry  
         && !types.Tool  && !types.Dataset && !types.DataStandard && !types.Collaborative
@@ -58,6 +58,7 @@ angular.module('apolloApp').filter('searchCheckFilter', function() {
           filtered.push(item);
         }
     });
+    
     return filtered;
   };
 });

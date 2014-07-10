@@ -48,6 +48,7 @@ angular.module('apolloApp').controller('searchCtrl', function($scope, $resource,
         $scope.labelCounts = result.nodeLabelCounts;
         $scope.nodes = result.nodedataarr;
         $scope.totalItems = result.nodedataarr.length;
+        $scope.notAvailable = $scope.labelCounts.Total - ($scope.labelCounts.FutureDev + $scope.labelCounts.UnderDev + $scope.labelCounts.PartOperational + $scope.labelCounts.FullOperational + $scope.labelCounts.Retired);
         $filter('orderBy')($scope.totalItems, 'nodes.name');
     });
         

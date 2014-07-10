@@ -1,5 +1,8 @@
 angular.module('apolloApp').controller('searchCtrl', function($scope, $resource, $http, $routeParams, $timeout, $filter, $location, $anchorScroll) {
 	
+    $scope.goToTop = function(){
+        $anchorScroll();
+    }
     $scope.$parent.q = 'explore';
 	$scope.contentLoading = true;
     $scope.hadSearchResults = true;
@@ -161,7 +164,7 @@ angular.module('apolloApp').controller('searchCtrl', function($scope, $resource,
                 }
                 $scope.totalItems =  filteredTotalItems;
             }        
-
+            $scope.goToTop();
 
         }, 10);
     }
@@ -172,11 +175,6 @@ angular.module('apolloApp').controller('searchCtrl', function($scope, $resource,
         $scope.selectedSortType = sortType;
         console.log('The selected sortType is ::'+ $scope.selectedSortType);
     }
-
-    $scope.goToTop = function(){
-        $anchorScroll();
-    }
-
 
     $scope.pageChanged = eval($scope.goToTop);
 

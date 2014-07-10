@@ -630,8 +630,15 @@ angular.module('apolloApp')
 
 								//Set values to 0,0 since these are relative postions. Any value greater than 0,0 will offset the path label by a and y values.
 								path_label
+									.transition()
+									.delay(000)
+									.duration(10)
 									.attr('transform', function(d) {
-										return 'translate(' + 0 + ',' + 0 + ')';
+									})
+									.transition()
+									.delay(960)
+									.each("end", function(){
+										tick();
 									});
 
 								//.style("fill", "#8D8D91");

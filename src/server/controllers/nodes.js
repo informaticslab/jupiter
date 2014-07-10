@@ -1,7 +1,8 @@
 var neodb = require('../lib/neo4jConnection');
+var urlFactory = require('../lib/urlFactory');
 var _ = require('underscore');
 
-var relationsArr = [];
+// /apollo/api/node/{id}/relations
 exports.getRelationsForNode = function(req, res) {
     var query = ['MATCH n-[r]-x ', 'where n.id={nodeId} ' //maaaaaaaagic
         , 'return id(r) as relId,type(r) as relType, x.id as childId, ','startNode(r).id as startNode,', 'labels(x) as childLabels, x.name as childName order by relType, childName '
@@ -42,6 +43,7 @@ exports.getRelationsForNode = function(req, res) {
                     }).each(function(a) {
                         relTypeToAdd.nodes.push({
                             'id': a.childId,
+                            'url': urlFactory.nodeUrl(req, a.childId),
                             'name': a.childName,
                             'startNode' : a.startNode
                         });
@@ -55,6 +57,8 @@ exports.getRelationsForNode = function(req, res) {
         }
     });
 }
+
+// /apollo/api/node/{id}/labels
 exports.getLabelsForNode = function(req, res) {
     //var query = ['START n=node({nodeId}) ', 'RETURN labels(n)'].join('\n');
     var query = ['MATCH n WHERE n.id ={nodeId}', 'RETURN labels(n)'].join('\n');
@@ -76,6 +80,8 @@ exports.getLabelsForNode = function(req, res) {
         }
     });
 }
+
+// /apollo/api/node/{id}
 exports.getNodeById = function(req, res) {
      var query = 'MATCH n WHERE n.id ={nodeId} RETURN n'
     var params = {
@@ -83,7 +89,7 @@ exports.getNodeById = function(req, res) {
     };
     //console.log("Query is " + query + " and params are " + req.params.id)
     neodb.db.query(query, params, function(err, results) {
-        var nodedata = {};
+        var nodedata = {}; 
         if (err) {
             console.error('Error retreiving node from database:', err);
             res.send(404, 'No node at that location');
@@ -102,6 +108,12 @@ exports.getNodeById = function(req, res) {
                      'value': doohicky[prop]
                 })
              }
+
+             // attach links to response
+             nodedata.url = urlFactory.nodeUrl(req, nodedata.id);
+             nodedata.relations = urlFactory.nodeRelationsUrl(req, nodedata.id);
+             nodedata.labels = urlFactory.nodeLinksUrl(req, nodedata.id);
+
              res.json(nodedata);
             //res.send(404, "there was a node at that location, but you don't get to see it (neener)");
         }
@@ -190,12 +202,13 @@ var sortFunction = function(a, b){
     }
 }
 
-var compileSearchResults = function(req, res, err, results)
-{
-            var nodedataarr = [];
+var compileSearchResults = function(req, res, err, results){
+        var nodedataarr = [];
         var nodeLabelCounts = {Program:0,SurveillanceSystem:0,Registry:0,
                             HealthSurvey:0,Tool:0,Dataset:0,DataStandard:0,
-                            Collaborative:0,Organization:0,Tag:0,Total:0};
+                            Collaborative:0,Organization:0,Tag:0,Total:0,
+                            FutureDev:0,UnderDev:0,PartOperational:0, 
+                            FullOperational:0,Retired:0, NotAvailable:0};
         var returnable = {};
         var duplicheck = [];
         if (err) {
@@ -255,18 +268,35 @@ var compileSearchResults = function(req, res, err, results)
                                     });
                                 }
                             }
+
                             if(prop =='operationalStatus' && doohicky[prop] != null && doohicky[prop] != '')
                             {
                                 nodedata.status = doohicky[prop];
+                                if (doohicky[prop] == 'Planned for Future Development'){
+                                    nodeLabelCounts['FutureDev']++;
+                                }
+                                else if (doohicky[prop] == 'Under Development, but not yet Operational'){
+                                    nodeLabelCounts['UnderDev']++;
+                                }
+                                else if (doohicky[prop] == 'Partially Operational and Implemented'){
+                                    nodeLabelCounts['PartOperational']++;
+                                }
+                                else if (doohicky[prop] == 'Fully Operational and Implemented'){
+                                    nodeLabelCounts['FullOperational']++;
+                                }
+                                else if (doohicky[prop] == 'Retired'){
+                                    nodeLabelCounts['Retired']++;
+                                }
                             }
                         }
+
                         nodedataarr.push(nodedata);
                     }
                 }
 
                 nodedataarr.sort(sortFunction);
                 returnable.nodedataarr = nodedataarr;
-                returnable.nodeLabelCounts = nodeLabelCounts;
+                returnable.nodeLabelCounts = nodeLabelCounts;              
                 console.log(returnable);
                 res.json(returnable);
         }
@@ -297,6 +327,7 @@ exports.searchNodesByLabel = function(req, res) {
     });
 }
 
+// /apollo/api/nodes/search/{searchTerm}
 exports.searchNodesByString = function(req, res) {
 
      var query = 'MATCH n-[r]-x WHERE n.name=~{qString} RETURN n, labels(n), count(r) as relCount skip {skipnum} limit {retNum}'+
@@ -342,6 +373,7 @@ exports.searchNodesByString = function(req, res) {
        compileSearchResults(req, res, err, results);
     });
 };
+
 exports.getNodesForLinkageViewer = function(req, res) {
     var query = ['MATCH n-[r]-x where n.id={nodeId} ',
     'return n.id as nodeId, labels(n) as nodeLabels, ',
@@ -567,7 +599,6 @@ exports.getAllRealtionsForAllNodes = function(req, res) {
             console.log("Could not get all the relations for the nodes from the database");
         }
         else{
-            relationsArr = results;
             res.send(results);
         }
     });

@@ -49,17 +49,15 @@
 						span.search_intro.totally Total Results: {{labelCounts.Total}}
 					// Split button
 					.btn-group.sortby
-						button.btn.btn-default(type='button') Sort by... (Coming soon)
+						button.btn.btn-default(type='button') Sort by...
 						button.btn.btn-default.dropdown-toggle(type='button', data-toggle='dropdown')
 							span.caret
 							span.sr-only Toggle Dropdown
-						ul.dropdown-menu(role='menu')
+						ul.dropdown-menu(role='menu' id='sortMenu')
 							li
-								a(href='') Resource
+								a(href='' ng-click='setSortValue("labels")') Type
 							li
-								a(href='') Date
-							li
-								a(href='') Status
+								a(href='' ng-click='setSortValue("status")') Status
 			span.visible-md
 				.search_header
 					.search_text
@@ -81,13 +79,9 @@
 							span.sr-only Toggle Dropdown
 						ul.dropdown-menu(role='menu')
 							li
-									a(href='') COMING SOON...
+								a(href='' ng-click='setSortValue("labels")') Type
 							li
-								a(href='') Resource
-							li
-								a(href='') Date
-							li
-								a(href='') Status
+								a(href='' ng-click='setSortValue("status")') Status
 			span.visible-sm
 				.search_header_sm
 					.search_text
@@ -201,59 +195,50 @@
 										span.total_column Total Results:
 									// /input-group
 								td.result_number_total {{labelCounts.Total}}
-						.gray_header_filters.vertical_spacing By Date: (Coming soon)
-						table.table_filter
-							tr
-								td
-									.input-group
-										input(type='checkbox')
-										| &nbsp;Start Date
-									// /input-group
-								td.result_number ##/##/##
-							tr
-								td
-									.input-group
-										input(type='checkbox')
-										| &nbsp;End Date
-									// /input-group
-								td.result_number ##/##/##
-						.divider_line
+						.gray_header_filters.vertical_spacing By Operational Status:
 						table.table_filter
 							tr
 								td
 									.input-group.check_filter
-										input(type='checkbox' )
-										| &nbsp;Newer than
+										input(type='checkbox' data-ng-model='checkedLabels.FutureDev' ng-click='filterclick()')
+										| &nbsp;Planned for Future Development
 									// /input-group
-								td.result_number ##/##/##
+								td.result_number {{labelCounts.FutureDev}}
 							tr
 								td
 									.input-group.check_filter
-										input(type='checkbox' )
-										| &nbsp;Older than
+										input(type='checkbox' data-ng-model='checkedLabels.UnderDev' ng-click='filterclick()')
+										| &nbsp;Under Development (Not Operational)
 									// /input-group
-								td.result_number ##/##/##
-						.divider_line
-						.select_date
-							a(href='')
-								span.glyphicon.glyphicon-calendar
-								| Select date
-						.gray_header_filters.vertical_spacing By Status: (Coming soon)
-						table.table_filter
+								td.result_number {{labelCounts.UnderDev}}
 							tr
 								td
 									.input-group.check_filter
-										input(type='checkbox')
-										| &nbsp;Active
+										input(type='checkbox' data-ng-model='checkedLabels.PartOperational' ng-click='filterclick()')
+										| &nbsp;Partially Operational and Implemented
 									// /input-group
-								td.result_number ##
+								td.result_number {{labelCounts.PartOperational}}
 							tr
 								td
 									.input-group.check_filter
-										input(type='checkbox')
-										| &nbsp;Archived
+										input(type='checkbox' data-ng-model='checkedLabels.FullOperational' ng-click='filterclick()')
+										| &nbsp;Fully Operational and Implemented
 									// /input-group
-								td.result_number ##
+								td.result_number {{labelCounts.FullOperational}}
+							tr
+								td
+									.input-group.check_filter
+										input(type='checkbox' data-ng-model='checkedLabels.Retired' ng-click='filterclick()')
+										| &nbsp;Retired
+									// /input-group
+								td.result_number {{labelCounts.Retired}}
+							tr
+								td
+									.input-group.check_filter
+										input(type='checkbox' data-ng-model='checkedLabels.NotAvailable' ng-click='filterclick()')
+										| &nbsp;Not Available
+									// /input-group
+								td.result_number {{notAvailable}}
 						.vertical_spacing_morer
 					// end filter block
 				// end col specs
@@ -263,7 +248,7 @@
 						.pages_block
 							pagination(total-items="totalItems" ng-model="currentPage" max-size="maxSize" class="pagination-sm" boundary-links="true" ng-show='!contentLoading' ng-change='pageChanged()')
 						img(src='img/ajax-loader.gif', alt='Content is Loading', ng-show='contentLoading')
-						.span(ng-repeat="node in nodes | searchCheckFilter:checkedLabels | startFrom:(currentPage-1)*entryLimit | limitTo:entryLimit", ng-show='!contentLoading', )
+						.span(ng-repeat="node in nodes | searchCheckFilter:checkedLabels | orderBy:selectedSortType | startFrom:(currentPage-1)*entryLimit | limitTo:entryLimit", ng-show='!contentLoading', )
 							table.search_results
 								tr
 									td.resource_name.search

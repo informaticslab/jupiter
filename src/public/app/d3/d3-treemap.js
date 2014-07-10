@@ -1,7 +1,9 @@
-var margin = {top: 20, right: 0, bottom: 0, left: 0},
+var margin = {top: 20, right: 0, bottom: 0, left: 20},
     // width = 960 - margin.left - margin.right,
     // height = 500 - margin.top - margin.bottom;
-    width = 1280 - margin.left - margin.right,
+    // width = 1280 - margin.left - margin.right,
+    // height = 600 - margin.top - margin.bottom;
+    width = 1200 - margin.left - margin.right,
     height = 600 - margin.top - margin.bottom;
 
 var color = d3.scale.category20c();

@@ -778,3 +778,4 @@ td.result_number_total {font-weight: bold; padding-top:.7em;}
 
 /*temporary styles for the treemap - to be reviewed by Sara */
 .stat_label {color:#50595a; font-family:arial, geneva, sans-serif; font-size:1.1em;}
+#tooltip{ margin-left: 20px;}

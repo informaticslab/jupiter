@@ -13,7 +13,6 @@
   "dependencies": {
     "express": "~3.4.4",
     "neo4j": "*",
-    "mongoose": "~3.5.5",
     "bcrypt-nodejs": "*"
       ,"jade" : "*"
       ,"underscore" : "*"

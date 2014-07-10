@@ -1,4 +1,4 @@
-angular.module('apolloApp').controller('inTheLabCtrl', function($scope, $routeParams, $resource, $location){
+angular.module('apolloApp').controller('inTheLabCtrl', function($scope, $routeParams, $resource, $location, $anchorScroll){
     // $scope.rayes = 'sunny';
     // $scope.$parent.q = 'explore';
 
@@ -8,6 +8,10 @@ angular.module('apolloApp').controller('inTheLabCtrl', function($scope, $routePa
     // }
     // $scope.$parent.browseHistory.sites.push(site);
 
-    // $.getScript("/apollo/app/d3/d3-edgearc.js");
-    // $.getScript("/apollo/app/d3/d3-edgeBundle.js");
+    $scope.goToTop = function(){
+    	$anchorScroll();
+    }
+
+    $scope.uvBlurb = encodeURIComponent($location.absUrl());
+
 });

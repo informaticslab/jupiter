@@ -48,6 +48,7 @@ angular.module('apolloApp').controller('searchCtrl', function($scope, $resource,
         $scope.labelCounts = result.nodeLabelCounts;
         $scope.nodes = result.nodedataarr;
         $scope.totalItems = result.nodedataarr.length;
+        $scope.notAvailable = $scope.labelCounts.Total - ($scope.labelCounts.FutureDev + $scope.labelCounts.UnderDev + $scope.labelCounts.PartOperational + $scope.labelCounts.FullOperational + $scope.labelCounts.Retired);
         $filter('orderBy')($scope.totalItems, 'nodes.name');
     });
         
@@ -82,7 +83,10 @@ angular.module('apolloApp').controller('searchCtrl', function($scope, $resource,
 
     $scope.checkedLabels = {Program:false,SurveillanceSystem:false,Registry:false,
                             HealthSurvey:false,Tool:false,Dataset:false,DataStandard:false,
-                            Collaborative:false,Organization:false,Tag:false};
+                            Collaborative:false,Organization:false,Tag:false, 
+                            FutureDev:false, UnderDev:false, PartOperational:false,
+                            FullOperational:false, Retired:false, NotAvailable:false};
+
     searchTimeout.catch( function(err){
             if(err != 'canceled')
             {
@@ -105,7 +109,9 @@ angular.module('apolloApp').controller('searchCtrl', function($scope, $resource,
         //check all checkboxes, if all are unchecked, then reset totalItems count for pagination
             if (!$scope.checkedLabels.Program && !$scope.checkedLabels.SurveillanceSystem && !$scope.checkedLabels.Registry 
                                 && !$scope.checkedLabels.HealthSurvey&& !$scope.checkedLabels.Tool&& !$scope.checkedLabels.Dataset&& !$scope.checkedLabels.DataStandard
-                                && !$scope.checkedLabels.Collaborative && !$scope.checkedLabels.Organization && !$scope.checkedLabels.Tag)
+                                && !$scope.checkedLabels.Collaborative && !$scope.checkedLabels.Organization && !$scope.checkedLabels.Tag
+                                && !$scope.checkedLabels.FutureDev && !$scope.checkedLabels.UnderDev && !$scope.checkedLabels.PartOperational
+                                && !$scope.checkedLabels.FullOperational && !$scope.checkedLabels.Retired && !$scope.checkedLabels.NotAvailable)
             {
                 $scope.totalItems =  $scope.nodes.length;
             }
@@ -158,8 +164,14 @@ angular.module('apolloApp').controller('searchCtrl', function($scope, $resource,
 
 
         }, 10);
-    
-  }
+    }
+
+    //sort by ...
+    $scope.selectedSortType = '';
+    $scope.setSortValue = function(sortType){
+        $scope.selectedSortType = sortType;
+        console.log('The selected sortType is ::'+ $scope.selectedSortType);
+    }
 
     $scope.goToTop = function(){
         $anchorScroll();
@@ -174,5 +186,9 @@ angular.module('apolloApp').controller('searchCtrl', function($scope, $resource,
           'url':$location.absUrl()
         }
         $scope.$parent.unshiftSiteHistory(site);
+    }
+
+    $scope.evalStatusCheck = function(){
+
     }
 });

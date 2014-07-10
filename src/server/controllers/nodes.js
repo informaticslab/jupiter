@@ -288,7 +288,7 @@ var compileSearchResults = function(req, res, err, results){
                                     nodeLabelCounts['Retired']++;
                                 }
                                 else if (doohicky[prop] == 'Not Available'){
-                                    nodeLabelCounts['Not Available']++;
+                                    nodeLabelCounts['NotAvailable']++;
                                 }
                             }
                         }

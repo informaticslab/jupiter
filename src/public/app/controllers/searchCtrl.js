@@ -84,11 +84,7 @@ angular.module('apolloApp').controller('searchCtrl', function($scope, $resource,
                             HealthSurvey:false,Tool:false,Dataset:false,DataStandard:false,
                             Collaborative:false,Organization:false,Tag:false, 
                             FutureDev:false, UnderDev:false, PartOperational:false,
-                            FullOperational:false, Retired:false};
-
-    $scope.checkedStatusTypes = { FutureDev:'Planned for Future Development', UnderDev:'Under Development, but not yet Operational', 
-                                  PartOperational:'Partially Operational and Implemented', FullOperational: 'Fully Operational and Implemented', 
-                                  Retired:'Retired'};                  
+                            FullOperational:false, Retired:false, NotAvailable:false};
 
     searchTimeout.catch( function(err){
             if(err != 'canceled')
@@ -114,7 +110,7 @@ angular.module('apolloApp').controller('searchCtrl', function($scope, $resource,
                                 && !$scope.checkedLabels.HealthSurvey&& !$scope.checkedLabels.Tool&& !$scope.checkedLabels.Dataset&& !$scope.checkedLabels.DataStandard
                                 && !$scope.checkedLabels.Collaborative && !$scope.checkedLabels.Organization && !$scope.checkedLabels.Tag
                                 && !$scope.checkedLabels.FutureDev && !$scope.checkedLabels.UnderDev && !$scope.checkedLabels.PartOperational
-                                && !$scope.checkedLabels.FullOperational && !$scope.checkedLabels.Retired)
+                                && !$scope.checkedLabels.FullOperational && !$scope.checkedLabels.Retired && !$scope.checkedLabels.NotAvailable)
             {
                 $scope.totalItems =  $scope.nodes.length;
             }

@@ -7,7 +7,7 @@ angular.module('apolloApp').filter('searchCheckFilter', function() {
         && !types.Tool  && !types.Dataset && !types.DataStandard && !types.Collaborative
         && !types.HealthSurvey && !types.Organization && !types.Tag 
         && !types.FutureDev  && !types.UnderDev && !types.PartOperational
-        && !types.FullOperational && !types.Retired)
+        && !types.FullOperational && !types.Retired && !types.NotAvailable)
         {
           filtered.push(item);
         }
@@ -55,6 +55,9 @@ angular.module('apolloApp').filter('searchCheckFilter', function() {
           filtered.push(item);
         }
       else if(types.Retired == true && item.status == 'Retired'){
+          filtered.push(item);
+        }
+      else if(types.NotAvailable == true && item.status == 'Not Available'){
           filtered.push(item);
         }
     });

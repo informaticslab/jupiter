@@ -54,12 +54,8 @@
 							span.caret
 							span.sr-only Toggle Dropdown
 						ul.dropdown-menu(role='menu' id='sortMenu')
-							//- li
-							//- 	a(href='') COMING SOON...
 							li
 								a(href='' ng-click='setSortValue("labels")') Type
-							//- li
-							//- 	a(href='' ng-click='setSortValue("date")') Date
 							li
 								a(href='' ng-click='setSortValue("status")') Status
 			span.visible-md
@@ -82,12 +78,8 @@
 							span.caret
 							span.sr-only Toggle Dropdown
 						ul.dropdown-menu(role='menu')
-							//- li
-							//- 	a(href='') COMING SOON...
 							li
 								a(href='' ng-click='setSortValue("labels")') Type
-							//- li
-							//- 	a(href='' ng-click='setSortValue("date")') Date
 							li
 								a(href='' ng-click='setSortValue("status")') Status
 			span.visible-sm
@@ -203,7 +195,7 @@
 										span.total_column Total Results:
 									// /input-group
 								td.result_number_total {{labelCounts.Total}}
-						.gray_header_filters.vertical_spacing By Operational Status: (Coming soon)
+						.gray_header_filters.vertical_spacing By Operational Status:
 						table.table_filter
 							tr
 								td
@@ -216,7 +208,7 @@
 								td
 									.input-group.check_filter
 										input(type='checkbox' data-ng-model='checkedLabels.UnderDev' ng-click='filterclick()')
-										| &nbsp;Under Development, but not yet Operational
+										| &nbsp;Under Development (Not Operational)
 									// /input-group
 								td.result_number {{labelCounts.UnderDev}}
 							tr
@@ -240,6 +232,13 @@
 										| &nbsp;Retired
 									// /input-group
 								td.result_number {{labelCounts.Retired}}
+							tr
+								td
+									.input-group.check_filter
+										input(type='checkbox' data-ng-model='checkedLabels.NotAvailable' ng-click='filterclick()')
+										| &nbsp;Not Available
+									// /input-group
+								td.result_number {{labelCounts.NotAvailable}}
 						.vertical_spacing_morer
 					// end filter block
 				// end col specs

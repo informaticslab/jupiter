@@ -204,15 +204,11 @@ var sortFunction = function(a, b){
 
 var compileSearchResults = function(req, res, err, results){
         var nodedataarr = [];
-        // var nodeLabelCounts = {Program:0,SurveillanceSystem:0,Registry:0,
-        //                     HealthSurvey:0,Tool:0,Dataset:0,DataStandard:0,
-        //                     Collaborative:0,Organization:0,Tag:0,Total:0};
-        // var nodeStatusCounts = { FutureDev:0, UnderDev:0, PartOperational:0, FullOperational:0, Retired:0};
         var nodeLabelCounts = {Program:0,SurveillanceSystem:0,Registry:0,
                             HealthSurvey:0,Tool:0,Dataset:0,DataStandard:0,
                             Collaborative:0,Organization:0,Tag:0,Total:0,
                             FutureDev:0,UnderDev:0,PartOperational:0, 
-                            FullOperational:0,Retired:0};
+                            FullOperational:0,Retired:0, NotAvailable:0};
         var returnable = {};
         var duplicheck = [];
         if (err) {
@@ -273,13 +269,6 @@ var compileSearchResults = function(req, res, err, results){
                                 }
                             }
 
-                            //declaring constant variables for checking and counting the types of Status
-                            var FutureDev = 'Planned for Future Development';
-                            var UnderDev = 'Under Development, but not yet Operational';
-                            var PartOperational = 'Partially Operational and Implemented';
-                            var FullOperational = 'Fully Operational and Implemented';
-                            var Retired = 'Retired';
-
                             if(prop =='operationalStatus' && doohicky[prop] != null && doohicky[prop] != '')
                             {
                                 nodedata.status = doohicky[prop];
@@ -297,6 +286,9 @@ var compileSearchResults = function(req, res, err, results){
                                 }
                                 else if (doohicky[prop] == 'Retired'){
                                     nodeLabelCounts['Retired']++;
+                                }
+                                else if (doohicky[prop] == 'Not Available'){
+                                    nodeLabelCounts['Not Available']++;
                                 }
                             }
                         }

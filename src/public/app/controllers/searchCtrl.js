@@ -1,5 +1,8 @@
 angular.module('apolloApp').controller('searchCtrl', function($scope, $resource, $http, $routeParams, $timeout, $filter, $location, $anchorScroll) {
 	
+    $scope.goToTop = function(){
+        $anchorScroll();
+    }
     $scope.$parent.q = 'explore';
 	$scope.contentLoading = true;
     $scope.hadSearchResults = true;
@@ -159,9 +162,33 @@ angular.module('apolloApp').controller('searchCtrl', function($scope, $resource,
                 {
                     filteredTotalItems = filteredTotalItems +  $scope.labelCounts.Tag;
                 }
+                if ($scope.checkedLabels.FutureDev)
+                {
+                    filteredTotalItems = filteredTotalItems +  $scope.labelCounts.FutureDev;
+                }
+                if ($scope.checkedLabels.UnderDev)
+                {
+                    filteredTotalItems = filteredTotalItems +  $scope.labelCounts.UnderDev;
+                }
+                if ($scope.checkedLabels.PartOperational)
+                {
+                    filteredTotalItems = filteredTotalItems +  $scope.labelCounts.PartOperational;
+                }
+                if ($scope.checkedLabels.FullOperational)
+                {
+                    filteredTotalItems = filteredTotalItems +  $scope.labelCounts.FullOperational;
+                }
+                if ($scope.checkedLabels.Retired)
+                {
+                    filteredTotalItems = filteredTotalItems +  $scope.labelCounts.Retired;
+                }
+                if ($scope.checkedLabels.NotAvailable)
+                {
+                    filteredTotalItems = filteredTotalItems +  $scope.notAvailable;
+                }      
                 $scope.totalItems =  filteredTotalItems;
             }        
-
+            $scope.goToTop();
 
         }, 10);
     }
@@ -170,13 +197,7 @@ angular.module('apolloApp').controller('searchCtrl', function($scope, $resource,
     $scope.selectedSortType = '';
     $scope.setSortValue = function(sortType){
         $scope.selectedSortType = sortType;
-        console.log('The selected sortType is ::'+ $scope.selectedSortType);
     }
-
-    $scope.goToTop = function(){
-        $anchorScroll();
-    }
-
 
     $scope.pageChanged = eval($scope.goToTop);
 

@@ -167,6 +167,11 @@ angular.module('apolloApp').controller('rootCtrl', function($scope, $http, $loca
         $scope.app_domain = 'cloudev.phiresearchlab.org/apollo/';
         $scope.app_image = 'http://cloudev.phiresearchlab.org/apollo/img/header_graphic_alpha.png';
       }
+      else if(window.location.hostname == 'cloudtest.phiresearchlab.org'){
+        $scope.facebook_appID = '1530749310479360';
+        $scope.app_domain = 'cloudtest.phiresearchlab.org/apollo/';
+        $scope.app_image = 'http://cloudtest.phiresearchlab.org/apollo/img/header_graphic_alpha.png';
+      }
 
       FB.init({appId: $scope.facebook_appID, status: true, cookie: true,
       xfbml: true});

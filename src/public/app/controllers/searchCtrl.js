@@ -162,6 +162,30 @@ angular.module('apolloApp').controller('searchCtrl', function($scope, $resource,
                 {
                     filteredTotalItems = filteredTotalItems +  $scope.labelCounts.Tag;
                 }
+                if ($scope.checkedLabels.FutureDev)
+                {
+                    filteredTotalItems = filteredTotalItems +  $scope.labelCounts.FutureDev;
+                }
+                if ($scope.checkedLabels.UnderDev)
+                {
+                    filteredTotalItems = filteredTotalItems +  $scope.labelCounts.UnderDev;
+                }
+                if ($scope.checkedLabels.PartOperational)
+                {
+                    filteredTotalItems = filteredTotalItems +  $scope.labelCounts.PartOperational;
+                }
+                if ($scope.checkedLabels.FullOperational)
+                {
+                    filteredTotalItems = filteredTotalItems +  $scope.labelCounts.FullOperational;
+                }
+                if ($scope.checkedLabels.Retired)
+                {
+                    filteredTotalItems = filteredTotalItems +  $scope.labelCounts.Retired;
+                }
+                if ($scope.checkedLabels.NotAvailable)
+                {
+                    filteredTotalItems = filteredTotalItems +  $scope.notAvailable;
+                }      
                 $scope.totalItems =  filteredTotalItems;
             }        
             $scope.goToTop();
@@ -173,7 +197,6 @@ angular.module('apolloApp').controller('searchCtrl', function($scope, $resource,
     $scope.selectedSortType = '';
     $scope.setSortValue = function(sortType){
         $scope.selectedSortType = sortType;
-        console.log('The selected sortType is ::'+ $scope.selectedSortType);
     }
 
     $scope.pageChanged = eval($scope.goToTop);

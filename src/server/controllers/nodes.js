@@ -437,19 +437,61 @@ exports.getNodesForLinkageViewer = function(req, res) {
                     "label":nodeLabel
                 }
             ]
+
+            var tokennodes=[req.params.id]
             //console.log(nodes);
             var links = [];
+            var xi=0
             for (var i=0;i<allRelations.length;i++)
             { 
-                nodes.push({
+                
+                var tokennodeid=allChildIds[i];
+                //console.log("tokennodeid",tokennodeid);
+                
+                //node=JSON.parse(node);
+                //found=-1;
+                var found = false;
+
+                tokennodes.forEach(function(d){
+                    if(tokennodeid==d)
+                    {
+                        //console.log(tokennodeid+" tokennodeid found in d.id "+d);
+                        found=true
+                    }
+
+                });
+
+
+
+                //console.log(found,node);
+                //console.log(nodes);
+                if (!found) {
+                    // Element was found, remove it.
+                    
+                    tokennodes.push(tokennodeid);
+                   
+                   nodes.push({
                     "name":allChildNames[i],
                     "id":allChildIds[i],
                     "label":allLabels[i]
-                });
+                    });
+                   //console.log("!found therefore pushing",nodes);
+                   xi++;
+                } else {
+                    // Element was not found, add it.
+                   // console.log("Not found");
+                }
+
+
+                /*nodes.push({
+                    "name":allChildNames[i],
+                    "id":allChildIds[i],
+                    "label":allLabels[i]
+                });*/
                 if(relStartNode[i] == allChildIds[i])
                 {
                     links.push({
-                        "source": i+1,
+                        "source": xi,
                         "target": 0,
                         "type":allRelations[i],
                         "description":allRelDesc[i]
@@ -459,7 +501,7 @@ exports.getNodesForLinkageViewer = function(req, res) {
                 {
                     links.push({
                         "source": 0,
-                        "target": i+1,
+                        "target": xi,
                         "type":allRelations[i],
                         "description":allRelDesc[i]
                     })
@@ -469,7 +511,7 @@ exports.getNodesForLinkageViewer = function(req, res) {
                 "nodes": nodes,
                 "links": links
                         }
-            console.log(viewerJson);
+            //console.log(viewerJson);
             res.send(viewerJson);
             }
             else

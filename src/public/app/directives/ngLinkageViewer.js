@@ -205,7 +205,7 @@ angular.module('apolloApp')
 									.data(json.links)
 									.enter()
 									.append("svg:text")
-									//.attr("class", "path_label")
+									.attr("class", "path_label")
 									.attr("pseudo_id", function(d) {
 										return d.source.label + "_" + d.target.label;
 									})
@@ -214,6 +214,7 @@ angular.module('apolloApp')
 									});
 
 								path_label.append("svg:textPath")
+								.attr("class","testpath")
 									.attr("startOffset", "50%")
 									.attr("text-anchor", "middle")
 									.attr("xlink:href", function(d) {
@@ -222,6 +223,7 @@ angular.module('apolloApp')
 									.style("font-family", "Arial")
 									.text(function(d) {
 										return d.type;
+
 									})
 									.attr("pseudo_id", function(d) {
 										return d.source.label + "_" + d.target.label;
@@ -246,7 +248,6 @@ angular.module('apolloApp')
 
 								w = $("svg").outerWidth();
 								h = $("svg").outerHeight();
-
 
 
 								//console.log($("svg").outerWidth());
@@ -274,17 +275,122 @@ angular.module('apolloApp')
 								})
 									.style("fill", "#8D8D91");
 
+							var labeloverlaparr=[];
+							var i=0;
+							var offset=false;
+							var offsetstep=0;
 
-								path_label.attr('transform', function(d) {
-									//return 'translate(' + d.source.x + ',' + d.source.y + );
+
+								d3.selectAll(".testpath")
+								.html(function (d){
+
+
 									if (d.target.x < d.source.x) {
 
-										midx = (d.source.x + d.target.x) / 2;
-										midy = (d.source.y + d.target.y) / 2;
-										return 'rotate(180 ' + midx + ' ' + midy + ') ';
+										if(d.source.id==id)
+										{
+											return "&#8592;"+d.type+"&#8592;";
+										}
+										else
+										{
+											return "&#8592;"+d.type+"&#8592;";
+										}
 									} else {
-										return 'rotate(0)';
+										//return 'rotate(0)';
+										
+										if(d.source.id==id)
+										{
+											return "&#8594;"+d.type+"&#8594;";
+										}
+										else
+										{
+											return "&#8594;"+d.type+"&#8594;";
+										}
 									}
+								});
+
+								var offsettracker=[];
+								
+								path_label
+								.attr('transform', function(d) {
+								//return 'translate(' + d.source.x + ',' + d.source.y + );
+
+
+
+								//console.log("***********************");
+								var tokens = d.source.x+"-"+d.source.y+"-"+d.target.x+"-"+d.target.y;
+								var tokent = d.target.x+"-"+d.target.y+"-"+d.source.x+"-"+d.source.y;
+								//token ="ss";
+								var found1 = jQuery.inArray(tokens, labeloverlaparr);
+								var found2 = jQuery.inArray(tokent, labeloverlaparr);
+
+								var nonrootid;
+								
+								if(d.source.id==id)
+								{
+									nonrootid=d.target.id;
+								}
+								else
+								{
+									nonrootid=d.source.id;
+								}
+
+								
+
+								if(found1<0 & found2<0)
+								{
+									labeloverlaparr[i]=d.source.x+"-"+d.source.y+"-"+d.target.x+"-"+d.target.y;
+									
+									i++;
+								}
+								else
+								{
+									
+
+									offset=true;
+									offsetstep++;
+
+									offsettracker.push(nonrootid);
+								
+									
+									//console.log(offsetstep);
+								}
+
+
+								var num = 0;
+									
+									offsettracker.forEach(function(d,i){
+										if(d == nonrootid)
+									        num++;
+									});
+								//console.log(nonrootid,num);
+								offsetstep=num;
+
+
+
+								if (d.target.x < d.source.x) {
+
+									midx = (d.source.x + d.target.x) / 2;
+									midy = (d.source.y + d.target.y) / 2;
+									//return 'rotate(180 ' + midx + ' ' + midy + ') ';
+
+
+									if (offset) {
+										offset = false;
+
+										return 'translate(0,' + (10 * offsetstep) + ') rotate(180 ' + midx + ' ' + midy + ') ';
+									} else
+										return 'rotate(180 ' + midx + ' ' + midy + ') ';
+								} else {
+									//return 'rotate(0)';
+									if (offset) {
+										offset = false;
+
+										return 'translate(0,' + (10*offsetstep) + ') rotate(0)';
+									} else
+										return 'rotate(0)';
+								}
+
 								});
 
 								text.attr("transform", function(d) {

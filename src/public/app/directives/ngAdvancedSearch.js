@@ -293,6 +293,7 @@ angular.module('apolloApp')
 											});
 
 										path_label.append("svg:textPath")
+										.attr("class","testpath")
 											.attr("startOffset", "50%")
 											.attr("text-anchor", "middle")
 											.attr("xlink:href", function(d) {
@@ -339,7 +340,6 @@ angular.module('apolloApp')
 										h = $("svg").outerHeight();
 
 
-
 										circle.attr("cx", function(d) {
 											return d.x = Math.max(rcent + 2, Math.min(w - rcent - 2, d.x));
 										})
@@ -361,43 +361,137 @@ angular.module('apolloApp')
 											//return "M" + d.source.x + "," + d.source.y + "L" + d.target.x + "," + d.target.y +"m0,-5l10,0l0,5z";
 											//return "M" + d.source.x + "," + d.source.y + "L" + d.target.x + "," + d.target.y + "A" + dr + "," + dr + " 0 0 0," + d.source.x + "," + d.source.y + "M" + dtxs + "," + dtys +  "l" + (3.5 * Math.cos(d90 - theta) - 10 * Math.cos(theta)) + "," + (-3.5 * Math.sin(d90 - theta) - 10 * Math.sin(theta)) + "L" + (dtxs - 3.5 * Math.cos(d90 - theta) - 10 * Math.cos(theta)) + "," + (dtys + 3.5 * Math.sin(d90 - theta) - 10 * Math.sin(theta)) + "z";
 										})
-											.style("fill", "#8D8D91");
+										.style("fill", "#8D8D91");
+
+
+
+										d3.selectAll(".testpath")
+										.html(function (d){
+
+
+											if (d.target.x < d.source.x) {
+
+												if(d.source.id==id)
+												{
+													return "&#8592;"+d.type+"&#8592;";
+												}
+												else
+												{
+													return "&#8592;"+d.type+"&#8592;";
+												}
+											} else {
+												//return 'rotate(0)';
+												
+												if(d.source.id==id)
+												{
+													return "&#8594;"+d.type+"&#8594;";
+												}
+												else
+												{
+													return "&#8594;"+d.type+"&#8594;";
+												}
+											}
+										});
 
 										var labeloverlaparr=[];
 										var i=0;
 										var offset=false;
+
+										var offsettracker=[];
+
 										path_label.attr('transform', function(d) {
 
 
-											//console.log(labeloverlaparr);
 											var tokens = d.source.x+"-"+d.source.y+"-"+d.target.x+"-"+d.target.y;
 											var tokent = d.target.x+"-"+d.target.y+"-"+d.target.x+"-"+d.target.y;
 											//token ="ss";
 											var found1 = jQuery.inArray(tokens, labeloverlaparr);
 											var found2 = jQuery.inArray(tokent, labeloverlaparr);
 											
+											// var nonrootid;
+								
+											// if(d.source.id==leftnodeid | d.source.id==rightnodeid)
+											// {
+											// 	nonrootid=d.target.id;
+											// }
+											// else
+											// {
+											// 	nonrootid=d.source.id;
+											// }
+
+											//console.log("idsinpath raw",d.source.id+"-"+d.target.id);
+
+											var idsinpath, idsinpathreverse;
+
+											if(d.source.id<d.target.id)
+											{
+												
+												//console.log("less");
+												idsinpath=d.source.id+"-"+d.target.id;
+												idsinpathreverse=d.target.id+"-"+d.source.id;
+											}
+											else
+											{
+												//console.log("more");
+												idsinpath=d.target.id+"-"+d.source.id;
+												idsinpathreverse=d.source.id+"-"+d.target.id;
+											}
+
+											//console.log("idsinpath",idsinpath);
+
 											if(found1<0 & found2<0)
 											{
 												labeloverlaparr[i]=d.source.x+"-"+d.source.y+"-"+d.target.x+"-"+d.target.y;
-												//labeloverlaparr[i]=d.source.y;
-												//console.log(labeloverlaparr);
+												
 												i++;
 											}
 											else
+											{
+												
+
+												offset=true;
+												offsetstep++;
+
+												
+											
+												
+												//console.log(offsetstep);
+											}
+
+											offsettracker.push(idsinpath);
+											//console.log(offsettracker);
+
+											var num = 0;
+												
+												offsettracker.forEach(function(d1,i){
+													if(d1 == idsinpath | d1 == idsinpathreverse)
+												        num++;
+
+												});
+											//console.log(idsinpath,num);
+											offsetstep=num-1;
+
+											if(num>0)
 											{
 												offset=true;
 											}
 												
 											
-											//console.log(offset);
+											//console.log(idsinpath,offsetstep);
 											//return 'translate(' + d.source.x + ',' + d.source.y + );
+											
+
 											if (d.target.x < d.source.x) {
+
+
 												midx = (d.source.x + d.target.x) / 2;
 												midy = (d.source.y + d.target.y) / 2;
+
 												if(offset)
 												{
 													offset=false;
-													return 'translate(0,10) rotate(180 ' + midx + ' ' + midy + ') ';
+
+													return 'translate(0,' + (10 * offsetstep) + ') rotate(180 ' + midx + ' ' + midy + ') ';
 												}
 												else
 													return 'rotate(180 ' + midx + ' ' + midy + ') ';
@@ -405,7 +499,8 @@ angular.module('apolloApp')
 												if(offset)
 												{
 													offset=false;
-													return 'translate(0,10) rotate(0)';
+
+													return 'translate(0,' + (10 * offsetstep) + ') rotate(0)';
 												}
 												else
 													return 'rotate(0)';

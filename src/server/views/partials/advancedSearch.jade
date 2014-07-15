@@ -64,16 +64,16 @@
 						.adv_search_field
 							input(type="text" ng-model="nodeB"  placeholder="Enter activity name" typeahead-on-select="itemSelectedB($item, $model, $label)" typeahead-min-length='3' typeahead="node.name for node in getNodes($viewValue)" class="form-control")
 							input(type="hidden" id="nodeBId" ng-value="nodeBId")
-					.step_number
-						| Number of steps: &nbsp;
-						input(type='checkbox', id='hop1', name='hop', value='1')
-						| 1 &nbsp;
-						input(type='checkbox', id='hop2', name='hop', value='2')
-						| 2 &nbsp;
-						input(type='checkbox', id='hop3', name='hop', value='3') 
-						| 3 &nbsp;
-						input(type='checkbox', id='hop4', name='hop', value='4') 
-						| 4 
+					//- .step_number
+					//- 	| Number of steps: &nbsp;
+					//- 	input(type='checkbox', id='hop1', name='hop', value='1')
+					//- 	| 1 &nbsp;
+					//- 	input(type='checkbox', id='hop2', name='hop', value='2')
+					//- 	| 2 &nbsp;
+					//- 	input(type='checkbox', id='hop3', name='hop', value='3') 
+					//- 	| 3 &nbsp;
+					//- 	input(type='checkbox', id='hop4', name='hop', value='4') 
+					//- 	| 4 
 					//end step number
 					.adv_search_button
 						button.pull-left.btn.btn-default.pull-left.link_buttone.adv_button(type='button')
@@ -94,16 +94,16 @@
 						.adv_search_field_md
 							input(type="text" ng-model="nodeB"  placeholder="Enter activity name" typeahead-on-select="itemSelectedB($item, $model, $label)" typeahead-min-length='3' typeahead="node.name for node in getNodes($viewValue)" class="form-control")
 							input(type="hidden" id="nodeBId" ng-value="nodeBId")
-					.step_number
-						| Number of steps: &nbsp;
-						input(type='checkbox', id='hop1', name='hop', value='1')
-						| 1 &nbsp;
-						input(type='checkbox', id='hop2', name='hop', value='2')
-						| 2 &nbsp;
-						input(type='checkbox', id='hop3', name='hop', value='3') 
-						| 3 &nbsp;
-						input(type='checkbox', id='hop4', name='hop', value='4') 
-						| 4 
+					//- .step_number
+					//- 	| Number of steps: &nbsp;
+					//- 	input(type='checkbox', id='hop1', name='hop', value='1')
+					//- 	| 1 &nbsp;
+					//- 	input(type='checkbox', id='hop2', name='hop', value='2')
+					//- 	| 2 &nbsp;
+					//- 	input(type='checkbox', id='hop3', name='hop', value='3') 
+					//- 	| 3 &nbsp;
+					//- 	input(type='checkbox', id='hop4', name='hop', value='4') 
+					//- 	| 4 
 					//end step number
 					.adv_search_button
 						button.pull-left.btn.btn-default.pull-left.link_buttone.adv_button_md(type='button')
@@ -124,18 +124,18 @@
 						.adv_search_field_sm
 							input(type="text" ng-model="nodeB"  placeholder="Activity name" typeahead-on-select="itemSelectedB($item, $model, $label)" typeahead-min-length='3' typeahead="node.name for node in getNodes($viewValue)" class="form-control")
 							input(type="hidden" id="nodeBId" ng-value="nodeBId")
-					.step_number_sm
-						| Number
-						br
-						| of steps: &nbsp;
-						input(type='checkbox', id='hop1', name='hop', value='1')
-						| 1 &nbsp;
-						input(type='checkbox', id='hop2', name='hop', value='2')
-						| 2 &nbsp;
-						input(type='checkbox', id='hop3', name='hop', value='3') 
-						| 3 &nbsp;
-						input(type='checkbox', id='hop4', name='hop', value='4') 
-						| 4 
+					//- .step_number_sm
+					//- 	| Number
+					//- 	br
+					//- 	| of steps: &nbsp;
+					//- 	input(type='checkbox', id='hop1', name='hop', value='1')
+					//- 	| 1 &nbsp;
+					//- 	input(type='checkbox', id='hop2', name='hop', value='2')
+					//- 	| 2 &nbsp;
+					//- 	input(type='checkbox', id='hop3', name='hop', value='3') 
+					//- 	| 3 &nbsp;
+					//- 	input(type='checkbox', id='hop4', name='hop', value='4') 
+					//- 	| 4 
 					//end step number
 					.adv_search_button
 						button.pull-left.btn.btn-default.pull-left.link_buttone.adv_button_sm(type='button')
@@ -170,7 +170,14 @@
 					| Lock nodes
 				button.btn.btn-default.pull-left.link_button4(id='btn_as_hide' type='button' ng-disabled='disableHideLines')
 					span.glyphicon.glyphicon-ban-circle
-					| Hide lines					
+					| Hide lines
+				img.pull-left.small_divider(src='img/small_divider.png')
+				button.btn.btn-default.pull-left.link_button4(id='btn_as_deccon' type='button' ng-disabled='disabledeccon')
+					span.glyphicon.glyphicon-chevron-left
+					| Decrease connections
+				button.btn.btn-default.pull-left.link_button4(id='btn_as_inccon' type='button' ng-disabled='disableinccon')
+					span.glyphicon.glyphicon-chevron-right
+					| Increase Connections				
 				//.cluster
 					//.cluster_text
 					//| Organize by:&nbsp;&nbsp;

@@ -50,8 +50,7 @@ angular.module('apolloApp')
 					// $("#btn_as_deccon").click(deccons());
 					
 					$(document).ready(function() {
-						console.log("doc ready");
-
+						
 
 						scope.checkModel = {
 							Organization: true,
@@ -85,7 +84,7 @@ angular.module('apolloApp')
 						var rootnodelabell = "";
 						var rootnodelabelr = "";
 
-						var force, circle, json, drag, path, text, path_label;
+						var force, circle, json, drag, path, text, path_label,svg;
 						var togglehidelinks = true;
 						var togglefixnodes = true;
 						//var w = 1000,
@@ -170,6 +169,24 @@ angular.module('apolloApp')
 										} else if (scope.step4json != "NA") {
 											currentstep = 4;
 											constructsvg(4);
+										}
+										else
+										{
+											w = $("div.block_linkage").width();
+											h=$("div.block_linkage").height();
+											svg = d3.select(".block_linkage").append("svg:svg")
+											.attr("width", w)
+											.attr("height", h);
+											var msg = "Sorry, there were no relationships found between between the selected activities.";//+scope.nodeA+" and "+scope.nodeB;
+											"No relationships found.";
+											var xcoord = (w / 2) - (msg.length * 9 / 2.5);
+
+											var errortext = svg
+												.append("svg:text")
+												.attr("class", "linkageerrormsg")
+												.attr("x", xcoord)
+												.attr("y", h / 6)
+												.html(msg);
 										}
 
 
@@ -285,9 +302,10 @@ angular.module('apolloApp')
 
 							//d3.select("svg").attr("width", w).attr("height", h);
 							//console.log("ww", w);
-							var svg = d3.select(".block_linkage").append("svg:svg")
+							svg = d3.select(".block_linkage").append("svg:svg")
 								.attr("width", w)
 								.attr("height", h);
+
 
 							// var hoparr = hop.split(",");
 							// for (var i = 0; i < hoparr.length; i++) {
@@ -546,7 +564,7 @@ angular.module('apolloApp')
 									relationship_label=relationship_label.replace(/_/g, ' ');
 									relationship_label=relationship_label.toLowerCase();
 									relationship_label=relationship_label.replace(/\w\S*/, function(txt){return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();});
-									
+
 									if (d.target.x < d.source.x) {
 
 										if (d.source.id == id) {

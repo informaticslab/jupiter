@@ -133,13 +133,13 @@ angular.module('apolloApp').controller('advancedSearchCtrl', function($scope, $h
     $scope.checkComplete = function() {
         //console.log("check called");
         $scope.$apply();
-        console.log($scope.step1status,$scope.step2status,$scope.step3status,$scope.step4status);
+        //console.log($scope.step1status,$scope.step2status,$scope.step3status,$scope.step4status);
         
         if($scope.step1status != 0 & $scope.step2status !=0 & $scope.step3status !=0 & $scope.step4status !=0 )
         {
-            console.log("COMPLETE");
-            console.log($scope.step1status,$scope.step2status,$scope.step3status,$scope.step4status);
-            console.log("json",$scope.step1json,$scope.step2json,$scope.step3json,$scope.step4json);
+            //console.log("COMPLETE");
+            //console.log($scope.step1status,$scope.step2status,$scope.step3status,$scope.step4status);
+            //console.log("json",$scope.step1json,$scope.step2json,$scope.step3json,$scope.step4json);
             $scope.stepstatusallcomplete=true;
             $scope.$apply();
         }

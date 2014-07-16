@@ -27,7 +27,7 @@ var opts = {
   // issuer/CA certificate against which the client certificate will be
   // validated. A certificate that is not signed by a provided CA will be
   // rejected at the protocol layer.
-  ca: fs.readFileSync('/Users/pmw3/secureapp/certificates/cert.pem'),
+  ca: fs.readFileSync('/Users/pmw3/secureapp/certificates/HHSPIVca.pem'),
   // request a certificate, but don't necessarily reject connections from
   // clients providing an untrusted or no certificate. This lets us protect only
   // certain routes, or send a helpful error message to unauthenticated clients.

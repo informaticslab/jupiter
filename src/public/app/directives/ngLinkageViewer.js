@@ -283,28 +283,32 @@ angular.module('apolloApp')
 
 								d3.selectAll(".testpath")
 								.html(function (d){
-
+									var relationship_label=d.type;
+									relationship_label=relationship_label.replace(/_/g, ' ');
+									relationship_label=relationship_label.toLowerCase();
+									relationship_label=relationship_label.replace(/\w\S*/, function(txt){return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();});
 
 									if (d.target.x < d.source.x) {
 
+										
 										if(d.source.id==id)
 										{
-											return "&#8592;"+d.type+"&#8592;";
+											return "&#8592;"+relationship_label+"&#8592;";
 										}
 										else
 										{
-											return "&#8592;"+d.type+"&#8592;";
+											return "&#8592;"+relationship_label+"&#8592;";
 										}
 									} else {
 										//return 'rotate(0)';
 										
 										if(d.source.id==id)
 										{
-											return "&#8594;"+d.type+"&#8594;";
+											return "&#8594;"+relationship_label+"&#8594;";
 										}
 										else
 										{
-											return "&#8594;"+d.type+"&#8594;";
+											return "&#8594;"+relationship_label+"&#8594;";
 										}
 									}
 								});

@@ -700,15 +700,19 @@ exports.getAdvancedSearchData = function(req, res) {
 
         }
         if (hopsarr[i] == 2) {
-            query=query+query2+" union ";
+            //query=query+query2+" union ";
+            query=query1+" union "+query2+" union ";
 
         }
         if (hopsarr[i] == 3) {
 
-            query=query+query3+" union ";
+            //query=query+query3+" union ";
+            query=query1+" union "+query2+" union "+query3+" union ";
+
         }
         if (hopsarr[i] == 4) {
-            query=query+query4+" union ";
+            //query=query+query4+" union ";
+            query=query1+" union "+query2+" union "+query3+" union "+query4+" union ";
 
         }
     }
@@ -802,6 +806,7 @@ query = query.substring(0, lastIndex);
 
                     } else {
 
+                        /*
                         if (hops == 3) {
                             if (dnodes.length == 4) {
                                 for (var i = 0; i < dnodes.length - 1; i++) {
@@ -825,8 +830,8 @@ query = query.substring(0, lastIndex);
                                 }
 
                             }
-
-                        } else {
+                            */
+                        //} else {
                             for (var i = 0; i < dnodes.length - 1; i++) {
 
                                 //console.log("1--",dnodes[i]);
@@ -846,7 +851,7 @@ query = query.substring(0, lastIndex);
                                 //console.log("nodesA",nodesA[i]);
 
                             }
-                        }
+                        //}
 
 
 
@@ -1012,7 +1017,7 @@ query = query.substring(0, lastIndex);
                     }
 
 
-                    if (nodes.length > 40) {
+                    if (nodes.length > 50) {
 
                         res.send(413, "Too many nodes returned");
                     } else {

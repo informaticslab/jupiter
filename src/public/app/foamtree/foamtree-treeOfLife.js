@@ -19,145 +19,217 @@ d3.json("/apollo/api/lab/relations", function(error, relations){
           var collabObj = {};
           collabObj.label = "Collaborative";
           collabObj.weight = 0;
+          collabObj.color = groupColor(collabObj.label);
           collabObj.groups = [];
           
           var dataStandardObj = {};
           dataStandardObj.label = "DataStandard";
           dataStandardObj.weight = 0;
+          dataStandardObj.color = groupColor(dataStandardObj.label);
           dataStandardObj.groups = [];
 
           var dataSetObj = {};
           dataSetObj.label = "Dataset";
           dataSetObj.weight = 0;
+          dataSetObj.color = groupColor(dataSetObj.label);
           dataSetObj.groups = [];
 
           var hSurveyObj = {};
           hSurveyObj.label = "HealthSurvey";
           hSurveyObj.weight = 0;
+          hSurveyObj.color = groupColor(hSurveyObj.label);
           hSurveyObj.groups = [];
 
           var orgObj = {};
           orgObj.label = "Organization";
           orgObj.weight = 0;
+          orgObj.color = groupColor(orgObj.label);
           orgObj.groups = [];
 
           var programObj = {};
           programObj.label = "Program";
           programObj.weight = 0;
+          programObj.color = groupColor(programObj.label);
           programObj.groups = [];
 
           var registryObj = {};
           registryObj.label = "Registry";
           registryObj.weight = 0;
+          registryObj.color = groupColor(registryObj.label);
           registryObj.groups = [];
 
           var surSysObj = {};
           surSysObj.label = "SurveillanceSystem"; 
           surSysObj.weight = 0;
+          surSysObj.color = groupColor(surSysObj.label);
           surSysObj.groups = [];
 
           var toolObj = {};
           toolObj.label = "Tool"; 
           toolObj.weight = 0;
+          toolObj.color = groupColor(toolObj.label);
           toolObj.groups = [];
 
           nodes.forEach(function(node){    
             if( node.labels[0] == "Collaborative"){
 
               collabObj.weight ++;
-              var tmpObj = {};
-              tmpObj.label = node.name;
-              // tmpObj.group = "Collaborative";
               var tmpArr = _.where(relations, {p: node.id});
+              
+              var tmpObj = {};
               tmpObj.weight = tmpArr.length;
+              tmpObj.label = node.name + ' ('+tmpObj.weight+')';
+
+              tmpObj.groups = [];
+              tmpArr.forEach(function(d){
+                var relName = {};
+                relName.label = d.cname;
+                tmpObj.groups.push(relName);
+              });
               
               collabObj.groups.push(tmpObj);
             }
             else if( node.labels[0] == "DataStandard"){
               
               dataStandardObj.weight ++;
-
-              var tmpObj = {};
-              tmpObj.label = node.name;
               var tmpArr = _.where(relations, {p: node.id});
+              
+              var tmpObj = {};
               tmpObj.weight = tmpArr.length;
+              tmpObj.label = node.name + ' ('+tmpObj.weight+')';
+
+              tmpObj.groups = [];
+              tmpArr.forEach(function(d){
+                var relName = {};
+                relName.label = d.cname;
+                tmpObj.groups.push(relName);
+              });
               
               dataStandardObj.groups.push(tmpObj);
             }
             else if( node.labels[0] == "Dataset"){
 
               dataSetObj.weight ++;
-
-              var tmpObj = {};
-              tmpObj.label = node.name;
               var tmpArr = _.where(relations, {p: node.id});
-              tmpObj.weight = tmpArr.length;
               
+              var tmpObj = {};
+              tmpObj.weight = tmpArr.length;
+              tmpObj.label = node.name + ' ('+tmpObj.weight+')';
+
+              tmpObj.groups = [];
+              tmpArr.forEach(function(d){
+                var relName = {};
+                relName.label = d.cname;
+                tmpObj.groups.push(relName);
+              });
+
               dataSetObj.groups.push(tmpObj);
             }
             else if( node.labels[0] == "HealthSurvey"){
               
               hSurveyObj.weight ++;
-
-              var tmpObj = {};
-              tmpObj.label = node.name;
               var tmpArr = _.where(relations, {p: node.id});
+              
+              var tmpObj = {};
               tmpObj.weight = tmpArr.length;
+              tmpObj.label = node.name + ' ('+tmpObj.weight+')';
+
+              tmpObj.groups = [];
+              tmpArr.forEach(function(d){
+                var relName = {};
+                relName.label = d.cname;
+                tmpObj.groups.push(relName);
+              });
               
               hSurveyObj.groups.push(tmpObj);
             }
             else if( node.labels[0] == "Organization"){
               
               orgObj.weight ++;
-
-              var tmpObj = {};
-              tmpObj.label = node.name;
               var tmpArr = _.where(relations, {p: node.id});
+              
+              var tmpObj = {};
               tmpObj.weight = tmpArr.length;
+              tmpObj.label = node.name + ' ('+tmpObj.weight+')';
+
+              tmpObj.groups = [];
+              tmpArr.forEach(function(d){
+                var relName = {};
+                relName.label = d.cname;
+                tmpObj.groups.push(relName);
+              });
               
               orgObj.groups.push(tmpObj);
             }
             else if( node.labels[0] == "Program"){
               
               programObj.weight ++;
-
-              var tmpObj = {};
-              tmpObj.label = node.name;
               var tmpArr = _.where(relations, {p: node.id});
+              
+              var tmpObj = {};
               tmpObj.weight = tmpArr.length;
+              tmpObj.label = node.name + ' ('+tmpObj.weight+')';
+
+              tmpObj.groups = [];
+              tmpArr.forEach(function(d){
+                var relName = {};
+                relName.label = d.cname;
+                tmpObj.groups.push(relName);
+              });
               
               programObj.groups.push(tmpObj);
             }
             else if( node.labels[0] == "Registry"){
               
               registryObj.weight ++;
-
-              var tmpObj = {};
-              tmpObj.label = node.name;
               var tmpArr = _.where(relations, {p: node.id});
+              
+              var tmpObj = {};
               tmpObj.weight = tmpArr.length;
+              tmpObj.label = node.name + ' ('+tmpObj.weight+')';
+
+              tmpObj.groups = [];
+              tmpArr.forEach(function(d){
+                var relName = {};
+                relName.label = d.cname;
+                tmpObj.groups.push(relName);
+              });
               
               registryObj.groups.push(tmpObj);
             }
             else if( node.labels[0] == "SurveillanceSystem"){
               
               surSysObj.weight++;
-
-              var tmpObj = {};
-              tmpObj.label = node.name;
               var tmpArr = _.where(relations, {p: node.id});
+              
+              var tmpObj = {};
               tmpObj.weight = tmpArr.length;
+              tmpObj.label = node.name + ' ('+tmpObj.weight+')';
+
+              tmpObj.groups = [];
+              tmpArr.forEach(function(d){
+                var relName = {};
+                relName.label = d.cname;
+                tmpObj.groups.push(relName);
+              });
               
               surSysObj.groups.push(tmpObj);
             }
             else if( node.labels[0] == "Tool"){
               
               toolObj.weight ++;
-
-              var tmpObj = {};
-              tmpObj.label = node.name;
               var tmpArr = _.where(relations, {p: node.id});
+              
+              var tmpObj = {};
               tmpObj.weight = tmpArr.length;
+              tmpObj.label = node.name + ' ('+tmpObj.weight+')';
+
+              tmpObj.groups = [];
+              tmpArr.forEach(function(d){
+                var relName = {};
+                relName.label = d.cname;
+                tmpObj.groups.push(relName);
+              });
               
               toolObj.groups.push(tmpObj);
             }
@@ -182,7 +254,11 @@ d3.json("/apollo/api/lab/relations", function(error, relations){
 
           var foamtree = new CarrotSearchFoamTree({
             id: "visualization",
-            dataObject: treemapObj
+            dataObject: treemapObj,
+            groupColorDecorator: function (opts, params, vars) {
+              vars.groupColor = params.group.color;
+              vars.labelColor = "auto";
+            }
           }); 
 
         } // end else
@@ -192,7 +268,7 @@ d3.json("/apollo/api/lab/relations", function(error, relations){
 
 });
 
-function nodeColor(group){
+function groupColor(group){
   if(group == "Collaborative"){
     return "#16a086";
   }

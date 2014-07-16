@@ -581,6 +581,36 @@ angular.module('apolloApp')
 											return "&#8594;" + relationship_label + "&#8594;";
 										}
 									}
+								})
+								.text(function(d) {
+
+									var relationship_label=d.type;
+									relationship_label=relationship_label.replace(/_/g, ' ');
+									relationship_label=relationship_label.toLowerCase();
+									relationship_label=relationship_label.replace(/\w\S*/, function(txt){return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();});
+
+									if (d.target.x < d.source.x) {
+
+										if (d.source.id == id)
+										{
+											return "\u27F5"+relationship_label+"\u27F5";
+										}
+										else
+										{
+											return "\u27F5"+relationship_label+"\u27F5";
+										}
+									} else {
+										//return 'rotate(0)';
+
+										if (d.source.id == id)
+										{
+											return "\u27F6"+relationship_label+"\u27F6";
+										}
+										else
+										{
+											return "\u27F6"+relationship_label+"\u27F6";
+										}
+									}
 								});
 
 							var labeloverlaparr = [];

@@ -5,7 +5,6 @@ angular.module('apolloApp')
 			return {
 				link: function(scope, element, attrs) {
 
-					var jsonstep = {};
 					var jsonpointer = [];
 					var currentstep = 1;
 					var w;
@@ -117,12 +116,6 @@ angular.module('apolloApp')
 										//console.log("AS json", scope.step1json, scope.step2json, scope.step3json, scope.step4json);
 										//console.log("w h",w,h);
 
-										jsonstep = {
-											step1: scope.step1status,
-											step2: scope.step2status,
-											step3: scope.step3status,
-											step4: scope.step4status
-										};
 
 										if (scope.step1status == 1) {
 											jsonpointer.push(1);
@@ -141,6 +134,8 @@ angular.module('apolloApp')
 
 										}
 
+										jsonpointer.sort();
+
 										//console.log(jsonpointer);
 
 										//console.log(jsonstep.step1);
@@ -157,16 +152,16 @@ angular.module('apolloApp')
 											scope.disableinccon = false;
 										}
 
-										if (scope.step1json != "NA") {
+										if (scope.step1status != -1) {
 											currentstep = 1;
 											constructsvg(1);
-										} else if (scope.step2json != "NA") {
+										} else if (scope.step2status != -1) {
 											currentstep = 2;
 											constructsvg(2);
-										} else if (scope.step3json != "NA") {
+										} else if (scope.step3status != -1) {
 											currentstep = 3;
 											constructsvg(3);
-										} else if (scope.step4json != "NA") {
+										} else if (scope.step4status != -1) {
 											currentstep = 4;
 											constructsvg(4);
 										}
@@ -191,7 +186,7 @@ angular.module('apolloApp')
 
 
 
-										//console.log("completed****************");
+										//console.log("currentstep",currentstep);
 									} //if scope status
 
 								} //if old and new value
@@ -221,12 +216,30 @@ angular.module('apolloApp')
 						}
 
 						function deccons() {
+							
+							//console.log("dec cons", currentstep);
 							removesvgcontents();
 							currentstep--;
 
+
+
+							for (var i = jsonpointer.length-1;i >= 0; i--) {
+								//console.log(jsonpointer[i],currentstep);
+								if (jsonpointer[i] == currentstep) {
+									break;
+								}
+								if(jsonpointer[i] < currentstep)
+								{
+									currentstep=jsonpointer[i];
+									break;
+								}
+							}
+							//console.log("dec cons", currentstep);
+
+
 							var nextstepavailable = false;
 							for (var i = 0; i < jsonpointer.length; i++) {
-								if (jsonpointer[i] == currentstep - 1) {
+								if (jsonpointer[i] < currentstep ) {
 									nextstepavailable = true;
 								}
 							}
@@ -249,9 +262,26 @@ angular.module('apolloApp')
 							removesvgcontents();
 							currentstep++;
 
+							
+
+							for (var i = 0; i < jsonpointer.length; i++) {
+								//console.log(jsonpointer[i],currentstep);
+								if (jsonpointer[i] == currentstep) {
+									break;
+								}
+								if(jsonpointer[i] > currentstep)
+								{
+									currentstep=jsonpointer[i];
+									break;
+								}
+							}
+							//console.log("inc cons", currentstep);
+							//console.log("inc cons", currentstep);
+
 							var nextstepavailable = false;
 							for (var i = 0; i < jsonpointer.length; i++) {
-								if (jsonpointer[i] == currentstep + 1) {
+
+								if (jsonpointer[i] > currentstep) {
 									nextstepavailable = true;
 								}
 							}
@@ -263,7 +293,7 @@ angular.module('apolloApp')
 								scope.disableinccon = true;
 								scope.disabledeccon = false;
 							}
-							//console.log("inc cons", currentstep);
+
 							constructsvg(currentstep);
 
 						}
@@ -1336,7 +1366,8 @@ angular.module('apolloApp')
 
 				}, //link
 
-				template: '<img class="img-responsive linkage_empty" id="defaultimg" src="img/rel_explorer_empty_bg.png" ng-show="showImage"/>'
+				template: '<img class="img-responsive linkage_empty" id="defaultimg" src="img/rel_explorer_empty_bg.png" ng-show="showImage"/>' +
+				'<img class="img-responsive linkage_empty" id="defaultimg" src="img/ajax-loader.gif" ng-show="showLinkageLoading"/>'
 
 			} //directive function return
 		} //function under directive

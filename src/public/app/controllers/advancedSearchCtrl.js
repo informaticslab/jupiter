@@ -139,7 +139,36 @@ angular.module('apolloApp').controller('advancedSearchCtrl', function($scope, $h
         {
             //console.log("COMPLETE");
             //console.log($scope.step1status,$scope.step2status,$scope.step3status,$scope.step4status);
-            //console.log("json",$scope.step1json,$scope.step2json,$scope.step3json,$scope.step4json);
+            //console.log("json",$scope.step1json.nodes.length,$scope.step2json.nodes.length,$scope.step3json.nodes.length,$scope.step4json.nodes.length);
+
+            if($scope.step2status==1 & $scope.step1status==1)
+            {
+                if($scope.step2json.nodes.length==$scope.step1json.nodes.length)
+                {
+                    $scope.step2status=-1;    
+                }
+                
+            }
+            if($scope.step3status==1 & $scope.step2status==1)
+            {
+                if($scope.step3json.nodes.length==$scope.step2json.nodes.length)
+                {
+                    $scope.step3status=-1;    
+                }
+                
+            }
+            if($scope.step4status==1 & $scope.step3status==1)
+            {
+                if($scope.step4json.nodes.length==$scope.step3json.nodes.length)
+                {
+                    $scope.step4status=-1;    
+                }
+                
+            }
+            
+
+
+            //console.log($scope.step1status,$scope.step2status,$scope.step3status,$scope.step4status);
             $scope.stepstatusallcomplete=true;
             $scope.$apply();
         }

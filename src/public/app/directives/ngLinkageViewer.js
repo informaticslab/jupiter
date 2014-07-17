@@ -105,6 +105,7 @@ angular.module('apolloApp')
 									.size([w, h])
 									.linkDistance(200)
 									.charge(-1850)
+									.friction(.85)
 									.on("tick", tick)
 									.start();
 
@@ -241,6 +242,12 @@ angular.module('apolloApp')
 											.duration(500)
 											.style("opacity", 0);
 									});
+
+									//for smoother node entry
+									svg.style("opacity", 1e-6)
+									  .transition()
+									    .duration(1000)
+									    .style("opacity", 1);
 							} //else if undefined or error
 
 

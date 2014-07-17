@@ -300,7 +300,7 @@ angular.module('apolloApp')
 
 						function constructsvg(jsonno) {
 
-
+							scope.showLinkageLoading=false;
 							//console.log(jsonno);
 							if (jsonno == 1) {
 								json = scope.step1json;

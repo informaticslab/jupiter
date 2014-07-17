@@ -12,6 +12,8 @@ angular.module('apolloApp').controller('advancedSearchCtrl', function($scope, $h
         });
     };
     var id = $routeParams.id;
+
+    $scope.showLinkageLoading=false;
     //console.log("routeparams id",id);
     if (id) {
         var queryVals = id.split("-");
@@ -27,6 +29,7 @@ angular.module('apolloApp').controller('advancedSearchCtrl', function($scope, $h
             $scope.hops = id.split("-")[2];
         }
         $scope.showImage = false;
+        $scope.showLinkageLoading=true;
     }
 
     $scope.itemSelectedA = function($item, $model, $label) {

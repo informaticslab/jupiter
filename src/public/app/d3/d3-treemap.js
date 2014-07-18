@@ -1,27 +1,30 @@
-var margin = {top: 20, right: 0, bottom: 0, left: 20},
+var margin = {top: 20, right: 20, bottom: 0, left: 20},
     // width = 960 - margin.left - margin.right,
     // height = 500 - margin.top - margin.bottom;
     // width = 1280 - margin.left - margin.right,
     // height = 600 - margin.top - margin.bottom;
-    width = 1200 - margin.left - margin.right,
+    // width = 1200 - margin.left - margin.right,
+    width = $('#blocktree').width() - margin.left - margin.right -140,
     height = 600 - margin.top - margin.bottom;
 
-var color = d3.scale.category20c();
+console.log("The width of the tremap is :: "+$('#blocktree').width());
 
 var treemap = d3.layout.treemap()
     .size([width, height])
     .sticky(true)
     .value(function(d) { return d.size; });
 
-var div = d3.select(".block_tree").append("div")
+var div = d3.select(".block_tree").append("treemap")
     .style("position", "relative")
-    .style("width", (width + margin.left + margin.right) + "px")
+    // .style("width", (width + margin.left + margin.right) + "px")
+    .style("display", "block")
+    .style("width", width + "px")
     .style("height", (height + margin.top + margin.bottom) + "px")
     .style("left", margin.left + "px")
+    .style("right", margin.right + "px")
     .style("top", margin.top + "px");
 
 var mousemove = function(d) {
-  console.log("Mouse moved");
   var xPosition = d3.event.pageX + 5;
   var yPosition = d3.event.pageY + 5;
 
@@ -205,8 +208,6 @@ d3.json("/apollo/api/lab/relations", function(error, relations){
           children.push(surSysObj);
           children.push(toolObj);
 
-          console.log("The children object is: "+JSON.stringify(children));
-          
           treemapObj.name = "cisp";
           treemapObj.children = children;
 
@@ -215,7 +216,6 @@ d3.json("/apollo/api/lab/relations", function(error, relations){
                         .enter().append("div")
                         .attr("class", "nodeTree")
                         .call(position)
-                        // .style("background", function(d) { return d.children ? color(d.name) : null; })
                         .style("background", function(d) { return d.children ? nodeColor(d.group) : null; })
                         .text(function(d) { return d.children ? null : d.name; })
                         .on("mousemove", mousemove)

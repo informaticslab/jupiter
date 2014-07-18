@@ -234,7 +234,6 @@ d3.json("/apollo/api/lab/relations", function(error, relations){
               toolObj.groups.push(tmpObj);
             }
 
-            document.getElementById('loadingImg').style.display = 'none';
           });
 
           groups.push(collabObj);
@@ -246,20 +245,28 @@ d3.json("/apollo/api/lab/relations", function(error, relations){
           groups.push(registryObj);
           groups.push(surSysObj);
           groups.push(toolObj);
-
-          console.log("The groups object is: "+JSON.stringify(groups));
-          
+ 
           treemapObj.label = "cisp";
-          treemapObj.groups = groups;   
+          treemapObj.groups = groups;
+
+          document.getElementById('loadingImg').style.display = 'none';   
 
           var foamtree = new CarrotSearchFoamTree({
             id: "visualization",
             dataObject: treemapObj,
             groupColorDecorator: function (opts, params, vars) {
               vars.groupColor = params.group.color;
-              vars.labelColor = "auto";
-            }
-          }); 
+              // vars.labelColor = "auto";
+            },
+            
+            initializer: "fisheye",
+            relaxationVisible: true,
+            // fadeDuration: 1000,
+            groupGrowingDuration: 500,
+            groupGrowingDrag: 0.1,
+            rolloutDuration: 2000,
+            
+          });
 
         } // end else
 

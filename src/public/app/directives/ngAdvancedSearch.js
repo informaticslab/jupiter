@@ -550,7 +550,10 @@ angular.module('apolloApp')
 
 							clickreset();
 
-
+							svg.style("opacity", 1e-6)
+									  .transition()
+									    .duration(1000)
+									    .style("opacity", 1);
 
 							//} //else json undefined
 

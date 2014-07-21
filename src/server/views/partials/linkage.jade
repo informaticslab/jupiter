@@ -65,14 +65,14 @@
 							li
 								a(target='_blank' href='http://twitter.com/home?status=CDC iSurv Portal: {{node.name}}: {{twitterBlurb}}') Twitter
 						//end added lines 
-				button.btn.btn-default.pull-left.link_button1(id='btn_lv_reset' type='button')
+				label.btn.btn-default.pull-left.link_button1(id='btn_lv_reset')
 					span.glyphicon.glyphicon-repeat.icon-flipped
 					| Reset
 				img.pull-left.small_divider(src='img/small_divider.png')
-				button.btn.btn-default.pull-left.link_button5(id='btn_lv_lock' type='button')
+				label.btn.btn-default.pull-left.link_button5(id='btn_lv_lock')
 					i.fa.fa-lock
 					| Lock nodes
-				button.btn.btn-default.pull-left.link_button4(id='btn_lv_hide' type='button' ng-disabled='disableHideLines')
+				label.btn.btn-default.pull-left.link_button4(id='btn_lv_hide' ng-disabled='disableHideLines')
 					span.glyphicon.glyphicon-ban-circle
 					| Hide lines
 			.detail_header_linkage_sm2		
@@ -80,10 +80,10 @@
 					.cluster_text_sm.pull-left
 						| Organize by:&nbsp;
 					.btn-group
-						button.btn.btn-default.link_button6_md(id='btn_lv_activity' type='button')
+						label.btn.btn-default.link_button6_md(id='btn_lv_activity' )
 							i.fa.fa-gears
 							| Activity type
-						button.btn.btn-default.link_button7_md.disabled(id='btn_lv_relationship' type='button')
+						label.btn.btn-default.link_button7_md.disabled(id='btn_lv_relationship' )
 							span.glyphicon.glyphicon-link
 							| Relationship type&nbsp;
 			// end detail header	

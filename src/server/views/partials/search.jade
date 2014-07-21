@@ -55,9 +55,11 @@
 							span.sr-only Toggle Dropdown
 						ul.dropdown-menu(role='menu' id='sortMenu')
 							li
-								a(href='' ng-click='setSortValue("labels")') Type
+								a(href='' ng-click='setSortValue("name")') Name
 							li
-								a(href='' ng-click='setSortValue("status")') Status
+								a(href='' ng-click='setSortValue("labels")') Resource Type
+							li
+								a(href='' ng-click='setSortValue("status")') Operational Status
 			span.visible-md
 				.search_header
 					.search_text
@@ -79,9 +81,11 @@
 							span.sr-only Toggle Dropdown
 						ul.dropdown-menu(role='menu')
 							li
-								a(href='' ng-click='setSortValue("labels")') Type
+								a(href='' ng-click='setSortValue("name")') Name
 							li
-								a(href='' ng-click='setSortValue("status")') Status
+								a(href='' ng-click='setSortValue("labels")') Resource Type
+							li
+								a(href='' ng-click='setSortValue("status")') Operational Status
 			span.visible-sm
 				.search_header_sm
 					.search_text
@@ -97,19 +101,17 @@
 						span.search_intro.totally_sm Total Results: {{labelCounts.Total}}
 					// Split button
 					.btn-group.sortby_sm
-						button.btn.btn-default(type='button') Sort by
+						button.btn.btn-default(type='button') Sort by...
 						button.btn.btn-default.dropdown-toggle(type='button', data-toggle='dropdown')
 							span.caret
 							span.sr-only Toggle Dropdown
 						ul.dropdown-menu(role='menu')
 							li
-									a(href='') COMING SOON...
+								a(href='' ng-click='setSortValue("name")') Name
 							li
-								a(href='') Resource
+								a(href='' ng-click='setSortValue("labels")') Resource Type
 							li
-								a(href='') Date
-							li
-								a(href='') Status
+								a(href='' ng-click='setSortValue("status")') Operational Status
 			// end search header
 			.row
 				// nested row
@@ -277,7 +279,7 @@
 				// end col specs
 				.col-lg-9.col-md-8.col-sm-8
 					.sub_block(ng-show='!hasSearchValue')
-						img(src='img/search_empty_bg.png' alt='Please enter a search term above' class='img-responsive search_empty')								
+						img(src='img/search_empty_bg.png' alt='Please enter a search term above' class='img-responsive search_empty')							
 						//.page_controls
 						//	| Page controls (for multiple pages of results) to go here
 					// end sub block

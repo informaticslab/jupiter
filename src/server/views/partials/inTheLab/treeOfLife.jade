@@ -40,7 +40,7 @@
 							| Universal Viewer: Ordered by Activity Type
 					.share_button_linkage
 						//These lines, 173 - 187, were added 
-						//Single button 
+						//Single button
 						.btn-group
 							button.btn.btn-default.dropdown-toggle(type='button', data-toggle='dropdown')
 								span.glyphicon.glyphicon-share
@@ -48,30 +48,20 @@
 								span.caret
 							ul.dropdown-menu(role='menu')
 								li
-									a(href='mailto:?subject=CDC iSurv Portal: Universal Viewer III&body={{uvBlurb}}') Email
+									a(href='mailto:?subject=CDC iSurv Portal: Universal Viewer IV&body={{uvBlurb}}') Email
 
 								li
-									a(href='' ng-click='share(["CDC iSurv Portal: Universal Viewer III: ", "#/inTheLab/inTheLabTree"])' id='fb-root') Facebook
+									a(href='' ng-click='share(["CDC iSurv Portal: Universal Viewer IV: ", "#/inTheLab/treeOfLife"])' id='fb-root') Facebook
 
 								li
-									a(target='_blank' href='http://twitter.com/home?status=CDC iSurv Portal: Universal Viewer III:{{uvBlurb}}') Twitter
+									a(target='_blank' href='http://twitter.com/home?status=CDC iSurv Portal: Universal Viewer IV:{{uvBlurb}}') Twitter
 						//end added lines 
 			// end detail header
 			.top_block2
 				img(src='img/ajax-loader.gif', alt='Content is Loading', ng-show='true', id='loadingImg')
-				div#tooltip
-					P
-						strong Name: &nbsp;&nbsp;
-						stat_label(id='name')
-					P
-						strong Type: &nbsp;&nbsp;
-						stat_label(id='type')
-					P
-						strong Relationship # &nbsp;&nbsp;
-						stat_label(id='relations')
-				.block_tree(id='blocktree')
+				.block_beehive(id='visualization')
 					.vertical_spacing1
-						script(type="text/javascript", src="/apollo/app/d3/d3-treemap.js")
+						script(type="text/javascript", src="/apollo/app/foamtree/foamtree-treeOfLife.js")
 				// end block_edge
 			span.visible-lg.visible-md
 					.legend

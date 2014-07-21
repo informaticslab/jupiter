@@ -3,6 +3,12 @@ Apollo
 
 Integrated Surveillance Portal
 
+# Quick setup guide
+* Install and run latest [Neo4J](http://www.neo4j.org/download)
+* Run the import.txt from [apollo_root]/data/ according to the import_instructions
+* Install node.js
+* Navigate to [apollo_root]/src/ and run 'npm install'
+* Then run 'node app.js' from [apollo_root]/src/
 
 # Requirements
 * JQuery 1.10.2 compatible browser (Internet Explorer 8+, Firefox, Opera, Chrome)

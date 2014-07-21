@@ -382,7 +382,7 @@ exports.getNodesForLinkageViewer = function(req, res) {
     'r.relationshipDescription as relDesc, ',
     'labels(x) as childLabels, ',
     'startNode(r).id as startNode, ',
-    'x.name as childName order by childLabels[0]'
+    'x.name as childName order by childName, childLabels[0]'
     ].join('\n');
     var params = {
         nodeId: req.params.id
@@ -437,39 +437,103 @@ exports.getNodesForLinkageViewer = function(req, res) {
                     "label":nodeLabel
                 }
             ]
+
+            var tokennodes=[req.params.id]
             //console.log(nodes);
             var links = [];
+            var xi=0;
             for (var i=0;i<allRelations.length;i++)
             { 
-                nodes.push({
+                
+                var tokennodeid=allChildIds[i];
+                //console.log("tokennodeid",tokennodeid);
+                
+                //node=JSON.parse(node);
+                //found=-1;
+                var found = false;
+
+                tokennodes.forEach(function(d){
+                    if(tokennodeid==d)
+                    {
+                        //console.log(tokennodeid+" tokennodeid found in d.id "+d);
+                        found=true
+                    }
+
+                });
+
+
+
+                //console.log(found,node);
+                //console.log(nodes);
+                if (!found) {
+                    // Element was found, remove it.
+                    
+                    tokennodes.push(tokennodeid);
+                   
+                   nodes.push({
                     "name":allChildNames[i],
                     "id":allChildIds[i],
                     "label":allLabels[i]
-                });
-                if(relStartNode[i] == allChildIds[i])
-                {
-                    links.push({
-                        "source": i+1,
-                        "target": 0,
-                        "type":allRelations[i],
-                        "description":allRelDesc[i]
-                    })
+                    });
+
+
+                   if(relStartNode[i] == allChildIds[i])
+                    {
+                        links.push({
+                            "source": xi+1,
+                            "target": 0,
+                            "type":allRelations[i],
+                            "description":allRelDesc[i]
+                        })
+                    }
+                    else
+                    {
+                        links.push({
+                            "source": 0,
+                            "target": xi+1,
+                            "type":allRelations[i],
+                            "description":allRelDesc[i]
+                        })
+                    }
+                   //console.log("!found therefore pushing",nodes);
+                   xi++;
+                } else {
+
+                    if(relStartNode[i] == allChildIds[i])
+                    {
+                        links.push({
+                            "source": xi,
+                            "target": 0,
+                            "type":allRelations[i],
+                            "description":allRelDesc[i]
+                        })
+                    }
+                    else
+                    {
+                        links.push({
+                            "source": 0,
+                            "target": xi,
+                            "type":allRelations[i],
+                            "description":allRelDesc[i]
+                        })
+                    }
+                    // Element was not found, add it.
+                   // console.log("Not found");
                 }
-                else
-                {
-                    links.push({
-                        "source": 0,
-                        "target": i+1,
-                        "type":allRelations[i],
-                        "description":allRelDesc[i]
-                    })
-                }
+
+
+                /*nodes.push({
+                    "name":allChildNames[i],
+                    "id":allChildIds[i],
+                    "label":allLabels[i]
+                });*/
+                
             }
             viewerJson = {
                 "nodes": nodes,
                 "links": links
                         }
-            console.log(viewerJson);
+            //console.log(viewerJson);
             res.send(viewerJson);
             }
             else
@@ -658,15 +722,19 @@ exports.getAdvancedSearchData = function(req, res) {
 
         }
         if (hopsarr[i] == 2) {
-            query=query+query2+" union ";
+            //query=query+query2+" union ";
+            query=query1+" union "+query2+" union ";
 
         }
         if (hopsarr[i] == 3) {
 
-            query=query+query3+" union ";
+            //query=query+query3+" union ";
+            query=query1+" union "+query2+" union "+query3+" union ";
+
         }
         if (hopsarr[i] == 4) {
-            query=query+query4+" union ";
+            //query=query+query4+" union ";
+            query=query1+" union "+query2+" union "+query3+" union "+query4+" union ";
 
         }
     }
@@ -760,6 +828,7 @@ query = query.substring(0, lastIndex);
 
                     } else {
 
+                        /*
                         if (hops == 3) {
                             if (dnodes.length == 4) {
                                 for (var i = 0; i < dnodes.length - 1; i++) {
@@ -783,8 +852,8 @@ query = query.substring(0, lastIndex);
                                 }
 
                             }
-
-                        } else {
+                            */
+                        //} else {
                             for (var i = 0; i < dnodes.length - 1; i++) {
 
                                 //console.log("1--",dnodes[i]);
@@ -804,7 +873,7 @@ query = query.substring(0, lastIndex);
                                 //console.log("nodesA",nodesA[i]);
 
                             }
-                        }
+                        //}
 
 
 
@@ -970,7 +1039,7 @@ query = query.substring(0, lastIndex);
                     }
 
 
-                    if (nodes.length > 40) {
+                    if (nodes.length > 50) {
 
                         res.send(413, "Too many nodes returned");
                     } else {

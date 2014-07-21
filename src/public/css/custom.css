@@ -403,7 +403,9 @@ li.faq {padding-bottom:.5em;}
 .block_linkage {margin-top:.2em; text-align:center;  min-height:400px; padding:0.2em;}
 
 .block_edge {margin-top:.2em; text-align:center;  min-height:400px; padding:0.2em;}
-.block_tree {font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; margin: auto; position: relative; width: 1280px; height: 600px;}
+/*.block_tree {font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; margin: auto; position: relative; width: 1280px; height: 600px;}*/
+/*.block_tree {margin-top:.2em; text-align:center;  min-height:400px; height:600px; width:1200;}*/
+.block_beehive {margin-top:.2em; text-align:center;  min-height:400px; height:600px;}
 
 .vertical_spacing {margin-top:2em;}
 
@@ -779,3 +781,5 @@ td.result_number_total {font-weight: bold; padding-top:.7em;}
 /*temporary styles for the treemap - to be reviewed by Sara */
 .stat_label {color:#50595a; font-family:arial, geneva, sans-serif; font-size:1.1em;}
 #tooltip{ margin-left: 20px;}
+.testpath{font-size:1.2em;}
+

@@ -105,6 +105,7 @@ angular.module('apolloApp')
 									.size([w, h])
 									.linkDistance(200)
 									.charge(-1850)
+									.friction(.85)
 									.on("tick", tick)
 									.start();
 
@@ -241,6 +242,12 @@ angular.module('apolloApp')
 											.duration(500)
 											.style("opacity", 0);
 									});
+
+									//for smoother node entry
+									svg.style("opacity", 1e-6)
+									  .transition()
+									    .duration(1000)
+									    .style("opacity", 1);
 							} //else if undefined or error
 
 
@@ -282,6 +289,36 @@ angular.module('apolloApp')
 
 
 								d3.selectAll(".testpath")
+								.text(function (d){
+									var relationship_label=d.type;
+									relationship_label=relationship_label.replace(/_/g, ' ');
+									relationship_label=relationship_label.toLowerCase();
+									relationship_label=relationship_label.replace(/\w\S*/, function(txt){return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();});
+
+									if (d.target.x < d.source.x) {
+
+										
+										if(d.source.id==id)
+										{
+											return "\u27F5"+relationship_label+"\u27F5";
+										}
+										else
+										{
+											return "\u27F5"+relationship_label+"\u27F5";
+										}
+									} else {
+										//return 'rotate(0)';
+										
+										if(d.source.id==id)
+										{
+											return "\u27F6"+relationship_label+"\u27F6";
+										}
+										else
+										{
+											return "\u27F6"+relationship_label+"\u27F6";
+										}
+									}
+								})
 								.html(function (d){
 									var relationship_label=d.type;
 									relationship_label=relationship_label.replace(/_/g, ' ');

@@ -382,7 +382,7 @@ exports.getNodesForLinkageViewer = function(req, res) {
     'r.relationshipDescription as relDesc, ',
     'labels(x) as childLabels, ',
     'startNode(r).id as startNode, ',
-    'x.name as childName order by childLabels[0]'
+    'x.name as childName order by childName, childLabels[0]'
     ].join('\n');
     var params = {
         nodeId: req.params.id
@@ -441,7 +441,7 @@ exports.getNodesForLinkageViewer = function(req, res) {
             var tokennodes=[req.params.id]
             //console.log(nodes);
             var links = [];
-            var xi=0
+            var xi=0;
             for (var i=0;i<allRelations.length;i++)
             { 
                 
@@ -475,9 +475,48 @@ exports.getNodesForLinkageViewer = function(req, res) {
                     "id":allChildIds[i],
                     "label":allLabels[i]
                     });
+
+
+                   if(relStartNode[i] == allChildIds[i])
+                    {
+                        links.push({
+                            "source": xi+1,
+                            "target": 0,
+                            "type":allRelations[i],
+                            "description":allRelDesc[i]
+                        })
+                    }
+                    else
+                    {
+                        links.push({
+                            "source": 0,
+                            "target": xi+1,
+                            "type":allRelations[i],
+                            "description":allRelDesc[i]
+                        })
+                    }
                    //console.log("!found therefore pushing",nodes);
                    xi++;
                 } else {
+
+                    if(relStartNode[i] == allChildIds[i])
+                    {
+                        links.push({
+                            "source": xi,
+                            "target": 0,
+                            "type":allRelations[i],
+                            "description":allRelDesc[i]
+                        })
+                    }
+                    else
+                    {
+                        links.push({
+                            "source": 0,
+                            "target": xi,
+                            "type":allRelations[i],
+                            "description":allRelDesc[i]
+                        })
+                    }
                     // Element was not found, add it.
                    // console.log("Not found");
                 }
@@ -488,24 +527,7 @@ exports.getNodesForLinkageViewer = function(req, res) {
                     "id":allChildIds[i],
                     "label":allLabels[i]
                 });*/
-                if(relStartNode[i] == allChildIds[i])
-                {
-                    links.push({
-                        "source": xi,
-                        "target": 0,
-                        "type":allRelations[i],
-                        "description":allRelDesc[i]
-                    })
-                }
-                else
-                {
-                    links.push({
-                        "source": 0,
-                        "target": xi,
-                        "type":allRelations[i],
-                        "description":allRelDesc[i]
-                    })
-                }
+                
             }
             viewerJson = {
                 "nodes": nodes,

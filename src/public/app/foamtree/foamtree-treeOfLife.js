@@ -79,6 +79,7 @@ d3.json("/apollo/api/lab/relations", function(error, relations){
               var tmpObj = {};
               tmpObj.weight = tmpArr.length;
               tmpObj.label = node.name + ' ('+tmpObj.weight+')';
+              tmpObj.color = groupColor(node.labels[0]);
 
               tmpObj.groups = [];
               tmpArr.forEach(function(d){
@@ -97,6 +98,7 @@ d3.json("/apollo/api/lab/relations", function(error, relations){
               var tmpObj = {};
               tmpObj.weight = tmpArr.length;
               tmpObj.label = node.name + ' ('+tmpObj.weight+')';
+              tmpObj.color = groupColor(node.labels[0]);
 
               tmpObj.groups = [];
               tmpArr.forEach(function(d){
@@ -115,6 +117,7 @@ d3.json("/apollo/api/lab/relations", function(error, relations){
               var tmpObj = {};
               tmpObj.weight = tmpArr.length;
               tmpObj.label = node.name + ' ('+tmpObj.weight+')';
+              tmpObj.color = groupColor(node.labels[0]);
 
               tmpObj.groups = [];
               tmpArr.forEach(function(d){
@@ -133,6 +136,7 @@ d3.json("/apollo/api/lab/relations", function(error, relations){
               var tmpObj = {};
               tmpObj.weight = tmpArr.length;
               tmpObj.label = node.name + ' ('+tmpObj.weight+')';
+              tmpObj.color = groupColor(node.labels[0]);
 
               tmpObj.groups = [];
               tmpArr.forEach(function(d){
@@ -151,6 +155,7 @@ d3.json("/apollo/api/lab/relations", function(error, relations){
               var tmpObj = {};
               tmpObj.weight = tmpArr.length;
               tmpObj.label = node.name + ' ('+tmpObj.weight+')';
+              tmpObj.color = groupColor(node.labels[0]);
 
               tmpObj.groups = [];
               tmpArr.forEach(function(d){
@@ -169,6 +174,7 @@ d3.json("/apollo/api/lab/relations", function(error, relations){
               var tmpObj = {};
               tmpObj.weight = tmpArr.length;
               tmpObj.label = node.name + ' ('+tmpObj.weight+')';
+              tmpObj.color = groupColor(node.labels[0]);
 
               tmpObj.groups = [];
               tmpArr.forEach(function(d){
@@ -187,6 +193,7 @@ d3.json("/apollo/api/lab/relations", function(error, relations){
               var tmpObj = {};
               tmpObj.weight = tmpArr.length;
               tmpObj.label = node.name + ' ('+tmpObj.weight+')';
+              tmpObj.color = groupColor(node.labels[0]);
 
               tmpObj.groups = [];
               tmpArr.forEach(function(d){
@@ -205,6 +212,7 @@ d3.json("/apollo/api/lab/relations", function(error, relations){
               var tmpObj = {};
               tmpObj.weight = tmpArr.length;
               tmpObj.label = node.name + ' ('+tmpObj.weight+')';
+              tmpObj.color = groupColor(node.labels[0]);
 
               tmpObj.groups = [];
               tmpArr.forEach(function(d){
@@ -223,6 +231,7 @@ d3.json("/apollo/api/lab/relations", function(error, relations){
               var tmpObj = {};
               tmpObj.weight = tmpArr.length;
               tmpObj.label = node.name + ' ('+tmpObj.weight+')';
+              tmpObj.color = groupColor(node.labels[0]);
 
               tmpObj.groups = [];
               tmpArr.forEach(function(d){

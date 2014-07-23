@@ -165,6 +165,38 @@ angular.module('apolloApp')
 									.on("dblclick", dblclick)
 									.call(force.drag);
 
+									var circlecount=circle[0].length;
+									//console.log("circle count",circle,circlecount);
+
+									if(circlecount<20)
+									{
+										d3.select("svg")
+										.attr("height", 600);
+									}
+									else if(circlecount<30)
+									{
+										d3.select("svg")
+										.attr("height", 700);
+									}
+									else if(circlecount<60)
+									{
+										d3.select("svg")
+										.attr("height", 900);
+									}
+									else if(circlecount<80)
+									{
+										d3.select("svg")
+										.attr("height", 1000);
+									}
+									else
+									{
+										d3.select("svg")
+										.attr("height", 1100);
+									}
+
+									
+									h = $("svg").outerHeight();
+
 								var text = svg.append("svg:g")
 									.selectAll("g")
 									.data(json.nodes)

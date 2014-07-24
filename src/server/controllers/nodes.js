@@ -654,7 +654,7 @@ exports.getAllNodes = function(req, res) {
 
 exports.getAllRealtionsForAllNodes = function(req, res) {
 
-    var query = 'MATCH n-[r]-x where labels(x)[0]<>"Tag" return n.id as p, n.name as pname, labels(x)[0] as clabel, x.name as cname';
+    var query = 'MATCH n-[r]-x where labels(x)[0]<>"Tag" return n.id as p, n.name as pname, x.id as cid, labels(x)[0] as clabel, x.name as cname';
     var params ={};
    
     neodb.db.query(query, params, function(err, results) {

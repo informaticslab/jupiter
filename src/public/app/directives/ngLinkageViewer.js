@@ -881,6 +881,8 @@ angular.module('apolloApp')
 						var split = url.split('/');
 						var id = split[split.length - 1];
 
+						//var nodename=
+
 						var rootnodelabel = "";
 						var relations = null;
 
@@ -892,76 +894,15 @@ angular.module('apolloApp')
 							else{
 							  	relations = relationsJson;
 
-						d3.json("/apollo/api/node/viewer/" + id, function(error, json) {
+							 //  	//Append the relations to each node
+								// _.each(json.nodes, function(node){
+								// 	var tmpArr = _.where(relations, {p: node.id});
+								// 	node.relationshipCount = tmpArr.length;
+								// });
 
-							var togglehidelinks = true;
-							var togglefixnodes = true;
-							//var w = 1000,
-							var w = $("div.block_linkage").width();
-							var h = 900;
-							var r = 10;
-							var rcent = 15; //radius of node circle
+								// console.log("The node data is: "+ JSON.stringify(json.nodes));
 
-							var circlecount=json.nodes.length;
-							//console.log("circle count",circle,circlecount);
-
-							if(circlecount<20)
-							{
-								h=600;
-							}
-							else if(circlecount<30)
-							{
-								h=700;
-							}
-							else if(circlecount<60)
-							{
-								h=900;
-							}
-							else if(circlecount<80)
-							{
-								h=1000;
-							}
-							else
-							{
-								h=1100;
-							}
-
-
-
-							var svg = d3.select(".block_linkage").append("svg:svg")
-								.attr("width", w)
-								.attr("height", h);
-
-
-							d3.select(window).on('resize', svgresize);
-
-							if (json == undefined | error) {
-
-								var nodename = "";
-								d3.text("/apollo/api/node/name/" + id, function(error, data) {
-
-									nodename = data;
-
-									if (nodename == "Not Found") {
-										var msg = "No node found for ID " + id;
-										var xcoord = (w / 2) - (msg.length * 9 / 2);
-
-										var errormsg = svg.append("text")
-											.text(msg)
-											.attr("class", "linkageerrormsg")
-											.attr("x", xcoord)
-											.attr("y", h / 6);
-
-									} else {
-										var msg = nodename + " has no relationships with other entities.";
-										var xcoord = (w / 2) - (msg.length * 9 / 2);
-
-										var errormsg = svg.append("text")
-											.text(msg)
-											.attr("class", "linkageerrormsg")
-											.attr("x", xcoord)
-											.attr("y", h / 6);
-
+								// TEST
 								d3.json("/apollo/api/node/viewer/" + id, function(error, json) {
 
 									//Append the relations to each node

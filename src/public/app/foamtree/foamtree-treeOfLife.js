@@ -282,7 +282,7 @@ else{
 
           }//end else 
           
-          document.getElementById('loadingImg').style.display = 'none'; 
+          // document.getElementById('loadingImg').style.display = 'none'; 
 
           var foamtree = new CarrotSearchFoamTree({
             id: "visualization",
@@ -298,7 +298,9 @@ else{
             rolloutDuration: 0,
             pullbackDuration: 0
             
-          }); 
+          });
+
+          document.getElementById('loadingImg').style.display = 'none';  
     });
   }
 

@@ -116,18 +116,18 @@
 									| visualization known as a 
 									em TreeMap. 
 									| Because of the large amount of data displayed on the screen, this tool does run a bit slowly on laptops and desktops, and though it is able to run on tablet devices, its performance needs improvement.
-							//- .visual_section
-							//- 	.vertical_spacing_lesser
-							//- 	img.pull-left.lab_icon(src='img/treemap.png', alt='Visualization beehive')
-							//- 	.visual_section_text
-							//- 		a.bold_link(ng-click='goToTop()' href="#/inTheLab/treeOfLife", id='btnDetails') Universal Viewer IV: Beehive
-							//- 		br
-							//- 		.vertical_spacing_lesser
-							//- 		| This tool, called the 
-							//- 		em Beehive Viewer I
-							//- 		| , provides a visualization of the entire database.
-							//- 		| Because of the large amount of data displayed on the screen, this tool does run a bit slowly on laptops and desktops, and though it is able to run on tablet devices, its performance needs improvement.
-
+							.visual_section
+								.vertical_spacing_lesser
+								img.pull-left.lab_icon(src='img/FoamTreeIcon.png', alt='Visualization Voronoi Treemap')
+								.visual_section_text
+									a.bold_link(ng-click='goToTop()' href="#/inTheLab/treeOfLife", id='btnDetails') Universal Viewer IV: Voronoi Treemap
+									br
+									.vertical_spacing_lesser
+									| This tool, called the 
+									em Voronoi Treemap Viewer I
+									| , provides a visualization of the entire database using the novel JavaScript treemap visualization tool, FoamTree &nbsp;
+									a(href='http://get.carrotsearch.com/foamtree/demo/') ( http://get.carrotsearch.com/foamtree/demo/ ). &nbsp;
+									| In mathematics, a Voronoi diagram is a way of dividing space into a number of regions.  Because of the large amount of data displayed on the screen, this tool does run a bit slowly on laptops and desktops, and though it is able to run on tablet devices, its performance needs improvement.
 							.vertical_spacing_more
 	.div(ng-class='getSidebarWidth()')
 		.hx_side(ng-show='!showSidebar' ng-click='toggleSidebar()')

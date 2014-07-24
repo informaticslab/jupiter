@@ -13,5 +13,4 @@ angular.module('apolloApp').controller('inTheLabCtrl', function($scope, $routePa
     }
 
     $scope.uvBlurb = encodeURIComponent($location.absUrl());
-
 });

@@ -375,15 +375,27 @@ exports.searchNodesByString = function(req, res) {
 };
 
 exports.getNodesForLinkageViewer = function(req, res) {
-    var query = ['MATCH n-[r]-x where n.id={nodeId} ',
+    // var query = ['MATCH n-[r]-x where n.id={nodeId} ',
+    // 'return n.id as nodeId, labels(n) as nodeLabels, ',
+    // 'n.name as nodeNames, ',
+    // 'id(r) as relId,type(r) as relType, x.id as childId, ', 
+    // 'r.relationshipDescription as relDesc, ',
+    // 'labels(x) as childLabels, ',
+    // 'startNode(r).id as startNode, ',
+    // 'x.name as childName order by childName, childLabels[0]'
+    // ].join('\n');
+
+    var query = ['MATCH n-[r]-x-[r2]-y where n.id={nodeId} ',
+    'with n, r, x, type(r2) as rel2Type',
     'return n.id as nodeId, labels(n) as nodeLabels, ',
     'n.name as nodeNames, ',
     'id(r) as relId,type(r) as relType, x.id as childId, ', 
     'r.relationshipDescription as relDesc, ',
     'labels(x) as childLabels, ',
     'startNode(r).id as startNode, ',
-    'x.name as childName order by childName, childLabels[0]'
+    'x.name as childName , count(rel2Type) as rel2Count order by childName, childLabels[0]'
     ].join('\n');
+
     var params = {
         nodeId: req.params.id
     };
@@ -429,6 +441,10 @@ exports.getNodesForLinkageViewer = function(req, res) {
             var relStartNode = _.map(r, function(i) {
                 return i.startNode
             });
+            var relationsCount = _.map(r, function(i) {
+                return i.rel2Count
+            });
+
             //cast root node
             var nodes = [
                 {
@@ -473,7 +489,8 @@ exports.getNodesForLinkageViewer = function(req, res) {
                    nodes.push({
                     "name":allChildNames[i],
                     "id":allChildIds[i],
-                    "label":allLabels[i]
+                    "label":allLabels[i],
+                    "relationsCount":relationsCount[i]
                     });
 
 

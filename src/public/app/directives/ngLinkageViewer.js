@@ -825,7 +825,32 @@ angular.module('apolloApp')
 								//.style("fill", "#8D8D91");
 
 
+								d3.selectAll(".path_label").transition()
+							    .attr("transform","translate(0,0) rotate(0)")
+							    .duration(000)
+							    .delay(0)
+  								; 
 
+  								d3.selectAll(".path_label").transition()
+							    .attr("transform",function(d){
+
+							    	if (d.target.x < d.source.x) {
+
+									midx = (d.source.x + d.target.x) / 2;
+									midy = (d.source.y + d.target.y) / 2;
+									console.log("true",d,d.source.name);
+									return 'rotate(180 ' + midx + ' ' + midy + ') ';
+									//return ' rotate(180)';
+								} 
+								else {
+
+										console.log("false",d,d.source.name);
+										return ' rotate(0)';
+								}
+							    })
+							    .duration(000)
+							    .delay(1000)
+  								; 
 								//hidelinks("hide");
 								locknodes("lock");
 

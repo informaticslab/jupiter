@@ -385,15 +385,15 @@ exports.getNodesForLinkageViewer = function(req, res) {
     // 'x.name as childName order by childName, childLabels[0]'
     // ].join('\n');
 
-    var query = ['MATCH n-[r]-x-[r2]-y where n.id={nodeId} ',
-    'with n, r, x, type(r2) as rel2Type',
+    var query = ['OPTIONAL MATCH n-[r]-x-[*0..1]-y where n.id={nodeId} ',
+    'with n, r, x, y',
     'return n.id as nodeId, labels(n) as nodeLabels, ',
     'n.name as nodeNames, ',
     'id(r) as relId,type(r) as relType, x.id as childId, ', 
     'r.relationshipDescription as relDesc, ',
     'labels(x) as childLabels, ',
     'startNode(r).id as startNode, ',
-    'x.name as childName , count(rel2Type) as rel2Count order by childName, childLabels[0]'
+    'x.name as childName , count(y) as rel2Count order by childName, childLabels[0]'
     ].join('\n');
 
     var params = {
@@ -490,7 +490,7 @@ exports.getNodesForLinkageViewer = function(req, res) {
                     "name":allChildNames[i],
                     "id":allChildIds[i],
                     "label":allLabels[i],
-                    "relationsCount":relationsCount[i]+1
+                    "relationsCount":relationsCount[i]
                     });
 
 

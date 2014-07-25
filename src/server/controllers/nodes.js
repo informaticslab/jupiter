@@ -490,7 +490,7 @@ exports.getNodesForLinkageViewer = function(req, res) {
                     "name":allChildNames[i],
                     "id":allChildIds[i],
                     "label":allLabels[i],
-                    "relationsCount":relationsCount[i]
+                    "relationsCount":relationsCount[i]+1
                     });
 
 

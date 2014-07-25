@@ -329,6 +329,30 @@ angular.module('apolloApp')
 							scope.showTag = false;
 							//error = false;
 
+							var circlecount=json.nodes.length;
+							//console.log("circle count",circle,circlecount);
+
+							if(circlecount<20)
+							{
+								h=600;
+							}
+							else if(circlecount<30)
+							{
+								h=700;
+							}
+							else if(circlecount<60)
+							{
+								h=900;
+							}
+							else if(circlecount<80)
+							{
+								h=1000;
+							}
+							else
+							{
+								h=1100;
+							}
+
 
 							//d3.select("svg").attr("width", w).attr("height", h);
 							//console.log("ww", w);

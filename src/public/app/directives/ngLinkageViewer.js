@@ -53,6 +53,32 @@ angular.module('apolloApp')
 							var r = 10;
 							var rcent = 15; //radius of node circle
 
+							var circlecount=json.nodes.length;
+							//console.log("circle count",circle,circlecount);
+
+							if(circlecount<20)
+							{
+								h=600;
+							}
+							else if(circlecount<30)
+							{
+								h=700;
+							}
+							else if(circlecount<60)
+							{
+								h=900;
+							}
+							else if(circlecount<80)
+							{
+								h=1000;
+							}
+							else
+							{
+								h=1100;
+							}
+
+
+
 							var svg = d3.select(".block_linkage").append("svg:svg")
 								.attr("width", w)
 								.attr("height", h);
@@ -187,7 +213,15 @@ angular.module('apolloApp')
 									.attr("x", 25)
 									.attr("y", ".31em")
 									.text(function(d) {
-										return d.name + " (" + d.label + ")";
+										if(d.id==id)
+										{
+											return d.name + " (" + d.label + ")";
+										}
+										else
+										{
+											return d.name + " (" + d.label + ") ("+d.relationsCount+")";
+										}
+										
 									})
 									.style("font-weight", function(d) {
 										if (d.index == 0) {
@@ -791,7 +825,32 @@ angular.module('apolloApp')
 								//.style("fill", "#8D8D91");
 
 
+								d3.selectAll(".path_label").transition()
+							    .attr("transform","translate(0,0) rotate(0)")
+							    .duration(000)
+							    .delay(0)
+  								; 
 
+  								d3.selectAll(".path_label").transition()
+							    .attr("transform",function(d){
+
+							    	if (d.target.x < d.source.x) {
+
+									midx = (d.source.x + d.target.x) / 2;
+									midy = (d.source.y + d.target.y) / 2;
+									console.log("true",d,d.source.name);
+									return 'rotate(180 ' + midx + ' ' + midy + ') ';
+									//return ' rotate(180)';
+								} 
+								else {
+
+										console.log("false",d,d.source.name);
+										return ' rotate(0)';
+								}
+							    })
+							    .duration(000)
+							    .delay(1000)
+  								; 
 								//hidelinks("hide");
 								locknodes("lock");
 

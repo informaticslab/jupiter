@@ -69,12 +69,12 @@ angular.module('apolloApp').factory('nodeAttributeDictionary', function() {
                         },
                         'fullNameDivision': {
                             'description': 'Full name of the Division (if applies)',
-                            'displayLabel': 'Full Name',
+                            'displayLabel': 'Division Full Name',
                             'sortIndex': '8'
                         },
                         'shortNameDivision': {
                             'description': 'Abbreviation or Acronym of the Division (if applies)',
-                            'displayLabel': 'Short Name',
+                            'displayLabel': 'Division Short Name',
                             'sortIndex': '9'
                         }
                     }

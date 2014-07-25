@@ -375,15 +375,27 @@ exports.searchNodesByString = function(req, res) {
 };
 
 exports.getNodesForLinkageViewer = function(req, res) {
-    var query = ['MATCH n-[r]-x where n.id={nodeId} ',
+    // var query = ['MATCH n-[r]-x where n.id={nodeId} ',
+    // 'return n.id as nodeId, labels(n) as nodeLabels, ',
+    // 'n.name as nodeNames, ',
+    // 'id(r) as relId,type(r) as relType, x.id as childId, ', 
+    // 'r.relationshipDescription as relDesc, ',
+    // 'labels(x) as childLabels, ',
+    // 'startNode(r).id as startNode, ',
+    // 'x.name as childName order by childName, childLabels[0]'
+    // ].join('\n');
+
+    var query = ['OPTIONAL MATCH n-[r]-x-[*0..1]-y where n.id={nodeId} ',
+    'with n, r, x, y',
     'return n.id as nodeId, labels(n) as nodeLabels, ',
     'n.name as nodeNames, ',
     'id(r) as relId,type(r) as relType, x.id as childId, ', 
     'r.relationshipDescription as relDesc, ',
     'labels(x) as childLabels, ',
     'startNode(r).id as startNode, ',
-    'x.name as childName order by childName, childLabels[0]'
+    'x.name as childName , count(y) as rel2Count order by childName, childLabels[0]'
     ].join('\n');
+
     var params = {
         nodeId: req.params.id
     };
@@ -429,6 +441,10 @@ exports.getNodesForLinkageViewer = function(req, res) {
             var relStartNode = _.map(r, function(i) {
                 return i.startNode
             });
+            var relationsCount = _.map(r, function(i) {
+                return i.rel2Count
+            });
+
             //cast root node
             var nodes = [
                 {
@@ -473,7 +489,8 @@ exports.getNodesForLinkageViewer = function(req, res) {
                    nodes.push({
                     "name":allChildNames[i],
                     "id":allChildIds[i],
-                    "label":allLabels[i]
+                    "label":allLabels[i],
+                    "relationsCount":relationsCount[i]
                     });
 
 
@@ -654,7 +671,7 @@ exports.getAllNodes = function(req, res) {
 
 exports.getAllRealtionsForAllNodes = function(req, res) {
 
-    var query = 'MATCH n-[r]-x where labels(x)[0]<>"Tag" return n.id as p, n.name as pname, labels(x)[0] as clabel, x.name as cname';
+    var query = 'MATCH n-[r]-x where labels(x)[0]<>"Tag" return n.id as p, n.name as pname, x.id as cid, labels(x)[0] as clabel, x.name as cname';
     var params ={};
    
     neodb.db.query(query, params, function(err, results) {

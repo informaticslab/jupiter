@@ -32,6 +32,5 @@ angular.module('apolloApp').controller('linkageCtrl', function($scope, $routePar
 
 
     $scope.emailBlurb = encodeURIComponent($location.absUrl());
-
-    
+  
 });

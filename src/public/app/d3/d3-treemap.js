@@ -1,13 +1,11 @@
-var margin = {top: 20, right: 20, bottom: 0, left: 20},
-    // width = 960 - margin.left - margin.right,
-    // height = 500 - margin.top - margin.bottom;
-    // width = 1280 - margin.left - margin.right,
-    // height = 600 - margin.top - margin.bottom;
+var margin = {top: 0, right: 20, bottom: 20, left: 20},
     // width = 1200 - margin.left - margin.right,
-    width = $('#blocktree').width() - margin.left - margin.right -140,
+    // width = $('#blocktree').width() - margin.left - margin.right -160,
+    width = $('#blocktree').outerWidth() - margin.left - margin.right -200,
     height = 600 - margin.top - margin.bottom;
 
-console.log("The width of the tremap is :: "+$('#blocktree').width());
+// console.log("The width is :: "+$(".block_tree").outerWidth());
+console.log("The width is :: "+$("#blocktree").outerWidth());
 
 var treemap = d3.layout.treemap()
     .size([width, height])
@@ -17,8 +15,8 @@ var treemap = d3.layout.treemap()
 var div = d3.select(".block_tree").append("treemap")
     .style("position", "relative")
     // .style("width", (width + margin.left + margin.right) + "px")
-    .style("display", "block")
     .style("width", width + "px")
+    .style("display", "block")
     .style("height", (height + margin.top + margin.bottom) + "px")
     .style("left", margin.left + "px")
     .style("right", margin.right + "px")
@@ -194,7 +192,6 @@ d3.json("/apollo/api/lab/relations", function(error, relations){
               
               toolObj.children.push(tmpObj);
             }
-
             document.getElementById('loadingImg').style.display = 'none';
           });
 

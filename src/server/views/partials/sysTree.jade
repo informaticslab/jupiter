@@ -39,26 +39,26 @@
 					.detail_header_text_contain_lg
 						.detail_header_text
 							| Advanced Visualization X: Oversight Tree Viewer
-				.search_header
-					.search_text
-						| Search
-						span.search_intro   |  Enter a search term:
-					.input-group.search_term
-						input.form-control(type='text', typeahead-on-select="itemSelected($item, $model, $label)", typeahead-min-length='3', typeahead="node.name for node in getNodes($viewValue)", ng-model='queryString')
-					.share_button_linkage
-						.btn-group
-							button.btn.btn-default.dropdown-toggle(type='button', data-toggle='dropdown')
-								span.glyphicon.glyphicon-share
-								| &nbsp;Share &nbsp;&nbsp;
-								span.caret
-							ul.dropdown-menu(role='menu')
-								li
-									a(href='') Email
-								li
-									a(href='') Facebook
-								li
-									a(href='') Twitter
-						//end added lines 
+			.search_header
+				.search_text
+					| Search
+					span.search_intro   |  Enter a search term:
+				.input-group.search_term
+					input.form-control(type='text', typeahead-on-select="itemSelected($item, $model, $label)", typeahead-min-length='3', typeahead="node.name for node in getNodes($viewValue)", ng-model='queryString')
+				.share_button_linkage
+					.btn-group
+						button.btn.btn-default.dropdown-toggle(type='button', data-toggle='dropdown')
+							span.glyphicon.glyphicon-share
+							| &nbsp;Share &nbsp;&nbsp;
+							span.caret
+						ul.dropdown-menu(role='menu')
+							li
+								a(href='') Email
+							li
+								a(href='') Facebook
+							li
+								a(href='') Twitter
+					//end added lines 
 			// end detail header
 			.top_block2
 				.block_edge

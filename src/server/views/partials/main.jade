@@ -276,7 +276,18 @@
 								.stat_count {{statsarr['Tag']}}
 								.stat_label_sm
 									a(ng-click='goToTop()' href='#/search/label/Tag') Tags
-					//end column specs 
+					//end column specs
+					.col-lg-3.col-md-3.col-sm-3
+						span.visible-lg.visible-md
+							.stat_box
+								.stat_count 0
+								.stat_label Data Elements
+						span.visible-sm
+							.stat_box_sm
+								.stat_count 0
+								.stat_label_sm
+									| Data Elemets
+					//end column specs
 					.col-lg-3.col-md-3.col-sm-3
 						span.visible-lg.visible-md
 							.stat_box
@@ -289,6 +300,10 @@
 								.stat_label_sm
 									| connections
 					//end column specs 
+				//end nested row
+				.vertical_spacing_less
+				//nested row 
+				.row
 					//end column specs 
 					.col-lg-3.col-md-3.col-sm-3
 						span.visible-lg.visible-md
@@ -299,8 +314,8 @@
 							.stat_box_sm
 								.stat_count {{nodestotal+statsarrrel}}
 								.stat_label_sm Total Items
-					//end column specs 
-				//end nested row 
+					//end column specs
+				//end nested row
 			// end bottom_block
 		// end content block
 	// end col spec

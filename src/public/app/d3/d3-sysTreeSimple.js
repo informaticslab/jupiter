@@ -46,7 +46,7 @@ function buildTree(containerName, customOptions)
     });
 
     // size of the diagram
-    var size = { width:$(containerName).outerWidth() *1.36 - 100, height: totalNodes * 15};
+    var size = { width:$(containerName).outerWidth() +650, height: totalNodes * 15};
     var tree = d3.layout.tree()
         .sort(null)
         .size([size.height, size.width - maxLabelLength*options.fontSize])

@@ -146,7 +146,7 @@
 									div(ng-repeat='group in labelGroups(label)', ng-show='hideGroup(group)')
 										h4.orange_header {{group.heading}}
 										table.table
-											tr(ng-repeat='attribute in hiddenGroupAttributes(group)')
+											tr(ng-repeat='attribute in hiddenGroupAttributes(group) | orderBy:"sortIndex"')
 												td
 													span.cursor-help(tooltip='{{attribute.description}}', tooltip-placement='right') 
 														strong {{attribute.displayLabel}}

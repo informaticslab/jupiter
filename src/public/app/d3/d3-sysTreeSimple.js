@@ -46,7 +46,7 @@ function buildTree(containerName, customOptions)
     });
 
     // size of the diagram
-    var size = { width:$(containerName).outerWidth() *1.33 - 100, height: totalNodes * 15};
+    var size = { width:$(containerName).outerWidth() +650, height: totalNodes * 15};
     var tree = d3.layout.tree()
         .sort(null)
         .size([size.height, size.width - maxLabelLength*options.fontSize])
@@ -117,7 +117,10 @@ function buildTree(containerName, customOptions)
         .attr("text-anchor", function(d)
         {
             if(d == nodes[0])
-                {return "start"}
+                {
+                    return "start"
+                    //return d.children ? "end" : "start";
+                }
             else
             {
                 return d.children ? "end" : "start";
@@ -127,10 +130,16 @@ function buildTree(containerName, customOptions)
         {
             var gap = 2 * options.nodeRadius;
             if(d == nodes[0])
-                {return gap}
+                {return -gap -20}
             return d.children ? -gap : gap;
         })
-        .attr("dy", 3)
+        .attr("dy", function(d)
+        {
+            var hit = 3
+            if(d == nodes[0])
+                {return hit -13;}
+            return hit;
+        })
         .text(function(d)
         {
             return d.name;

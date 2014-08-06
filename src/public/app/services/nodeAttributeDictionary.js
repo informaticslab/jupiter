@@ -52,6 +52,20 @@ angular.module('apolloApp').factory('nodeAttributeDictionary', function() {
                             'displayLabel': 'Information Validated by Program',
                             'sortIndex': '4'
                         },
+                        'lastUpdatedBy': {
+                            'description': 'By whom was the information last updated?',
+                            'displayLabel': 'Information Updated By',
+                            'sortIndex': '3.1'
+                        },'informationValidatedBy': {
+                            'description': 'By whom was the information validated?',
+                            'displayLabel': 'Information Validated By',
+                            'sortIndex': '4.1'
+                        },
+                        'informationValidatedOn': {
+                            'description': 'When was the information last validated?',
+                            'displayLabel': 'Date Validated',
+                            'sortIndex': '4.2'
+                        },
                         'cdcEntity': {
                             'description': 'Is this organization a part of CDC',
                             'displayLabel': 'CDC Entity',
@@ -138,6 +152,20 @@ angular.module('apolloApp').factory('nodeAttributeDictionary', function() {
                             'description': 'Has the information in this program been validated by an appropriate program / team?',
                             'displayLabel': 'Information Validated by Program',
                             'sortIndex': '20'
+                        },
+                        'lastUpdatedBy': {
+                            'description': 'By whom was the information last updated?',
+                            'displayLabel': 'Information Updated By',
+                            'sortIndex': '19.1'
+                        },'informationValidatedBy': {
+                            'description': 'By whom was the information validated?',
+                            'displayLabel': 'Information Validated By',
+                            'sortIndex': '20.1'
+                        },
+                        'informationValidatedOn': {
+                            'description': 'When was the information last validated?',
+                            'displayLabel': 'Date Validated',
+                            'sortIndex': '20.2'
                         },
                         'fullName': {
                             'description': 'Full name of the Program',
@@ -389,6 +417,21 @@ angular.module('apolloApp').factory('nodeAttributeDictionary', function() {
                             'displayLabel': 'Information Validated by Program',
                             'sortIndex': '62'
                         },
+                        'lastUpdatedBy': {
+                            'description': 'By whom was the information last updated?',
+                            'displayLabel': 'Information Updated By',
+                            'sortIndex': '61.1'
+                        },
+                        'informationValidatedBy': {
+                            'description': 'By whom was the information validated?',
+                            'displayLabel': 'Information Validated By',
+                            'sortIndex': '62.1'
+                        },
+                        'informationValidatedOn': {
+                            'description': 'When was the information last validated?',
+                            'displayLabel': 'Date Validated',
+                            'sortIndex': '62.2'
+                        },
                         'fullName': {
                             'description': 'Full name of the surveillance system',
                             'displayLabel': 'Full Name',
@@ -639,6 +682,20 @@ angular.module('apolloApp').factory('nodeAttributeDictionary', function() {
                             'displayLabel': 'Information Validated by Program',
                             'sortIndex': '104'
                         },
+                        'lastUpdatedBy': {
+                            'description': 'By whom was the information last updated?',
+                            'displayLabel': 'Information Updated By',
+                            'sortIndex': '103.1'
+                        },'informationValidatedBy': {
+                            'description': 'By whom was the information validated?',
+                            'displayLabel': 'Information Validated By',
+                            'sortIndex': '104.1'
+                        },
+                        'informationValidatedOn': {
+                            'description': 'When was the information last validated?',
+                            'displayLabel': 'Date Validated',
+                            'sortIndex': '104.2'
+                        },
                         'fullName': {
                             'description': 'Full name of the tool.',
                             'displayLabel': 'Full Name',
@@ -888,6 +945,20 @@ angular.module('apolloApp').factory('nodeAttributeDictionary', function() {
                             'description': 'Has the information in this registry been validated by an appropriate program / team?',
                             'displayLabel': 'Information Validated by Program',
                             'sortIndex': '146'
+                        },
+                        'lastUpdatedBy': {
+                            'description': 'By whom was the information last updated?',
+                            'displayLabel': 'Information Updated By',
+                            'sortIndex': '145.1'
+                        },'informationValidatedBy': {
+                            'description': 'By whom was the information validated?',
+                            'displayLabel': 'Information Validated By',
+                            'sortIndex': '146.1'
+                        },
+                        'informationValidatedOn': {
+                            'description': 'When was the information last validated?',
+                            'displayLabel': 'Date Validated',
+                            'sortIndex': '146.2'
                         },
                         'fullName': {
                             'description': 'Full name of the registry',
@@ -1144,6 +1215,20 @@ angular.module('apolloApp').factory('nodeAttributeDictionary', function() {
                             'displayLabel': 'Information Validated by Program',
                             'sortIndex': '189'
                         },
+                        'lastUpdatedBy': {
+                            'description': 'By whom was the information last updated?',
+                            'displayLabel': 'Information Updated By',
+                            'sortIndex': '188.1'
+                        },'informationValidatedBy': {
+                            'description': 'By whom was the information validated?',
+                            'displayLabel': 'Information Validated By',
+                            'sortIndex': '189.1'
+                        },
+                        'informationValidatedOn': {
+                            'description': 'When was the information last validated?',
+                            'displayLabel': 'Date Validated',
+                            'sortIndex': '189.2'
+                        },
                         'fullName': {
                             'description': 'Full name of the heath survey',
                             'displayLabel': 'Full Name',
@@ -1394,6 +1479,20 @@ angular.module('apolloApp').factory('nodeAttributeDictionary', function() {
                             'displayLabel': 'Information Validated by Program',
                             'sortIndex': '231'
                         },
+                        'lastUpdatedBy': {
+                            'description': 'By whom was the information last updated?',
+                            'displayLabel': 'Information Updated By',
+                            'sortIndex': '230.1'
+                        },'informationValidatedBy': {
+                            'description': 'By whom was the information validated?',
+                            'displayLabel': 'Information Validated By',
+                            'sortIndex': '231.1'
+                        },
+                        'informationValidatedOn': {
+                            'description': 'When was the information last validated?',
+                            'displayLabel': 'Date Validated',
+                            'sortIndex': '231.2'
+                        },
                         'fullName': {
                             'description': 'Full name of the collaborative',
                             'displayLabel': 'Full Name',
@@ -1563,6 +1662,20 @@ angular.module('apolloApp').factory('nodeAttributeDictionary', function() {
                             'displayLabel': 'Information Validated by Program',
                             'sortIndex': '252'
                         },
+                        'lastUpdatedBy': {
+                            'description': 'By whom was the information last updated?',
+                            'displayLabel': 'Information Updated By',
+                            'sortIndex': '251.1'
+                        },'informationValidatedBy': {
+                            'description': 'By whom was the information validated?',
+                            'displayLabel': 'Information Validated By',
+                            'sortIndex': '252.1'
+                        },
+                        'informationValidatedOn': {
+                            'description': 'When was the information last validated?',
+                            'displayLabel': 'Date Validated',
+                            'sortIndex': '252.2'
+                        },
                         'fullName': {
                             'description': 'Full name of the dataset',
                             'displayLabel': 'Full Name',
@@ -1685,6 +1798,20 @@ angular.module('apolloApp').factory('nodeAttributeDictionary', function() {
                             'description': 'Has the information in this data standard been validated by an appropriate program / team?',
                             'displayLabel': 'Information Validated by Program',
                             'sortIndex': '271'
+                        },
+                        'lastUpdatedBy': {
+                            'description': 'By whom was the information last updated?',
+                            'displayLabel': 'Information Updated By',
+                            'sortIndex': '270.1'
+                        },'informationValidatedBy': {
+                            'description': 'By whom was the information validated?',
+                            'displayLabel': 'Information Validated By',
+                            'sortIndex': '271.1'
+                        },
+                        'informationValidatedOn': {
+                            'description': 'When was the information last validated?',
+                            'displayLabel': 'Date Validated',
+                            'sortIndex': '271.2'
                         },
                         'terminologyShortName': {
                             'description': '',

@@ -62,31 +62,68 @@
 			.top_block2
 				.block_edge
 					style.
-						.node {
-							cursor: pointer;
-						}
-						.node circle {
-							fill: #fff;
-							stroke: steelblue;
-							stroke-width: 1.5px;
-						}
-						circle.node.valid {
-							fill: #2dcc70;
-						}
-						circle.node.invalid {
-							fill: #3598db;
-						}
-						.node text {
-							font: 10px sans-serif;
-						}
-						.link.treelink{
+
+						//- .node {
+						//- 	cursor: pointer;
+						//- }
+						//- .node circle {
+						//- 	fill: #fff;
+						//- 	stroke: steelblue;
+						//- 	stroke-width: 1.5px;
+						//- }
+						
+						//- .node text {
+						//- 	font: 10px sans-serif;
+						//- }
+						path.link {
 							fill: none;
 							stroke: #ccc;
 							stroke-width: 1.5px;
 						}
+						.node {
+							cursor: pointer;
+						}
+						.overlay{
+							background-color:#EEE;
+						}
+						.node.circle{
+							fill: #2dcc70;
+							stroke: #2dcc70;
+							stroke-width: 1.5px;
+						}
+						//- .node circlev {
+						//- 	fill: #2dcc70;
+						//- 	stroke: #2dcc70;
+						//- 	stroke-width: 1.5px;
+						//- }
+						.node.circle.invalid{
+							fill: #3598db;
+							stroke: #3598db;
+							stroke-width: 1.5px;
+						}
+						.node text {
+							font-size:10px; 
+							font-family:sans-serif;
+						}
+						//- .link {
+						//- 	fill: none;
+						//- 	stroke: #ccc;
+						//- 	stroke-width: 1.5px;
+						//- }	
+						.templink {
+							fill: none;
+							stroke: red;
+							stroke-width: 3px;
+						}
+						.ghostCircle.show{
+							display:block;
+						}
+						.ghostCircle, .activeDrag .ghostCircle{
+							display: none;
+						}
 					.vertical_spacing1
 						div(id='tree-container')
-						script(type="text/javascript", src="/apollo/app/d3/d3-sysTreeSimple.js")
+						script(type="text/javascript", src="/apollo/app/d3/d3-sysTreeDnD.js")
 				// end block_edge
 	.div(ng-class='getSidebarWidth()')
 		.hx_side(ng-show='!showSidebar' ng-click='toggleSidebar()')

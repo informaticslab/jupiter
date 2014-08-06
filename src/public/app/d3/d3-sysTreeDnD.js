@@ -422,7 +422,23 @@ treeJSON = d3.json("/apollo/api/node/managed/"+id, function(error, treeData) {
             .text(function(d) {
                 return d.name;
             })
-            .style("fill-opacity", 0);
+            .style("fill-opacity", 0)
+            .append("a").attr("xlink:href",function(d) { return "/apollo/#/node/" + d.id; });
+
+        //     nodeGroup.append("a").attr("xlink:href",function(d) { return "/apollo/#/node/" + d.id; })
+        // .append("svg:text")
+        // .attr("text-anchor", function(d)
+        // {
+        //     if(d == nodes[0])
+        //         {
+        //             return "start"
+        //             //return d.children ? "end" : "start";
+        //         }
+        //     else
+        //     {
+        //         return d.children ? "end" : "start";
+        //     }
+        // })
 
         // phantom node to give us mouseover in a radius around it
         nodeEnter.append("circle")

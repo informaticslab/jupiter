@@ -194,7 +194,7 @@ angular.module('apolloApp').controller('searchCtrl', function($scope, $resource,
     }
 
     //sort by ...
-    $scope.selectedSortType = '';
+    $scope.selectedSortType = 'name';
     $scope.setSortValue = function(sortType){
         $scope.selectedSortType = sortType;
     }

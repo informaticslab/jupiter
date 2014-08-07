@@ -22,7 +22,7 @@ treeJSON = d3.json("/apollo/api/node/managed/"+id, function(error, treeData) {
     // var viewerWidth = $(document).width();
     // var viewerHeight = $(document).height();
      var viewerWidth = $("#tree-container").width();
-    var viewerHeight = 800;
+    var viewerHeight = 700;
     //alert("viewerHeight: " + viewerHeight + ", viewerWidth: " + viewerWidth);
 
     var tree = d3.layout.tree()

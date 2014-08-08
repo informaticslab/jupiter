@@ -1176,7 +1176,7 @@ exports.getManagedSystems = function(req, res) {
                         var foundChild = null;
                         for (var q = parentschildren.length-1; q>=0; q--)
                         {
-                            if(parentschildren[q].id == searchId)
+                            if(parentschildren[q].sysId == searchId)
                             {
                                 foundChild = parentschildren[q];
                                 break;

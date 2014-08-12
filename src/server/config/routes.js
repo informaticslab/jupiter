@@ -12,6 +12,7 @@ module.exports = function(app) {
     app.get('/apollo/api/node/search/label/:query', nodes.searchNodesByLabel);
     app.get('/apollo/api/node/viewer/:id', nodes.getNodesForLinkageViewer);
     app.get('/apollo/api/stats/nodes', nodes.getPortalStatisticsNodes);
+    app.get('/apollo/api/stats/nodesvalidated', nodes.getPortalStatisticsNodesValidated);
     app.get('/apollo/api/stats/relations', nodes.getPortalStatisticsRelations);
     app.get('/apollo/api/node/advancedSearch/:id', nodes.getAdvancedSearchData);
     app.get('/apollo/api/node/searchByName/:searchTerm', nodes.searchByName);

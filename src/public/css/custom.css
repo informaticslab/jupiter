@@ -784,3 +784,5 @@ td.result_number_total {font-weight: bold; padding-top:.7em;}
 .testpath{font-size:1.2em;}
 
 .faq_footnote{font-size:.85em; margin-left: 0em; margin-top:1em; }
+.donut_placeholder{margin-top:.2em; text-align:center;  padding:0.2em;}
+.donut_text{font-size:1.2em; text-anchor:middle;}

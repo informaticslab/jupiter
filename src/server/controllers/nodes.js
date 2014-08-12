@@ -128,12 +128,12 @@ exports.getNodeById = function(req, res) {
 exports.searchByName = function(req, res) {
     var searchTerm = req.params.searchTerm.toLowerCase();
     var query = 'MATCH n WHERE lower(n.name)=~".*' + searchTerm + '.*" RETURN n.id as id, n.name as name';
-    console.log(query);
+    //console.log(query);
     var params = {
         searchTerm: req.params.searchTerm
     };
     neodb.db.query(query, params, function(err, results) {
-        console.log(results);
+        //console.log(results);
 
         if (err) {
             console.error('Error retreiving node from database:', err);
@@ -297,7 +297,7 @@ var compileSearchResults = function(req, res, err, results){
                 nodedataarr.sort(sortFunction);
                 returnable.nodedataarr = nodedataarr;
                 returnable.nodeLabelCounts = nodeLabelCounts;              
-                console.log(returnable);
+                //console.log(returnable);
                 res.json(returnable);
         }
         else
@@ -320,7 +320,7 @@ exports.searchNodesByLabel = function(req, res) {
         skipnum: 0,
         retNum: 500
         };
-        console.log(params);
+        //console.log(params);
 
         neodb.db.query(query, params, function(err, results) {
             compileSearchResults(req, res, err, results)
@@ -573,12 +573,36 @@ exports.getPortalStatisticsNodes = function(req, res) {
             res.send(404, 'no statistics available');
         } else {
 
+            //console.log(r);
+            res.send(r);
+            
+        }
+    });
+};
+
+
+exports.getPortalStatisticsNodesValidated = function(req, res) {
+    var query = ['MATCH n where n.informationValidated=\'No\'',
+    'return labels(n) as label, count(*) as count '
+    ].join('\n');
+    var params = {};
+
+    
+    neodb.db.query(query, params, function(err, r) {
+        if (err) {
+            console.error('Error retreiving statistics from database:', err);
+            res.send(404, 'no statistics available');
+        } else {
+
             console.log(r);
             res.send(r);
             
         }
     });
 };
+
+
+
 
 
 exports.getPortalStatisticsRelations = function(req, res) {
@@ -594,7 +618,7 @@ exports.getPortalStatisticsRelations = function(req, res) {
             res.send(404, 'no statistics available');
         } else {
 
-            console.log(r);
+            //console.log(r);
             res.send(r);
             
         }

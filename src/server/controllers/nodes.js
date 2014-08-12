@@ -1181,9 +1181,12 @@ exports.getManagedSystems = function(req, res) {
             else
             {
                 //pack the parent object
+                idctr=1;
                 resultsobj= eval(results);
                 managestack.name = resultsobj[0].byName[0];
-                managestack.id = resultsobj[0].byId[0];
+                managestack.sysId = resultsobj[0].byId[0];
+                managestack.id = idctr;
+                idctr++;
                 managestack.valid = resultsobj[0].byVal[0];
                 managestack.children = [];
                 //iterate over children
@@ -1197,7 +1200,7 @@ exports.getManagedSystems = function(req, res) {
                         var foundChild = null;
                         for (var q = parentschildren.length-1; q>=0; q--)
                         {
-                            if(parentschildren[q].id == searchId)
+                            if(parentschildren[q].sysId == searchId)
                             {
                                 foundChild = parentschildren[q];
                                 break;
@@ -1207,7 +1210,9 @@ exports.getManagedSystems = function(req, res) {
                         {
                             var child = {};
                             child.name = resultsobj[k].byName[i];
-                            child.id = resultsobj[k].byId[i];
+                            child.id = idctr;
+                            idctr++;
+                            child.sysId = resultsobj[k].byId[i];
                             child.valid = resultsobj[k].byVal[i];
                             foundChild = child;
                             parentschildren.push(foundChild)

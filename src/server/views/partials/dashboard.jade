@@ -2,6 +2,47 @@
 .row
 	.div(ng-class='getContentWidth()')
 		.content_block_faq
+			span.visible-md.visible-lg
+				.subnav
+					ul.nav.nav-pills
+						li
+							a(href='#/quickGuide/') Quick Guide
+						li
+							a(href='#/browse/') Browse
+						li.active
+							a(href='#/search/') Search
+						li
+							a(href='#/advancedSearch/') Relationship Explorer
+						li
+							a(href='' class='inactive') Favorites
+						li
+							a(href='#/inTheLab/') In the Lab
+				// end subnav
+			span.visible-sm
+				.subnav_sm
+					ul.nav.nav-pills
+						li
+							a(href='#/quickGuide/') Quick Guide
+						li
+							a(href='#/browse/') Browse
+						li.active
+							a(href='#/search/') Search
+						li
+							a(href='#/advancedSearch/') Relationship Explorer
+						li
+							a(href='' class='inactive') Favorites
+						li
+							a(href='#/inTheLab/') In the Lab
+				// end subnav
+			//- a.btn.btn-custom(onclick='goBack()') Back
+			.nav_split
+				.btn-group.btn-group-md.btn-group-justified
+					.btn-group
+						a.btn.btn-custom(href="#/dashboard", id='btnDetails') Details
+					.btn-group
+						a.btn.btn-default(href='#/linkage/{{nodeId}}', id='btnLinkageViewer') Summary
+				// end button group
+			// end nav_split
 			.top_block_faq
 				h4.orange_main_faq
 					span.glyphicon.glyphicon-comment.icon-flipped.faq_icon
@@ -9,154 +50,186 @@
 				.vertical_spacing_browse
 				.vertical_spacing_lesser
 				.row
-					.col-lg-3.col-md-3.col-sm-3
-						span.visible-lg.visible-md
-							.stat_box
-								.donut_placeholder(id="donut_SurveillanceSystem" ng-donut-chart attribute-percent="{{totvalidatearr['SurveillanceSystem']}}")
-								.stat_count {{statsarr['SurveillanceSystem']}}
-								// ({{totvalidatearr['SurveillanceSystem']}}%)
-								.stat_label
-									a(ng-click='goToTop()' href='#/search/label/SurveillanceSystem') Surveillance Systems
-						span.visible-sm
-							.stat_box_sm
-								//.donut_placeholder(id="donut_SurveillanceSystem" ng-donut-chart attribute-percent="{{totvalidatearr['SurveillanceSystem']}}")
-								.stat_count {{statsarr['SurveillanceSystem']}} ({{totvalidatearr['SurveillanceSystem']}}%)
-								.stat_label_sm
-									a(ng-click='goToTop()' href='#/search/label/SurveillanceSystem') Surveillance Systems	
-					//end column specs 
-					.col-lg-3.col-md-3.col-sm-3
-						span.visible-lg.visible-md
-							.stat_box
-								.donut_placeholder(id="donut_Program" ng-donut-chart attribute-percent="{{totvalidatearr['Program']}}")
-								.stat_count {{statsarr['Program']}}
-								// ({{totvalidatearr['Program']}}%)
-								.stat_label
-									a(ng-click='goToTop()' href='#/search/label/Program') Programs
-						span.visible-sm
-							.stat_box_sm
-								//.donut_placeholder(id="donut_Program" ng-donut-chart attribute-percent="{{totvalidatearr['Program']}}")
-								.stat_count {{statsarr['Program']}} ({{totvalidatearr['Program']}}%)
-								.stat_label_sm
-									a(ng-click='goToTop()' href='#/search/label/Program') Programs
-									
-					//end column specs 
-					.col-lg-3.col-md-3.col-sm-3
-						span.visible-lg.visible-md
-							.stat_box
-								.donut_placeholder(id="donut_Registry" ng-donut-chart attribute-percent="{{totvalidatearr['Registry']}}")
-								.stat_count {{statsarr['Registry']}}
-								// ({{totvalidatearr['Registry']}}%)
-								.stat_label
-									a(ng-click='goToTop()' href='#/search/label/Registry') Registries
-						span.visible-sm
-							.stat_box_sm
-								//.donut_placeholder(id="donut_Registry" ng-donut-chart attribute-percent="{{totvalidatearr['Registry']}}")
-								.stat_count {{statsarr['Registry']}} ({{totvalidatearr['Registry']}}%)
-								.stat_label_sm
-									a(ng-click='goToTop()' href='#/search/label/Registry') Registries			
-					//end column specs 
-					//end column specs 
-					.col-lg-3.col-md-3.col-sm-3
-						span.visible-lg.visible-md
-							.stat_box
-								.donut_placeholder(id="donut_HealthSurvey" ng-donut-chart attribute-percent="{{totvalidatearr['HealthSurvey']}}")
-								.stat_count {{statsarr['HealthSurvey']}}
-								//({{totvalidatearr['HealthSurvey']}}%)
-								.stat_label
-									a(ng-click='goToTop()' href='#/search/label/HealthSurvey') Health Surveys
-						span.visible-sm
-							.stat_box_sm
-								//.donut_placeholder(id="donut_HealthSurvey" ng-donut-chart attribute-percent="{{totvalidatearr['HealthSurvey']}}")
-								.stat_count {{statsarr['HealthSurvey']}} ({{totvalidatearr['HealthSurvey']}}%)
-								.stat_label_sm
-									a(ng-click='goToTop()' href='#/search/label/HealthSurvey') Health Surveys	
-					//end column specs 
-				//end nested row 
+					.col-lg-6.col-md-6.col-sm-6
+						.row
+							.col-lg-4.col-md-4.col-sm-4
+								label.btn.btn-default.btn_no_border(ng-click="nodetype='SurveillanceSystem'")
+										.donut_placeholder(id="donut_SurveillanceSystem" ng-donut-chart attribute-percent="{{totvalidatearr['SurveillanceSystem']}}")
+										.stat_count {{statsarr['SurveillanceSystem']}}
+										// ({{totvalidatearr['SurveillanceSystem']}}%)
+										.stat_label
+											a(ng-click='goToTop()' href='#/search/label/SurveillanceSystem') Surveillance Systems
+								span.visible-sm
+									label.btn.btn-default.btn_no_border_sm
+										//.donut_placeholder(id="donut_SurveillanceSystem" ng-donut-chart attribute-percent="{{totvalidatearr['SurveillanceSystem']}}")
+										.stat_count {{statsarr['SurveillanceSystem']}} ({{totvalidatearr['SurveillanceSystem']}}%)
+										.stat_label_sm
+											a(ng-click='goToTop()' href='#/search/label/SurveillanceSystem') Surveillance Systems	
+							//end column specs 
+							.col-lg-4.col-md-4.col-sm-4
+								span.visible-lg.visible-md
+									label.btn.btn-default.btn_no_border(ng-click="nodetype='Program'")
+										.donut_placeholder(id="donut_Program" ng-donut-chart attribute-percent="{{totvalidatearr['Program']}}")
+										.stat_count {{statsarr['Program']}}
+										// ({{totvalidatearr['Program']}}%)
+										.stat_label
+											a(ng-click='goToTop()' href='#/search/label/Program') Programs
+								span.visible-sm
+									label.btn.btn-default.btn_no_border_sm
+										//.donut_placeholder(id="donut_Program" ng-donut-chart attribute-percent="{{totvalidatearr['Program']}}")
+										.stat_count {{statsarr['Program']}} ({{totvalidatearr['Program']}}%)
+										.stat_label_sm
+											a(ng-click='goToTop()' href='#/search/label/Program') Programs
+											
+							//end column specs 
+							.col-lg-4.col-md-4.col-sm-4
+								span.visible-lg.visible-md
+									label.btn.btn-default.btn_no_border(ng-click="nodetype='Registry'")
+										.donut_placeholder(id="donut_Registry" ng-donut-chart attribute-percent="{{totvalidatearr['Registry']}}")
+										.stat_count {{statsarr['Registry']}}
+										// ({{totvalidatearr['Registry']}}%)
+										.stat_label
+											a(ng-click='goToTop()' href='#/search/label/Registry') Registries
+								span.visible-sm
+									label.btn.btn-default.btn_no_border_sm
+										//.donut_placeholder(id="donut_Registry" ng-donut-chart attribute-percent="{{totvalidatearr['Registry']}}")
+										.stat_count {{statsarr['Registry']}} ({{totvalidatearr['Registry']}}%)
+										.stat_label_sm
+											a(ng-click='goToTop()' href='#/search/label/Registry') Registries			
+							//end column specs
+						.vertical_spacing_less
+						.row
+							//end column specs 
+							.col-lg-4.col-md-4.col-sm-4
+								span.visible-lg.visible-md.span_border
+									label.btn.btn-default.btn_no_border(ng-click="nodetype='HealthSurvey';hideNodeStatus=false")
+										.donut_placeholder(id="donut_HealthSurvey" ng-donut-chart attribute-percent="{{totvalidatearr['HealthSurvey']}}")
+										.stat_count {{statsarr['HealthSurvey']}}
+										//({{totvalidatearr['HealthSurvey']}}%)
+										.stat_label
+											a(ng-click='goToTop()' href='#/search/label/HealthSurvey') Health Surveys
+								span.visible-sm
+									label.btn.btn-default.btn_no_border_sm
+										//.donut_placeholder(id="donut_HealthSurvey" ng-donut-chart attribute-percent="{{totvalidatearr['HealthSurvey']}}")
+										.stat_count {{statsarr['HealthSurvey']}} ({{totvalidatearr['HealthSurvey']}}%)
+										.stat_label_sm
+											a(ng-click='goToTop()' href='#/search/label/HealthSurvey') Health Surveys	
+							//end column specs 
+							.col-lg-4.col-md-4.col-sm-4
+								span.visible-lg.visible-md
+									label.btn.btn-default.btn_no_border(ng-click="nodetype='Tool'")
+										.donut_placeholder(id="donut_Tool" ng-donut-chart attribute-percent="{{totvalidatearr['Tool']}}")
+										.stat_count {{statsarr['Tool']}}
+										// ({{totvalidatearr['Tool']}}%)
+										.stat_label
+											a(ng-click='goToTop()' href='#/search/label/Tool') Tools
+								span.visible-sm
+									label.btn.btn-default.btn_no_border_sm
+										//.donut_placeholder(id="donut_Tool" ng-donut-chart attribute-percent="{{totvalidatearr['Tool']}}")
+										.stat_count {{statsarr['Tool']}} ({{totvalidatearr['Tool']}}%)
+										.stat_label_sm
+											a(ng-click='goToTop()' href='#/search/label/Tool') Tools		
+							//end column specs 
+							.col-lg-4.col-md-4.col-sm-4
+								span.visible-lg.visible-md
+									label.btn.btn-default.btn_no_border(ng-click="nodetype='Dataset'")
+										.donut_placeholder(id="donut_Dataset" ng-donut-chart attribute-percent="{{totvalidatearr['Dataset']}}")
+										.stat_count {{statsarr['Dataset']}}
+										//({{totvalidatearr['Dataset']}}%)
+										.stat_label
+											a(ng-click='goToTop()' href='#/search/label/Dataset') Datasets
+								span.visible-sm
+									label.btn.btn-default.btn_no_border_sm
+										//.donut_placeholder(id="donut_Dataset" ng-donut-chart attribute-percent="{{totvalidatearr['Dataset']}}")
+										.stat_count {{statsarr['Dataset']}} ({{totvalidatearr['Dataset']}}%)
+										.stat_label_sm
+											a(ng-click='goToTop()' href='#/search/label/Dataset') Datasets	
+							//end column specs 
+						.vertical_spacing_less
+						.row
+							.col-lg-4.col-md-4.col-sm-4
+								span.visible-lg.visible-md
+									label.btn.btn-default.btn_no_border(ng-click="nodetype='DataStandard'")
+										.donut_placeholder(id="donut_DataStandard" ng-donut-chart attribute-percent="{{totvalidatearr['DataStandard']}}")
+										.stat_count {{statsarr['DataStandard']}}
+										// ({{totvalidatearr['DataStandard']}}%)
+										.stat_label
+											a(ng-click='goToTop()' href='#/search/label/DataStandard') Data Standards
+								span.visible-sm
+									label.btn.btn-default.btn_no_border_sm
+										//.donut_placeholder(id="donut_DataStandard" ng-donut-chart attribute-percent="{{totvalidatearr['DataStandard']}}")
+										.stat_count {{statsarr['DataStandard']}} ({{totvalidatearr['DataStandard']}}%)
+										.stat_label_sm
+											a(ng-click='goToTop()' href='#/search/label/DataStandard') Data Standards		
+							//end column specs 
+							.col-lg-4.col-md-4.col-sm-4
+								span.visible-lg.visible-md
+									label.btn.btn-default.btn_no_border(ng-click="nodetype='Collaborative'")
+										.donut_placeholder(id="donut_Collaborative" ng-donut-chart attribute-percent="{{totvalidatearr['Collaborative']}}")
+										.stat_count {{statsarr['Collaborative']}}
+										// ({{totvalidatearr['Collaborative']}}%)
+										.stat_label
+											a(ng-click='goToTop()' href='#/search/label/Collaborative') Collaboratives
+								span.visible-sm
+									label.btn.btn-default.btn_no_border_sm
+										//.donut_placeholder(id="donut_Collaborative" ng-donut-chart attribute-percent="{{totvalidatearr['Collaborative']}}")
+										.stat_count {{statsarr['Collaborative']}} ({{totvalidatearr['Collaborative']}}%)
+										.stat_label_sm
+											a(ng-click='goToTop()' href='#/search/label/Collaborative') Collaboratives	
+							//end column specs 
+							.col-lg-4.col-md-4.col-sm-4
+								span.visible-lg.visible-md
+									label.btn.btn-default.btn_no_border(ng-click="nodetype='Organization'")
+										.donut_placeholder(id="donut_Organization" ng-donut-chart attribute-percent="{{totvalidatearr['Organization']}}")
+										.stat_count {{statsarr['Organization']}}
+										// ({{totvalidatearr['Organization']}}%)
+										.stat_label
+											a(ng-click='goToTop()' href='#/search/label/Organization') Organizations
+								span.visible-sm
+									label.btn.btn-default.btn_no_border_sm
+										//.donut_placeholder(id="donut_Organization" ng-donut-chart attribute-percent="{{totvalidatearr['Organization']}}")
+										.stat_count {{statsarr['Organization']}} ({{totvalidatearr['Organization']}}%)
+										.stat_label_sm
+											a(ng-click='goToTop()' href='#/search/label/Organization') Organizations		
+							//end column specs 
+							
+						//end nested row
+					.col-lg-6.col-md-6.col-sm-6
+						.row
+							.col-lg-12.col-md-12.col-sm-12
+								//input(type="text" ng-model="nodesearch" placeholder="Filter node type")
+								//input(type="checkbox" ng-model="showAll" ng-click="nodetype=''")
+								label.btn.btn-default.pull-right(ng-click="nodetype=''")
+									| Show All Activities
+						.vertical_spacing_less
+						.row(ng-hide="hideNodeStatus").fixed_height_dashboard
+							.col-lg-12.col-md-12.col-sm-12
+								table.table.table-hover.table-condensed.validationstatus_table
+									tr
+										th
+											| Name
+										th
+											| Id
+										th
+											| Type
+										th
+											|Validation Status
+									tr(ng-repeat="user in validationresults | filter:{type:nodetype}" ng-class="{background_yes:user.validationstatus=='Yes'}")
+										td(data-title="'Name'")
+											| {{user.name}}
+										td(data-title="'Id'")
+											| {{user.id}}
+										td(data-title="'Type'")
+											| {{user.type}}
+										td(data-title="'Status'" )
+											| {{user.validationstatus}}
+						.row
+							.col-lg-12.col-md-12.col-sm-12
+								img.img-responsive.linkage_empty( id="defaultimg" src="img/ajax-loader.gif" ng-show="showVSTableLoading")
 				.vertical_spacing_less
 				//nested row 
-				.row
-					.col-lg-3.col-md-3.col-sm-3
-						span.visible-lg.visible-md
-							.stat_box
-								.donut_placeholder(id="donut_Tool" ng-donut-chart attribute-percent="{{totvalidatearr['Tool']}}")
-								.stat_count {{statsarr['Tool']}}
-								// ({{totvalidatearr['Tool']}}%)
-								.stat_label
-									a(ng-click='goToTop()' href='#/search/label/Tool') Tools
-						span.visible-sm
-							.stat_box_sm
-								//.donut_placeholder(id="donut_Tool" ng-donut-chart attribute-percent="{{totvalidatearr['Tool']}}")
-								.stat_count {{statsarr['Tool']}} ({{totvalidatearr['Tool']}}%)
-								.stat_label_sm
-									a(ng-click='goToTop()' href='#/search/label/Tool') Tools		
-					//end column specs 
-					.col-lg-3.col-md-3.col-sm-3
-						span.visible-lg.visible-md
-							.stat_box
-								.donut_placeholder(id="donut_Dataset" ng-donut-chart attribute-percent="{{totvalidatearr['Dataset']}}")
-								.stat_count {{statsarr['Dataset']}}
-								//({{totvalidatearr['Dataset']}}%)
-								.stat_label
-									a(ng-click='goToTop()' href='#/search/label/Dataset') Datasets
-						span.visible-sm
-							.stat_box_sm
-								//.donut_placeholder(id="donut_Dataset" ng-donut-chart attribute-percent="{{totvalidatearr['Dataset']}}")
-								.stat_count {{statsarr['Dataset']}} ({{totvalidatearr['Dataset']}}%)
-								.stat_label_sm
-									a(ng-click='goToTop()' href='#/search/label/Dataset') Datasets	
-					//end column specs 
-					.col-lg-3.col-md-3.col-sm-3
-						span.visible-lg.visible-md
-							.stat_box
-								.donut_placeholder(id="donut_DataStandard" ng-donut-chart attribute-percent="{{totvalidatearr['DataStandard']}}")
-								.stat_count {{statsarr['DataStandard']}}
-								// ({{totvalidatearr['DataStandard']}}%)
-								.stat_label
-									a(ng-click='goToTop()' href='#/search/label/DataStandard') Data Standards
-						span.visible-sm
-							.stat_box_sm
-								//.donut_placeholder(id="donut_DataStandard" ng-donut-chart attribute-percent="{{totvalidatearr['DataStandard']}}")
-								.stat_count {{statsarr['DataStandard']}} ({{totvalidatearr['DataStandard']}}%)
-								.stat_label_sm
-									a(ng-click='goToTop()' href='#/search/label/DataStandard') Data Standards		
-					//end column specs 
-					.col-lg-3.col-md-3.col-sm-3
-						span.visible-lg.visible-md
-							.stat_box
-								.donut_placeholder(id="donut_Collaborative" ng-donut-chart attribute-percent="{{totvalidatearr['Collaborative']}}")
-								.stat_count {{statsarr['Collaborative']}}
-								// ({{totvalidatearr['Collaborative']}}%)
-								.stat_label
-									a(ng-click='goToTop()' href='#/search/label/Collaborative') Collaboratives
-						span.visible-sm
-							.stat_box_sm
-								//.donut_placeholder(id="donut_Collaborative" ng-donut-chart attribute-percent="{{totvalidatearr['Collaborative']}}")
-								.stat_count {{statsarr['Collaborative']}} ({{totvalidatearr['Collaborative']}}%)
-								.stat_label_sm
-									a(ng-click='goToTop()' href='#/search/label/Collaborative') Collaboratives	
-					//end column specs 
-				//end nested row 
-				.vertical_spacing_less
-				//nested row 
-				.row
-					.col-lg-3.col-md-3.col-sm-3
-						span.visible-lg.visible-md
-							.stat_box
-								.donut_placeholder(id="donut_Organization" ng-donut-chart attribute-percent="{{totvalidatearr['Organization']}}")
-								.stat_count {{statsarr['Organization']}}
-								// ({{totvalidatearr['Organization']}}%)
-								.stat_label
-									a(ng-click='goToTop()' href='#/search/label/Organization') Organizations
-						span.visible-sm
-							.stat_box_sm
-								//.donut_placeholder(id="donut_Organization" ng-donut-chart attribute-percent="{{totvalidatearr['Organization']}}")
-								.stat_count {{statsarr['Organization']}} ({{totvalidatearr['Organization']}}%)
-								.stat_label_sm
-									a(ng-click='goToTop()' href='#/search/label/Organization') Organizations		
-					//end column specs 
-					
+				
 				//end nested row
-				.vertical_spacing_less
 				
 		// end content block
 	// end col spec

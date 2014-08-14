@@ -602,6 +602,43 @@ exports.getPortalStatisticsNodesValidated = function(req, res) {
 };
 
 
+exports.getValidationStatus = function(req, res) {
+    
+    validationresults=[];
+
+    console.log("hhh");
+    var query = ['MATCH n',
+    'return n.id as id, n.name as name, labels(n) as label, n.informationValidated as validationstatus order by name'
+    ].join('\n');
+    var params = {};
+
+    
+    neodb.db.query(query, params, function(err, r) {
+        if (err) {
+            console.error('Error retreiving statistics from database:', err);
+            res.send(404, 'no statistics available');
+        } else {
+
+            r.forEach(function(d){
+                console.log(d.name);
+                validationresults.push({
+                        "name": d.name,
+                        "id": d.id,
+                        "type": d.label[0],
+                        "validationstatus": d.validationstatus
+                    });
+            });
+            console.log(r);
+            res.json(validationresults);
+
+            //res.send(validationresults);
+            
+        }
+    });
+};
+
+
+
 
 
 

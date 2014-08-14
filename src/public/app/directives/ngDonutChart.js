@@ -56,14 +56,14 @@ angular.module('apolloApp')
 										.datum({
 											endAngle: τ
 										})
-										.style("fill", "#ddd")
+										.style("fill", "#E0E0E0")
 										.attr("d", arc);
 
 									var foreground = svg.append("path")
 										.datum({
 											endAngle: 0 * τ
 										})
-										.style("fill", "#7DB4B5")
+										.style("fill", "#A7C5BD")
 										.attr("d", arc);
 
 									foreground.transition()

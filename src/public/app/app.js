@@ -24,6 +24,14 @@ apolloApp.config(['$routeProvider',
         templateUrl: 'partials/dashboard',
         controller: 'dashboardCtrl'
       }).
+          when('/dashboard/:id', {
+        templateUrl: 'partials/dashboard',
+        controller: 'dashboardCtrl'
+      }).
+          when('/dashboarddetail', {
+        templateUrl: 'partials/dashboarddetail',
+        controller: 'dashboarddetailCtrl'
+      }).
           when('/main', {
         templateUrl: 'partials/main',
         controller: 'mainCtrl'

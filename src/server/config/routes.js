@@ -11,10 +11,11 @@ module.exports = function(app) {
     app.get('/apollo/api/node/search/:query', nodes.searchNodesByString);
     app.get('/apollo/api/node/search/label/:query', nodes.searchNodesByLabel);
     app.get('/apollo/api/node/viewer/:id', nodes.getNodesForLinkageViewer);
-    app.get('/apollo/api/stats/nodes', nodes.getPortalStatisticsNodes);
-    app.get('/apollo/api/stats/nodesvalidated', nodes.getPortalStatisticsNodesValidated);
+    app.get('/apollo/api/stats/nodes/:id', nodes.getPortalStatisticsNodes);
+    app.get('/apollo/api/stats/nodesvalidated/:id', nodes.getPortalStatisticsNodesValidated);
     app.get('/apollo/api/stats/relations', nodes.getPortalStatisticsRelations);
-    app.get('/apollo/api/dashboard/validationStatus', nodes.getValidationStatus);
+    app.get('/apollo/api/dashboard/validationStatus/:id', nodes.getValidationStatus);
+    //app.get('/apollo/api/dashboard/validationStatusDetails/:query', nodes.getValidationStatusDetails);
     app.get('/apollo/api/node/advancedSearch/:id', nodes.getAdvancedSearchData);
     app.get('/apollo/api/node/searchByName/:searchTerm', nodes.searchByName);
     app.get('/apollo/api/node/searchSysTreeByName/:searchTerm',nodes.searchSysTreeByName);

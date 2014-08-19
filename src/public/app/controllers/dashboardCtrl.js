@@ -1,17 +1,52 @@
-angular.module('apolloApp').controller('dashboardCtrl', function($scope,$resource,$location){
+angular.module('apolloApp').controller('dashboardCtrl', function($scope,$resource,$location,$http,$routeParams){
 
    	var nodestotal=0;
    	$scope.hideNodeStatus=false;
    	$scope.showAll=true;
    	$scope.showVSTableLoading=true;
+   	$scope.nodedetailspresent=false;
+   	$scope.hideReturnLink=true;
+
+   	$scope.nodeId = $routeParams.id;
+   	$scope.nodeNm="";
+   	$scope.newload=0;
    	//var nodestotal=0;
+   	console.log("nodis",$scope.nodeId);
 
-	var portalstatsnodes = $resource('/apollo/api/stats/nodes', {
+   	
+
+	var statsarr={};
+	var validatedarr={};
+
+	statsarr['Organization'] = 0;
+	statsarr['Program'] = 0;
+	statsarr['SurveillanceSystem'] = 0;
+	statsarr['Tool'] = 0;
+	statsarr['Registry'] = 0;
+	statsarr['HealthSurvey'] = 0;
+	statsarr['Collaborative'] = 0;
+	statsarr['Dataset'] = 0;
+	statsarr['DataStandard'] = 0;
+	statsarr['Tag'] = 0;
+
+	validatedarr['Organization'] = 0;
+	validatedarr['Program'] = 0;
+	validatedarr['SurveillanceSystem'] = 0;
+	validatedarr['Tool'] = 0;
+	validatedarr['Registry'] = 0;
+	validatedarr['HealthSurvey'] = 0;
+	validatedarr['Collaborative'] = 0;
+	validatedarr['Dataset'] = 0;
+	validatedarr['DataStandard'] = 0;
+	validatedarr['Tag'] = 0;
+
+
+getstatsall=function(){
+
+
+
+	var portalstatsnodes = $resource('/apollo/api/stats/nodes/'+$scope.nodeId, {
 	});
-
-	statsarr={};
-	validatedarr={};
-
 
 	var stats = portalstatsnodes.query({
 	},function(result){
@@ -24,6 +59,8 @@ angular.module('apolloApp').controller('dashboardCtrl', function($scope,$resourc
 
 		$scope.statsarr=statsarr;
 
+		//console.log(statsarr);
+
 		$scope.checkcomplete();
 
 		//console.log("1",$scope.validatedarr,$scope.statsarr);
@@ -31,8 +68,14 @@ angular.module('apolloApp').controller('dashboardCtrl', function($scope,$resourc
 
 	});
 
+}
 
-	var portalstatsrelations = $resource('/apollo/api/stats/nodesvalidated', {
+getstatsno=function()
+{
+
+
+
+	var portalstatsrelations = $resource('/apollo/api/stats/nodesvalidated/'+$scope.nodeId, {
 	});
 
 	var stats = portalstatsrelations.query({
@@ -47,37 +90,75 @@ angular.module('apolloApp').controller('dashboardCtrl', function($scope,$resourc
 		$scope.validatedarr=validatedarr;
 		$scope.checkcomplete();
 
+		//console.log(validatedarr);
 		//console.log("2",$scope.validatedarr,$scope.statsarr);
 
 	}
 
 	});
 
-
+}
 	$scope.checkcomplete=function(){
 
-		var totvalidatearr={};
-
+		
+		//console.log("checkcomplete");
 		if($scope.validatedarr!=undefined & $scope.statsarr!=undefined)
 		{
 			
 
-
+			var totvalidatearr={};
+		   	totvalidatearr['Organization'] = 0;
+			totvalidatearr['Program'] = 0;
+			totvalidatearr['SurveillanceSystem'] = 0;
+			totvalidatearr['Tool'] = 0;
+			totvalidatearr['Registry'] = 0;
+			totvalidatearr['HealthSurvey'] = 0;
+			totvalidatearr['Collaborative'] = 0;
+			totvalidatearr['Dataset'] = 0;
+			totvalidatearr['DataStandard'] = 0;
+			totvalidatearr['Tag'] = 0;
+			
 			for(d in statsarr)
 			{
-				totvalidatearr[d]=Math.round(((statsarr[d]-validatedarr[d])/statsarr[d])*100);
+				//console.log(d,statsarr[d],validatedarr[d],totvalidatearr[d]);
+				
+				if(statsarr[d]==0)
+				{
+
+				}
+				else
+				{
+					totvalidatearr[d]=Math.round(((statsarr[d]-validatedarr[d])/statsarr[d])*100);
+				}
+				//console.log(d,totvalidatearr[d]);
 			}
 
 			$scope.totvalidatearr=totvalidatearr;
+			//console.log("3",totvalidatearr);
+			//console.log("4",$scope.totvalidatearr);
 			loadvalidaationdata();
 
-			//console.log("3",totvalidatearr);
+			
 		}
 	}
 
+
+		if($routeParams.id)
+		{
+			var nodeDetails = $http.get('/apollo/api/node/' + $routeParams.id).success(function(data) {
+            //console.log(data.name);
+            $scope.nodeNm=data.name;
+            $scope.hideReturnLink=false;
+
+        });
+		}
+        
+
+
+
 	loadvalidaationdata=function(){
 
-	var validationStatus = $resource('/apollo/api/dashboard/validationStatus', {
+	var validationStatus = $resource('/apollo/api/dashboard/validationStatus/'+$scope.nodeId, {
 	});
 
 	var stats = validationStatus.query({
@@ -85,24 +166,65 @@ angular.module('apolloApp').controller('dashboardCtrl', function($scope,$resourc
 	if (!result.nullset)
 	{
 		
-		console.log("****",result);
-		result.forEach(function(d) {
-		//validatedarr[d.label[0]]=d.count;
-		//nodestotal=nodestotal+d.count;
-		//console.log("****",d);
-		}
-		);
-
-
 		$scope.validationresults=result;
 		$scope.showVSTableLoading=false;
-		//$scope.checkcomplete();
 
-		//console.log("2",$scope.validatedarr,$scope.statsarr);
 	}
 
 	});
 
 }
 
+$scope.loaddata=function(id){
+
+console.log("called loaddata");
+d3.selectAll("svg").remove();
+getstatsall();
+getstatsno();
+loadvalidaationdata();
+$scope.newload++;
+console.log($scope.newload);
+//$scope.$apply();
+
+}
+
+
+$scope.itemSelected = function($item, $model, $label) {
+        $scope.nodeId = $item.id;
+        console.log($scope.nodeId);
+
+        $scope.loaddata();
+        //$scope.$apply();
+};
+
+$scope.loaddata();
+
+// $scope.fetchvsdetails=function(val){
+
+// 	console.log(val);
+// 	//var vsdetails = $http.get('/apollo/api/dashboard/validationStatusDetails/'+val, {
+// 	return $http.get('/apollo/api/dashboard/validationStatusDetails/'+val).then(function(res) {
+//             var nodes = [];
+//             angular.forEach(res.data, function(item) {
+//                 nodes.push(item);
+//             });
+//             $scope.nodedetails=nodes;
+//             $scope.nodedetailspresent=true;
+//             //console.log(nodes);
+//             //return nodes;
+// 	});
+// };
+
+// $scope.getNodes = function(val) {
+//         return $http.get('/apollo/api/node/searchSysTreeByName/' + val).then(function(res) {
+//             var nodes = [];
+//             angular.forEach(res.data, function(item) {
+//                 nodes.push(item);
+//             });
+//             return nodes;
+//         });
+//     };
+
 });
+
+

@@ -35,33 +35,45 @@
 							a(href='#/inTheLab/') In the Lab
 				// end subnav
 			//- a.btn.btn-custom(onclick='goBack()') Back
-			.nav_split
-				.btn-group.btn-group-md.btn-group-justified
-					.btn-group
-						a.btn.btn-custom(href="#/dashboard", id='btnDetails') Details
-					.btn-group
-						a.btn.btn-default(href='#/linkage/{{nodeId}}', id='btnLinkageViewer') Summary
-				// end button group
-			// end nav_split
+			//- .nav_split
+			//- 	.btn-group.btn-group-md.btn-group-justified
+			//- 		.btn-group
+			//- 			a.btn.btn-custom(href="#/dashboard", id='btnDashboard') Summary
+			//- 		.btn-group
+			//- 			a.btn.btn-default(href='#/dashboarddetail', id='btnDashboardDetail') Detail
+			//- 	// end button group
+			//- // end nav_split
 			.top_block_faq
 				h4.orange_main_faq
 					span.glyphicon.glyphicon-comment.icon-flipped.faq_icon
 					| CISP Dashboard
 				.vertical_spacing_browse
+				.row
+					.col-lg-12.col-md-12.col-sm-12
+						//input.form-control(type='text', typeahead-on-select="", typeahead-min-length='1', typeahead="node.name for node in getNodes($viewValue)", ng-model='queryString')
+						input(type="text" ng-model="node"  placeholder="Search activity" typeahead-on-select="itemSelected($item, $model, $label)" typeahead-min-length='3' typeahead="node.name for node in getNodes($viewValue)" class="form-control")
+						input(type="hidden" id="nodeId" ng-value="nodeId")
+				.vertical_spacing_more
+				.row
+					.col-lg-12.col-md-12.col-sm-12
+						.orange_header_larger
+							| {{nodeNm}}
+							a.btn.btn-mini(ng-click="nodetype=''" href='/apollo/#/dashboard/' ng-hide="hideReturnLink")
+								| Go back to overall summary
 				.vertical_spacing_lesser
 				.row
 					.col-lg-6.col-md-6.col-sm-6
 						.row
 							.col-lg-4.col-md-4.col-sm-4
 								label.btn.btn-default.btn_no_border(ng-click="nodetype='SurveillanceSystem'")
-										.donut_placeholder(id="donut_SurveillanceSystem" ng-donut-chart attribute-percent="{{totvalidatearr['SurveillanceSystem']}}")
+										.donut_placeholder(id="donut_SurveillanceSystem" ng-donut-chart attribute-newload="newload" attribute-percent="{{totvalidatearr['SurveillanceSystem']}}")
 										.stat_count {{statsarr['SurveillanceSystem']}}
 										// ({{totvalidatearr['SurveillanceSystem']}}%)
 										.stat_label
 											a(ng-click='goToTop()' href='#/search/label/SurveillanceSystem') Surveillance Systems
 								span.visible-sm
 									label.btn.btn-default.btn_no_border_sm
-										//.donut_placeholder(id="donut_SurveillanceSystem" ng-donut-chart attribute-percent="{{totvalidatearr['SurveillanceSystem']}}")
+										//.donut_placeholder(id="donut_SurveillanceSystem" ng-donut-chart attribute-newload="newload" attribute-percent="{{totvalidatearr['SurveillanceSystem']}}")
 										.stat_count {{statsarr['SurveillanceSystem']}} ({{totvalidatearr['SurveillanceSystem']}}%)
 										.stat_label_sm
 											a(ng-click='goToTop()' href='#/search/label/SurveillanceSystem') Surveillance Systems	
@@ -69,14 +81,14 @@
 							.col-lg-4.col-md-4.col-sm-4
 								span.visible-lg.visible-md
 									label.btn.btn-default.btn_no_border(ng-click="nodetype='Program'")
-										.donut_placeholder(id="donut_Program" ng-donut-chart attribute-percent="{{totvalidatearr['Program']}}")
+										.donut_placeholder(id="donut_Program" ng-donut-chart attribute-newload="newload" attribute-percent="{{totvalidatearr['Program']}}")
 										.stat_count {{statsarr['Program']}}
 										// ({{totvalidatearr['Program']}}%)
 										.stat_label
 											a(ng-click='goToTop()' href='#/search/label/Program') Programs
 								span.visible-sm
 									label.btn.btn-default.btn_no_border_sm
-										//.donut_placeholder(id="donut_Program" ng-donut-chart attribute-percent="{{totvalidatearr['Program']}}")
+										//.donut_placeholder(id="donut_Program" ng-donut-chart attribute-newload="newload" attribute-percent="{{totvalidatearr['Program']}}")
 										.stat_count {{statsarr['Program']}} ({{totvalidatearr['Program']}}%)
 										.stat_label_sm
 											a(ng-click='goToTop()' href='#/search/label/Program') Programs
@@ -85,14 +97,14 @@
 							.col-lg-4.col-md-4.col-sm-4
 								span.visible-lg.visible-md
 									label.btn.btn-default.btn_no_border(ng-click="nodetype='Registry'")
-										.donut_placeholder(id="donut_Registry" ng-donut-chart attribute-percent="{{totvalidatearr['Registry']}}")
+										.donut_placeholder(id="donut_Registry" ng-donut-chart attribute-newload="newload" attribute-percent="{{totvalidatearr['Registry']}}")
 										.stat_count {{statsarr['Registry']}}
 										// ({{totvalidatearr['Registry']}}%)
 										.stat_label
 											a(ng-click='goToTop()' href='#/search/label/Registry') Registries
 								span.visible-sm
 									label.btn.btn-default.btn_no_border_sm
-										//.donut_placeholder(id="donut_Registry" ng-donut-chart attribute-percent="{{totvalidatearr['Registry']}}")
+										//.donut_placeholder(id="donut_Registry" ng-donut-chart attribute-newload="newload" attribute-percent="{{totvalidatearr['Registry']}}")
 										.stat_count {{statsarr['Registry']}} ({{totvalidatearr['Registry']}}%)
 										.stat_label_sm
 											a(ng-click='goToTop()' href='#/search/label/Registry') Registries			
@@ -103,14 +115,14 @@
 							.col-lg-4.col-md-4.col-sm-4
 								span.visible-lg.visible-md.span_border
 									label.btn.btn-default.btn_no_border(ng-click="nodetype='HealthSurvey';hideNodeStatus=false")
-										.donut_placeholder(id="donut_HealthSurvey" ng-donut-chart attribute-percent="{{totvalidatearr['HealthSurvey']}}")
+										.donut_placeholder(id="donut_HealthSurvey" ng-donut-chart attribute-newload="newload" attribute-percent="{{totvalidatearr['HealthSurvey']}}")
 										.stat_count {{statsarr['HealthSurvey']}}
 										//({{totvalidatearr['HealthSurvey']}}%)
 										.stat_label
 											a(ng-click='goToTop()' href='#/search/label/HealthSurvey') Health Surveys
 								span.visible-sm
 									label.btn.btn-default.btn_no_border_sm
-										//.donut_placeholder(id="donut_HealthSurvey" ng-donut-chart attribute-percent="{{totvalidatearr['HealthSurvey']}}")
+										//.donut_placeholder(id="donut_HealthSurvey" ng-donut-chart attribute-newload="newload" attribute-percent="{{totvalidatearr['HealthSurvey']}}")
 										.stat_count {{statsarr['HealthSurvey']}} ({{totvalidatearr['HealthSurvey']}}%)
 										.stat_label_sm
 											a(ng-click='goToTop()' href='#/search/label/HealthSurvey') Health Surveys	
@@ -118,14 +130,14 @@
 							.col-lg-4.col-md-4.col-sm-4
 								span.visible-lg.visible-md
 									label.btn.btn-default.btn_no_border(ng-click="nodetype='Tool'")
-										.donut_placeholder(id="donut_Tool" ng-donut-chart attribute-percent="{{totvalidatearr['Tool']}}")
+										.donut_placeholder(id="donut_Tool" ng-donut-chart attribute-newload="newload" attribute-percent="{{totvalidatearr['Tool']}}")
 										.stat_count {{statsarr['Tool']}}
 										// ({{totvalidatearr['Tool']}}%)
 										.stat_label
 											a(ng-click='goToTop()' href='#/search/label/Tool') Tools
 								span.visible-sm
 									label.btn.btn-default.btn_no_border_sm
-										//.donut_placeholder(id="donut_Tool" ng-donut-chart attribute-percent="{{totvalidatearr['Tool']}}")
+										//.donut_placeholder(id="donut_Tool" ng-donut-chart attribute-newload="newload" attribute-percent="{{totvalidatearr['Tool']}}")
 										.stat_count {{statsarr['Tool']}} ({{totvalidatearr['Tool']}}%)
 										.stat_label_sm
 											a(ng-click='goToTop()' href='#/search/label/Tool') Tools		
@@ -133,14 +145,14 @@
 							.col-lg-4.col-md-4.col-sm-4
 								span.visible-lg.visible-md
 									label.btn.btn-default.btn_no_border(ng-click="nodetype='Dataset'")
-										.donut_placeholder(id="donut_Dataset" ng-donut-chart attribute-percent="{{totvalidatearr['Dataset']}}")
+										.donut_placeholder(id="donut_Dataset" ng-donut-chart attribute-newload="newload" attribute-percent="{{totvalidatearr['Dataset']}}")
 										.stat_count {{statsarr['Dataset']}}
 										//({{totvalidatearr['Dataset']}}%)
 										.stat_label
 											a(ng-click='goToTop()' href='#/search/label/Dataset') Datasets
 								span.visible-sm
 									label.btn.btn-default.btn_no_border_sm
-										//.donut_placeholder(id="donut_Dataset" ng-donut-chart attribute-percent="{{totvalidatearr['Dataset']}}")
+										//.donut_placeholder(id="donut_Dataset" ng-donut-chart attribute-newload="newload" attribute-percent="{{totvalidatearr['Dataset']}}")
 										.stat_count {{statsarr['Dataset']}} ({{totvalidatearr['Dataset']}}%)
 										.stat_label_sm
 											a(ng-click='goToTop()' href='#/search/label/Dataset') Datasets	
@@ -150,14 +162,14 @@
 							.col-lg-4.col-md-4.col-sm-4
 								span.visible-lg.visible-md
 									label.btn.btn-default.btn_no_border(ng-click="nodetype='DataStandard'")
-										.donut_placeholder(id="donut_DataStandard" ng-donut-chart attribute-percent="{{totvalidatearr['DataStandard']}}")
+										.donut_placeholder(id="donut_DataStandard" ng-donut-chart attribute-newload="newload" attribute-percent="{{totvalidatearr['DataStandard']}}")
 										.stat_count {{statsarr['DataStandard']}}
 										// ({{totvalidatearr['DataStandard']}}%)
 										.stat_label
 											a(ng-click='goToTop()' href='#/search/label/DataStandard') Data Standards
 								span.visible-sm
 									label.btn.btn-default.btn_no_border_sm
-										//.donut_placeholder(id="donut_DataStandard" ng-donut-chart attribute-percent="{{totvalidatearr['DataStandard']}}")
+										//.donut_placeholder(id="donut_DataStandard" ng-donut-chart attribute-newload="newload" attribute-percent="{{totvalidatearr['DataStandard']}}")
 										.stat_count {{statsarr['DataStandard']}} ({{totvalidatearr['DataStandard']}}%)
 										.stat_label_sm
 											a(ng-click='goToTop()' href='#/search/label/DataStandard') Data Standards		
@@ -165,14 +177,14 @@
 							.col-lg-4.col-md-4.col-sm-4
 								span.visible-lg.visible-md
 									label.btn.btn-default.btn_no_border(ng-click="nodetype='Collaborative'")
-										.donut_placeholder(id="donut_Collaborative" ng-donut-chart attribute-percent="{{totvalidatearr['Collaborative']}}")
+										.donut_placeholder(id="donut_Collaborative" ng-donut-chart attribute-newload="newload" attribute-percent="{{totvalidatearr['Collaborative']}}")
 										.stat_count {{statsarr['Collaborative']}}
 										// ({{totvalidatearr['Collaborative']}}%)
 										.stat_label
 											a(ng-click='goToTop()' href='#/search/label/Collaborative') Collaboratives
 								span.visible-sm
 									label.btn.btn-default.btn_no_border_sm
-										//.donut_placeholder(id="donut_Collaborative" ng-donut-chart attribute-percent="{{totvalidatearr['Collaborative']}}")
+										//.donut_placeholder(id="donut_Collaborative" ng-donut-chart attribute-newload="newload" attribute-percent="{{totvalidatearr['Collaborative']}}")
 										.stat_count {{statsarr['Collaborative']}} ({{totvalidatearr['Collaborative']}}%)
 										.stat_label_sm
 											a(ng-click='goToTop()' href='#/search/label/Collaborative') Collaboratives	
@@ -180,14 +192,14 @@
 							.col-lg-4.col-md-4.col-sm-4
 								span.visible-lg.visible-md
 									label.btn.btn-default.btn_no_border(ng-click="nodetype='Organization'")
-										.donut_placeholder(id="donut_Organization" ng-donut-chart attribute-percent="{{totvalidatearr['Organization']}}")
+										.donut_placeholder(id="donut_Organization" ng-donut-chart attribute-newload="newload" attribute-percent="{{totvalidatearr['Organization']}}")
 										.stat_count {{statsarr['Organization']}}
 										// ({{totvalidatearr['Organization']}}%)
 										.stat_label
 											a(ng-click='goToTop()' href='#/search/label/Organization') Organizations
 								span.visible-sm
 									label.btn.btn-default.btn_no_border_sm
-										//.donut_placeholder(id="donut_Organization" ng-donut-chart attribute-percent="{{totvalidatearr['Organization']}}")
+										//.donut_placeholder(id="donut_Organization" ng-donut-chart attribute-newload="newload" attribute-percent="{{totvalidatearr['Organization']}}")
 										.stat_count {{statsarr['Organization']}} ({{totvalidatearr['Organization']}}%)
 										.stat_label_sm
 											a(ng-click='goToTop()' href='#/search/label/Organization') Organizations		
@@ -197,10 +209,11 @@
 					.col-lg-6.col-md-6.col-sm-6
 						.row
 							.col-lg-12.col-md-12.col-sm-12
-								//input(type="text" ng-model="nodesearch" placeholder="Filter node type")
+								input(type="text" ng-model="nodesearch" placeholder="Filter activity")
 								//input(type="checkbox" ng-model="showAll" ng-click="nodetype=''")
+								//input.form-control(type='text', typeahead-on-select="fetchvsdetails(queryString)", typeahead-min-length='1', typeahead="node.name for node in getNodes($viewValue)", ng-model='queryString')
 								label.btn.btn-default.pull-right(ng-click="nodetype=''")
-									| Show All Activities
+									| Show All Activity Types
 						.vertical_spacing_less
 						.row(ng-hide="hideNodeStatus").fixed_height_dashboard
 							.col-lg-12.col-md-12.col-sm-12
@@ -214,9 +227,10 @@
 											| Type
 										th
 											|Validation Status
-									tr(ng-repeat="user in validationresults | filter:{type:nodetype}" ng-class="{background_yes:user.validationstatus=='Yes'}")
+									tr(ng-repeat="user in validationresults | filter:{type:nodetype,name:nodesearch}" ng-class="{background_yes:user.validationstatus=='Yes'}")
 										td(data-title="'Name'")
-											| {{user.name}}
+											a(ng-href="/apollo/#/dashboard/{{user.id}}")
+												| {{user.name}}
 										td(data-title="'Id'")
 											| {{user.id}}
 										td(data-title="'Type'")
@@ -226,7 +240,6 @@
 						.row
 							.col-lg-12.col-md-12.col-sm-12
 								img.img-responsive.linkage_empty( id="defaultimg" src="img/ajax-loader.gif" ng-show="showVSTableLoading")
-				.vertical_spacing_less
 				//nested row 
 				
 				//end nested row

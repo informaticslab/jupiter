@@ -7,21 +7,23 @@ angular.module('apolloApp')
 				//restrict: 'E',
 				scope: {
 					percent: '@attributePercent',
-					nodetype: '@id'
+					newload: '@attributeNewload'
 					//totvalidatearr: '='
 				},
 				link: function(scope, element, attrs) {
 
-					console.log("nodetype" + scope.nodetype + "*");
+					//console.log("nodetype" + scope.nodetype + "*");
 
 					var nodetype = scope.nodetype;
-
+					console.log("new load",scope.newload);
 					scope.$watch(
 						function() {
-							return scope.percent;
+							return scope.newload;
 						},
 						function(newValue, oldValue) {
 							if (newValue !== oldValue) {
+
+								console.log("new load on change",scope.newload);
 
 								if (scope.percent) {
 

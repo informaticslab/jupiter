@@ -9,7 +9,6 @@ angular.module('apolloApp').controller('dashboardCtrl', function($scope,$resourc
 
    	$scope.nodeId = $routeParams.id;
    	$scope.nodeNm="";
-   	$scope.newload=0;
    	//var nodestotal=0;
    	console.log("nodis",$scope.nodeId);
 
@@ -40,11 +39,6 @@ angular.module('apolloApp').controller('dashboardCtrl', function($scope,$resourc
 	validatedarr['DataStandard'] = 0;
 	validatedarr['Tag'] = 0;
 
-
-getstatsall=function(){
-
-
-
 	var portalstatsnodes = $resource('/apollo/api/stats/nodes/'+$scope.nodeId, {
 	});
 
@@ -67,12 +61,6 @@ getstatsall=function(){
 	}
 
 	});
-
-}
-
-getstatsno=function()
-{
-
 
 
 	var portalstatsrelations = $resource('/apollo/api/stats/nodesvalidated/'+$scope.nodeId, {
@@ -97,7 +85,7 @@ getstatsno=function()
 
 	});
 
-}
+
 	$scope.checkcomplete=function(){
 
 		
@@ -175,29 +163,13 @@ getstatsno=function()
 
 }
 
-$scope.loaddata=function(id){
-
-console.log("called loaddata");
-d3.selectAll("svg").remove();
-getstatsall();
-getstatsno();
-loadvalidaationdata();
-$scope.newload++;
-console.log($scope.newload);
-//$scope.$apply();
-
-}
-
-
 $scope.itemSelected = function($item, $model, $label) {
         $scope.nodeId = $item.id;
         console.log($scope.nodeId);
 
-        $scope.loaddata();
-        //$scope.$apply();
+        window.location =  '/apollo/#/dashboard/' + $scope.nodeId;
+        //loaddata($scope.nodeId);
 };
-
-$scope.loaddata();
 
 // $scope.fetchvsdetails=function(val){
 

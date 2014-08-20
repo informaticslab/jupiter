@@ -217,7 +217,8 @@
 						.vertical_spacing_less
 						.row(ng-hide="hideNodeStatus").fixed_height_dashboard
 							.col-lg-12.col-md-12.col-sm-12
-								table.table.table-hover.table-condensed.validationstatus_table
+								input(type="button" onclick="tableToExcel('VSTable', 'W3C Example Table')" value="Export to Excel")
+								table.table.table-hover.table-condensed.validationstatus_table(id="VSTable")
 									tr
 										th
 											| Name

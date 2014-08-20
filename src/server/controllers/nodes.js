@@ -87,7 +87,7 @@ exports.getNodeById = function(req, res) {
     var params = {
         nodeId: req.params.id
     };
-    console.log("Query is " + query + " and params are " + req.params.id);
+    //console.log("Query is " + query + " and params are " + req.params.id);
 
     neodb.db.query(query, params, function(err, results) {
         var nodedata = {}; 
@@ -95,10 +95,10 @@ exports.getNodeById = function(req, res) {
             console.error('Error retreiving node from database:', err);
             res.send(404, 'No node at that location');
         } else {
-            ////console.log("results were" + results[0]['n']);
+            //console.log("results were" + results[0]['n']);
             if (results[0] != null && results[0]['n'] != null && results[0]['n']['data'] != null) {
                 var doohicky = results[0]['n']['data'];               
-                ////console.log(doohicky);
+                //console.log(doohicky);
             
              nodedata.name = doohicky.name;
              nodedata.id = doohicky.id;
@@ -129,12 +129,12 @@ exports.getNodeById = function(req, res) {
 exports.searchByName = function(req, res) {
     var searchTerm = req.params.searchTerm.toLowerCase();
     var query = 'MATCH n WHERE lower(n.name)=~".*' + searchTerm + '.*" RETURN n.id as id, n.name as name';
-    ////console.log(query);
+    //console.log(query);
     var params = {
         searchTerm: req.params.searchTerm
     };
     neodb.db.query(query, params, function(err, results) {
-        ////console.log(results);
+        //console.log(results);
 
         if (err) {
             console.error('Error retreiving node from database:', err);
@@ -162,12 +162,12 @@ exports.searchSysTreeByName = function(req, res) {
         searchTerm: req.params.searchTerm
     };
     // var query = 'MATCH n WHERE lower(n.name)=~".*' + searchTerm + '.*" RETURN n.id as id, n.name as name';
-    // ////console.log(query);
+    // //console.log(query);
     // var params = {
     //     searchTerm: req.params.searchTerm
     // };
     neodb.db.query(query, params, function(err, results) {
-        ////console.log(results);
+        //console.log(results);
 
         if (err) {
             console.error('Error retreiving node from database:', err);
@@ -216,8 +216,8 @@ var compileSearchResults = function(req, res, err, results){
             console.error('Error retreiving node from database:', err);
             res.send(404, 'No node with that text available');
         } else {
-            ////console.log("results were" + results);
-            ////console.log("results length is" + results);
+            //console.log("results were" + results);
+            //console.log("results length is" + results);
             if (results[0] != null && results[0]['n'] != null && results[0]['n']['data'] != null) {
                 for(var i=0;i<results.length;i++)
                 {   
@@ -232,7 +232,7 @@ var compileSearchResults = function(req, res, err, results){
                         {
                             relCount = 0;
                         }          
-                        ////console.log(doohicky);
+                        //console.log(doohicky);
                 
                         nodedata.name = doohicky.name;
                         nodedata.id = doohicky.id;
@@ -298,7 +298,7 @@ var compileSearchResults = function(req, res, err, results){
                 nodedataarr.sort(sortFunction);
                 returnable.nodedataarr = nodedataarr;
                 returnable.nodeLabelCounts = nodeLabelCounts;              
-                ////console.log(returnable);
+                //console.log(returnable);
                 res.json(returnable);
         }
         else
@@ -321,7 +321,7 @@ exports.searchNodesByLabel = function(req, res) {
         skipnum: 0,
         retNum: 500
         };
-        ////console.log(params);
+        //console.log(params);
 
         neodb.db.query(query, params, function(err, results) {
             compileSearchResults(req, res, err, results)
@@ -369,7 +369,7 @@ exports.searchNodesByString = function(req, res) {
         retNum: 500
     };
 
-    ////console.log("Query is " + query + " and params are " + params.qString);
+    //console.log("Query is " + query + " and params are " + params.qString);
     neodb.db.query(query, params, function(err, results) {
        compileSearchResults(req, res, err, results);
     });
@@ -456,14 +456,14 @@ exports.getNodesForLinkageViewer = function(req, res) {
             ]
 
             var tokennodes=[req.params.id]
-            ////console.log(nodes);
+            //console.log(nodes);
             var links = [];
             var xi=0;
             for (var i=0;i<allRelations.length;i++)
             { 
                 
                 var tokennodeid=allChildIds[i];
-                ////console.log("tokennodeid",tokennodeid);
+                //console.log("tokennodeid",tokennodeid);
                 
                 //node=JSON.parse(node);
                 //found=-1;
@@ -472,7 +472,7 @@ exports.getNodesForLinkageViewer = function(req, res) {
                 tokennodes.forEach(function(d){
                     if(tokennodeid==d)
                     {
-                        ////console.log(tokennodeid+" tokennodeid found in d.id "+d);
+                        //console.log(tokennodeid+" tokennodeid found in d.id "+d);
                         found=true
                     }
 
@@ -480,8 +480,8 @@ exports.getNodesForLinkageViewer = function(req, res) {
 
 
 
-                ////console.log(found,node);
-                ////console.log(nodes);
+                //console.log(found,node);
+                //console.log(nodes);
                 if (!found) {
                     // Element was found, remove it.
                     
@@ -513,7 +513,7 @@ exports.getNodesForLinkageViewer = function(req, res) {
                             "description":allRelDesc[i]
                         })
                     }
-                   ////console.log("!found therefore pushing",nodes);
+                   //console.log("!found therefore pushing",nodes);
                    xi++;
                 } else {
 
@@ -551,7 +551,7 @@ exports.getNodesForLinkageViewer = function(req, res) {
                 "nodes": nodes,
                 "links": links
                         }
-            ////console.log(viewerJson);
+            //console.log(viewerJson);
             res.send(viewerJson);
             }
             else
@@ -597,6 +597,99 @@ exports.getPortalStatisticsNodes = function(req, res) {
             
         }
     });
+};
+
+
+exports.exportCSV = function(req, res) {
+
+var id = req.params.id;
+var qparams=req.params.qparam;
+
+qparam=qparams.split("-");
+
+var searchtype=qparam[0];
+var searchnode=qparam[1];
+
+if(searchtype=="undefined")
+{
+    searchtype="";
+}
+
+if(searchnode=="undefined")
+{
+    searchnode="";
+}
+
+//var id="O31"
+    var validationresults=[];
+
+
+    if(id== 'undefined')
+    {
+        query = ['MATCH n where n.name=~{nodename} and labels(n)[0]=~{nodetype}',
+        'return n.id as id, n.name as name, labels(n) as label, n.informationValidated as validationstatus order by name'
+        ].join('\n');
+        params = {
+            //id:id,
+            nodetype:"(?i).*"+searchtype+".*",
+            nodename:"(?i).*"+searchnode+".*"
+        };
+    }
+    else
+    {
+        query = ['MATCH (n)-[r:OVERSEES|MANAGES*]->x where n.id={id} and x.name=~{nodename} and labels(x)[0]=~{nodetype}',
+        'return x.id as id, x.name as name, labels(x) as label, x.informationValidated as validationstatus order by name'
+        ].join('\n');
+        params = {
+            id:id,
+            nodetype:"(?i).*"+searchtype+".*",
+            nodename:"(?i).*"+searchnode+".*"
+        };
+    }
+
+    console.log(query, params);
+    
+
+    
+    neodb.db.query(query, params, function(err, r) {
+        if (err) {
+            console.error('Error retreiving statistics from database:', err);
+            res.send(404, 'Error encountered');
+        } else {
+
+            validationresults.push([
+                        "Name",
+                        "Id",
+                        "Type",
+                        "Validation Status"
+                    ]);
+            r.forEach(function(d){
+                //console.log(d.name);
+                validationresults.push([
+                        d.name,
+                        d.id,
+                        d.label[0],
+                        d.validationstatus
+                    ]);
+            });
+            
+            //res.json(validationresults);
+
+            //res.send(validationresults);
+            //console.log(validationresults);
+res.header('content-type','text/csv');
+ res.header('content-disposition', 'attachment; filename=report.csv');
+
+ // res.csv([
+ //    ["a", "b", "c"]
+ //  , ["d", "e", "f"]
+ //  ]);
+res.csv(validationresults);
+            
+        }
+    });
+
+
 };
 
 
@@ -661,7 +754,7 @@ exports.getValidationStatus = function(req, res) {
         params = {id:id};
     }
 
-    console.log(query, params);
+    //console.log(query, params);
     
 
     
@@ -680,7 +773,7 @@ exports.getValidationStatus = function(req, res) {
                         "validationstatus": d.validationstatus
                     });
             });
-            console.log(validationresults);
+            //console.log(validationresults);
             res.json(validationresults);
 
             //res.send(validationresults);
@@ -699,7 +792,7 @@ exports.getValidationStatus = function(req, res) {
 //         searchTerm: searchTerm
 //     };
 //     // var query = 'MATCH n WHERE lower(n.name)=~".*' + searchTerm + '.*" RETURN n.id as id, n.name as name';
-//     ////console.log(query);
+//     //console.log(query);
 //     // var params = {
 //     //     searchTerm: req.params.searchTerm
 //     // };
@@ -715,7 +808,7 @@ exports.getValidationStatus = function(req, res) {
 //                 _.each(results, function(i){
 //                     nodedata.push({id: i.id, type:i.type[0], name:i.name,validation:i.validation});
 //                 })
-//                 ////console.log(nodedata);
+//                 //console.log(nodedata);
 //                 res.json(nodedata);
 //             }
 //             else{
@@ -740,7 +833,7 @@ exports.getPortalStatisticsRelations = function(req, res) {
             res.send(404, 'no statistics available');
         } else {
 
-            ////console.log(r);
+            //console.log(r);
             res.send(r);
             
         }
@@ -835,7 +928,7 @@ exports.getAdvancedSearchData = function(req, res) {
 
 
     var nodes = req.params.id;
-    ////console.log(nodes);
+    //console.log(nodes);
 
     var nodesarr = nodes.split("-");
 
@@ -926,7 +1019,7 @@ query = query.substring(0, lastIndex);
         rightId: nodesarr[1]
     };
 
-        ////console.log(params);
+        //console.log(params);
 
     var viewerJson;
     neodb.db.query(query, params, function(err, r) {
@@ -934,7 +1027,7 @@ query = query.substring(0, lastIndex);
             console.error('Error retreiving relations from database:', err);
             res.send(404, 'no node at that location');
         } else {
-            ////console.log(r);
+            //console.log(r);
 
             if (r == "") {
 
@@ -942,14 +1035,14 @@ query = query.substring(0, lastIndex);
             } else {
 
 
-                ////console.log(nodes);
-                ////console.log(relations);
+                //console.log(nodes);
+                //console.log(relations);
 
                 var obj = eval(r);
                 var nodesA = [];
 
                 obj.forEach(function(d) {
-                    ////console.log("Nodes",d.Nodes);
+                    //console.log("Nodes",d.Nodes);
 
                     var dnodes = eval(d.Nodes);
                     var dnodesid = eval(d.NodesId);
@@ -959,8 +1052,8 @@ query = query.substring(0, lastIndex);
                     var drelationsdescription = eval(d.Description);
 
 
-                    ////console.log("dnodes",dnodes);
-                    ////console.log("dnodes length",dnodes.length);
+                    //console.log("dnodes",dnodes);
+                    //console.log("dnodes length",dnodes.length);
 
 
                     //check for redundant hops in path
@@ -981,7 +1074,7 @@ query = query.substring(0, lastIndex);
                         }
                         if (!found) {
                             nodesRedundancyCheck.push(dnodes[i]);
-                            ////console.log("ushed",nodesRedundancyCheck);
+                            //console.log("ushed",nodesRedundancyCheck);
                         } else {
                             break;
                         }
@@ -996,7 +1089,7 @@ query = query.substring(0, lastIndex);
                             if (dnodes.length == 4) {
                                 for (var i = 0; i < dnodes.length - 1; i++) {
 
-                                    ////console.log("1--",dnodes[i]);
+                                    //console.log("1--",dnodes[i]);
                                     nodesA.push({
                                         "source": dnodes[i],
                                         "sourceid": dnodesid[i],
@@ -1010,7 +1103,7 @@ query = query.substring(0, lastIndex);
                                         "objectid": dnodes[i] + dnodesid[i] + dnodes[i + 1] + dnodesid[i + 1] + drelations[i] + dstartnodes[i]
                                     });
 
-                                    ////console.log("nodesA",nodesA[i]);
+                                    //console.log("nodesA",nodesA[i]);
 
                                 }
 
@@ -1019,7 +1112,7 @@ query = query.substring(0, lastIndex);
                         //} else {
                             for (var i = 0; i < dnodes.length - 1; i++) {
 
-                                ////console.log("1--",dnodes[i]);
+                                //console.log("1--",dnodes[i]);
                                 nodesA.push({
                                     "source": dnodes[i],
                                     "sourceid": dnodesid[i],
@@ -1033,7 +1126,7 @@ query = query.substring(0, lastIndex);
                                     "objectid": dnodes[i] + dnodesid[i] + dnodes[i + 1] + dnodesid[i + 1] + drelations[i] + dstartnodes[i]
                                 });
 
-                                ////console.log("nodesA",nodesA[i]);
+                                //console.log("nodesA",nodesA[i]);
 
                             }
                         //}
@@ -1052,7 +1145,7 @@ query = query.substring(0, lastIndex);
                 });
 
 
-                ////console.log("nodesA",nodesA);
+                //console.log("nodesA",nodesA);
 
                 if (nodesA.length == 0) {
                     res.send(404, "No nodes retuned");
@@ -1063,13 +1156,13 @@ query = query.substring(0, lastIndex);
                     var nodesAunique = [];
 
                     nodesAunique.push(nodesA[0]);
-                    ////console.log("push",nodesAunique[0].objectid);
+                    //console.log("push",nodesAunique[0].objectid);
 
                     for (var i = 0; i < nodesA.length; i++) {
                         var found = false;
                         for (j = 0; j < nodesAunique.length; j++) {
                             if (nodesA[i].objectid == nodesAunique[j].objectid) {
-                                ////console.log("break");
+                                //console.log("break");
                                 //continue;
                                 found = true;
                                 break;
@@ -1084,7 +1177,7 @@ query = query.substring(0, lastIndex);
 
                     }
 
-                    ////console.log("nodesAunique",nodesAunique);
+                    //console.log("nodesAunique",nodesAunique);
 
 
 
@@ -1140,7 +1233,7 @@ query = query.substring(0, lastIndex);
                     }
 
 
-                    ////console.log("nodes",nodes);
+                    //console.log("nodes",nodes);
 
 
                     var links = [];
@@ -1158,7 +1251,7 @@ query = query.substring(0, lastIndex);
 
 
                         for (var j = 0; j < nodes.length; j++) {
-                            ////console.log(i,j, nodes.id,sourcenodeid);
+                            //console.log(i,j, nodes.id,sourcenodeid);
                             if (nodes[j].id == sourcenodeid) {
                                 sourcenodeindex = j;
                                 break;
@@ -1166,7 +1259,7 @@ query = query.substring(0, lastIndex);
                             }
 
                         }
-                        ////console.log(sourcenodeid, sourcenodeindex,targetnodeid, targetnodeindex);
+                        //console.log(sourcenodeid, sourcenodeindex,targetnodeid, targetnodeindex);
 
 
 
@@ -1180,7 +1273,7 @@ query = query.substring(0, lastIndex);
                         }
 
 
-                        ////console.log(sourcenodeid, sourcenodeindex,targetnodeid, targetnodeindex);
+                        //console.log(sourcenodeid, sourcenodeindex,targetnodeid, targetnodeindex);
 
                         if (sourcenodeid == startnodeid) {
                             links.push({
@@ -1223,7 +1316,7 @@ query = query.substring(0, lastIndex);
 
 
 
-                ////console.log(nodes.length);
+                //console.log(nodes.length);
 
 
 
@@ -1250,7 +1343,7 @@ exports.getNodeNameById = function(req, res) {
             
             if(results[0]==null)
             {
-                ////console.log("no name");
+                //console.log("no name");
                 res.send("Not Found");
             }
             else

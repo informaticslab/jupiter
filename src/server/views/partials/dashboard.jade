@@ -217,7 +217,6 @@
 						.vertical_spacing_less
 						.row(ng-hide="hideNodeStatus").fixed_height_dashboard
 							.col-lg-12.col-md-12.col-sm-12
-								input(type="button" onclick="tableToExcel('VSTable', 'W3C Example Table')" value="Export to Excel")
 								table.table.table-hover.table-condensed.validationstatus_table(id="VSTable")
 									tr
 										th
@@ -240,6 +239,11 @@
 											| {{user.validationstatus}}
 						.row
 							.col-lg-12.col-md-12.col-sm-12
+								.vertical_spacing_lesser
+								//input(type="button" onclick="tableToExcel('VSTable', 'W3C Example Table')" value="Export to Excel" ng-hide="showVSTableLoading")
+								label.btn.btn-default.pull-right(ng-click="exporttable()" ng-hide="showVSTableLoading")
+									i.fa.fa-file-excel-o
+									| Download as Excel
 								img.img-responsive.linkage_empty( id="defaultimg" src="img/ajax-loader.gif" ng-show="showVSTableLoading")
 				//nested row 
 				

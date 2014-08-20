@@ -171,6 +171,12 @@ $scope.itemSelected = function($item, $model, $label) {
         //loaddata($scope.nodeId);
 };
 
+$scope.exporttable= function()
+{
+
+	console.log($scope.nodesearch,$scope.nodetype, '/apollo/api/export/csv/' + $scope.nodeId+'/'+$scope.nodetype+'-'+$scope.nodesearch);
+	window.location =  '/apollo/api/export/csv/' + $scope.nodeId+'/'+$scope.nodetype+'-'+$scope.nodesearch;
+}
 // $scope.fetchvsdetails=function(val){
 
 // 	console.log(val);

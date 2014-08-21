@@ -563,8 +563,14 @@ exports.getNodesForLinkageViewer = function(req, res) {
 };
 exports.getPortalStatisticsNodes = function(req, res) {
 
-    var id = req.params.id;
-
+    //var id = req.params.id;
+    //console.log(id);
+    var id="undefined";
+    if(req.params.id)
+    {
+        id=req.params.id;
+    }
+    //console.log(id);
     var query, params;
 
     //console.log("node id",id);

@@ -10,7 +10,7 @@ angular.module('apolloApp').controller('dashboardCtrl', function($scope,$resourc
    	$scope.nodeId = $routeParams.id;
    	$scope.nodeNm="";
    	//var nodestotal=0;
-   	console.log("nodis",$scope.nodeId);
+   	//console.log("nodis",$scope.nodeId);
 
    	
 
@@ -42,7 +42,7 @@ angular.module('apolloApp').controller('dashboardCtrl', function($scope,$resourc
 		if($routeParams.id)
 		{
 			var nodeDetails = $http.get('/apollo/api/node/' + $routeParams.id).success(function(data) {
-            //console.log(data.name);
+            ////console.log(data.name);
             $scope.nodeNm=data.name;
             $scope.hideReturnLink=false;
 
@@ -64,11 +64,11 @@ getnodestatsdata=function(){
 
 		$scope.statsarr=statsarr;
 
-		console.log(statsarr);
+		//console.log(statsarr);
 
 		$scope.checkcomplete();
 
-		//console.log("1",$scope.validatedarr,$scope.statsarr);
+		////console.log("1",$scope.validatedarr,$scope.statsarr);
 	}
 
 	});
@@ -91,8 +91,8 @@ getnodestatsdatavalidated=function(){
 		$scope.validatedarr=validatedarr;
 		$scope.checkcomplete();
 
-		console.log(validatedarr);
-		//console.log("2",$scope.validatedarr,$scope.statsarr);
+		//console.log(validatedarr);
+		////console.log("2",$scope.validatedarr,$scope.statsarr);
 
 	}
 
@@ -102,7 +102,7 @@ getnodestatsdatavalidated=function(){
 	$scope.checkcomplete=function(){
 
 		
-		//console.log("checkcomplete");
+		////console.log("checkcomplete");
 		if($scope.validatedarr!=undefined & $scope.statsarr!=undefined)
 		{
 			
@@ -121,7 +121,7 @@ getnodestatsdatavalidated=function(){
 			
 			for(d in statsarr)
 			{
-				//console.log(d,statsarr[d],validatedarr[d],totvalidatearr[d]);
+				////console.log(d,statsarr[d],validatedarr[d],totvalidatearr[d]);
 				
 				if(statsarr[d]==0)
 				{
@@ -131,12 +131,12 @@ getnodestatsdatavalidated=function(){
 				{
 					totvalidatearr[d]=Math.round(((statsarr[d]-validatedarr[d])/statsarr[d])*100);
 				}
-				//console.log(d,totvalidatearr[d]);
+				////console.log(d,totvalidatearr[d]);
 			}
 
 			$scope.totvalidatearr=totvalidatearr;
-			//console.log("3",totvalidatearr);
-			//console.log("4",$scope.totvalidatearr);
+			////console.log("3",totvalidatearr);
+			////console.log("4",$scope.totvalidatearr);
 			//$timeout(loadvalidaationdata, 800);
 			
 			
@@ -176,7 +176,7 @@ getnodestatsdatavalidated=function(){
 
 $scope.itemSelected = function($item, $model, $label) {
         $scope.nodeId = $item.id;
-        console.log($scope.nodeId);
+        //console.log($scope.nodeId);
 
         window.location =  '/apollo/#/dashboard/' + $scope.nodeId;
         //loaddata($scope.nodeId);
@@ -185,8 +185,9 @@ $scope.itemSelected = function($item, $model, $label) {
 $scope.exporttable= function()
 {
 
-	console.log($scope.nodesearch,$scope.nodetype, '/apollo/api/export/csv/' + $scope.nodeId+'/'+$scope.nodetype+'-'+$scope.nodesearch);
-	window.location =  '/apollo/api/export/csv/' + $scope.nodeId+'/'+$scope.nodetype+'-'+$scope.nodesearch;
+	//console.log('/apollo/api/export/csv/' + $scope.nodeId+'/'+'ntype-'+$scope.nodetype+',nname='+$scope.nodesearch+',orderby='+$scope.orderByField+',asc='+$scope.reverse);
+	//console.log($scope.orderByField,$scope.reverse);
+	window.location =  '/apollo/api/export/csv/' + $scope.nodeId+'/'+'ntype='+$scope.nodetype+',nname='+$scope.nodesearch+',orderby='+$scope.orderByField+',asc='+$scope.reverse;
 }
 
 
@@ -195,7 +196,7 @@ loadvalidaationdata();
 
 // $scope.fetchvsdetails=function(val){
 
-// 	console.log(val);
+// 	//console.log(val);
 // 	//var vsdetails = $http.get('/apollo/api/dashboard/validationStatusDetails/'+val, {
 // 	return $http.get('/apollo/api/dashboard/validationStatusDetails/'+val).then(function(res) {
 //             var nodes = [];
@@ -204,7 +205,7 @@ loadvalidaationdata();
 //             });
 //             $scope.nodedetails=nodes;
 //             $scope.nodedetailspresent=true;
-//             //console.log(nodes);
+//             ////console.log(nodes);
 //             //return nodes;
 // 	});
 // };

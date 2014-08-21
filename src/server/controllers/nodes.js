@@ -605,10 +605,19 @@ exports.exportCSV = function(req, res) {
 var id = req.params.id;
 var qparams=req.params.qparam;
 
-qparam=qparams.split("-");
+var qparam=qparams.split(",");
 
-var searchtype=qparam[0];
-var searchnode=qparam[1];
+
+var ntype=qparam[0].split("=")[1];
+var nname=qparam[1].split("=")[1];
+var orderby=qparam[2].split("=")[1];
+var asc=qparam[3].split("=")[1];
+
+
+//console.log(ntype,nname,orderby,asc);
+
+var searchtype=ntype;
+var searchnode=nname;
 
 if(searchtype=="undefined")
 {
@@ -619,6 +628,19 @@ if(searchnode=="undefined")
 {
     searchnode="";
 }
+if(orderby=="undefined")
+{
+    orderby="name";
+}
+if(asc=="undefined" | asc=="true")
+{
+    asc="ASC";
+}
+else
+{
+    asc="DESC";
+}
+
 
 //var id="O31"
     var validationresults=[];
@@ -627,7 +649,7 @@ if(searchnode=="undefined")
     if(id== 'undefined')
     {
         query = ['MATCH n where n.name=~{nodename} and labels(n)[0]=~{nodetype}',
-        'return n.id as id, n.name as name, labels(n) as label, n.informationValidated as validationstatus order by name'
+        'return n.id as id, n.name as name, labels(n) as label, n.informationValidated as validationstatus order by '+orderby+' '+asc
         ].join('\n');
         params = {
             //id:id,
@@ -638,7 +660,7 @@ if(searchnode=="undefined")
     else
     {
         query = ['MATCH (n)-[r:OVERSEES|MANAGES*]->x where n.id={id} and x.name=~{nodename} and labels(x)[0]=~{nodetype}',
-        'return x.id as id, x.name as name, labels(x) as label, x.informationValidated as validationstatus order by name'
+        'return x.id as id, x.name as name, labels(x) as label, x.informationValidated as validationstatus order by '+orderby+' '+asc
         ].join('\n');
         params = {
             id:id,
@@ -647,7 +669,7 @@ if(searchnode=="undefined")
         };
     }
 
-    console.log(query, params);
+    //console.log(query, params);
     
 
     

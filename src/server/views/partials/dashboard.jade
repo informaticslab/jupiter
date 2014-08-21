@@ -220,14 +220,18 @@
 								table.table.table-hover.table-condensed.validationstatus_table(id="VSTable")
 									tr
 										th
-											| Name
+											a(href="" ng-click="reverse=!reverse;orderByField='name'")
+												| Name
 										th
-											| Id
+											a(href="" ng-click="reverse=!reverse;orderByField='id'")
+												| Id
 										th
-											| Type
+											a(href="" ng-click="reverse=!reverse;orderByField='type'")
+												| Type
 										th
-											|Validation Status
-									tr(ng-repeat="user in validationresults | filter:{type:nodetype,name:nodesearch}" ng-class="{background_yes:user.validationstatus=='Yes'}")
+											a(href="" ng-click="reverse=!reverse;orderByField='validationstatus'")
+												|Validation Status
+									tr(ng-repeat="user in validationresults | filter:{type:nodetype,name:nodesearch} | orderBy:orderByField:!reverse" ng-class="{background_yes:user.validationstatus=='Yes'}")
 										td(data-title="'Name'")
 											a(ng-href="/apollo/#/dashboard/{{user.id}}")
 												| {{user.name}}

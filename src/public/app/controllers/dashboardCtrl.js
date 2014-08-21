@@ -1,4 +1,4 @@
-angular.module('apolloApp').controller('dashboardCtrl', function($scope,$resource,$location,$http,$routeParams,$timeout){
+angular.module('apolloApp').controller('dashboardCtrl', function($scope,$resource,$location,$http,$routeParams){
 
    	var nodestotal=0;
    	$scope.hideNodeStatus=false;
@@ -39,17 +39,6 @@ angular.module('apolloApp').controller('dashboardCtrl', function($scope,$resourc
 	validatedarr['DataStandard'] = 0;
 	validatedarr['Tag'] = 0;
 
-		if($routeParams.id)
-		{
-			var nodeDetails = $http.get('/apollo/api/node/' + $routeParams.id).success(function(data) {
-            //console.log(data.name);
-            $scope.nodeNm=data.name;
-            $scope.hideReturnLink=false;
-
-        });
-		}
-	
-getnodestatsdata=function(){
 	var portalstatsnodes = $resource('/apollo/api/stats/nodes/'+$scope.nodeId, {
 	});
 
@@ -64,7 +53,7 @@ getnodestatsdata=function(){
 
 		$scope.statsarr=statsarr;
 
-		console.log(statsarr);
+		//console.log(statsarr);
 
 		$scope.checkcomplete();
 
@@ -73,9 +62,7 @@ getnodestatsdata=function(){
 
 	});
 
-}
 
-getnodestatsdatavalidated=function(){
 	var portalstatsrelations = $resource('/apollo/api/stats/nodesvalidated/'+$scope.nodeId, {
 	});
 
@@ -91,14 +78,14 @@ getnodestatsdatavalidated=function(){
 		$scope.validatedarr=validatedarr;
 		$scope.checkcomplete();
 
-		console.log(validatedarr);
+		//console.log(validatedarr);
 		//console.log("2",$scope.validatedarr,$scope.statsarr);
 
 	}
 
 	});
 
-}
+
 	$scope.checkcomplete=function(){
 
 		
@@ -137,16 +124,22 @@ getnodestatsdatavalidated=function(){
 			$scope.totvalidatearr=totvalidatearr;
 			//console.log("3",totvalidatearr);
 			//console.log("4",$scope.totvalidatearr);
-			//$timeout(loadvalidaationdata, 800);
-			
-			
+			loadvalidaationdata();
 
 			
 		}
 	}
 
 
+		if($routeParams.id)
+		{
+			var nodeDetails = $http.get('/apollo/api/node/' + $routeParams.id).success(function(data) {
+            //console.log(data.name);
+            $scope.nodeNm=data.name;
+            $scope.hideReturnLink=false;
 
+        });
+		}
         
 
 
@@ -168,10 +161,6 @@ getnodestatsdatavalidated=function(){
 
 	});
 
-	$timeout(getnodestatsdata, 10);
-	$timeout(getnodestatsdatavalidated, 10);
-	
-
 }
 
 $scope.itemSelected = function($item, $model, $label) {
@@ -188,11 +177,6 @@ $scope.exporttable= function()
 	console.log($scope.nodesearch,$scope.nodetype, '/apollo/api/export/csv/' + $scope.nodeId+'/'+$scope.nodetype+'-'+$scope.nodesearch);
 	window.location =  '/apollo/api/export/csv/' + $scope.nodeId+'/'+$scope.nodetype+'-'+$scope.nodesearch;
 }
-
-
-loadvalidaationdata();
-
-
 // $scope.fetchvsdetails=function(val){
 
 // 	console.log(val);

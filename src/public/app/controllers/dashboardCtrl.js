@@ -8,7 +8,7 @@ angular.module('apolloApp').controller('dashboardCtrl', function($scope,$resourc
    	$scope.hideReturnLink=true;
 
    	$scope.nodeId = $routeParams.id;
-   	$scope.nodeNm="";
+   	$scope.nodeNm="Overall Summary";
    	//var nodestotal=0;
    	//console.log("nodis",$scope.nodeId);
 

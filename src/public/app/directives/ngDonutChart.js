@@ -12,7 +12,7 @@ angular.module('apolloApp')
 				},
 				link: function(scope, element, attrs) {
 
-					console.log("nodetype" + scope.nodetype + "*");
+					//console.log("nodetype" + scope.nodetype + "*");
 
 					var nodetype = scope.nodetype;
 
@@ -29,7 +29,7 @@ angular.module('apolloApp')
 
 									var arcpercent = scope.percent / 100;
 
-									console.log("nodetypoe" + nodetype + "*" + arcpercent);
+									//console.log("nodetypoe" + nodetype + "*" + arcpercent);
 
 									var width = 100,
 										height = 100,

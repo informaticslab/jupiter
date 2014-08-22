@@ -200,6 +200,11 @@ $scope.exporttable= function()
 }
 
 
+$scope.loadvsdata=function(id){
+	//console.log(id);
+	$location.path('/dashboard/' + id);
+}
+
 loadvalidaationdata();
 
 

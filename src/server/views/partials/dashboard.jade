@@ -234,6 +234,10 @@
 								//input.form-control(type='text', typeahead-on-select="fetchvsdetails(queryString)", typeahead-min-length='1', typeahead="node.name for node in getNodes($viewValue)", ng-model='queryString')
 								label.btn.btn-default.pull-right(ng-click="nodesearch=''; nodetype=''")
 									| Show all activity types
+						.row
+							.col-lg-12.col-md-12.col-sm-12
+								.small_print
+									| Filter applied: node type = '{{nodetype}}' node name = '{{nodesearch}}'
 						.vertical_spacing_less
 						.row(ng-hide="hideNodeStatus")
 							.col-lg-12.col-md-12.col-sm-12
@@ -254,9 +258,9 @@
 						.row(ng-hide="hideNodeStatus").fixed_height_dashboard
 							.col-lg-12.col-md-12.col-sm-12
 								table.table.table-hover.table-condensed.validationstatus_table
-									tr(ng-repeat="user in validationresults | filter:{type:nodetype,name:nodesearch} | orderBy:orderByField:!reverse" ng-class="{background_yes:user.validationstatus=='Yes'}")
+									tr(ng-click="loadvsdata(user.id)" ng-repeat="user in validationresults | filter:{type:nodetype,name:nodesearch} | orderBy:orderByField:!reverse" ng-class="{background_yes:user.validationstatus=='Yes'}")
 										td.col-lg-6.col-md-6.col-sm-6(data-title="'Name'")
-											a(href="#/dashboard/{{user.id}}")
+											a(href="#/node/{{user.id}}")
 												| {{user.name}}
 										td.col-lg-2.col-md-2.col-sm-2(data-title="'Id'")
 											| {{user.id}}

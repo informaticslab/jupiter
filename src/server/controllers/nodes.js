@@ -737,7 +737,7 @@ exports.getPortalStatisticsNodesValidated = function(req, res) {
     else
     {
         {
-        query = ['MATCH (n)-[r:OVERSEES|MANAGES*]->x where n.id={id} and n.informationValidated=\'No\'',
+        query = ['MATCH (n)-[r:OVERSEES|MANAGES*]->x where n.id={id} and x.informationValidated=\'No\'',
         'return labels(x) as label, count(*) as count '
         ].join('\n');
         params = {id:id};

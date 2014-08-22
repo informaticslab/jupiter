@@ -7,25 +7,28 @@ angular.module('apolloApp')
 				//restrict: 'E',
 				scope: {
 					percent: '@attributePercent',
-					nodetype: '@id'
+					nodetype: '@id',
+					readytoload:'@attributeReadytoload'
 					//totvalidatearr: '='
 				},
 				link: function(scope, element, attrs) {
 
-					//console.log("nodetype" + scope.nodetype + "*");
+					//console.log("11",scope.readytoload);
 
 					var nodetype = scope.nodetype;
 
 					scope.$watch(
 						function() {
-							return scope.percent;
+							return scope.readytoload;
 						},
 						function(newValue, oldValue) {
+							//console.log("22",scope.readytoload);
 							if (newValue !== oldValue) {
+								//console.log("33",scope.readytoload,scope.percent);
 
-								if (scope.percent) {
+								if (scope.readytoload) {
 
-
+									//console.log("33",scope.readytoload,scope.percent);
 
 									var arcpercent = scope.percent / 100;
 

@@ -237,7 +237,12 @@
 						.row
 							.col-lg-12.col-md-12.col-sm-12
 								.small_print
-									| Filter applied: node type = '{{nodetype}}' node name = '{{nodesearch}}'
+									span(ng-if="nodetype.trim()!='' || nodesearch.trim()!=''")
+										| Filter applied:
+									span(ng-if="nodetype.trim()!=''")
+										|  node type = '{{nodetype}}'
+									span(ng-if="nodesearch.trim()!=''")
+										|  node name = '{{nodesearch}}'
 						.vertical_spacing_less
 						.row(ng-hide="hideNodeStatus")
 							.col-lg-12.col-md-12.col-sm-12
@@ -254,7 +259,7 @@
 												| Type
 										th.col-lg-2.col-md-2.col-sm-2
 											a(href="" ng-click="reverse=!reverse;orderByField='validationstatus'")
-												|Validation Status
+												|Validated
 						.row(ng-hide="hideNodeStatus").fixed_height_dashboard
 							.col-lg-12.col-md-12.col-sm-12
 								table.table.table-hover.table-condensed.validationstatus_table
@@ -274,7 +279,7 @@
 								//input(type="button" onclick="tableToExcel('VSTable', 'W3C Example Table')" value="Export to Excel" ng-hide="showVSTableLoading")
 								label.btn.btn-default.pull-right(ng-click="exporttable()" ng-hide="showVSTableLoading")
 									i.fa.fa-download
-									|  Download as Excel
+									|  Download as CSV
 								img.img-responsive.linkage_empty( id="defaultimg" src="img/ajax-loader.gif" ng-show="showVSTableLoading")
 				//nested row 
 				

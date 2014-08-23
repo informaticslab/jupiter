@@ -9,6 +9,9 @@ angular.module('apolloApp').controller('dashboardCtrl', function($scope,$resourc
 
    	$scope.nodeId = $routeParams.id;
    	$scope.nodeNm="Overall Summary";
+
+   	$scope.nodetype="";
+   	$scope.nodesearch="";
    	//var nodestotal=0;
    	//console.log("nodis",$scope.nodeId);
    	$scope.readytoload=false;

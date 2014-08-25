@@ -788,7 +788,7 @@ td.result_number_total {font-weight: bold; padding-top:.7em;}
 .donut_text{font-size:1.2em; text-anchor:middle;}
 
 .background_yes{background-color: #A7C5BD}
-.validationstatus_table{font-size:.8em;text-align: left;cursor: pointer;}
+.validationstatus_table{font-size:.8em;text-align: left;}
 .validationstatus_table_header{font-size:.8em;text-align: left;}
 .fixed_height_dashboard{max-height: 480px;overflow: scroll;overflow-x: hidden;}
 .btn_no_border{border-width:1px;width:100%;}

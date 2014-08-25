@@ -57,8 +57,8 @@
 				.row
 					.col-lg-12.col-md-12.col-sm-12
 						.orange_header_larger
-							| {{nodeNm}}
-							a.btn.btn-mini(ng-click="nodesearch=''; nodetype=''" href='/apollo/#/dashboard/' ng-hide="hideReturnLink")
+							| {{nodeNm}}  
+							a.validationstatus_table(ng-click="nodesearch=''; nodetype=''" href='/apollo/#/dashboard/' ng-hide="hideReturnLink")
 								//label.btn.btn-mini(ng-click="exporttable()" ng-hide="showVSTableLoading")
 								i.fa.fa-mail-reply
 								|  Back to overall summary
@@ -73,14 +73,14 @@
 										// ({{totvalidatearr['SurveillanceSystem']}}%)
 										.stat_label
 											//a(ng-click='goToTop()' href='#/search/label/SurveillanceSystem')
-											| Surveillance Systems
+											| Surveillance Syst.
 								span.visible-sm
 									label.btn.btn-default.btn_no_border_sm
 										//.donut_placeholder(id="donut_SurveillanceSystem" ng-donut-chart attribute-readytoload="{{readytoload}}"  attribute-percent="{{totvalidatearr['SurveillanceSystem']}}")
 										.stat_count {{statsarr['SurveillanceSystem']}} ({{totvalidatearr['SurveillanceSystem']}}%)
 										.stat_label_sm
 											//a(ng-click='goToTop()' href='#/search/label/SurveillanceSystem')
-											| Surveillance Systems	
+											| Surveillance Syst.
 							//end column specs 
 							.col-lg-4.col-md-4.col-sm-4
 								span.visible-lg.visible-md
@@ -238,11 +238,12 @@
 							.col-lg-12.col-md-12.col-sm-12
 								.small_print
 									span(ng-if="nodetype.trim()!='' || nodesearch.trim()!=''")
-										| Filter applied:
+										b
+											| Filter applied:
 									span(ng-if="nodetype.trim()!=''")
-										|  node type = '{{nodetype}}'
+										|  activity type = '{{nodetype}}'
 									span(ng-if="nodesearch.trim()!=''")
-										|  node name = '{{nodesearch}}'
+										|  activity name = '{{nodesearch}}'
 						.vertical_spacing_less
 						.row(ng-hide="hideNodeStatus")
 							.col-lg-12.col-md-12.col-sm-12
@@ -251,7 +252,7 @@
 										th.col-lg-6.col-md-6.col-sm-6
 											a(href="" ng-click="reverse=!reverse;orderByField='name'")
 												| Name
-										th.col-lg-2.col-md-2.col-sm-2
+										//th.col-lg-2.col-md-2.col-sm-2
 											a(href="" ng-click="reverse=!reverse;orderByField='id'")
 												| Id
 										th.col-lg-2.col-md-2.col-sm-2
@@ -263,11 +264,11 @@
 						.row(ng-hide="hideNodeStatus").fixed_height_dashboard
 							.col-lg-12.col-md-12.col-sm-12
 								table.table.table-hover.table-condensed.validationstatus_table
-									tr(ng-click="loadvsdata(user.id)" ng-repeat="user in validationresults | filter:{type:nodetype,name:nodesearch} | orderBy:orderByField:!reverse" ng-class="{background_yes:user.validationstatus=='Yes'}")
+									tr( ng-repeat="user in validationresults | filter:{type:nodetype,name:nodesearch} | orderBy:orderByField:!reverse" ng-class="{background_yes:user.validationstatus=='Yes'}")
 										td.col-lg-6.col-md-6.col-sm-6(data-title="'Name'")
 											a(href="#/node/{{user.id}}")
 												| {{user.name}}
-										td.col-lg-2.col-md-2.col-sm-2(data-title="'Id'")
+										//td.col-lg-2.col-md-2.col-sm-2(data-title="'Id'")
 											| {{user.id}}
 										td.col-lg-2.col-md-2.col-sm-2(data-title="'Type'")
 											| {{user.type}}

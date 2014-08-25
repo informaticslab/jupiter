@@ -655,7 +655,7 @@ else
     if(id== 'undefined')
     {
         query = ['MATCH n where n.name=~{nodename} and labels(n)[0]=~{nodetype}',
-        'return n.id as id, n.name as name, labels(n) as label, n.informationValidated as validationstatus order by '+orderby+' '+asc
+        'return distinct n.id as id, n.name as name, labels(n) as label, n.informationValidated as validationstatus order by '+orderby+' '+asc
         ].join('\n');
         params = {
             //id:id,
@@ -666,7 +666,7 @@ else
     else
     {
         query = ['MATCH (n)-[r:OVERSEES|MANAGES*]->x where n.id={id} and x.name=~{nodename} and labels(x)[0]=~{nodetype}',
-        'return x.id as id, x.name as name, labels(x) as label, x.informationValidated as validationstatus order by '+orderby+' '+asc
+        'return distinct x.id as id, x.name as name, labels(x) as label, x.informationValidated as validationstatus order by '+orderby+' '+asc
         ].join('\n');
         params = {
             id:id,
@@ -770,14 +770,14 @@ exports.getValidationStatus = function(req, res) {
     if(id== 'undefined')
     {
         query = ['MATCH n',
-        'return n.id as id, n.name as name, labels(n) as label, n.informationValidated as validationstatus order by name'
+        'return distinct n.id as id, n.name as name, labels(n) as label, n.informationValidated as validationstatus order by name'
         ].join('\n');
         params = {};
     }
     else
     {
         query = ['MATCH (n)-[r:OVERSEES|MANAGES*]->x where n.id={id} ',
-        'return x.id as id, x.name as name, labels(x) as label, x.informationValidated as validationstatus order by name'
+        'return distinct x.id as id, x.name as name, labels(x) as label, x.informationValidated as validationstatus order by name'
         ].join('\n');
         params = {id:id};
     }

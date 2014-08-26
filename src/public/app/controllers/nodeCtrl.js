@@ -10,6 +10,7 @@ angular.module('apolloApp').controller('nodeCtrl', ['$scope', '$location', '$res
         });
         var labels = $http.get('/apollo/api/node/' + $routeParams.id + '/labels').success(function(data) {
             $scope.labels = data;
+
         });
         var relations = $resource('/apollo/api/node/:id/relations', {
             id: '@id'
@@ -22,10 +23,39 @@ angular.module('apolloApp').controller('nodeCtrl', ['$scope', '$location', '$res
                 'name':siteName,
                  'url':$location.absUrl()
             }
+
+
             $scope.$parent.unshiftSiteHistory(site);
             
             var len = $scope.node.attributes.length;
             $scope.labelGroups = function(label) {
+
+                var attall=_.toArray(nodeAttributeDictionary[label].attributeGroups);
+
+                //console.log(attall);
+
+                attall.forEach(function(d){
+                    var attr=d.attributes;
+                    var attrarr=Object.keys(attr);
+                    //console.log(attr);
+                    (attrarr).forEach(function(d1){
+                        //console.log(d1);
+                        console.log('"'+attr[d1].displayLabel+'","'+attr[d1].description+'"');
+                    });
+
+                    var attrdes=attr;
+
+                    // (attrdes).forEach(function(d1){
+                    //     console.log(d1);
+                    // });
+
+                    //console.log(d.attributes);
+                });
+
+
+
+
+
                 return _.toArray(nodeAttributeDictionary[label].attributeGroups);
             };
             $scope.showGroup = function(group) {
@@ -46,6 +76,8 @@ angular.module('apolloApp').controller('nodeCtrl', ['$scope', '$location', '$res
                     i.displayLabel = group.attributes[i.key].displayLabel;
                     i.description = group.attributes[i.key].description;
                     i.sortIndex = group.attributes[i.key].sortIndex;
+
+
                 });
                 return _.filter(toRet, function(i) {
                     return i.value != null && i.value.toLowerCase() != 'null' && i.value != '';

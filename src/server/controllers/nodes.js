@@ -53,7 +53,7 @@ exports.getRelationsForNode = function(req, res) {
                 toRet.push(labelToAdd);
             });
             res.json(toRet);
-            //  console.log(toRet);
+            //  //console.log(toRet);
         }
     });
 }
@@ -87,7 +87,8 @@ exports.getNodeById = function(req, res) {
     var params = {
         nodeId: req.params.id
     };
-    //console.log("Query is " + query + " and params are " + req.params.id)
+    //console.log("Query is " + query + " and params are " + req.params.id);
+
     neodb.db.query(query, params, function(err, results) {
         var nodedata = {}; 
         if (err) {
@@ -113,7 +114,7 @@ exports.getNodeById = function(req, res) {
              nodedata.url = urlFactory.nodeUrl(req, nodedata.id);
              nodedata.relations = urlFactory.nodeRelationsUrl(req, nodedata.id);
              nodedata.labels = urlFactory.nodeLinksUrl(req, nodedata.id);
-
+             
              res.json(nodedata);
             //res.send(404, "there was a node at that location, but you don't get to see it (neener)");
         }
@@ -128,12 +129,12 @@ exports.getNodeById = function(req, res) {
 exports.searchByName = function(req, res) {
     var searchTerm = req.params.searchTerm.toLowerCase();
     var query = 'MATCH n WHERE lower(n.name)=~".*' + searchTerm + '.*" RETURN n.id as id, n.name as name';
-    console.log(query);
+    //console.log(query);
     var params = {
         searchTerm: req.params.searchTerm
     };
     neodb.db.query(query, params, function(err, results) {
-        console.log(results);
+        //console.log(results);
 
         if (err) {
             console.error('Error retreiving node from database:', err);
@@ -297,7 +298,7 @@ var compileSearchResults = function(req, res, err, results){
                 nodedataarr.sort(sortFunction);
                 returnable.nodedataarr = nodedataarr;
                 returnable.nodeLabelCounts = nodeLabelCounts;              
-                console.log(returnable);
+                //console.log(returnable);
                 res.json(returnable);
         }
         else
@@ -320,7 +321,7 @@ exports.searchNodesByLabel = function(req, res) {
         skipnum: 0,
         retNum: 500
         };
-        console.log(params);
+        //console.log(params);
 
         neodb.db.query(query, params, function(err, results) {
             compileSearchResults(req, res, err, results)
@@ -535,7 +536,7 @@ exports.getNodesForLinkageViewer = function(req, res) {
                         })
                     }
                     // Element was not found, add it.
-                   // console.log("Not found");
+                   // //console.log("Not found");
                 }
 
 
@@ -561,10 +562,228 @@ exports.getNodesForLinkageViewer = function(req, res) {
     });
 };
 exports.getPortalStatisticsNodes = function(req, res) {
-    var query = ['MATCH n ',
-    'return labels(n) as label, count(*) as count '
-    ].join('\n');
-    var params = {};
+
+    //var id = req.params.id;
+    //console.log(id);
+    var id="undefined";
+    if(req.params.id)
+    {
+        id=req.params.id;
+    }
+    //console.log(id);
+    var query, params;
+
+    //console.log("node id",id);
+
+    if(id=='undefined')
+    {
+        query = ['MATCH n ',
+        'return labels(n) as label, count(*) as count '
+        ].join('\n');
+        params = {};
+    }
+    else
+    {
+        query = ['MATCH (n)-[r:OVERSEES|MANAGES*]->x where n.id={id}',
+        'return labels(x) as label, count(distinct x.id) as count '
+        ].join('\n');
+        params = {id:id};
+    }
+
+    //console.log(query,params);
+    
+    neodb.db.query(query, params, function(err, r) {
+        if (err) {
+            console.error('Error retreiving statistics from database:', err);
+            res.send(404, 'no statistics available');
+        } else {
+
+            //console.log(r);
+            res.send(r);
+            
+        }
+    });
+};
+
+
+exports.exportCSV = function(req, res) {
+
+var id = req.params.id;
+var qparams=req.params.qparam;
+
+var qparam=qparams.split(",");
+
+
+var ntype=qparam[0].split("=")[1];
+var nname=qparam[1].split("=")[1];
+var orderby=qparam[2].split("=")[1];
+var asc=qparam[3].split("=")[1];
+
+
+//console.log(ntype,nname,orderby,asc);
+
+var searchtype=ntype;
+var searchnode=nname;
+
+if(searchtype=="undefined")
+{
+    searchtype="";
+}
+
+if(searchnode=="undefined")
+{
+    searchnode="";
+}
+if(orderby=="undefined")
+{
+    orderby="name";
+}
+if(asc=="undefined" | asc=="true")
+{
+    asc="ASC";
+}
+else
+{
+    asc="DESC";
+}
+
+
+//var id="O31"
+    var validationresults=[];
+
+
+    if(id== 'undefined')
+    {
+        query = ['MATCH n where NOT(labels(n)[0] = "Tag") and n.name=~{nodename} and labels(n)[0]=~{nodetype}',
+        'return distinct n.id as id, n.name as name, labels(n) as label, n.informationValidated as validationstatus order by '+orderby+' '+asc
+        ].join('\n');
+        params = {
+            //id:id,
+            nodetype:"(?i).*"+searchtype+".*",
+            nodename:"(?i).*"+searchnode+".*"
+        };
+    }
+    else
+    {
+        query = ['MATCH (n)-[r:OVERSEES|MANAGES*]->x where NOT(labels(x)[0] = "Tag") and n.id={id} and x.name=~{nodename} and labels(x)[0]=~{nodetype}',
+        'return distinct x.id as id, x.name as name, labels(x) as label, x.informationValidated as validationstatus order by '+orderby+' '+asc
+        ].join('\n');
+        params = {
+            id:id,
+            nodetype:"(?i).*"+searchtype+".*",
+            nodename:"(?i).*"+searchnode+".*"
+        };
+    }
+
+    //console.log(query, params);
+    
+
+    
+    neodb.db.query(query, params, function(err, r) {
+        if (err) {
+            console.error('Error retreiving statistics from database:', err);
+            res.send(404, 'Error encountered');
+        } else {
+
+            validationresults.push([
+                        "Name",
+                        "Id",
+                        "Type",
+                        "Validation Status"
+                    ]);
+            r.forEach(function(d){
+                //console.log(d.name);
+                validationresults.push([
+                        d.name,
+                        d.id,
+                        d.label[0],
+                        d.validationstatus
+                    ]);
+            });
+            
+            //res.json(validationresults);
+
+            //res.send(validationresults);
+            //console.log(validationresults);
+res.header('content-type','text/csv');
+ res.header('content-disposition', 'attachment; filename=report.csv');
+
+ // res.csv([
+ //    ["a", "b", "c"]
+ //  , ["d", "e", "f"]
+ //  ]);
+res.csv(validationresults);
+            
+        }
+    });
+
+
+};
+
+
+exports.getPortalStatisticsNodesValidated = function(req, res) {
+
+    var id = req.params.id;
+    //console.log("node id",id);
+    var query,params;
+
+    if(id== 'undefined')
+    {
+        query = ['MATCH n where n.informationValidated=\'No\'',
+        'return labels(n) as label, count(*) as count '
+        ].join('\n');
+        params = {};
+    }
+    else
+    {
+        {
+        query = ['MATCH (n)-[r:OVERSEES|MANAGES*]->x where n.id={id} and x.informationValidated=\'No\'',
+        'return labels(x) as label, count(distinct x.id) as count '
+        ].join('\n');
+        params = {id:id};
+    }
+    }
+    
+    //console.log(query,params);
+    
+    neodb.db.query(query, params, function(err, r) {
+        if (err) {
+            console.error('Error retreiving statistics from database:', err);
+            res.send(404, 'no statistics available');
+        } else {
+
+            //console.log(r);
+            res.send(r);
+            
+        }
+    });
+};
+
+
+exports.getValidationStatus = function(req, res) {
+    
+    var id = req.params.id;
+
+    var validationresults=[];
+
+
+    if(id== 'undefined')
+    {
+        query = ['MATCH n where NOT(labels(n)[0] = "Tag")',
+        'return distinct n.id as id, n.name as name, labels(n) as label, n.informationValidated as validationstatus order by name'
+        ].join('\n');
+        params = {};
+    }
+    else
+    {
+        query = ['MATCH (n)-[r:OVERSEES|MANAGES*]->x where NOT(labels(x)[0] = "Tag") and n.id={id} ',
+        'return distinct x.id as id, x.name as name, labels(x) as label, x.informationValidated as validationstatus order by name'
+        ].join('\n');
+        params = {id:id};
+    }
+
+    //console.log(query, params);
+    
 
     
     neodb.db.query(query, params, function(err, r) {
@@ -573,12 +792,60 @@ exports.getPortalStatisticsNodes = function(req, res) {
             res.send(404, 'no statistics available');
         } else {
 
-            console.log(r);
-            res.send(r);
+            r.forEach(function(d){
+                //console.log(d.name);
+                validationresults.push({
+                        "name": d.name,
+                        "id": d.id,
+                        "type": d.label[0],
+                        "validationstatus": d.validationstatus
+                    });
+            });
+            //console.log(validationresults);
+            res.json(validationresults);
+
+            //res.send(validationresults);
             
         }
     });
 };
+
+
+// exports.getValidationStatusDetails = function(req, res) {
+//     var searchTerm = req.params.query.toLowerCase();
+//     //console.log("searchTerm="+searchTerm);
+//     var query = 'match p=(n)-[r:OVERSEES|MANAGES*]->x where lower(n.name)={searchTerm}' 
+//             + 'return distinct x.name as name,labels(x) as type, x.id as id, x.informationValidated as validation'
+//     var params = {
+//         searchTerm: searchTerm
+//     };
+//     // var query = 'MATCH n WHERE lower(n.name)=~".*' + searchTerm + '.*" RETURN n.id as id, n.name as name';
+//     //console.log(query);
+//     // var params = {
+//     //     searchTerm: req.params.searchTerm
+//     // };
+//     neodb.db.query(query, params, function(err, results) {
+//         //console.log(results);
+
+//         if (err) {
+//             console.error('Error retreiving node from database:', err);
+//             res.send(404, 'No node at that location');
+//         } else {
+//             if (results != null) {
+//                 var nodedata = [];
+//                 _.each(results, function(i){
+//                     nodedata.push({id: i.id, type:i.type[0], name:i.name,validation:i.validation});
+//                 })
+//                 //console.log(nodedata);
+//                 res.json(nodedata);
+//             }
+//             else{
+//                 res.json([]);
+//             }
+//         }
+//     });
+// };
+
 
 
 exports.getPortalStatisticsRelations = function(req, res) {
@@ -594,7 +861,7 @@ exports.getPortalStatisticsRelations = function(req, res) {
             res.send(404, 'no statistics available');
         } else {
 
-            console.log(r);
+            //console.log(r);
             res.send(r);
             
         }
@@ -660,7 +927,7 @@ exports.getAllNodes = function(req, res) {
     neodb.db.query(query, params, function(err, results) {
 
         if(err){
-            console.log("Could not get all the nodes from the database");
+            //console.log("Could not get all the nodes from the database");
         }
         else{
             compileSearchResultsForLab(req, res, err, results);
@@ -677,7 +944,7 @@ exports.getAllRealtionsForAllNodes = function(req, res) {
     neodb.db.query(query, params, function(err, results) {
         
         if(err){
-            console.log("Could not get all the relations for the nodes from the database");
+            //console.log("Could not get all the relations for the nodes from the database");
         }
         else{
             res.send(results);
@@ -1097,7 +1364,7 @@ exports.getNodeNameById = function(req, res) {
         var nodename="";
         if (err!=null) {
             console.error('Error retreiving node from database:', err);
-            console.log(err);
+            //console.log(err);
             res.send(404, 'No node at that location.');
         } else {
             
@@ -1145,7 +1412,7 @@ exports.getManagedSystems = function(req, res) {
         var managestack={};
         if (err!=null) {
             console.error('Error retreiving node from database:', err);
-            console.log(err);
+            //console.log(err);
             res.send(404, 'No node at that location.');
         } 
         else 

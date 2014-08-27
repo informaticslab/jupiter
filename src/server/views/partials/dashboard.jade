@@ -1,0 +1,291 @@
+// new row
+.row
+	.div(ng-class='getContentWidth()')
+		.content_block_faq
+			span.visible-md.visible-lg
+				.subnav
+					ul.nav.nav-pills
+						li
+							a(href='#/quickGuide/') Quick Guide
+						li
+							a(href='#/browse/') Browse
+						li
+							a(href='#/search/') Search
+						li
+							a(href='#/advancedSearch/') Relationship Explorer
+						li
+							a(href='' class='inactive') Favorites
+						li.active
+							a(href='#/inTheLab/') In the Lab
+				// end subnav
+			span.visible-sm
+				.subnav_sm
+					ul.nav.nav-pills
+						li
+							a(href='#/quickGuide/') Quick Guide
+						li
+							a(href='#/browse/') Browse
+						li
+							a(href='#/search/') Search
+						li
+							a(href='#/advancedSearch/') Relationship Explorer
+						li
+							a(href='' class='inactive') Favorites
+						li.active
+							a(href='#/inTheLab/') In the Lab
+				// end subnav
+			//- a.btn.btn-custom(onclick='goBack()') Back
+			//- .nav_split
+			//- 	.btn-group.btn-group-md.btn-group-justified
+			//- 		.btn-group
+			//- 			a.btn.btn-custom(href="#/dashboard", id='btnDashboard') Summary
+			//- 		.btn-group
+			//- 			a.btn.btn-default(href='#/dashboarddetail', id='btnDashboardDetail') Detail
+			//- 	// end button group
+			//- // end nav_split
+			.top_block_faq
+				h4.orange_main_faq
+					span.glyphicon.glyphicon-comment.icon-flipped.faq_icon
+					| CISP Dashboard
+				.vertical_spacing_browse
+				.row
+					.col-lg-12.col-md-12.col-sm-12
+						//input.form-control(type='text', typeahead-on-select="", typeahead-min-length='1', typeahead="node.name for node in getNodes($viewValue)", ng-model='queryString')
+						input(type="text" ng-model="node"  placeholder="Search activity" typeahead-on-select="itemSelected($item, $model, $label)" typeahead-min-length='3' typeahead="node.name for node in getNodes($viewValue)" class="form-control")
+						//input(type="hidden" id="nodeId" ng-value="nodeId")
+				.vertical_spacing_less
+				.row
+					.col-lg-12.col-md-12.col-sm-12
+						.orange_header_larger
+							| {{nodeNm}}  
+							a.validationstatus_table(ng-click="nodesearch=''; nodetype=''" href='/apollo/#/dashboard/' ng-hide="hideReturnLink")
+								//label.btn.btn-mini(ng-click="exporttable()" ng-hide="showVSTableLoading")
+								i.fa.fa-mail-reply
+								|  Back to overall summary
+				.vertical_spacing_lesser
+				.row
+					.col-lg-6.col-md-6.col-sm-6
+						.row
+							.col-lg-4.col-md-4.col-sm-4
+								label.btn.btn-default.btn_no_border(ng-click="nodesearch=''; nodetype='SurveillanceSystem'")
+										.donut_placeholder(id="donut_SurveillanceSystem" ng-donut-chart attribute-readytoload="{{readytoload}}"  attribute-percent="{{totvalidatearr['SurveillanceSystem']}}")
+										.stat_count {{statsarr['SurveillanceSystem']}}
+										// ({{totvalidatearr['SurveillanceSystem']}}%)
+										.stat_label
+											//a(ng-click='goToTop()' href='#/search/label/SurveillanceSystem')
+											| Surveillance Syst.
+								span.visible-sm
+									label.btn.btn-default.btn_no_border_sm
+										//.donut_placeholder(id="donut_SurveillanceSystem" ng-donut-chart attribute-readytoload="{{readytoload}}"  attribute-percent="{{totvalidatearr['SurveillanceSystem']}}")
+										.stat_count {{statsarr['SurveillanceSystem']}} ({{totvalidatearr['SurveillanceSystem']}}%)
+										.stat_label_sm
+											//a(ng-click='goToTop()' href='#/search/label/SurveillanceSystem')
+											| Surveillance Syst.
+							//end column specs 
+							.col-lg-4.col-md-4.col-sm-4
+								span.visible-lg.visible-md
+									label.btn.btn-default.btn_no_border(ng-click="nodesearch=''; nodetype='Program'")
+										.donut_placeholder(id="donut_Program" ng-donut-chart attribute-readytoload="{{readytoload}}"  attribute-percent="{{totvalidatearr['Program']}}")
+										.stat_count {{statsarr['Program']}}
+										// ({{totvalidatearr['Program']}}%)
+										.stat_label
+											//a(ng-click='goToTop()' href='#/search/label/Program')
+											| Programs
+								span.visible-sm
+									label.btn.btn-default.btn_no_border_sm
+										//.donut_placeholder(id="donut_Program" ng-donut-chart attribute-readytoload="{{readytoload}}"  attribute-percent="{{totvalidatearr['Program']}}")
+										.stat_count {{statsarr['Program']}} ({{totvalidatearr['Program']}}%)
+										.stat_label_sm
+											//a(ng-click='goToTop()' href='#/search/label/Program')
+											| Programs
+											
+							//end column specs 
+							.col-lg-4.col-md-4.col-sm-4
+								span.visible-lg.visible-md
+									label.btn.btn-default.btn_no_border(ng-click="nodesearch=''; nodetype='Registry'")
+										.donut_placeholder(id="donut_Registry" ng-donut-chart attribute-readytoload="{{readytoload}}"  attribute-percent="{{totvalidatearr['Registry']}}")
+										.stat_count {{statsarr['Registry']}}
+										// ({{totvalidatearr['Registry']}}%)
+										.stat_label
+											//a(ng-click='goToTop()' href='#/search/label/Registry')
+											| Registries
+								span.visible-sm
+									label.btn.btn-default.btn_no_border_sm
+										//.donut_placeholder(id="donut_Registry" ng-donut-chart attribute-readytoload="{{readytoload}}"  attribute-percent="{{totvalidatearr['Registry']}}")
+										.stat_count {{statsarr['Registry']}} ({{totvalidatearr['Registry']}}%)
+										.stat_label_sm
+											//a(ng-click='goToTop()' href='#/search/label/Registry')
+											| Registries			
+							//end column specs
+						.vertical_spacing_less
+						.row
+							//end column specs 
+							.col-lg-4.col-md-4.col-sm-4
+								span.visible-lg.visible-md.span_border
+									label.btn.btn-default.btn_no_border(ng-click="nodesearch=''; nodetype='HealthSurvey';hideNodeStatus=false")
+										.donut_placeholder(id="donut_HealthSurvey" ng-donut-chart attribute-readytoload="{{readytoload}}"  attribute-percent="{{totvalidatearr['HealthSurvey']}}")
+										.stat_count {{statsarr['HealthSurvey']}}
+										//({{totvalidatearr['HealthSurvey']}}%)
+										.stat_label
+											//a(ng-click='goToTop()' href='#/search/label/HealthSurvey')
+											| Health Surveys
+								span.visible-sm
+									label.btn.btn-default.btn_no_border_sm
+										//.donut_placeholder(id="donut_HealthSurvey" ng-donut-chart attribute-readytoload="{{readytoload}}"  attribute-percent="{{totvalidatearr['HealthSurvey']}}")
+										.stat_count {{statsarr['HealthSurvey']}} ({{totvalidatearr['HealthSurvey']}}%)
+										.stat_label_sm
+											//a(ng-click='goToTop()' href='#/search/label/HealthSurvey')
+											| Health Surveys	
+							//end column specs 
+							.col-lg-4.col-md-4.col-sm-4
+								span.visible-lg.visible-md
+									label.btn.btn-default.btn_no_border(ng-click="nodesearch=''; nodetype='Tool'")
+										.donut_placeholder(id="donut_Tool" ng-donut-chart attribute-readytoload="{{readytoload}}"  attribute-percent="{{totvalidatearr['Tool']}}")
+										.stat_count {{statsarr['Tool']}}
+										// ({{totvalidatearr['Tool']}}%)
+										.stat_label
+											//a(ng-click='goToTop()' href='#/search/label/Tool')
+											| Tools
+								span.visible-sm
+									label.btn.btn-default.btn_no_border_sm
+										//.donut_placeholder(id="donut_Tool" ng-donut-chart attribute-readytoload="{{readytoload}}"  attribute-percent="{{totvalidatearr['Tool']}}")
+										.stat_count {{statsarr['Tool']}} ({{totvalidatearr['Tool']}}%)
+										.stat_label_sm
+											//a(ng-click='goToTop()' href='#/search/label/Tool')
+											| Tools		
+							//end column specs 
+							.col-lg-4.col-md-4.col-sm-4
+								span.visible-lg.visible-md
+									label.btn.btn-default.btn_no_border(ng-click="nodesearch=''; nodetype='Dataset'")
+										.donut_placeholder(id="donut_Dataset" ng-donut-chart attribute-readytoload="{{readytoload}}"  attribute-percent="{{totvalidatearr['Dataset']}}")
+										.stat_count {{statsarr['Dataset']}}
+										//({{totvalidatearr['Dataset']}}%)
+										.stat_label
+											//a(ng-click='goToTop()' href='#/search/label/Dataset')
+											| Datasets
+								span.visible-sm
+									label.btn.btn-default.btn_no_border_sm
+										//.donut_placeholder(id="donut_Dataset" ng-donut-chart attribute-readytoload="{{readytoload}}"  attribute-percent="{{totvalidatearr['Dataset']}}")
+										.stat_count {{statsarr['Dataset']}} ({{totvalidatearr['Dataset']}}%)
+										.stat_label_sm
+											//a(ng-click='goToTop()' href='#/search/label/Dataset')
+											| Datasets	
+							//end column specs 
+						.vertical_spacing_less
+						.row
+							.col-lg-4.col-md-4.col-sm-4
+								span.visible-lg.visible-md
+									label.btn.btn-default.btn_no_border(ng-click="nodesearch=''; nodetype='DataStandard'")
+										.donut_placeholder(id="donut_DataStandard" ng-donut-chart attribute-readytoload="{{readytoload}}"  attribute-percent="{{totvalidatearr['DataStandard']}}")
+										.stat_count {{statsarr['DataStandard']}}
+										// ({{totvalidatearr['DataStandard']}}%)
+										.stat_label
+											//a(ng-click='goToTop()' href='#/search/label/DataStandard')
+											| Data Standards
+								span.visible-sm
+									label.btn.btn-default.btn_no_border_sm
+										//.donut_placeholder(id="donut_DataStandard" ng-donut-chart attribute-readytoload="{{readytoload}}"  attribute-percent="{{totvalidatearr['DataStandard']}}")
+										.stat_count {{statsarr['DataStandard']}} ({{totvalidatearr['DataStandard']}}%)
+										.stat_label_sm
+											//a(ng-click='goToTop()' href='#/search/label/DataStandard')
+											| Data Standards		
+							//end column specs 
+							.col-lg-4.col-md-4.col-sm-4
+								span.visible-lg.visible-md
+									label.btn.btn-default.btn_no_border(ng-click="nodesearch=''; nodetype='Collaborative'")
+										.donut_placeholder(id="donut_Collaborative" ng-donut-chart attribute-readytoload="{{readytoload}}"  attribute-percent="{{totvalidatearr['Collaborative']}}")
+										.stat_count {{statsarr['Collaborative']}}
+										// ({{totvalidatearr['Collaborative']}}%)
+										.stat_label
+											//a(ng-click='goToTop()' href='#/search/label/Collaborative')
+											| Collaboratives
+								span.visible-sm
+									label.btn.btn-default.btn_no_border_sm
+										//.donut_placeholder(id="donut_Collaborative" ng-donut-chart attribute-readytoload="{{readytoload}}"  attribute-percent="{{totvalidatearr['Collaborative']}}")
+										.stat_count {{statsarr['Collaborative']}} ({{totvalidatearr['Collaborative']}}%)
+										.stat_label_sm
+											//a(ng-click='goToTop()' href='#/search/label/Collaborative')
+											| Collaboratives	
+							//end column specs 
+							.col-lg-4.col-md-4.col-sm-4
+								span.visible-lg.visible-md
+									label.btn.btn-default.btn_no_border(ng-click="nodesearch=''; nodetype='Organization'")
+										.donut_placeholder(id="donut_Organization" ng-donut-chart attribute-readytoload="{{readytoload}}"  attribute-percent="{{totvalidatearr['Organization']}}")
+										.stat_count {{statsarr['Organization']}}
+										// ({{totvalidatearr['Organization']}}%)
+										.stat_label
+											//a(ng-click='goToTop()' href='#/search/label/Organization')
+											| Organizations
+								span.visible-sm
+									label.btn.btn-default.btn_no_border_sm
+										//.donut_placeholder(id="donut_Organization" ng-donut-chart attribute-readytoload="{{readytoload}}"  attribute-percent="{{totvalidatearr['Organization']}}")
+										.stat_count {{statsarr['Organization']}} ({{totvalidatearr['Organization']}}%)
+										.stat_label_sm
+											//a(ng-click='goToTop()' href='#/search/label/Organization')
+											| Organizations		
+							//end column specs 
+							
+						//end nested row
+					.col-lg-6.col-md-6.col-sm-6
+						.row
+							.col-lg-12.col-md-12.col-sm-12
+								input(type="text" ng-model="nodesearch" placeholder="Filter activity")
+								//input(type="checkbox" ng-model="showAll" ng-click="nodesearch=''; nodetype=''")
+								//input.form-control(type='text', typeahead-on-select="fetchvsdetails(queryString)", typeahead-min-length='1', typeahead="node.name for node in getNodes($viewValue)", ng-model='queryString')
+								label.btn.btn-default.pull-right(ng-click="nodesearch=''; nodetype=''")
+									| Show all activity types
+						.row
+							.col-lg-12.col-md-12.col-sm-12
+								.small_print
+									span(ng-if="nodetype.trim()!='' || nodesearch.trim()!=''")
+										b
+											| Filter applied:
+									span(ng-if="nodetype.trim()!=''")
+										|  activity type = '{{nodetype}}'
+									span(ng-if="nodesearch.trim()!=''")
+										|  activity name = '{{nodesearch}}'
+						.vertical_spacing_less
+						.row(ng-hide="hideNodeStatus")
+							.col-lg-12.col-md-12.col-sm-12
+								table.table.table-condensed.validationstatus_table_header
+									tr
+										th.col-lg-6.col-md-6.col-sm-6
+											a(href="" ng-click="reverse=!reverse;orderByField='name'")
+												| Name
+										//th.col-lg-2.col-md-2.col-sm-2
+											a(href="" ng-click="reverse=!reverse;orderByField='id'")
+												| Id
+										th.col-lg-2.col-md-2.col-sm-2
+											a(href="" ng-click="reverse=!reverse;orderByField='type'")
+												| Type
+										th.col-lg-2.col-md-2.col-sm-2
+											a(href="" ng-click="reverse=!reverse;orderByField='validationstatus'")
+												|Validated
+						.row(ng-hide="hideNodeStatus").fixed_height_dashboard
+							.col-lg-12.col-md-12.col-sm-12
+								table.table.table-hover.table-condensed.validationstatus_table
+									tr( ng-repeat="user in validationresults | filter:{type:nodetype,name:nodesearch} | orderBy:orderByField:!reverse" ng-class="{background_yes:user.validationstatus=='Yes'}")
+										td.col-lg-6.col-md-6.col-sm-6(data-title="'Name'")
+											a(href="#/node/{{user.id}}")
+												| {{user.name}}
+										//td.col-lg-2.col-md-2.col-sm-2(data-title="'Id'")
+											| {{user.id}}
+										td.col-lg-2.col-md-2.col-sm-2(data-title="'Type'")
+											| {{user.type}}
+										td.col-lg-2.col-md-2.col-sm-2(data-title="'Status'" )
+											| {{user.validationstatus}}
+						.row
+							.col-lg-12.col-md-12.col-sm-12
+								.vertical_spacing_lesser
+								//input(type="button" onclick="tableToExcel('VSTable', 'W3C Example Table')" value="Export to Excel" ng-hide="showVSTableLoading")
+								label.btn.btn-default.pull-right(ng-click="exporttable()" ng-hide="showVSTableLoading")
+									i.fa.fa-download
+									|  Download as CSV
+								img.img-responsive.linkage_empty( id="defaultimg" src="img/ajax-loader.gif" ng-show="showVSTableLoading")
+				//nested row 
+				
+				//end nested row
+				
+		// end content block
+	// end col spec
+// end row.orange_header Overview

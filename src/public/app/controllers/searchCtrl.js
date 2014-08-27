@@ -66,11 +66,13 @@ angular.module('apolloApp').controller('searchCtrl', function($scope, $resource,
     }
 
     $scope.redirectToSearch = function(){
-       window.location =  '/apollo/#/search/' + $scope.queryString;
+       //window.location =  '/apollo/#/search/' + $scope.queryString;
+       $location.path('/search/' + $scope.queryString);
     };
 
     $scope.itemSelected = function($item, $model, $label) {
-        window.location =  '/apollo/#/node/' + $item.id;
+        //window.location =  '/apollo/#/node/' + $item.id;
+        $location.path('/node/' + $item.id);
         $scope.queryString = null;
     };
 

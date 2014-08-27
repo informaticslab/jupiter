@@ -172,6 +172,13 @@
 												strong {{relType.name  | unCamelCase}}  
 												span {{node.name}} 
 					// end linkage
+					.row
+						.col-lg-12
+							a.pull-right(ng-click="nodesearch=''; nodetype=''" href='/apollo/content/ActivityUpdateTemplate.xlsm' ng-hide="hideReturnLink")
+								//label.btn.btn-mini(ng-click="exporttable()" ng-hide="showVSTableLoading")
+								i.fa.fa-download
+								|  Download template to edit activity details
+
 				.com_discuss
 					.vertical_spacing
 					.orange_header_larger Comments/Discussion:

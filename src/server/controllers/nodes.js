@@ -585,7 +585,7 @@ exports.getPortalStatisticsNodes = function(req, res) {
     else
     {
         query = ['MATCH (n)-[r:OVERSEES|MANAGES*]->x where n.id={id}',
-        'return labels(x) as label, count(*) as count '
+        'return labels(x) as label, count(distinct x.id) as count '
         ].join('\n');
         params = {id:id};
     }
@@ -654,7 +654,7 @@ else
 
     if(id== 'undefined')
     {
-        query = ['MATCH n where n.name=~{nodename} and labels(n)[0]=~{nodetype}',
+        query = ['MATCH n where NOT(labels(n)[0] = "Tag") and n.name=~{nodename} and labels(n)[0]=~{nodetype}',
         'return distinct n.id as id, n.name as name, labels(n) as label, n.informationValidated as validationstatus order by '+orderby+' '+asc
         ].join('\n');
         params = {
@@ -665,7 +665,7 @@ else
     }
     else
     {
-        query = ['MATCH (n)-[r:OVERSEES|MANAGES*]->x where n.id={id} and x.name=~{nodename} and labels(x)[0]=~{nodetype}',
+        query = ['MATCH (n)-[r:OVERSEES|MANAGES*]->x where NOT(labels(x)[0] = "Tag") and n.id={id} and x.name=~{nodename} and labels(x)[0]=~{nodetype}',
         'return distinct x.id as id, x.name as name, labels(x) as label, x.informationValidated as validationstatus order by '+orderby+' '+asc
         ].join('\n');
         params = {
@@ -738,7 +738,7 @@ exports.getPortalStatisticsNodesValidated = function(req, res) {
     {
         {
         query = ['MATCH (n)-[r:OVERSEES|MANAGES*]->x where n.id={id} and x.informationValidated=\'No\'',
-        'return labels(x) as label, count(*) as count '
+        'return labels(x) as label, count(distinct x.id) as count '
         ].join('\n');
         params = {id:id};
     }
@@ -769,14 +769,14 @@ exports.getValidationStatus = function(req, res) {
 
     if(id== 'undefined')
     {
-        query = ['MATCH n',
+        query = ['MATCH n where NOT(labels(n)[0] = "Tag")',
         'return distinct n.id as id, n.name as name, labels(n) as label, n.informationValidated as validationstatus order by name'
         ].join('\n');
         params = {};
     }
     else
     {
-        query = ['MATCH (n)-[r:OVERSEES|MANAGES*]->x where n.id={id} ',
+        query = ['MATCH (n)-[r:OVERSEES|MANAGES*]->x where NOT(labels(x)[0] = "Tag") and n.id={id} ',
         'return distinct x.id as id, x.name as name, labels(x) as label, x.informationValidated as validationstatus order by name'
         ].join('\n');
         params = {id:id};

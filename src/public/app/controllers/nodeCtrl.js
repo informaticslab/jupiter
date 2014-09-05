@@ -7,6 +7,7 @@ angular.module('apolloApp').controller('nodeCtrl', ['$scope', '$location', '$res
         $scope.nodeId = $routeParams.id
         $scope.$parent.q = 'explore';
         $scope.isCollapsed = true;
+        $scope.tablength=[];
         var siteName = 'Node Viewer: ' + $scope.nodeId
         var node = $resource('/apollo/api/node/:id', {
             id: '@id'
@@ -17,6 +18,24 @@ angular.module('apolloApp').controller('nodeCtrl', ['$scope', '$location', '$res
         var relations = $resource('/apollo/api/node/:id/relations', {
             id: '@id'
         });
+
+
+        var labels = $http.get('/apollo/api/node/'+$scope.nodeId+'/relations').success(function(data) {
+
+            for(i=0;i<data.length;i++)
+            {
+               $scope.tablength[i]=0;
+               //console.log("1**",data[i].relTypes.length);
+               for(j=0;j<data[i].relTypes.length;j++)
+               {
+                    //console.log("2",data[i].relTypes[j].nodes.length);
+                    $scope.tablength[i]=$scope.tablength[i]+data[i].relTypes[j].nodes.length;
+               }
+            }
+
+            
+        });
+
         var nodeDetails = $http.get('/apollo/api/node/' + $routeParams.id).success(function(data) {
             var attributeKeys = _.pluck(data.attributes, 'key');
             $scope.node = data;

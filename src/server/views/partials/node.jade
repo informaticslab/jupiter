@@ -154,7 +154,7 @@
 						.vertical_spacing
 						.orange_header_larger Linkage/Relationships:
 						tabset
-							tab(ng-repeat="relation in relations", heading="{{relation.name | unCamelCase}}")
+							tab(ng-repeat="relation in relations", heading="{{relation.name+relType.nodes.length | unCamelCase}}"+" ({{tablength[$index]}})")
 								div(ng-repeat="relType in relation.relTypes")
 									.vertical_spacing		
 									.relationship_header {{relType.name  | unCamelCase}}

@@ -1,5 +1,8 @@
 angular.module('apolloApp').controller('nodeCtrl', ['$scope', '$location', '$resource', '$http', '$routeParams', 'nodeAttributeDictionary',
     function($scope, $location, $resource, $http, $routeParams, nodeAttributeDictionary) {
+        
+        
+
         $scope.contentLoading = true;
         $scope.nodeId = $routeParams.id
         $scope.$parent.q = 'explore';
@@ -75,6 +78,8 @@ angular.module('apolloApp').controller('nodeCtrl', ['$scope', '$location', '$res
                 });
             };
         });
+
+
         $scope.relations = relations.query({
             id: $routeParams.id
         }, function(data) {
@@ -94,11 +99,17 @@ angular.module('apolloApp').controller('nodeCtrl', ['$scope', '$location', '$res
              else
                 return false;
         }
+
+        $scope.exportrelationships= function()
+        {
+            window.location =  '/apollo/api/export/csvrelations/' + $scope.nodeId;
+        }
+
         $scope.twitterBlurb = encodeURIComponent($location.absUrl());
 
         $scope.emailBlurb = encodeURIComponent($location.absUrl());
 
-
+        
 
     }
     

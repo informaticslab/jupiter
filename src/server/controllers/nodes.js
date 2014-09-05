@@ -721,6 +721,77 @@ res.csv(validationresults);
 };
 
 
+exports.exportCSVNodeRelations = function(req, res) {
+
+var id = req.params.id;
+
+    var resultsarr=[];
+
+
+
+    
+    
+    query = ['MATCH (n)-[r]-(x) where n.id={id}',
+        'return distinct n.id as qid, n.name as qname, labels(n)[0] as qlabel, type(r) as reltype, x.id as rid, x.name as rname, labels(x)[0] as rlabel, startNode(r).id as startnodeid'
+        ].join('\n');
+        params = {
+            id:id
+        };
+    console.log(query, params);
+    neodb.db.query(query, params, function(err, r) {
+        if (err) {
+            console.error('Error retreiving statistics from database:', err);
+            res.send(404, 'Error encountered');
+        } else {
+
+            resultsarr.push([
+                        "Node A",
+                        "Relationship Type",
+                        "Node B"                        
+                    ]);
+            r.forEach(function(d){
+                //console.log(d.name);
+
+                if(d.qid==d.startnodeid)
+                {
+                    resultsarr.push([
+                        d.qname+" ("+d.qlabel+")",
+                        d.reltype,
+                        d.rname+" ("+d.rlabel+")"
+                    ]);
+                }
+                else
+                {
+                    resultsarr.push([
+                        d.rname+" ("+d.rlabel+")",
+                        d.reltype,
+                        d.qname+" ("+d.qlabel+")"
+                    ]);
+                }
+
+                
+            });
+            
+            //res.json(validationresults);
+
+            //res.send(validationresults);
+            //console.log(validationresults);
+res.header('content-type','text/csv');
+ res.header('content-disposition', 'attachment; filename=NodeRelationships.csv');
+
+ // res.csv([
+ //    ["a", "b", "c"]
+ //  , ["d", "e", "f"]
+ //  ]);
+res.csv(resultsarr);
+            
+        }
+    });
+
+
+};
+
+
 exports.getPortalStatisticsNodesValidated = function(req, res) {
 
     var id = req.params.id;

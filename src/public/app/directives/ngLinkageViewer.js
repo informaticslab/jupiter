@@ -33,6 +33,17 @@ angular.module('apolloApp')
 						scope.showDataStandard = false;
 						scope.showTag = false;
 
+						scope.countOrganization = 0;
+						scope.countProgram = 0;
+						scope.countSurveillanceSystem = 0;
+						scope.countTool = 0;
+						scope.countRegistry = 0;
+						scope.countHealthSurvey = 0;
+						scope.countCollaborative = 0;
+						scope.countDataset = 0;
+						scope.countDataStandard = 0;
+						scope.countTag = 0;
+
 
 						var url = $(location).attr('href');
 						var split = url.split('/');
@@ -178,11 +189,17 @@ angular.module('apolloApp')
 									.attr("class", function(d) {
 										//console.log(d.label);
 										var labelname = "show" + d.label;
+
+										var countlabel = "count" + d.label;
+
+
+
 										if (d.id == id) {
 											rootnodelabel = d.label;
 
 										} else {
 											scope[labelname] = true;
+											scope[countlabel]++;
 											scope.$apply();
 										}
 
@@ -215,7 +232,8 @@ angular.module('apolloApp')
 									.text(function(d) {
 										if(d.id==id)
 										{
-											return d.name + " (" + d.label + ")";
+											var childnodecount=circlecount-1;
+											return d.name + " (" + d.label + ") ("+childnodecount+")";
 										}
 										else
 										{

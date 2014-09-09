@@ -1,0 +1,57 @@
+// new row
+.row
+	.div(ng-class='getContentWidth()')
+		.content_block_faq
+			.top_block_faq
+				h4.orange_main_faq
+					span.glyphicon.glyphicon-comment.icon-flipped.faq_icon
+					| Edit Activity Details
+				.vertical_spacing_browse
+				.vertical_spacing_lesser
+					img.faq_question(src='img/question.png', alt='heart icon') 
+					.faq_question_txt
+						Strong Template for submitting changes	
+				.answers
+					p
+						| If you wish to make changes to attributes and relationships of any activity, an MS Excel template is provided to highlight your changes and submit it to the CISP administrator.
+						| Please click the '
+						a(ng-click="nodesearch=''; nodetype=''" href='/apollo/content/ActivityUpdateTemplate.xlsm' ng-hide="hideReturnLink")
+							| Download template
+						| ' link to download the template and follow the instructions outlined in the 'Start' tab of the template to highlight your changes.
+					p
+						| After you update the template with your changes, save it to your local hard drive and email the file to Dr. Tom Savel (
+						a(href="mailto:azn6@cdc.gov")
+							| azn6@cdc.gov
+						| )
+				.vertical_spacing
+					img.faq_question(src='img/question.png', alt='heart icon') 
+					.faq_question_txt
+						Strong Using the template	
+				.answers
+					p
+						| Use this template when you want to modify existing attributes or relationships of an activity.
+					p
+						| If you wish to delete an activity, please send an email to Dr. Tom Savel (
+						a(href="mailto:azn6@cdc.gov")
+							| azn6@cdc.gov
+						| ) indicating the ID, Name and the reason for deleting the activity.
+					p
+						| If you wish to change the type of any activity, please use the template to enter information for the new activity type and indicate that this is a activity type change in the comments section of the template.
+				.vertical_spacing
+					img.faq_question(src='img/question.png', alt='heart icon') 
+					.faq_question_txt
+						Strong Information needed before you fill out the template	
+				.answers
+					p
+						| You will need to provide the Name, ID and Type of the activity you wish to modify to get started. To obtain this information, navigate to the activity details page of the activity and note the Name, ID and Type information under the Summary section.
+				.vertical_spacing
+					img.faq_question(src='img/question.png', alt='heart icon') 
+					.faq_question_txt
+						Strong Download Activity Update Template
+				.answers
+					p
+						a(ng-click="nodesearch=''; nodetype=''" href='/apollo/content/ActivityUpdateTemplate.xlsm' ng-hide="hideReturnLink")
+							//label.btn.btn-mini(ng-click="exporttable()" ng-hide="showVSTableLoading")
+							i.fa.fa-download
+							|  Download template
+// end row.orange_header Overview

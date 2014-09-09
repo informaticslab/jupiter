@@ -25,6 +25,7 @@ module.exports = function(app) {
     app.get('/apollo/api/lab/relations', nodes.getAllRealtionsForAllNodes);
     app.get('/apollo/api/node/managed/:id', nodes.getManagedSystems);
     app.get('/apollo/api/export/csv/:id/:qparam', nodes.exportCSV);
+    app.get('/apollo/api/export/csvrelations/:id', nodes.exportCSVNodeRelations);
     
     //this goes at the bottom.  It is the catchall for everything not defined above.  Silly.
     app.get('/apollo/*', index.index);

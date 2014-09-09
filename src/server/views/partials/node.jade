@@ -154,7 +154,7 @@
 						.vertical_spacing
 						.orange_header_larger Linkage/Relationships:
 						tabset
-							tab(ng-repeat="relation in relations", heading="{{relation.name | unCamelCase}}")
+							tab(ng-repeat="relation in relations", heading="{{relation.name+relType.nodes.length | unCamelCase}}"+" ({{tablength[$index]}})")
 								div(ng-repeat="relType in relation.relTypes")
 									.vertical_spacing		
 									.relationship_header {{relType.name  | unCamelCase}}
@@ -172,6 +172,17 @@
 												strong {{relType.name  | unCamelCase}}  
 												span {{node.name}} 
 					// end linkage
+					.row
+						.col-lg-6
+							label.btn.btn-default.pull-left(ng-click="exportrelationships()")
+								i.fa.fa-download
+								|  Download relationships as CSV
+						.col-lg-6
+							a.pull-right(ng-click="nodesearch=''; nodetype=''" href='/apollo/#/template/' ng-hide="hideReturnLink")
+								//label.btn.btn-mini(ng-click="exporttable()" ng-hide="showVSTableLoading")
+								i.fa.fa-edit 
+								| Edit activity details
+						
 				.com_discuss
 					.vertical_spacing
 					.orange_header_larger Comments/Discussion:

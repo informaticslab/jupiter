@@ -800,7 +800,7 @@ exports.getPortalStatisticsNodesValidated = function(req, res) {
 
     if(id== 'undefined')
     {
-        query = ['MATCH n where n.informationValidated=\'No\'',
+        query = ['MATCH n where n.informationValidated=\'No\' or trim(n.informationValidated)=\'\'',
         'return labels(n) as label, count(*) as count '
         ].join('\n');
         params = {};
@@ -808,7 +808,7 @@ exports.getPortalStatisticsNodesValidated = function(req, res) {
     else
     {
         {
-        query = ['MATCH (n)-[r:OVERSEES|MANAGES*]->x where n.id={id} and x.informationValidated=\'No\'',
+        query = ['MATCH (n)-[r:OVERSEES|MANAGES*]->x where n.id={id} and (x.informationValidated=\'No\' or trim(n.informationValidated)=\'\')',
         'return labels(x) as label, count(distinct x.id) as count '
         ].join('\n');
         params = {id:id};

@@ -60,33 +60,10 @@ angular.module('apolloApp')
 							var togglefixnodes = true;
 							//var w = 1000,
 							var w = $("div.block_linkage").width();
-							var h = 900;
+							var h = 400;
 							var r = 10;
 							var rcent = 15; //radius of node circle
 
-							var circlecount=json.nodes.length;
-							//console.log("circle count",circle,circlecount);
-
-							if(circlecount<20)
-							{
-								h=600;
-							}
-							else if(circlecount<30)
-							{
-								h=700;
-							}
-							else if(circlecount<60)
-							{
-								h=900;
-							}
-							else if(circlecount<80)
-							{
-								h=1000;
-							}
-							else
-							{
-								h=1100;
-							}
 
 
 
@@ -131,6 +108,31 @@ angular.module('apolloApp')
 								});
 
 							} else {
+
+
+							var circlecount=json.nodes.length;
+							//console.log("circle count",circle,circlecount);
+
+							if(circlecount<20)
+							{
+								h=600;
+							}
+							else if(circlecount<30)
+							{
+								h=700;
+							}
+							else if(circlecount<60)
+							{
+								h=900;
+							}
+							else if(circlecount<80)
+							{
+								h=1000;
+							}
+							else
+							{
+								h=1100;
+							}
 
 
 

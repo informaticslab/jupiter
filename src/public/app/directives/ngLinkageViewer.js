@@ -20,6 +20,7 @@ angular.module('apolloApp')
 							Tag: true
 						};
 
+						scope.showLinkageLoading = true;
 						scope.disableHideLines = false;
 
 						scope.showOrganization = false;
@@ -56,6 +57,9 @@ angular.module('apolloApp')
 
 						d3.json("/apollo/api/node/viewer/" + id, function(error, json) {
 
+							scope.showLinkageLoading = false;
+							scope.$apply();
+
 							var togglehidelinks = true;
 							var togglefixnodes = true;
 							//var w = 1000,
@@ -76,20 +80,22 @@ angular.module('apolloApp')
 
 							if (json == undefined | error) {
 
+								
+
 								var nodename = "";
 								d3.text("/apollo/api/node/name/" + id, function(error, data) {
 
 									nodename = data;
 
 									if (nodename == "Not Found") {
-										var msg = "No node found for ID " + id;
+										var msg = "Activity not found. ID: " + id;
 										var xcoord = (w / 2) - (msg.length * 9 / 2);
 
 										var errormsg = svg.append("text")
 											.text(msg)
 											.attr("class", "linkageerrormsg")
 											.attr("x", xcoord)
-											.attr("y", h / 6);
+											.attr("y", h / 3);
 
 									} else {
 										var msg = nodename + " has no relationships with other entities.";
@@ -99,7 +105,7 @@ angular.module('apolloApp')
 											.text(msg)
 											.attr("class", "linkageerrormsg")
 											.attr("x", xcoord)
-											.attr("y", h / 6);
+											.attr("y", h / 3);
 
 
 									}
@@ -109,9 +115,10 @@ angular.module('apolloApp')
 
 							} else {
 
+							scope.showLinkageLoading = false;
 
 							var circlecount=json.nodes.length;
-							//console.log("circle count",circle,circlecount);
+							//console.log("circle count",circlecount);
 
 							if(circlecount<20)
 							{
@@ -135,7 +142,8 @@ angular.module('apolloApp')
 							}
 
 
-
+								svg.attr("width", w)
+									.attr("height", h);
 								//var h= $("div.block_linkage").outerHeight();
 
 								var force = d3.layout.force()
@@ -637,8 +645,12 @@ angular.module('apolloApp')
 								//h= $("div.block_linkage").outerHeight();
 
 								d3.select("svg").attr("width", w).attr("height", h);
-								force.size([w, h]);
-								force.start();
+								if(force)
+								{
+									force.size([w, h]);
+									force.start();
+								}
+			
 
 							}
 
@@ -894,7 +906,8 @@ angular.module('apolloApp')
 						});
 
 					});
-				}
+				},//link
+				template: '<img class="img-responsive linkage_empty" id="defaultimg" src="img/ajax-loader.gif" ng-show="showLinkageLoading"/>'
 			}
 		}
 	]);

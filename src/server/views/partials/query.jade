@@ -1,0 +1,87 @@
+// new row
+.row
+	.div(ng-class='getContentWidth()')
+		.content_block_faq
+			span.visible-md.visible-lg
+				.subnav
+					ul.nav.nav-pills
+						li
+							a(href='#/quickGuide/') Quick Guide
+						li
+							a(href='#/browse/') Browse
+						li
+							a(href='#/search/') Search
+						li
+							a(href='#/advancedSearch/') Relationship Explorer
+						li
+							a(href='' class='inactive') Favorites
+						li.active
+							a(href='#/inTheLab/') In the Lab
+				// end subnav
+			span.visible-sm
+				.subnav_sm
+					ul.nav.nav-pills
+						li
+							a(href='#/quickGuide/') Quick Guide
+						li
+							a(href='#/browse/') Browse
+						li
+							a(href='#/search/') Search
+						li
+							a(href='#/advancedSearch/') Relationship Explorer
+						li
+							a(href='' class='inactive') Favorites
+						li.active
+							a(href='#/inTheLab/') In the Lab
+				// end subnav
+			//- a.btn.btn-custom(onclick='goBack()') Back
+			//- .nav_split
+			//- 	.btn-group.btn-group-md.btn-group-justified
+			//- 		.btn-group
+			//- 			a.btn.btn-custom(href="#/dashboard", id='btnDashboard') Summary
+			//- 		.btn-group
+			//- 			a.btn.btn-default(href='#/dashboarddetail', id='btnDashboardDetail') Detail
+			//- 	// end button group
+			//- // end nav_split
+			.top_block_faq
+				h4.orange_main_faq
+					span.glyphicon.glyphicon-comment.icon-flipped.faq_icon
+					| CISP Dashboard
+				.vertical_spacing_browse
+				.vertical_spacing_lesser
+				.row
+					.col-lg-3.col-md-3.col-sm-3.gray_text
+						.orange_header_larger
+							| 1: Enter activity name
+						
+						input(type="text" ng-model="node"  placeholder="Search activity" typeahead-on-select="itemSelected($item, $model, $label)" typeahead-min-length='3' typeahead="node.name for node in getNodes($viewValue)" class="form-control")
+					.col-lg-3.col-md-3.col-sm-3.gray_text
+						.orange_header_larger
+							| 2: Select relationships
+						.query-bordered
+							.checkbox(ng-repeat="rel in reltypes")
+								input(type="checkbox" ng-model="chkrels[rel.relname]" )
+								| {{rel.relname}}
+					.col-lg-3.col-md-3.col-sm-3.gray_text
+						.orange_header_larger
+							| 3: Return activity types
+						.query-bordered
+							.checkbox(ng-repeat="activitytype in activitytypes")
+								input(type="checkbox" ng-model="chkactvs[activitytype.nodetypes]" )
+								| {{activitytype.nodetypes}}
+					.col-lg-3.col-md-3.col-sm-3.gray_text
+						.orange_header_larger
+							| 4: Click search
+						label.btn.btn-default(id='btn_search' ng-disabled='disableinccon' ng-click="values()")
+							i.fa.fa-chevron-circle-right
+							| Search
+
+
+				.vertical_spacing_lesser
+
+				
+				//end nested row
+				
+		// end content block
+	// end col spec
+// end row.orange_header Overview

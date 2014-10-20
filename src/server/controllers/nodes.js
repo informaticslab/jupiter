@@ -1556,3 +1556,72 @@ exports.getManagedSystems = function(req, res) {
         }
     });
 };
+
+exports.getAllRelationships = function(req, res) {
+     var query = 'match a-[r]->b return distinct type(r) as relname'
+    var params = {
+        nodeId: req.params.id
+    };
+    
+    neodb.db.query(query, params, function(err, results) {
+        
+        var nodename="";
+        if (err!=null) {
+            console.error('Error retreiving node from database:', err);
+            //console.log(err);
+            res.send(404, 'No node at that location.');
+        } else {
+            
+            
+            if(results[0]==null)
+            {
+                //console.log("no name");
+                res.send("Not Found");
+            }
+            else
+            {
+                var obj = eval(results);
+
+                res.send(obj);
+            }
+
+            
+
+        }
+    });
+}
+
+exports.getAllNodeTypes = function(req, res) {
+     var query = 'match a return distinct labels(a)[0] as nodetypes'
+    var params = {
+        nodeId: req.params.id
+    };
+    
+    neodb.db.query(query, params, function(err, results) {
+        
+        if (err!=null) {
+            console.error('Error retreiving node from database:', err);
+            //console.log(err);
+            res.send(404, 'No node at that location.');
+        } else {
+            
+            
+            if(results[0]==null)
+            {
+                //console.log("no name");
+                res.send("Not Found");
+            }
+            else
+            {
+                var obj = eval(results);
+
+             
+
+                res.send(obj);
+            }
+
+            
+
+        }
+    });
+}

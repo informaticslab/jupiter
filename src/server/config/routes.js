@@ -16,6 +16,8 @@ module.exports = function(app) {
     app.get('/apollo/api/stats/nodesvalidated/:id', nodes.getPortalStatisticsNodesValidated);
     app.get('/apollo/api/stats/relations', nodes.getPortalStatisticsRelations);
     app.get('/apollo/api/dashboard/validationStatus/:id', nodes.getValidationStatus);
+    app.get('/apollo/api/relationships/all', nodes.getAllRelationships);
+    app.get('/apollo/api/activitytypes/all', nodes.getAllNodeTypes);
     //app.get('/apollo/api/dashboard/validationStatusDetails/:query', nodes.getValidationStatusDetails);
     app.get('/apollo/api/node/advancedSearch/:id', nodes.getAdvancedSearchData);
     app.get('/apollo/api/node/searchByName/:searchTerm', nodes.searchByName);

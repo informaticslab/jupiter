@@ -1625,3 +1625,71 @@ exports.getAllNodeTypes = function(req, res) {
         }
     });
 }
+
+
+exports.getAdhocQueryResults = function(req, res) {
+
+
+    var adhocquery=req.params.query;
+    //console.log(adhocquery);
+
+    var q=adhocquery.split("+");
+    var qnode=q[0];
+    var nt=q[1];
+    var rt=q[2];
+
+    rt=rt.replace(/-/g,":");
+
+    validationresults=[];
+
+    //console.log(qnode,rt,nt);
+
+
+    var query = 'match a-[r'+rt+']-b where labels(b)[0] in ['+nt+'] and a.id=\''+qnode+'\' return distinct b.name as bname,b.id as bid,labels(b)[0] as btype,type(r) as rel';
+    //console.log(query);
+    var params = {
+       
+    };
+    
+    neodb.db.query(query, params, function(err, results) {
+        
+        if (err!=null) {
+            console.error('Error retreiving node from database:', err);
+            //console.log(err);
+            res.send(404, 'No node at that location.');
+        } else {
+            
+            
+            if(results[0]==null)
+            {
+                console.log("no name");
+                res.json(validationresults);
+            }
+            else
+            {
+                //var obj = eval(results);
+
+                results.forEach(function(d){
+                //console.log(d.bname);
+                validationresults.push({
+                        "bname": d.bname,
+                        "bid": d.bid,
+                        "btype":d.btype,
+                        "rel": d.rel
+                    });
+            });
+
+             //console.log(validationresults);
+
+             res.json(validationresults);
+            }
+
+            
+
+        }
+    });
+}
+
+
+
+

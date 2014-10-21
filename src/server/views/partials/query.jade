@@ -46,36 +46,74 @@
 			.top_block_faq
 				h4.orange_main_faq
 					span.glyphicon.glyphicon-comment.icon-flipped.faq_icon
-					| CISP Dashboard
+					| Ad Hoc Query Tool
 				.vertical_spacing_browse
 				.vertical_spacing_lesser
 				.row
-					.col-lg-3.col-md-3.col-sm-3.gray_text
+					.col-lg-4.col-md-4.col-sm-4.gray_text(ng-hide="q_acttypes")
 						.orange_header_larger
-							| 1: Enter activity name
-						
-						input(type="text" ng-model="node"  placeholder="Search activity" typeahead-on-select="itemSelected($item, $model, $label)" typeahead-min-length='3' typeahead="node.name for node in getNodes($viewValue)" class="form-control")
-					.col-lg-3.col-md-3.col-sm-3.gray_text
-						.orange_header_larger
-							| 2: Select relationships
-						.query-bordered
-							.checkbox(ng-repeat="rel in reltypes")
-								input(type="checkbox" ng-model="chkrels[rel.relname]" )
-								| {{rel.relname}}
-					.col-lg-3.col-md-3.col-sm-3.gray_text
-						.orange_header_larger
-							| 3: Return activity types
+							| 1: Select activity types to return
 						.query-bordered
 							.checkbox(ng-repeat="activitytype in activitytypes")
-								input(type="checkbox" ng-model="chkactvs[activitytype.nodetypes]" )
-								| {{activitytype.nodetypes}}
-					.col-lg-3.col-md-3.col-sm-3.gray_text
+								input(type="checkbox" ng-model="chkactvs[activitytype.nodetypes]" ng-change="checkrelbtnstatus()")
+								| {{activitytype.nodetypes  | unCamelCase}}
+						.vertical_spacing_less
+						label.btn.btn-default(ng-click="nextrels()" ng-disabled="nextrelbtndisabled")
+							i.fa.fa-chevron-circle-right
+							| Next
+					.col-lg-4.col-md-4.col-sm-4.gray_text(ng-hide="q_rel")
 						.orange_header_larger
-							| 4: Click search
-						label.btn.btn-default(id='btn_search' ng-disabled='disableinccon' ng-click="values()")
+							| 2: Select relationships with these activities
+						.query-bordered
+							.checkbox(ng-repeat="rel in reltypes")
+								input(type="checkbox" ng-model="chkrels[rel.relname]" ng-change="checkactbtnstatus()")
+								| {{rel.relname  | TitleCase | unCamelCase}}
+						.vertical_spacing_less
+						label.btn.btn-default( ng-click="nextactname()" ng-disabled="nextactbtndisabled")
+							i.fa.fa-chevron-circle-right
+							| Next
+					.col-lg-4.col-md-4.col-sm-4.gray_text(ng-hide="q_actname")
+						.orange_header_larger
+							| 3: Enter the name of the activity to search					
+						input(type="text" ng-model="node"  placeholder="Search activity" typeahead-on-select="itemSelected($item, $model, $label)" typeahead-min-length='3' typeahead="node.name for node in getNodes($viewValue)" class="form-control")
+						.vertical_spacing_less
+						label.btn.btn-default(ng-click="values()" ng-disabled="searchbtndisabled")
 							i.fa.fa-chevron-circle-right
 							| Search
-
+					//- .col-lg-3.col-md-3.col-sm-3.gray_text(ng-hide="q_search")
+					//- 	.orange_header_larger
+					//- 		| 4: Click search
+					//- 	//.vertical_spacing_more
+					//- 	label.btn.btn-default(id='btn_search' ng-disabled='disableinccon' ng-click="values()")
+					//- 		i.fa.fa-chevron-circle-right
+					//- 		| Search
+				.vertical_spacing_less
+				.row(ng-hide="q_results")
+					.col-lg-12.col-md-12.col-sm-12
+						.orange_header_larger
+							| Ad-Hoc Query Results
+						table.table.table-condensed.validationstatus_table_header
+							tr
+								th.col-lg-6.col-md-6.col-sm-6
+									a(href="" ng-click="reverse=!reverse;orderByField='name'")
+										| Name
+								th.col-lg-2.col-md-2.col-sm-2
+									a(href="" ng-click="reverse=!reverse;orderByField='type'")
+										| Type
+								th.col-lg-2.col-md-2.col-sm-2
+									a(href="" ng-click="reverse=!reverse;orderByField='validationstatus'")
+										| Relationship
+				.row
+					.col-lg-12.col-md-12.col-sm-12
+						table.table.table-hover.table-condensed.validationstatus_table
+							tr( ng-repeat="row in adhocresults")
+								td.col-lg-6.col-md-6.col-sm-6(data-title="'Name'")
+									a(href="#/node/{{b.id}}")
+										| {{row.bname}}
+								td.col-lg-2.col-md-2.col-sm-2(data-title="'Type'")
+									| {{row.btype}}
+								td.col-lg-2.col-md-2.col-sm-2(data-title="'Relationship'" )
+									| {{row.rel}}
 
 				.vertical_spacing_lesser
 

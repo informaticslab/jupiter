@@ -4,10 +4,21 @@ $scope.reltypes="";
 $scope.chkrels={};
 $scope.chkactvs={};
 
+$scope.q_actname=true;
+$scope.q_rel=true;
+$scope.q_search=true;
+$scope.q_acttypes=false;
+$scope.q_results=true;
+$scope.nextrelbtndisabled=true;
+$scope.nextactbtndisabled=true;
+$scope.searchbtndisabled=true;
+$scope.actnamestatus=false;
 
 $scope.itemSelected = function($item, $model, $label) {
         $scope.nodeId = $item.id;
         console.log($scope.nodeId);
+        $scope.actnamestatus=true;
+        $scope.checksearchbtnstatus();
 
 };
 
@@ -50,18 +61,115 @@ if (!result.nullset)
 
 
 $scope.values=function(){
-		for (var key in $scope.chkactvs) {
-			//if($scope.chkactvs[key])
-		  console.log(key, $scope.chkactvs[key]);
-		}
+		
+		var nodeid=$scope.nodeId;
+		var ndtypes="";
+		var retypes="";
 
 		for (var key in $scope.chkrels) {
-			//if($scope.chkactvs[key])
-		  console.log(key, $scope.chkrels[key]);
+			if($scope.chkrels[key])
+		  	{
+		  		//console.log(key, $scope.chkrels[key]);
+		  		
+		  		retypes=retypes+"-"+key+"|";
+		  	}
 		}
+
+		retypes=retypes.replace(/(^\|)|(\|$)/g, "");
+
+		for (var key in $scope.chkactvs) {
+			if($scope.chkactvs[key])
+		  	{
+		  		//console.log(key, $scope.chkactvs[key]);
+		  		ndtypes=ndtypes+"'"+key+"',";
+		  	}
+		}
+		ndtypes=ndtypes.replace(/(^,)|(,$)/g, "");
+
+		
+
+		//console.log(nodeid+"+"+ndtypes+"+"+retypes);
+
+		var queryresults = $resource('/apollo/api/adhoc/'+nodeid+"+"+ndtypes+"+"+retypes, {
+		});
+
+		var q = queryresults.query({
+		},function(result){
+		if (!result.nullset)
+		{
+			//console.log(result);
+			// if(result.trim()=="")
+			// 	console.label("No Results");
+			$scope.adhocresults=result;
+
+
+			// result.forEach(function(d){
+   //              console.log(d.bname,d.bid,d.rel);
+   //          });    
+			
+		}
+	});
+
+
 
 	}
 
-});
+
+$scope.nextrels=function(){
+	$scope.q_rel=false;
+
+}
+
+$scope.nextactname=function(){
+	$scope.q_actname=false;
+}
+
+$scope.checkrelbtnstatus=function(){
+	$scope.nextrelbtndisabled=true;
+	for (var key in $scope.chkactvs) {
+		//console.log(key,$scope.chkactvs[key]);
+		if($scope.chkactvs[key])
+	  	{
+	  		$scope.nextrelbtndisabled=false;
+	  		
+	  	}
+	}
+	$scope.checksearchbtnstatus();
+	
+}
+
+
+$scope.checkactbtnstatus=function(){
+	$scope.nextactbtndisabled=true;
+	for (var key in $scope.chkrels) {
+		//console.log(key,$scope.chkrels[key]);
+		if($scope.chkrels[key])
+	  	{
+	  		$scope.nextactbtndisabled=false;
+	  		
+	  	}
+	}
+	$scope.checksearchbtnstatus();
+}
+
+$scope.checksearchbtnstatus=function(){
+	//$scope.nextsearchbtndisabled=true;
+	console.log($scope.nextactbtndisabled ,$scope.nextrelbtndisabled , $scope.actnamestatus)
+	if(!$scope.nextactbtndisabled && !$scope.nextrelbtndisabled && $scope.actnamestatus)
+  	{
+  		$scope.searchbtndisabled=false;
+  		
+  	}
+  	else
+  	{
+  		$scope.searchbtndisabled=true;
+  	}
+	
+}
+
+
+
+
+});//angular
 
 

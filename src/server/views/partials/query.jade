@@ -75,7 +75,9 @@
 					.col-lg-4.col-md-4.col-sm-4.gray_text(ng-hide="q_actname")
 						.orange_header_larger
 							| 3: Enter the name of the activity to search					
-						input(type="text" ng-model="node"  placeholder="Search activity" typeahead-on-select="itemSelected($item, $model, $label)" typeahead-min-length='3' typeahead="node.name for node in getNodes($viewValue)" class="form-control")
+						input(ng-repeat="txtcount in textboxcount" type="text" ng-model="node"  placeholder="Search activity" typeahead-on-select="itemSelected($item, $model, $label)" typeahead-min-length='3' typeahead="node.name for node in getNodes($viewValue)" class="form-control")
+						label.btn.btn-default( ng-click="addtxtbox()")
+							i.fa.fa-chevron-circle-right
 						.vertical_spacing_less
 						label.btn.btn-default(ng-click="values()" ng-disabled="searchbtndisabled")
 							i.fa.fa-chevron-circle-right
@@ -105,7 +107,7 @@
 										| Relationship
 				.row
 					.col-lg-12.col-md-12.col-sm-12
-						table.table.table-hover.table-condensed.validationstatus_table
+						table.table.table-hover.table-condensed
 							tr( ng-repeat="row in adhocresults")
 								td.col-lg-6.col-md-6.col-sm-6(data-title="'Name'")
 									a(href="#/node/{{b.id}}")

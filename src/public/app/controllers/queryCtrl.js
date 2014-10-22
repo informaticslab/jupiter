@@ -13,6 +13,13 @@ $scope.nextrelbtndisabled=true;
 $scope.nextactbtndisabled=true;
 $scope.searchbtndisabled=true;
 $scope.actnamestatus=false;
+$scope.textboxcount=[];
+var txtboxcount=1;
+
+$scope.textboxcount.push({"txtboxcount":txtboxcount});
+//$scope.textboxcount.push({"1"});
+
+
 
 $scope.itemSelected = function($item, $model, $label) {
         $scope.nodeId = $item.id;
@@ -167,6 +174,12 @@ $scope.checksearchbtnstatus=function(){
 	
 }
 
+$scope.addtxtbox=function(){
+	//$scope.nextsearchbtndisabled=true;
+	txtboxcount=txtboxcount+1;
+	$scope.textboxcount.push({"txtboxcount":txtboxcount});
+	
+}
 
 
 

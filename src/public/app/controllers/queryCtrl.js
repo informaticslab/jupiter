@@ -4,9 +4,9 @@ $scope.reltypes="";
 $scope.chkrels={};
 $scope.chkactvs={};
 
-$scope.q_actname=true;
-$scope.q_rel=true;
-$scope.q_search=true;
+$scope.q_actname=false;
+$scope.q_rel=false;
+$scope.q_search=false;
 $scope.q_acttypes=false;
 $scope.q_results=true;
 $scope.nextrelbtndisabled=true;
@@ -14,18 +14,27 @@ $scope.nextactbtndisabled=true;
 $scope.searchbtndisabled=true;
 $scope.actnamestatus=false;
 $scope.textboxcount=[];
-var txtboxcount=1;
+var tbxcount=0;
+$scope.txtboxcount=[];
+$scope.txtboxval={};
+$scope.txtboxcount.push({"tcount":tbxcount});
 
-$scope.textboxcount.push({"txtboxcount":txtboxcount});
+var nodeidtracker={};
 //$scope.textboxcount.push({"1"});
 
 
 
-$scope.itemSelected = function($item, $model, $label) {
+$scope.itemSelected = function($item, $model, $label,id) {
+
         $scope.nodeId = $item.id;
-        console.log($scope.nodeId);
+        //console.log(id,$scope.nodeId+'**'+$item+'**'+ $model+'**'+ $label);
+        nodeidtracker[id]=$item.id;
         $scope.actnamestatus=true;
         $scope.checksearchbtnstatus();
+
+        //console.log(nodeidtracker);
+
+
 
 };
 
@@ -72,6 +81,7 @@ $scope.values=function(){
 		var nodeid=$scope.nodeId;
 		var ndtypes="";
 		var retypes="";
+		var ndnames="";
 
 		for (var key in $scope.chkrels) {
 			if($scope.chkrels[key])
@@ -93,11 +103,30 @@ $scope.values=function(){
 		}
 		ndtypes=ndtypes.replace(/(^,)|(,$)/g, "");
 
+		var ndids="";
+		$scope.txtboxcount.forEach(function(d,i){
+			
+
+
+			var ndid=nodeidtracker["stxt_"+d.tcount];
+
+			if(ndid.trim()=="")
+			{
+
+			}
+			else
+			{
+				ndids=ndids+"'"+ndid+"',";
+			}
+			
 		
+		});
+
+		ndids=ndids.replace(/(^,)|(,$)/g, "");
 
 		//console.log(nodeid+"+"+ndtypes+"+"+retypes);
 
-		var queryresults = $resource('/apollo/api/adhoc/'+nodeid+"+"+ndtypes+"+"+retypes, {
+		var queryresults = $resource('/apollo/api/adhoc/'+ndids+"+"+ndtypes+"+"+retypes, {
 		});
 
 		var q = queryresults.query({
@@ -108,10 +137,11 @@ $scope.values=function(){
 			// if(result.trim()=="")
 			// 	console.label("No Results");
 			$scope.adhocresults=result;
+			$scope.q_results=false;
 
 
 			// result.forEach(function(d){
-   //              console.log(d.bname,d.bid,d.rel);
+   //              //console.log(d.bname,d.bid,d.rel);
    //          });    
 			
 		}
@@ -161,7 +191,7 @@ $scope.checkactbtnstatus=function(){
 
 $scope.checksearchbtnstatus=function(){
 	//$scope.nextsearchbtndisabled=true;
-	console.log($scope.nextactbtndisabled ,$scope.nextrelbtndisabled , $scope.actnamestatus)
+	//console.log($scope.nextactbtndisabled ,$scope.nextrelbtndisabled , $scope.actnamestatus)
 	if(!$scope.nextactbtndisabled && !$scope.nextrelbtndisabled && $scope.actnamestatus)
   	{
   		$scope.searchbtndisabled=false;
@@ -176,12 +206,51 @@ $scope.checksearchbtnstatus=function(){
 
 $scope.addtxtbox=function(){
 	//$scope.nextsearchbtndisabled=true;
-	txtboxcount=txtboxcount+1;
-	$scope.textboxcount.push({"txtboxcount":txtboxcount});
-	
+	tbxcount=tbxcount+1;
+	$scope.txtboxcount.push({"tcount":tbxcount});
+
 }
 
+$scope.removetxtbox=function(id){
+	$scope.txtboxcount.forEach(function(d,i){
+		if(d.tcount==id)
+		$scope.txtboxcount.splice(i,1);
+	});
 
+}
+
+$scope.print=function(){
+	
+ var letters=['P','S', 'V', 'P', 'D', 'O', 'V', 'L', 'K', 'M', 'R', 'X', 'J', 'S'];
+ for (var i = 0; i <1000; i++) {
+ 	shuffle(letters);
+ 	word="";
+ 	for(j=0;j<5;j++)
+ 		word=word+letters[j];
+ 	//console.log(word);
+ }
+
+
+}
+
+function shuffle(array) {
+  var currentIndex = array.length, temporaryValue, randomIndex ;
+
+  // While there remain elements to shuffle...
+  while (0 !== currentIndex) {
+
+    // Pick a remaining element...
+    randomIndex = Math.floor(Math.random() * currentIndex);
+    currentIndex -= 1;
+
+    // And swap it with the current element.
+    temporaryValue = array[currentIndex];
+    array[currentIndex] = array[randomIndex];
+    array[randomIndex] = temporaryValue;
+  }
+
+  return array;
+}
 
 });//angular
 

@@ -795,4 +795,5 @@ td.result_number_total {font-weight: bold; padding-top:.7em;}
 .small_print{font-size: .8em;}
 
 .query-bordered{height:20em;border: 1px solid #ddd; padding:.6em;overflow: scroll;}
+.query-nobordered{height:20em;border: 0px solid #ddd; padding:.6em;overflow: scroll;}
 

@@ -44,7 +44,7 @@
 			//- 	// end button group
 			//- // end nav_split
 			.top_block_faq
-				h4.orange_main_faq
+				h4.orange_main_faq(ng-click="print()")
 					span.glyphicon.glyphicon-comment.icon-flipped.faq_icon
 					| Ad Hoc Query Tool
 				.vertical_spacing_browse
@@ -58,7 +58,7 @@
 								input(type="checkbox" ng-model="chkactvs[activitytype.nodetypes]" ng-change="checkrelbtnstatus()")
 								| {{activitytype.nodetypes  | unCamelCase}}
 						.vertical_spacing_less
-						label.btn.btn-default(ng-click="nextrels()" ng-disabled="nextrelbtndisabled")
+						//label.btn.btn-default(ng-click="nextrels()" ng-disabled="nextrelbtndisabled")
 							i.fa.fa-chevron-circle-right
 							| Next
 					.col-lg-4.col-md-4.col-sm-4.gray_text(ng-hide="q_rel")
@@ -69,15 +69,23 @@
 								input(type="checkbox" ng-model="chkrels[rel.relname]" ng-change="checkactbtnstatus()")
 								| {{rel.relname  | TitleCase | unCamelCase}}
 						.vertical_spacing_less
-						label.btn.btn-default( ng-click="nextactname()" ng-disabled="nextactbtndisabled")
+						//label.btn.btn-default( ng-click="nextactname()" ng-disabled="nextactbtndisabled")
 							i.fa.fa-chevron-circle-right
 							| Next
 					.col-lg-4.col-md-4.col-sm-4.gray_text(ng-hide="q_actname")
 						.orange_header_larger
-							| 3: Enter the name of the activity to search					
-						input(ng-repeat="txtcount in textboxcount" type="text" ng-model="node"  placeholder="Search activity" typeahead-on-select="itemSelected($item, $model, $label)" typeahead-min-length='3' typeahead="node.name for node in getNodes($viewValue)" class="form-control")
-						label.btn.btn-default( ng-click="addtxtbox()")
-							i.fa.fa-chevron-circle-right
+							| 3: Enter the name of the activity to search
+						.query-nobordered				
+							.txtb(ng-repeat="txtcount in txtboxcount")
+								.row
+									.col-lg-10.col-md-10.col-sm-10
+										input(id="{{'stxt_'+txtcount.tcount}}" type="text" ng-model="txtboxval[txtcount.tcount]"  placeholder="Search activity" typeahead-on-select="itemSelected($item, $model, $label,\"{{'stxt_'+txtcount.tcount}}\")" typeahead-min-length='3' typeahead="node.name for node in getNodes($viewValue)" class="form-control")
+									.col-lg-2.col-md-2.col-sm-2
+										label.btn.pull-right(ng-if="txtcount.tcount>0" ng-click="removetxtbox(txtcount.tcount)")
+											i.fa.fa-times
+								.vertical_spacing_lesser
+							label.btn.btn-default( ng-click="addtxtbox()")
+								i.fa.fa-plus
 						.vertical_spacing_less
 						label.btn.btn-default(ng-click="values()" ng-disabled="searchbtndisabled")
 							i.fa.fa-chevron-circle-right
@@ -94,30 +102,58 @@
 					.col-lg-12.col-md-12.col-sm-12
 						.orange_header_larger
 							| Ad-Hoc Query Results
-						table.table.table-condensed.validationstatus_table_header
-							tr
-								th.col-lg-6.col-md-6.col-sm-6
-									a(href="" ng-click="reverse=!reverse;orderByField='name'")
-										| Name
-								th.col-lg-2.col-md-2.col-sm-2
-									a(href="" ng-click="reverse=!reverse;orderByField='type'")
-										| Type
-								th.col-lg-2.col-md-2.col-sm-2
-									a(href="" ng-click="reverse=!reverse;orderByField='validationstatus'")
-										| Relationship
-				.row
-					.col-lg-12.col-md-12.col-sm-12
-						table.table.table-hover.table-condensed
-							tr( ng-repeat="row in adhocresults")
-								td.col-lg-6.col-md-6.col-sm-6(data-title="'Name'")
-									a(href="#/node/{{b.id}}")
-										| {{row.bname}}
-								td.col-lg-2.col-md-2.col-sm-2(data-title="'Type'")
-									| {{row.btype}}
-								td.col-lg-2.col-md-2.col-sm-2(data-title="'Relationship'" )
-									| {{row.rel}}
+				.row(ng-hide="q_results")
+					.col-lg-12.col-md-12.col-sm-12							
+						table.table.table-hover
+							thead
+								tr
+									th
+										//a(href="" ng-click="reverse=!reverse;orderByField='name'")
+										| Returned Activities
+									th
+										//a(href="" ng-click="reverse=!reverse;orderByField='validationstatus'")
+										| Shared Relationship
+									th
+										//a(href="" ng-click="reverse=!reverse;orderByField='name'")
+										| Searched Activity
+							tbody
+								tr( ng-repeat="row in adhocresults")
+									td(data-title="'Name'")
+										a(href="#/node/{{b.bid}}")
+											| {{row.bname}} ({{row.btype}})
+									td(data-title="'Relationship'" )
+										| {{row.rel}}
+									td(data-title="'Name'")
+										a(href="#/node/{{b.aid}}")
+											| {{row.aname}}
 
-				.vertical_spacing_lesser
+				//- .row(ng-hide="q_results")
+				//- 	.col-lg-4.col-md-4.col-sm-4
+				//- 		a(href="" ng-click="reverse=!reverse;orderByField='name'")
+				//- 			| Returned Activities
+				//- 	//.col-lg-2.col-md-2.col-sm-2
+				//- 		a(href="" ng-click="reverse=!reverse;orderByField='type'")
+				//- 			| Type
+				//- 	.col-lg-2.col-md-2.col-sm-2
+				//- 		a(href="" ng-click="reverse=!reverse;orderByField='validationstatus'")
+				//- 			| Shared Relationship
+				//- 	.col-lg-4.col-md-4.col-sm-4
+				//- 		a(href="" ng-click="reverse=!reverse;orderByField='name'")
+				//- 			| Searched Activity
+				//- .vertical_spacing_less
+				//- .row.validationstatus_table( ng-repeat="row in adhocresults")
+				//- 	.col-lg-4.col-md-4.col-sm-4(data-title="'Name'")
+				//- 		a(href="#/node/{{b.bid}}")
+				//- 			| {{row.bname}} ({{row.btype}})
+				//- 	//.col-lg-2.col-md-2.col-sm-2(data-title="'Type'")
+				//- 		| {{row.btype}}
+				//- 	.col-lg-2.col-md-2.col-sm-2(data-title="'Relationship'" )
+				//- 		| {{row.rel}}
+				//- 	.col-lg-4.col-md-4.col-sm-4(data-title="'Name'")
+				//- 		a(href="#/node/{{b.aid}}")
+				//- 			| {{row.aname}}
+				//- 	.vertical_spacing_lesser		
+				//- .vertical_spacing_lesser
 
 				
 				//end nested row

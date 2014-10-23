@@ -1645,7 +1645,7 @@ exports.getAdhocQueryResults = function(req, res) {
     //console.log(qnode,rt,nt);
 
 
-    var query = 'match a-[r'+rt+']-b where labels(b)[0] in ['+nt+'] and a.id=\''+qnode+'\' return distinct b.name as bname,b.id as bid,labels(b)[0] as btype,type(r) as rel';
+    var query = 'match a-[r'+rt+']-b where labels(b)[0] in ['+nt+'] and a.id in ['+qnode+'] return distinct a.name as aname, a.id as aid,b.name as bname,b.id as bid,labels(b)[0] as btype,type(r) as rel';
     //console.log(query);
     var params = {
        
@@ -1672,6 +1672,8 @@ exports.getAdhocQueryResults = function(req, res) {
                 results.forEach(function(d){
                 //console.log(d.bname);
                 validationresults.push({
+                        "aname":d.aname,
+                        "aid":d.aid,
                         "bname": d.bname,
                         "bid": d.bid,
                         "btype":d.btype,

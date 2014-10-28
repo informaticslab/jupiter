@@ -12,6 +12,7 @@ angular.module('apolloApp').controller('advancedSearchCtrl', function($scope, $h
         });
     };
     var id = $routeParams.id;
+    var step1len=0,step2len=0,step3len=0,step4len=0;
 
     $scope.showLinkageLoading=false;
     //console.log("routeparams id",id);
@@ -68,6 +69,7 @@ angular.module('apolloApp').controller('advancedSearchCtrl', function($scope, $h
             else
             {
                 $scope.step1json=json;
+                step1len=json.nodes.length;
                 $scope.disablestep1 = false;
                 //console.log("1",$scope.disablestep1);
                 //$scope.$apply();
@@ -86,6 +88,7 @@ angular.module('apolloApp').controller('advancedSearchCtrl', function($scope, $h
             {
                 //console.log("2");
                 $scope.step2json=json;
+                step2len=json.nodes.length;
                 $scope.disablestep2 = false;
                 //console.log("2",$scope.disablestep2);
                 //$scope.$apply();
@@ -104,6 +107,7 @@ angular.module('apolloApp').controller('advancedSearchCtrl', function($scope, $h
             {
                 //console.log("3");
                 $scope.step3json=json;
+                step3len=json.nodes.length;
                 $scope.disablestep3 = false;
                 //console.log("3",$scope.disablestep3);
                 //$scope.$apply();
@@ -122,6 +126,7 @@ angular.module('apolloApp').controller('advancedSearchCtrl', function($scope, $h
             {
                 //console.log("4");
                 $scope.disablestep4 = false;
+                step4len=json.nodes.length;
                 $scope.step4json=json;
                 //console.log("4",$scope.disablestep4);
                 
@@ -143,26 +148,27 @@ angular.module('apolloApp').controller('advancedSearchCtrl', function($scope, $h
             //console.log("COMPLETE");
             //console.log($scope.step1status,$scope.step2status,$scope.step3status,$scope.step4status);
             //console.log("json",$scope.step1json.nodes.length,$scope.step2json.nodes.length,$scope.step3json.nodes.length,$scope.step4json.nodes.length);
+            //console.log("json",$scope.step1json.nodes,$scope.step2json.nodes,$scope.step3json.nodes,$scope.step4json.nodes);
 
-            if($scope.step2status==1 & $scope.step1status==1)
+            //if($scope.step2status==1 && $scope.step1status==1)
             {
-                if($scope.step2json.nodes.length==$scope.step1json.nodes.length)
+                if(step2len==step1len)
                 {
                     $scope.step2status=-1;    
                 }
                 
             }
-            if($scope.step3status==1 & $scope.step2status==1)
+            //if($scope.step3status==1 && $scope.step2status==1)
             {
-                if($scope.step3json.nodes.length==$scope.step2json.nodes.length)
+                if(step3len==step4len)
                 {
                     $scope.step3status=-1;    
                 }
                 
             }
-            if($scope.step4status==1 & $scope.step3status==1)
+            //if($scope.step4status==1 && $scope.step3status==1)
             {
-                if($scope.step4json.nodes.length==$scope.step3json.nodes.length)
+                if(step4len==step3len)
                 {
                     $scope.step4status=-1;    
                 }

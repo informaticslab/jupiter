@@ -50,9 +50,9 @@
 				.vertical_spacing_browse
 				.vertical_spacing_lesser
 				.row
-					.col-lg-4.col-md-4.col-sm-4.gray_text(ng-hide="q_actname")
+					.col-lg-6.col-md-6.col-sm-6.gray_text(ng-hide="q_actname")
 						.orange_header_larger
-							| 3: Enter the name of the activity to search
+							| 1: Name of the activity to search
 						.query-nobordered				
 							.txtb(ng-repeat="txtcount in txtboxcount")
 								.row
@@ -64,13 +64,13 @@
 								.vertical_spacing_lesser
 							label.btn.btn-default( ng-click="addtxtbox()")
 								i.fa.fa-plus
-						.vertical_spacing_less
-						label.btn.btn-default(ng-click="values()" ng-disabled="searchbtndisabled")
+						//.vertical_spacing_less
+						//label.btn.btn-default(ng-click="values()" ng-disabled="searchbtndisabled")
 							i.fa.fa-chevron-circle-right
 							| Search
-					.col-lg-4.col-md-4.col-sm-4.gray_text(ng-hide="q_acttypes")
+					.col-lg-6.col-md-6.col-sm-6.gray_text(ng-hide="q_acttypes")
 						.orange_header_larger
-							| 1: Select activity types to return
+							| 2: Related activity types
 						.query-bordered
 							.checkbox(ng-repeat="activitytype in activitytypes")
 								input(type="checkbox" ng-model="chkactvs[activitytype.nodetypes]" ng-change="checkrelbtnstatus()")
@@ -78,8 +78,8 @@
 						.vertical_spacing_less
 						label.btn.btn-default(ng-click="getrelatedactivitytypes()" ng-disabled="nextrelbtndisabled")
 							i.fa.fa-chevron-circle-right
-							| Next
-					.col-lg-4.col-md-4.col-sm-4.gray_text(ng-hide="q_rel")
+							| Search
+					//.col-lg-4.col-md-4.col-sm-4.gray_text(ng-hide="q_rel")
 						.orange_header_larger
 							| 2: Select relationships with these activities
 						.query-bordered
@@ -107,14 +107,36 @@
 					.col-lg-12.col-md-12.col-sm-12
 						.row
 							.col-lg-6.col-md-6.col-sm-6
-								//.btn-group
-									label(class="btn btn-primary" ng-model="checkModel.direct" btn-checkbox)
-										| Direct relationships
-									label(class="btn btn-primary" ng-model="checkModel.indirect" btn-checkbox)
-										| Indirect relationships
 							.col-lg-6.col-md-6.col-sm-6
-								pagination.pull-right(total-items="totalItems" ng-model="currentPage" max-size="maxSize" items-per-page="itemsPerPage" class="pagination-sm" boundary-links="true" ng-change="pageChanged()")
-						table.table
+								.faq_footnote.pull-right
+									{{totalItems}} activities returned
+						.row
+							.col-lg-6.col-md-6.col-sm-6
+							.col-lg-6.col-md-6.col-sm-6
+								pagination.pull-right(total-items="totalItems" ng-model="currentPage" max-size="maxSize" items-per-page="itemsPerPage" class="pagination-sm" boundary-links="true" ng-change="pageChanged()")								
+						.vertical_spacing_less
+						.row(ng-repeat="row in adhocresultspag")
+							.col-lg-12.col-md-12.col-sm-12
+								.row
+									.col-lg-4.col-md-4.col-sm-4
+										a(href="#/advancedSearch/{{row.aid+'-'+row.bid}}")
+											| {{row.bname}} ({{row.btype}})
+									.col-lg-8.col-md-8.col-sm-8
+										.fg_placeholder.forcegraph-bordered(id="fg_{{row.aid+row.bid}}" attribute-divid="fg_{{row.aid+row.bid}}" ng-force-graph attribute-readytoload=true  attribute-percent=10 attribute-nodelinks="{{row.pathlinks}}" attribute-nodes="{{row.pathnodes}}")
+								.vertical_spacing_less			
+						//.row	
+							.col-lg-12.col-md-12.col-sm-12
+								//{{totalItems}} activities returned
+						//.row(ng-repeat="row in adhocresultspag")	
+							.col-lg-12.col-md-12.col-sm-12
+								.row
+									.col-lg-12.col-md-12.col-sm-12
+										{{row.bname}} ({{row.btype}})
+								.row
+									.col-lg-12.col-md-12.col-sm-12
+										.fg_placeholder.forcegraph-bordered(id="fg_{{row.aid+row.bid}}" attribute-divid="fg_{{row.aid+row.bid}}" ng-force-graph attribute-readytoload=true  attribute-percent=10 attribute-nodelinks="{{row.pathlinks}}" attribute-nodes="{{row.pathnodes}}")										
+				
+						//table.table
 							thead
 								tr
 									th

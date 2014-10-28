@@ -111,7 +111,7 @@ angular.module('apolloApp')
 										.attr("class", "link");
 
 										var path = path1.append("path")
-													.attr("id",function(d){return d.sourceid+'_'+d.targetid;});
+													.attr("id",function(d){return aid+'_'+bid+'_'+d.sourceid+'_'+d.targetid;});
 
 										// var tex=path1.append("text")
 										// .attr("class","path_label")
@@ -146,7 +146,7 @@ angular.module('apolloApp')
 										.attr("startOffset", "20%")
 										.attr("text-anchor", "middle")
 										.attr("xlink:href", function(d) {
-											return "#" + d.sourceid + "_" + d.targetid;
+											return "#" + aid+'_'+bid+'_'+d.sourceid + "_" + d.targetid;
 										})
 										.style("font-family", "Arial")
 										.text(function(d) {

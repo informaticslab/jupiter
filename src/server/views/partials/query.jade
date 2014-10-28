@@ -108,10 +108,12 @@
 						.row
 							.col-lg-6.col-md-6.col-sm-6
 							.col-lg-6.col-md-6.col-sm-6
-								.faq_footnote.pull-right
+								//.faq_footnote.pull-right
 									{{totalItems}} activities returned
 						.row
 							.col-lg-6.col-md-6.col-sm-6
+								strong.gray_text
+									| {{totalItems}} activities returned
 							.col-lg-6.col-md-6.col-sm-6
 								pagination.pull-right(total-items="totalItems" ng-model="currentPage" max-size="maxSize" items-per-page="itemsPerPage" class="pagination-sm" boundary-links="true" ng-change="pageChanged()")								
 						.vertical_spacing_less

@@ -215,8 +215,15 @@ angular.module('apolloApp')
 									    node.attr("transform", function(d) { return "translate(" + d.x + "," + d.y + ")"; });
 									 });
 
+									drag = force.drag()
+										.on("dragstart", dragstart);
 
 
+									function dragstart(d) {
+										//d3.select(this).classed("fixed", true);
+										//d3.select(this).attr("class","node fixed");
+										d.fixed = true;
+									}
 								}
 							}
 						}

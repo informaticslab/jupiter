@@ -1692,6 +1692,73 @@ exports.getAdhocQueryResults = function(req, res) {
     });
 }
 
+exports.getAdhocQueryRelatedNodeTypesResults = function(req, res) {
+
+
+    var adhocquery=req.params.query;
+    //console.log(adhocquery);
+
+    var q=adhocquery.split("+");
+    var qnode=q[0];
+    var nt=q[1];
+
+    validationresults=[];
+
+    //console.log(qnode,rt,nt);
+
+
+    var query = 'match p=shortestPath(a-[r*]-b) where labels(b)[0] in ['+nt+'] and a.id in ['+qnode+'] return distinct a.name as aname, a.id as aid,labels(a)[0] as atype,b.name as bname,b.id as bid,labels(b)[0] as btype, extract(x IN nodes(p) | "{\\\"id\\\":\\\""+x.id+"\\\",\\\"label\\\":\\\""+labels(x)[0]+"\\\",\\\"name\\\":\\\""+x.name+"\\\"}") as pathnodes, extract(x IN relationships(p) | "{\\\"source\\\":\\\""+startNode(x).id+"\\\",\\\"target\\\":\\\""+endNode(x).id+"\\\",\\\"reltype\\\":\\\""+type(x)+"\\\"}") as pathlinks';
+    console.log(query);
+    var params = {
+       
+    };
+    
+    neodb.db.query(query, params, function(err, results) {
+        
+        if (err!=null) {
+            console.error('Error retreiving node from database:', err);
+            //console.log(err);
+            res.send(404, 'No node at that location.');
+        } else {
+            
+            
+            if(results[0]==null)
+            {
+                console.log("no name");
+                res.json(validationresults);
+            }
+            else
+            {
+                //var obj = eval(results);
+
+                results.forEach(function(d){
+                //console.log(d.bname);
+                if(d.aid!=d.bid)
+                validationresults.push({
+                        "aname":d.aname,
+                        "aid":d.aid,
+                        "atype":d.atype,
+                        "bname": d.bname,
+                        "bid": d.bid,
+                        "btype":d.btype,
+                        //"rel": d.rel,
+                        "pathnodes": d.pathnodes,
+                        "pathlinks": d.pathlinks
+                    });
+            });
+
+             //console.log(validationresults);
+
+             res.json(validationresults);
+            }
+
+            
+
+        }
+    });
+}
+
+
 
 
 

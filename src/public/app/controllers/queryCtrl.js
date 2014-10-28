@@ -19,7 +19,16 @@ $scope.txtboxcount=[];
 $scope.txtboxval={};
 $scope.txtboxcount.push({"tcount":tbxcount});
 
+$scope.totalItems = 0;
+$scope.currentPage = 1;
+$scope.maxSize = 10;
+$scope.itemsPerPage=10;
+//$scope.bigTotalItems = 175;
+//$scope.bigCurrentPage = 1;
+
 var nodeidtracker={};
+
+
 //$scope.textboxcount.push({"1"});
 
 
@@ -135,9 +144,11 @@ $scope.values=function(){
 		{
 			//console.log(result);
 			// if(result.trim()=="")
-			// 	console.label("No Results");
+			console.label(result.length);
 			$scope.adhocresults=result;
 			$scope.q_results=false;
+
+			
 
 
 			// result.forEach(function(d){
@@ -219,38 +230,123 @@ $scope.removetxtbox=function(id){
 
 }
 
-$scope.print=function(){
-	
- var letters=['P','S', 'V', 'P', 'D', 'O', 'V', 'L', 'K', 'M', 'R', 'X', 'J', 'S'];
- for (var i = 0; i <1000; i++) {
- 	shuffle(letters);
- 	word="";
- 	for(j=0;j<5;j++)
- 		word=word+letters[j];
- 	//console.log(word);
- }
+$scope.getrelatedactivitytypes=function(){
+		
+		var nodeid=$scope.nodeId;
+		var ndtypes="";
+		var retypes="";
+		var ndnames="";
 
 
+
+		for (var key in $scope.chkactvs) {
+			if($scope.chkactvs[key])
+		  	{
+		  		//console.log(key, $scope.chkactvs[key]);
+		  		ndtypes=ndtypes+"'"+key+"',";
+		  	}
+		}
+		ndtypes=ndtypes.replace(/(^,)|(,$)/g, "");
+
+		var ndids="";
+		$scope.txtboxcount.forEach(function(d,i){
+			
+
+
+			var ndid=nodeidtracker["stxt_"+d.tcount];
+
+			if(ndid.trim()=="")
+			{
+
+			}
+			else
+			{
+				ndids=ndids+"'"+ndid+"',";
+			}
+			
+		
+		});
+
+		ndids=ndids.replace(/(^,)|(,$)/g, "");
+
+		//console.log(nodeid+"+"+ndtypes+"+"+retypes);
+
+		var queryresults = $resource('/apollo/api/adhoc/relatednoodetypes/'+ndids+"+"+ndtypes, {
+		});
+
+		var q = queryresults.query({
+		},function(result){
+		if (!result.nullset)
+		{
+			//console.log(result);
+			// if(result.trim()=="")
+			//	console.label("No Results");
+			$scope.q_results=false;
+
+			$scope.adhocresults=result;
+			$scope.adhocresultsactve=$scope.adhocresults;
+			$scope.totalItems=$scope.adhocresultsactve.length;
+			$scope.currentPage=1;
+			$scope.pageChanged();
+			$scope.adhocresultsdirect=[];
+			$scope.adhocresultsindirect=[];
+			for(i=0;i<result.length;i++)
+		    {
+		    	if($scope.adhocresults[i].pathlinks.length==1)
+		    		$scope.adhocresultsdirect.push($scope.adhocresults[i]);
+		    	else
+		    		$scope.adhocresultsindirect.push($scope.adhocresults[i]);
+		    }
+
+			//console.log(result.length);
+
+
+			// result.forEach(function(d){
+   //              console.log(d.pathlinks);
+   //          });    
+			
+		}
+	});
+
+
+
+	}
+
+
+$scope.showdirect=function(){
+	$scope.adhocresultsactve=[];
+	$scope.adhocresultsactve=$scope.adhocresultsdirect;
+	$scope.totalItems=$scope.adhocresultsactve.length;
+	$scope.currentPage=1;
+	$scope.pageChanged();
 }
 
-function shuffle(array) {
-  var currentIndex = array.length, temporaryValue, randomIndex ;
 
-  // While there remain elements to shuffle...
-  while (0 !== currentIndex) {
-
-    // Pick a remaining element...
-    randomIndex = Math.floor(Math.random() * currentIndex);
-    currentIndex -= 1;
-
-    // And swap it with the current element.
-    temporaryValue = array[currentIndex];
-    array[currentIndex] = array[randomIndex];
-    array[randomIndex] = temporaryValue;
-  }
-
-  return array;
+$scope.showindirect=function(){
+	$scope.adhocresultsactve=[];
+	$scope.adhocresultsactve=$scope.adhocresultsindirect;
+	$scope.totalItems=$scope.adhocresultsactve.length;
+	$scope.currentPage=1;
+	$scope.pageChanged();
 }
+
+  $scope.pageChanged = function() {
+    //console.log('Page changed to: ' + $scope.currentPage, $scope.totalItems);
+
+    $scope.adhocresultspag=[];
+
+    for(i=($scope.currentPage-1)*10;(i<(($scope.currentPage-1)*10)+$scope.itemsPerPage) && (i<$scope.totalItems);i++)
+    {
+    	//console.log(i,$scope.adhocresults[i]);
+    	$scope.adhocresultspag.push($scope.adhocresultsactve[i]);
+    }
+    
+
+
+
+  };
+
+  
 
 });//angular
 

@@ -73,7 +73,13 @@ circle.node.Tag {
   fill: #94531b;
 }
 
+circle.node.A {
+  fill: #2dcc70;
+}
 
+circle.node.B {
+  fill: #94531b;
+}
 
 text {
   font: 10px sans-serif;

@@ -160,7 +160,7 @@ angular.module('apolloApp').controller('advancedSearchCtrl', function($scope, $h
             }
             //if($scope.step3status==1 && $scope.step2status==1)
             {
-                if(step3len==step4len)
+                if(step3len==step2len)
                 {
                     $scope.step3status=-1;    
                 }

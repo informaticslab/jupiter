@@ -24,6 +24,7 @@ $scope.totalItems = 0;
 $scope.currentPage = 1;
 $scope.maxSize = 10;
 $scope.itemsPerPage=10;
+$scope.tabs={};
 //$scope.bigTotalItems = 175;
 //$scope.bigCurrentPage = 1;
 
@@ -31,6 +32,7 @@ $scope.isCollapsed=true;
 $scope.disadvbtn=true;
 var nodeidtracker={};
 
+$scope.advs={};
 
 //console.log(nodeAttributeDictionary);
 $scope.actAttributes={};
@@ -57,7 +59,7 @@ $scope.itemSelected = function($item, $model, $label,id) {
         nodeidtracker[id]=$item.id;
         $scope.q_actname=true;
         $scope.checksearchbtnstatus();
-        console.log("set q_actname="+$scope.q_actname);
+        //console.log("set q_actname="+$scope.q_actname);
         //console.log(nodeidtracker);
 
 
@@ -182,13 +184,14 @@ $scope.values=function(){
 
 $scope.setactivitytypestatus=function(){
 	$scope.q_acttypes=false;
-	
+	$scope.tabs={};
 	for (var key in $scope.chkactvs) {
 		//console.log(key,$scope.chkactvs[key]);
 		if($scope.chkactvs[key])
 	  	{
 	  		$scope.q_acttypes=true;
 	  		$scope.disadvbtn=false;
+	  		$scope.tabs[key]=true;
 	  		
 	  	}
 	}
@@ -196,8 +199,8 @@ $scope.setactivitytypestatus=function(){
 	if(!$scope.q_acttypes)
 		$scope.isCollapsed=true;
 	$scope.checksearchbtnstatus();
-	console.log("set q_acttypes="+$scope.q_acttypes);
-	
+	//console.log("set q_acttypes="+$scope.q_acttypes,$scope.tabs,$scope.chkactvs);
+
 }
 
 
@@ -269,9 +272,43 @@ $scope.getrelatedactivitytypes=function(){
 
 		ndids=ndids.replace(/(^,)|(,$)/g, "");
 
+		var adsstring="";	
+		for(key in $scope.advs)
+		{
+			var acttype=key.split("_")[0];
+			//console.log("act type from field name "+key, acttype);
+			var acttypechecked=false;
+
+			for (var key1 in $scope.tabs) {
+				//console.log("act type from tabs enabled",key1,"ac type from field="+ acttype, acttypechecked);
+				if(acttype==key1)
+			  	{
+			  		var acttypechecked=true;
+			  		break;
+			  		
+			  	}
+			}
+			//console.log("AFTER CALCS act type from tabs enabled",key1,"ac type from field="+ acttype, acttypechecked);
+			//console.log(acttypechecked);
+			if($scope.advs[key].trim()!="" && acttypechecked)
+		  	{
+		  		var attname=key.split("_");
+		  		adsstring=adsstring+attname[1]+'='+$scope.advs[key].toLowerCase()+",";
+		  		
+		  	}
+		}
+		adsstring = adsstring.replace(/(,$)/g, "");
+		if(adsstring.trim()=="")
+		{
+			adsstring="NA";
+		}
+
+		
+		//console.log('/apollo/api/adhoc/relatednoodetypes/'+ndids+"+"+ndtypes+"+"+adsstring);
+
 		//console.log(nodeid+"+"+ndtypes+"+"+retypes);
 
-		var queryresults = $resource('/apollo/api/adhoc/relatednoodetypes/'+ndids+"+"+ndtypes, {
+		var queryresults = $resource('/apollo/api/adhoc/relatednoodetypes/'+ndids+"+"+ndtypes+"+"+adsstring, {
 		});
 
 		var q = queryresults.query({
@@ -302,10 +339,11 @@ $scope.getrelatedactivitytypes=function(){
 
 
 			// result.forEach(function(d){
-   //              console.log(d.pathlinks);
+   //              //console.log(d.pathlinks);
    //          });    
 			
 		}
+		$scope.isCollapsed=true;
 	});
 
 
@@ -341,10 +379,8 @@ $scope.showindirect=function(){
     	$scope.adhocresultspag.push($scope.adhocresultsactve[i]);
     }
     
-
-
-
   };
+
 
   
 

@@ -745,7 +745,7 @@ var id = req.params.id;
         params = {
             id:id
         };
-    console.log(query, params);
+    //console.log(query, params);
     neodb.db.query(query, params, function(err, r) {
         if (err) {
             console.error('Error retreiving statistics from database:', err);
@@ -1662,7 +1662,7 @@ exports.getAdhocQueryResults = function(req, res) {
             
             if(results[0]==null)
             {
-                console.log("no name");
+                //console.log("no name");
                 res.json(validationresults);
             }
             else
@@ -1701,14 +1701,36 @@ exports.getAdhocQueryRelatedNodeTypesResults = function(req, res) {
     var q=adhocquery.split("+");
     var qnode=q[0];
     var nt=q[1];
+    var ads=q[2];
+
+    var likeclause="";
+    if(ads=="NA")
+    {
+        likeclause="";
+    }else
+    {
+
+        var adsstring=ads.split(",");
+
+        for(i=0;i<adsstring.length;i++)
+        {
+            var adsattr=adsstring[i].split("=");
+            likeclause=likeclause+" lower(b."+adsattr[0]+")=~'.*"+adsattr[1]+".*' OR";
+        }
+
+        likeclause = likeclause.replace(/((OR)$)/g, "");
+        likeclause = " ("+likeclause + ") and ";
+
+        
+
+    }
 
     validationresults=[];
-
     //console.log(qnode,rt,nt);
 
 
-    var query = 'match p=shortestPath(a-[r*]-b) where labels(b)[0] in ['+nt+'] and a.id in ['+qnode+'] return distinct a.name as aname, a.id as aid,labels(a)[0] as atype,b.name as bname,b.id as bid,labels(b)[0] as btype, extract(x IN nodes(p) | "{\\\"id\\\":\\\""+x.id+"\\\",\\\"label\\\":\\\""+labels(x)[0]+"\\\",\\\"name\\\":\\\""+x.name+"\\\"}") as pathnodes, extract(x IN relationships(p) | "{\\\"source\\\":\\\""+startNode(x).id+"\\\",\\\"target\\\":\\\""+endNode(x).id+"\\\",\\\"reltype\\\":\\\""+type(x)+"\\\"}") as pathlinks,length(p) as pathlen  order by pathlen';
-    console.log(query);
+    var query = 'match p=shortestPath(a-[r*]-b) where '+likeclause+' labels(b)[0] in ['+nt+'] and a.id in ['+qnode+'] return distinct a.name as aname, a.id as aid,labels(a)[0] as atype,b.name as bname,b.id as bid,labels(b)[0] as btype, extract(x IN nodes(p) | "{\\\"id\\\":\\\""+x.id+"\\\",\\\"label\\\":\\\""+labels(x)[0]+"\\\",\\\"name\\\":\\\""+x.name+"\\\"}") as pathnodes, extract(x IN relationships(p) | "{\\\"source\\\":\\\""+startNode(x).id+"\\\",\\\"target\\\":\\\""+endNode(x).id+"\\\",\\\"reltype\\\":\\\""+type(x)+"\\\"}") as pathlinks,length(p) as pathlen  order by pathlen';
+    //console.log(query);
     var params = {
        
     };
@@ -1724,7 +1746,7 @@ exports.getAdhocQueryRelatedNodeTypesResults = function(req, res) {
             
             if(results[0]==null)
             {
-                console.log("no name");
+                //console.log("no name");
                 res.json(validationresults);
             }
             else

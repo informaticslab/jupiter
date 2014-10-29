@@ -39,12 +39,13 @@ angular.module('apolloApp')
 									var linksarr=eval(scope.nodelinks);
 
 									var noderadius=6;
-									//console.log(scope.nodelinks);
+									//console.log(nodesarr);
 									//console.log(linksarr);
 
 									nodesobj=[];
 
 									nodesarr.forEach(function(d){
+										d=d.replace(/\\/g, "\\\\");
 										var jobj=JSON.parse(d);
 										//console.log(jobj);
 										nodesobj.push({"id":jobj.id,"name":jobj.name,"label":jobj.label});

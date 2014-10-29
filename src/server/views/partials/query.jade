@@ -75,31 +75,35 @@
 							.checkbox(ng-repeat="activitytype in activitytypes" )
 								input(type="checkbox" ng-model="chkactvs[activitytype.nodetypes]" ng-change="setactivitytypestatus()" )
 								| {{activitytype.nodetypes  | unCamelCase}}
-						.vertical_spacing_less
-						label.btn.btn-default(ng-click="getrelatedactivitytypes()" ng-disabled="dissearchbtn")
+				.vertical_spacing_more
+				.row
+					.col-lg-6.col-md-6.col-sm-6
+						label.btn.btn-default(ng-click="isCollapsed = !isCollapsed" ng-disabled="!q_acttypes")
+							i.fa.fa-chevron-circle-right(ng-class="{'fa fa-chevron-circle-down': !isCollapsed, 'fa fa-chevron-circle-right': isCollapsed}")
+							| Advanced filtering for selected activities
+					.col-lg-6.col-md-6.col-sm-6
+						label.btn.btn-default.pull-right(ng-click="getrelatedactivitytypes()" ng-disabled="dissearchbtn")
 							i.fa.fa-chevron-circle-right
 							| Search
+				.vertical_spacing_less
 				.row
 					.col-lg-12.col-md-12.col-sm-12
-						label.btn.btn-default(ng-click="isCollapsed = !isCollapsed" ng-disabled="!q_acttypes")
-							| Advanced filtering for selected activities
-							i.fa.fa-chevron-circle-right(ng-class="{'fa fa-chevron-circle-down': !isCollapsed, 'fa fa-chevron-circle-right': isCollapsed}")
-						hr
 						.adhocadvanced(collapse="isCollapsed")
+							p.gray_text
+								| Refine your search further using specific values with activity attributes
+							.vertical_spacing_less
 							tabset
-								tab(ng-repeat="activitytype in activitytypes" heading="{{activitytype.nodetypes}}" disabled="!chkactvs[activitytype.nodetypes]")
+								tab(ng-repeat="activitytype in activitytypes" heading="{{activitytype.nodetypes}}" active="tabs[activitytype.nodetypes]" disabled="!chkactvs[activitytype.nodetypes]")
 									//| {{actAttributes[activitytype.nodetypes]}}
 									//.adhoc_adv_query-bordered
 									.vertical_spacing_less
 									.well.well-lg
 										.adhocad(ng-repeat="act in actAttributes[activitytype.nodetypes] track by $index")
 											.row
-												.col-lg-2.col-md-2.col-sm-2
+												.col-lg-3.col-md-3.col-sm-3
 													| {{act | unCamelCase}}
-												.col-lg-2.col-md-2.col-sm-2
-													input(type="text" class="form-control")
-
-
+												.col-lg-5.col-md-5.col-sm-5
+													input(id="{{txtid=activitytype.nodetypes+'_'+act}}" name="txtid" type="text" class="form-control" ng-model="advs[txtid]" )
 				.vertical_spacing_more
 				.row(ng-hide="q_results")
 					.col-lg-12.col-md-12.col-sm-12

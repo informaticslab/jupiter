@@ -50,7 +50,7 @@
 				.vertical_spacing_browse
 				.vertical_spacing_lesser
 				.row
-					.col-lg-6.col-md-6.col-sm-6.gray_text(ng-hide="q_actname")
+					.col-lg-6.col-md-6.col-sm-6.gray_text
 						.orange_header_larger
 							| 1: Name of the activity to search
 						.query-nobordered				
@@ -68,36 +68,38 @@
 						//label.btn.btn-default(ng-click="values()" ng-disabled="searchbtndisabled")
 							i.fa.fa-chevron-circle-right
 							| Search
-					.col-lg-6.col-md-6.col-sm-6.gray_text(ng-hide="q_acttypes")
+					.col-lg-6.col-md-6.col-sm-6.gray_text
 						.orange_header_larger
 							| 2: Related activity types
 						.query-bordered
-							.checkbox(ng-repeat="activitytype in activitytypes")
-								input(type="checkbox" ng-model="chkactvs[activitytype.nodetypes]" ng-change="checkrelbtnstatus()")
+							.checkbox(ng-repeat="activitytype in activitytypes" )
+								input(type="checkbox" ng-model="chkactvs[activitytype.nodetypes]" ng-change="setactivitytypestatus()" )
 								| {{activitytype.nodetypes  | unCamelCase}}
 						.vertical_spacing_less
-						label.btn.btn-default(ng-click="getrelatedactivitytypes()" ng-disabled="nextrelbtndisabled")
+						label.btn.btn-default(ng-click="getrelatedactivitytypes()" ng-disabled="dissearchbtn")
 							i.fa.fa-chevron-circle-right
 							| Search
-					//.col-lg-4.col-md-4.col-sm-4.gray_text(ng-hide="q_rel")
-						.orange_header_larger
-							| 2: Select relationships with these activities
-						.query-bordered
-							.checkbox(ng-repeat="rel in reltypes")
-								input(type="checkbox" ng-model="chkrels[rel.relname]" ng-change="checkactbtnstatus()")
-								| {{rel.relname  | TitleCase | unCamelCase}}
-						.vertical_spacing_less
-						label.btn.btn-default( ng-click="nextactname()" ng-disabled="nextactbtndisabled")
-							i.fa.fa-chevron-circle-right
-							| Next
-					
-					//- .col-lg-3.col-md-3.col-sm-3.gray_text(ng-hide="q_search")
-					//- 	.orange_header_larger
-					//- 		| 4: Click search
-					//- 	//.vertical_spacing_more
-					//- 	label.btn.btn-default(id='btn_search' ng-disabled='disableinccon' ng-click="values()")
-					//- 		i.fa.fa-chevron-circle-right
-					//- 		| Search
+				.row
+					.col-lg-12.col-md-12.col-sm-12
+						label.btn.btn-default(ng-click="isCollapsed = !isCollapsed" ng-disabled="!q_acttypes")
+							| Advanced filtering for selected activities
+							i.fa.fa-chevron-circle-right(ng-class="{'fa fa-chevron-circle-down': !isCollapsed, 'fa fa-chevron-circle-right': isCollapsed}")
+						hr
+						.adhocadvanced(collapse="isCollapsed")
+							tabset
+								tab(ng-repeat="activitytype in activitytypes" heading="{{activitytype.nodetypes}}" disabled="!chkactvs[activitytype.nodetypes]")
+									//| {{actAttributes[activitytype.nodetypes]}}
+									//.adhoc_adv_query-bordered
+									.vertical_spacing_less
+									.well.well-lg
+										.adhocad(ng-repeat="act in actAttributes[activitytype.nodetypes] track by $index")
+											.row
+												.col-lg-2.col-md-2.col-sm-2
+													| {{act | unCamelCase}}
+												.col-lg-2.col-md-2.col-sm-2
+													input(type="text" class="form-control")
+
+
 				.vertical_spacing_more
 				.row(ng-hide="q_results")
 					.col-lg-12.col-md-12.col-sm-12
@@ -126,86 +128,7 @@
 									.col-lg-8.col-md-8.col-sm-8
 										.fg_placeholder.forcegraph-bordered(id="fg_{{row.aid+row.bid}}" attribute-divid="fg_{{row.aid+row.bid}}" ng-force-graph attribute-readytoload=true  attribute-percent=10 attribute-nodelinks="{{row.pathlinks}}" attribute-nodes="{{row.pathnodes}}")
 								.vertical_spacing_less			
-						//.row	
-							.col-lg-12.col-md-12.col-sm-12
-								//{{totalItems}} activities returned
-						//.row(ng-repeat="row in adhocresultspag")	
-							.col-lg-12.col-md-12.col-sm-12
-								.row
-									.col-lg-12.col-md-12.col-sm-12
-										{{row.bname}} ({{row.btype}})
-								.row
-									.col-lg-12.col-md-12.col-sm-12
-										.fg_placeholder.forcegraph-bordered(id="fg_{{row.aid+row.bid}}" attribute-divid="fg_{{row.aid+row.bid}}" ng-force-graph attribute-readytoload=true  attribute-percent=10 attribute-nodelinks="{{row.pathlinks}}" attribute-nodes="{{row.pathnodes}}")										
-				
-						//table.table
-							thead
-								tr
-									th
-										//a(href="" ng-click="reverse=!reverse;orderByField='name'")
-										| {{totalItems}} activities returned
-									//th
-										//a(href="" ng-click="reverse=!reverse;orderByField='validationstatus'")
-										| Shared Relationship
-									//th
-										//a(href="" ng-click="reverse=!reverse;orderByField='name'")
-										| Searched Activity
-									//th
-										//a(href="" ng-click="reverse=!reverse;orderByField='name'")
-										| Path Nodes
-									//th
-										//a(href="" ng-click="reverse=!reverse;orderByField='name'")
-										| Path Links
-							tbody
-								tr( ng-repeat="row in adhocresultspag")
-									td(data-title="'Name'")
-										.row
-											.col-lg-6.col-md-6.col-sm-6
-												a(href="#/node/{{b.bid}}")
-												| {{row.bname}} ({{row.btype}})
-											.col-lg-6.col-md-6.col-sm-6
-												.fg_placeholder.forcegraph-bordered(id="fg_{{row.aid+row.bid}}" attribute-divid="fg_{{row.aid+row.bid}}" ng-force-graph attribute-readytoload=true  attribute-percent=10 attribute-nodelinks="{{row.pathlinks}}" attribute-nodes="{{row.pathnodes}}")										
-		
-									//td(data-title="'Relationship'" )
-										| {{row.rel}}
-									//td(data-title="'Name'")
-										//.fg_placeholder(id="fg_{{row.aid+row.bid}}" attribute-divid="fg_{{row.aid+row.bid}}" ng-force-graph attribute-readytoload=true  attribute-percent=10 attribute-nodelinks="{{row.pathlinks}}" attribute-nodes="{{row.pathnodes}}")
-										//a(href="#/node/{{b.aid}}")
-											| {{row.aname}}
-									//td(data-title="'Name'")
-										a(href="#/node/{{b.aid}}")
-											| {{row.pathnodes}}
-									//td(data-title="'Name'")
-										a(href="#/node/{{b.aid}}")
-											| {{row.pathlinks}}
 
-				//- .row(ng-hide="q_results")
-				//- 	.col-lg-4.col-md-4.col-sm-4
-				//- 		a(href="" ng-click="reverse=!reverse;orderByField='name'")
-				//- 			| Returned Activities
-				//- 	//.col-lg-2.col-md-2.col-sm-2
-				//- 		a(href="" ng-click="reverse=!reverse;orderByField='type'")
-				//- 			| Type
-				//- 	.col-lg-2.col-md-2.col-sm-2
-				//- 		a(href="" ng-click="reverse=!reverse;orderByField='validationstatus'")
-				//- 			| Shared Relationship
-				//- 	.col-lg-4.col-md-4.col-sm-4
-				//- 		a(href="" ng-click="reverse=!reverse;orderByField='name'")
-				//- 			| Searched Activity
-				//- .vertical_spacing_less
-				//- .row.validationstatus_table( ng-repeat="row in adhocresults")
-				//- 	.col-lg-4.col-md-4.col-sm-4(data-title="'Name'")
-				//- 		a(href="#/node/{{b.bid}}")
-				//- 			| {{row.bname}} ({{row.btype}})
-				//- 	//.col-lg-2.col-md-2.col-sm-2(data-title="'Type'")
-				//- 		| {{row.btype}}
-				//- 	.col-lg-2.col-md-2.col-sm-2(data-title="'Relationship'" )
-				//- 		| {{row.rel}}
-				//- 	.col-lg-4.col-md-4.col-sm-4(data-title="'Name'")
-				//- 		a(href="#/node/{{b.aid}}")
-				//- 			| {{row.aname}}
-				//- 	.vertical_spacing_lesser		
-				//- .vertical_spacing_lesser
 
 				
 				//end nested row

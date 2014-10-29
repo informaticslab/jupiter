@@ -1,17 +1,18 @@
-angular.module('apolloApp').controller('queryCtrl', function($scope,$resource,$location,$http,$routeParams,$timeout){
+angular.module('apolloApp').controller('queryCtrl', ['$scope', '$location', '$resource', '$http', '$routeParams', 'nodeAttributeDictionary',
+	function($scope, $location, $resource, $http, $routeParams, nodeAttributeDictionary) {
 
 $scope.reltypes="";
 $scope.chkrels={};
 $scope.chkactvs={};
 
 $scope.q_actname=false;
-$scope.q_rel=false;
-$scope.q_search=false;
+// $scope.q_rel=false;
+// $scope.q_search=false;
 $scope.q_acttypes=false;
 $scope.q_results=true;
 $scope.nextrelbtndisabled=true;
 $scope.nextactbtndisabled=true;
-$scope.searchbtndisabled=true;
+$scope.dissearchbtn=true;
 $scope.actnamestatus=false;
 $scope.textboxcount=[];
 var tbxcount=0;
@@ -26,21 +27,37 @@ $scope.itemsPerPage=10;
 //$scope.bigTotalItems = 175;
 //$scope.bigCurrentPage = 1;
 
+$scope.isCollapsed=true;
+$scope.disadvbtn=true;
 var nodeidtracker={};
 
 
-//$scope.textboxcount.push({"1"});
+//console.log(nodeAttributeDictionary);
+$scope.actAttributes={};
+for(x in nodeAttributeDictionary)
+{
+	//console.log("**"+x);
+	$scope.actAttributes[x]=[];
+	for(y in nodeAttributeDictionary[x].attributeGroups)
+	{
+		for(z in nodeAttributeDictionary[x].attributeGroups[y].attributes)
+		{
+			$scope.actAttributes[x].push(""+z+"");
+		}
+	}	//$scope.nodeattributes.x
+}
 
-
+//console.log($scope.actAttributes);
+//$scope.nodeAttributes[]
 
 $scope.itemSelected = function($item, $model, $label,id) {
 
         $scope.nodeId = $item.id;
         //console.log(id,$scope.nodeId+'**'+$item+'**'+ $model+'**'+ $label);
         nodeidtracker[id]=$item.id;
-        $scope.actnamestatus=true;
+        $scope.q_actname=true;
         $scope.checksearchbtnstatus();
-
+        console.log("set q_actname="+$scope.q_actname);
         //console.log(nodeidtracker);
 
 
@@ -163,54 +180,37 @@ $scope.values=function(){
 	}
 
 
-$scope.nextrels=function(){
-	$scope.q_rel=false;
-
-}
-
-$scope.nextactname=function(){
-	$scope.q_actname=false;
-}
-
-$scope.checkrelbtnstatus=function(){
-	$scope.nextrelbtndisabled=true;
+$scope.setactivitytypestatus=function(){
+	$scope.q_acttypes=false;
+	
 	for (var key in $scope.chkactvs) {
 		//console.log(key,$scope.chkactvs[key]);
 		if($scope.chkactvs[key])
 	  	{
-	  		$scope.nextrelbtndisabled=false;
+	  		$scope.q_acttypes=true;
+	  		$scope.disadvbtn=false;
 	  		
 	  	}
 	}
+
+	if(!$scope.q_acttypes)
+		$scope.isCollapsed=true;
 	$scope.checksearchbtnstatus();
+	console.log("set q_acttypes="+$scope.q_acttypes);
 	
 }
 
 
-$scope.checkactbtnstatus=function(){
-	$scope.nextactbtndisabled=true;
-	for (var key in $scope.chkrels) {
-		//console.log(key,$scope.chkrels[key]);
-		if($scope.chkrels[key])
-	  	{
-	  		$scope.nextactbtndisabled=false;
-	  		
-	  	}
-	}
-	$scope.checksearchbtnstatus();
-}
 
 $scope.checksearchbtnstatus=function(){
-	//$scope.nextsearchbtndisabled=true;
-	//console.log($scope.nextactbtndisabled ,$scope.nextrelbtndisabled , $scope.actnamestatus)
-	if(!$scope.nextactbtndisabled && !$scope.nextrelbtndisabled && $scope.actnamestatus)
+	if($scope.q_actname && $scope.q_acttypes)
   	{
-  		$scope.searchbtndisabled=false;
+  		$scope.dissearchbtn=false;
   		
   	}
   	else
   	{
-  		$scope.searchbtndisabled=true;
+  		$scope.dissearchbtn=true;
   	}
 	
 }
@@ -348,6 +348,6 @@ $scope.showindirect=function(){
 
   
 
-});//angular
+}]);//angular
 
 

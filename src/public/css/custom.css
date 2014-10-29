@@ -808,4 +808,5 @@ td.result_number_total {font-weight: bold; padding-top:.7em;}
 }
 
 .fg_textpath{font-size:.8em;}
+.adhoc_adv_query-bordered{border: 1px solid #ddd; padding:.6em;overflow: scroll;}
 

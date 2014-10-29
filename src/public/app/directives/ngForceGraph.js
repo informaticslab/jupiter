@@ -88,6 +88,12 @@ angular.module('apolloApp')
 									    .attr("width", width)
 									    .attr("height", height);
 
+								    svg.append("rect")
+									    .attr("width", "100%")
+									    .attr("height", "100%")
+									    .attr("fill", "#eaeced");
+
+
 									var force = d3.layout.force()
 									    .gravity(.05)
 									    .distance(100)

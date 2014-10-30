@@ -1794,7 +1794,7 @@ exports.getAttributeValues = function(req, res) {
     var attrval=attrarr[2];
 
 
-    var query = 'match (a:`'+attrtype+'`) where lower(a.'+attrname+')=~".*' + attrval +'.*"  return a.'+attrname+' as values';
+    var query = 'match (a:`'+attrtype+'`) where lower(a.'+attrname+')=~".*' + attrval +'.*"  return distinct a.'+attrname+' as values';
 
     //var query = 'MATCH n WHERE lower(n.name)=~".*' + searchTerm + '.*" or lower(n.shortName)=~".*' + searchTerm + '.*" RETURN distinct n.id as id, n.name as name, n.shortName as shortname';
     console.log(query);

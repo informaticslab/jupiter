@@ -70,14 +70,16 @@ $scope.itemSelected = function($item, $model, $label,id) {
         nodeidtracker[id]=$item.id;
         $scope.q_actname=true;
         $scope.checksearchbtnstatus();
-        //console.log("set q_actname="+$scope.q_actname);
-        //console.log(nodeidtracker);
-
-
-
 };
 
+$scope.adhocAttrSelected = function($item, $model, $label,id) {
 
+        $scope.nodeId = $item.id;
+        //console.log(id,$scope.nodeId+'**'+$item+'**'+ $model+'**'+ $label);
+        nodeidtracker[id]=$item.id;
+        $scope.q_actname=true;
+        $scope.checksearchbtnstatus();
+};
 
 var relationships = $resource('/apollo/api/relationships/all', {
 });
@@ -421,6 +423,21 @@ $scope.showindirect=function(){
 
   };
   
+
+  $scope.getAttributeValues = function(likeval,attr) {
+  	//console.log(likeval,attr);
+
+  	var attrarr=attr.split("_");
+
+  	var val=attrarr[1]+"+"+attrarr[0]+"+"+likeval;
+    return $http.get('/apollo/api/attributes/getValues/' + val).then(function(res) {
+        var nodes = [];
+        angular.forEach(res.data, function(item) {
+            nodes.push(item);
+        });
+        return nodes;
+    });
+};
 
 }]);//angular
 

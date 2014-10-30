@@ -1782,5 +1782,46 @@ exports.getAdhocQueryRelatedNodeTypesResults = function(req, res) {
 
 
 
+exports.getAttributeValues = function(req, res) {
+    
+   
+    var attr=req.params.attr;
+
+    var attrarr=attr.split("+");
+
+    var attrname=attrarr[0];
+    var attrtype=attrarr[1];
+    var attrval=attrarr[2];
+
+
+    var query = 'match (a:`'+attrtype+'`) where lower(a.'+attrname+')=~".*' + attrval +'.*"  return a.'+attrname+' as values';
+
+    //var query = 'MATCH n WHERE lower(n.name)=~".*' + searchTerm + '.*" or lower(n.shortName)=~".*' + searchTerm + '.*" RETURN distinct n.id as id, n.name as name, n.shortName as shortname';
+    console.log(query);
+    var params = {
+        searchTerm: req.params.searchTerm
+    };
+    neodb.db.query(query, params, function(err, results) {
+        //console.log(results);
+
+        if (err) {
+            console.error('Error retreiving node from database:', err);
+            res.send(404, 'No node at that location');
+        } else {
+            if (results != null) {
+                var nodedata = [];
+                _.each(results, function(i){
+                        nodedata.push({values: i.values});
+                })
+                res.json(nodedata);
+            }
+            else{
+                res.json([]);
+            }
+        }
+    });
+};
+
+
 
 

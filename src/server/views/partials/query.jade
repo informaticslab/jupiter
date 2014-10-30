@@ -100,7 +100,7 @@
 													| {{act | unCamelCase}}
 												.col-lg-5.col-md-5.col-sm-5
 													//input(id="{{txtid=activitytype.nodetypes+'_'+act}}" name="txtid" type="text" class="form-control" ng-model="advs[txtid]" )
-													input(id="{{txtid=activitytype.nodetypes+'_'+act}}" name="txtid" type="text" ng-model="{{txtid+'_model'}}"  typeahead-on-select="adhocAttrSelected($item, $model, $label)" typeahead-min-length='2' typeahead="node.name for node in getAttributeValues($viewValue)" class="form-control")	
+													input(id="{{txtid=activitytype.nodetypes+'_'+act}}" name="txtid" type="text" ng-model="advs[txtid]"  typeahead-on-select="adhocAttrSelected($item, $model, $label)" typeahead-min-length='2' typeahead="node.values for node in getAttributeValues($viewValue,txtid)" class="form-control")
 				.row
 					.col-lg-12.col-md-12.col-sm-12
 						label.btn.btn-default.pull-right(ng-click="getrelatedactivitytypes()" ng-disabled="dissearchbtn")

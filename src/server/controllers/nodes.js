@@ -1716,6 +1716,7 @@ exports.getAdhocQueryRelatedNodeTypesResults = function(req, res) {
         for(i=0;i<adsstring.length;i++)
         {
             var adsattr=adsstring[i].split("=");
+            adsattr[1]=adsattr[1].replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\\\$&');
             likeclause=likeclause+" lower(b."+adsattr[0]+")=~'.*"+adsattr[1]+".*' OR";
         }
 
@@ -1739,7 +1740,7 @@ exports.getAdhocQueryRelatedNodeTypesResults = function(req, res) {
        query = 'match p=shortestPath(a-[r*]-b) where '+likeclause+' labels(b)[0] in ['+nt+'] and a.id in ['+qnode+'] return distinct a.name as aname, a.id as aid,labels(a)[0] as atype,b.name as bname,b.id as bid,labels(b)[0] as btype, extract(x IN nodes(p) | "{\\\"id\\\":\\\""+x.id+"\\\",\\\"label\\\":\\\""+labels(x)[0]+"\\\",\\\"name\\\":\\\""+x.name+"\\\"}") as pathnodes, extract(x IN relationships(p) | "{\\\"source\\\":\\\""+startNode(x).id+"\\\",\\\"target\\\":\\\""+endNode(x).id+"\\\",\\\"reltype\\\":\\\""+type(x)+"\\\"}") as pathlinks,length(p) as pathlen  order by pathlen'; 
     }
 
-    //console.log(query);
+    console.log(query);
     var params = {
        
     };

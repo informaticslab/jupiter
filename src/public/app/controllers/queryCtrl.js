@@ -32,6 +32,17 @@ $scope.isCollapsed=true;
 $scope.disadvbtn=true;
 var nodeidtracker={};
 
+$scope.lengthdirrel=0;
+$scope.lengthindirrel=0;
+$scope.lengthrel=0;
+
+$scope.checkModel = {
+    direct: false,
+    indirect: false
+  };
+
+
+
 $scope.advs={};
 
 //console.log(nodeAttributeDictionary);
@@ -323,6 +334,7 @@ $scope.getrelatedactivitytypes=function(){
 			$scope.adhocresults=result;
 			$scope.adhocresultsactve=$scope.adhocresults;
 			$scope.totalItems=$scope.adhocresultsactve.length;
+			$scope.lengthrel=$scope.adhocresults.length;
 			$scope.currentPage=1;
 			$scope.pageChanged();
 			$scope.adhocresultsdirect=[];
@@ -335,8 +347,11 @@ $scope.getrelatedactivitytypes=function(){
 		    		$scope.adhocresultsindirect.push($scope.adhocresults[i]);
 		    }
 
-			//console.log(result.length);
-
+			console.log(result.length);
+			console.log($scope.adhocresultsdirect.length);
+			$scope.lengthdirrel=$scope.adhocresultsdirect.length;
+			console.log($scope.adhocresultsindirect.length);
+			$scope.lengthindirrel=$scope.adhocresultsindirect.length;
 
 			// result.forEach(function(d){
    //              //console.log(d.pathlinks);
@@ -355,6 +370,7 @@ $scope.showdirect=function(){
 	$scope.adhocresultsactve=[];
 	$scope.adhocresultsactve=$scope.adhocresultsdirect;
 	$scope.totalItems=$scope.adhocresultsactve.length;
+
 	$scope.currentPage=1;
 	$scope.pageChanged();
 }
@@ -364,13 +380,14 @@ $scope.showindirect=function(){
 	$scope.adhocresultsactve=[];
 	$scope.adhocresultsactve=$scope.adhocresultsindirect;
 	$scope.totalItems=$scope.adhocresultsactve.length;
+	
 	$scope.currentPage=1;
 	$scope.pageChanged();
 }
 
   $scope.pageChanged = function() {
     //console.log('Page changed to: ' + $scope.currentPage, $scope.totalItems);
-
+    $scope.totalItems=$scope.adhocresultsactve.length;
     $scope.adhocresultspag=[];
 
     for(i=($scope.currentPage-1)*10;(i<(($scope.currentPage-1)*10)+$scope.itemsPerPage) && (i<$scope.totalItems);i++)
@@ -381,7 +398,28 @@ $scope.showindirect=function(){
     
   };
 
+  $scope.filterresults = function() {
+  	console.log($scope.checkModel);
+  	if($scope.checkModel.direct && $scope.checkModel.indirect )
+  	{
+  		$scope.adhocresultsactve=$scope.adhocresults;
+  	}
+  	else if($scope.checkModel.direct && !$scope.checkModel.indirect )
+  	{
+  		$scope.adhocresultsactve=$scope.adhocresultsdirect;
+  	}
+  	else if(!$scope.checkModel.direct && $scope.checkModel.indirect )
+  	{
+  		$scope.adhocresultsactve=$scope.adhocresultsindirect;
+  	}
+  	else
+  	{
+  		$scope.adhocresultsactve=$scope.adhocresults;
+  	}
+  	$scope.currentPage=1;
+	$scope.pageChanged();
 
+  };
   
 
 }]);//angular

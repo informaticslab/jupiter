@@ -81,6 +81,8 @@
 						label.btn.btn-default(ng-click="isCollapsed = !isCollapsed" ng-disabled="!q_acttypes")
 							i.fa.fa-chevron-circle-right(ng-class="{'fa fa-chevron-circle-down': !isCollapsed, 'fa fa-chevron-circle-right': isCollapsed}")
 							| Advanced filtering for selected activities
+						.gray_text.faq_footnote
+							| Refine your search further by specifying values with activity attributes
 					.col-lg-6.col-md-6.col-sm-6
 						label.btn.btn-default.pull-right(ng-click="getrelatedactivitytypes()" ng-disabled="dissearchbtn")
 							i.fa.fa-chevron-circle-right
@@ -89,8 +91,7 @@
 				.row
 					.col-lg-12.col-md-12.col-sm-12
 						.adhocadvanced(collapse="isCollapsed")
-							p.gray_text
-								| Refine your search further using specific values with activity attributes
+
 							.vertical_spacing_less
 							tabset
 								tab(ng-repeat="activitytype in activitytypes" heading="{{activitytype.nodetypes}}" active="tabs[activitytype.nodetypes]" disabled="!chkactvs[activitytype.nodetypes]")
@@ -104,7 +105,8 @@
 													| {{act | unCamelCase}}
 												.col-lg-5.col-md-5.col-sm-5
 													input(id="{{txtid=activitytype.nodetypes+'_'+act}}" name="txtid" type="text" class="form-control" ng-model="advs[txtid]" )
-				.vertical_spacing_more
+				
+				.vertical_spacing_less
 				.row(ng-hide="q_results")
 					.col-lg-12.col-md-12.col-sm-12
 						.orange_header_larger
@@ -112,14 +114,17 @@
 				.row(ng-hide="q_results")
 					.col-lg-12.col-md-12.col-sm-12
 						.row
-							.col-lg-6.col-md-6.col-sm-6
-							.col-lg-6.col-md-6.col-sm-6
-								//.faq_footnote.pull-right
-									{{totalItems}} activities returned
+							.col-lg-12.col-md-12.col-sm-12
+								strong.gray_text
+									| {{lengthrel}} activities found
+						.vertical_spacing_less
 						.row
 							.col-lg-6.col-md-6.col-sm-6
-								strong.gray_text
-									| {{totalItems}} activities returned
+								.btn-group
+									label.btn.btn-sm.btn-primary(ng-model="checkModel.direct" btn-checkbox ng-change="filterresults()")
+										| {{lengthdirrel}} Direct relationships
+									label.btn.btn-sm.btn-primary(ng-model="checkModel.indirect" btn-checkbox ng-change="filterresults()")
+										| {{lengthindirrel}} Indirect Relationships
 							.col-lg-6.col-md-6.col-sm-6
 								pagination.pull-right(total-items="totalItems" ng-model="currentPage" max-size="maxSize" items-per-page="itemsPerPage" class="pagination-sm" boundary-links="true" ng-change="pageChanged()")								
 						.vertical_spacing_less

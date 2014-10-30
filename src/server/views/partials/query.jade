@@ -53,16 +53,16 @@
 					.col-lg-6.col-md-6.col-sm-6.gray_text
 						.orange_header_larger
 							| 1: Enter the name of the activity you want to query
-						.query-nobordered				
-							.txtb(ng-repeat="txtcount in txtboxcount")
-								.row
-									.col-lg-10.col-md-10.col-sm-10
-										input(id="{{'stxt_'+txtcount.tcount}}" type="text" ng-model="txtboxval[txtcount.tcount]"  placeholder="Search activity" typeahead-on-select="itemSelected($item, $model, $label,\"{{'stxt_'+txtcount.tcount}}\")" typeahead-min-length='3' typeahead="node.name for node in getNodes($viewValue)" class="form-control")
-									.col-lg-2.col-md-2.col-sm-2
-										label.btn.pull-right(ng-if="txtcount.tcount>0" ng-click="removetxtbox(txtcount.tcount)")
-											i.fa.fa-times
-								.vertical_spacing_lesser
-							//label.btn.btn-default( ng-click="addtxtbox()")
+						//.query-nobordered				
+						.txtb(ng-repeat="txtcount in txtboxcount")
+							.row
+								.col-lg-12.col-md-12.col-sm-12
+									input(id="{{'stxt_'+txtcount.tcount}}" type="text" ng-model="txtboxval[txtcount.tcount]"  placeholder="Search activity" typeahead-on-select="itemSelected($item, $model, $label,\"{{'stxt_'+txtcount.tcount}}\")" typeahead-min-length='3' typeahead="node.name for node in getNodes($viewValue)" class="form-control")
+								//.col-lg-2.col-md-2.col-sm-2
+									label.btn.pull-right(ng-if="txtcount.tcount>0" ng-click="removetxtbox(txtcount.tcount)")
+										i.fa.fa-times
+							.vertical_spacing_lesser
+						//label.btn.btn-default( ng-click="addtxtbox()")
 								i.fa.fa-plus
 						//.vertical_spacing_less
 						//label.btn.btn-default(ng-click="values()" ng-disabled="searchbtndisabled")
@@ -76,10 +76,16 @@
 								input(type="checkbox" ng-model="chkactvs[activitytype.nodetypes]" ng-change="setactivitytypestatus()" )
 								| {{activitytype.nodetypes  | unCamelCase}}
 						.vertical_spacing_less
-						label.btn.btn-default(ng-click="isCollapsed = !isCollapsed" ng-disabled="!q_acttypes")
-							i.fa.fa-chevron-circle-right(ng-class="{'fa fa-chevron-circle-down': !isCollapsed, 'fa fa-chevron-circle-right': isCollapsed}")
-							| Advanced filtering for selected activities
-				.vertical_spacing_less
+						.row
+							.col-lg-6.col-md-6.col-sm-6
+								label.btn.btn-default(ng-click="isCollapsed = !isCollapsed" ng-disabled="!q_acttypes")
+									i.fa.fa-chevron-circle-right(ng-class="{'fa fa-chevron-circle-down': !isCollapsed, 'fa fa-chevron-circle-right': isCollapsed}")
+									| Advanced filtering for selected activities
+							.col-lg-6.col-md-6.col-sm-6
+								label.btn.btn-default.pull-right(ng-click="getrelatedactivitytypes()" ng-disabled="dissearchbtn")
+									i.fa.fa-chevron-circle-right
+									| Search
+						.vertical_spacing_less
 				.row
 					.col-lg-12.col-md-12.col-sm-12
 						.adhocadvanced(collapse="isCollapsed")
@@ -101,7 +107,7 @@
 												.col-lg-5.col-md-5.col-sm-5
 													//input(id="{{txtid=activitytype.nodetypes+'_'+act}}" name="txtid" type="text" class="form-control" ng-model="advs[txtid]" )
 													input(id="{{txtid=activitytype.nodetypes+'_'+act}}" name="txtid" type="text" ng-model="advs[txtid]"  typeahead-on-select="adhocAttrSelected($item, $model, $label)" typeahead-min-length='2' typeahead="node.values for node in getAttributeValues($viewValue,txtid)" class="form-control")
-				.row
+				.row(collapse="isCollapsed")
 					.col-lg-12.col-md-12.col-sm-12
 						label.btn.btn-default.pull-right(ng-click="getrelatedactivitytypes()" ng-disabled="dissearchbtn")
 							i.fa.fa-chevron-circle-right
@@ -120,7 +126,7 @@
 						.vertical_spacing_less
 						.row
 							.col-lg-6.col-md-6.col-sm-6
-								.btn-group
+								//.btn-group
 									label.btn.btn-sm.btn-primary(ng-model="checkModel.direct" btn-checkbox ng-change="filterresults()")
 										| {{lengthdirrel}} Direct relationships
 									label.btn.btn-sm.btn-primary(ng-model="checkModel.indirect" btn-checkbox ng-change="filterresults()")

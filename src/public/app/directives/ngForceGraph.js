@@ -94,6 +94,7 @@ angular.module('apolloApp')
 									    .attr("height", "100%")
 									    .attr("fill", "#eaeced");
 
+									d3.select(window).on('resize', svgresize);
 
 									var force = d3.layout.force()
 									    .gravity(.05)
@@ -230,6 +231,20 @@ angular.module('apolloApp')
 										//d3.select(this).classed("fixed", true);
 										//d3.select(this).attr("class","node fixed");
 										d.fixed = true;
+									}
+
+									function svgresize() {
+										//alert("aa");
+
+										width = $("div.fg_placeholder").width();
+										//h= $("div.block_linkage").outerHeight();
+
+										d3.selectAll("svg").attr("width", width).attr("height", height);
+
+
+										force.size([width, height]);
+										force.start();
+
 									}
 								}
 							}

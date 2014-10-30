@@ -52,7 +52,7 @@
 				.row
 					.col-lg-6.col-md-6.col-sm-6.gray_text
 						.orange_header_larger
-							| 1: Name of the activity to search
+							| 1: Enter the name of the activity you want to query
 						.query-nobordered				
 							.txtb(ng-repeat="txtcount in txtboxcount")
 								.row
@@ -62,7 +62,7 @@
 										label.btn.pull-right(ng-if="txtcount.tcount>0" ng-click="removetxtbox(txtcount.tcount)")
 											i.fa.fa-times
 								.vertical_spacing_lesser
-							label.btn.btn-default( ng-click="addtxtbox()")
+							//label.btn.btn-default( ng-click="addtxtbox()")
 								i.fa.fa-plus
 						//.vertical_spacing_less
 						//label.btn.btn-default(ng-click="values()" ng-disabled="searchbtndisabled")
@@ -70,33 +70,28 @@
 							| Search
 					.col-lg-6.col-md-6.col-sm-6.gray_text
 						.orange_header_larger
-							| 2: Related activity types
+							| 2: Select activity types you want to see related to '{{txtboxval[0]}}'
 						.query-bordered
 							.checkbox(ng-repeat="activitytype in activitytypes" )
 								input(type="checkbox" ng-model="chkactvs[activitytype.nodetypes]" ng-change="setactivitytypestatus()" )
 								| {{activitytype.nodetypes  | unCamelCase}}
-				.vertical_spacing_more
-				.row
-					.col-lg-6.col-md-6.col-sm-6
+						.vertical_spacing_less
 						label.btn.btn-default(ng-click="isCollapsed = !isCollapsed" ng-disabled="!q_acttypes")
 							i.fa.fa-chevron-circle-right(ng-class="{'fa fa-chevron-circle-down': !isCollapsed, 'fa fa-chevron-circle-right': isCollapsed}")
 							| Advanced filtering for selected activities
-						.gray_text.faq_footnote
-							| Refine your search further by specifying values with activity attributes
-					.col-lg-6.col-md-6.col-sm-6
-						label.btn.btn-default.pull-right(ng-click="getrelatedactivitytypes()" ng-disabled="dissearchbtn")
-							i.fa.fa-chevron-circle-right
-							| Search
 				.vertical_spacing_less
 				.row
 					.col-lg-12.col-md-12.col-sm-12
 						.adhocadvanced(collapse="isCollapsed")
-
-							.vertical_spacing_less
+							.orange_header_larger
+								| Advaced search options
 							tabset
 								tab(ng-repeat="activitytype in activitytypes" heading="{{activitytype.nodetypes}}" active="tabs[activitytype.nodetypes]" disabled="!chkactvs[activitytype.nodetypes]")
 									//| {{actAttributes[activitytype.nodetypes]}}
 									//.adhoc_adv_query-bordered
+									.vertical_spacing_less
+									p.gray_text
+										| Filter '{{activitytype.nodetypes | unCamelCase}}' activities further by specific attributes
 									.vertical_spacing_less
 									.well.well-lg
 										.adhocad(ng-repeat="act in actAttributes[activitytype.nodetypes] track by $index")
@@ -104,10 +99,15 @@
 												.col-lg-3.col-md-3.col-sm-3
 													| {{act | unCamelCase}}
 												.col-lg-5.col-md-5.col-sm-5
-													input(id="{{txtid=activitytype.nodetypes+'_'+act}}" name="txtid" type="text" class="form-control" ng-model="advs[txtid]" )
-				
-				.vertical_spacing_less
+													//input(id="{{txtid=activitytype.nodetypes+'_'+act}}" name="txtid" type="text" class="form-control" ng-model="advs[txtid]" )
+													input(id="{{txtid=activitytype.nodetypes+'_'+act}}" name="txtid" type="text" ng-model="{{txtid+'_model'}}"  typeahead-on-select="adhocAttrSelected($item, $model, $label)" typeahead-min-length='2' typeahead="node.name for node in getAttributeValues($viewValue)" class="form-control")	
+				.row
+					.col-lg-12.col-md-12.col-sm-12
+						label.btn.btn-default.pull-right(ng-click="getrelatedactivitytypes()" ng-disabled="dissearchbtn")
+							i.fa.fa-chevron-circle-right
+							| Search
 				.row(ng-hide="q_results")
+					hr
 					.col-lg-12.col-md-12.col-sm-12
 						.orange_header_larger
 							| Ad-Hoc Query Results

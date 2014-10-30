@@ -50,7 +50,7 @@
 				.vertical_spacing_browse
 				.vertical_spacing_lesser
 				.row
-					.col-lg-6.col-md-6.col-sm-6.gray_text
+					.col-lg-4.col-md-4.col-sm-4.gray_text
 						.orange_header_larger
 							| 1: Enter the name of the activity you want to query
 						//.query-nobordered				
@@ -68,24 +68,31 @@
 						//label.btn.btn-default(ng-click="values()" ng-disabled="searchbtndisabled")
 							i.fa.fa-chevron-circle-right
 							| Search
-					.col-lg-6.col-md-6.col-sm-6.gray_text
+					.col-lg-4.col-md-4.col-sm-4.gray_text
 						.orange_header_larger
-							| 2: Select activity types you want to see related to '{{txtboxval[0]}}'
+							| 2: Select activity types you want to see related
+						//| '{{txtboxval[0]}}'
 						.query-bordered
 							.checkbox(ng-repeat="activitytype in activitytypes" )
 								input(type="checkbox" ng-model="chkactvs[activitytype.nodetypes]" ng-change="setactivitytypestatus()" )
 								| {{activitytype.nodetypes  | unCamelCase}}
-						.vertical_spacing_less
-						.row
-							.col-lg-6.col-md-6.col-sm-6
-								label.btn.btn-default(ng-click="isCollapsed = !isCollapsed" ng-disabled="!q_acttypes")
-									i.fa.fa-chevron-circle-right(ng-class="{'fa fa-chevron-circle-down': !isCollapsed, 'fa fa-chevron-circle-right': isCollapsed}")
-									| Advanced filtering for selected activities
-							.col-lg-6.col-md-6.col-sm-6
-								label.btn.btn-default.pull-right(ng-click="getrelatedactivitytypes()" ng-disabled="dissearchbtn")
-									i.fa.fa-chevron-circle-right
-									| Search
-						.vertical_spacing_less
+					.col-lg-4.col-md-4.col-sm-4.gray_text
+						.orange_header_larger
+							| 3: Search
+						.checkbox
+							input(type="checkbox" ng-model="chkmangedonly" )
+							| Show only activities managed or overseen by '{{txtboxval[0]}}'
+				.vertical_spacing_less
+				.row
+					.col-lg-4.col-md-4.col-sm-4.gray_text
+					.col-lg-4.col-md-4.col-sm-4.gray_text
+						label.btn.btn-default(ng-click="isCollapsed = !isCollapsed" ng-disabled="!q_acttypes")
+							i.fa.fa-chevron-circle-right(ng-class="{'fa fa-chevron-circle-down': !isCollapsed, 'fa fa-chevron-circle-right': isCollapsed}")
+							| Advanced filtering for selected activities
+					.col-lg-4.col-md-4.col-sm-4.gray_text
+						label.btn.btn-default.pull-right(ng-click="getrelatedactivitytypes()" ng-disabled="dissearchbtn")
+							i.fa.fa-chevron-circle-right
+							| Search
 				.row
 					.col-lg-12.col-md-12.col-sm-12
 						.adhocadvanced(collapse="isCollapsed")

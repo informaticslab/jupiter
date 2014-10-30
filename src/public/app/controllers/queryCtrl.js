@@ -41,6 +41,7 @@ $scope.checkModel = {
     indirect: false
   };
 
+$scope.chkmangedonly=false;
 
 
 $scope.advs={};
@@ -117,82 +118,84 @@ if (!result.nullset)
 });
 
 
-$scope.values=function(){
-		
-		var nodeid=$scope.nodeId;
-		var ndtypes="";
-		var retypes="";
-		var ndnames="";
 
-		for (var key in $scope.chkrels) {
-			if($scope.chkrels[key])
-		  	{
-		  		//console.log(key, $scope.chkrels[key]);
+
+// $scope.values=function(){
+		
+// 		var nodeid=$scope.nodeId;
+// 		var ndtypes="";
+// 		var retypes="";
+// 		var ndnames="";
+
+// 		for (var key in $scope.chkrels) {
+// 			if($scope.chkrels[key])
+// 		  	{
+// 		  		//console.log(key, $scope.chkrels[key]);
 		  		
-		  		retypes=retypes+"-"+key+"|";
-		  	}
-		}
+// 		  		retypes=retypes+"-"+key+"|";
+// 		  	}
+// 		}
 
-		retypes=retypes.replace(/(^\|)|(\|$)/g, "");
+// 		retypes=retypes.replace(/(^\|)|(\|$)/g, "");
 
-		for (var key in $scope.chkactvs) {
-			if($scope.chkactvs[key])
-		  	{
-		  		//console.log(key, $scope.chkactvs[key]);
-		  		ndtypes=ndtypes+"'"+key+"',";
-		  	}
-		}
-		ndtypes=ndtypes.replace(/(^,)|(,$)/g, "");
+// 		for (var key in $scope.chkactvs) {
+// 			if($scope.chkactvs[key])
+// 		  	{
+// 		  		//console.log(key, $scope.chkactvs[key]);
+// 		  		ndtypes=ndtypes+"'"+key+"',";
+// 		  	}
+// 		}
+// 		ndtypes=ndtypes.replace(/(^,)|(,$)/g, "");
 
-		var ndids="";
-		$scope.txtboxcount.forEach(function(d,i){
+// 		var ndids="";
+// 		$scope.txtboxcount.forEach(function(d,i){
 			
 
 
-			var ndid=nodeidtracker["stxt_"+d.tcount];
+// 			var ndid=nodeidtracker["stxt_"+d.tcount];
 
-			if(ndid.trim()=="")
-			{
+// 			if(ndid.trim()=="")
+// 			{
 
-			}
-			else
-			{
-				ndids=ndids+"'"+ndid+"',";
-			}
+// 			}
+// 			else
+// 			{
+// 				ndids=ndids+"'"+ndid+"',";
+// 			}
 			
 		
-		});
+// 		});
 
-		ndids=ndids.replace(/(^,)|(,$)/g, "");
+// 		ndids=ndids.replace(/(^,)|(,$)/g, "");
 
-		//console.log(nodeid+"+"+ndtypes+"+"+retypes);
+// 		//console.log(nodeid+"+"+ndtypes+"+"+retypes);
 
-		var queryresults = $resource('/apollo/api/adhoc/'+ndids+"+"+ndtypes+"+"+retypes, {
-		});
+// 		var queryresults = $resource('/apollo/api/adhoc/'+ndids+"+"+ndtypes+"+"+retypes, {
+// 		});
 
-		var q = queryresults.query({
-		},function(result){
-		if (!result.nullset)
-		{
-			//console.log(result);
-			// if(result.trim()=="")
-			console.label(result.length);
-			$scope.adhocresults=result;
-			$scope.q_results=false;
+// 		var q = queryresults.query({
+// 		},function(result){
+// 		if (!result.nullset)
+// 		{
+// 			//console.log(result);
+// 			// if(result.trim()=="")
+// 			console.label(result.length);
+// 			$scope.adhocresults=result;
+// 			$scope.q_results=false;
 
 			
 
 
-			// result.forEach(function(d){
-   //              //console.log(d.bname,d.bid,d.rel);
-   //          });    
+// 			// result.forEach(function(d){
+//    //              //console.log(d.bname,d.bid,d.rel);
+//    //          });    
 			
-		}
-	});
+// 		}
+// 	});
 
 
 
-	}
+// 	}
 
 
 $scope.setactivitytypestatus=function(){
@@ -212,6 +215,7 @@ $scope.setactivitytypestatus=function(){
 	if(!$scope.q_acttypes)
 		$scope.isCollapsed=true;
 	$scope.checksearchbtnstatus();
+	//console.log("chkmangedonly",$scope.chkmangedonly);
 	//console.log("set q_acttypes="+$scope.q_acttypes,$scope.tabs,$scope.chkactvs);
 
 }
@@ -320,6 +324,15 @@ $scope.getrelatedactivitytypes=function(){
 		//console.log('/apollo/api/adhoc/relatednoodetypes/'+ndids+"+"+ndtypes+"+"+adsstring);
 
 		//console.log(nodeid+"+"+ndtypes+"+"+retypes);
+
+		if($scope.chkmangedonly)
+		{
+			adsstring=adsstring+"+MO";
+		}
+		else
+		{
+			adsstring==adsstring+"+NO";
+		}
 
 		var queryresults = $resource('/apollo/api/adhoc/relatednoodetypes/'+ndids+"+"+ndtypes+"+"+adsstring, {
 		});

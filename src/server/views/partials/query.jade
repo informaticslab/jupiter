@@ -81,14 +81,16 @@
 							| 3: Search
 						.checkbox
 							input(type="checkbox" ng-model="chkmangedonly" )
-							| Show only activities managed or overseen by '{{txtboxval[0]}}'
+							| Show only activities managed or overseen 
+							span(ng-if="txtboxval[0]!=''")
+								| by '{{txtboxval[0]}}'
 				.vertical_spacing_less
 				.row
 					.col-lg-4.col-md-4.col-sm-4.gray_text
 					.col-lg-4.col-md-4.col-sm-4.gray_text
 						label.btn.btn-default(ng-click="isCollapsed = !isCollapsed" ng-disabled="!q_acttypes")
+							| Advanced filtering for selected activities 
 							i.fa.fa-chevron-circle-right(ng-class="{'fa fa-chevron-circle-down': !isCollapsed, 'fa fa-chevron-circle-right': isCollapsed}")
-							| Advanced filtering for selected activities
 					.col-lg-4.col-md-4.col-sm-4.gray_text
 						label.btn.btn-default.pull-right(ng-click="getrelatedactivitytypes()" ng-disabled="dissearchbtn")
 							i.fa.fa-chevron-circle-right

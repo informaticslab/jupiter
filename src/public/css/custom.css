@@ -795,10 +795,10 @@ td.result_number_total {font-weight: bold; padding-top:.7em;}
 .btn_no_border{border-width:1px;width:100%;}
 .small_print{font-size: .8em;}
 
-.query-bordered{height:20em;border: 1px solid #ddd; padding:.6em;overflow: scroll;}
-.query-nobordered{height:20em;border: 0px solid #ddd; padding:.6em;overflow: scroll;}
+.query-bordered{border: 1px solid #ddd; padding:.6em;}
+.query-nobordered{border: 0px solid #ddd; padding:.6em;}
 
-.forcegraph-bordered{height:20em;border: 1px solid #ddd; padding:.6em;overflow: scroll;}
+.forcegraph-bordered{height:20em;border: 1px solid #ddd; padding:.6em;}
 .link {
   stroke: #ccc;
 }
@@ -810,4 +810,5 @@ td.result_number_total {font-weight: bold; padding-top:.7em;}
 
 .fg_textpath{font-size:.8em;}
 .adhoc_adv_query-bordered{border: 1px solid #ddd; padding:.6em;overflow: scroll;}
+.no-border{border: none;}
 

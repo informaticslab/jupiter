@@ -18,6 +18,7 @@ $scope.textboxcount=[];
 var tbxcount=0;
 $scope.txtboxcount=[];
 $scope.txtboxval={};
+$scope.txtboxval[0]="";
 $scope.txtboxcount.push({"tcount":tbxcount});
 
 $scope.totalItems = 0;

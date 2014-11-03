@@ -347,6 +347,7 @@ li.faq {padding-bottom:.5em;}
  }
 
 .fa-chevron-circle-right {color:#27ae61; font-size:1.3em; padding-right:.4em; }
+.fa-chevron-circle-down {color:#27ae61; font-size:1.3em; padding-right:.4em; }
 
 .btn-custom {
   color: #ffffff;
@@ -793,3 +794,21 @@ td.result_number_total {font-weight: bold; padding-top:.7em;}
 .fixed_height_dashboard{max-height: 480px;overflow: scroll;overflow-x: hidden;}
 .btn_no_border{border-width:1px;width:100%;}
 .small_print{font-size: .8em;}
+
+.query-bordered{border: 1px solid #ddd; padding:.6em;}
+.query-nobordered{border: 0px solid #ddd; padding:.6em;}
+
+.forcegraph-bordered{height:20em;border: 1px solid #ddd; padding:.6em;}
+.link {
+  stroke: #ccc;
+}
+
+.node text {
+  pointer-events: none;
+  font: 10px sans-serif;
+}
+
+.fg_textpath{font-size:.8em;}
+.adhoc_adv_query-bordered{border: 1px solid #ddd; padding:.6em;overflow: scroll;}
+.no-border{border: none;}
+

@@ -745,7 +745,7 @@ var id = req.params.id;
         params = {
             id:id
         };
-    console.log(query, params);
+    //console.log(query, params);
     neodb.db.query(query, params, function(err, r) {
         if (err) {
             console.error('Error retreiving statistics from database:', err);
@@ -1556,3 +1556,282 @@ exports.getManagedSystems = function(req, res) {
         }
     });
 };
+
+exports.getAllRelationships = function(req, res) {
+     var query = 'match a-[r]->b return distinct type(r) as relname'
+    var params = {
+        nodeId: req.params.id
+    };
+    
+    neodb.db.query(query, params, function(err, results) {
+        
+        var nodename="";
+        if (err!=null) {
+            console.error('Error retreiving node from database:', err);
+            //console.log(err);
+            res.send(404, 'No node at that location.');
+        } else {
+            
+            
+            if(results[0]==null)
+            {
+                //console.log("no name");
+                res.send("Not Found");
+            }
+            else
+            {
+                var obj = eval(results);
+
+                res.send(obj);
+            }
+
+            
+
+        }
+    });
+}
+
+exports.getAllNodeTypes = function(req, res) {
+     var query = 'match a return distinct labels(a)[0] as nodetypes'
+    var params = {
+        nodeId: req.params.id
+    };
+    
+    neodb.db.query(query, params, function(err, results) {
+        
+        if (err!=null) {
+            console.error('Error retreiving node from database:', err);
+            //console.log(err);
+            res.send(404, 'No node at that location.');
+        } else {
+            
+            
+            if(results[0]==null)
+            {
+                //console.log("no name");
+                res.send("Not Found");
+            }
+            else
+            {
+                var obj = eval(results);
+
+             
+
+                res.send(obj);
+            }
+
+            
+
+        }
+    });
+}
+
+
+exports.getAdhocQueryResults = function(req, res) {
+
+
+    var adhocquery=req.params.query;
+    //console.log(adhocquery);
+
+    var q=adhocquery.split("+");
+    var qnode=q[0];
+    var nt=q[1];
+    var rt=q[2];
+
+    rt=rt.replace(/-/g,":");
+
+    validationresults=[];
+
+    //console.log(qnode,rt,nt);
+
+
+    var query = 'match a-[r'+rt+']-b where labels(b)[0] in ['+nt+'] and a.id in ['+qnode+'] return distinct a.name as aname, a.id as aid,b.name as bname,b.id as bid,labels(b)[0] as btype,type(r) as rel';
+    //console.log(query);
+    var params = {
+       
+    };
+    
+    neodb.db.query(query, params, function(err, results) {
+        
+        if (err!=null) {
+            console.error('Error retreiving node from database:', err);
+            //console.log(err);
+            res.send(404, 'No node at that location.');
+        } else {
+            
+            
+            if(results[0]==null)
+            {
+                //console.log("no name");
+                res.json(validationresults);
+            }
+            else
+            {
+                //var obj = eval(results);
+
+                results.forEach(function(d){
+                //console.log(d.bname);
+                validationresults.push({
+                        "aname":d.aname,
+                        "aid":d.aid,
+                        "bname": d.bname,
+                        "bid": d.bid,
+                        "btype":d.btype,
+                        "rel": d.rel
+                    });
+            });
+
+             //console.log(validationresults);
+
+             res.json(validationresults);
+            }
+
+            
+
+        }
+    });
+}
+
+exports.getAdhocQueryRelatedNodeTypesResults = function(req, res) {
+
+
+    var adhocquery=req.params.query;
+    //console.log(adhocquery);
+
+    var q=adhocquery.split("+");
+    var qnode=q[0];
+    var nt=q[1];
+    var ads=q[2];
+    var mo=q[3];
+
+    var likeclause="";
+    if(ads=="NA")
+    {
+        likeclause="";
+    }else
+    {
+
+        var adsstring=ads.split(",");
+
+        for(i=0;i<adsstring.length;i++)
+        {
+            var adsattr=adsstring[i].split("=");
+            adsattr[1]=adsattr[1].replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\\\$&');
+            likeclause=likeclause+" lower(b."+adsattr[0]+")=~'.*"+adsattr[1]+".*' OR";
+        }
+
+        likeclause = likeclause.replace(/((OR)$)/g, "");
+        likeclause = " ("+likeclause + ") and ";
+
+        
+
+    }
+
+    validationresults=[];
+    //console.log(qnode,rt,nt);
+    var query="";
+
+    if(mo=="MO")
+    {
+        query = 'match p=shortestPath(a-[r:MANAGED|:OVERSEES*]->b) where '+likeclause+' labels(b)[0] in ['+nt+'] and a.id in ['+qnode+'] return distinct a.name as aname, a.id as aid,labels(a)[0] as atype,b.name as bname,b.id as bid,labels(b)[0] as btype, extract(x IN nodes(p) | "{\\\"id\\\":\\\""+x.id+"\\\",\\\"label\\\":\\\""+labels(x)[0]+"\\\",\\\"name\\\":\\\""+x.name+"\\\"}") as pathnodes, extract(x IN relationships(p) | "{\\\"source\\\":\\\""+startNode(x).id+"\\\",\\\"target\\\":\\\""+endNode(x).id+"\\\",\\\"reltype\\\":\\\""+type(x)+"\\\"}") as pathlinks,length(p) as pathlen  order by pathlen'; 
+    }
+    else
+    {
+       query = 'match p=shortestPath(a-[r*]-b) where '+likeclause+' labels(b)[0] in ['+nt+'] and a.id in ['+qnode+'] return distinct a.name as aname, a.id as aid,labels(a)[0] as atype,b.name as bname,b.id as bid,labels(b)[0] as btype, extract(x IN nodes(p) | "{\\\"id\\\":\\\""+x.id+"\\\",\\\"label\\\":\\\""+labels(x)[0]+"\\\",\\\"name\\\":\\\""+x.name+"\\\"}") as pathnodes, extract(x IN relationships(p) | "{\\\"source\\\":\\\""+startNode(x).id+"\\\",\\\"target\\\":\\\""+endNode(x).id+"\\\",\\\"reltype\\\":\\\""+type(x)+"\\\"}") as pathlinks,length(p) as pathlen  order by pathlen'; 
+    }
+
+    console.log(query);
+    var params = {
+       
+    };
+    
+    neodb.db.query(query, params, function(err, results) {
+        
+        if (err!=null) {
+            console.error('Error retreiving node from database:', err);
+            //console.log(err);
+            res.send(404, 'No node at that location.');
+        } else {
+            
+            
+            if(results[0]==null)
+            {
+                //console.log("no name");
+                res.json(validationresults);
+            }
+            else
+            {
+                //var obj = eval(results);
+
+                results.forEach(function(d){
+                //console.log(d.bname);
+                if(d.aid!=d.bid)
+                validationresults.push({
+                        "aname":d.aname,
+                        "aid":d.aid,
+                        "atype":d.atype,
+                        "bname": d.bname,
+                        "bid": d.bid,
+                        "btype":d.btype,
+                        //"rel": d.rel,
+                        "pathnodes": d.pathnodes,
+                        "pathlinks": d.pathlinks
+                    });
+            });
+
+             //console.log(validationresults);
+
+             res.json(validationresults);
+            }
+
+            
+
+        }
+    });
+}
+
+
+
+exports.getAttributeValues = function(req, res) {
+    
+   
+    var attr=req.params.attr;
+
+    var attrarr=attr.split("+");
+
+    var attrname=attrarr[0];
+    var attrtype=attrarr[1];
+    var attrval=attrarr[2];
+
+
+    var query = 'match (a:`'+attrtype+'`) where lower(a.'+attrname+')=~".*' + attrval +'.*"  return distinct a.'+attrname+' as values';
+
+    //var query = 'MATCH n WHERE lower(n.name)=~".*' + searchTerm + '.*" or lower(n.shortName)=~".*' + searchTerm + '.*" RETURN distinct n.id as id, n.name as name, n.shortName as shortname';
+    console.log(query);
+    var params = {
+        searchTerm: req.params.searchTerm
+    };
+    neodb.db.query(query, params, function(err, results) {
+        //console.log(results);
+
+        if (err) {
+            console.error('Error retreiving node from database:', err);
+            res.send(404, 'No node at that location');
+        } else {
+            if (results != null) {
+                var nodedata = [];
+                _.each(results, function(i){
+                        nodedata.push({values: i.values});
+                })
+                res.json(nodedata);
+            }
+            else{
+                res.json([]);
+            }
+        }
+    });
+};
+
+
+
+

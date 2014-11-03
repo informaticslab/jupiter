@@ -4,7 +4,7 @@ Apollo
 Integrated Surveillance Portal
 
 # Quick setup guide
-* Install and run latest [Neo4J](http://www.neo4j.org/download)
+* Install and run [Neo4J](http://www.neo4j.org/download) preferably the latest 2.0.* release
 * Run the import.txt from [apollo_root]/data/ according to the import_instructions
 * Install node.js
 * Navigate to [apollo_root]/src/ and run 'npm install'
@@ -14,7 +14,6 @@ Integrated Surveillance Portal
 * JQuery 1.10.2 compatible browser (Internet Explorer 8+, Firefox, Opera, Chrome)
 * Node.js
 * Neo4j
-* PostgreSQL
 
 ## Handy things to npm install -g
 * forever (forever start/stop/list [app.js] to run/stop/list-running-apps given node.js application as a service in background)
@@ -29,7 +28,8 @@ Integrated Surveillance Portal
 * Integrated Surveillance Portal [Jira](https://code.phiresearchlab.org/jira/browse/AP)
 
 ## Roadmap
-* Active development, 2 week iterations
+* Currently Data Updates and Bug Fixes
+* Previously Active development, 2 week iterations (completed Sep 2014)
 
 ## Contributing
 Anyone is encouraged to contribute to the project by [forking](https://help.github.com/articles/fork-a-repo) and submitting a pull request. (If you are new to GitHub, you might start with a [basic tutorial](https://help.github.com/articles/set-up-git).) 

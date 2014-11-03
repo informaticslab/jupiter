@@ -16,6 +16,10 @@ module.exports = function(app) {
     app.get('/apollo/api/stats/nodesvalidated/:id', nodes.getPortalStatisticsNodesValidated);
     app.get('/apollo/api/stats/relations', nodes.getPortalStatisticsRelations);
     app.get('/apollo/api/dashboard/validationStatus/:id', nodes.getValidationStatus);
+    app.get('/apollo/api/relationships/all', nodes.getAllRelationships);
+    app.get('/apollo/api/activitytypes/all', nodes.getAllNodeTypes);
+    app.get('/apollo/api/adhoc/:query', nodes.getAdhocQueryResults);
+    app.get('/apollo/api/adhoc/relatednoodetypes/:query', nodes.getAdhocQueryRelatedNodeTypesResults);
     //app.get('/apollo/api/dashboard/validationStatusDetails/:query', nodes.getValidationStatusDetails);
     app.get('/apollo/api/node/advancedSearch/:id', nodes.getAdvancedSearchData);
     app.get('/apollo/api/node/searchByName/:searchTerm', nodes.searchByName);
@@ -26,6 +30,8 @@ module.exports = function(app) {
     app.get('/apollo/api/node/managed/:id', nodes.getManagedSystems);
     app.get('/apollo/api/export/csv/:id/:qparam', nodes.exportCSV);
     app.get('/apollo/api/export/csvrelations/:id', nodes.exportCSVNodeRelations);
+    app.get('/apollo/api/attributes/getValues/:attr', nodes.getAttributeValues);
+    
     
     //this goes at the bottom.  It is the catchall for everything not defined above.  Silly.
     app.get('/apollo/*', index.index);

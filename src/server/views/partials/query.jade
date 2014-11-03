@@ -57,7 +57,7 @@
 						.txtb(ng-repeat="txtcount in txtboxcount")
 							.row
 								.col-lg-12.col-md-12.col-sm-12
-									input(id="{{'stxt_'+txtcount.tcount}}" type="text" ng-model="txtboxval[txtcount.tcount]"  placeholder="Search activity" typeahead-on-select="itemSelected($item, $model, $label,\"{{'stxt_'+txtcount.tcount}}\")" typeahead-min-length='3' typeahead="node.name for node in getNodes($viewValue)" class="form-control")
+									input(id="{{'stxt_'+txtcount.tcount}}" type="text" ng-model="txtboxval[txtcount.tcount]" typeahead-editable='false' placeholder="Search activity" typeahead-on-select="itemSelected($item, $model, $label,\"{{'stxt_'+txtcount.tcount}}\")" typeahead-min-length='3' typeahead="node.name for node in getNodes($viewValue)" class="form-control")
 								//.col-lg-2.col-md-2.col-sm-2
 									label.btn.pull-right(ng-if="txtcount.tcount>0" ng-click="removetxtbox(txtcount.tcount)")
 										i.fa.fa-times
@@ -73,6 +73,7 @@
 							| 2: Select activity types you want to see related
 						//| '{{txtboxval[0]}}'
 						.query-bordered
+							img.img-responsive.linkage_empty(id="defaultimg" src="img/ajax-loader.gif" ng-show="showActlistLoading")
 							.checkbox(ng-repeat="activitytype in activitytypes" )
 								input(type="checkbox" ng-model="chkactvs[activitytype.nodetypes]" ng-change="setactivitytypestatus()" )
 								| {{activitytype.nodetypes  | unCamelCase}}
@@ -95,6 +96,12 @@
 						label.btn.btn-default.pull-right(ng-click="getrelatedactivitytypes()" ng-disabled="dissearchbtn")
 							i.fa.fa-chevron-circle-right
 							| Search
+				
+				.row(ng-show="alert_acttextbox_show")
+					.col-lg-12.col-md-12.col-sm-12
+						.vertical_spacing_lesser
+						alert(type="danger"  close="closealert()")
+							| Invalid activity name selection. Please select a value from the dropdown.
 				.row
 					.col-lg-12.col-md-12.col-sm-12
 						.adhocadvanced(collapse="isCollapsed")

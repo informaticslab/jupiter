@@ -92,6 +92,10 @@
 						label.btn.btn-default(ng-click="isCollapsed = !isCollapsed" ng-disabled="!q_acttypes")
 							| Advanced filtering for selected activities 
 							i.fa.fa-chevron-circle-right(ng-class="{'fa fa-chevron-circle-down': !isCollapsed, 'fa fa-chevron-circle-right': isCollapsed}")
+						.faq_footnote(ng-if="attrdisplaystring.length>0")
+							| Attributes filtered: {{attrdisplaystring}}
+						.faq_footnote(ng-if="attrdisplaystring.length<=0")
+							| Attributes filtered: none
 					.col-lg-4.col-md-4.col-sm-4.gray_text
 						label.btn.btn-default.pull-right(ng-click="getrelatedactivitytypes()" ng-disabled="dissearchbtn")
 							i.fa.fa-chevron-circle-right
@@ -116,7 +120,7 @@
 										| Filter 
 										b
 											|'{{activitytype.nodetypes | unCamelCase}}' 
-										| activities further by specific attributes
+										| activities further by using specific values with its attributes
 									.vertical_spacing_less
 									.well.well-lg
 										.adhocad(ng-repeat="act in actAttributes[activitytype.nodetypes] track by $index")

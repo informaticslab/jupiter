@@ -1,5 +1,5 @@
-angular.module('apolloApp').controller('queryCtrl', ['$scope', '$location', '$resource', '$http', '$routeParams', 'nodeAttributeDictionary',
-	function($scope, $location, $resource, $http, $routeParams, nodeAttributeDictionary) {
+angular.module('apolloApp').controller('queryCtrl', ['$filter','$scope', '$location', '$resource', '$http', '$routeParams', 'nodeAttributeDictionary',
+	function($filter,$scope, $location, $resource, $http, $routeParams, nodeAttributeDictionary) {
 
 		$scope.reltypes = "";
 		$scope.chkrels = {};
@@ -8,6 +8,7 @@ angular.module('apolloApp').controller('queryCtrl', ['$scope', '$location', '$re
 		$scope.showActlistLoading=true;
 		$scope.alert_acttextbox_show=false;
 
+		$scope.advsattpopulated="";
 		$scope.adhocparams="";
 
 		$scope.q_actname = false;
@@ -85,6 +86,7 @@ angular.module('apolloApp').controller('queryCtrl', ['$scope', '$location', '$re
 			nodeidtracker[id] = $item.id;
 			$scope.q_actname = true;
 			$scope.checksearchbtnstatus();
+			
 		};
 
 		var relationships = $resource('/apollo/api/relationships/all', {});
@@ -211,6 +213,8 @@ angular.module('apolloApp').controller('queryCtrl', ['$scope', '$location', '$re
 			if (!$scope.q_acttypes)
 				$scope.isCollapsed = true;
 			$scope.checksearchbtnstatus();
+
+			$scope.tabsselected=$scope.chkactvs;
 			//console.log("chkmangedonly",$scope.chkmangedonly);
 			//console.log("set q_acttypes="+$scope.q_acttypes,$scope.tabs,$scope.chkactvs);
 
@@ -253,7 +257,7 @@ angular.module('apolloApp').controller('queryCtrl', ['$scope', '$location', '$re
 
 		$scope.getrelatedactivitytypes = function() {
 
-			console.log($scope.txtboxval[0]);
+			//console.log($scope.txtboxval[0]);
 			if ($scope.txtboxval[0]==undefined || $scope.txtboxval[0] == "") {
 				$scope.alert_acttextbox_show=true;
 			} else {
@@ -441,7 +445,46 @@ angular.module('apolloApp').controller('queryCtrl', ['$scope', '$location', '$re
 		$scope.exportadhocresults= function()
         {
             window.location =  '/apollo/api/export/adhoccsv/' + $scope.adhocparams;
-        }
+        };
+
+
+        $scope.$watch('advs', function(newVal, oldVal){
+
+        	var attrdisplaystring="";
+		    //console.log($scope.tabsselected, $scope.advs);
+		    for(attr in $scope.advs)
+		    {
+		    	if($scope.tabsselected[attr.split("_")[0]] && $scope.advs[attr].trim()!="")
+		    	{
+		    		//console.log(attr.split("_")[0]+"-"+attr.split("_")[1]+":"+$scope.advs[attr]);
+		    		attrdisplaystring=attrdisplaystring+$filter('unCamelCase')(attr.split("_")[1])+" ("+$filter('unCamelCase')(attr.split("_")[0])+"): '"+$scope.advs[attr]+"', ";
+
+		    	}
+		    	
+		    }
+		    attrdisplaystring = attrdisplaystring.trim(" ").replace(/(^,)|(,$)/g, "");
+		    $scope.attrdisplaystring=attrdisplaystring;
+
+		}, true);
+
+		$scope.$watch('tabsselected', function(newVal, oldVal){
+
+        	var attrdisplaystring="";
+		    //console.log($scope.tabsselected, $scope.advs);
+		    for(attr in $scope.advs)
+		    {
+		    	if($scope.tabsselected[attr.split("_")[0]] && $scope.advs[attr].trim()!="")
+		    	{
+		    		//console.log(attr.split("_")[0]+"-"+attr.split("_")[1]+":"+$scope.advs[attr]);
+		    		attrdisplaystring=attrdisplaystring+$filter('unCamelCase')(attr.split("_")[1])+" ("+$filter('unCamelCase')(attr.split("_")[0])+"): '"+$scope.advs[attr]+"', ";
+
+		    	}
+		    	
+		    }
+		    attrdisplaystring = attrdisplaystring.trim(" ").replace(/(^,)|(,$)/g, "");
+		    $scope.attrdisplaystring=attrdisplaystring;
+
+		}, true);
 
 	}
 ]); //angular

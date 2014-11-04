@@ -8,6 +8,8 @@ angular.module('apolloApp').controller('queryCtrl', ['$scope', '$location', '$re
 		$scope.showActlistLoading=true;
 		$scope.alert_acttextbox_show=false;
 
+		$scope.adhocparams="";
+
 		$scope.q_actname = false;
 		// $scope.q_rel=false;
 		// $scope.q_search=false;
@@ -328,7 +330,8 @@ angular.module('apolloApp').controller('queryCtrl', ['$scope', '$location', '$re
 					adsstring == adsstring + "+NO";
 				}
 
-				var queryresults = $resource('/apollo/api/adhoc/relatednoodetypes/' + ndids + "+" + ndtypes + "+" + adsstring, {});
+				$scope.adhocparams = ndids + "+" + ndtypes + "+" + adsstring;
+				var queryresults = $resource('/apollo/api/adhoc/relatednoodetypes/' + $scope.adhocparams, {});
 
 				var q = queryresults.query({}, function(result) {
 					if (!result.nullset) {
@@ -434,6 +437,11 @@ angular.module('apolloApp').controller('queryCtrl', ['$scope', '$location', '$re
 				return nodes;
 			});
 		};
+
+		$scope.exportadhocresults= function()
+        {
+            window.location =  '/apollo/api/export/adhoccsv/' + $scope.adhocparams;
+        }
 
 	}
 ]); //angular

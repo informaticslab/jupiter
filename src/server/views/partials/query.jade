@@ -162,7 +162,7 @@
 									.col-lg-8.col-md-8.col-sm-8
 										.fg_placeholder.forcegraph-bordered(id="fg_{{row.aid+row.bid}}" attribute-divid="fg_{{row.aid+row.bid}}" ng-force-graph attribute-readytoload=true  attribute-percent=10 attribute-nodelinks="{{row.pathlinks}}" attribute-nodes="{{row.pathnodes}}")
 								.vertical_spacing_less			
-				.row
+				.row(ng-if="lengthrel>0" ng-hide="q_results")
 					.col-lg-12.col-md-12.col-sm-12
 						label.btn.btn-default.pull-right(ng-click="exportadhocresults()")
 							i.fa.fa-download

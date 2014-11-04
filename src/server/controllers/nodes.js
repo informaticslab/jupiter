@@ -1830,12 +1830,7 @@ exports.getAdhocQueryRelatedNodeTypesResultsCSV = function(req, res) {
     }
 
     validationresults=[];
-    // validationresults.push([
-    //         "Name",
-    //         "Id",
-    //         "Type",
-    //         "Validation Status"
-    //     ]);
+
     //console.log(qnode,rt,nt);
     var query="";
 
@@ -1864,39 +1859,59 @@ exports.getAdhocQueryRelatedNodeTypesResultsCSV = function(req, res) {
             
             if(results[0]==null)
             {
-                //console.log("no name");
-                res.json(validationresults);
+                validationresults.push({
+                    "aname":"Activity Name",
+                    "aid":"Activity ID",
+                    "atype":"Activity Type",
+                    "bname": "Related Activity Name",
+                    "bid": "Related Activity ID",
+                    "btype":"Related Activity Type",
+                    //"rel": d.rel,
+                    "pathnodes": "d.pathnodes",
+                    "pathlinks": "d.pathlinks"
+                });
             }
             else
             {
                 //var obj = eval(results);
+                validationresults.push({
+                    "aname":"Activity Name",
+                    "aid":"Activity ID",
+                    "atype":"Activity Type",
+                    "bname": "Related Activity Name",
+                    "bid": "Related Activity ID",
+                    "btype":"Related Activity Type",
+                    //"rel": d.rel,
+                    "pathnodes": "d.pathnodes",
+                    "pathlinks": "d.pathlinks"
+                });
 
                 results.forEach(function(d){
                 //console.log(d.bname);
-                if(d.aid!=d.bid)
-                validationresults.push({
-                        "aname":d.aname,
-                        "aid":d.aid,
-                        "atype":d.atype,
-                        "bname": d.bname,
-                        "bid": d.bid,
-                        "btype":d.btype,
-                        //"rel": d.rel,
-                        "pathnodes": d.pathnodes,
-                        "pathlinks": d.pathlinks
+                    if(d.aid!=d.bid)
+                    validationresults.push({
+                            "aname":d.aname,
+                            "aid":d.aid,
+                            "atype":d.atype,
+                            "bname": d.bname,
+                            "bid": d.bid,
+                            "btype":d.btype,
+                            //"rel": d.rel,
+                            "pathnodes": d.pathnodes,
+                            "pathlinks": d.pathlinks
+                        });
                     });
-            });
 
-             //console.log(validationresults);
-
+                }
             res.header('content-type','text/csv');
             res.header('content-disposition', 'attachment; filename=export.csv');
             res.csv(validationresults);
-            }
-
-            
 
         }
+
+        
+
+
     });
 }
 

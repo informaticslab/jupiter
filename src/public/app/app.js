@@ -90,6 +90,10 @@ apolloApp.config(['$routeProvider',
         templateUrl: 'partials/sysTree',
         controller: 'sysTreeCtrl'
       }).
+          when('/admin', {
+        templateUrl: 'partials/admin',
+        controller: 'adminCtrl'
+      }).
           when('/inTheLab/:topic', { 
             templateUrl: function(params){
           return 'partials/inTheLab/' + params.topic

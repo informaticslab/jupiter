@@ -1,0 +1,81 @@
+// new row
+.row
+	.div(ng-class='getContentWidth()')
+		.content_block_faq
+			span.visible-md.visible-lg
+				.subnav
+					ul.nav.nav-pills
+						li
+							a(href='#/quickGuide/') Quick Guide
+						li
+							a(href='#/browse/') Browse
+						li
+							a(href='#/search/') Search
+						li
+							a(href='#/advancedSearch/') Relationship Explorer
+						li
+							a(href='' class='inactive') Favorites
+						li.active
+							a(href='#/inTheLab/') In the Lab
+				// end subnav
+			span.visible-sm
+				.subnav_sm
+					ul.nav.nav-pills
+						li
+							a(href='#/quickGuide/') Quick Guide
+						li
+							a(href='#/browse/') Browse
+						li
+							a(href='#/search/') Search
+						li
+							a(href='#/advancedSearch/') Relationship Explorer
+						li
+							a(href='' class='inactive') Favorites
+						li.active
+							a(href='#/inTheLab/') In the Lab
+				// end subnav
+			//- a.btn.btn-custom(onclick='goBack()') Back
+			//- .nav_split
+			//- 	.btn-group.btn-group-md.btn-group-justified
+			//- 		.btn-group
+			//- 			a.btn.btn-custom(href="#/dashboard", id='btnDashboard') Summary
+			//- 		.btn-group
+			//- 			a.btn.btn-default(href='#/dashboarddetail', id='btnDashboardDetail') Detail
+			//- 	// end button group
+			//- // end nav_split
+			.top_block_faq
+				h4.orange_main_faq
+					span.glyphicon.glyphicon-comment.icon-flipped.faq_icon
+					| CISP Admin Console
+				.vertical_spacing_browse
+				.row
+					.col-lg-12.col-md-12.col-sm-12
+						//input.form-control(type='text', typeahead-on-select="", typeahead-min-length='1', typeahead="node.name for node in getNodes($viewValue)", ng-model='queryString')
+						input(type="text" ng-model="node"  placeholder="Search activity" typeahead-on-select="itemSelected($item, $model, $label)" typeahead-min-length='3' typeahead="node.name for node in getNodes($viewValue)" class="form-control")
+						//input(type="hidden" id="nodeId" ng-value="nodeId")
+				.vertical_spacing_browse
+				.row
+					.col-lg-12.col-md-12.col-sm-12
+						.row(ng-repeat="node in nodeKeyValues")
+
+							.col-lg-3.col-md-3.col-sm-3
+								| {{node.key | unCamelCase}}
+							.col-lg-9.col-md-9.col-sm-9
+								input.form-control(type="text" ng-model="node.value")
+								.vertical_spacing_lesser
+				
+				.row
+					.col-lg-12.col-md-12.col-sm-12
+						label.btn.btn-default
+							i.fa.fa-chevron-circle-right.pull-right
+							| Submit change request
+				.vertical_spacing_less
+						img.img-responsive.linkage_empty( id="defaultimg" src="img/ajax-loader.gif" ng-show="showVSTableLoading")
+				
+				//nested row 
+				
+				//end nested row
+				
+		// end content block
+	// end col spec
+// end row.orange_header Overview

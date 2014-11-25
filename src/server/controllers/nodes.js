@@ -1,5 +1,6 @@
 var neodb = require('../lib/neo4jConnection');
 var urlFactory = require('../lib/urlFactory');
+var mongo = require('../lib/mongoConnection');
 var _ = require('underscore');
 
 // /apollo/api/node/{id}/relations
@@ -1969,5 +1970,17 @@ exports.getAttributeValues = function(req, res) {
 };
 
 
+exports.getMongoAll = function(req, res) {
+    var collection = mongo.mongodb.collection('testcr');
 
+    collection.find({}).toArray(function(err, docs) {
+    //assert.equal(err, null);
+    //assert.equal(2, docs.length);
+    console.log("Found the following records");
+    console.log(docs)
+    //callback(docs);
+    res.send(docs);
+  });      
+
+};
 

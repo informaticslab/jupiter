@@ -14,6 +14,7 @@
     "express": "~3.4.4",
     "neo4j": "*",
     "express-csv":"*",
+    "mongodb": "*",
     "bcrypt-nodejs": "*"
       ,"jade" : "*"
       ,"underscore" : "*"

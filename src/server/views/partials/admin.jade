@@ -56,22 +56,21 @@
 						input(type="text" ng-model="node"  placeholder="Search activity" typeahead-on-select="itemSelected($item, $model, $label)" typeahead-min-length='3' typeahead="node.name for node in getNodes($viewValue)" class="form-control")
 						//input(type="hidden" id="nodeId" ng-value="nodeId")
 				.vertical_spacing_browse
-				.row
+				.row(ng-show="showButtons")
 					.col-lg-12.col-md-12.col-sm-12
 						.h1.orange_header_larger
 							| {{nodeId}} 
-							span(ng-show="showButtons")
+							span
 								| - 
 							| {{node}}
+				.vertical_spacing_lesser
+				.row(ng-repeat="node in nodeKeyValues")
+					.col-lg-2.col-md-2.col-sm-2(ng-hide="node.key=='id'")
+						| {{node.key | unCamelCase}}
+					.col-lg-10.col-md-10.col-sm-10(ng-hide="node.key=='id'")
+						input.form-control(id="{{txtid=node.key}}" type="text" ng-model="cr[txtid]" )
 						.vertical_spacing_lesser
-						.row(ng-repeat="node in nodeKeyValues")
-
-							.col-lg-2.col-md-2.col-sm-2(ng-hide="node.key=='id'")
-								| {{node.key | unCamelCase}}
-							.col-lg-10.col-md-10.col-sm-10(ng-hide="node.key=='id'")
-								input.form-control(id="{{txtid=node.key}}" type="text" ng-model="cr[txtid]" )
-								.vertical_spacing_lesser
-				
+				.vertical_spacing_lesser
 				.row(ng-show="showButtons")
 					.col-lg-2.col-md-2.col-sm-2
 					.col-lg-7.col-md-7.col-sm-7

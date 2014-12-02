@@ -4,6 +4,7 @@ angular.module('apolloApp').controller('adminCtrl', ['$scope', '$http','nodeAttr
 
     $scope.cr={};
     $scope.showButtons=false;
+    $scope.nodeLabel="";
    	$scope.itemSelected = function($item, $model, $label, id) {
 
 			$scope.nodeId = $item.id;
@@ -24,6 +25,7 @@ angular.module('apolloApp').controller('adminCtrl', ['$scope', '$http','nodeAttr
                 console.log(res.data);
                 var nodeData = res.data;
                 $http.get('/apollo/api/node/'+ $scope.nodeId +'/labels').then(function(res1) {
+                    $scope.nodeLabel=res1.data[0];
                 	$scope.nodeDictionaryAttributes=$scope.actAttributes[res1.data[0]];
 
                 	//console.log(nodeData.attributes[0].key);
@@ -70,10 +72,11 @@ angular.module('apolloApp').controller('adminCtrl', ['$scope', '$http','nodeAttr
         //console.log($scope.cr, );
 
         //var currentdate = new Date(); 
-
+        $scope.cr['CR_NODET_TYPE']=$scope.nodeLabel;
         $scope.cr['CR_USER']="Tom";
         $scope.cr['CR_DATE']= new Date().getTime();
-        $scope.cr['CR_TYPE']="UPDATE";
+        $scope.cr['CR_REQUEST_TYPE']="UPDATE";
+        $scope.cr['CR_STATUS']="PENDING";
 
         $http.post('/apollo/api/mongo/postcr', $scope.cr).
         //$http({method: 'Post', url: '/apollo/api/mongo/postcr', data: {greeting: 'hi'}}).
@@ -94,9 +97,11 @@ angular.module('apolloApp').controller('adminCtrl', ['$scope', '$http','nodeAttr
 
         //var currentdate = new Date(); 
 
+        $scope.cr['CR_NODET_TYPE']=$scope.nodeLabel;
         $scope.cr['CR_USER']="Tom";
         $scope.cr['CR_DATE']= new Date().getTime();
-        $scope.cr['CR_TYPE']="DELETE";
+        $scope.cr['CR_REQUEST_TYPE']="DELETE";
+        $scope.cr['CR_STATUS']="PENDING";
 
 
         $http.post('/apollo/api/mongo/deletecr', $scope.cr).

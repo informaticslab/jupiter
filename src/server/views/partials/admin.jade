@@ -50,25 +50,38 @@
 				.vertical_spacing_browse
 				.row
 					.col-lg-12.col-md-12.col-sm-12
+						.orange_header_larger
+							| Search Node
 						//input.form-control(type='text', typeahead-on-select="", typeahead-min-length='1', typeahead="node.name for node in getNodes($viewValue)", ng-model='queryString')
 						input(type="text" ng-model="node"  placeholder="Search activity" typeahead-on-select="itemSelected($item, $model, $label)" typeahead-min-length='3' typeahead="node.name for node in getNodes($viewValue)" class="form-control")
 						//input(type="hidden" id="nodeId" ng-value="nodeId")
 				.vertical_spacing_browse
 				.row
 					.col-lg-12.col-md-12.col-sm-12
+						.h1.orange_header_larger
+							| {{nodeId}} 
+							span(ng-show="showButtons")
+								| - 
+							| {{node}}
+						.vertical_spacing_lesser
 						.row(ng-repeat="node in nodeKeyValues")
 
-							.col-lg-3.col-md-3.col-sm-3
+							.col-lg-2.col-md-2.col-sm-2(ng-hide="node.key=='id'")
 								| {{node.key | unCamelCase}}
-							.col-lg-9.col-md-9.col-sm-9
-								input.form-control(type="text" ng-model="node.value")
+							.col-lg-10.col-md-10.col-sm-10(ng-hide="node.key=='id'")
+								input.form-control(id="{{txtid=node.key}}" type="text" ng-model="cr[txtid]" )
 								.vertical_spacing_lesser
 				
-				.row
-					.col-lg-12.col-md-12.col-sm-12
-						label.btn.btn-default
+				.row(ng-show="showButtons")
+					.col-lg-2.col-md-2.col-sm-2
+					.col-lg-7.col-md-7.col-sm-7
+						label.btn.btn-default(ng-click="postcr()")
 							i.fa.fa-chevron-circle-right.pull-right
-							| Submit change request
+							| Submit Change Request
+					.col-lg-3.col-md-3.col-sm-3
+						label.btn.btn-default.pull-right(ng-click="deletecr()")
+							i.fa.fa-times.pull-right
+							| Submit Delete Request
 				.vertical_spacing_less
 						img.img-responsive.linkage_empty( id="defaultimg" src="img/ajax-loader.gif" ng-show="showVSTableLoading")
 				

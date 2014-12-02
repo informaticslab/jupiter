@@ -33,6 +33,8 @@ module.exports = function(app) {
     app.get('/apollo/api/attributes/getValues/:attr', nodes.getAttributeValues);
     app.get('/apollo/api/export/adhoccsv/:query', nodes.getAdhocQueryRelatedNodeTypesResultsCSV);
     app.get('/apollo/api/mongo/all', nodes.getMongoAll);
+    app.post('/apollo/api/mongo/postcr', nodes.postMongoCR);
+    app.post('/apollo/api/mongo/deletecr', nodes.deleteMongoCR);
     
     //this goes at the bottom.  It is the catchall for everything not defined above.  Silly.
     app.get('/apollo/*', index.index);

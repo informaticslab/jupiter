@@ -1971,7 +1971,7 @@ exports.getAttributeValues = function(req, res) {
 
 
 exports.getMongoAll = function(req, res) {
-    var collection = mongo.mongodb.collection('testcr');
+    var collection = mongo.mongodb.collection('cr');
 
     collection.find({}).toArray(function(err, docs) {
     //assert.equal(err, null);
@@ -1984,3 +1984,46 @@ exports.getMongoAll = function(req, res) {
 
 };
 
+exports.postMongoCR = function(req, res) {
+
+
+
+    console.log("req params",req.body);
+
+    var nodeDataString=req.body;
+
+
+
+ var collection = mongo.mongodb.collection('cr');
+  // Insert some documents
+  collection.insert(nodeDataString, function(err, result) {
+    // assert.equal(err, null);
+    // assert.equal(3, result.result.n);
+    // assert.equal(3, result.ops.length);
+    //console.log("Inserted 3 documents into the document collection");
+    res.send("success");
+  });
+//res.send("ok");
+ }; 
+
+ exports.deleteMongoCR = function(req, res) {
+
+
+
+    console.log("req params",req.body);
+
+    var nodeDataString=req.body;
+
+
+
+ var collection = mongo.mongodb.collection('cr');
+  // Insert some documents
+  collection.insert(nodeDataString, function(err, result) {
+    // assert.equal(err, null);
+    // assert.equal(3, result.result.n);
+    // assert.equal(3, result.ops.length);
+    //console.log("Inserted 3 documents into the document collection");
+    res.send("success");
+  });
+//res.send("ok");
+ }; 

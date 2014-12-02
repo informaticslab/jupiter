@@ -1,5 +1,9 @@
 angular.module('apolloApp').controller('adminCtrl', ['$scope', '$http','nodeAttributeDictionary',
 	function($scope,$http,nodeAttributeDictionary) {
+
+
+    $scope.cr={};
+    $scope.showButtons=false;
    	$scope.itemSelected = function($item, $model, $label, id) {
 
 			$scope.nodeId = $item.id;
@@ -33,12 +37,13 @@ angular.module('apolloApp').controller('adminCtrl', ['$scope', '$http','nodeAttr
 		               		{
 		               			//console.log(value);
 		               			$scope.nodeKeyValues.push({"key":key,"value":value})
+                                $scope.cr[key]=value;
 		               		}
                 		}
 
                 		//console.log(d, nodeData.attributes);
                 	});
-
+                    $scope.showButtons=true;
                 	//console.log(nodeData.attributes);
 
                 	//nodeData.attributes.forEach(function(d){
@@ -49,7 +54,60 @@ angular.module('apolloApp').controller('adminCtrl', ['$scope', '$http','nodeAttr
             	
 
             });
+
+
+            
 	};
+
+
+
+
+    $scope.postcr=function(){
+
+
+
+        //var nodeDataString=$scope.nodeKeyValues;//JSON.stringify($scope.nodeKeyValues);
+        //console.log($scope.cr, );
+
+        //var currentdate = new Date(); 
+
+        $scope.cr['CR_USER']="Tom";
+        $scope.cr['CR_DATE']= new Date().getTime();
+        $scope.cr['CR_TYPE']="UPDATE";
+
+        $http.post('/apollo/api/mongo/postcr', $scope.cr).
+        //$http({method: 'Post', url: '/apollo/api/mongo/postcr', data: {greeting: 'hi'}}).
+          success(function(data, status, headers, config) { 
+            console.log("success");
+          }).error(function(data, status) {
+              console.log("err");  
+        });
+
+    };
+
+        $scope.deletecr=function(){
+
+
+
+        //var nodeDataString=$scope.nodeKeyValues;//JSON.stringify($scope.nodeKeyValues);
+        //console.log($scope.cr, );
+
+        //var currentdate = new Date(); 
+
+        $scope.cr['CR_USER']="Tom";
+        $scope.cr['CR_DATE']= new Date().getTime();
+        $scope.cr['CR_TYPE']="DELETE";
+
+
+        $http.post('/apollo/api/mongo/deletecr', $scope.cr).
+        //$http({method: 'Post', url: '/apollo/api/mongo/postcr', data: {greeting: 'hi'}}).
+          success(function(data, status, headers, config) { 
+            console.log("success");
+          }).error(function(data, status) {
+              console.log("err");  
+        });
+
+    };
 
 }]);
 

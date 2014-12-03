@@ -72,7 +72,7 @@ angular.module('apolloApp').controller('adminCtrl', ['$scope', '$http','nodeAttr
         //console.log($scope.cr, );
 
         //var currentdate = new Date(); 
-        $scope.cr['CR_NODET_TYPE']=$scope.nodeLabel;
+        $scope.cr['CR_NODE_TYPE']=$scope.nodeLabel;
         $scope.cr['CR_USER']="Tom";
         $scope.cr['CR_DATE']= new Date().getTime();
         $scope.cr['CR_REQUEST_TYPE']="UPDATE";
@@ -97,7 +97,7 @@ angular.module('apolloApp').controller('adminCtrl', ['$scope', '$http','nodeAttr
 
         //var currentdate = new Date(); 
 
-        $scope.cr['CR_NODET_TYPE']=$scope.nodeLabel;
+        $scope.cr['CR_NODE_TYPE']=$scope.nodeLabel;
         $scope.cr['CR_USER']="Tom";
         $scope.cr['CR_DATE']= new Date().getTime();
         $scope.cr['CR_REQUEST_TYPE']="DELETE";

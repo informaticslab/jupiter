@@ -58,29 +58,39 @@
 				.vertical_spacing_browse
 				.row(ng-show="showButtons")
 					.col-lg-12.col-md-12.col-sm-12
-						.h1.orange_header_larger
-							| {{nodeId}} 
-							span
-								| - 
-							| {{node}}
-				.vertical_spacing_lesser
-				.row(ng-repeat="node in nodeKeyValues")
-					.col-lg-2.col-md-2.col-sm-2(ng-hide="node.key=='id'")
-						| {{node.key | unCamelCase}}
-					.col-lg-10.col-md-10.col-sm-10(ng-hide="node.key=='id'")
-						input.form-control(id="{{txtid=node.key}}" type="text" ng-model="cr[txtid]" )
+						.row(ng-show="showButtons")
+							.col-lg-12.col-md-12.col-sm-12
+								.h1.orange_header_larger
+									| {{nodeId}} 
+									span
+										| - 
+									| {{node}}
 						.vertical_spacing_lesser
-				.vertical_spacing_lesser
-				.row(ng-show="showButtons")
-					.col-lg-2.col-md-2.col-sm-2
-					.col-lg-7.col-md-7.col-sm-7
-						label.btn.btn-default(ng-click="postcr()")
-							i.fa.fa-chevron-circle-right.pull-right
-							| Submit Change Request
-					.col-lg-3.col-md-3.col-sm-3
-						label.btn.btn-default.pull-right(ng-click="deletecr()")
-							i.fa.fa-times.pull-right
-							| Submit Delete Request
+						.row(ng-repeat="node in nodeKeyValues")
+							.col-lg-2.col-md-2.col-sm-2(ng-hide="node.key=='id'")
+								| {{node.key | unCamelCase}}
+							.col-lg-10.col-md-10.col-sm-10(ng-hide="node.key=='id'")
+								input.form-control(id="{{txtid=node.key}}" type="text" ng-model="cr[txtid]" )
+								.vertical_spacing_lesser
+						.vertical_spacing_lesser
+						.row(ng-show="showButtons")
+							.col-lg-2.col-md-2.col-sm-2
+							.col-lg-7.col-md-7.col-sm-7
+								label.btn.btn-default(ng-click="postcr()")
+									i.fa.fa-chevron-circle-right.pull-right
+									| Submit Change Request
+							.col-lg-3.col-md-3.col-sm-3
+								label.btn.btn-default.pull-right(ng-click="deletecr()")
+									i.fa.fa-times.pull-right
+									| Submit Delete Request
+				.row(ng-show="crQueueSuccess")
+					.col-lg-12.col-md-12.col-sm-12
+						.alert.alert-success(role="alert")
+							| Your request has been queued successfully
+				.row(ng-show="crQueueFail")
+					.col-lg-12.col-md-12.col-sm-12
+						.alert.alert-danger(role="alert")
+							| Error: Your request could not be queued. Please try again later.		
 				.vertical_spacing_less
 						img.img-responsive.linkage_empty( id="defaultimg" src="img/ajax-loader.gif" ng-show="showVSTableLoading")
 				

@@ -5,8 +5,11 @@ angular.module('apolloApp').controller('adminCtrl', ['$scope', '$http','nodeAttr
     $scope.cr={};
     $scope.showButtons=false;
     $scope.nodeLabel="";
+    $scope.crQueueSuccess=false;
+    $scope.crQueueFail=false;
    	$scope.itemSelected = function($item, $model, $label, id) {
-
+            $scope.crQueueSuccess=false;
+            $scope.crQueueFail=false;
 			$scope.nodeId = $item.id;
 			console.log($scope.nodeId,$item,$model,$label);
 
@@ -82,8 +85,14 @@ angular.module('apolloApp').controller('adminCtrl', ['$scope', '$http','nodeAttr
         //$http({method: 'Post', url: '/apollo/api/mongo/postcr', data: {greeting: 'hi'}}).
           success(function(data, status, headers, config) { 
             console.log("success");
+            $scope.node="";
+            $scope.showButtons=false;
+            $scope.crQueueSuccess=true;
           }).error(function(data, status) {
-              console.log("err");  
+              console.log("err");
+                $scope.node="";
+                $scope.showButtons=false;
+                $scope.crQueueFail=true;
         });
 
     };
@@ -108,8 +117,15 @@ angular.module('apolloApp').controller('adminCtrl', ['$scope', '$http','nodeAttr
         //$http({method: 'Post', url: '/apollo/api/mongo/postcr', data: {greeting: 'hi'}}).
           success(function(data, status, headers, config) { 
             console.log("success");
+            $scope.node="";
+            $scope.showButtons=false;
+            $scope.crQueueSuccess=true;
           }).error(function(data, status) {
-              console.log("err");  
+              console.log("err");
+              $scope.node="";
+              $scope.showButtons=false;
+              $scope.crQueueFail=true;
+
         });
 
     };

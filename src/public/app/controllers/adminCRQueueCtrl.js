@@ -1,19 +1,50 @@
 angular.module('apolloApp').controller('adminCRQueueCtrl', ['$scope', '$http','nodeAttributeDictionary',
 	function($scope,$http,nodeAttributeDictionary) {
 
-    $scope.mongoDocumentsAll=null;
+    $scope.mongoDocumentsAll=[];
     $scope.crtSelect="";
     $scope.crtOpen=false;
-
-    $http.get('/apollo/api/mongo/all').then(function(res) {
-        $scope.mongoDocumentsAll=res.data;
-
-
-
-    });
-
+    $scope.crFilterModel='';
+    $scope.crAddCount=0;
+    $scope.crDeleteCount=0;
+    $scope.crUpdateCount=0;
+    
     
 
+    
+    $scope.init=function()
+    {
+        $http.get('/apollo/api/mongo/all').then(function(res) {
+            $scope.mongoDocumentsAll=res.data;
+            //console.log($scope.mongoDocumentsAll.length);
+
+            for (var i=0;i<$scope.mongoDocumentsAll.length;i++)
+            {
+                console.log($scope.mongoDocumentsAll[i].CR_REQUEST_TYPE);
+                if($scope.mongoDocumentsAll[i].CR_REQUEST_TYPE=="ADD")
+                {
+                    $scope.crAddCount++;
+                }
+                else if($scope.mongoDocumentsAll[i].CR_REQUEST_TYPE=="DELETE")
+                {
+                    $scope.crDeleteCount++;
+                }
+                else if($scope.mongoDocumentsAll[i].CR_REQUEST_TYPE=="UPDATE")
+                {
+                    $scope.crUpdateCount++;
+                }
+            }
+
+        });
+
+        
+
+
+        //$scope.crAddCount
+    }
+
+
+    $scope.init();
 
 
 }]);

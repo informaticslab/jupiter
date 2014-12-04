@@ -49,43 +49,65 @@
 					| CISP Change Request Queue
 				.vertical_spacing_browse
 				.row
+					.col-lg-12.col-md-12.col-sm-12
+						.orange_header_larger
+							| Change Requests Summary
 					.col-lg-2.col-md-2.col-sm-2
 						| Update
 					.col-lg-2.col-md-2.col-sm-2
-						span(ng-repeat="doc in mongoDocumentsAll | filter:{CR_REQUEST_TYPE:'UPDATE'}")
-							span(ng-if="$last")
-								| {{$index+1}}
+						| {{ crUpdateCount }}
 				.row
 					.col-lg-2.col-md-2.col-sm-2
 						| Delete
 					.col-lg-2.col-md-2.col-sm-2
-						span(ng-repeat="doc in mongoDocumentsAll | filter:{CR_REQUEST_TYPE:'DELETE'}")
-							span(ng-if="$last")
-								| {{$index+1}}
+						| {{ crDeleteCount }}
 				.row
 					.col-lg-2.col-md-2.col-sm-2
 						| Add
 					.col-lg-2.col-md-2.col-sm-2
-						span(ng-repeat="doc in mongoDocumentsAll | filter:{CR_REQUEST_TYPE:'ADD'}")
-							span(ng-if="$last")
-								| {{$index+1}}
+						| {{ crAddCount }}
 				.vertical_spacing_less
 				.row
 					.col-lg-12.col-md-12.col-sm-12
-						input(type="checkbox" value="ff")
-				.row(ng-repeat="doc in mongoDocumentsAll | filter:{CR_REQUEST_TYPE:crtSelect}")
-					.col-lg-1.col-md-1.col-sm-1
-						| {{doc.CR_REQUEST_TYPE}}
-					.col-lg-1.col-md-1.col-sm-1
-						| {{doc.id}}
-					.col-lg-4.col-md-4.col-sm-4
-						| {{doc.name}}
-					.col-lg-2.col-md-2.col-sm-2
-						| {{doc.CR_USER}}
-					.col-lg-2.col-md-2.col-sm-2
-						| {{ doc.CR_DATE | date : format : timezone}}
-					.col-lg-1.col-md-1.col-sm-1
-						input(type="checkbox")
+						.btn-group.pull-right
+							label.btn.btn-primary(ng-model="crFilterModel" btn-radio="'ADD'" )
+								| ADD
+							label.btn.btn-primary(ng-model="crFilterModel" btn-radio="'DELETE'" )
+								| DELETE
+							label.btn.btn-primary(ng-model="crFilterModel" btn-radio="'UPDATE'" )
+								| UPDATE
+							label.btn.btn-primary(ng-model="crFilterModel" btn-radio="''")
+								| ALL
+				.vertical_spacing_less
+				.row.validationstatus_table_header
+					.col-lg-12.col-md-12.col-sm-12
+						table.table
+							tr
+								th.col-md-1
+									| CR REQUEST TYPE
+								th.col-md-1
+									| ID
+								th.col-md-7
+									| Name
+								th.col-md-1
+									| User
+								th.col-md-1
+									| Timestamp
+								th.col-md-1
+									| Approve
+							tr(ng-repeat="doc in mongoDocumentsAll | filter:{CR_REQUEST_TYPE:crFilterModel} ")
+								td
+									| {{doc.CR_REQUEST_TYPE}}
+								td
+									| {{doc.id}}
+								td
+									| {{doc.name}}
+								td
+									| {{doc.CR_USER}}
+								td
+									| {{ doc.CR_DATE | date : format : timezone}}
+								td
+									input(type="checkbox")
 				.vertical_spacing_lesser
 				.vertical_spacing_less
 						img.img-responsive.linkage_empty( id="defaultimg" src="img/ajax-loader.gif" ng-show="showVSTableLoading")

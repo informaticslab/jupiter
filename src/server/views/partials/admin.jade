@@ -50,6 +50,17 @@
 				.vertical_spacing_browse
 				.row
 					.col-lg-12.col-md-12.col-sm-12
+						ul.nav.nav-pills
+							li.active(role="presentation")
+								a(href="#/admin")
+									| Search
+							li(role="presentation")
+								a(href="#/adminCRQueue")
+									| Queue
+				hr
+				.vertical_spacing_less
+				.row
+					.col-lg-12.col-md-12.col-sm-12
 						.orange_header_larger
 							| Search Node
 						//input.form-control(type='text', typeahead-on-select="", typeahead-min-length='1', typeahead="node.name for node in getNodes($viewValue)", ng-model='queryString')

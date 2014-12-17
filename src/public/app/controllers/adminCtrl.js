@@ -1,5 +1,5 @@
-angular.module('apolloApp').controller('adminCtrl', ['$scope', '$http','nodeAttributeDictionary',
-	function($scope,$http,nodeAttributeDictionary) {
+angular.module('apolloApp').controller('adminCtrl', ['$scope', '$http','$filter','nodeAttributeDictionary',
+	function($scope,$http,$filter,nodeAttributeDictionary) {
 
 
     $scope.cr={};
@@ -11,21 +11,24 @@ angular.module('apolloApp').controller('adminCtrl', ['$scope', '$http','nodeAttr
             $scope.crQueueSuccess=false;
             $scope.crQueueFail=false;
 			$scope.nodeId = $item.id;
-			console.log($scope.nodeId,$item,$model,$label);
+			//console.log($scope.nodeId,$item,$model,$label);
 
 		    $scope.actAttributes = {};
 			for (x in nodeAttributeDictionary) {
-				//console.log("**"+x);
+				//console.log("***********************"+x);
 				$scope.actAttributes[x] = [];
 				for (y in nodeAttributeDictionary[x].attributeGroups) {
 					for (z in nodeAttributeDictionary[x].attributeGroups[y].attributes) {
 						$scope.actAttributes[x].push("" + z + "");
+                        //for getting attribute names 
+                        // var attname=$filter('unCamelCase')(z);
+                        // console.log("x="+x+", z=" + attname + ", des="+nodeAttributeDictionary[x].attributeGroups[y].attributes[z].description);
 					}
 				} //$scope.nodeattributes.x
 			}
 
 			$http.get('/apollo/api/node/' + $scope.nodeId).then(function(res) {
-                console.log(res.data);
+                //console.log(res.data);
                 var nodeData = res.data;
                 $http.get('/apollo/api/node/'+ $scope.nodeId +'/labels').then(function(res1) {
                     $scope.nodeLabel=res1.data[0];

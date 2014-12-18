@@ -812,3 +812,5 @@ td.result_number_total {font-weight: bold; padding-top:.7em;}
 .adhoc_adv_query-bordered{border: 1px solid #ddd; padding:.6em;overflow: scroll;}
 .no-border{border: none;}
 
+ins{background-color: #2DFF78}
+del{background-color: #F24E4E}

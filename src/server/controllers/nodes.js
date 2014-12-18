@@ -1,6 +1,7 @@
 var neodb = require('../lib/neo4jConnection');
 var urlFactory = require('../lib/urlFactory');
 var mongo = require('../lib/mongoConnection');
+var ObjectId = require('mongodb').ObjectID;
 var _ = require('underscore');
 
 // /apollo/api/node/{id}/relations
@@ -2027,3 +2028,17 @@ exports.postMongoCR = function(req, res) {
   });
 //res.send("ok");
  }; 
+
+ exports.getCR = function(req, res) {
+
+    var mongoid=req.params.id;
+    console.log(mongoid);
+
+    var collection = mongo.mongodb.collection('cr');
+    collection.find({_id:ObjectId(mongoid)}).toArray(function(err, docs) {
+        res.send(docs);
+    });
+
+    //res.send("ok");
+ }; 
+

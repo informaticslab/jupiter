@@ -35,6 +35,7 @@ module.exports = function(app) {
     app.get('/apollo/api/mongo/all', nodes.getMongoAll);
     app.post('/apollo/api/mongo/postcr', nodes.postMongoCR);
     app.post('/apollo/api/mongo/deletecr', nodes.deleteMongoCR);
+    app.get('/apollo/api/mongo/:id', nodes.getCR);
     
     //this goes at the bottom.  It is the catchall for everything not defined above.  Silly.
     app.get('/apollo/*', index.index);

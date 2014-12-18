@@ -2,6 +2,7 @@ var apolloApp = angular.module('apolloApp', [
   'ngRoute'
   ,'ngResource'
   ,'ngAnimate'
+  ,'ngSanitize'
   ,'LocalStorageModule'
   ,'ui.bootstrap'
   ,'chieffancypants.loadingBar'
@@ -97,6 +98,10 @@ apolloApp.config(['$routeProvider',
           when('/adminCRQueue', {
         templateUrl: 'partials/adminCRQueue',
         controller: 'adminCRQueueCtrl'
+      }).
+          when('/adminCRQueue/CRDiff/:id', {
+        templateUrl: 'partials/adminCRDiff',
+        controller: 'adminCRDiffCtrl'
       }).
           when('/inTheLab/:topic', { 
             templateUrl: function(params){

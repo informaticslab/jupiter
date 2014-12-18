@@ -1,0 +1,84 @@
+// new row
+.row
+	.div(ng-class='getContentWidth()')
+		.content_block_faq
+			span.visible-md.visible-lg
+				.subnav
+					ul.nav.nav-pills
+						li
+							a(href='#/quickGuide/') Quick Guide
+						li
+							a(href='#/browse/') Browse
+						li
+							a(href='#/search/') Search
+						li
+							a(href='#/advancedSearch/') Relationship Explorer
+						li
+							a(href='' class='inactive') Favorites
+						li.active
+							a(href='#/inTheLab/') In the Lab
+				// end subnav
+			span.visible-sm
+				.subnav_sm
+					ul.nav.nav-pills
+						li
+							a(href='#/quickGuide/') Quick Guide
+						li
+							a(href='#/browse/') Browse
+						li
+							a(href='#/search/') Search
+						li
+							a(href='#/advancedSearch/') Relationship Explorer
+						li
+							a(href='' class='inactive') Favorites
+						li.active
+							a(href='#/inTheLab/') In the Lab
+				// end subnav
+			//- a.btn.btn-custom(onclick='goBack()') Back
+			//- .nav_split
+			//- 	.btn-group.btn-group-md.btn-group-justified
+			//- 		.btn-group
+			//- 			a.btn.btn-custom(href="#/dashboard", id='btnDashboard') Summary
+			//- 		.btn-group
+			//- 			a.btn.btn-default(href='#/dashboarddetail', id='btnDashboardDetail') Detail
+			//- 	// end button group
+			//- // end nav_split
+			.top_block_faq
+				h4.orange_main_faq
+					span.glyphicon.glyphicon-comment.icon-flipped.faq_icon
+					| CISP Change Request Queue
+				.vertical_spacing_browse
+				.row
+					.col-lg-12.col-md-12.col-sm-12
+						ul.nav.nav-pills
+							li(role="presentation")
+								a(href="#/admin")
+									| Search
+							li.active(role="presentation")
+								a(href="#/adminCRQueue")
+									| Queue
+				hr
+				.vertical_spacing_less
+				.row
+					.col-lg-12.col-md-12.col-sm-12
+						.orange_header_larger
+							| Change Requests Summary
+				.row(ng-repeat="row in crDiffValues")
+					.col-lg-3.col-md-3.col-sm-3
+						p(ng-bind-html="row.key")
+					.col-lg-3.col-md-3.col-sm-3
+						p(ng-bind-html="row.valueOld")
+					.col-lg-3.col-md-3.col-sm-3
+						p(ng-bind-html="row.valueNew")
+					.col-lg-3.col-md-3.col-sm-3
+						p(ng-bind-html="row.diff")
+				.vertical_spacing_less
+						img.img-responsive.linkage_empty( id="defaultimg" src="img/ajax-loader.gif" ng-show="showVSTableLoading")
+				
+				//nested row 
+				
+				//end nested row
+				
+		// end content block
+	// end col spec
+// end row.orange_header Overview

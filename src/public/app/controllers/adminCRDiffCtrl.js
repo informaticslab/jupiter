@@ -1,5 +1,5 @@
-angular.module('apolloApp').controller('adminCRDiffCtrl', ['$scope', '$http','$routeParams','nodeAttributeDictionary',
-	function($scope,$http,$routeParams,nodeAttributeDictionary) {
+angular.module('apolloApp').controller('adminCRDiffCtrl', ['$scope', '$http','$routeParams','$filter','nodeAttributeDictionary',
+	function($scope,$http,$routeParams,$filter,nodeAttributeDictionary) {
 
         $scope.crDiffValues = [];
         var mongoid=$routeParams.id;
@@ -26,6 +26,13 @@ angular.module('apolloApp').controller('adminCRDiffCtrl', ['$scope', '$http','$r
             
             $scope.nodeId=$scope.mongoData[0].id;
             $scope.nodeType=$scope.mongoData[0].CR_NODE_TYPE;
+            $scope.nodeName=$scope.mongoData[0].name;
+            $scope.crRequestType=$scope.mongoData[0].CR_REQUEST_TYPE;
+            $scope.crStatus=$scope.mongoData[0].CR_STATUS;
+            $scope.crNodeType=$scope.mongoData[0].CR_NODE_TYPE;
+            $scope.crDate=$scope.mongoData[0].CR_DATE;
+            $scope.crUser=$scope.mongoData[0].CR_USER;
+
 
             $http.get('/apollo/api/node/' + $scope.nodeId).then(function(res) {
                 console.log(res.data);
@@ -39,13 +46,25 @@ angular.module('apolloApp').controller('adminCRDiffCtrl', ['$scope', '$http','$r
                     for(na in $scope.nodeData.attributes)
                     {
                         var key = $scope.nodeData.attributes[na].key;
-                        var value = $scope.nodeData.attributes[na].value;
+
+                        var valueOld = $scope.nodeData.attributes[na].value;
+                        var valueNew = $scope.mongoData[0][d];
+                        var diffFlg=false;
                         if(key==d)
                         {
                             //console.log(value);
-                            var diff=diffString(value,$scope.mongoData[0][d]);
+                            var diff=diffString(valueOld,valueNew);
                             //console.log(diff);
-                            $scope.crDiffValues.push({"key":key,"valueOld":value,"valueNew":$scope.mongoData[0][d],"diff":diff})
+                            
+                            if(diff.indexOf("<ins>")>-1)
+                            {
+                                diffFlg=true;
+                            }
+                            if(diff.indexOf("<del>")>-1)
+                            {
+                                diffFlg=true;
+                            }
+                            $scope.crDiffValues.push({"key":$filter("unCamelCase")(key),"valueOld":valueOld,"valueNew":valueNew,"diff":diff,"diffFlg":diffFlg})
                             //$scope.cr[key]=value;
 
                         }

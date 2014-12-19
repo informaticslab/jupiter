@@ -811,6 +811,7 @@ td.result_number_total {font-weight: bold; padding-top:.7em;}
 .fg_textpath{font-size:.8em;}
 .adhoc_adv_query-bordered{border: 1px solid #ddd; padding:.6em;overflow: scroll;}
 .no-border{border: none;}
-
-ins{background-color: #2DFF78}
-del{background-color: #F24E4E}
+.border{border-bottom-color:#ddd;border-bottom-width: .06em ; border-bottom-style: solid;}
+ins{background-color: #75BAA8}
+del{background-color: #F38264}
+.rowhighlight{background-color: #F7F7F7}

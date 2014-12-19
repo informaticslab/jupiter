@@ -9,6 +9,7 @@ angular.module('apolloApp').controller('adminCRQueueCtrl', ['$scope', '$http','n
     $scope.crAddCount=0;
     $scope.crDeleteCount=0;
     $scope.crUpdateCount=0;
+    $scope.hover=false;
     
     
 

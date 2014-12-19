@@ -115,9 +115,9 @@
 									| CR REQUEST TYPE
 								th.col-md-1
 									| CR STATUS
-								//th.col-md-1
-									| Approve
-							tr(ng-repeat="doc in mongoDocumentsAll | filter:{CR_REQUEST_TYPE:crFilterModel,CR_STATUS:crStatusModel} ")
+								th.col-md-1
+									|   
+							tr(ng-repeat="doc in mongoDocumentsAll | filter:{CR_REQUEST_TYPE:crFilterModel,CR_STATUS:crStatusModel} " ng-init="hover=false"  ng-mouseenter="hover = true" ng-mouseleave="hover = false")
 								td
 									| {{doc.id}}
 								td
@@ -133,8 +133,10 @@
 									| {{doc.CR_REQUEST_TYPE}}
 								td
 									| {{doc.CR_STATUS}}
-								//td
-									input(type="checkbox")
+								td
+									|   
+									i.fa.fa-times(ng-show="hover")
+									|    
 				.vertical_spacing_lesser
 				.vertical_spacing_less
 						img.img-responsive.linkage_empty( id="defaultimg" src="img/ajax-loader.gif" ng-show="showVSTableLoading")

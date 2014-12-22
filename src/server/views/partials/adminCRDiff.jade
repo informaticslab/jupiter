@@ -61,12 +61,21 @@
 				.vertical_spacing_less
 				.row
 					.col-lg-12.col-md-12.col-sm-12
-						.orange_header_larger
-							| {{nodeId +" - "+nodeName}}
+						
 				.row
 					.col-lg-12.col-md-12.col-sm-12
-						small
-							| {{crUser}} - {{crDate | date : format : timezone}}
+						.well
+							.row
+								.col-lg-6.col-md-6.col-sm-6
+									h2.orange_header_larger
+										| {{nodeId +" - "+nodeName}}
+								.col-lg-3.col-md-3.col-sm-3
+									lable.btn.btn-primary.btn-lg.btn-block.btn-success
+										| Approve
+								.col-lg-3.col-md-3.col-sm-3
+									lable.btn.btn-primary.btn-lg.btn-block.btn-danger
+										| Delete
+
 				//.row
 					.col-lg-3.col-md-3.col-sm-3
 						.row
@@ -85,16 +94,32 @@
 							.col-lg-6.col-md-6.col-sm-6
 								| {{crStatus}}
 				.vertical_spacing_less
-				.row.border(ng-repeat="row in crDiffValues" ng-class="{rowhighlight:row.diffFlg}")
-					.col-lg-3.col-md-3.col-sm-3
-						b
-							small(ng-bind-html="row.key")
-					.col-lg-3.col-md-3.col-sm-3
-						small(ng-bind-html="row.valueOld")
-					.col-lg-3.col-md-3.col-sm-3
-						small(ng-bind-html="row.valueNew")
-					.col-lg-3.col-md-3.col-sm-3
-						small(ng-bind-html="row.diff")
+				table.table
+					thead
+						tr
+							th.col-lg-2.col-md-2.col-sm-2
+								b
+									| Attribute Name
+							th.col-lg-3.col-md-3.col-sm-3
+								b
+									| Current Value
+							th.col-lg-3.col-md-3.col-sm-3
+								b
+									| New Value
+							th.col-lg-3.col-md-3.col-sm-3
+								b
+									| Difference
+					tbody
+						tr(ng-repeat="row in crDiffValues" ng-class="{rowhighlight:row.diffFlg}")
+							td.col-lg-2.col-md-2.col-sm-2
+								b
+									small(ng-bind-html="row.key")
+							td.col-lg-3.col-md-3.col-sm-3
+								small(ng-bind-html="row.valueOld")
+							td.col-lg-3.col-md-3.col-sm-3
+								small(ng-bind-html="row.valueNew")
+							td.col-lg-3.col-md-3.col-sm-3
+								small(ng-bind-html="row.diff")
 				.vertical_spacing_less
 						img.img-responsive.linkage_empty( id="defaultimg" src="img/ajax-loader.gif" ng-show="showVSTableLoading")
 				

@@ -34,6 +34,10 @@ module.exports = function(app) {
     app.get('/apollo/api/export/adhoccsv/:query', nodes.getAdhocQueryRelatedNodeTypesResultsCSV);
     app.get('/apollo/api/mongo/all', nodes.getMongoAll);
     app.post('/apollo/api/mongo/postcr', nodes.postMongoCR);
+    app.post('/apollo/api/mongo/postapprovecr', nodes.postApproveCR);
+    app.post('/apollo/api/mongo/postdeclinecr', nodes.postDeclineCR);
+
+    
     app.post('/apollo/api/mongo/deletecr', nodes.deleteMongoCR);
     app.get('/apollo/api/mongo/:id', nodes.getCR);
     

@@ -1958,6 +1958,7 @@ exports.getAttributeValues = function(req, res) {
         } else {
             if (results != null) {
                 var nodedata = [];
+
                 _.each(results, function(i){
                         nodedata.push({values: i.values});
                 })
@@ -1990,7 +1991,6 @@ exports.postMongoCR = function(req, res) {
 
 
     console.log("req params",req.body);
-
     var nodeDataString=req.body;
 
 
@@ -2042,3 +2042,59 @@ exports.postMongoCR = function(req, res) {
     //res.send("ok");
  }; 
 
+ exports.postApproveCR = function(req, res) {
+
+    var mongodata = req.body;
+
+    //console.log("req params",mongodata.id);
+
+
+
+
+    var query = 'match (n{id:\''+mongodata.id+'\'}) set n={params} return n';
+
+    // //var query = 'MATCH n WHERE lower(n.name)=~".*' + searchTerm + '.*" or lower(n.shortName)=~".*' + searchTerm + '.*" RETURN distinct n.id as id, n.name as name, n.shortName as shortname';
+    // console.log(query);
+    var params = {
+        params:mongodata
+    };
+    neodb.db.query(query, params, function(err, results) {
+        //console.log(results);
+
+        if (err) {
+            console.error('Error retreiving node from database:', err);
+            res.send(404, 'No node at that location');
+        } else {
+            console.log(results);
+            var collection = mongo.mongodb.collection('cr');
+            
+            var currenttime=new Date().getTime();
+            console.log();
+            collection.update({_id:ObjectId(mongodata._id)},{$set:{CR_STATUS:"APPROVED",CR_DATE:currenttime}}, function(err, result) {
+                //console.log(result);
+                res.send("success");
+            });
+        }
+    });
+
+
+    //res.send("ok");
+ };
+
+ exports.postDeclineCR = function(req, res) {
+
+    var mongodata = req.body;
+
+    //console.log("req params",mongodata.id);
+
+    var collection = mongo.mongodb.collection('cr');
+    var currenttime=new Date().getTime();
+    console.log();
+    collection.update({_id:ObjectId(mongodata._id)},{$set:{CR_STATUS:"DECLINED",CR_DATE:currenttime}}, function(err, result) {
+        console.log(result,err);
+        res.send("success");
+    });
+
+
+    //res.send("ok");
+ }; 

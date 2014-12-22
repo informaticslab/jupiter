@@ -23,15 +23,15 @@ angular.module('apolloApp').controller('adminCRQueueCtrl', ['$scope', '$http','n
             for (var i=0;i<$scope.mongoDocumentsAll.length;i++)
             {
                 console.log($scope.mongoDocumentsAll[i].CR_REQUEST_TYPE);
-                if($scope.mongoDocumentsAll[i].CR_REQUEST_TYPE=="ADD")
+                if($scope.mongoDocumentsAll[i].CR_REQUEST_TYPE=="ADD" && $scope.mongoDocumentsAll[i].CR_STATUS=="PENDING")
                 {
                     $scope.crAddCount++;
                 }
-                else if($scope.mongoDocumentsAll[i].CR_REQUEST_TYPE=="DELETE")
+                else if($scope.mongoDocumentsAll[i].CR_REQUEST_TYPE=="DELETE" && $scope.mongoDocumentsAll[i].CR_STATUS=="PENDING")
                 {
                     $scope.crDeleteCount++;
                 }
-                else if($scope.mongoDocumentsAll[i].CR_REQUEST_TYPE=="UPDATE")
+                else if($scope.mongoDocumentsAll[i].CR_REQUEST_TYPE=="UPDATE" && $scope.mongoDocumentsAll[i].CR_STATUS=="PENDING")
                 {
                     $scope.crUpdateCount++;
                 }

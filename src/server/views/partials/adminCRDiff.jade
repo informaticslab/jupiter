@@ -67,14 +67,26 @@
 						.well
 							.row
 								.col-lg-6.col-md-6.col-sm-6
-									h2.orange_header_larger
+									.orange_header_larger
 										| {{nodeId +" - "+nodeName}}
+									small
+										| {{crUser}} - {{crDate | date : format : timezone}}	
 								.col-lg-3.col-md-3.col-sm-3
-									lable.btn.btn-primary.btn-lg.btn-block.btn-success
+									label.btn.btn-primary.btn-lg.btn-block.btn-success(ng-click="approveCR()" ng-disabled="crStatus!='PENDING'")
 										| Approve
+									br
+									.alert.alert-success(role="alert" ng-show="status_show_approved")
+										| Approved! Change request has been executed successfully.
 								.col-lg-3.col-md-3.col-sm-3
-									lable.btn.btn-primary.btn-lg.btn-block.btn-danger
-										| Delete
+									label.btn.btn-primary.btn-lg.btn-block.btn-danger(ng-click="declineCR()" ng-disabled="crStatus!='PENDING'")
+										| Decline
+									br
+									.alert.alert-danger(role="alert" ng-show="status_show_declined")
+										| Declined! Change request has been declined.
+							.row
+								.col-lg-6.col-md-6.col-sm-6
+									h3
+										| {{crStatus}}
 
 				//.row
 					.col-lg-3.col-md-3.col-sm-3
@@ -119,7 +131,7 @@
 							td.col-lg-3.col-md-3.col-sm-3
 								small(ng-bind-html="row.valueNew")
 							td.col-lg-3.col-md-3.col-sm-3
-								small(ng-bind-html="row.diff")
+								small(ng-bind-html="row.diff" ng-if="row.diffFlg")
 				.vertical_spacing_less
 						img.img-responsive.linkage_empty( id="defaultimg" src="img/ajax-loader.gif" ng-show="showVSTableLoading")
 				

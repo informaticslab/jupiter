@@ -70,7 +70,7 @@ angular.module('apolloApp').controller('adminCtrl', ['$scope', '$http','$filter'
 
 
 
-    $scope.postcr=function(){
+    $scope.postupdatecr=function(){
 
 
 
@@ -84,7 +84,7 @@ angular.module('apolloApp').controller('adminCtrl', ['$scope', '$http','$filter'
         $scope.cr['CR_REQUEST_TYPE']="UPDATE";
         $scope.cr['CR_STATUS']="PENDING";
 
-        $http.post('/apollo/api/mongo/postcr', $scope.cr).
+        $http.post('/apollo/api/mongo/postupdatecr', $scope.cr).
         //$http({method: 'Post', url: '/apollo/api/mongo/postcr', data: {greeting: 'hi'}}).
           success(function(data, status, headers, config) { 
             console.log("success");
@@ -100,7 +100,7 @@ angular.module('apolloApp').controller('adminCtrl', ['$scope', '$http','$filter'
 
     };
 
-        $scope.deletecr=function(){
+        $scope.postdeletecr=function(){
 
 
 
@@ -116,7 +116,7 @@ angular.module('apolloApp').controller('adminCtrl', ['$scope', '$http','$filter'
         $scope.cr['CR_STATUS']="PENDING";
 
 
-        $http.post('/apollo/api/mongo/deletecr', $scope.cr).
+        $http.post('/apollo/api/mongo/postdeletecr', $scope.cr).
         //$http({method: 'Post', url: '/apollo/api/mongo/postcr', data: {greeting: 'hi'}}).
           success(function(data, status, headers, config) { 
             console.log("success");

@@ -70,7 +70,11 @@
 									.orange_header_larger
 										| {{nodeId +" - "+nodeName}}
 									small
-										| {{crUser}} - {{crDate | date : format : timezone}}	
+										| Request type: {{crRequestType | TitleCase}}
+										br
+										| Requested by: {{crUser}}
+										br
+										| {{crDate | date : format : timezone}}
 								.col-lg-3.col-md-3.col-sm-3
 									label.btn.btn-primary.btn-lg.btn-block.btn-success(ng-click="approveCR()" ng-disabled="crStatus!='PENDING'")
 										| Approve

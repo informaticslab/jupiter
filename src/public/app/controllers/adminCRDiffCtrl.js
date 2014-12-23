@@ -3,7 +3,7 @@ angular.module('apolloApp').controller('adminCRDiffCtrl', ['$scope', '$http','$r
 
         $scope.crDiffValues = [];
         var mongoid=$routeParams.id;
-        console.log(mongoid);
+        var currentneodata={};
 
         $scope.actAttributes = {};
         for (x in nodeAttributeDictionary) {
@@ -26,6 +26,9 @@ angular.module('apolloApp').controller('adminCRDiffCtrl', ['$scope', '$http','$r
         {
 
             
+            $scope.crDiffValues = [];
+            mongoid=$routeParams.id;
+            currentneodata={};
 
             $http.get('/apollo/api/mongo/'+mongoid).then(function(res) {
                 $scope.mongoData=res.data;
@@ -50,6 +53,8 @@ angular.module('apolloApp').controller('adminCRDiffCtrl', ['$scope', '$http','$r
                     $scope.nodeDictionaryAttributes=$scope.actAttributes[$scope.nodeType];
                     
                     $scope.nodeDictionaryAttributes.forEach(function(d){
+
+                        
                         for(na in $scope.nodeData.attributes)
                         {
                             var key = $scope.nodeData.attributes[na].key;
@@ -72,21 +77,25 @@ angular.module('apolloApp').controller('adminCRDiffCtrl', ['$scope', '$http','$r
                                     diffFlg=true;
                                 }
                                 $scope.crDiffValues.push({"key":$filter("unCamelCase")(key),"valueOld":valueOld,"valueNew":valueNew,"diff":diff,"diffFlg":diffFlg})
+                                currentneodata[key]=valueOld;
                                 //$scope.cr[key]=value;
 
                             }
                         }
-
+                            
                             //console.log(d, nodeData.attributes);
+                        
                     });
 
-                   console.log($scope.crDiffValues); 
-
+                   
+                    console.log("currentneodata=",currentneodata); 
                 }); //http get
 
 
 
             });//http get
+
+            
         };
         
         init();
@@ -94,7 +103,10 @@ angular.module('apolloApp').controller('adminCRDiffCtrl', ['$scope', '$http','$r
 
 
         console.log($scope.mongoData[0]);
-        $http.post('/apollo/api/mongo/postapprovecr', $scope.mongoData[0]).
+        datapacket={};
+        datapacket.approved=$scope.mongoData[0];
+        datapacket.prev=currentneodata;
+        $http.post('/apollo/api/mongo/postapprovecr', datapacket).
         //$http({method: 'Post', url: '/apollo/api/mongo/postcr', data: {greeting: 'hi'}}).
           success(function(data, status, headers, config) { 
             if(data==("success"))

@@ -1986,7 +1986,7 @@ exports.getMongoAll = function(req, res) {
 
 };
 
-exports.postMongoCR = function(req, res) {
+exports.postUpdateCR = function(req, res) {
 
 
 
@@ -2006,36 +2006,60 @@ exports.postMongoCR = function(req, res) {
   });
 //res.send("ok");
  }; 
+
+ exports.postDeleteCR = function(req, res) {
+
+
+
+    console.log("req params",req.body);
+
+    var nodeDataString=req.body;
+
+
+
+ var collection = mongo.mongodb.collection('cr');
+  // Insert some documents
+  collection.insert(nodeDataString, function(err, result) {
+    // assert.equal(err, null);
+    // assert.equal(3, result.result.n);
+    // assert.equal(3, result.ops.length);
+    //console.log("Inserted 3 documents into the document collection");
+    res.send("success");
+  });
+//res.send("ok");
+ };
+
+
 
  exports.deleteMongoCR = function(req, res) {
 
 
-
     console.log("req params",req.body);
 
-    var nodeDataString=req.body;
+    var mongoid=req.body.mongoid;
+
 
 
 
  var collection = mongo.mongodb.collection('cr');
-  // Insert some documents
-  collection.insert(nodeDataString, function(err, result) {
-    // assert.equal(err, null);
-    // assert.equal(3, result.result.n);
-    // assert.equal(3, result.ops.length);
-    //console.log("Inserted 3 documents into the document collection");
+
+  collection.remove({_id:ObjectId(mongoid)}, function(err, result) {
+    console.log(result,err);
     res.send("success");
   });
 //res.send("ok");
  }; 
 
+
+
  exports.getCR = function(req, res) {
 
     var mongoid=req.params.id;
-    console.log(mongoid);
+    
 
     var collection = mongo.mongodb.collection('cr');
     collection.find({_id:ObjectId(mongoid)}).toArray(function(err, docs) {
+        
         res.send(docs);
     });
 
@@ -2044,19 +2068,23 @@ exports.postMongoCR = function(req, res) {
 
  exports.postApproveCR = function(req, res) {
 
-    var mongodata = req.body;
-
-    //console.log("req params",mongodata.id);
-
+    var mongodata = req.body.approved;
+    var prevdata=JSON.stringify(req.body.prev);
 
 
+    console.log("req params mongodata",mongodata);
+    console.log("req params pev",prevdata);
 
-    var query = 'match (n{id:\''+mongodata.id+'\'}) set n={params} return n';
+
+
+
+    var query = 'match (n{id:\''+mongodata.id+'\'}) set n={params}, n.CR_PREVIOUS={prevdata} return n';
 
     // //var query = 'MATCH n WHERE lower(n.name)=~".*' + searchTerm + '.*" or lower(n.shortName)=~".*' + searchTerm + '.*" RETURN distinct n.id as id, n.name as name, n.shortName as shortname';
     // console.log(query);
     var params = {
-        params:mongodata
+        params:mongodata,
+        prevdata:prevdata
     };
     neodb.db.query(query, params, function(err, results) {
         //console.log(results);

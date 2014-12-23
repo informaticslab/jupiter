@@ -86,7 +86,7 @@
 				.row
 					.col-lg-12.col-md-12.col-sm-12
 						.orange_header_larger
-							| Change Requests Records
+							| Change Request Records
 				.row
 					.col-lg-12.col-md-12.col-sm-12
 						.btn-group.pull-right
@@ -118,7 +118,7 @@
 								th.col-md-1
 									| CR STATUS
 								td.col-md-offset-1
-									|   
+									| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 							tr(ng-repeat="doc in mongoDocumentsAll | filter:{CR_REQUEST_TYPE:crFilterModel,CR_STATUS:crStatusModel} " ng-init="hover=false"  ng-mouseenter="hover = true" ng-mouseleave="hover = false")
 								td.col-md-1
 									| {{doc.id}}
@@ -136,8 +136,9 @@
 								td.col-md-1
 									| {{doc.CR_STATUS}}
 								td.col-md-offset-1
-									label.btn.btn-default.btn-xs(ng-show="hover")
+									label.btn.btn-default.btn-xs(ng-show="hover" ng-click="deleteCR(doc._id)")
 										i.fa.fa-times
+
 				.vertical_spacing_lesser
 				.vertical_spacing_less
 						img.img-responsive.linkage_empty( id="defaultimg" src="img/ajax-loader.gif" ng-show="showVSTableLoading")

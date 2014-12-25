@@ -2071,39 +2071,74 @@ exports.postUpdateCR = function(req, res) {
     var mongodata = req.body.approved;
     var prevdata=JSON.stringify(req.body.prev);
 
+    var req_type=req.body.type;
+
 
     console.log("req params mongodata",mongodata);
-    console.log("req params pev",prevdata);
+    console.log("req type",req_type);
+
+    if(req_type=="UPDATE")
+    {
+
+        var query = 'match (n{id:\''+mongodata.id+'\'}) set n={params}, n.CR_PREVIOUS={prevdata} return n';
+
+        // //var query = 'MATCH n WHERE lower(n.name)=~".*' + searchTerm + '.*" or lower(n.shortName)=~".*' + searchTerm + '.*" RETURN distinct n.id as id, n.name as name, n.shortName as shortname';
+        // console.log(query);
+        var params = {
+            params:mongodata,
+            prevdata:prevdata
+        };
+        neodb.db.query(query, params, function(err, results) {
+            //console.log(results);
+
+            if (err) {
+                console.error('Error retreiving node from database:', err);
+                res.send(404, 'No node at that location');
+            } else {
+                console.log(results);
+                var collection = mongo.mongodb.collection('cr');
+                
+                var currenttime=new Date().getTime();
+                console.log();
+                collection.update({_id:ObjectId(mongodata._id)},{$set:{CR_STATUS:"APPROVED",CR_DATE:currenttime,CR_PREVIOUS:prevdata}}, function(err, result) {
+                    //console.log(result);
+                    res.send("success");
+                });
+            }
+        });
+
+    }
+    else if(req_type=="DELETE")
+    {
+
+        var query = 'match (n{id:\''+mongodata.id+'\'})-[r]-()  delete n,r';
+
+        console.log(query,req_type);
+        neodb.db.query(query, params, function(err, results) {
+            //console.log(results);
+
+            if (err) {
+                console.error('Error retreiving node from database:', err);
+                res.send(404, 'No node at that location');
+            } else {
+                console.log(results);
+                var collection = mongo.mongodb.collection('cr');
+                
+                var currenttime=new Date().getTime();
+                console.log();
+                collection.update({_id:ObjectId(mongodata._id)},{$set:{CR_STATUS:"APPROVED",CR_DATE:currenttime,CR_PREVIOUS:prevdata}}, function(err, result) {
+                    //console.log(result);
+                    res.send("success");
+                });
+            }
+        });
+
+    }
 
 
 
 
-    var query = 'match (n{id:\''+mongodata.id+'\'}) set n={params}, n.CR_PREVIOUS={prevdata} return n';
 
-    // //var query = 'MATCH n WHERE lower(n.name)=~".*' + searchTerm + '.*" or lower(n.shortName)=~".*' + searchTerm + '.*" RETURN distinct n.id as id, n.name as name, n.shortName as shortname';
-    // console.log(query);
-    var params = {
-        params:mongodata,
-        prevdata:prevdata
-    };
-    neodb.db.query(query, params, function(err, results) {
-        //console.log(results);
-
-        if (err) {
-            console.error('Error retreiving node from database:', err);
-            res.send(404, 'No node at that location');
-        } else {
-            console.log(results);
-            var collection = mongo.mongodb.collection('cr');
-            
-            var currenttime=new Date().getTime();
-            console.log();
-            collection.update({_id:ObjectId(mongodata._id)},{$set:{CR_STATUS:"APPROVED",CR_DATE:currenttime}}, function(err, result) {
-                //console.log(result);
-                res.send("success");
-            });
-        }
-    });
 
 
     //res.send("ok");
@@ -2123,6 +2158,50 @@ exports.postUpdateCR = function(req, res) {
         res.send("success");
     });
 
+
+    //res.send("ok");
+ }; 
+
+
+exports.postRollBackCR = function(req, res) {
+
+    var mongodata = req.body.rollback;
+    var mongoid = req.body.mongoid;
+    //var prevdata=JSON.stringify(req.body.prev);
+
+
+    console.log("req params mongodata",mongodata);
+    //console.log("req params pev",prevdata);
+
+
+
+
+    var query = 'match (n{id:\''+mongodata.id+'\'}) set n={params}, n.CR_PREVIOUS={prevdata} return n';
+
+    // //var query = 'MATCH n WHERE lower(n.name)=~".*' + searchTerm + '.*" or lower(n.shortName)=~".*' + searchTerm + '.*" RETURN distinct n.id as id, n.name as name, n.shortName as shortname';
+    // console.log(query);
+    var params = {
+        params:mongodata,
+        prevdata:""
+    };
+    neodb.db.query(query, params, function(err, results) {
+        //console.log(results);
+
+        if (err) {
+            console.error('Error retreiving node from database:', err);
+            res.send(404, 'No node at that location');
+        } else {
+            console.log(results);
+            var collection = mongo.mongodb.collection('cr');
+            
+            var currenttime=new Date().getTime();
+            
+            collection.update({_id:ObjectId(mongoid)},{$set:{CR_STATUS:"ROLLEDBACK",CR_DATE:currenttime,CR_PREVIOUS:""}}, function(err, result) {
+                //console.log(result);
+                res.send("success");
+            });
+        }
+    });
 
     //res.send("ok");
  }; 

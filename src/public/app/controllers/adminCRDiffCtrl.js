@@ -4,7 +4,8 @@ angular.module('apolloApp').controller('adminCRDiffCtrl', ['$scope', '$http','$r
         $scope.crDiffValues = [];
         var mongoid=$routeParams.id;
         var currentneodata={};
-
+        var rollback;
+        $scope.labelclass="";
         $scope.actAttributes = {};
         for (x in nodeAttributeDictionary) {
             //console.log("***********************"+x);
@@ -42,7 +43,27 @@ angular.module('apolloApp').controller('adminCRDiffCtrl', ['$scope', '$http','$r
                 $scope.crNodeType=$scope.mongoData[0].CR_NODE_TYPE;
                 $scope.crDate=$scope.mongoData[0].CR_DATE;
                 $scope.crUser=$scope.mongoData[0].CR_USER;
+                $scope.crPrev=$scope.mongoData[0].CR_PREVIOUS;
 
+                if($scope.crRequestType=="UPDATE")
+                {
+                    $scope.labelclass="label-warning";
+                }
+                
+                if($scope.crRequestType=="DELETE")
+                {
+                    $scope.labelclass="label-danger";
+                }
+
+                if($scope.crPrev != null && $scope.crPrev != "")
+                {
+                    rollback = JSON.parse($scope.crPrev);
+                    $scope.rollback=rollback;
+                }
+
+
+
+                console.log();
 
                 $http.get('/apollo/api/node/' + $scope.nodeId).then(function(res) {
                     console.log(res.data);
@@ -66,6 +87,11 @@ angular.module('apolloApp').controller('adminCRDiffCtrl', ['$scope', '$http','$r
                             {
                                 //console.log(value);
                                 var diff=diffString(valueOld,valueNew);
+                                var rollbackdiff;
+                                if($scope.crPrev != null && $scope.crPrev != "")
+                                {
+                                    rollbackdiff=diffString(valueOld,rollback[key]);
+                                }
                                 //console.log(diff);
                                 
                                 if(diff.indexOf("<ins>")>-1)
@@ -76,7 +102,10 @@ angular.module('apolloApp').controller('adminCRDiffCtrl', ['$scope', '$http','$r
                                 {
                                     diffFlg=true;
                                 }
-                                $scope.crDiffValues.push({"key":$filter("unCamelCase")(key),"valueOld":valueOld,"valueNew":valueNew,"diff":diff,"diffFlg":diffFlg})
+                                if($scope.crPrev != null && $scope.crPrev != "")
+                                    $scope.crDiffValues.push({"key":$filter("unCamelCase")(key),"valueOld":valueOld,"valueNew":valueNew,"diff":diff,"diffFlg":diffFlg,"rollback":rollback[key],"rollbackdiff":rollbackdiff})
+                                else
+                                    $scope.crDiffValues.push({"key":$filter("unCamelCase")(key),"valueOld":valueOld,"valueNew":valueNew,"diff":diff,"diffFlg":diffFlg})
                                 currentneodata[key]=valueOld;
                                 //$scope.cr[key]=value;
 
@@ -106,6 +135,7 @@ angular.module('apolloApp').controller('adminCRDiffCtrl', ['$scope', '$http','$r
         datapacket={};
         datapacket.approved=$scope.mongoData[0];
         datapacket.prev=currentneodata;
+        datapacket.type=$scope.mongoData[0].CR_REQUEST_TYPE;
         $http.post('/apollo/api/mongo/postapprovecr', datapacket).
         //$http({method: 'Post', url: '/apollo/api/mongo/postcr', data: {greeting: 'hi'}}).
           success(function(data, status, headers, config) { 
@@ -127,6 +157,29 @@ angular.module('apolloApp').controller('adminCRDiffCtrl', ['$scope', '$http','$r
 
         console.log($scope.mongoData[0]);
         $http.post('/apollo/api/mongo/postdeclinecr', $scope.mongoData[0]).
+        //$http({method: 'Post', url: '/apollo/api/mongo/postcr', data: {greeting: 'hi'}}).
+          success(function(data, status, headers, config) { 
+            if(data==("success"))
+            {
+                init();
+                
+                $scope.status_show_declined=true;
+            }
+
+          }).error(function(data, status) {
+              console.log("err");
+        });
+
+
+    };
+
+    $scope.rollbackCR = function(){
+
+
+        datapacket={};
+        datapacket.rollback=$scope.rollback;
+        datapacket.mongoid=mongoid;
+        $http.post('/apollo/api/mongo/postrollbackcr', datapacket).
         //$http({method: 'Post', url: '/apollo/api/mongo/postcr', data: {greeting: 'hi'}}).
           success(function(data, status, headers, config) { 
             if(data==("success"))

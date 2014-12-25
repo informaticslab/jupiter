@@ -68,74 +68,61 @@
 							.row
 								.col-lg-6.col-md-6.col-sm-6
 									.orange_header_larger
-										| {{nodeId +" - "+nodeName}}
-									small
-										| Request type: {{crRequestType | TitleCase}}
-										br
-										| Requested by: {{crUser}}
-										br
-										| {{crDate | date : format : timezone}}
-								.col-lg-3.col-md-3.col-sm-3
-									label.btn.btn-primary.btn-lg.btn-block.btn-success(ng-click="approveCR()" ng-disabled="crStatus!='PENDING'")
-										| Approve
-									br
-									.alert.alert-success(role="alert" ng-show="status_show_approved")
-										| Approved! Change request has been executed successfully.
-								.col-lg-3.col-md-3.col-sm-3
-									label.btn.btn-primary.btn-lg.btn-block.btn-danger(ng-click="declineCR()" ng-disabled="crStatus!='PENDING'")
-										| Decline
-									br
-									.alert.alert-danger(role="alert" ng-show="status_show_declined")
-										| Declined! Change request has been declined.
-							.row
-								.col-lg-6.col-md-6.col-sm-6
-									h3
+										| {{nodeId +" - "+nodeName}} 
+										span.label(ng-class="labelclass")
+											| {{crRequestType | TitleCase}}
+									| {{crUser}}, {{crDate | date : format : timezone}}
+									h2
 										| {{crStatus}}
-
-				//.row
-					.col-lg-3.col-md-3.col-sm-3
-						.row
-							.col-lg-6.col-md-6.col-sm-6
-								| Requested by
-							.col-lg-6.col-md-6.col-sm-6
-								| 
-						.row
-							.col-lg-6.col-md-6.col-sm-6
-								| CR Type
-							.col-lg-6.col-md-6.col-sm-6
-								| {{crRequestType}}
-						.row
-							.col-lg-6.col-md-6.col-sm-6
-								| CR Status
-							.col-lg-6.col-md-6.col-sm-6
-								| {{crStatus}}
-				.vertical_spacing_less
+								.col-lg-6.col-md-6.col-sm-6
+									.row
+										.col-lg-6.col-md-6.col-sm-6
+											label.btn.btn-primary.btn-lg.btn-block.btn-success(ng-click="approveCR()" ng-hide="crStatus!='PENDING'")
+												| Approve
+											.alert.alert-success(role="alert" ng-show="status_show_approved")
+												br
+												| Approved! Change request has been executed successfully.
+										.col-lg-6.col-md-6.col-sm-6
+											label.btn.btn-primary.btn-lg.btn-block.btn-danger(ng-click="declineCR()" ng-hide="crStatus!='PENDING'")
+												| Decline
+											.alert.alert-danger(role="alert" ng-show="status_show_declined")
+												br
+												| Declined! Change request has been declined.
+										.col-lg-12.col-md-12.col-sm-12
+											label.btn.btn-primary.btn-lg.btn-block.btn-danger(ng-click="rollbackCR()" ng-show="crStatus=='APPROVED' && crStatu!='ROLLEDBACK' ")
+												| Rollback
+									
 				table.table
 					thead
 						tr
 							th.col-lg-2.col-md-2.col-sm-2
 								b
 									| Attribute Name
+							th.col-lg-3.col-md-3.col-sm-3(ng-if="crRequestType!='DELETE'")
+								b
+									| CR Value
 							th.col-lg-3.col-md-3.col-sm-3
 								b
-									| Current Value
-							th.col-lg-3.col-md-3.col-sm-3
-								b
-									| New Value
-							th.col-lg-3.col-md-3.col-sm-3
+									| Database Value
+							th.col-lg-3.col-md-3.col-sm-3(ng-if="crStatus!='APPROVED' && crRequestType!='DELETE'")
 								b
 									| Difference
+							th.col-lg-3.col-md-3.col-sm-3(ng-if="crStatus=='APPROVED' && crRequestType!='DELETE'")
+								b
+									| Rollback Values
 					tbody
 						tr(ng-repeat="row in crDiffValues" ng-class="{rowhighlight:row.diffFlg}")
 							td.col-lg-2.col-md-2.col-sm-2
 								b
 									small(ng-bind-html="row.key")
-							td.col-lg-3.col-md-3.col-sm-3
-								small(ng-bind-html="row.valueOld")
-							td.col-lg-3.col-md-3.col-sm-3
+							td.col-lg-3.col-md-3.col-sm-3(ng-if="crRequestType!='DELETE'")
 								small(ng-bind-html="row.valueNew")
 							td.col-lg-3.col-md-3.col-sm-3
-								small(ng-bind-html="row.diff" ng-if="row.diffFlg")
+								small(ng-bind-html="row.valueOld")
+							td.col-lg-3.col-md-3.col-sm-3(ng-if="crStatus!='APPROVED' && crRequestType!='DELETE'")
+								small(ng-bind-html="row.diff" ng-if="row.diffFlg" )
+							td.col-lg-3.col-md-3.col-sm-3(ng-if="crStatus=='APPROVED' && crRequestType!='DELETE'")
+								small(ng-bind-html="row.rollbackdiff")
 				.vertical_spacing_less
 						img.img-responsive.linkage_empty( id="defaultimg" src="img/ajax-loader.gif" ng-show="showVSTableLoading")
 				

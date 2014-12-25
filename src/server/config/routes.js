@@ -36,6 +36,7 @@ module.exports = function(app) {
     app.post('/apollo/api/mongo/postupdatecr', nodes.postUpdateCR);
     app.post('/apollo/api/mongo/postapprovecr', nodes.postApproveCR);
     app.post('/apollo/api/mongo/postdeclinecr', nodes.postDeclineCR);
+    app.post('/apollo/api/mongo/postrollbackcr', nodes.postRollBackCR);
 
     
     app.post('/apollo/api/mongo/postdeletecr', nodes.postDeleteCR);

@@ -80,16 +80,14 @@
 											label.btn.btn-primary.btn-lg.btn-block.btn-success(ng-click="approveCR()" ng-hide="crStatus!='PENDING'")
 												| Approve
 											.alert.alert-success(role="alert" ng-show="status_show_approved")
-												br
 												| Approved! Change request has been executed successfully.
 										.col-lg-6.col-md-6.col-sm-6
 											label.btn.btn-primary.btn-lg.btn-block.btn-danger(ng-click="declineCR()" ng-hide="crStatus!='PENDING'")
 												| Decline
 											.alert.alert-danger(role="alert" ng-show="status_show_declined")
-												br
 												| Declined! Change request has been declined.
 										.col-lg-12.col-md-12.col-sm-12
-											label.btn.btn-primary.btn-lg.btn-block.btn-danger(ng-click="rollbackCR()" ng-show="crStatus=='APPROVED' && crStatu!='ROLLEDBACK' ")
+											label.btn.btn-primary.btn-lg.btn-block.btn-danger(ng-click="rollbackCR()" ng-show="crStatus=='APPROVED' && crStatus!='ROLLEDBACK' && crRequestType!='DELETE'")
 												| Rollback
 									
 				table.table

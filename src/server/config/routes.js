@@ -8,6 +8,7 @@ module.exports = function(app) {
     app.get('/apollo/api/node/:id', nodes.getNodeById);
     app.get('/apollo/api/node/:id/labels', nodes.getLabelsForNode);
     app.get('/apollo/api/node/:id/relations', nodes.getRelationsForNode);
+    app.get('/apollo/api/node/relationships/:id', nodes.getRelationshipValues);
     app.get('/apollo/api/node/search/:query', nodes.searchNodesByString);
     app.get('/apollo/api/node/search/label/:query', nodes.searchNodesByLabel);
     app.get('/apollo/api/node/viewer/:id', nodes.getNodesForLinkageViewer);

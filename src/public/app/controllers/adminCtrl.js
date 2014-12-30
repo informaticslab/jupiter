@@ -64,10 +64,51 @@ angular.module('apolloApp').controller('adminCtrl', ['$scope', '$http','$filter'
             });
 
 
+            $http.get('/apollo/api/node/relationships/' + $scope.nodeId).then(function(res) {
+                $scope.relvalues=res.data;
+                //$scope.relarray=[];
+
+                var i=1;
+                $scope.relvalues.forEach(function(d){
+                    //$scope.relarray.push({'relid':i,'aid':d.aid,'bid':d.bid,'startid':d.startid,'endid':d.endid,'type':d.reltype});
+                    d['relid']=i;
+                    i++;
+                });
+                console.log($scope.relvalues);
+
+
+            });
+
+
             
 	};
 
 
+
+    $scope.deleterelrow=function(id){
+
+        console.log($scope.relvalues);
+
+        
+
+        var x=arrayObjectIndexOf($scope.relvalues, id, "relid"); // 1
+
+        console.log(x);
+
+        ($scope.relvalues).splice(x,1);
+
+        console.log($scope.relvalues);
+        
+        //$scope.$apply;
+    }
+
+
+    function arrayObjectIndexOf(myArray, searchTerm, property) {
+        for(var i = 0, len = myArray.length; i < len; i++) {
+            if (myArray[i][property] === searchTerm) return i;
+        }
+        return -1;
+    }
 
 
     $scope.postupdatecr=function(){
@@ -84,7 +125,10 @@ angular.module('apolloApp').controller('adminCtrl', ['$scope', '$http','$filter'
         $scope.cr['CR_REQUEST_TYPE']="UPDATE";
         $scope.cr['CR_STATUS']="PENDING";
 
-        $http.post('/apollo/api/mongo/postupdatecr', $scope.cr).
+        var datapacket={};
+        datapacket['attr']=$scope.cr;
+        datapacket['rels']=$scope.relvalues;
+        $http.post('/apollo/api/mongo/postupdatecr', datapacket).
         //$http({method: 'Post', url: '/apollo/api/mongo/postcr', data: {greeting: 'hi'}}).
           success(function(data, status, headers, config) { 
             console.log("success");

@@ -55,6 +55,12 @@ angular.module('apolloApp').controller('adminCRDiffCtrl', ['$scope', '$http','$r
                     $scope.labelclass="label-danger";
                 }
 
+                if($scope.crRequestType=="ADD")
+                {
+                    $scope.labelclass="label-success";
+                }
+
+
                 if($scope.crPrev != null && $scope.crPrev != "")
                 {
                     rollback = JSON.parse($scope.crPrev);

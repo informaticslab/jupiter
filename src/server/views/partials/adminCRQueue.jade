@@ -139,9 +139,14 @@
 								td.col-md-1
 									| {{doc.CR_USER}}
 								td.col-md-1
-									| {{ doc.CR_DATE | date : format : timezone}}
+									| {{ doc.CR_DATE | date :'medium'}}
 								td.col-md-1
-									| {{doc.CR_REQUEST_TYPE}}
+									span.label.label-success(ng-if="doc.CR_REQUEST_TYPE=='ADD'")
+										| {{doc.CR_REQUEST_TYPE}}
+									span.label.label-danger(ng-if="doc.CR_REQUEST_TYPE=='DELETE'")
+										| {{doc.CR_REQUEST_TYPE}}
+									span.label.label-warning(ng-if="doc.CR_REQUEST_TYPE=='UPDATE'")
+										| {{doc.CR_REQUEST_TYPE}}
 								td.col-md-1
 									| {{doc.CR_STATUS}}
 								td.col-md-offset-1

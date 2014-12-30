@@ -83,21 +83,47 @@
 							.col-lg-10.col-md-10.col-sm-10(ng-hide="node.key=='id'")
 								input.form-control(id="{{txtid=node.key}}" type="text" ng-model="cr[txtid]" )
 								.vertical_spacing_lesser
-						.vertical_spacing_lesser
-						.row(ng-show="showButtons")
-							.col-lg-2.col-md-2.col-sm-2
-							.col-lg-7.col-md-7.col-sm-7
-								label.btn.btn-default(ng-click="postupdatecr()")
-									i.fa.fa-chevron-circle-right.pull-right
-									| Submit Change Request
-							.col-lg-3.col-md-3.col-sm-3
-								label.btn.btn-default.pull-right(ng-click="postdeletecr()")
-									i.fa.fa-times.pull-right
-									| Submit Delete Request
+				.vertical_spacing_lesser
+				.row(ng-show="showButtons")
+					.col-lg-12.col-md-12.col-sm-12
+						table.table.table-striped
+							thead
+								tr
+									th
+										| Start Node
+									th
+										| Relationship Type
+									th
+										| Start Node
+									th
+										| Delete
+							tbody
+								tr(ng-repeat="relrow in relvalues")
+									td
+										| {{relrow.startname | TitleCase }} 
+									td
+										| {{relrow.reltype}}
+									td
+										| {{relrow.endname | TitleCase}}
+									td
+										a(href="" ng-click="deleterelrow(relrow.relid)")
+											| remove
+				.row(ng-show="showButtons")
+					.col-lg-2.col-md-2.col-sm-2
+					.col-lg-7.col-md-7.col-sm-7
+						label.btn.btn-default(ng-click="postupdatecr()")
+							i.fa.fa-chevron-circle-right.pull-right
+							| Submit Change Request
+					.col-lg-3.col-md-3.col-sm-3
+						label.btn.btn-default.pull-right(ng-click="postdeletecr()")
+							i.fa.fa-times.pull-right
+							| Submit Delete Request
 				.row(ng-show="crQueueSuccess")
 					.col-lg-12.col-md-12.col-sm-12
 						.alert.alert-success(role="alert")
-							| Your request has been queued successfully
+							| Your request has been queued successfully. 
+							a(href="#/adminCRQueue")
+								| View queue
 				.row(ng-show="crQueueFail")
 					.col-lg-12.col-md-12.col-sm-12
 						.alert.alert-danger(role="alert")

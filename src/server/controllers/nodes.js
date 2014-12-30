@@ -1972,6 +1972,35 @@ exports.getAttributeValues = function(req, res) {
 };
 
 
+exports.getRelationshipValues = function(req, res) {
+    
+   
+    var id=req.params.id;
+
+    var query = 'match (a)-[r]-(b) where a.id=\''+id+'\' return a.id as aid, a.name as aname, b.id as bid, b.name as bname, type(r) as reltype, startNode(r).id as startid, endNode(r).id as endid,startNode(r).name as startname, endNode(r).name as endname';
+
+    //var query = 'MATCH n WHERE lower(n.name)=~".*' + searchTerm + '.*" or lower(n.shortName)=~".*' + searchTerm + '.*" RETURN distinct n.id as id, n.name as name, n.shortName as shortname';
+    console.log(id,query);
+    var params = {
+        nodeid: id
+    };
+    neodb.db.query(query, params, function(err, results) {
+        //console.log(results);
+
+        if (err) {
+            console.error('Error retreiving node from database:', err);
+            res.send(404, 'No node at that location');
+        } else {
+            if (results != null) {
+                res.json(results);
+            }
+            else{
+                res.json({});
+            }
+        }
+    });
+};
+
 exports.getMongoAll = function(req, res) {
     var collection = mongo.mongodb.collection('cr');
 
@@ -1990,20 +2019,22 @@ exports.postUpdateCR = function(req, res) {
 
 
 
-    console.log("req params",req.body);
-    var nodeDataString=req.body;
+    //console.log("req params",req.body);
+    var nodeDataString={};
+    nodeDataString=req.body.attr;
+    nodeDataString["rels"]=JSON.stringify(req.body.rels);
 
+    console.log(nodeDataString);
 
-
- var collection = mongo.mongodb.collection('cr');
-  // Insert some documents
-  collection.insert(nodeDataString, function(err, result) {
-    // assert.equal(err, null);
-    // assert.equal(3, result.result.n);
-    // assert.equal(3, result.ops.length);
-    //console.log("Inserted 3 documents into the document collection");
-    res.send("success");
-  });
+     var collection = mongo.mongodb.collection('cr');
+      // Insert some documents
+      collection.insert(nodeDataString, function(err, result) {
+        // assert.equal(err, null);
+        // assert.equal(3, result.result.n);
+        // assert.equal(3, result.ops.length);
+        //console.log("Inserted 3 documents into the document collection");
+        res.send("success");
+      });
 //res.send("ok");
  }; 
 
@@ -2077,19 +2108,18 @@ exports.postUpdateCR = function(req, res) {
     console.log("req params mongodata",mongodata);
     console.log("req type",req_type);
 
+
+
     if(req_type=="UPDATE")
     {
 
         var query = 'match (n{id:\''+mongodata.id+'\'}) set n={params}, n.CR_PREVIOUS={prevdata} return n';
 
-        // //var query = 'MATCH n WHERE lower(n.name)=~".*' + searchTerm + '.*" or lower(n.shortName)=~".*' + searchTerm + '.*" RETURN distinct n.id as id, n.name as name, n.shortName as shortname';
-        // console.log(query);
         var params = {
             params:mongodata,
             prevdata:prevdata
         };
         neodb.db.query(query, params, function(err, results) {
-            //console.log(results);
 
             if (err) {
                 console.error('Error retreiving node from database:', err);
@@ -2097,15 +2127,72 @@ exports.postUpdateCR = function(req, res) {
             } else {
                 console.log(results);
                 var collection = mongo.mongodb.collection('cr');
-                
                 var currenttime=new Date().getTime();
                 console.log();
                 collection.update({_id:ObjectId(mongodata._id)},{$set:{CR_STATUS:"APPROVED",CR_DATE:currenttime,CR_PREVIOUS:prevdata}}, function(err, result) {
-                    //console.log(result);
-                    res.send("success");
                 });
             }
         });
+
+        var rels=[];
+
+        rels=eval(mongodata.rels);
+        console.log("rels",rels);
+        var matchclause="("+mongodata.id+"{id:'"+mongodata.id+"'})";
+        var withclause=""+mongodata.id+"";
+        var createclause="";
+        var query='';
+        rels.forEach(function(d){
+            console.log(d.startid+'--'+d.endid+'--'+d.reltype);
+
+            matchclause=matchclause+", ("+d.bid+"{id:'"+d.bid+"'}) ";
+            withclause=withclause+", "+d.bid+" ";
+            createclause=createclause+" create "+d.startid+"-[:"+d.reltype+"]->"+d.endid+" ";
+
+            
+        });
+        query = 'match '+matchclause+' with '+withclause+createclause;
+        console.log(query);
+
+        var delrelquery="match (a{id:'"+mongodata.id+"'})-[r]-() delete r";
+        console.log(delrelquery);
+
+        neodb.db.query(delrelquery, {}, function(err, results) {
+            //console.log(results);
+
+            if (err) {
+                console.error('Error retreiving node from database:', err);
+                res.send(404, 'No node at that location');
+            } else {
+                var params = {
+                };
+                neodb.db.query(query, params, function(err1, results1) {
+                    console.log(results1);
+
+                    if (err1) {
+                        console.error('Error retreiving node from database:', err);
+                        res.send(404, 'No node at that location');
+                    } else {
+                        console.log(results1);
+                        var collection = mongo.mongodb.collection('cr');
+                        
+                        var currenttime=new Date().getTime();
+                        console.log();
+                        collection.update({_id:ObjectId(mongodata._id)},{$set:{CR_STATUS:"APPROVED",CR_DATE:currenttime,CR_PREVIOUS:prevdata}}, function(err, result) {
+                            //console.log(result);
+                            res.send("success");
+                        });
+                    }
+                });
+            }
+        });
+
+        
+
+        //res.send("success");
+
+
+
 
     }
     else if(req_type=="DELETE")

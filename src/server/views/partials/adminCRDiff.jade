@@ -71,7 +71,7 @@
 										| {{nodeId +" - "+nodeName}} 
 										span.label(ng-class="labelclass")
 											| {{crRequestType | TitleCase}}
-									| {{crUser}}, {{crDate | date : format : timezone}}
+									| {{crUser}}, {{crDate | date :'medium'}}
 									h2
 										| {{crStatus}}
 								.col-lg-6.col-md-6.col-sm-6

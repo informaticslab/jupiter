@@ -7,6 +7,9 @@ angular.module('apolloApp').controller('adminCtrl', ['$scope', '$http','$filter'
     $scope.nodeLabel="";
     $scope.crQueueSuccess=false;
     $scope.crQueueFail=false;
+    $scope.disableAddRelBtn=true;
+    $scope.endNodeId="";
+    $scope.startNodeId="";
 
     if($routeParams.id)
     {
@@ -201,6 +204,46 @@ angular.module('apolloApp').controller('adminCtrl', ['$scope', '$http','$filter'
 
     };
 
+
+    $scope.startNodeSelected=function($item){
+        console.log("start",$item.id);
+        $scope.startNodeId=$item.id;
+
+        checkNewRel();
+    };
+
+    $scope.endNodeSelected=function($item){
+        console.log("end",$item.id);
+        $scope.endNodeId=$item.id;
+        checkNewRel();
+    };
+
+    function checkNewRel(){
+        if(($scope.endNodeId==$scope.nodeId || $scope.startNodeId==$scope.nodeId) && ($scope.endNodeId!="" && $scope.startNodeId!=""))
+        {
+            $scope.disableAddRelBtn=false;
+        }
+    }
+
+    $scope.addRel = function(){
+        console.log($scope.relvalues);
+        if($scope.endNodeId==$scope.nodeId)
+        {
+            $scope.relvalues.push({aname:$scope.node,aid:$scope.nodeId,bname:$scope.startnode,bid:$scope.startNodeId,relid:$scope.relvalues.length,reltype:"OVERSEES",startid:$scope.startNodeId,startname:$scope.startnode,endid:$scope.endNodeId,endname:$scope.endnode});   
+        }
+        else
+        {
+            $scope.relvalues.push({aname:$scope.node,aid:$scope.nodeId,bname:$scope.endnode,bid:$scope.endNodeId,relid:$scope.relvalues.length,reltype:"OVERSEES",startid:$scope.startNodeId,startname:$scope.startnode,endid:$scope.endNodeId,endname:$scope.endnode});
+        }
+
+        $scope.startnode="";
+        $scope.startNodeId="";
+
+        $scope.endnode="";
+        $scope.endNodeId="";
+
+        
+    }
 }]);
 
 

@@ -2142,12 +2142,20 @@ exports.postUpdateCR = function(req, res) {
         var withclause=""+mongodata.id+"";
         var createclause="";
         var query='';
+        var bnodeids=[];
         rels.forEach(function(d){
-            console.log(d.startid+'--'+d.endid+'--'+d.reltype);
 
-            matchclause=matchclause+", ("+d.bid+"{id:'"+d.bid+"'}) ";
-            withclause=withclause+", "+d.bid+" ";
-            createclause=createclause+" create "+d.startid+"-[:"+d.reltype+"]->"+d.endid+" ";
+            if(bnodeids.indexOf(d.bid)<0)
+            {
+                console.log(d.startid+'--'+d.endid+'--'+d.reltype);
+
+                matchclause=matchclause+", ("+d.bid+"{id:'"+d.bid+"'}) ";
+                withclause=withclause+", "+d.bid+" ";
+                createclause=createclause+" create "+d.startid+"-[:"+d.reltype+"]->"+d.endid+" ";
+
+                bnodeids.push(d.bid);
+            }
+
 
             
         });
@@ -2170,7 +2178,7 @@ exports.postUpdateCR = function(req, res) {
                     console.log(results1);
 
                     if (err1) {
-                        console.error('Error retreiving node from database:', err);
+                        console.error('Error retreiving node from database:', err1);
                         res.send(404, 'No node at that location');
                     } else {
                         console.log(results1);

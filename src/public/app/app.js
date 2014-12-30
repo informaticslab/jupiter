@@ -95,6 +95,10 @@ apolloApp.config(['$routeProvider',
         templateUrl: 'partials/admin',
         controller: 'adminCtrl'
       }).
+          when('/admin/:id', {
+        templateUrl: 'partials/admin',
+        controller: 'adminCtrl'
+      }).
           when('/adminCRQueue', {
         templateUrl: 'partials/adminCRQueue',
         controller: 'adminCRQueueCtrl'

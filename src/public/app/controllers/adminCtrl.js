@@ -1,5 +1,5 @@
-angular.module('apolloApp').controller('adminCtrl', ['$scope', '$http','$filter','nodeAttributeDictionary',
-	function($scope,$http,$filter,nodeAttributeDictionary) {
+angular.module('apolloApp').controller('adminCtrl', ['$scope', '$http','$filter','$routeParams','$location','nodeAttributeDictionary',
+	function($scope,$http,$filter,$routeParams,$location,nodeAttributeDictionary) {
 
 
     $scope.cr={};
@@ -7,64 +7,32 @@ angular.module('apolloApp').controller('adminCtrl', ['$scope', '$http','$filter'
     $scope.nodeLabel="";
     $scope.crQueueSuccess=false;
     $scope.crQueueFail=false;
+
+    if($routeParams.id)
+    {
+        $scope.nodeId = $routeParams.id;
+        $scope.crQueueSuccess=false;
+        $scope.crQueueFail=false;
+
+        fetchNodeValues();
+        fetchRelationshipValues();
+        //$scope.itemSelected();
+    }
+    
    	$scope.itemSelected = function($item, $model, $label, id) {
             $scope.crQueueSuccess=false;
             $scope.crQueueFail=false;
 			$scope.nodeId = $item.id;
 			//console.log($scope.nodeId,$item,$model,$label);
 
-		    $scope.actAttributes = {};
-			for (x in nodeAttributeDictionary) {
-				//console.log("***********************"+x);
-				$scope.actAttributes[x] = [];
-				for (y in nodeAttributeDictionary[x].attributeGroups) {
-					for (z in nodeAttributeDictionary[x].attributeGroups[y].attributes) {
-						$scope.actAttributes[x].push("" + z + "");
-                        //for getting attribute names 
-                        // var attname=$filter('unCamelCase')(z);
-                        // console.log("x="+x+", z=" + attname + ", des="+nodeAttributeDictionary[x].attributeGroups[y].attributes[z].description);
-					}
-				} //$scope.nodeattributes.x
-			}
-
-			$http.get('/apollo/api/node/' + $scope.nodeId).then(function(res) {
-                //console.log(res.data);
-                var nodeData = res.data;
-                $http.get('/apollo/api/node/'+ $scope.nodeId +'/labels').then(function(res1) {
-                    $scope.nodeLabel=res1.data[0];
-                	$scope.nodeDictionaryAttributes=$scope.actAttributes[res1.data[0]];
-
-                	//console.log(nodeData.attributes[0].key);
-                	$scope.nodeKeyValues=[];
-                	$scope.nodeDictionaryAttributes.forEach(function(d){
-                		for(na in nodeData.attributes)
-                		{
-                			var key = nodeData.attributes[na].key;
-                			var value = nodeData.attributes[na].value;
-                      		if(key==d)
-		               		{
-		               			//console.log(value);
-		               			$scope.nodeKeyValues.push({"key":key,"value":value})
-                                $scope.cr[key]=value;
-		               		}
-                		}
-
-                		//console.log(d, nodeData.attributes);
-                	});
-                    $scope.showButtons=true;
-                	//console.log(nodeData.attributes);
-
-                	//nodeData.attributes.forEach(function(d){
-                		//console.log(d);
-                	//});
-
-            	});
-            	
-
-            });
+	       $location.path('/admin/'+$scope.nodeId);
+            fetchNodeValues();
+            fetchRelationshipValues();   
+	};
 
 
-            $http.get('/apollo/api/node/relationships/' + $scope.nodeId).then(function(res) {
+    function fetchRelationshipValues(){
+                    $http.get('/apollo/api/node/relationships/' + $scope.nodeId).then(function(res) {
                 $scope.relvalues=res.data;
                 //$scope.relarray=[];
 
@@ -78,12 +46,49 @@ angular.module('apolloApp').controller('adminCtrl', ['$scope', '$http','$filter'
 
 
             });
+    }
 
+    function fetchNodeValues(){
+        $http.get('/apollo/api/node/' + $scope.nodeId).then(function(res) {
+            //console.log(res.data);
+            var nodeData = res.data;
+            $http.get('/apollo/api/node/'+ $scope.nodeId +'/labels').then(function(res1) {
+                $scope.nodeLabel=res1.data[0];
+                $scope.nodeDictionaryAttributes=$scope.actAttributes[res1.data[0]];
 
+                //console.log(nodeData.attributes[0].key);
+                $scope.nodeKeyValues=[];
+                $scope.nodeDictionaryAttributes.forEach(function(d){
+                    for(na in nodeData.attributes)
+                    {
+                        var key = nodeData.attributes[na].key;
+                        var value = nodeData.attributes[na].value;
+                        if(key==d)
+                        {
+                            //console.log(value);
+                            $scope.nodeKeyValues.push({"key":key,"value":value})
+                            $scope.cr[key]=value;
+                        }
+                        if(key=="name")
+                        {
+                            $scope.node=value;
+                        }
+                    }
+
+                    //console.log(d, nodeData.attributes);
+                });
+                $scope.showButtons=true;
+                //console.log(nodeData.attributes);
+
+                //nodeData.attributes.forEach(function(d){
+                    //console.log(d);
+                //});
+
+            });
             
-	};
 
-
+        });
+    }
 
     $scope.deleterelrow=function(id){
 
@@ -109,6 +114,25 @@ angular.module('apolloApp').controller('adminCtrl', ['$scope', '$http','$filter'
         }
         return -1;
     }
+
+    function fetchDictionary()
+    {
+        $scope.actAttributes = {};
+            for (x in nodeAttributeDictionary) {
+                //console.log("***********************"+x);
+                $scope.actAttributes[x] = [];
+                for (y in nodeAttributeDictionary[x].attributeGroups) {
+                    for (z in nodeAttributeDictionary[x].attributeGroups[y].attributes) {
+                        $scope.actAttributes[x].push("" + z + "");
+                        //for getting attribute names 
+                        // var attname=$filter('unCamelCase')(z);
+                        // console.log("x="+x+", z=" + attname + ", des="+nodeAttributeDictionary[x].attributeGroups[y].attributes[z].description);
+                    }
+                } //$scope.nodeattributes.x
+            }
+    }
+
+    fetchDictionary();
 
 
     $scope.postupdatecr=function(){

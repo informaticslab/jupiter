@@ -1,5 +1,5 @@
-angular.module('apolloApp').controller('adminCtrl', ['$scope', '$http','$filter','$routeParams','$location','nodeAttributeDictionary',
-	function($scope,$http,$filter,$routeParams,$location,nodeAttributeDictionary) {
+angular.module('apolloApp').controller('adminCtrl', ['$scope', '$http','$filter','$routeParams','$location','nodeAttributeDictionary','nodeRelationshipDictionary',
+	function($scope,$http,$filter,$routeParams,$location,nodeAttributeDictionary,nodeRelationshipDictionary) {
 
 
     $scope.cr={};
@@ -7,10 +7,15 @@ angular.module('apolloApp').controller('adminCtrl', ['$scope', '$http','$filter'
     $scope.nodeLabel="";
     $scope.crQueueSuccess=false;
     $scope.crQueueFail=false;
-    $scope.disableAddRelBtn=true;
+    
     $scope.endNodeId="";
     $scope.startNodeId="";
+    $scope.relselect="";
     $scope.hover=false;
+    $scope.showErrMsg=false;
+
+    console.log(nodeRelationshipDictionary.RelationshipTypes);
+    $scope.relValues=nodeRelationshipDictionary.RelationshipTypes;
     
     if($routeParams.id)
     {
@@ -210,38 +215,49 @@ angular.module('apolloApp').controller('adminCtrl', ['$scope', '$http','$filter'
         console.log("start",$item.id);
         $scope.startNodeId=$item.id;
 
-        checkNewRel();
+        //checkNewRel();
     };
 
     $scope.endNodeSelected=function($item){
         console.log("end",$item.id);
         $scope.endNodeId=$item.id;
-        checkNewRel();
+        //checkNewRel();
     };
 
-    function checkNewRel(){
-        if(($scope.endNodeId==$scope.nodeId || $scope.startNodeId==$scope.nodeId) && ($scope.endNodeId!="" && $scope.startNodeId!=""))
-        {
-            $scope.disableAddRelBtn=false;
-        }
-    }
+
 
     $scope.addRel = function(){
         console.log($scope.relvalues);
-        if($scope.endNodeId==$scope.nodeId)
+        if(($scope.endNodeId==$scope.nodeId || $scope.startNodeId==$scope.nodeId) && ($scope.endNodeId!="" && $scope.startNodeId!="") && ($scope.relselect!="")&& ($scope.relselect!=null))
         {
-            $scope.relvalues.push({aname:$scope.node,aid:$scope.nodeId,bname:$scope.startnode,bid:$scope.startNodeId,relid:$scope.relvalues.length,reltype:"OVERSEES",startid:$scope.startNodeId,startname:$scope.startnode,endid:$scope.endNodeId,endname:$scope.endnode});   
+                
+
+
+            if($scope.endNodeId==$scope.nodeId)
+            {
+                $scope.relvalues.push({aname:$scope.node,aid:$scope.nodeId,bname:$scope.startnode,bid:$scope.startNodeId,relid:$scope.relvalues.length,reltype:$scope.relselect,startid:$scope.startNodeId,startname:$scope.startnode,endid:$scope.endNodeId,endname:$scope.endnode});   
+            }
+            else
+            {
+                $scope.relvalues.push({aname:$scope.node,aid:$scope.nodeId,bname:$scope.endnode,bid:$scope.endNodeId,relid:$scope.relvalues.length,reltype:$scope.relselect,startid:$scope.startNodeId,startname:$scope.startnode,endid:$scope.endNodeId,endname:$scope.endnode});
+            }
+
+            $scope.startnode="";
+            $scope.startNodeId="";
+
+            $scope.endnode="";
+            $scope.endNodeId="";
+
+            $scope.relselect="";
+            
+            $scope.showErrMsg=false;
+
         }
         else
         {
-            $scope.relvalues.push({aname:$scope.node,aid:$scope.nodeId,bname:$scope.endnode,bid:$scope.endNodeId,relid:$scope.relvalues.length,reltype:"OVERSEES",startid:$scope.startNodeId,startname:$scope.startnode,endid:$scope.endNodeId,endname:$scope.endnode});
+            
+            $scope.showErrMsg=true;
         }
-
-        $scope.startnode="";
-        $scope.startNodeId="";
-
-        $scope.endnode="";
-        $scope.endNodeId="";
 
         
     }

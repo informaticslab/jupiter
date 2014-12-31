@@ -83,21 +83,23 @@
 								input.form-control(id="{{txtid=node.key}}" type="text" ng-model="cr[txtid]" )
 								.vertical_spacing_lesser
 				.vertical_spacing_lesser
+				.orange_header_larger
+					| Relationships
 				.row(ng-show="showButtons")
 					.col-lg-12.col-md-12.col-sm-12
 						table.table.table-striped
 							thead
 								tr
 									th
-										| Start Node
+										| From Node
 									th
 										| Relationship Type
 									th
-										| Start Node
+										| To Node
 									th
 										| Delete
 							tbody
-								tr(ng-repeat="relrow in relvalues")
+								tr(ng-repeat="relrow in relvalues" ng-mouseenter="hover = true" ng-mouseleave="hover = false")
 									td
 										| {{relrow.startname | TitleCase }} 
 									td
@@ -105,8 +107,16 @@
 									td
 										| {{relrow.endname | TitleCase}}
 									td
-										a(href="" ng-click="deleterelrow(relrow.relid)")
-											| remove
+										label.btn.btn-default.btn-xs(ng-show="hover" ng-click="deleterelrow(relrow.relid)")
+											i.fa.fa-times
+								tr
+									td
+										.vertical_spacing_less
+										h4
+											| Add New Relationship
+									td
+									td
+									td
 								tr
 									td
 										input(type="text" ng-model="startnode"  placeholder="Search activity" typeahead-on-select="startNodeSelected($item, $model, $label)" typeahead-min-length='3' typeahead="node.name for node in getNodes($viewValue)" class="form-control")
@@ -115,11 +125,13 @@
 									td
 										input(type="text" ng-model="endnode"  placeholder="Search activity" typeahead-on-select="endNodeSelected($item, $model, $label)" typeahead-min-length='3' typeahead="node.name for node in getNodes($viewValue)" class="form-control")
 									td
-										label.btn.btn-default(ng-click="addRel()" ng-disabled="disableAddRelBtn")
+										label.btn.btn-default(ng-click="addRel()" ng-disabled="disableAddRelBtn") 
 											i.fa.fa-plus-circle.pull-right
 											| Add relationship
+				.orange_header_larger
+					| Submit
 				.row(ng-show="showButtons")
-					.col-lg-2.col-md-2.col-sm-2
+					.col-lg-12.col-md-12.col-sm-12
 					.col-lg-7.col-md-7.col-sm-7
 						label.btn.btn-default(ng-click="postupdatecr()")
 							i.fa.fa-chevron-circle-right.pull-right

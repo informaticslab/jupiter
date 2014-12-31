@@ -10,7 +10,8 @@ angular.module('apolloApp').controller('adminCtrl', ['$scope', '$http','$filter'
     $scope.disableAddRelBtn=true;
     $scope.endNodeId="";
     $scope.startNodeId="";
-
+    $scope.hover=false;
+    
     if($routeParams.id)
     {
         $scope.nodeId = $routeParams.id;

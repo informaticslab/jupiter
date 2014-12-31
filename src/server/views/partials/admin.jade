@@ -119,27 +119,33 @@
 									td
 								tr
 									td
-										input(type="text" ng-model="startnode"  placeholder="Search activity" typeahead-on-select="startNodeSelected($item, $model, $label)" typeahead-min-length='3' typeahead="node.name for node in getNodes($viewValue)" class="form-control")
+										input(type="text" ng-model="startnode"  placeholder="From" typeahead-on-select="startNodeSelected($item, $model, $label)" typeahead-min-length='3' typeahead="node.name for node in getNodes($viewValue)" class="form-control")
 									td
 										| {{relrow.reltype}}
 									td
-										input(type="text" ng-model="endnode"  placeholder="Search activity" typeahead-on-select="endNodeSelected($item, $model, $label)" typeahead-min-length='3' typeahead="node.name for node in getNodes($viewValue)" class="form-control")
+										input(type="text" ng-model="endnode"  placeholder="To" typeahead-on-select="endNodeSelected($item, $model, $label)" typeahead-min-length='3' typeahead="node.name for node in getNodes($viewValue)" class="form-control")
 									td
 										label.btn.btn-default(ng-click="addRel()" ng-disabled="disableAddRelBtn") 
-											i.fa.fa-plus-circle.pull-right
-											| Add relationship
-				.orange_header_larger
-					| Submit
+											span.fa.fa-plus-circle.pull-right
+											|  Add
+				
 				.row(ng-show="showButtons")
 					.col-lg-12.col-md-12.col-sm-12
-					.col-lg-7.col-md-7.col-sm-7
+						.orange_header_larger
+							| Submit
 						label.btn.btn-default(ng-click="postupdatecr()")
-							i.fa.fa-chevron-circle-right.pull-right
+							span.fa.fa-chevron-circle-right.pull-right
 							| Submit Change Request
-					.col-lg-3.col-md-3.col-sm-3
-						label.btn.btn-default.pull-right(ng-click="postdeletecr()")
-							i.fa.fa-times.pull-right
-							| Submit Delete Request
+				.vertical_spacing_more
+				.row(ng-show="showButtons")
+					.col-lg-12.col-md-12.col-sm-12
+						.well
+							h4
+								| Delete this node?
+								small
+									label.btn.btn-default.pull-right(ng-click="postdeletecr()")
+										| Submit Delete Request 
+										span.fa.fa-times
 				.row(ng-show="crQueueSuccess")
 					.col-lg-12.col-md-12.col-sm-12
 						.alert.alert-success(role="alert")

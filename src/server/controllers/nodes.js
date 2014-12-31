@@ -7,7 +7,7 @@ var _ = require('underscore');
 // /apollo/api/node/{id}/relations
 exports.getRelationsForNode = function(req, res) {
     var query = ['MATCH n-[r]-x ', 'where n.id={nodeId} ' //maaaaaaaagic
-        , 'return id(r) as relId,type(r) as relType, x.id as childId, ','startNode(r).id as startNode,', 'labels(x) as childLabels, x.name as childName order by relType, childName '
+        , 'return id(r) as relId,type(r) as relType, x.id as childId, ', 'startNode(r).id as startNode,', 'labels(x) as childLabels, x.name as childName order by relType, childName '
     ].join('\n');
     var params = {
         nodeId: req.params.id
@@ -47,7 +47,7 @@ exports.getRelationsForNode = function(req, res) {
                             'id': a.childId,
                             'url': urlFactory.nodeUrl(req, a.childId),
                             'name': a.childName,
-                            'startNode' : a.startNode
+                            'startNode': a.startNode
                         });
                     });
                     labelToAdd.relTypes.push(relTypeToAdd);
@@ -74,10 +74,8 @@ exports.getLabelsForNode = function(req, res) {
         } else {
             if (results[0] != null) {
                 res.json(results[0]['labels(n)']);
-            }
-            else
-            {
-              res.send(404, "No node at that location");
+            } else {
+                res.send(404, "No node at that location");
             }
         }
     });
@@ -85,44 +83,42 @@ exports.getLabelsForNode = function(req, res) {
 
 // /apollo/api/node/{id}
 exports.getNodeById = function(req, res) {
-     var query = 'MATCH n WHERE n.id ={nodeId} RETURN n'
+    var query = 'MATCH n WHERE n.id ={nodeId} RETURN n'
     var params = {
         nodeId: req.params.id
     };
     //console.log("Query is " + query + " and params are " + req.params.id);
 
     neodb.db.query(query, params, function(err, results) {
-        var nodedata = {}; 
+        var nodedata = {};
         if (err) {
             console.error('Error retreiving node from database:', err);
             res.send(404, 'No node at that location');
         } else {
             //console.log("results were" + results[0]['n']);
             if (results[0] != null && results[0]['n'] != null && results[0]['n']['data'] != null) {
-                var doohicky = results[0]['n']['data'];               
+                var doohicky = results[0]['n']['data'];
                 //console.log(doohicky);
-            
-             nodedata.name = doohicky.name;
-             nodedata.id = doohicky.id;
-             nodedata.attributes = [];
-             for (var prop in doohicky) {
-                 nodedata.attributes.push({
-                     'key': prop,
-                     'value': doohicky[prop]
-                })
-             }
 
-             // attach links to response
-             nodedata.url = urlFactory.nodeUrl(req, nodedata.id);
-             nodedata.relations = urlFactory.nodeRelationsUrl(req, nodedata.id);
-             nodedata.labels = urlFactory.nodeLinksUrl(req, nodedata.id);
-             
-             res.json(nodedata);
-            //res.send(404, "there was a node at that location, but you don't get to see it (neener)");
-        }
-        else
-            {
-              res.send(404, "No node at that location");
+                nodedata.name = doohicky.name;
+                nodedata.id = doohicky.id;
+                nodedata.attributes = [];
+                for (var prop in doohicky) {
+                    nodedata.attributes.push({
+                        'key': prop,
+                        'value': doohicky[prop]
+                    })
+                }
+
+                // attach links to response
+                nodedata.url = urlFactory.nodeUrl(req, nodedata.id);
+                nodedata.relations = urlFactory.nodeRelationsUrl(req, nodedata.id);
+                nodedata.labels = urlFactory.nodeLinksUrl(req, nodedata.id);
+
+                res.json(nodedata);
+                //res.send(404, "there was a node at that location, but you don't get to see it (neener)");
+            } else {
+                res.send(404, "No node at that location");
             }
         }
     });
@@ -144,20 +140,22 @@ exports.searchByName = function(req, res) {
         } else {
             if (results != null) {
                 var nodedata = [];
-                _.each(results, function(i){
-                    if(!(i.shortname))
-                    {
-                        nodedata.push({id: i.id, name:i.name});
+                _.each(results, function(i) {
+                    if (!(i.shortname)) {
+                        nodedata.push({
+                            id: i.id,
+                            name: i.name
+                        });
+                    } else {
+                        nodedata.push({
+                            id: i.id,
+                            name: i.name + " (" + i.shortname + ")"
+                        });
                     }
-                    else
-                    {
-                        nodedata.push({id: i.id, name:i.name+" ("+i.shortname+")"});
-                    }
-                    
+
                 })
                 res.json(nodedata);
-            }
-            else{
+            } else {
                 res.json([]);
             }
         }
@@ -166,8 +164,7 @@ exports.searchByName = function(req, res) {
 
 exports.searchSysTreeByName = function(req, res) {
     var searchTerm = req.params.searchTerm.toLowerCase();
-    var query = 'match p=(n)-[r:OVERSEES|MANAGES*]->x where lower(n.name)=~".*' + searchTerm 
-            + '.*" return distinct n.name as name, n.id as id'
+    var query = 'match p=(n)-[r:OVERSEES|MANAGES*]->x where lower(n.name)=~".*' + searchTerm + '.*" return distinct n.name as name, n.id as id'
     var params = {
         searchTerm: req.params.searchTerm
     };
@@ -185,189 +182,182 @@ exports.searchSysTreeByName = function(req, res) {
         } else {
             if (results != null) {
                 var nodedata = [];
-                _.each(results, function(i){
-                    nodedata.push({id: i.id, name:i.name});
+                _.each(results, function(i) {
+                    nodedata.push({
+                        id: i.id,
+                        name: i.name
+                    });
                 })
                 res.json(nodedata);
-            }
-            else{
+            } else {
                 res.json([]);
             }
         }
     });
 };
 
-var sortFunction = function(a, b){
-//Compare "a" and "b" in some fashion, and return -1, 0, or 1
-    if(a.name > b.name)
-    {
+var sortFunction = function(a, b) {
+    //Compare "a" and "b" in some fashion, and return -1, 0, or 1
+    if (a.name > b.name) {
         return 1;
-    }
-    else if (a.name == b.name)
-    {
+    } else if (a.name == b.name) {
         return 0;
-    }
-        else if (a.name < b.name)
-    {
+    } else if (a.name < b.name) {
         return -1;
     }
 }
 
-var compileSearchResults = function(req, res, err, results){
-        var nodedataarr = [];
-        var nodeLabelCounts = {Program:0,SurveillanceSystem:0,Registry:0,
-                            HealthSurvey:0,Tool:0,Dataset:0,DataStandard:0,
-                            Collaborative:0,Organization:0,Tag:0,Total:0,
-                            FutureDev:0,UnderDev:0,PartOperational:0, 
-                            FullOperational:0,Retired:0, NotAvailable:0};
-        var returnable = {};
-        var duplicheck = [];
-        if (err) {
-            console.error('Error retreiving node from database:', err);
-            res.send(404, 'No node with that text available');
-        } else {
-            //console.log("results were" + results);
-            //console.log("results length is" + results);
-            if (results[0] != null && results[0]['n'] != null && results[0]['n']['data'] != null) {
-                for(var i=0;i<results.length;i++)
-                {   
-                    var doohicky = results[i]['n']['data'];
-                    if(duplicheck[doohicky.id] == null)
-                    {
-                        duplicheck[doohicky.id] = true;
-                        var nodedata = {};
-                        var doohickylabels = results[i]['labels(n)'].join(',')
-                        var relCount = results[i]['relCount'] 
-                        if (relCount == null)
-                        {
-                            relCount = 0;
-                        }          
-                        //console.log(doohicky);
-                
-                        nodedata.name = doohicky.name;
-                        nodedata.id = doohicky.id;
-                        nodedata.labels = doohickylabels;
-                        nodedata.relCount = relCount;
-                        nodedata.status = 'Not Available';
-                        if (nodeLabelCounts[doohickylabels] != null)
-                        {
-                           nodeLabelCounts[doohickylabels]++;
-                        }
-                        else
-                        {
-                           nodeLabelCounts[doohickylabels] = 1;
-                        }
-                        nodeLabelCounts['Total']++;
-                        nodedata.attributes = [];
-                        for (var prop in doohicky) 
-                        {
-                            if(prop == 'purpose' || prop=='description')
-                            {
-                                if(doohicky[prop].length > 450)
-                                {
-                                    nodedata.attributes.push({
-                                    'key': prop,
-                                    'value': doohicky[prop].substring(0, 447)  + '...'
-                                    });
+var compileSearchResults = function(req, res, err, results) {
+    var nodedataarr = [];
+    var nodeLabelCounts = {
+        Program: 0,
+        SurveillanceSystem: 0,
+        Registry: 0,
+        HealthSurvey: 0,
+        Tool: 0,
+        Dataset: 0,
+        DataStandard: 0,
+        Collaborative: 0,
+        Organization: 0,
+        Tag: 0,
+        Total: 0,
+        FutureDev: 0,
+        UnderDev: 0,
+        PartOperational: 0,
+        FullOperational: 0,
+        Retired: 0,
+        NotAvailable: 0
+    };
+    var returnable = {};
+    var duplicheck = [];
+    if (err) {
+        console.error('Error retreiving node from database:', err);
+        res.send(404, 'No node with that text available');
+    } else {
+        //console.log("results were" + results);
+        //console.log("results length is" + results);
+        if (results[0] != null && results[0]['n'] != null && results[0]['n']['data'] != null) {
+            for (var i = 0; i < results.length; i++) {
+                var doohicky = results[i]['n']['data'];
+                if (duplicheck[doohicky.id] == null) {
+                    duplicheck[doohicky.id] = true;
+                    var nodedata = {};
+                    var doohickylabels = results[i]['labels(n)'].join(',')
+                    var relCount = results[i]['relCount']
+                    if (relCount == null) {
+                        relCount = 0;
+                    }
+                    //console.log(doohicky);
 
-                                }
-                                else
-                                {
-                                    nodedata.attributes.push({
+                    nodedata.name = doohicky.name;
+                    nodedata.id = doohicky.id;
+                    nodedata.labels = doohickylabels;
+                    nodedata.relCount = relCount;
+                    nodedata.status = 'Not Available';
+                    if (nodeLabelCounts[doohickylabels] != null) {
+                        nodeLabelCounts[doohickylabels] ++;
+                    } else {
+                        nodeLabelCounts[doohickylabels] = 1;
+                    }
+                    nodeLabelCounts['Total'] ++;
+                    nodedata.attributes = [];
+                    for (var prop in doohicky) {
+                        if (prop == 'purpose' || prop == 'description') {
+                            if (doohicky[prop].length > 450) {
+                                nodedata.attributes.push({
+                                    'key': prop,
+                                    'value': doohicky[prop].substring(0, 447) + '...'
+                                });
+
+                            } else {
+                                nodedata.attributes.push({
                                     'key': prop,
                                     'value': doohicky[prop]
-                                    });
-                                }
-                            }
-
-                            if(prop =='operationalStatus' && doohicky[prop] != null && doohicky[prop] != '')
-                            {
-                                nodedata.status = doohicky[prop];
-                                if (doohicky[prop] == 'Planned for Future Development'){
-                                    nodeLabelCounts['FutureDev']++;
-                                }
-                                else if (doohicky[prop] == 'Under Development, but not yet Operational'){
-                                    nodeLabelCounts['UnderDev']++;
-                                }
-                                else if (doohicky[prop] == 'Partially Operational and Implemented'){
-                                    nodeLabelCounts['PartOperational']++;
-                                }
-                                else if (doohicky[prop] == 'Fully Operational and Implemented'){
-                                    nodeLabelCounts['FullOperational']++;
-                                }
-                                else if (doohicky[prop] == 'Retired'){
-                                    nodeLabelCounts['Retired']++;
-                                }
+                                });
                             }
                         }
 
-                        nodedataarr.push(nodedata);
+                        if (prop == 'operationalStatus' && doohicky[prop] != null && doohicky[prop] != '') {
+                            nodedata.status = doohicky[prop];
+                            if (doohicky[prop] == 'Planned for Future Development') {
+                                nodeLabelCounts['FutureDev'] ++;
+                            } else if (doohicky[prop] == 'Under Development, but not yet Operational') {
+                                nodeLabelCounts['UnderDev'] ++;
+                            } else if (doohicky[prop] == 'Partially Operational and Implemented') {
+                                nodeLabelCounts['PartOperational'] ++;
+                            } else if (doohicky[prop] == 'Fully Operational and Implemented') {
+                                nodeLabelCounts['FullOperational'] ++;
+                            } else if (doohicky[prop] == 'Retired') {
+                                nodeLabelCounts['Retired'] ++;
+                            }
+                        }
                     }
-                }
 
-                nodedataarr.sort(sortFunction);
-                returnable.nodedataarr = nodedataarr;
-                returnable.nodeLabelCounts = nodeLabelCounts;              
-                //console.log(returnable);
-                res.json(returnable);
-        }
-        else
-            {
-              //res.send(404, "No node with that text available");
-              res.json({"nullset":true}) ;
+                    nodedataarr.push(nodedata);
+                }
             }
+
+            nodedataarr.sort(sortFunction);
+            returnable.nodedataarr = nodedataarr;
+            returnable.nodeLabelCounts = nodeLabelCounts;
+            //console.log(returnable);
+            res.json(returnable);
+        } else {
+            //res.send(404, "No node with that text available");
+            res.json({
+                "nullset": true
+            });
         }
+    }
 }
 
 exports.searchNodesByLabel = function(req, res) {
 
     //NOTE:  THIS WILL NEED TO BE CHANGED AS IT IS CYPHER INJECTION SUSCEPTIBLE
     //for some reason query is being shady and wont work with the usual prepared statements.
-    var query = 'MATCH (n:`'+req.params.query+'`)-[r]-x RETURN n, labels(n), count(r) as relCount skip {skipnum} limit {retNum}'
-        + 'union all '
-        + 'MATCH (n:`'+req.params.query+'`) RETURN n, labels(n), 0 as relCount  skip {skipnum} limit {retNum}'
+    var query = 'MATCH (n:`' + req.params.query + '`)-[r]-x RETURN n, labels(n), count(r) as relCount skip {skipnum} limit {retNum}' + 'union all ' + 'MATCH (n:`' + req.params.query + '`) RETURN n, labels(n), 0 as relCount  skip {skipnum} limit {retNum}'
     var params = {
         //qString:  req.params.query ,
         skipnum: 0,
         retNum: 500
-        };
-        //console.log(params);
+    };
+    //console.log(params);
 
-        neodb.db.query(query, params, function(err, results) {
-            compileSearchResults(req, res, err, results)
+    neodb.db.query(query, params, function(err, results) {
+        compileSearchResults(req, res, err, results)
     });
 }
 
 // /apollo/api/nodes/search/{searchTerm}
 exports.searchNodesByString = function(req, res) {
 
-     var query = 'MATCH n-[r]-x WHERE n.name=~{qString} RETURN n, labels(n), count(r) as relCount skip {skipnum} limit {retNum}'+
-        'union all '+
-        'MATCH n-[r]-x WHERE n.fullname=~{qString} RETURN n, labels(n), count(r) as relCount skip {skipnum} limit {retNum}'+
-        'union all '+
-        'MATCH n-[r]-x WHERE n.contractphone=~{qString} RETURN n, labels(n), count(r) as relCount skip {skipnum} limit {retNum}'+
-        'union all '+
-        'MATCH n-[r]-x WHERE n.mission=~{qString} RETURN n, labels(n), count(r) as relCount skip {skipnum} limit {retNum}'+
-        'union all '+
+    var query = 'MATCH n-[r]-x WHERE n.name=~{qString} RETURN n, labels(n), count(r) as relCount skip {skipnum} limit {retNum}' +
+        'union all ' +
+        'MATCH n-[r]-x WHERE n.fullname=~{qString} RETURN n, labels(n), count(r) as relCount skip {skipnum} limit {retNum}' +
+        'union all ' +
+        'MATCH n-[r]-x WHERE n.contractphone=~{qString} RETURN n, labels(n), count(r) as relCount skip {skipnum} limit {retNum}' +
+        'union all ' +
+        'MATCH n-[r]-x WHERE n.mission=~{qString} RETURN n, labels(n), count(r) as relCount skip {skipnum} limit {retNum}' +
+        'union all ' +
         'MATCH n-[r]-x WHERE n.contractname=~{qString} RETURN n, labels(n), count(r) as relCount skip {skipnum} limit {retNum}' +
-        'union all '+
+        'union all ' +
         'MATCH n-[r]-x WHERE n.shortName=~{qString} RETURN n, labels(n), count(r) as relCount  skip {skipnum} limit {retNum}' +
         //'union all '+
         //'MATCH n-[r]-x WHERE n.purpose=~{qString} RETURN n, labels(n), count(r) as relCount order by n.name skip {skipnum} limit {retNum}' +
         //'union all '+
         //'MATCH n-[r]-x WHERE n.description=~{qString} RETURN n, labels(n), count(r) as relCount order by n.name skip {skipnum} limit {retNum}' +
-        'union all '+
-        'MATCH n WHERE n.name=~{qString} RETURN n, labels(n), 0 as relCount  skip {skipnum} limit {retNum}'+
-        'union all '+
-        'MATCH n WHERE n.fullname=~{qString} RETURN n, labels(n), 0 as relCount  skip {skipnum} limit {retNum}'+
-        'union all '+
-        'MATCH n WHERE n.contractphone=~{qString} RETURN n, labels(n), 0 as relCount  skip {skipnum} limit {retNum}'+
-        'union all '+
-        'MATCH n WHERE n.mission=~{qString} RETURN n, labels(n), 0 as relCount  skip {skipnum} limit {retNum}'+
-        'union all '+
+        'union all ' +
+        'MATCH n WHERE n.name=~{qString} RETURN n, labels(n), 0 as relCount  skip {skipnum} limit {retNum}' +
+        'union all ' +
+        'MATCH n WHERE n.fullname=~{qString} RETURN n, labels(n), 0 as relCount  skip {skipnum} limit {retNum}' +
+        'union all ' +
+        'MATCH n WHERE n.contractphone=~{qString} RETURN n, labels(n), 0 as relCount  skip {skipnum} limit {retNum}' +
+        'union all ' +
+        'MATCH n WHERE n.mission=~{qString} RETURN n, labels(n), 0 as relCount  skip {skipnum} limit {retNum}' +
+        'union all ' +
         'MATCH n WHERE n.contractname=~{qString} RETURN n, labels(n), 0 as relCount  skip {skipnum} limit {retNum}' +
-        'union all '+
-        'MATCH n WHERE n.shortName=~{qString} RETURN n, labels(n), 0 as relCount  skip {skipnum} limit {retNum}' 
+        'union all ' +
+        'MATCH n WHERE n.shortName=~{qString} RETURN n, labels(n), 0 as relCount  skip {skipnum} limit {retNum}'
         //+
         //'union all '+
         //'MATCH n WHERE n.purpose=~{qString} RETURN n, labels(n), 0 as relCount order by n.name skip {skipnum} limit {retNum}' +
@@ -381,7 +371,7 @@ exports.searchNodesByString = function(req, res) {
 
     //console.log("Query is " + query + " and params are " + params.qString);
     neodb.db.query(query, params, function(err, results) {
-       compileSearchResults(req, res, err, results);
+        compileSearchResults(req, res, err, results);
     });
 };
 
@@ -397,14 +387,14 @@ exports.getNodesForLinkageViewer = function(req, res) {
     // ].join('\n');
 
     var query = ['OPTIONAL MATCH n-[r]-x-[*0..1]-y where n.id={nodeId} ',
-    'with n, r, x, y',
-    'return n.id as nodeId, labels(n) as nodeLabels, ',
-    'n.name as nodeNames, ',
-    'id(r) as relId,type(r) as relType, x.id as childId, ', 
-    'r.relationshipDescription as relDesc, ',
-    'labels(x) as childLabels, ',
-    'startNode(r).id as startNode, ',
-    'x.name as childName , count(y) as rel2Count order by childName, childLabels[0]'
+        'with n, r, x, y',
+        'return n.id as nodeId, labels(n) as nodeLabels, ',
+        'n.name as nodeNames, ',
+        'id(r) as relId,type(r) as relType, x.id as childId, ',
+        'r.relationshipDescription as relDesc, ',
+        'labels(x) as childLabels, ',
+        'startNode(r).id as startNode, ',
+        'x.name as childName , count(y) as rel2Count order by childName, childLabels[0]'
     ].join('\n');
 
     var params = {
@@ -419,155 +409,142 @@ exports.getNodesForLinkageViewer = function(req, res) {
             var nodeLabel = _.map(r, function(i) {
                 return i.nodeLabels
             });
-            if(nodeLabel != null && nodeLabel[0] != null)
-            {
-            nodeLabel = nodeLabel[0][0];
-            var nodeName = _.map(r, function(i) {
-                return i.nodeNames
-            });
-            nodeName = nodeName[0]          
-            var allLabels = _.map(r, function(i) {
-                return i.childLabels
-            });
-
-            var allRelations = _.map(r, function(i) {
-                return i.relType
-            });
-
-            var allRelDesc = _.map(r, function(i) {
-                return i.relDesc
-            });
-
-            var allRelIds = _.map(r, function(i) {
-                return i.relId
-            });
-
-            var allChildIds = _.map(r, function(i) {
-                return i.childId
-            });
-
-            var allChildNames = _.map(r, function(i) {
-                return i.childName
-            });
-            var relStartNode = _.map(r, function(i) {
-                return i.startNode
-            });
-            var relationsCount = _.map(r, function(i) {
-                return i.rel2Count
-            });
-
-            //cast root node
-            var nodes = [
-                {
-                    "name": nodeName,
-                    "id":req.params.id,
-                    "label":nodeLabel
-                }
-            ]
-
-            var tokennodes=[req.params.id]
-            //console.log(nodes);
-            var links = [];
-            var xi=0;
-            for (var i=0;i<allRelations.length;i++)
-            { 
-                
-                var tokennodeid=allChildIds[i];
-                //console.log("tokennodeid",tokennodeid);
-                
-                //node=JSON.parse(node);
-                //found=-1;
-                var found = false;
-
-                tokennodes.forEach(function(d){
-                    if(tokennodeid==d)
-                    {
-                        //console.log(tokennodeid+" tokennodeid found in d.id "+d);
-                        found=true
-                    }
-
+            if (nodeLabel != null && nodeLabel[0] != null) {
+                nodeLabel = nodeLabel[0][0];
+                var nodeName = _.map(r, function(i) {
+                    return i.nodeNames
+                });
+                nodeName = nodeName[0]
+                var allLabels = _.map(r, function(i) {
+                    return i.childLabels
                 });
 
+                var allRelations = _.map(r, function(i) {
+                    return i.relType
+                });
 
+                var allRelDesc = _.map(r, function(i) {
+                    return i.relDesc
+                });
 
-                //console.log(found,node);
-                //console.log(nodes);
-                if (!found) {
-                    // Element was found, remove it.
-                    
-                    tokennodes.push(tokennodeid);
-                   
-                   nodes.push({
-                    "name":allChildNames[i],
-                    "id":allChildIds[i],
-                    "label":allLabels[i],
-                    "relationsCount":relationsCount[i]
+                var allRelIds = _.map(r, function(i) {
+                    return i.relId
+                });
+
+                var allChildIds = _.map(r, function(i) {
+                    return i.childId
+                });
+
+                var allChildNames = _.map(r, function(i) {
+                    return i.childName
+                });
+                var relStartNode = _.map(r, function(i) {
+                    return i.startNode
+                });
+                var relationsCount = _.map(r, function(i) {
+                    return i.rel2Count
+                });
+
+                //cast root node
+                var nodes = [{
+                    "name": nodeName,
+                    "id": req.params.id,
+                    "label": nodeLabel
+                }]
+
+                var tokennodes = [req.params.id]
+                    //console.log(nodes);
+                var links = [];
+                var xi = 0;
+                for (var i = 0; i < allRelations.length; i++) {
+
+                    var tokennodeid = allChildIds[i];
+                    //console.log("tokennodeid",tokennodeid);
+
+                    //node=JSON.parse(node);
+                    //found=-1;
+                    var found = false;
+
+                    tokennodes.forEach(function(d) {
+                        if (tokennodeid == d) {
+                            //console.log(tokennodeid+" tokennodeid found in d.id "+d);
+                            found = true
+                        }
+
                     });
 
 
-                   if(relStartNode[i] == allChildIds[i])
-                    {
-                        links.push({
-                            "source": xi+1,
-                            "target": 0,
-                            "type":allRelations[i],
-                            "description":allRelDesc[i]
-                        })
-                    }
-                    else
-                    {
-                        links.push({
-                            "source": 0,
-                            "target": xi+1,
-                            "type":allRelations[i],
-                            "description":allRelDesc[i]
-                        })
-                    }
-                   //console.log("!found therefore pushing",nodes);
-                   xi++;
-                } else {
 
-                    if(relStartNode[i] == allChildIds[i])
-                    {
-                        links.push({
-                            "source": xi,
-                            "target": 0,
-                            "type":allRelations[i],
-                            "description":allRelDesc[i]
-                        })
-                    }
-                    else
-                    {
-                        links.push({
-                            "source": 0,
-                            "target": xi,
-                            "type":allRelations[i],
-                            "description":allRelDesc[i]
-                        })
-                    }
-                    // Element was not found, add it.
-                   // //console.log("Not found");
-                }
+                    //console.log(found,node);
+                    //console.log(nodes);
+                    if (!found) {
+                        // Element was found, remove it.
+
+                        tokennodes.push(tokennodeid);
+
+                        nodes.push({
+                            "name": allChildNames[i],
+                            "id": allChildIds[i],
+                            "label": allLabels[i],
+                            "relationsCount": relationsCount[i]
+                        });
 
 
-                /*nodes.push({
-                    "name":allChildNames[i],
-                    "id":allChildIds[i],
-                    "label":allLabels[i]
-                });*/
-                
-            }
-            viewerJson = {
-                "nodes": nodes,
-                "links": links
+                        if (relStartNode[i] == allChildIds[i]) {
+                            links.push({
+                                "source": xi + 1,
+                                "target": 0,
+                                "type": allRelations[i],
+                                "description": allRelDesc[i]
+                            })
+                        } else {
+                            links.push({
+                                "source": 0,
+                                "target": xi + 1,
+                                "type": allRelations[i],
+                                "description": allRelDesc[i]
+                            })
                         }
-            //console.log(viewerJson);
-            res.send(viewerJson);
-            }
-            else
-            {
+                        //console.log("!found therefore pushing",nodes);
+                        xi++;
+                    } else {
+
+                        if (relStartNode[i] == allChildIds[i]) {
+                            links.push({
+                                "source": xi,
+                                "target": 0,
+                                "type": allRelations[i],
+                                "description": allRelDesc[i]
+                            })
+                        } else {
+                            links.push({
+                                "source": 0,
+                                "target": xi,
+                                "type": allRelations[i],
+                                "description": allRelDesc[i]
+                            })
+                        }
+                        // Element was not found, add it.
+                        // //console.log("Not found");
+                    }
+
+
+                    /*nodes.push({
+                        "name":allChildNames[i],
+                        "id":allChildIds[i],
+                        "label":allLabels[i]
+                    });*/
+
+                }
+                viewerJson = {
+                        "nodes": nodes,
+                        "links": links
+                    }
+                    //console.log(viewerJson);
+                res.send(viewerJson);
+            } else {
                 res.send(404, 'no node at that location');
-            }   
+            }
         }
     });
 };
@@ -575,33 +552,31 @@ exports.getPortalStatisticsNodes = function(req, res) {
 
     //var id = req.params.id;
     //console.log(id);
-    var id="undefined";
-    if(req.params.id)
-    {
-        id=req.params.id;
+    var id = "undefined";
+    if (req.params.id) {
+        id = req.params.id;
     }
     //console.log(id);
     var query, params;
 
     //console.log("node id",id);
 
-    if(id=='undefined')
-    {
+    if (id == 'undefined') {
         query = ['MATCH n ',
-        'return labels(n) as label, count(*) as count '
+            'return labels(n) as label, count(*) as count '
         ].join('\n');
         params = {};
-    }
-    else
-    {
+    } else {
         query = ['MATCH (n)-[r:OVERSEES|MANAGES*]->x where n.id={id}',
-        'return labels(x) as label, count(distinct x.id) as count '
+            'return labels(x) as label, count(distinct x.id) as count '
         ].join('\n');
-        params = {id:id};
+        params = {
+            id: id
+        };
     }
 
     //console.log(query,params);
-    
+
     neodb.db.query(query, params, function(err, r) {
         if (err) {
             console.error('Error retreiving statistics from database:', err);
@@ -610,7 +585,7 @@ exports.getPortalStatisticsNodes = function(req, res) {
 
             //console.log(r);
             res.send(r);
-            
+
         }
     });
 };
@@ -618,77 +593,68 @@ exports.getPortalStatisticsNodes = function(req, res) {
 
 exports.exportCSV = function(req, res) {
 
-var id = req.params.id;
-var qparams=req.params.qparam;
+    var id = req.params.id;
+    var qparams = req.params.qparam;
 
-var qparam=qparams.split(",");
-
-
-var ntype=qparam[0].split("=")[1];
-var nname=qparam[1].split("=")[1];
-var orderby=qparam[2].split("=")[1];
-var asc=qparam[3].split("=")[1];
+    var qparam = qparams.split(",");
 
 
-//console.log(ntype,nname,orderby,asc);
-
-var searchtype=ntype;
-var searchnode=nname;
-
-if(searchtype=="undefined")
-{
-    searchtype="";
-}
-
-if(searchnode=="undefined")
-{
-    searchnode="";
-}
-if(orderby=="undefined")
-{
-    orderby="name";
-}
-if(asc=="undefined" | asc=="true")
-{
-    asc="ASC";
-}
-else
-{
-    asc="DESC";
-}
+    var ntype = qparam[0].split("=")[1];
+    var nname = qparam[1].split("=")[1];
+    var orderby = qparam[2].split("=")[1];
+    var asc = qparam[3].split("=")[1];
 
 
-//var id="O31"
-    var validationresults=[];
+    //console.log(ntype,nname,orderby,asc);
+
+    var searchtype = ntype;
+    var searchnode = nname;
+
+    if (searchtype == "undefined") {
+        searchtype = "";
+    }
+
+    if (searchnode == "undefined") {
+        searchnode = "";
+    }
+    if (orderby == "undefined") {
+        orderby = "name";
+    }
+    if (asc == "undefined" | asc == "true") {
+        asc = "ASC";
+    } else {
+        asc = "DESC";
+    }
 
 
-    if(id== 'undefined')
-    {
+    //var id="O31"
+    var validationresults = [];
+
+
+    if (id == 'undefined') {
         query = ['MATCH n where NOT(labels(n)[0] = "Tag") and n.name=~{nodename} and labels(n)[0]=~{nodetype}',
-        'return distinct n.id as id, n.name as name, labels(n) as label, n.informationValidated as validationstatus order by '+orderby+' '+asc
+            'return distinct n.id as id, n.name as name, labels(n) as label, n.informationValidated as validationstatus order by ' + orderby + ' ' + asc
         ].join('\n');
         params = {
             //id:id,
-            nodetype:"(?i).*"+searchtype+".*",
-            nodename:"(?i).*"+searchnode+".*"
+            nodetype: "(?i).*" + searchtype + ".*",
+            nodename: "(?i).*" + searchnode + ".*"
         };
-    }
-    else
-    {
+    } else {
         query = ['MATCH (n)-[r:OVERSEES|MANAGES*]->x where NOT(labels(x)[0] = "Tag") and n.id={id} and x.name=~{nodename} and labels(x)[0]=~{nodetype}',
-        'return distinct x.id as id, x.name as name, labels(x) as label, x.informationValidated as validationstatus order by '+orderby+' '+asc
+            'return distinct x.id as id, x.name as name, labels(x) as label, x.informationValidated as validationstatus order by ' + orderby + ' ' + asc
         ].join('\n');
         params = {
-            id:id,
-            nodetype:"(?i).*"+searchtype+".*",
-            nodename:"(?i).*"+searchnode+".*"
+            id: id,
+            nodetype: "(?i).*" + searchtype + ".*",
+            nodename: "(?i).*" + searchnode + ".*"
         };
     }
 
     //console.log(query, params);
-    
 
-    
+
+
     neodb.db.query(query, params, function(err, r) {
         if (err) {
             console.error('Error retreiving statistics from database:', err);
@@ -696,34 +662,34 @@ else
         } else {
 
             validationresults.push([
-                        "Name",
-                        "Id",
-                        "Type",
-                        "Validation Status"
-                    ]);
-            r.forEach(function(d){
+                "Name",
+                "Id",
+                "Type",
+                "Validation Status"
+            ]);
+            r.forEach(function(d) {
                 //console.log(d.name);
                 validationresults.push([
-                        d.name,
-                        d.id,
-                        d.label[0],
-                        d.validationstatus
-                    ]);
+                    d.name,
+                    d.id,
+                    d.label[0],
+                    d.validationstatus
+                ]);
             });
-            
+
             //res.json(validationresults);
 
             //res.send(validationresults);
             //console.log(validationresults);
-res.header('content-type','text/csv');
- res.header('content-disposition', 'attachment; filename=report.csv');
+            res.header('content-type', 'text/csv');
+            res.header('content-disposition', 'attachment; filename=report.csv');
 
- // res.csv([
- //    ["a", "b", "c"]
- //  , ["d", "e", "f"]
- //  ]);
-res.csv(validationresults);
-            
+            // res.csv([
+            //    ["a", "b", "c"]
+            //  , ["d", "e", "f"]
+            //  ]);
+            res.csv(validationresults);
+
         }
     });
 
@@ -733,20 +699,18 @@ res.csv(validationresults);
 
 exports.exportCSVNodeRelations = function(req, res) {
 
-var id = req.params.id;
+    var id = req.params.id;
 
-    var resultsarr=[];
+    var resultsarr = [];
 
 
 
-    
-    
     query = ['MATCH (n)-[r]-(x) where n.id={id}',
         'return distinct n.id as qid, n.name as qname, labels(n)[0] as qlabel, type(r) as reltype, x.id as rid, x.name as rname, labels(x)[0] as rlabel, startNode(r).id as startnodeid'
-        ].join('\n');
-        params = {
-            id:id
-        };
+    ].join('\n');
+    params = {
+        id: id
+    };
     //console.log(query, params);
     neodb.db.query(query, params, function(err, r) {
         if (err) {
@@ -755,46 +719,43 @@ var id = req.params.id;
         } else {
 
             resultsarr.push([
-                        "Node A",
-                        "Relationship Type",
-                        "Node B"                        
-                    ]);
-            r.forEach(function(d){
+                "Node A",
+                "Relationship Type",
+                "Node B"
+            ]);
+            r.forEach(function(d) {
                 //console.log(d.name);
 
-                if(d.qid==d.startnodeid)
-                {
+                if (d.qid == d.startnodeid) {
                     resultsarr.push([
-                        d.qname+" ("+d.qlabel+")",
+                        d.qname + " (" + d.qlabel + ")",
                         d.reltype,
-                        d.rname+" ("+d.rlabel+")"
+                        d.rname + " (" + d.rlabel + ")"
                     ]);
-                }
-                else
-                {
+                } else {
                     resultsarr.push([
-                        d.rname+" ("+d.rlabel+")",
+                        d.rname + " (" + d.rlabel + ")",
                         d.reltype,
-                        d.qname+" ("+d.qlabel+")"
+                        d.qname + " (" + d.qlabel + ")"
                     ]);
                 }
 
-                
+
             });
-            
+
             //res.json(validationresults);
 
             //res.send(validationresults);
             //console.log(validationresults);
-res.header('content-type','text/csv');
- res.header('content-disposition', 'attachment; filename=NodeRelationships.csv');
+            res.header('content-type', 'text/csv');
+            res.header('content-disposition', 'attachment; filename=NodeRelationships.csv');
 
- // res.csv([
- //    ["a", "b", "c"]
- //  , ["d", "e", "f"]
- //  ]);
-res.csv(resultsarr);
-            
+            // res.csv([
+            //    ["a", "b", "c"]
+            //  , ["d", "e", "f"]
+            //  ]);
+            res.csv(resultsarr);
+
         }
     });
 
@@ -806,27 +767,26 @@ exports.getPortalStatisticsNodesValidated = function(req, res) {
 
     var id = req.params.id;
     //console.log("node id",id);
-    var query,params;
+    var query, params;
 
-    if(id== 'undefined')
-    {
+    if (id == 'undefined') {
         query = ['MATCH n where n.informationValidated=\'No\' or trim(n.informationValidated)=\'\'',
-        'return labels(n) as label, count(*) as count '
+            'return labels(n) as label, count(*) as count '
         ].join('\n');
         params = {};
-    }
-    else
-    {
+    } else {
         {
-        query = ['MATCH (n)-[r:OVERSEES|MANAGES*]->x where n.id={id} and (x.informationValidated=\'No\' or trim(n.informationValidated)=\'\')',
-        'return labels(x) as label, count(distinct x.id) as count '
-        ].join('\n');
-        params = {id:id};
+            query = ['MATCH (n)-[r:OVERSEES|MANAGES*]->x where n.id={id} and (x.informationValidated=\'No\' or trim(n.informationValidated)=\'\')',
+                'return labels(x) as label, count(distinct x.id) as count '
+            ].join('\n');
+            params = {
+                id: id
+            };
+        }
     }
-    }
-    
+
     //console.log(query,params);
-    
+
     neodb.db.query(query, params, function(err, r) {
         if (err) {
             console.error('Error retreiving statistics from database:', err);
@@ -835,58 +795,57 @@ exports.getPortalStatisticsNodesValidated = function(req, res) {
 
             //console.log(r);
             res.send(r);
-            
+
         }
     });
 };
 
 
 exports.getValidationStatus = function(req, res) {
-    
+
     var id = req.params.id;
 
-    var validationresults=[];
+    var validationresults = [];
 
 
-    if(id== 'undefined')
-    {
+    if (id == 'undefined') {
         query = ['MATCH n where NOT(labels(n)[0] = "Tag")',
-        'return distinct n.id as id, n.name as name, labels(n) as label, n.informationValidated as validationstatus order by name'
+            'return distinct n.id as id, n.name as name, labels(n) as label, n.informationValidated as validationstatus order by name'
         ].join('\n');
         params = {};
-    }
-    else
-    {
+    } else {
         query = ['MATCH (n)-[r:OVERSEES|MANAGES*]->x where NOT(labels(x)[0] = "Tag") and n.id={id} ',
-        'return distinct x.id as id, x.name as name, labels(x) as label, x.informationValidated as validationstatus order by name'
+            'return distinct x.id as id, x.name as name, labels(x) as label, x.informationValidated as validationstatus order by name'
         ].join('\n');
-        params = {id:id};
+        params = {
+            id: id
+        };
     }
 
     //console.log(query, params);
-    
 
-    
+
+
     neodb.db.query(query, params, function(err, r) {
         if (err) {
             console.error('Error retreiving statistics from database:', err);
             res.send(404, 'no statistics available');
         } else {
 
-            r.forEach(function(d){
+            r.forEach(function(d) {
                 //console.log(d.name);
                 validationresults.push({
-                        "name": d.name,
-                        "id": d.id,
-                        "type": d.label[0],
-                        "validationstatus": d.validationstatus
-                    });
+                    "name": d.name,
+                    "id": d.id,
+                    "type": d.label[0],
+                    "validationstatus": d.validationstatus
+                });
             });
             //console.log(validationresults);
             res.json(validationresults);
 
             //res.send(validationresults);
-            
+
         }
     });
 };
@@ -931,11 +890,11 @@ exports.getValidationStatus = function(req, res) {
 
 exports.getPortalStatisticsRelations = function(req, res) {
     var query = ['MATCH (a)-[r]->(b)',
-    'return count(*) as count '
+        'return count(*) as count '
     ].join('\n');
     var params = {};
 
-    
+
     neodb.db.query(query, params, function(err, r) {
         if (err) {
             console.error('Error retreiving statistics from database:', err);
@@ -944,73 +903,78 @@ exports.getPortalStatisticsRelations = function(req, res) {
 
             //console.log(r);
             res.send(r);
-            
+
         }
     });
 };
 
-var compileSearchResultsForLab= function(req, res, err, results)
-{
-        var nodedataarr = [];
-        var nodeLabelCounts = {Program:0,SurveillanceSystem:0,Registry:0,
-                            HealthSurvey:0,Tool:0,Dataset:0,DataStandard:0,
-                            Collaborative:0,Organization:0,Tag:0,Total:0};
-    
-        var returnable = {};
-        var duplicheck = [];
+var compileSearchResultsForLab = function(req, res, err, results) {
+    var nodedataarr = [];
+    var nodeLabelCounts = {
+        Program: 0,
+        SurveillanceSystem: 0,
+        Registry: 0,
+        HealthSurvey: 0,
+        Tool: 0,
+        Dataset: 0,
+        DataStandard: 0,
+        Collaborative: 0,
+        Organization: 0,
+        Tag: 0,
+        Total: 0
+    };
 
-        if (err) {
-            console.error('Error retreiving node from database:', err);
-            res.send(404, 'Nodes not available');
-        } else {
-            
-            if (results[0] != null && results[0]['n'] != null && results[0]['n']['data'] != null) {
-                for(var i=0;i<results.length;i++)
-                {   
-                    var doohicky = results[i]['n']['data'];
-                    if(duplicheck[doohicky.id] == null)
-                    {
-                        duplicheck[doohicky.id] = true;
-                        var nodedata = {};
+    var returnable = {};
+    var duplicheck = [];
 
-                        var doohickylabels = results[i]['labels'];
-                        var relCount = results[i]['relCount'];
-                        if (relCount == null)
-                        {
-                            relCount = 0;
-                        }          
-                    
-                        nodedata.name = doohicky.name;
-                        nodedata.id = doohicky.id;
-                        nodedata.labels = doohickylabels;
-                        nodedata.imports = [];
-                        nodedataarr.push(nodedata);
+    if (err) {
+        console.error('Error retreiving node from database:', err);
+        res.send(404, 'Nodes not available');
+    } else {
 
+        if (results[0] != null && results[0]['n'] != null && results[0]['n']['data'] != null) {
+            for (var i = 0; i < results.length; i++) {
+                var doohicky = results[i]['n']['data'];
+                if (duplicheck[doohicky.id] == null) {
+                    duplicheck[doohicky.id] = true;
+                    var nodedata = {};
+
+                    var doohickylabels = results[i]['labels'];
+                    var relCount = results[i]['relCount'];
+                    if (relCount == null) {
+                        relCount = 0;
                     }
+
+                    nodedata.name = doohicky.name;
+                    nodedata.id = doohicky.id;
+                    nodedata.labels = doohickylabels;
+                    nodedata.imports = [];
+                    nodedataarr.push(nodedata);
+
                 }
-                
-                nodedataarr.sort(sortFunction);
-                res.json(nodedataarr);
-        }
-        else
-            {
-              //res.send(404, "No node with that text available");
-              res.json({"nullset":true}) ;
             }
+
+            nodedataarr.sort(sortFunction);
+            res.json(nodedataarr);
+        } else {
+            //res.send(404, "No node with that text available");
+            res.json({
+                "nullset": true
+            });
         }
+    }
 }
 
 exports.getAllNodes = function(req, res) {
 
     var query = 'MATCH (n) where labels(n)[0]<>"Tag" return n, labels(n) as labels';
-    var params ={};
-   
+    var params = {};
+
     neodb.db.query(query, params, function(err, results) {
 
-        if(err){
+        if (err) {
             //console.log("Could not get all the nodes from the database");
-        }
-        else{
+        } else {
             compileSearchResultsForLab(req, res, err, results);
             // res.send(results);
         }
@@ -1020,14 +984,13 @@ exports.getAllNodes = function(req, res) {
 exports.getAllRealtionsForAllNodes = function(req, res) {
 
     var query = 'MATCH n-[r]-x where labels(x)[0]<>"Tag" return n.id as p, n.name as pname, x.id as cid, labels(x)[0] as clabel, x.name as cname';
-    var params ={};
-   
+    var params = {};
+
     neodb.db.query(query, params, function(err, results) {
-        
-        if(err){
+
+        if (err) {
             //console.log("Could not get all the relations for the nodes from the database");
-        }
-        else{
+        } else {
             res.send(results);
         }
     });
@@ -1049,86 +1012,85 @@ exports.getAdvancedSearchData = function(req, res) {
 
     var query, params;
 
-    query="";
+    query = "";
 
-        query1 = ['MATCH p1=(a)-[*1]-(c) where a.id={leftId} and c.id={rightId}',
-            'return extract(x in nodes(p1) |x.name) as Nodes, extract(y in nodes(p1) |y.id) as NodesId, extract(s in nodes(p1) |labels(s)) as NodesLabel, extract(z in relationships(p1) | type(z)) as Relations, ',
-            'extract(r in relationships(p1) | startNode(r).id) as StartNodes, extract(t in relationships(p1) | t.relationshipDescription ) as Description'
-        ].join('\n');
-
-
-        query2 = ['MATCH p=(a)-[*1]-(b)-[*1]-(c) where a.id={leftId} and c.id={rightId}',
-            'return extract(x in nodes(p) |x.name) as Nodes, extract(y in nodes(p) |y.id) as NodesId, extract(s in nodes(p) |labels(s)) as NodesLabel, extract(z in relationships(p) | type(z)) as Relations, ',
-            'extract(r in relationships(p) | startNode(r).id) as StartNodes, extract(t in relationships(p) | t.relationshipDescription ) as Description'
-        ].join('\n');
-
-        query3 = ['MATCH p1=(a)-[*1]-(b)-[*2]-(c) where a.id={leftId} and c.id={rightId}',
-            'return extract(x in nodes(p1) |x.name) as Nodes, extract(y in nodes(p1) |y.id) as NodesId, extract(s in nodes(p1) |labels(s)) as NodesLabel, extract(z in relationships(p1) | type(z)) as Relations, ',
-            'extract(r in relationships(p1) | startNode(r).id) as StartNodes, extract(t in relationships(p1) | t.relationshipDescription ) as Description',
-            'union',
-            'MATCH p=(a)-[*2]-(b)-[*1]-(c) where a.id={leftId} and c.id={rightId}',
-            'return extract(x in nodes(p) |x.name) as Nodes, extract(y in nodes(p) |y.id) as NodesId, extract(s in nodes(p) |labels(s)) as NodesLabel, extract(z in relationships(p) | type(z)) as Relations, ',
-            'extract(r in relationships(p) | startNode(r).id) as StartNodes, extract(t in relationships(p) | t.relationshipDescription ) as Description'
-        ].join('\n');
-
-        query4 = ['MATCH p=(a)-[*2]-(b)-[*2]-(c) where a.id={leftId} and c.id={rightId}',
-            'return extract(x in nodes(p) |x.name) as Nodes, extract(y in nodes(p) |y.id) as NodesId, extract(s in nodes(p) |labels(s)) as NodesLabel, extract(z in relationships(p) | type(z)) as Relations, ',
-            'extract(r in relationships(p) | startNode(r).id) as StartNodes, extract(t in relationships(p) | t.relationshipDescription ) as Description'
-        ].join('\n');
+    query1 = ['MATCH p1=(a)-[*1]-(c) where a.id={leftId} and c.id={rightId}',
+        'return extract(x in nodes(p1) |x.name) as Nodes, extract(y in nodes(p1) |y.id) as NodesId, extract(s in nodes(p1) |labels(s)) as NodesLabel, extract(z in relationships(p1) | type(z)) as Relations, ',
+        'extract(r in relationships(p1) | startNode(r).id) as StartNodes, extract(t in relationships(p1) | t.relationshipDescription ) as Description'
+    ].join('\n');
 
 
+    query2 = ['MATCH p=(a)-[*1]-(b)-[*1]-(c) where a.id={leftId} and c.id={rightId}',
+        'return extract(x in nodes(p) |x.name) as Nodes, extract(y in nodes(p) |y.id) as NodesId, extract(s in nodes(p) |labels(s)) as NodesLabel, extract(z in relationships(p) | type(z)) as Relations, ',
+        'extract(r in relationships(p) | startNode(r).id) as StartNodes, extract(t in relationships(p) | t.relationshipDescription ) as Description'
+    ].join('\n');
 
-    for(var i=0;i<hopsarr.length;i++)
-    {
+    query3 = ['MATCH p1=(a)-[*1]-(b)-[*2]-(c) where a.id={leftId} and c.id={rightId}',
+        'return extract(x in nodes(p1) |x.name) as Nodes, extract(y in nodes(p1) |y.id) as NodesId, extract(s in nodes(p1) |labels(s)) as NodesLabel, extract(z in relationships(p1) | type(z)) as Relations, ',
+        'extract(r in relationships(p1) | startNode(r).id) as StartNodes, extract(t in relationships(p1) | t.relationshipDescription ) as Description',
+        'union',
+        'MATCH p=(a)-[*2]-(b)-[*1]-(c) where a.id={leftId} and c.id={rightId}',
+        'return extract(x in nodes(p) |x.name) as Nodes, extract(y in nodes(p) |y.id) as NodesId, extract(s in nodes(p) |labels(s)) as NodesLabel, extract(z in relationships(p) | type(z)) as Relations, ',
+        'extract(r in relationships(p) | startNode(r).id) as StartNodes, extract(t in relationships(p) | t.relationshipDescription ) as Description'
+    ].join('\n');
 
-        
+    query4 = ['MATCH p=(a)-[*2]-(b)-[*2]-(c) where a.id={leftId} and c.id={rightId}',
+        'return extract(x in nodes(p) |x.name) as Nodes, extract(y in nodes(p) |y.id) as NodesId, extract(s in nodes(p) |labels(s)) as NodesLabel, extract(z in relationships(p) | type(z)) as Relations, ',
+        'extract(r in relationships(p) | startNode(r).id) as StartNodes, extract(t in relationships(p) | t.relationshipDescription ) as Description'
+    ].join('\n');
+
+
+
+    for (var i = 0; i < hopsarr.length; i++) {
+
+
         if (hopsarr[i] == 1) {
-            query=query+query1+" union ";
+            query = query + query1 + " union ";
 
         }
         if (hopsarr[i] == 2) {
             //query=query+query2+" union ";
-            query=query1+" union "+query2+" union ";
+            query = query1 + " union " + query2 + " union ";
 
         }
         if (hopsarr[i] == 3) {
 
             //query=query+query3+" union ";
-            query=query1+" union "+query2+" union "+query3+" union ";
+            query = query1 + " union " + query2 + " union " + query3 + " union ";
 
         }
         if (hopsarr[i] == 4) {
             //query=query+query4+" union ";
-            query=query1+" union "+query2+" union "+query3+" union "+query4+" union ";
+            query = query1 + " union " + query2 + " union " + query3 + " union " + query4 + " union ";
 
         }
     }
 
-/*
-     else {
-        console.error('Error retreiving degrees of seperation from database:');
-        res.send(404, 'no degree indicated');
+    /*
+         else {
+            console.error('Error retreiving degrees of seperation from database:');
+            res.send(404, 'no degree indicated');
 
-    }
+        }
 
-*/
+    */
 
-//query=query2;//+" union "+query2;
-
-
-query=query.trim();
-var lastIndex = query.lastIndexOf(" ")
+    //query=query2;//+" union "+query2;
 
 
+    query = query.trim();
+    var lastIndex = query.lastIndexOf(" ")
 
-query = query.substring(0, lastIndex);
+
+
+    query = query.substring(0, lastIndex);
 
     var params = {
         leftId: nodesarr[0],
         rightId: nodesarr[1]
     };
 
-        //console.log(params);
+    //console.log(params);
 
     var viewerJson;
     neodb.db.query(query, params, function(err, r) {
@@ -1219,35 +1181,30 @@ query = query.substring(0, lastIndex);
                             }
                             */
                         //} else {
-                            for (var i = 0; i < dnodes.length - 1; i++) {
+                        for (var i = 0; i < dnodes.length - 1; i++) {
 
-                                //console.log("1--",dnodes[i]);
-                                nodesA.push({
-                                    "source": dnodes[i],
-                                    "sourceid": dnodesid[i],
-                                    "target": dnodes[i + 1],
-                                    "targetid": dnodesid[i + 1],
-                                    "sourcelabel": dnodeslabel[i],
-                                    "targetlabel": dnodeslabel[i + 1],
-                                    "type": drelations[i],
-                                    "startnode": dstartnodes[i],
-                                    "description": drelationsdescription[i],
-                                    "objectid": dnodes[i] + dnodesid[i] + dnodes[i + 1] + dnodesid[i + 1] + drelations[i] + dstartnodes[i]
-                                });
+                            //console.log("1--",dnodes[i]);
+                            nodesA.push({
+                                "source": dnodes[i],
+                                "sourceid": dnodesid[i],
+                                "target": dnodes[i + 1],
+                                "targetid": dnodesid[i + 1],
+                                "sourcelabel": dnodeslabel[i],
+                                "targetlabel": dnodeslabel[i + 1],
+                                "type": drelations[i],
+                                "startnode": dstartnodes[i],
+                                "description": drelationsdescription[i],
+                                "objectid": dnodes[i] + dnodesid[i] + dnodes[i + 1] + dnodesid[i + 1] + drelations[i] + dstartnodes[i]
+                            });
 
-                                //console.log("nodesA",nodesA[i]);
+                            //console.log("nodesA",nodesA[i]);
 
-                            }
+                        }
                         //}
 
 
 
                     }
-
-
-
-
-
 
 
 
@@ -1287,7 +1244,6 @@ query = query.substring(0, lastIndex);
                     }
 
                     //console.log("nodesAunique",nodesAunique);
-
 
 
 
@@ -1418,9 +1374,6 @@ query = query.substring(0, lastIndex);
 
 
 
-
-
-
                 }
 
 
@@ -1429,51 +1382,49 @@ query = query.substring(0, lastIndex);
 
 
 
-
             }
         }
     });
 };
 exports.getNodeNameById = function(req, res) {
-     var query = 'MATCH n WHERE n.id ={nodeId} RETURN n.name as name, labels(n) as label'
+    var query = 'MATCH n WHERE n.id ={nodeId} RETURN n.name as name, labels(n) as label'
     var params = {
         nodeId: req.params.id
     };
-    
+
     neodb.db.query(query, params, function(err, results) {
-        
-        var nodename="";
-        if (err!=null) {
+
+        var nodename = "";
+        if (err != null) {
             console.error('Error retreiving node from database:', err);
             //console.log(err);
             res.send(404, 'No node at that location.');
         } else {
-            
-            
-            if(results[0]==null)
-            {
+
+
+            if (results[0] == null) {
                 //console.log("no name");
                 res.send("Not Found");
+            } else {
+                resultsobj = eval(results);
+
+                nodename = resultsobj[0].name;
+                nodelabel = resultsobj[0].label[0];
+
+
+
+                nodelabel = nodelabel.replace(/([a-z])([A-Z])/g, '$1 $2');
+                nodelabel = nodelabel.replace(/_/g, ' ');
+                nodelabel = nodelabel.replace(/\b([A-Z]+)([A-Z])([a-z])/, '$1 $2$3');
+                nodelabel = nodelabel.replace(/^./, function(nodelabel) {
+                    return nodelabel.toUpperCase();
+                });
+
+
+                res.send(nodename + " (" + nodelabel + ")");
             }
-            else
-            {
-                resultsobj= eval(results);
-
-                nodename= resultsobj[0].name;
-                nodelabel= resultsobj[0].label[0];
 
 
-                                
-                nodelabel=nodelabel.replace(/([a-z])([A-Z])/g, '$1 $2');
-                nodelabel=nodelabel.replace(/_/g, ' ');
-                nodelabel=nodelabel.replace(/\b([A-Z]+)([A-Z])([a-z])/, '$1 $2$3');
-                nodelabel=nodelabel.replace(/^./, function(nodelabel){ return nodelabel.toUpperCase(); });
-
-                
-                res.send(nodename+" ("+nodelabel+")");
-            }
-
-            
 
         }
     });
@@ -1482,31 +1433,24 @@ exports.getNodeNameById = function(req, res) {
 
 exports.getManagedSystems = function(req, res) {
 
-    var query = 'match p=(n)-[r:OVERSEES|MANAGES*]->x where n.id={nodeId} '
-                + 'return extract(a in nodes(p) | a.name) as byName, extract(a in nodes(p) |  a.id ) as byId, ' 
-                + 'extract(a in nodes(p) |  a.informationValidated ) as byVal, length(p) as len'
+    var query = 'match p=(n)-[r:OVERSEES|MANAGES*]->x where n.id={nodeId} ' + 'return extract(a in nodes(p) | a.name) as byName, extract(a in nodes(p) |  a.id ) as byId, ' + 'extract(a in nodes(p) |  a.informationValidated ) as byVal, length(p) as len'
     var params = {
         nodeId: req.params.id
     };
-    
+
     neodb.db.query(query, params, function(err, results) {
-        var managestack={};
-        if (err!=null) {
+        var managestack = {};
+        if (err != null) {
             console.error('Error retreiving node from database:', err);
             //console.log(err);
             res.send(404, 'No node at that location.');
-        } 
-        else 
-        {
-            if(results[0]==null)
-            {
+        } else {
+            if (results[0] == null) {
                 res.send("Not Found");
-            }
-            else
-            {
+            } else {
                 //pack the parent object
-                idctr=1;
-                resultsobj= eval(results);
+                idctr = 1;
+                resultsobj = eval(results);
                 managestack.name = resultsobj[0].byName[0];
                 managestack.sysId = resultsobj[0].byId[0];
                 managestack.id = idctr;
@@ -1514,24 +1458,19 @@ exports.getManagedSystems = function(req, res) {
                 managestack.valid = resultsobj[0].byVal[0];
                 managestack.children = [];
                 //iterate over children
-                for (var k=0; k<resultsobj.length; k++)
-                {
-                   //iterate over an item, building out tree if unable to find item in managestack
-                   var parentschildren=managestack.children;
-                   for (var i=1; i <= resultsobj[k].len; i++)
-                   {
+                for (var k = 0; k < resultsobj.length; k++) {
+                    //iterate over an item, building out tree if unable to find item in managestack
+                    var parentschildren = managestack.children;
+                    for (var i = 1; i <= resultsobj[k].len; i++) {
                         var searchId = resultsobj[k].byId[i]
                         var foundChild = null;
-                        for (var q = parentschildren.length-1; q>=0; q--)
-                        {
-                            if(parentschildren[q].sysId == searchId)
-                            {
+                        for (var q = parentschildren.length - 1; q >= 0; q--) {
+                            if (parentschildren[q].sysId == searchId) {
                                 foundChild = parentschildren[q];
                                 break;
                             }
                         }
-                        if (foundChild === null)
-                        {
+                        if (foundChild === null) {
                             var child = {};
                             child.name = resultsobj[k].byName[i];
                             child.id = idctr;
@@ -1541,15 +1480,14 @@ exports.getManagedSystems = function(req, res) {
                             foundChild = child;
                             parentschildren.push(foundChild)
                         }
-                        if(i<resultsobj[k].len) //there are grandchildren.  If there is not a children array, create it
+                        if (i < resultsobj[k].len) //there are grandchildren.  If there is not a children array, create it
                         {
-                            if(foundChild.children == null)
-                            {
+                            if (foundChild.children == null) {
                                 foundChild.children = []
                             }
                         }
                         parentschildren = foundChild.children;
-                   }
+                    }
                 }
                 //send the whole thing up to the people who are gonna view it.
                 res.send(managestack);
@@ -1560,69 +1498,63 @@ exports.getManagedSystems = function(req, res) {
 };
 
 exports.getAllRelationships = function(req, res) {
-     var query = 'match a-[r]->b return distinct type(r) as relname'
+    var query = 'match a-[r]->b return distinct type(r) as relname'
     var params = {
         nodeId: req.params.id
     };
-    
+
     neodb.db.query(query, params, function(err, results) {
-        
-        var nodename="";
-        if (err!=null) {
+
+        var nodename = "";
+        if (err != null) {
             console.error('Error retreiving node from database:', err);
             //console.log(err);
             res.send(404, 'No node at that location.');
         } else {
-            
-            
-            if(results[0]==null)
-            {
+
+
+            if (results[0] == null) {
                 //console.log("no name");
                 res.send("Not Found");
-            }
-            else
-            {
+            } else {
                 var obj = eval(results);
 
                 res.send(obj);
             }
 
-            
+
 
         }
     });
 }
 
 exports.getAllNodeTypes = function(req, res) {
-     var query = 'match a return distinct labels(a)[0] as nodetypes'
+    var query = 'match a return distinct labels(a)[0] as nodetypes'
     var params = {
         nodeId: req.params.id
     };
-    
+
     neodb.db.query(query, params, function(err, results) {
-        
-        if (err!=null) {
+
+        if (err != null) {
             console.error('Error retreiving node from database:', err);
             //console.log(err);
             res.send(404, 'No node at that location.');
         } else {
-            
-            
-            if(results[0]==null)
-            {
+
+
+            if (results[0] == null) {
                 //console.log("no name");
                 res.send("Not Found");
-            }
-            else
-            {
+            } else {
                 var obj = eval(results);
 
-             
+
 
                 res.send(obj);
             }
 
-            
+
 
         }
     });
@@ -1632,63 +1564,60 @@ exports.getAllNodeTypes = function(req, res) {
 exports.getAdhocQueryResults = function(req, res) {
 
 
-    var adhocquery=req.params.query;
+    var adhocquery = req.params.query;
     //console.log(adhocquery);
 
-    var q=adhocquery.split("+");
-    var qnode=q[0];
-    var nt=q[1];
-    var rt=q[2];
+    var q = adhocquery.split("+");
+    var qnode = q[0];
+    var nt = q[1];
+    var rt = q[2];
 
-    rt=rt.replace(/-/g,":");
+    rt = rt.replace(/-/g, ":");
 
-    validationresults=[];
+    validationresults = [];
 
     //console.log(qnode,rt,nt);
 
 
-    var query = 'match a-[r'+rt+']-b where labels(b)[0] in ['+nt+'] and a.id in ['+qnode+'] return distinct a.name as aname, a.id as aid,b.name as bname,b.id as bid,labels(b)[0] as btype,type(r) as rel';
+    var query = 'match a-[r' + rt + ']-b where labels(b)[0] in [' + nt + '] and a.id in [' + qnode + '] return distinct a.name as aname, a.id as aid,b.name as bname,b.id as bid,labels(b)[0] as btype,type(r) as rel';
     //console.log(query);
     var params = {
-       
+
     };
-    
+
     neodb.db.query(query, params, function(err, results) {
-        
-        if (err!=null) {
+
+        if (err != null) {
             console.error('Error retreiving node from database:', err);
             //console.log(err);
             res.send(404, 'No node at that location.');
         } else {
-            
-            
-            if(results[0]==null)
-            {
+
+
+            if (results[0] == null) {
                 //console.log("no name");
                 res.json(validationresults);
-            }
-            else
-            {
+            } else {
                 //var obj = eval(results);
 
-                results.forEach(function(d){
-                //console.log(d.bname);
-                validationresults.push({
-                        "aname":d.aname,
-                        "aid":d.aid,
+                results.forEach(function(d) {
+                    //console.log(d.bname);
+                    validationresults.push({
+                        "aname": d.aname,
+                        "aid": d.aid,
                         "bname": d.bname,
                         "bid": d.bid,
-                        "btype":d.btype,
+                        "btype": d.btype,
                         "rel": d.rel
                     });
-            });
+                });
 
-             //console.log(validationresults);
+                //console.log(validationresults);
 
-             res.json(validationresults);
+                res.json(validationresults);
             }
 
-            
+
 
         }
     });
@@ -1697,218 +1626,197 @@ exports.getAdhocQueryResults = function(req, res) {
 exports.getAdhocQueryRelatedNodeTypesResults = function(req, res) {
 
 
-    var adhocquery=req.params.query;
+    var adhocquery = req.params.query;
     //console.log(adhocquery);
 
-    var q=adhocquery.split("+");
-    var qnode=q[0];
-    var nt=q[1];
-    var ads=q[2];
-    var mo=q[3];
+    var q = adhocquery.split("+");
+    var qnode = q[0];
+    var nt = q[1];
+    var ads = q[2];
+    var mo = q[3];
 
-    var likeclause="";
-    if(ads=="NA")
-    {
-        likeclause="";
-    }else
-    {
+    var likeclause = "";
+    if (ads == "NA") {
+        likeclause = "";
+    } else {
 
-        var adsstring=ads.split(",");
+        var adsstring = ads.split(",");
 
-        for(i=0;i<adsstring.length;i++)
-        {
-            var adsattr=adsstring[i].split("=");
-            adsattr[1]=adsattr[1].replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\\\$&');
-            likeclause=likeclause+" lower(b."+adsattr[0]+")=~'.*"+adsattr[1]+".*' OR";
+        for (i = 0; i < adsstring.length; i++) {
+            var adsattr = adsstring[i].split("=");
+            adsattr[1] = adsattr[1].replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\\\$&');
+            likeclause = likeclause + " lower(b." + adsattr[0] + ")=~'.*" + adsattr[1] + ".*' OR";
         }
 
         likeclause = likeclause.replace(/((OR)$)/g, "");
-        likeclause = " ("+likeclause + ") and ";
+        likeclause = " (" + likeclause + ") and ";
 
-        
+
 
     }
 
-    validationresults=[];
+    validationresults = [];
     //console.log(qnode,rt,nt);
-    var query="";
+    var query = "";
 
-    if(mo=="MO")
-    {
-        query = 'match p=shortestPath(a-[r:MANAGED|:OVERSEES*]->b) where '+likeclause+' labels(b)[0] in ['+nt+'] and a.id in ['+qnode+'] return distinct a.name as aname, a.id as aid,labels(a)[0] as atype,b.name as bname,b.id as bid,labels(b)[0] as btype, extract(x IN nodes(p) | "{\\\"id\\\":\\\""+x.id+"\\\",\\\"label\\\":\\\""+labels(x)[0]+"\\\",\\\"name\\\":\\\""+x.name+"\\\"}") as pathnodes, extract(x IN relationships(p) | "{\\\"source\\\":\\\""+startNode(x).id+"\\\",\\\"target\\\":\\\""+endNode(x).id+"\\\",\\\"reltype\\\":\\\""+type(x)+"\\\"}") as pathlinks,length(p) as pathlen  order by pathlen'; 
-    }
-    else
-    {
-       query = 'match p=shortestPath(a-[r*]-b) where '+likeclause+' labels(b)[0] in ['+nt+'] and a.id in ['+qnode+'] return distinct a.name as aname, a.id as aid,labels(a)[0] as atype,b.name as bname,b.id as bid,labels(b)[0] as btype, extract(x IN nodes(p) | "{\\\"id\\\":\\\""+x.id+"\\\",\\\"label\\\":\\\""+labels(x)[0]+"\\\",\\\"name\\\":\\\""+x.name+"\\\"}") as pathnodes, extract(x IN relationships(p) | "{\\\"source\\\":\\\""+startNode(x).id+"\\\",\\\"target\\\":\\\""+endNode(x).id+"\\\",\\\"reltype\\\":\\\""+type(x)+"\\\"}") as pathlinks,length(p) as pathlen  order by pathlen'; 
+    if (mo == "MO") {
+        query = 'match p=shortestPath(a-[r:MANAGED|:OVERSEES*]->b) where ' + likeclause + ' labels(b)[0] in [' + nt + '] and a.id in [' + qnode + '] return distinct a.name as aname, a.id as aid,labels(a)[0] as atype,b.name as bname,b.id as bid,labels(b)[0] as btype, extract(x IN nodes(p) | "{\\\"id\\\":\\\""+x.id+"\\\",\\\"label\\\":\\\""+labels(x)[0]+"\\\",\\\"name\\\":\\\""+x.name+"\\\"}") as pathnodes, extract(x IN relationships(p) | "{\\\"source\\\":\\\""+startNode(x).id+"\\\",\\\"target\\\":\\\""+endNode(x).id+"\\\",\\\"reltype\\\":\\\""+type(x)+"\\\"}") as pathlinks,length(p) as pathlen  order by pathlen';
+    } else {
+        query = 'match p=shortestPath(a-[r*]-b) where ' + likeclause + ' labels(b)[0] in [' + nt + '] and a.id in [' + qnode + '] return distinct a.name as aname, a.id as aid,labels(a)[0] as atype,b.name as bname,b.id as bid,labels(b)[0] as btype, extract(x IN nodes(p) | "{\\\"id\\\":\\\""+x.id+"\\\",\\\"label\\\":\\\""+labels(x)[0]+"\\\",\\\"name\\\":\\\""+x.name+"\\\"}") as pathnodes, extract(x IN relationships(p) | "{\\\"source\\\":\\\""+startNode(x).id+"\\\",\\\"target\\\":\\\""+endNode(x).id+"\\\",\\\"reltype\\\":\\\""+type(x)+"\\\"}") as pathlinks,length(p) as pathlen  order by pathlen';
     }
 
-    console.log(query);
+    //console.log(query);
     var params = {
-       
+
     };
-    
+
     neodb.db.query(query, params, function(err, results) {
-        
-        if (err!=null) {
+
+        if (err != null) {
             console.error('Error retreiving node from database:', err);
             //console.log(err);
             res.send(404, 'No node at that location.');
         } else {
-            
-            
-            if(results[0]==null)
-            {
+
+
+            if (results[0] == null) {
                 //console.log("no name");
                 res.json(validationresults);
-            }
-            else
-            {
+            } else {
                 //var obj = eval(results);
 
-                results.forEach(function(d){
-                //console.log(d.bname);
-                if(d.aid!=d.bid)
-                validationresults.push({
-                        "aname":d.aname,
-                        "aid":d.aid,
-                        "atype":d.atype,
-                        "bname": d.bname,
-                        "bid": d.bid,
-                        "btype":d.btype,
-                        //"rel": d.rel,
-                        "pathnodes": d.pathnodes,
-                        "pathlinks": d.pathlinks
-                    });
-            });
+                results.forEach(function(d) {
+                    //console.log(d.bname);
+                    if (d.aid != d.bid)
+                        validationresults.push({
+                            "aname": d.aname,
+                            "aid": d.aid,
+                            "atype": d.atype,
+                            "bname": d.bname,
+                            "bid": d.bid,
+                            "btype": d.btype,
+                            //"rel": d.rel,
+                            "pathnodes": d.pathnodes,
+                            "pathlinks": d.pathlinks
+                        });
+                });
 
-             //console.log(validationresults);
+                //console.log(validationresults);
 
-             res.json(validationresults);
+                res.json(validationresults);
             }
 
-            
+
 
         }
     });
 }
-
-
 
 
 
 exports.getAdhocQueryRelatedNodeTypesResultsCSV = function(req, res) {
 
 
-    var adhocquery=req.params.query;
+    var adhocquery = req.params.query;
     //console.log(adhocquery);
 
-    var q=adhocquery.split("+");
-    var qnode=q[0];
-    var nt=q[1];
-    var ads=q[2];
-    var mo=q[3];
+    var q = adhocquery.split("+");
+    var qnode = q[0];
+    var nt = q[1];
+    var ads = q[2];
+    var mo = q[3];
 
-    var likeclause="";
-    if(ads=="NA")
-    {
-        likeclause="";
-    }else
-    {
+    var likeclause = "";
+    if (ads == "NA") {
+        likeclause = "";
+    } else {
 
-        var adsstring=ads.split(",");
+        var adsstring = ads.split(",");
 
-        for(i=0;i<adsstring.length;i++)
-        {
-            var adsattr=adsstring[i].split("=");
-            adsattr[1]=adsattr[1].replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\\\$&');
-            likeclause=likeclause+" lower(b."+adsattr[0]+")=~'.*"+adsattr[1]+".*' OR";
+        for (i = 0; i < adsstring.length; i++) {
+            var adsattr = adsstring[i].split("=");
+            adsattr[1] = adsattr[1].replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\\\$&');
+            likeclause = likeclause + " lower(b." + adsattr[0] + ")=~'.*" + adsattr[1] + ".*' OR";
         }
 
         likeclause = likeclause.replace(/((OR)$)/g, "");
-        likeclause = " ("+likeclause + ") and ";
+        likeclause = " (" + likeclause + ") and ";
 
-        
+
 
     }
 
-    validationresults=[];
+    validationresults = [];
 
     //console.log(qnode,rt,nt);
-    var query="";
+    var query = "";
 
-    if(mo=="MO")
-    {
-        query = 'match p=shortestPath(a-[r:MANAGED|:OVERSEES*]->b) where '+likeclause+' labels(b)[0] in ['+nt+'] and a.id in ['+qnode+'] return distinct a.name as aname, a.id as aid,labels(a)[0] as atype,b.name as bname,b.id as bid,labels(b)[0] as btype, extract(x IN nodes(p) | "{\\\"id\\\":\\\""+x.id+"\\\",\\\"label\\\":\\\""+labels(x)[0]+"\\\",\\\"name\\\":\\\""+x.name+"\\\"}") as pathnodes, extract(x IN relationships(p) | "{\\\"source\\\":\\\""+startNode(x).id+"\\\",\\\"target\\\":\\\""+endNode(x).id+"\\\",\\\"reltype\\\":\\\""+type(x)+"\\\"}") as pathlinks,length(p) as pathlen  order by pathlen'; 
-    }
-    else
-    {
-       query = 'match p=shortestPath(a-[r*]-b) where '+likeclause+' labels(b)[0] in ['+nt+'] and a.id in ['+qnode+'] return distinct a.name as aname, a.id as aid,labels(a)[0] as atype,b.name as bname,b.id as bid,labels(b)[0] as btype, extract(x IN nodes(p) | "{\\\"id\\\":\\\""+x.id+"\\\",\\\"label\\\":\\\""+labels(x)[0]+"\\\",\\\"name\\\":\\\""+x.name+"\\\"}") as pathnodes, extract(x IN relationships(p) | "{\\\"source\\\":\\\""+startNode(x).id+"\\\",\\\"target\\\":\\\""+endNode(x).id+"\\\",\\\"reltype\\\":\\\""+type(x)+"\\\"}") as pathlinks,length(p) as pathlen  order by pathlen'; 
+    if (mo == "MO") {
+        query = 'match p=shortestPath(a-[r:MANAGED|:OVERSEES*]->b) where ' + likeclause + ' labels(b)[0] in [' + nt + '] and a.id in [' + qnode + '] return distinct a.name as aname, a.id as aid,labels(a)[0] as atype,b.name as bname,b.id as bid,labels(b)[0] as btype, extract(x IN nodes(p) | "{\\\"id\\\":\\\""+x.id+"\\\",\\\"label\\\":\\\""+labels(x)[0]+"\\\",\\\"name\\\":\\\""+x.name+"\\\"}") as pathnodes, extract(x IN relationships(p) | "{\\\"source\\\":\\\""+startNode(x).id+"\\\",\\\"target\\\":\\\""+endNode(x).id+"\\\",\\\"reltype\\\":\\\""+type(x)+"\\\"}") as pathlinks,length(p) as pathlen  order by pathlen';
+    } else {
+        query = 'match p=shortestPath(a-[r*]-b) where ' + likeclause + ' labels(b)[0] in [' + nt + '] and a.id in [' + qnode + '] return distinct a.name as aname, a.id as aid,labels(a)[0] as atype,b.name as bname,b.id as bid,labels(b)[0] as btype, extract(x IN nodes(p) | "{\\\"id\\\":\\\""+x.id+"\\\",\\\"label\\\":\\\""+labels(x)[0]+"\\\",\\\"name\\\":\\\""+x.name+"\\\"}") as pathnodes, extract(x IN relationships(p) | "{\\\"source\\\":\\\""+startNode(x).id+"\\\",\\\"target\\\":\\\""+endNode(x).id+"\\\",\\\"reltype\\\":\\\""+type(x)+"\\\"}") as pathlinks,length(p) as pathlen  order by pathlen';
     }
 
-    console.log(query);
+    //console.log(query);
     var params = {
-       
+
     };
-    
+
     neodb.db.query(query, params, function(err, results) {
-        
-        if (err!=null) {
+
+        if (err != null) {
             console.error('Error retreiving node from database:', err);
             //console.log(err);
             res.send(404, 'No node at that location.');
         } else {
-            
-            
-            if(results[0]==null)
-            {
+
+
+            if (results[0] == null) {
                 validationresults.push({
-                    "aname":"Activity Name",
+                    "aname": "Activity Name",
                     //"aid":"Activity ID",
-                    "atype":"Activity Type",
+                    "atype": "Activity Type",
                     "bname": "Related Activity Name",
                     //"bid": "Related Activity ID",
-                    "btype":"Related Activity Type"
-                    //"pathnodes": "d.pathnodes",
-                    //"pathlinks": "d.pathlinks"
+                    "btype": "Related Activity Type"
+                        //"pathnodes": "d.pathnodes",
+                        //"pathlinks": "d.pathlinks"
                 });
-            }
-            else
-            {
+            } else {
                 //var obj = eval(results);
                 validationresults.push({
-                    "aname":"Activity Name",
+                    "aname": "Activity Name",
                     //"aid":"Activity ID",
-                    "atype":"Activity Type",
+                    "atype": "Activity Type",
                     "bname": "Related Activity Name",
                     //"bid": "Related Activity ID",
-                    "btype":"Related Activity Type"
-                    //"pathnodes": "d.pathnodes",
-                    //"pathlinks": "d.pathlinks"
+                    "btype": "Related Activity Type"
+                        //"pathnodes": "d.pathnodes",
+                        //"pathlinks": "d.pathlinks"
                 });
 
-                results.forEach(function(d){
-                //console.log(d.bname);
-                    if(d.aid!=d.bid)
-                    validationresults.push({
-                            "aname":d.aname,
+                results.forEach(function(d) {
+                    //console.log(d.bname);
+                    if (d.aid != d.bid)
+                        validationresults.push({
+                            "aname": d.aname,
                             //"aid":d.aid,
-                            "atype":d.atype,
+                            "atype": d.atype,
                             "bname": d.bname,
                             //"bid": d.bid,
-                            "btype":d.btype
-                            //"pathnodes": d.pathnodes,
-                            //"pathlinks": d.pathlinks
+                            "btype": d.btype
+                                //"pathnodes": d.pathnodes,
+                                //"pathlinks": d.pathlinks
                         });
-                    });
+                });
 
-                }
-            res.header('content-type','text/csv');
+            }
+            res.header('content-type', 'text/csv');
             res.header('content-disposition', 'attachment; filename=export.csv');
             res.csv(validationresults);
 
         }
 
-        
 
 
     });
@@ -1916,36 +1824,22 @@ exports.getAdhocQueryRelatedNodeTypesResultsCSV = function(req, res) {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 exports.getAttributeValues = function(req, res) {
-    
-   
-    var attr=req.params.attr;
-
-    var attrarr=attr.split("+");
-
-    var attrname=attrarr[0];
-    var attrtype=attrarr[1];
-    var attrval=attrarr[2];
 
 
-    var query = 'match (a:`'+attrtype+'`) where lower(a.'+attrname+')=~".*' + attrval +'.*"  return distinct a.'+attrname+' as values';
+    var attr = req.params.attr;
+
+    var attrarr = attr.split("+");
+
+    var attrname = attrarr[0];
+    var attrtype = attrarr[1];
+    var attrval = attrarr[2];
+
+
+    var query = 'match (a:`' + attrtype + '`) where lower(a.' + attrname + ')=~".*' + attrval + '.*"  return distinct a.' + attrname + ' as values';
 
     //var query = 'MATCH n WHERE lower(n.name)=~".*' + searchTerm + '.*" or lower(n.shortName)=~".*' + searchTerm + '.*" RETURN distinct n.id as id, n.name as name, n.shortName as shortname';
-    console.log(query);
+    //console.log(query);
     var params = {
         searchTerm: req.params.searchTerm
     };
@@ -1959,12 +1853,13 @@ exports.getAttributeValues = function(req, res) {
             if (results != null) {
                 var nodedata = [];
 
-                _.each(results, function(i){
-                        nodedata.push({values: i.values});
+                _.each(results, function(i) {
+                    nodedata.push({
+                        values: i.values
+                    });
                 })
                 res.json(nodedata);
-            }
-            else{
+            } else {
                 res.json([]);
             }
         }
@@ -1973,14 +1868,14 @@ exports.getAttributeValues = function(req, res) {
 
 
 exports.getRelationshipValues = function(req, res) {
-    
-   
-    var id=req.params.id;
 
-    var query = 'match (a)-[r]-(b) where a.id=\''+id+'\' return a.id as aid, a.name as aname, b.id as bid, b.name as bname, type(r) as reltype, startNode(r).id as startid, endNode(r).id as endid,startNode(r).name as startname, endNode(r).name as endname';
+
+    var id = req.params.id;
+
+    var query = 'match (a)-[r]-(b) where a.id=\'' + id + '\' return a.id as aid, a.name as aname, b.id as bid, b.name as bname, type(r) as reltype, startNode(r).id as startid, endNode(r).id as endid,startNode(r).name as startname, endNode(r).name as endname';
 
     //var query = 'MATCH n WHERE lower(n.name)=~".*' + searchTerm + '.*" or lower(n.shortName)=~".*' + searchTerm + '.*" RETURN distinct n.id as id, n.name as name, n.shortName as shortname';
-    console.log(id,query);
+    //console.log(id,query);
     var params = {
         nodeid: id
     };
@@ -1993,8 +1888,7 @@ exports.getRelationshipValues = function(req, res) {
         } else {
             if (results != null) {
                 res.json(results);
-            }
-            else{
+            } else {
                 res.json({});
             }
         }
@@ -2005,13 +1899,13 @@ exports.getMongoAll = function(req, res) {
     var collection = mongo.mongodb.collection('cr');
 
     collection.find({}).toArray(function(err, docs) {
-    //assert.equal(err, null);
-    //assert.equal(2, docs.length);
-    console.log("Found the following records");
-    console.log(docs)
-    //callback(docs);
-    res.send(docs);
-  });      
+        //assert.equal(err, null);
+        //assert.equal(2, docs.length);
+        //console.log("Found the following records");
+        //console.log(docs)
+        //callback(docs);
+        res.send(docs);
+    });
 
 };
 
@@ -2020,104 +1914,106 @@ exports.postUpdateCR = function(req, res) {
 
 
     //console.log("req params",req.body);
-    var nodeDataString={};
-    nodeDataString=req.body.attr;
-    nodeDataString["rels"]=JSON.stringify(req.body.rels);
+    var nodeDataString = {};
+    nodeDataString = req.body.attr;
+    nodeDataString["rels"] = JSON.stringify(req.body.rels);
 
-    console.log(nodeDataString);
+    //console.log(nodeDataString);
 
-     var collection = mongo.mongodb.collection('cr');
-      // Insert some documents
-      collection.insert(nodeDataString, function(err, result) {
+    var collection = mongo.mongodb.collection('cr');
+    // Insert some documents
+    collection.insert(nodeDataString, function(err, result) {
         // assert.equal(err, null);
         // assert.equal(3, result.result.n);
         // assert.equal(3, result.ops.length);
         //console.log("Inserted 3 documents into the document collection");
         res.send("success");
-      });
-//res.send("ok");
- }; 
+    });
+    //res.send("ok");
+};
 
- exports.postDeleteCR = function(req, res) {
-
-
-
-    console.log("req params",req.body);
-
-    var nodeDataString=req.body;
+exports.postDeleteCR = function(req, res) {
 
 
 
- var collection = mongo.mongodb.collection('cr');
-  // Insert some documents
-  collection.insert(nodeDataString, function(err, result) {
-    // assert.equal(err, null);
-    // assert.equal(3, result.result.n);
-    // assert.equal(3, result.ops.length);
-    //console.log("Inserted 3 documents into the document collection");
-    res.send("success");
-  });
-//res.send("ok");
- };
+    //console.log("req params",req.body);
+
+    var nodeDataString = req.body;
 
 
-
- exports.deleteMongoCR = function(req, res) {
-
-
-    console.log("req params",req.body);
-
-    var mongoid=req.body.mongoid;
-
-
-
-
- var collection = mongo.mongodb.collection('cr');
-
-  collection.remove({_id:ObjectId(mongoid)}, function(err, result) {
-    console.log(result,err);
-    res.send("success");
-  });
-//res.send("ok");
- }; 
-
-
-
- exports.getCR = function(req, res) {
-
-    var mongoid=req.params.id;
-    
 
     var collection = mongo.mongodb.collection('cr');
-    collection.find({_id:ObjectId(mongoid)}).toArray(function(err, docs) {
-        
+    // Insert some documents
+    collection.insert(nodeDataString, function(err, result) {
+        // assert.equal(err, null);
+        // assert.equal(3, result.result.n);
+        // assert.equal(3, result.ops.length);
+        //console.log("Inserted 3 documents into the document collection");
+        res.send("success");
+    });
+    //res.send("ok");
+};
+
+
+
+exports.deleteMongoCR = function(req, res) {
+
+
+    //console.log("req params",req.body);
+
+    var mongoid = req.body.mongoid;
+
+
+
+    var collection = mongo.mongodb.collection('cr');
+
+    collection.remove({
+        _id: ObjectId(mongoid)
+    }, function(err, result) {
+        //console.log(result,err);
+        res.send("success");
+    });
+    //res.send("ok");
+};
+
+
+
+exports.getCR = function(req, res) {
+
+    var mongoid = req.params.id;
+
+
+    var collection = mongo.mongodb.collection('cr');
+    collection.find({
+        _id: ObjectId(mongoid)
+    }).toArray(function(err, docs) {
+
         res.send(docs);
     });
 
     //res.send("ok");
- }; 
+};
 
- exports.postApproveCR = function(req, res) {
+exports.postApproveCR = function(req, res) {
 
     var mongodata = req.body.approved;
-    var prevdata=JSON.stringify(req.body.prev);
+    var prevdata = JSON.stringify(req.body.prev);
 
-    var req_type=req.body.type;
-
-
-    console.log("req params mongodata",mongodata);
-    console.log("req type",req_type);
+    var req_type = req.body.type;
 
 
+    //console.log("req params mongodata",mongodata);
+    //console.log("req type",req_type);
 
-    if(req_type=="UPDATE")
-    {
 
-        var query = 'match (n{id:\''+mongodata.id+'\'}) set n={params}, n.CR_PREVIOUS={prevdata} return n';
+
+    if (req_type == "UPDATE") {
+
+        var query = 'match (n{id:\'' + mongodata.id + '\'}) set n={params}, n.CR_PREVIOUS={prevdata} return n';
 
         var params = {
-            params:mongodata,
-            prevdata:prevdata
+            params: mongodata,
+            prevdata: prevdata
         };
         neodb.db.query(query, params, function(err, results) {
 
@@ -2125,45 +2021,51 @@ exports.postUpdateCR = function(req, res) {
                 console.error('Error retreiving node from database:', err);
                 res.send(404, 'No node at that location');
             } else {
-                console.log(results);
+                //console.log(results);
                 var collection = mongo.mongodb.collection('cr');
-                var currenttime=new Date().getTime();
-                console.log();
-                collection.update({_id:ObjectId(mongodata._id)},{$set:{CR_STATUS:"APPROVED",CR_DATE:currenttime,CR_PREVIOUS:prevdata}}, function(err, result) {
-                });
+                var currenttime = new Date().getTime();
+                //console.log();
+                collection.update({
+                    _id: ObjectId(mongodata._id)
+                }, {
+                    $set: {
+                        CR_STATUS: "APPROVED",
+                        CR_DATE: currenttime,
+                        CR_PREVIOUS: prevdata
+                    }
+                }, function(err, result) {});
             }
         });
 
-        var rels=[];
+        var rels = [];
 
-        rels=eval(mongodata.rels);
-        console.log("rels",rels);
-        var matchclause="("+mongodata.id+"{id:'"+mongodata.id+"'})";
-        var withclause=""+mongodata.id+"";
-        var createclause="";
-        var query='';
-        var bnodeids=[];
-        rels.forEach(function(d){
+        rels = eval(mongodata.rels);
+        //console.log("rels",rels);
+        var matchclause = "(" + mongodata.id + "{id:'" + mongodata.id + "'})";
+        var withclause = "" + mongodata.id + "";
+        var createclause = "";
+        var query = '';
+        var bnodeids = [];
+        rels.forEach(function(d) {
 
-            if(bnodeids.indexOf(d.bid)<0)
-            {
-                console.log(d.startid+'--'+d.endid+'--'+d.reltype);
+            if (bnodeids.indexOf(d.bid) < 0) {
+                //console.log(d.startid+'--'+d.endid+'--'+d.reltype);
 
-                matchclause=matchclause+", ("+d.bid+"{id:'"+d.bid+"'}) ";
-                withclause=withclause+", "+d.bid+" ";
-                createclause=createclause+" create "+d.startid+"-[:"+d.reltype+"]->"+d.endid+" ";
+                matchclause = matchclause + ", (" + d.bid + "{id:'" + d.bid + "'}) ";
+                withclause = withclause + ", " + d.bid + " ";
+                createclause = createclause + " create " + d.startid + "-[:" + d.reltype + "]->" + d.endid + " ";
 
                 bnodeids.push(d.bid);
             }
 
 
-            
-        });
-        query = 'match '+matchclause+' with '+withclause+createclause;
-        console.log(query);
 
-        var delrelquery="match (a{id:'"+mongodata.id+"'})-[r]-() delete r";
-        console.log(delrelquery);
+        });
+        query = 'match ' + matchclause + ' with ' + withclause + createclause;
+        //console.log(query);
+
+        var delrelquery = "match (a{id:'" + mongodata.id + "'})-[r]-() delete r";
+        //console.log(delrelquery);
 
         neodb.db.query(delrelquery, {}, function(err, results) {
             //console.log(results);
@@ -2172,21 +2074,28 @@ exports.postUpdateCR = function(req, res) {
                 console.error('Error retreiving node from database:', err);
                 res.send(404, 'No node at that location');
             } else {
-                var params = {
-                };
+                var params = {};
                 neodb.db.query(query, params, function(err1, results1) {
-                    console.log(results1);
+                    //console.log(results1);
 
                     if (err1) {
                         console.error('Error retreiving node from database:', err1);
                         res.send(404, 'No node at that location');
                     } else {
-                        console.log(results1);
+                        //console.log(results1);
                         var collection = mongo.mongodb.collection('cr');
-                        
-                        var currenttime=new Date().getTime();
-                        console.log();
-                        collection.update({_id:ObjectId(mongodata._id)},{$set:{CR_STATUS:"APPROVED",CR_DATE:currenttime,CR_PREVIOUS:prevdata}}, function(err, result) {
+
+                        var currenttime = new Date().getTime();
+                        //console.log();
+                        collection.update({
+                            _id: ObjectId(mongodata._id)
+                        }, {
+                            $set: {
+                                CR_STATUS: "APPROVED",
+                                CR_DATE: currenttime,
+                                CR_PREVIOUS: prevdata
+                            }
+                        }, function(err, result) {
                             //console.log(result);
                             res.send("success");
                         });
@@ -2195,20 +2104,17 @@ exports.postUpdateCR = function(req, res) {
             }
         });
 
-        
+
 
         //res.send("success");
 
 
 
+    } else if (req_type == "DELETE") {
 
-    }
-    else if(req_type=="DELETE")
-    {
+        var query = 'match (n{id:\'' + mongodata.id + '\'})-[r]-()  delete n,r';
 
-        var query = 'match (n{id:\''+mongodata.id+'\'})-[r]-()  delete n,r';
-
-        console.log(query,req_type);
+        //console.log(query,req_type);
         neodb.db.query(query, params, function(err, results) {
             //console.log(results);
 
@@ -2216,12 +2122,20 @@ exports.postUpdateCR = function(req, res) {
                 console.error('Error retreiving node from database:', err);
                 res.send(404, 'No node at that location');
             } else {
-                console.log(results);
+                //console.log(results);
                 var collection = mongo.mongodb.collection('cr');
-                
-                var currenttime=new Date().getTime();
-                console.log();
-                collection.update({_id:ObjectId(mongodata._id)},{$set:{CR_STATUS:"APPROVED",CR_DATE:currenttime,CR_PREVIOUS:prevdata}}, function(err, result) {
+
+                var currenttime = new Date().getTime();
+                //console.log();
+                collection.update({
+                    _id: ObjectId(mongodata._id)
+                }, {
+                    $set: {
+                        CR_STATUS: "APPROVED",
+                        CR_DATE: currenttime,
+                        CR_PREVIOUS: prevdata
+                    }
+                }, function(err, result) {
                     //console.log(result);
                     res.send("success");
                 });
@@ -2232,30 +2146,33 @@ exports.postUpdateCR = function(req, res) {
 
 
 
-
-
-
-
     //res.send("ok");
- };
+};
 
- exports.postDeclineCR = function(req, res) {
+exports.postDeclineCR = function(req, res) {
 
     var mongodata = req.body;
 
     //console.log("req params",mongodata.id);
 
     var collection = mongo.mongodb.collection('cr');
-    var currenttime=new Date().getTime();
-    console.log();
-    collection.update({_id:ObjectId(mongodata._id)},{$set:{CR_STATUS:"DECLINED",CR_DATE:currenttime}}, function(err, result) {
-        console.log(result,err);
+    var currenttime = new Date().getTime();
+    //console.log();
+    collection.update({
+        _id: ObjectId(mongodata._id)
+    }, {
+        $set: {
+            CR_STATUS: "DECLINED",
+            CR_DATE: currenttime
+        }
+    }, function(err, result) {
+        //console.log(result,err);
         res.send("success");
     });
 
 
     //res.send("ok");
- }; 
+};
 
 
 exports.postRollBackCR = function(req, res) {
@@ -2265,19 +2182,18 @@ exports.postRollBackCR = function(req, res) {
     //var prevdata=JSON.stringify(req.body.prev);
 
 
-    console.log("req params mongodata",mongodata);
+    //console.log("req params mongodata",mongodata);
     //console.log("req params pev",prevdata);
 
 
 
-
-    var query = 'match (n{id:\''+mongodata.id+'\'}) set n={params}, n.CR_PREVIOUS={prevdata} return n';
+    var query = 'match (n{id:\'' + mongodata.id + '\'}) set n={params}, n.CR_PREVIOUS={prevdata} return n';
 
     // //var query = 'MATCH n WHERE lower(n.name)=~".*' + searchTerm + '.*" or lower(n.shortName)=~".*' + searchTerm + '.*" RETURN distinct n.id as id, n.name as name, n.shortName as shortname';
-    // console.log(query);
+    // //console.log(query);
     var params = {
-        params:mongodata,
-        prevdata:""
+        params: mongodata,
+        prevdata: ""
     };
     neodb.db.query(query, params, function(err, results) {
         //console.log(results);
@@ -2286,12 +2202,20 @@ exports.postRollBackCR = function(req, res) {
             console.error('Error retreiving node from database:', err);
             res.send(404, 'No node at that location');
         } else {
-            console.log(results);
+            //console.log(results);
             var collection = mongo.mongodb.collection('cr');
-            
-            var currenttime=new Date().getTime();
-            
-            collection.update({_id:ObjectId(mongoid)},{$set:{CR_STATUS:"ROLLEDBACK",CR_DATE:currenttime,CR_PREVIOUS:""}}, function(err, result) {
+
+            var currenttime = new Date().getTime();
+
+            collection.update({
+                _id: ObjectId(mongoid)
+            }, {
+                $set: {
+                    CR_STATUS: "ROLLEDBACK",
+                    CR_DATE: currenttime,
+                    CR_PREVIOUS: ""
+                }
+            }, function(err, result) {
                 //console.log(result);
                 res.send("success");
             });
@@ -2299,4 +2223,4 @@ exports.postRollBackCR = function(req, res) {
     });
 
     //res.send("ok");
- }; 
+};

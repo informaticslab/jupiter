@@ -86,7 +86,7 @@
 												| Decline
 											.alert.alert-danger(role="alert" ng-show="status_show_declined")
 												| Declined! Change request has been declined.
-										.col-lg-12.col-md-12.col-sm-12
+										//.col-lg-12.col-md-12.col-sm-12
 											label.btn.btn-primary.btn-lg.btn-block.btn-danger(ng-click="rollbackCR()" ng-show="crStatus=='APPROVED' && crStatus!='ROLLEDBACK' && crRequestType!='DELETE'")
 												| Rollback
 									
@@ -105,7 +105,7 @@
 							th.col-lg-3.col-md-3.col-sm-3(ng-if="crStatus!='APPROVED' && crRequestType!='DELETE'")
 								b
 									| Difference
-							th.col-lg-3.col-md-3.col-sm-3(ng-if="crStatus=='APPROVED' && crRequestType!='DELETE'")
+							//th.col-lg-3.col-md-3.col-sm-3(ng-if="crStatus=='APPROVED' && crRequestType!='DELETE'")
 								b
 									| Rollback Values
 					tbody
@@ -119,7 +119,7 @@
 								small(ng-bind-html="row.valueOld")
 							td.col-lg-3.col-md-3.col-sm-3(ng-if="crStatus!='APPROVED' && crRequestType!='DELETE'")
 								small(ng-bind-html="row.diff" ng-if="row.diffFlg" )
-							td.col-lg-3.col-md-3.col-sm-3(ng-if="crStatus=='APPROVED' && crRequestType!='DELETE'")
+							//td.col-lg-3.col-md-3.col-sm-3(ng-if="crStatus=='APPROVED' && crRequestType!='DELETE'")
 								small(ng-bind-html="row.rollbackdiff")
 				.vertical_spacing_less
 						img.img-responsive.linkage_empty( id="defaultimg" src="img/ajax-loader.gif" ng-show="showVSTableLoading")

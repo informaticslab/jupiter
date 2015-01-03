@@ -2053,7 +2053,7 @@ exports.postApproveCR = function(req, res) {
 
                 matchclause = matchclause + ", (" + d.bid + "{id:'" + d.bid + "'}) ";
                 withclause = withclause + ", " + d.bid + " ";
-                createclause = createclause + " create " + d.startid + "-[:" + d.reltype + "]->" + d.endid + " ";
+                createclause = createclause + " create " + d.startid + "-[:`" + d.reltype + "`]->" + d.endid + " ";
 
                 bnodeids.push(d.bid);
             }

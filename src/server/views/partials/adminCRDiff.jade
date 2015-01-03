@@ -121,6 +121,38 @@
 								small(ng-bind-html="row.diff" ng-if="row.diffFlg" )
 							//td.col-lg-3.col-md-3.col-sm-3(ng-if="crStatus=='APPROVED' && crRequestType!='DELETE'")
 								small(ng-bind-html="row.rollbackdiff")
+				.row
+					//.col-lg-12.col-md-12.col-sm-12
+						.row
+							.col-lg-12.col-md-12.col-sm-12
+								| {{rel.startname}} {{rel.reltype}} {{rel.endname}} {{rel.found}}
+					.col-lg-12.col-md-12.col-sm-12
+						table.table
+							thead
+								tr
+									th.col-lg-4.col-md-4.col-sm-4
+										| From Node
+									th.col-lg-3.col-md-3.col-sm-3
+										| Relationship Type
+									th.col-lg-4.col-md-4.col-sm-4
+										| To Node
+									th.col-lg-1.col-md-1.col-sm-1
+										| Action
+							tbody
+								tr(ng-repeat="relrow in dbcrRelArray | orderBy: relrow.found")
+									td
+										| {{relrow.startname | TitleCase }} 
+									td
+										| {{relrow.reltype | TitleCase | unCamelCase}}
+									td
+										| {{relrow.endname | TitleCase}}
+									td
+										span.label.label-warning(ng-if="relrow.found")
+											| No Change
+										span.label.label-success(ng-if="!relrow.found && relrow.crdbType=='cr'")
+											| New
+										span.label.label-danger(ng-if="!relrow.found && relrow.crdbType=='db'")
+											| Removed
 				.vertical_spacing_less
 						img.img-responsive.linkage_empty( id="defaultimg" src="img/ajax-loader.gif" ng-show="showVSTableLoading")
 				

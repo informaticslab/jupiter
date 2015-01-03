@@ -102,7 +102,7 @@
 							th.col-lg-3.col-md-3.col-sm-3
 								b
 									| Database Value
-							th.col-lg-3.col-md-3.col-sm-3(ng-if="crStatus!='APPROVED' && crRequestType!='DELETE'")
+							th.col-lg-3.col-md-3.col-sm-3(ng-if="crRequestType!='DELETE'")
 								b
 									| Difference
 							//th.col-lg-3.col-md-3.col-sm-3(ng-if="crStatus=='APPROVED' && crRequestType!='DELETE'")
@@ -117,7 +117,7 @@
 								small(ng-bind-html="row.valueNew")
 							td.col-lg-3.col-md-3.col-sm-3
 								small(ng-bind-html="row.valueOld")
-							td.col-lg-3.col-md-3.col-sm-3(ng-if="crStatus!='APPROVED' && crRequestType!='DELETE'")
+							td.col-lg-3.col-md-3.col-sm-3(ng-if="crRequestType!='DELETE'")
 								small(ng-bind-html="row.diff" ng-if="row.diffFlg" )
 							//td.col-lg-3.col-md-3.col-sm-3(ng-if="crStatus=='APPROVED' && crRequestType!='DELETE'")
 								small(ng-bind-html="row.rollbackdiff")

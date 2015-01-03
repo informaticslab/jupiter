@@ -1,31 +1,33 @@
 angular.module('apolloApp').factory('nodeRelationshipDictionary', function() {
     return {
-        "RelationshipTypes":["GENERATES",
+        "RelationshipTypes":[
+                                "CONTRACTS_WITH",
+                                "ELECTRONICALLY_PROVIDES_DATA_TO",
+                                "ELECTRONICALLY_RECEIVES_DATA_FROM",
+                                "GENERATES",
                                 "IS_A_COMPONENT/PART_OF",
+                                "IS_A_MEMBER_OF",
                                 "IS_A_REPLACEMENT_FOR",
+                                "IS_A_SITE_FOR",
                                 "IS_THE_CREATOR_OF",
                                 "LINKED_WITH",
                                 "MANAGES",
+                                "MANUALLY_PROVIDES_DATA_TO",
+                                "MANUALLY_RECEIVES_DATA_FROM",
                                 "MEETS_REQUIREMENTS_OF",
                                 "OVERSEES",
                                 "PARTNER_WITH",
                                 "PERFORMS_SIMILAR_ACTIVITIES_TO",
+                                "PROCURES_FOR",
+                                "PROVIDES_DATA_TO",
                                 "PROVIDES_FUNDING_TO",
+                                "PROVIDES_PRODUCTS/RESOURCES_TO",
                                 "SERVES_AS_A_MODEL_FOR",
                                 "SHARES_DATA_WITH",
                                 "SHARES_RESOURCES_WITH",
                                 "SHARES_SPECIMENS/SAMPLES/KITS/ISOLATES_WITH",
                                 "TAGS",
-                                "USES",
-                                "MANUALLY_PROVIDES_DATA_TO",
-                                "ELECTRONICALLY_PROVIDES_DATA_TO",
-                                "MANUALLY_RECEIVES_DATA_FROM",
-                                "ELECTRONICALLY_RECEIVES_DATA_FROM",
-                                "IS_A_MEMBER_OF",
-                                "CONTRACTS_WITH",
-                                "PROVIDES_PRODUCTS/RESOURCES_TO",
-                                "PROCURES_FOR",
-                                "PROVIDES_DATA_TO",
-                                "IS_A_SITE_FOR"]
+                                "USES"
+                            ]
     };
 });

@@ -4,6 +4,7 @@ angular.module('apolloApp').controller('adminCRDiffCtrl', ['$scope', '$http','$r
         $scope.crDiffValues = [];
         var mongoid=$routeParams.id;
         var currentneodata={};
+        var currentreldata={};
         var rollback;
         $scope.labelclass="";
         $scope.actAttributes = {};
@@ -30,6 +31,7 @@ angular.module('apolloApp').controller('adminCRDiffCtrl', ['$scope', '$http','$r
             $scope.crDiffValues = [];
             mongoid=$routeParams.id;
             currentneodata={};
+            currentreldata=[];
 
             var cacheRenew=new Date().getTime();
 
@@ -76,7 +78,7 @@ angular.module('apolloApp').controller('adminCRDiffCtrl', ['$scope', '$http','$r
                 //console.log();
                 var cacheRenew=new Date().getTime();
                 $http.get('/apollo/api/node/' + $scope.nodeId+'?'+cacheRenew).then(function(res) {
-                    console.log("mongo and node datat",res.data,$scope.mongoData);
+                    //console.log("mongo and node datat",res.data,$scope.mongoData);
                     $scope.nodeData = res.data;
 
 
@@ -214,6 +216,10 @@ angular.module('apolloApp').controller('adminCRDiffCtrl', ['$scope', '$http','$r
 
                 $http.get('/apollo/api/node/relationships/' + $scope.nodeId+'?'+cacheRenew).then(function(res) {
                 $scope.relvalues=res.data;
+                currentreldata=res.data;
+                currentneodata["rels"]=JSON.stringify(currentreldata);
+                console.log(currentneodata);
+
                 //$scope.relarray=[];
 
                 var i=1;
@@ -223,8 +229,15 @@ angular.module('apolloApp').controller('adminCRDiffCtrl', ['$scope', '$http','$r
                     i++;
                 });
                 //console.log($scope.relvalues, $scope.crRel);
-
-                findRelDifference();
+                if($scope.crStatus=="APPROVED")
+                {
+                    findRelDifferencePrev();
+                }
+                else
+                {
+                    findRelDifference();
+                }
+                
             });
     }
 
@@ -235,7 +248,9 @@ angular.module('apolloApp').controller('adminCRDiffCtrl', ['$scope', '$http','$r
 
         var crRelArray=eval($scope.crRel);
 
+
         var dbcrRelArray=[];
+
 
         crRelArray.some(function(d){
             
@@ -244,12 +259,12 @@ angular.module('apolloApp').controller('adminCRDiffCtrl', ['$scope', '$http','$r
                 var crstr=d.startid+d.reltype+d.endid;
                 d.found=false;
                 d.crdbType="cr";
-                console.log("111111",crstr,dbstr);
+                //console.log("111111",crstr,dbstr);
                 if(dbstr==crstr)
                 {
                     d.found=true;
                     dbcrRelArray.push(d);
-                    console.log("pushed",d.found,d);
+                    //console.log("pushed",d.found,d);
                     return true;
                 }
 
@@ -258,7 +273,7 @@ angular.module('apolloApp').controller('adminCRDiffCtrl', ['$scope', '$http','$r
             if(!d.found)
             {
                 dbcrRelArray.push(d);
-                console.log("pushed",d.found,d);
+                //console.log("pushed",d.found,d);
             }
         });
 
@@ -270,7 +285,7 @@ angular.module('apolloApp').controller('adminCRDiffCtrl', ['$scope', '$http','$r
                 var dbstr=d.startid+d.reltype+d.endid;
                 d.found=false;
                 d.crdbType="db";
-                console.log("22222",dbstr,crstr);
+                //console.log("22222",dbstr,crstr);
                 if(dbstr==crstr)
                 {
                     d.found=true;
@@ -282,15 +297,95 @@ angular.module('apolloApp').controller('adminCRDiffCtrl', ['$scope', '$http','$r
             if(!d.found)
             {
                 dbcrRelArray.push(d);
-                console.log("pushed",d.found,d);
+                //console.log("pushed",d.found,d);
             }
         });
 
-         console.log(dbRelArray);
-         console.log(crRelArray);
+         //console.log(dbRelArray);
+         //console.log(crRelArray);
+         //console.log(dbcrRelArray);
+
+         $scope.dbcrRelArray=dbcrRelArray;
+
+         if(!$scope.$$phase)
+         {
+              $scope.$apply();
+         }
+
+
+    }
+
+
+    function findRelDifferencePrev(){
+                   
+        //console.log($scope.crRel);
+        var dbRelArray=$scope.relvalues;
+
+        //var crRelArray=eval($scope.crRel);
+
+        var dbprevRelArray=eval(JSON.parse($scope.crPrev).rels);
+        
+        //console.log(dbprevRelArray);
+
+        var dbcrRelArray=[];
+        //var dbprevdbRelArray=[];
+
+        dbprevRelArray.some(function(d){
+            
+            dbRelArray.some(function(d1){
+                var dbstr=d1.startid+d1.reltype+d1.endid;
+                var crstr=d.startid+d.reltype+d.endid;
+                d.found=false;
+                d.crdbType="cr";
+                //console.log("111111",crstr,dbstr);
+                if(dbstr==crstr)
+                {
+                    d.found=true;
+                    dbcrRelArray.push(d);
+                    //console.log("pushed",d.found,d);
+                    return true;
+                }
+
+            });
+            //console.log(d.found);
+            if(!d.found)
+            {
+                dbcrRelArray.push(d);
+                //console.log("pushed",d.found,d);
+            }
+        });
+
+
+        dbRelArray.some(function(d){
+            
+            dbprevRelArray.some(function(d1){
+                var crstr=d1.startid+d1.reltype+d1.endid;
+                var dbstr=d.startid+d.reltype+d.endid;
+                d.found=false;
+                d.crdbType="db";
+                //console.log("22222",dbstr,crstr);
+                if(dbstr==crstr)
+                {
+                    d.found=true;
+                    return true;
+                }
+
+            });
+
+            if(!d.found)
+            {
+                dbcrRelArray.push(d);
+                //console.log("pushed",d.found,d);
+            }
+        });
+
+         //console.log(dbRelArray);
+         //console.log(crRelArray);
          console.log(dbcrRelArray);
 
          $scope.dbcrRelArray=dbcrRelArray;
+
+         //console.log($scope.dbRelArray);
 
          if(!$scope.$$phase)
          {

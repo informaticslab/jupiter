@@ -307,10 +307,10 @@ angular.module('apolloApp').controller('adminCRDiffCtrl', ['$scope', '$http','$r
 
          $scope.dbcrRelArray=dbcrRelArray;
 
-         if(!$scope.$$phase)
-         {
-              $scope.$apply();
-         }
+         // if(!$scope.$$phase)
+         // {
+         //      $scope.$apply();
+         // }
 
 
     }
@@ -387,10 +387,10 @@ angular.module('apolloApp').controller('adminCRDiffCtrl', ['$scope', '$http','$r
 
          //console.log($scope.dbRelArray);
 
-         if(!$scope.$$phase)
-         {
-              $scope.$apply();
-         }
+         // if(!$scope.$$phase)
+         // {
+         //      $scope.$apply();
+         // }
 
 
     }

@@ -74,7 +74,7 @@ angular.module('apolloApp').controller('adminCRDiffCtrl', ['$scope', '$http','$r
                 //console.log();
 
                 $http.get('/apollo/api/node/' + $scope.nodeId).then(function(res) {
-                    //console.log(res.data);
+                    console.log("mongo and node datat",res.data,$scope.mongoData);
                     $scope.nodeData = res.data;
 
 

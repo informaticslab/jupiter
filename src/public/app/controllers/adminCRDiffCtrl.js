@@ -31,7 +31,9 @@ angular.module('apolloApp').controller('adminCRDiffCtrl', ['$scope', '$http','$r
             mongoid=$routeParams.id;
             currentneodata={};
 
-            $http.get('/apollo/api/mongo/'+mongoid,{cache:false,'foobar': new Date().getTime()}).then(function(res) {
+            var cacheRenew=new Date().getTime();
+
+            $http.get('/apollo/api/mongo/'+mongoid+'?'+cacheRenew,{cache:false}).then(function(res) {
                 $scope.mongoData=res.data;
                 //console.log($scope.mongoData);
                 

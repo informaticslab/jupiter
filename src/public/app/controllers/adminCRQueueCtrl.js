@@ -3,7 +3,7 @@ angular.module('apolloApp').controller('adminCRQueueCtrl', ['$scope', '$http','n
 
     
     
-    
+    $scope.crStatusModel='PENDING';
 
     
     $scope.init=function()
@@ -13,7 +13,7 @@ angular.module('apolloApp').controller('adminCRQueueCtrl', ['$scope', '$http','n
         $scope.crtSelect="";
         $scope.crtOpen=false;
         $scope.crFilterModel='';
-        $scope.crStatusModel='PENDING';
+        
         $scope.crAddCount=0;
         $scope.crDeleteCount=0;
         $scope.crUpdateCount=0;

@@ -41,6 +41,11 @@ angular.module('apolloApp').controller('adminCRQueueCtrl', ['$scope', '$http','n
                 }
             }
 
+            if(!$scope.$$phase) {
+              $scope.$apply();
+            }
+            
+
         });
 
         

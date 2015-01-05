@@ -287,6 +287,11 @@ angular.module('apolloApp').controller('adminCRDiffCtrl', ['$scope', '$http','$r
 
          $scope.dbcrRelArray=dbcrRelArray;
 
+         if(!$scope.$$phase)
+         {
+              $scope.$apply();
+         }
+
 
     }
 

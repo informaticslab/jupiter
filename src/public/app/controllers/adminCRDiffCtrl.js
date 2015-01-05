@@ -74,8 +74,8 @@ angular.module('apolloApp').controller('adminCRDiffCtrl', ['$scope', '$http','$r
 
 
                 //console.log();
-
-                $http.get('/apollo/api/node/' + $scope.nodeId).then(function(res) {
+                var cacheRenew=new Date().getTime();
+                $http.get('/apollo/api/node/' + $scope.nodeId+'?'+cacheRenew).then(function(res) {
                     console.log("mongo and node datat",res.data,$scope.mongoData);
                     $scope.nodeData = res.data;
 
@@ -209,7 +209,10 @@ angular.module('apolloApp').controller('adminCRDiffCtrl', ['$scope', '$http','$r
 
 
     function fetchRelationshipValues(){
-                    $http.get('/apollo/api/node/relationships/' + $scope.nodeId).then(function(res) {
+
+                var cacheRenew=new Date().getTime();
+
+                $http.get('/apollo/api/node/relationships/' + $scope.nodeId+'?'+cacheRenew).then(function(res) {
                 $scope.relvalues=res.data;
                 //$scope.relarray=[];
 

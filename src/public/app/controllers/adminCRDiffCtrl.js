@@ -340,7 +340,7 @@ angular.module('apolloApp').controller('adminCRDiffCtrl', ['$scope', '$http','$r
                 var dbstr=d1.startid+d1.reltype+d1.endid;
                 var crstr=d.startid+d.reltype+d.endid;
                 d.found=false;
-                d.crdbType="cr";
+                d.crdbType="db";
                 //console.log("111111",crstr,dbstr);
                 if(dbstr==crstr)
                 {
@@ -366,7 +366,7 @@ angular.module('apolloApp').controller('adminCRDiffCtrl', ['$scope', '$http','$r
                 var crstr=d1.startid+d1.reltype+d1.endid;
                 var dbstr=d.startid+d.reltype+d.endid;
                 d.found=false;
-                d.crdbType="db";
+                d.crdbType="cr";
                 //console.log("22222",dbstr,crstr);
                 if(dbstr==crstr)
                 {

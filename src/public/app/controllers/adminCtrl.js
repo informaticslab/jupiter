@@ -1,6 +1,27 @@
-angular.module('apolloApp').controller('adminCtrl', ['$scope', '$http','$filter','$routeParams','$location','nodeAttributeDictionary','nodeRelationshipDictionary',
-	function($scope,$http,$filter,$routeParams,$location,nodeAttributeDictionary,nodeRelationshipDictionary) {
+angular.module('apolloApp').controller('adminCtrl', ['$scope','$modal', '$http','$filter','$routeParams','$location','nodeAttributeDictionary','nodeRelationshipDictionary',
+	function($scope,$modal,$http,$filter,$routeParams,$location,nodeAttributeDictionary,nodeRelationshipDictionary) {
 
+
+    $scope.open = function (docid) {
+
+        var modalInstance = $modal.open({
+          templateUrl: 'myModalContent.html',
+          controller: 'ModalInstanceCtrl',
+          size: 'sm',
+          resolve: {
+            doc_id: function () {
+              return docid;
+            }
+          }
+        });
+
+        modalInstance.result.then(function (docid) {
+            $scope.deleterelrow(docid);
+        }, function () {
+          //$log.info('Modal dismissed at: ' + new Date());
+          //console.log('Modal dismissed at: ' + new Date(),$scope.selected);
+        });
+    };
 
     $scope.cr={};
     $scope.showButtons=false;
@@ -264,4 +285,20 @@ angular.module('apolloApp').controller('adminCtrl', ['$scope', '$http','$filter'
     }
 }]);
 
+angular.module('apolloApp').controller('ModalInstanceCtrl', function ($scope, $modalInstance,doc_id) {
 
+  // $scope.items = items;
+  // $scope.selected = {
+  //   item: $scope.items[0]
+  // };
+  console.log(doc_id);
+  $scope.ok = function () {
+    //$modalInstance.close('ok');
+    $scope.$close(doc_id);
+  };
+
+  $scope.cancel = function () {
+    //$modalInstance.dismiss('cancel');
+    $scope.$dismiss();
+  };
+});

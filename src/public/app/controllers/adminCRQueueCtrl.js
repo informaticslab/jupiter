@@ -1,7 +1,26 @@
-angular.module('apolloApp').controller('adminCRQueueCtrl', ['$scope', '$http','nodeAttributeDictionary',
-	function($scope,$http,nodeAttributeDictionary) {
+angular.module('apolloApp').controller('adminCRQueueCtrl', ['$scope', '$modal','$http','nodeAttributeDictionary',
+	function($scope,$modal,$http,nodeAttributeDictionary) {
 
-    
+    $scope.open = function (docid) {
+
+        var modalInstance = $modal.open({
+          templateUrl: 'myModalContent.html',
+          controller: 'ModalInstanceCtrl',
+          size: 'sm',
+          resolve: {
+            doc_id: function () {
+              return docid;
+            }
+          }
+        });
+
+        modalInstance.result.then(function (docid) {
+            $scope.deleteCR(docid);
+        }, function () {
+          //$log.info('Modal dismissed at: ' + new Date());
+          //console.log('Modal dismissed at: ' + new Date(),$scope.selected);
+        });
+  };
     
     $scope.crStatusModel='PENDING';
 
@@ -74,4 +93,21 @@ angular.module('apolloApp').controller('adminCRQueueCtrl', ['$scope', '$http','n
 
 }]);
 
+angular.module('apolloApp').controller('ModalInstanceCtrl', function ($scope, $modalInstance,doc_id) {
+
+  // $scope.items = items;
+  // $scope.selected = {
+  //   item: $scope.items[0]
+  // };
+  console.log(doc_id);
+  $scope.ok = function () {
+    //$modalInstance.close('ok');
+    $scope.$close(doc_id);
+  };
+
+  $scope.cancel = function () {
+    //$modalInstance.dismiss('cancel');
+    $scope.$dismiss();
+  };
+});
 

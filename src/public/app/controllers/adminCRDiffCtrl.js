@@ -49,8 +49,12 @@ angular.module('apolloApp').controller('adminCRDiffCtrl', ['$scope', '$http','$r
                 $scope.crUser=$scope.mongoData[0].CR_USER;
                 $scope.crPrev=$scope.mongoData[0].CR_PREVIOUS;
                 $scope.crRel=$scope.mongoData[0].rels;
+                $scope.crCreateDate=$scope.mongoData[0].CR_DATE_CREATED;
+                $scope.crApproveDate=$scope.mongoData[0].CR_DATE_APPROVED;
 
-                //console.log($scope.crRel);
+
+
+                console.log($scope.crApproveDate);
                 if($scope.crRequestType=="UPDATE")
                 {
                     $scope.labelclass="label-warning";
@@ -144,7 +148,7 @@ angular.module('apolloApp').controller('adminCRDiffCtrl', ['$scope', '$http','$r
     $scope.approveCR = function(){
 
 
-        //console.log($scope.mongoData[0]);
+        //$scope.mongoData[0].CR_DATE_APPROVED=new Date().getTime();
         datapacket={};
         datapacket.approved=$scope.mongoData[0];
         datapacket.prev=currentneodata;

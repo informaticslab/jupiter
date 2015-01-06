@@ -157,6 +157,7 @@ angular.module('apolloApp').controller('adminCtrl', ['$scope', '$http','$filter'
         $scope.cr['CR_DATE']= new Date().getTime();
         $scope.cr['CR_REQUEST_TYPE']="UPDATE";
         $scope.cr['CR_STATUS']="PENDING";
+        $scope.cr['CR_DATE_CREATED']=new Date().getTime();
 
         var datapacket={};
         datapacket['attr']=$scope.cr;
@@ -191,7 +192,7 @@ angular.module('apolloApp').controller('adminCtrl', ['$scope', '$http','$filter'
         $scope.cr['CR_DATE']= new Date().getTime();
         $scope.cr['CR_REQUEST_TYPE']="DELETE";
         $scope.cr['CR_STATUS']="PENDING";
-
+        $scope.cr['CR_DATE_CREATED']=new Date().getTime();
 
         $http.post('/apollo/api/mongo/postdeletecr', $scope.cr).
         //$http({method: 'Post', url: '/apollo/api/mongo/postcr', data: {greeting: 'hi'}}).

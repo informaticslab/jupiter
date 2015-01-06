@@ -2022,18 +2022,18 @@ exports.postApproveCR = function(req, res) {
                 res.send(404, 'No node at that location');
             } else {
                 //console.log(results);
-                var collection = mongo.mongodb.collection('cr');
-                var currenttime = new Date().getTime();
-                //console.log();
-                collection.update({
-                    _id: ObjectId(mongodata._id)
-                }, {
-                    $set: {
-                        CR_STATUS: "APPROVED",
-                        CR_DATE: currenttime,
-                        CR_PREVIOUS: prevdata
-                    }
-                }, function(err, result) {});
+                // var collection = mongo.mongodb.collection('cr');
+                // var currenttime = new Date().getTime();
+                // //console.log();
+                // collection.update({
+                //     _id: ObjectId(mongodata._id)
+                // }, {
+                //     $set: {
+                //         CR_STATUS: "APPROVED",
+                //         CR_DATE: currenttime,
+                //         CR_PREVIOUS: prevdata
+                //     }
+                // }, function(err, result) {});
             }
         });
 
@@ -2093,6 +2093,7 @@ exports.postApproveCR = function(req, res) {
                             $set: {
                                 CR_STATUS: "APPROVED",
                                 CR_DATE: currenttime,
+                                CR_DATE_APPROVED: currenttime,
                                 CR_PREVIOUS: prevdata
                             }
                         }, function(err, result) {

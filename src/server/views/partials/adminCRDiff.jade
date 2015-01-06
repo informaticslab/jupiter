@@ -107,7 +107,9 @@
 									| Difference
 							th.col-lg-3.col-md-3.col-sm-3(ng-if="crStatus=='APPROVED' && crRequestType!='DELETE'")
 								b
-									| Previous Values (as of: )
+									| Previous Value 
+									span(ng-if="crApproveDate")
+										| (Before: {{crApproveDate | date :'medium'}})
 					tbody
 						tr(ng-repeat="row in crDiffValues" ng-class="{rowhighlight:row.diffFlg}")
 							td.col-lg-2.col-md-2.col-sm-2

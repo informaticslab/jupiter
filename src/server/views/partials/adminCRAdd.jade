@@ -51,10 +51,10 @@
 				.row
 					.col-lg-12.col-md-12.col-sm-12
 						ul.nav.nav-pills
-							li(role="presentation")
+							li.active(role="presentation")
 								a(href="#/adminCRAdd")
 									| Add Node
-							li.active(role="presentation")
+							li(role="presentation")
 								a(href="#/adminCREdit")
 									| Edit/Delete Node
 							li(role="presentation")
@@ -63,27 +63,28 @@
 				hr
 				.vertical_spacing_less
 				.row
-					.col-lg-12.col-md-12.col-sm-12
+					.col-lg-4.col-md-4.col-sm-4
 						.orange_header_larger
-							| Search node to edit
-						input(type="text" ng-model="node"  placeholder="Search activity" typeahead-on-select="itemSelected($item, $model, $label)" typeahead-min-length='3' typeahead="node.name for node in getNodes($viewValue)" class="form-control")
-						//input(type="hidden" id="nodeId" ng-value="nodeId")
+							| Seelect node type
+						select.form-control(ng-model="nodetypeselect" ng-options="opt as (opt | unCamelCase) for opt in nodeTypeValues" ng-change="loadNodeFields()")
+							option(value="")
+								| Select node type
 				.vertical_spacing_browse
 				.row(ng-show="showButtons")
 					.col-lg-12.col-md-12.col-sm-12
 						.row(ng-show="showButtons")
 							.col-lg-12.col-md-12.col-sm-12
 								.h1.orange_header_larger
-									| {{nodeId}} 
-									span
+									| {{nextNodeID}} 
+									span(ng-if="cr['name']!=''")
 										| - 
-									| {{node}}
+									| {{cr['name']}}
 						.vertical_spacing_lesser
-						.row(ng-repeat="node in nodeKeyValues")
-							.col-lg-2.col-md-2.col-sm-2(ng-hide="node.key=='id'")
-								| {{node.key | unCamelCase}}
-							.col-lg-10.col-md-10.col-sm-10(ng-hide="node.key=='id'")
-								input.form-control(id="{{txtid=node.key}}" type="text" ng-model="cr[txtid]" )
+						.row(ng-repeat="node in nodeDictionaryAttributes")
+							.col-lg-2.col-md-2.col-sm-2(ng-hide="node=='id'")
+								| {{node | unCamelCase}}
+							.col-lg-10.col-md-10.col-sm-10(ng-hide="node=='id'")
+								input.form-control(id="{{txtid=node}}" type="text" ng-model="cr[txtid]" )
 								.vertical_spacing_lesser
 				.vertical_spacing_lesser
 				.orange_header_larger(ng-show="showButtons")
@@ -118,13 +119,21 @@
 						.vertical_spacing_less
 				.row(ng-show="showButtons")
 					.col-lg-4.col-md-4.col-sm-4
-						input(type="text" ng-model="startnode"  placeholder="From" typeahead-on-select="startNodeSelected($item, $model, $label)" typeahead-min-length='3' typeahead="node.name for node in getNodes($viewValue)" class="form-control")
+						input(type="text" ng-disabled="relCheckBox.fromNewNode" ng-model="startnode"  placeholder="From" typeahead-on-select="startNodeSelected($item, $model, $label)" typeahead-min-length='3' typeahead="node.name for node in getNodes($viewValue)" class="form-control")
+						label(ng-if="cr['name']!=''")
+							.small
+								input(type="checkbox" ng-model="relCheckBox.fromNewNode" ng-change="setRelValue()")
+								|  Check if this node is '{{cr['name']}}'
 					.col-lg-3.col-md-3.col-sm-3
 						select.form-control(ng-model="relselect" ng-options="opt as (opt | TitleCase | unCamelCase) for opt in relValues")
 							option(value="")
 								| Select relationship type
 					.col-lg-4.col-md-4.col-sm-4
-						input(type="text" ng-model="endnode"  placeholder="To" typeahead-on-select="endNodeSelected($item, $model, $label)" typeahead-min-length='3' typeahead="node.name for node in getNodes($viewValue)" class="form-control")
+						input(type="text" ng-disabled="relCheckBox.toNewNode" ng-model="endnode"  placeholder="To" typeahead-on-select="endNodeSelected($item, $model, $label)" typeahead-min-length='3' typeahead="node.name for node in getNodes($viewValue)" class="form-control")
+						label(ng-if="cr['name']!=''")
+							.small
+								input(type="checkbox" ng-model="relCheckBox.toNewNode" ng-change="setRelValue()")
+								|  Check if this node is '{{cr['name']}}'
 					.col-lg-1.col-md-1.col-sm-1
 						label.btn.btn-default(ng-click="addRel()" ng-disabled="disableAddRelBtn") 
 							span.fa.fa-plus-circle
@@ -141,17 +150,10 @@
 					.col-lg-12.col-md-12.col-sm-12
 						.orange_header_larger
 							| Submit
-						label.btn.btn-default(ng-click="postupdatecr()")
+						label.btn.btn-default(ng-click="postaddcr()")
 							span.fa.fa-chevron-circle-right
 							| Submit Change Request
 				.vertical_spacing_more
-				.row(ng-show="showButtons")
-					.col-lg-12.col-md-12.col-sm-12
-						h3
-							| Delete this node?
-						label.btn.btn-default(ng-click="postdeletecr()")
-							span.fa.fa-times-circle
-							| Submit Delete Request
 				.row(ng-show="crQueueSuccess")
 					.col-lg-12.col-md-12.col-sm-12
 						.alert.alert-success(role="alert")
@@ -164,18 +166,6 @@
 							| Error: Your request could not be queued. Please try again later.		
 				.vertical_spacing_less
 						img.img-responsive.linkage_empty( id="defaultimg" src="img/ajax-loader.gif" ng-show="showVSTableLoading")
-				.vertical_spacing_less
-					script(id="myModalContent.html" type="text/ng-template")
-						<div class="modal-header">
-						<h3 class="modal-title">Delete Relationship</h3>
-						</div>
-						<div class="modal-body">
-						<p>Are you sure you want to delete this relationship?</p>
-						</div>
-						<div class="modal-footer">
-						<button class="btn btn-primary" ng-click="ok()">Yes</button>
-						<button class="btn btn-warning" ng-click="cancel()">No</button>
-						</div>
 				//nested row 
 				
 				//end nested row

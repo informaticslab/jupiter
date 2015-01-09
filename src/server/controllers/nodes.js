@@ -1932,6 +1932,29 @@ exports.postUpdateCR = function(req, res) {
     //res.send("ok");
 };
 
+exports.postAddCR = function(req, res) {
+
+
+
+    //console.log("req params",req.body);
+    var nodeDataString = {};
+    nodeDataString = req.body.attr;
+    nodeDataString["rels"] = JSON.stringify(req.body.rels);
+
+    //console.log(nodeDataString);
+
+    var collection = mongo.mongodb.collection('cr');
+    // Insert some documents
+    collection.insert(nodeDataString, function(err, result) {
+        // assert.equal(err, null);
+        // assert.equal(3, result.result.n);
+        // assert.equal(3, result.ops.length);
+        //console.log("Inserted 3 documents into the document collection");
+        res.send("success");
+    });
+    //res.send("ok");
+};
+
 exports.postDeleteCR = function(req, res) {
 
 
@@ -2225,3 +2248,81 @@ exports.postRollBackCR = function(req, res) {
 
     //res.send("ok");
 };
+
+exports.getNextNeoID = function(req, res) {
+
+
+
+    var label=req.params.label;
+    console.log(label);
+    var query= 'match (a) where labels(a)[0]={label} return a.id as id, length(a.id) as len order by len desc, id desc limit 1';
+    var params = {
+        label: label
+    };
+
+    neodb.db.query(query, params, function(err, results) {
+        if (err) {
+            console.error('Error retreiving node from database:', err);
+            res.send(404, 'No node at that location');
+        } else {
+            console.log(results[0].id);
+            var id=results[0].id;
+
+
+
+            if(label=="Organization")
+            {
+                id=id.substring(1);
+            }
+            else if(label=="Program")
+            {
+                id=id.substring(1);
+            }
+            else if(label=="SurveillanceSystem")
+            {
+                id=id.substring(2);
+            }
+            else if(label=="Tool")
+            {
+                id=id.substring(2);
+            }
+            else if(label=="Registry")
+            {
+                id=id.substring(2);
+            }
+            else if(label=="HealthSurvey")
+            {
+                id=id.substring(2);
+            }
+            else if(label=="Collaborative")
+            {
+                id=id.substring(2);
+            }
+            else if(label=="Dataset")
+            {
+                id=id.substring(4);
+            }
+            else if(label=="DataStandard")
+            {
+                id=id.substring(4);
+            }
+            else if(label=="Tag")
+            {
+                id=id.substring(3);
+            }
+
+
+            res.json([id]);
+        }
+
+    });
+
+};
+
+
+
+
+
+
+
+

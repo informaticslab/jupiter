@@ -91,11 +91,15 @@ apolloApp.config(['$routeProvider',
         templateUrl: 'partials/sysTree',
         controller: 'sysTreeCtrl'
       }).
-          when('/admin', {
+          when('/adminCRAdd', {
+        templateUrl: 'partials/adminCRAdd',
+        controller: 'adminCRAddCtrl'
+      }).
+          when('/adminCREdit', {
         templateUrl: 'partials/admin',
         controller: 'adminCtrl'
       }).
-          when('/admin/:id', {
+          when('/adminCREdit/:id', {
         templateUrl: 'partials/admin',
         controller: 'adminCtrl'
       }).

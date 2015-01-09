@@ -52,8 +52,11 @@
 					.col-lg-12.col-md-12.col-sm-12
 						ul.nav.nav-pills
 							li(role="presentation")
-								a(href="#/admin")
-									| Search
+								a(href="#/adminCRAdd")
+									| Add Node
+							li(role="presentation")
+								a(href="#/adminCREdit")
+									| Edit/Delete Node
 							li.active(role="presentation")
 								a(href="#/adminCRQueue")
 									| Queue
@@ -99,13 +102,13 @@
 							th.col-lg-3.col-md-3.col-sm-3(ng-if="crRequestType!='DELETE'")
 								b
 									| CR Value
-							th.col-lg-3.col-md-3.col-sm-3
+							th.col-lg-3.col-md-3.col-sm-3(ng-if="crRequestType!='ADD'")
 								b
 									| Current Database Value
-							th.col-lg-3.col-md-3.col-sm-3(ng-if="crRequestType!='DELETE' && crStatus!='APPROVED' ")
+							th.col-lg-3.col-md-3.col-sm-3(ng-if="crRequestType!='ADD' && crRequestType!='DELETE' && crStatus!='APPROVED' ")
 								b
 									| Difference
-							th.col-lg-3.col-md-3.col-sm-3(ng-if="crStatus=='APPROVED' && crRequestType!='DELETE'")
+							th.col-lg-3.col-md-3.col-sm-3(ng-if="crRequestType!='ADD' && crStatus=='APPROVED' && crRequestType!='DELETE'")
 								b
 									| Previous Value 
 									span(ng-if="crApproveDate")
@@ -117,11 +120,11 @@
 									small(ng-bind-html="row.key")
 							td.col-lg-3.col-md-3.col-sm-3(ng-if="crRequestType!='DELETE'")
 								small(ng-bind-html="row.valueNew")
-							td.col-lg-3.col-md-3.col-sm-3
+							td.col-lg-3.col-md-3.col-sm-3(ng-if="crRequestType!='ADD'")
 								small(ng-bind-html="row.valueOld")
-							td.col-lg-3.col-md-3.col-sm-3(ng-if="crRequestType!='DELETE' && crStatus!='APPROVED' ")
+							td.col-lg-3.col-md-3.col-sm-3(ng-if="crRequestType!='ADD' && crRequestType!='DELETE' && crStatus!='APPROVED' ")
 								small(ng-bind-html="row.diff" ng-if="row.diffFlg" )
-							td.col-lg-3.col-md-3.col-sm-3(ng-if="crStatus=='APPROVED' && crRequestType!='DELETE'")
+							td.col-lg-3.col-md-3.col-sm-3(ng-if="crRequestType!='ADD' && crStatus=='APPROVED' && crRequestType!='DELETE'")
 								small(ng-bind-html="row.rollbackdiff")
 				.row
 					//.col-lg-12.col-md-12.col-sm-12

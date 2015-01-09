@@ -78,66 +78,76 @@ angular.module('apolloApp').controller('adminCRDiffCtrl', ['$scope', '$http','$r
                 }
 
 
-
-                //console.log();
-                var cacheRenew=new Date().getTime();
-                $http.get('/apollo/api/node/' + $scope.nodeId+'?'+cacheRenew).then(function(res) {
-                    //console.log("mongo and node datat",res.data,$scope.mongoData);
-                    $scope.nodeData = res.data;
-
-
-                    
+                if($scope.crRequestType=="ADD")
+                {
                     $scope.nodeDictionaryAttributes=$scope.actAttributes[$scope.nodeType];
-                    
+
+
                     $scope.nodeDictionaryAttributes.forEach(function(d){
-
-                        
-                        for(na in $scope.nodeData.attributes)
-                        {
-                            var key = $scope.nodeData.attributes[na].key;
-
-                            var valueOld = $scope.nodeData.attributes[na].value;
-                            var valueNew = $scope.mongoData[0][d];
-                            var diffFlg=false;
-                            if(key==d)
-                            {
-                                //console.log(value);
-                                var diff=diffString(valueOld,valueNew);
-                                var rollbackdiff;
-                                if($scope.crPrev != null && $scope.crPrev != "")
-                                {
-                                    rollbackdiff=diffString(valueOld,rollback[key]);
-                                }
-                                //console.log(diff);
-                                
-                                if(diff.indexOf("<ins>")>-1)
-                                {
-                                    diffFlg=true;
-                                }
-                                if(diff.indexOf("<del>")>-1)
-                                {
-                                    diffFlg=true;
-                                }
-                                if($scope.crPrev != null && $scope.crPrev != "")
-                                    $scope.crDiffValues.push({"key":$filter("unCamelCase")(key),"valueOld":valueOld,"valueNew":valueNew,"diff":diff,"diffFlg":diffFlg,"rollback":rollback[key],"rollbackdiff":rollbackdiff})
-                                else
-                                    $scope.crDiffValues.push({"key":$filter("unCamelCase")(key),"valueOld":valueOld,"valueNew":valueNew,"diff":diff,"diffFlg":diffFlg})
-                                currentneodata[key]=valueOld;
-                                //$scope.cr[key]=value;
-
-                            }
-                        }
-                            
-                            //console.log(d, nodeData.attributes);
-                        
+                        var valueNew = $scope.mongoData[0][d];
+                        $scope.crDiffValues.push({"key":$filter("unCamelCase")(d),"valueNew":valueNew})
                     });
+                }
+                else
+                {//console.log();
+                    var cacheRenew=new Date().getTime();
+                    $http.get('/apollo/api/node/' + $scope.nodeId+'?'+cacheRenew).then(function(res) {
+                        //console.log("mongo and node datat",res.data,$scope.mongoData);
+                        $scope.nodeData = res.data;
 
-                   
-                    //console.log("currentneodata=",currentneodata); 
-                    fetchRelationshipValues();
-                }); //http get
 
-                
+                        
+                        $scope.nodeDictionaryAttributes=$scope.actAttributes[$scope.nodeType];
+                        
+                        $scope.nodeDictionaryAttributes.forEach(function(d){
+
+                            
+                            for(na in $scope.nodeData.attributes)
+                            {
+                                var key = $scope.nodeData.attributes[na].key;
+
+                                var valueOld = $scope.nodeData.attributes[na].value;
+                                var valueNew = $scope.mongoData[0][d];
+                                var diffFlg=false;
+                                if(key==d)
+                                {
+                                    //console.log(value);
+                                    var diff=diffString(valueOld,valueNew);
+                                    var rollbackdiff;
+                                    if($scope.crPrev != null && $scope.crPrev != "")
+                                    {
+                                        rollbackdiff=diffString(valueOld,rollback[key]);
+                                    }
+                                    //console.log(diff);
+                                    
+                                    if(diff.indexOf("<ins>")>-1)
+                                    {
+                                        diffFlg=true;
+                                    }
+                                    if(diff.indexOf("<del>")>-1)
+                                    {
+                                        diffFlg=true;
+                                    }
+                                    if($scope.crPrev != null && $scope.crPrev != "")
+                                        $scope.crDiffValues.push({"key":$filter("unCamelCase")(key),"valueOld":valueOld,"valueNew":valueNew,"diff":diff,"diffFlg":diffFlg,"rollback":rollback[key],"rollbackdiff":rollbackdiff})
+                                    else
+                                        $scope.crDiffValues.push({"key":$filter("unCamelCase")(key),"valueOld":valueOld,"valueNew":valueNew,"diff":diff,"diffFlg":diffFlg})
+                                    currentneodata[key]=valueOld;
+                                    //$scope.cr[key]=value;
+
+                                }
+                            }
+                                
+                                //console.log(d, nodeData.attributes);
+                            
+                        });
+
+                       
+                        //console.log("currentneodata=",currentneodata); 
+                        fetchRelationshipValues();
+                    }); //http get
+
+                }
 
             });//http get
 

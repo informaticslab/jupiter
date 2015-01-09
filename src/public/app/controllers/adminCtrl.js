@@ -55,7 +55,7 @@ angular.module('apolloApp').controller('adminCtrl', ['$scope','$modal', '$http',
 			$scope.nodeId = $item.id;
 			//console.log($scope.nodeId,$item,$model,$label);
 
-	       $location.path('/admin/'+$scope.nodeId);
+	       $location.path('/adminCREdit/'+$scope.nodeId);
             fetchNodeValues();
             fetchRelationshipValues();   
 	};

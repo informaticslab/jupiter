@@ -2028,7 +2028,81 @@ exports.postApproveCR = function(req, res) {
     //console.log("req params mongodata",mongodata);
     //console.log("req type",req_type);
 
+    if (req_type == "ADD") {
 
+        var query = 'create (n:`'+mongodata.CR_NODE_TYPE+'`{params})';
+        var params = {
+            params:mongodata
+        };
+        console.log(query,params);
+        neodb.db.query(query, params, function(err, results) {
+
+            if (err) {
+                console.error('Error retreiving node from database:', err);
+                res.send(404, 'No node at that location');
+            } else {
+
+                var rels = [];
+
+                rels = eval(mongodata.rels);
+                console.log("rels",rels);
+                var matchclause = "(" + mongodata.id + "{id:'" + mongodata.id + "'})";
+                var withclause = "" + mongodata.id + "";
+                var createclause = "";
+                var query = '';
+                var bnodeids = [];
+                rels.forEach(function(d) {
+
+                    if (bnodeids.indexOf(d.bid) < 0) {
+                        //console.log(d.startid+'--'+d.endid+'--'+d.reltype);
+
+                        matchclause = matchclause + ", (" + d.bid + "{id:'" + d.bid + "'}) ";
+                        withclause = withclause + ", " + d.bid + " ";
+                        createclause = createclause + " create " + d.startid + "-[:`" + d.reltype + "`]->" + d.endid + " ";
+
+                        bnodeids.push(d.bid);
+                    }
+
+
+
+                });
+
+                var params = {};
+                query = 'match ' + matchclause + ' with ' + withclause + createclause;
+                console.log("QUERY",query);
+                neodb.db.query(query, params, function(err1, results1) {
+                    //console.log(results1);
+
+                    if (err1) {
+                        console.error('Error retreiving node from database:', err1);
+                        res.send(404, 'No node at that location');
+                    } else {
+                        //console.log(results1);
+                        var collection = mongo.mongodb.collection('cr');
+
+                        var currenttime = new Date().getTime();
+                        //console.log();
+                        collection.update({
+                            _id: ObjectId(mongodata._id)
+                        }, {
+                            $set: {
+                                CR_STATUS: "APPROVED",
+                                CR_DATE: currenttime,
+                                CR_DATE_APPROVED: currenttime
+                            }
+                        }, function(err, result) {
+                            //console.log(result);
+                            res.send("success");
+                        });
+                    }
+                });
+
+                res.send("success");
+            }
+        });
+
+
+    }
 
     if (req_type == "UPDATE") {
 

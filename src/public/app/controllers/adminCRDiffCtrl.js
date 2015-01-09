@@ -87,6 +87,8 @@ angular.module('apolloApp').controller('adminCRDiffCtrl', ['$scope', '$http','$r
                         var valueNew = $scope.mongoData[0][d];
                         $scope.crDiffValues.push({"key":$filter("unCamelCase")(d),"valueNew":valueNew})
                     });
+
+                    fetchRelationshipValues();
                 }
                 else
                 {//console.log();
@@ -226,100 +228,128 @@ angular.module('apolloApp').controller('adminCRDiffCtrl', ['$scope', '$http','$r
 
     function fetchRelationshipValues(){
 
-                var cacheRenew=new Date().getTime();
+            var cacheRenew=new Date().getTime();
+
+            if($scope.crRequestType=="ADD")
+            {
+                findRelDifference();
+            }
+            else
+            {
+
 
                 $http.get('/apollo/api/node/relationships/' + $scope.nodeId+'?'+cacheRenew).then(function(res) {
-                $scope.relvalues=res.data;
-                currentreldata=res.data;
-                currentneodata["rels"]=JSON.stringify(currentreldata);
-                console.log(currentneodata);
+                    $scope.relvalues=res.data;
+                    currentreldata=res.data;
+                    currentneodata["rels"]=JSON.stringify(currentreldata);
+                    console.log(currentneodata);
 
-                //$scope.relarray=[];
+                    //$scope.relarray=[];
 
-                var i=1;
-                $scope.relvalues.forEach(function(d){
-                    //$scope.relarray.push({'relid':i,'aid':d.aid,'bid':d.bid,'startid':d.startid,'endid':d.endid,'type':d.reltype});
-                    d['relid']=i;
-                    i++;
+                    var i=1;
+                    $scope.relvalues.forEach(function(d){
+                        //$scope.relarray.push({'relid':i,'aid':d.aid,'bid':d.bid,'startid':d.startid,'endid':d.endid,'type':d.reltype});
+                        d['relid']=i;
+                        i++;
+                    });
+                    //console.log($scope.relvalues, $scope.crRel);
+                    if($scope.crStatus=="APPROVED")
+                    {
+                        findRelDifferencePrev();
+                    }
+                    else
+                    {
+                        findRelDifference();
+                    }
+                    
                 });
-                //console.log($scope.relvalues, $scope.crRel);
-                if($scope.crStatus=="APPROVED")
-                {
-                    findRelDifferencePrev();
-                }
-                else
-                {
-                    findRelDifference();
-                }
-                
-            });
+            }
     }
 
     function findRelDifference(){
                    
-        //console.log($scope.crRel);
-        var dbRelArray=$scope.relvalues;
+        if($scope.crRequestType=="ADD") //console.log($scope.crRel);
+        {
 
-        var crRelArray=eval($scope.crRel);
-
-
-        var dbcrRelArray=[];
+                var crRelArray=eval($scope.crRel);
 
 
-        crRelArray.some(function(d){
-            
-            dbRelArray.some(function(d1){
-                var dbstr=d1.startid+d1.reltype+d1.endid;
-                var crstr=d.startid+d.reltype+d.endid;
-                d.found=false;
-                d.crdbType="cr";
-                //console.log("111111",crstr,dbstr);
-                if(dbstr==crstr)
-                {
-                    d.found=true;
+                var dbcrRelArray=[];
+
+
+                crRelArray.some(function(d){
+                    d.crdbType="cr";
+                    d.found=false;
                     dbcrRelArray.push(d);
-                    //console.log("pushed",d.found,d);
-                    return true;
-                }
+                });
 
-            });
-            //console.log(d.found);
-            if(!d.found)
-            {
-                dbcrRelArray.push(d);
-                //console.log("pushed",d.found,d);
-            }
-        });
+                $scope.dbcrRelArray=dbcrRelArray;
+        }
+        else
+        {      
+                var dbRelArray=$scope.relvalues;
+
+                var crRelArray=eval($scope.crRel);
 
 
-        dbRelArray.some(function(d){
-            
-            crRelArray.some(function(d1){
-                var crstr=d1.startid+d1.reltype+d1.endid;
-                var dbstr=d.startid+d.reltype+d.endid;
-                d.found=false;
-                d.crdbType="db";
-                //console.log("22222",dbstr,crstr);
-                if(dbstr==crstr)
-                {
-                    d.found=true;
-                    return true;
-                }
+                var dbcrRelArray=[];
 
-            });
 
-            if(!d.found)
-            {
-                dbcrRelArray.push(d);
-                //console.log("pushed",d.found,d);
-            }
-        });
+                crRelArray.some(function(d){
+                    
+                    dbRelArray.some(function(d1){
+                        var dbstr=d1.startid+d1.reltype+d1.endid;
+                        var crstr=d.startid+d.reltype+d.endid;
+                        d.found=false;
+                        d.crdbType="cr";
+                        //console.log("111111",crstr,dbstr);
+                        if(dbstr==crstr)
+                        {
+                            d.found=true;
+                            dbcrRelArray.push(d);
+                            //console.log("pushed",d.found,d);
+                            return true;
+                        }
 
-         //console.log(dbRelArray);
-         //console.log(crRelArray);
-         //console.log(dbcrRelArray);
+                    });
+                    //console.log(d.found);
+                    if(!d.found)
+                    {
+                        dbcrRelArray.push(d);
+                        //console.log("pushed",d.found,d);
+                    }
+                });
 
-         $scope.dbcrRelArray=dbcrRelArray;
+
+                dbRelArray.some(function(d){
+                    
+                    crRelArray.some(function(d1){
+                        var crstr=d1.startid+d1.reltype+d1.endid;
+                        var dbstr=d.startid+d.reltype+d.endid;
+                        d.found=false;
+                        d.crdbType="db";
+                        //console.log("22222",dbstr,crstr);
+                        if(dbstr==crstr)
+                        {
+                            d.found=true;
+                            return true;
+                        }
+
+                    });
+
+                    if(!d.found)
+                    {
+                        dbcrRelArray.push(d);
+                        //console.log("pushed",d.found,d);
+                    }
+                });
+
+                 //console.log(dbRelArray);
+                 //console.log(crRelArray);
+                 //console.log(dbcrRelArray);
+
+                 $scope.dbcrRelArray=dbcrRelArray;
+        }
 
          // if(!$scope.$$phase)
          // {

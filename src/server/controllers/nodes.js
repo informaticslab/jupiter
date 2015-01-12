@@ -1872,7 +1872,7 @@ exports.getRelationshipValues = function(req, res) {
 
     var id = req.params.id;
 
-    var query = 'match (a)-[r]-(b) where a.id=\'' + id + '\' return a.id as aid, a.name as aname, b.id as bid, b.name as bname, type(r) as reltype, startNode(r).id as startid, endNode(r).id as endid,startNode(r).name as startname, endNode(r).name as endname';
+    var query = 'match (a)-[r]-(b) where a.id=\'' + id + '\' return a.id as aid, a.name as aname, b.id as bid, b.name as bname, type(r) as reltype, startNode(r).id as startid, endNode(r).id as endid,startNode(r).name as startname, endNode(r).name as endname, r.relationshipDescription as reldesc';
 
     //var query = 'MATCH n WHERE lower(n.name)=~".*' + searchTerm + '.*" or lower(n.shortName)=~".*' + searchTerm + '.*" RETURN distinct n.id as id, n.name as name, n.shortName as shortname';
     //console.log(id,query);
@@ -2058,7 +2058,23 @@ exports.postApproveCR = function(req, res) {
 
                         matchclause = matchclause + ", (" + d.bid + "{id:'" + d.bid + "'}) ";
                         withclause = withclause + ", " + d.bid + " ";
-                        createclause = createclause + " create " + d.startid + "-[:`" + d.reltype + "`]->" + d.endid + " ";
+                        
+                        var reldesc="";
+                        if(d.reldesc==undefined)
+                        {
+                            reldesc="N/A";
+                        }
+                        else
+                        {
+                            reldesc= d.reldesc;
+                            console.log("OLD:",reldesc);
+                            reldesc= reldesc.replace(/\\/g,"\\\\");
+                            reldesc= reldesc.replace(/"/g,"\\\"");
+                            reldesc= reldesc.replace(/'/g,"\\\'");
+                            console.log("NEW:",reldesc);
+                        }
+
+                        createclause = createclause + " create " + d.startid + "-[:`" + d.reltype + "`{`relationshipDescription`:'"+reldesc+"'}]->" + d.endid + " ";
 
                         bnodeids.push(d.bid);
                     }
@@ -2150,7 +2166,23 @@ exports.postApproveCR = function(req, res) {
 
                 matchclause = matchclause + ", (" + d.bid + "{id:'" + d.bid + "'}) ";
                 withclause = withclause + ", " + d.bid + " ";
-                createclause = createclause + " create " + d.startid + "-[:`" + d.reltype + "`]->" + d.endid + " ";
+                //createclause = createclause + " create " + d.startid + "-[:`" + d.reltype + "`]->" + d.endid + " ";
+                var reldesc="";
+                if(d.reldesc==undefined)
+                {
+                    reldesc="N/A";
+                }
+                else
+                {
+                    reldesc= d.reldesc;
+                    console.log("OLD:",reldesc);
+                    reldesc= reldesc.replace(/\\/g,"\\\\");
+                    reldesc= reldesc.replace(/"/g,"\\\"");
+                    reldesc= reldesc.replace(/'/g,"\\\'");
+                    console.log("NEW:",reldesc);
+                }
+
+                createclause = createclause + " create " + d.startid + "-[:`" + d.reltype + "`{`relationshipDescription`:'"+reldesc+"'}]->" + d.endid + " ";
 
                 bnodeids.push(d.bid);
             }
@@ -2159,7 +2191,7 @@ exports.postApproveCR = function(req, res) {
 
         });
         query = 'match ' + matchclause + ' with ' + withclause + createclause;
-        //console.log(query);
+        console.log(query);
 
         var delrelquery = "match (a{id:'" + mongodata.id + "'})-[r]-() delete r";
         //console.log(delrelquery);

@@ -284,14 +284,18 @@ angular.module('apolloApp').controller('adminCRAddCtrl', ['$scope', '$http','$fi
         {
                 
 
-
+            if($scope.relationshipDescription=="")
+            {
+                $scope.relationshipDescription="N/A";
+            }
+            
             if($scope.endNodeId==$scope.nodeId)
             {
-                $scope.relvalues.push({aname:$scope.cr.name,aid:$scope.nextNodeID,bname:$scope.startnode,bid:$scope.startNodeId,relid:$scope.relvalues.length,reltype:$scope.relselect,startid:$scope.startNodeId,startname:$scope.startnode,endid:$scope.endNodeId,endname:$scope.endnode});   
+                $scope.relvalues.push({aname:$scope.cr.name,aid:$scope.nextNodeID,bname:$scope.startnode,bid:$scope.startNodeId,relid:$scope.relvalues.length,reltype:$scope.relselect,startid:$scope.startNodeId,startname:$scope.startnode,endid:$scope.endNodeId,endname:$scope.endnode,reldesc:$scope.relationshipDescription});   
             }
             else
             {
-                $scope.relvalues.push({aname:$scope.cr.name,aid:$scope.nextNodeID,bname:$scope.endnode,bid:$scope.endNodeId,relid:$scope.relvalues.length,reltype:$scope.relselect,startid:$scope.startNodeId,startname:$scope.startnode,endid:$scope.endNodeId,endname:$scope.endnode});
+                $scope.relvalues.push({aname:$scope.cr.name,aid:$scope.nextNodeID,bname:$scope.endnode,bid:$scope.endNodeId,relid:$scope.relvalues.length,reltype:$scope.relselect,startid:$scope.startNodeId,startname:$scope.startnode,endid:$scope.endNodeId,endname:$scope.endnode,reldesc:$scope.relationshipDescription});
             }
 
             $scope.startnode="";

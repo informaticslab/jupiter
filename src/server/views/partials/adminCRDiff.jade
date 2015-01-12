@@ -149,6 +149,9 @@
 										| {{relrow.startname | TitleCase }} 
 									td
 										| {{relrow.reltype | TitleCase | unCamelCase}}
+										br
+										.small(ng-if="relrow.reldesc!='undefined'")
+											| ({{relrow.reldesc}})
 									td
 										| {{relrow.endname | TitleCase}}
 									td

@@ -108,6 +108,9 @@
 										| {{relrow.startname | TitleCase }} 
 									td
 										| {{relrow.reltype | TitleCase | unCamelCase}}
+										br
+										.small(ng-if="relrow.reldesc!='undefined'")
+											| ({{relrow.reldesc}})
 									td
 										| {{relrow.endname | TitleCase}}
 									td(style="text-align: right;")
@@ -136,6 +139,25 @@
 								|  Check if this node is '{{cr['name']}}'
 					.col-lg-1.col-md-1.col-sm-1
 						label.btn.btn-default(ng-click="addRel()" ng-disabled="disableAddRelBtn") 
+							span.fa.fa-plus-circle
+							|  Add
+				.vertical_spacing_lesser
+				.row(ng-show="showButtons")
+					.col-lg-4.col-md-4.col-sm-4
+						.small
+							| Describe this relationship ({{relnotelength=100-relationshipDescription.length}} 
+							span(ng-if="relnotelength!=1")
+								| characters left)
+							span(ng-if="relnotelength==1")
+								| character left)
+						input.form-control(type="text" maxlength="100" ng-model="relationshipDescription")
+						//input(type="text" ng-model="startnode"  placeholder="From" typeahead-on-select="startNodeSelected($item, $model, $label)" typeahead-min-length='3' typeahead="node.name for node in getNodes($viewValue)" class="form-control")
+					.col-lg-3.col-md-3.col-sm-3
+						
+					.col-lg-4.col-md-4.col-sm-4
+						//input(type="text" ng-model="endnode"  placeholder="To" typeahead-on-select="endNodeSelected($item, $model, $label)" typeahead-min-length='3' typeahead="node.name for node in getNodes($viewValue)" class="form-control")
+					.col-lg-1.col-md-1.col-sm-1
+						//label.btn.btn-default(ng-click="addRel()" ng-disabled="disableAddRelBtn") 
 							span.fa.fa-plus-circle
 							|  Add
 				.row(role="alert" ng-show="showErrMsg")

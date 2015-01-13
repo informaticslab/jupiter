@@ -1936,7 +1936,7 @@ exports.postAddCR = function(req, res) {
 
 
 
-    //console.log("req params",req.body);
+    console.log("req params",req.body);
     var nodeDataString = {};
     nodeDataString = req.body.attr;
     nodeDataString["rels"] = JSON.stringify(req.body.rels);
@@ -1946,11 +1946,22 @@ exports.postAddCR = function(req, res) {
     var collection = mongo.mongodb.collection('cr');
     // Insert some documents
     collection.insert(nodeDataString, function(err, result) {
+
+        if(err)
+        {
+            console.log(err);
+            res.send("fail");
+        }
+        else
+        {
+            console.log(result);
+            res.send("success");
+        }
         // assert.equal(err, null);
         // assert.equal(3, result.result.n);
         // assert.equal(3, result.ops.length);
         //console.log("Inserted 3 documents into the document collection");
-        res.send("success");
+        
     });
     //res.send("ok");
 };

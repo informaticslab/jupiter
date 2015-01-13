@@ -126,7 +126,7 @@
 						label(ng-if="cr['name']!=''")
 							.small
 								input(type="checkbox" ng-model="relCheckBox.fromNewNode" ng-change="setRelValue()")
-								|  Check if this node is '{{cr['name']}}'
+								|  Mark if this node is '{{cr['name']}}'
 					.col-lg-3.col-md-3.col-sm-3
 						select.form-control(ng-model="relselect" ng-options="opt as (opt | TitleCase | unCamelCase) for opt in relValues")
 							option(value="")
@@ -136,7 +136,7 @@
 						label(ng-if="cr['name']!=''")
 							.small
 								input(type="checkbox" ng-model="relCheckBox.toNewNode" ng-change="setRelValue()")
-								|  Check if this node is '{{cr['name']}}'
+								|  Mark if this node is '{{cr['name']}}'
 					.col-lg-1.col-md-1.col-sm-1
 						
 				.vertical_spacing_lesser
@@ -158,7 +158,7 @@
 						//label.btn.btn-default(ng-click="addRel()" ng-disabled="disableAddRelBtn") 
 							span.fa.fa-plus-circle
 							|  Add
-				.vertical_spacing_lesser
+				.vertical_spacing_less
 				.row(ng-show="showButtons")
 					.col-lg-4.col-md-4.col-sm-4
 						label.btn.btn-default(ng-click="addRel()" ng-disabled="disableAddRelBtn") 

@@ -33,6 +33,8 @@ angular.module('apolloApp').controller('adminCRQueueCtrl', ['$scope', '$modal','
         $scope.crtOpen=false;
         $scope.crFilterModel='';
         
+        $scope.sortval="CR_DATE";
+
         $scope.crAddCount=0;
         $scope.crDeleteCount=0;
         $scope.crUpdateCount=0;
@@ -45,7 +47,7 @@ angular.module('apolloApp').controller('adminCRQueueCtrl', ['$scope', '$modal','
 
             for (var i=0;i<$scope.mongoDocumentsAll.length;i++)
             {
-                console.log($scope.mongoDocumentsAll[i].CR_REQUEST_TYPE);
+                //console.log($scope.mongoDocumentsAll[i].CR_REQUEST_TYPE);
                 if($scope.mongoDocumentsAll[i].CR_REQUEST_TYPE=="ADD" && $scope.mongoDocumentsAll[i].CR_STATUS=="PENDING")
                 {
                     $scope.crAddCount++;
@@ -77,7 +79,7 @@ angular.module('apolloApp').controller('adminCRQueueCtrl', ['$scope', '$modal','
     $scope.init();
 
     $scope.deleteCR = function(id){
-        console.log(id);
+        //console.log(id);
         mongoid={mongoid:id};
 
         $http.post('/apollo/api/mongo/deletecr', mongoid).
@@ -99,7 +101,7 @@ angular.module('apolloApp').controller('ModalInstanceCtrl', function ($scope, $m
   // $scope.selected = {
   //   item: $scope.items[0]
   // };
-  console.log(doc_id);
+  //console.log(doc_id);
   $scope.ok = function () {
     //$modalInstance.close('ok');
     $scope.$close(doc_id);

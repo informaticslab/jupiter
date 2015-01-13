@@ -1691,7 +1691,7 @@ angular.module('apolloApp').factory('nodeAttributeDictionary', function() {
                             'displayLabel': 'Currently Available?',
                             'sortIndex': '259'
                         },
-                        'data.govLink': {
+                        'dataGovLink': {
                             'description': 'This is a link to the dataset on data.gov',
                             'displayLabel': 'Data.gov Link',
                             'sortIndex': '260'

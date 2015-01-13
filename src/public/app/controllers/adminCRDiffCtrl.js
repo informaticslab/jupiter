@@ -292,17 +292,18 @@ angular.module('apolloApp').controller('adminCRDiffCtrl', ['$scope', '$http','$r
 
                 var crRelArray=eval($scope.crRel);
 
-
+                console.log(dbRelArray);
+                console.log(crRelArray);
                 var dbcrRelArray=[];
 
 
                 crRelArray.some(function(d){
-                    
+                    d.found=false;
+                    d.crdbType="cr";
                     dbRelArray.some(function(d1){
                         var dbstr=d1.startid+d1.reltype+d1.endid;
                         var crstr=d.startid+d.reltype+d.endid;
-                        d.found=false;
-                        d.crdbType="cr";
+                        
                         //console.log("111111",crstr,dbstr);
                         if(dbstr==crstr)
                         {
@@ -323,12 +324,12 @@ angular.module('apolloApp').controller('adminCRDiffCtrl', ['$scope', '$http','$r
 
 
                 dbRelArray.some(function(d){
-                    
-                    crRelArray.some(function(d1){
+                    d.found=false;
+                    d.crdbType="db";
+                    crRelArray.some(function(d1){   
                         var crstr=d1.startid+d1.reltype+d1.endid;
                         var dbstr=d.startid+d.reltype+d.endid;
-                        d.found=false;
-                        d.crdbType="db";
+                        
                         //console.log("22222",dbstr,crstr);
                         if(dbstr==crstr)
                         {
@@ -370,7 +371,7 @@ angular.module('apolloApp').controller('adminCRDiffCtrl', ['$scope', '$http','$r
 
         var dbprevRelArray=eval(JSON.parse($scope.crPrev).rels);
         
-        //console.log(dbprevRelArray);
+        console.log(dbprevRelArray);
 
         var dbcrRelArray=[];
         //var dbprevdbRelArray=[];

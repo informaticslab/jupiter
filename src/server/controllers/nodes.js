@@ -2052,59 +2052,9 @@ exports.postApproveCR = function(req, res) {
                 console.error('Error retreiving node from database:', err);
                 res.send(404, 'No node at that location');
             } else {
-
-                var rels = [];
-
-                rels = eval(mongodata.rels);
-                //console.log("rels",rels);
-                var matchclause = "(" + mongodata.id + "{id:'" + mongodata.id + "'})";
-                var withclause = "" + mongodata.id + "";
-                var createclause = "";
-                var query = '';
-                var bnodeids = [];
-                rels.forEach(function(d) {
-
-                    if (bnodeids.indexOf(d.bid) < 0) {
-                        //console.log(d.startid+'--'+d.endid+'--'+d.reltype);
-
-                        matchclause = matchclause + ", (" + d.bid + "{id:'" + d.bid + "'}) ";
-                        withclause = withclause + ", " + d.bid + " ";
-                        
-                        var reldesc="";
-                        if(d.reldesc==undefined)
-                        {
-                            reldesc="N/A";
-                        }
-                        else
-                        {
-                            reldesc= d.reldesc;
-                            //console.log("OLD:",reldesc);
-                            reldesc= reldesc.replace(/\\/g,"\\\\");
-                            reldesc= reldesc.replace(/"/g,"\\\"");
-                            reldesc= reldesc.replace(/'/g,"\\\'");
-                            //console.log("NEW:",reldesc);
-                        }
-
-                        createclause = createclause + " create " + d.startid + "-[:`" + d.reltype + "`{`relationshipDescription`:'"+reldesc+"'}]->" + d.endid + " ";
-
-                        bnodeids.push(d.bid);
-                    }
-
-
-
-                });
-
-                var params = {};
-                query = 'match ' + matchclause + ' with ' + withclause + createclause;
-                //console.log("QUERY",query);
-                neodb.db.query(query, params, function(err1, results1) {
-                    //console.log(results1);
-
-                    if (err1) {
-                        console.error('Error retreiving node from database:', err1);
-                        res.send(404, 'No node at that location');
-                    } else {
-                        //console.log(results1);
+                console.log("mongo els", mongodata.rels)
+                if(mongodata.rels=="[]")
+                {
                         var collection = mongo.mongodb.collection('cr');
 
                         var currenttime = new Date().getTime();
@@ -2121,9 +2071,80 @@ exports.postApproveCR = function(req, res) {
                             //console.log(result);
                             res.send("success");
                         });
-                    }
-                });
+                }
+                else
+                {
+                    var rels = [];
 
+                    rels = eval(mongodata.rels);
+                    //console.log("rels",rels);
+                    var matchclause = "(" + mongodata.id + "{id:'" + mongodata.id + "'})";
+                    var withclause = "" + mongodata.id + "";
+                    var createclause = "";
+                    var query = '';
+                    var bnodeids = [];
+                    rels.forEach(function(d) {
+
+                        if (bnodeids.indexOf(d.bid) < 0) {
+                            //console.log(d.startid+'--'+d.endid+'--'+d.reltype);
+
+                            matchclause = matchclause + ", (" + d.bid + "{id:'" + d.bid + "'}) ";
+                            withclause = withclause + ", " + d.bid + " ";
+                            
+                            var reldesc="";
+                            if(d.reldesc==undefined)
+                            {
+                                reldesc="N/A";
+                            }
+                            else
+                            {
+                                reldesc= d.reldesc;
+                                //console.log("OLD:",reldesc);
+                                reldesc= reldesc.replace(/\\/g,"\\\\");
+                                reldesc= reldesc.replace(/"/g,"\\\"");
+                                reldesc= reldesc.replace(/'/g,"\\\'");
+                                //console.log("NEW:",reldesc);
+                            }
+
+                            createclause = createclause + " create " + d.startid + "-[:`" + d.reltype + "`{`relationshipDescription`:'"+reldesc+"'}]->" + d.endid + " ";
+
+                            bnodeids.push(d.bid);
+                        }
+
+
+
+                    });
+
+                    var params = {};
+                    query = 'match ' + matchclause + ' with ' + withclause + createclause;
+                    //console.log("QUERY",query);
+                    neodb.db.query(query, params, function(err1, results1) {
+                        //console.log(results1);
+
+                        if (err1) {
+                            console.error('Error retreiving node from database:', err1);
+                            res.send(404, 'No node at that location');
+                        } else {
+                            //console.log(results1);
+                            var collection = mongo.mongodb.collection('cr');
+
+                            var currenttime = new Date().getTime();
+                            //console.log();
+                            collection.update({
+                                _id: ObjectId(mongodata._id)
+                            }, {
+                                $set: {
+                                    CR_STATUS: "APPROVED",
+                                    CR_DATE: currenttime,
+                                    CR_DATE_APPROVED: currenttime
+                                }
+                            }, function(err, result) {
+                                //console.log(result);
+                                res.send("success");
+                            });
+                        }
+                    });
+                }
                 //res.send("success");
             }
         });

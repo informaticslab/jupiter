@@ -129,9 +129,7 @@
 					.col-lg-4.col-md-4.col-sm-4
 						input(type="text" ng-model="endnode"  placeholder="To" typeahead-on-select="endNodeSelected($item, $model, $label)" typeahead-min-length='3' typeahead="node.name for node in getNodes($viewValue)" class="form-control")
 					.col-lg-1.col-md-1.col-sm-1
-						label.btn.btn-default(ng-click="addRel()" ng-disabled="disableAddRelBtn") 
-							span.fa.fa-plus-circle
-							|  Add
+						
 				.vertical_spacing_lesser
 				.row(ng-show="showButtons")
 					.col-lg-4.col-md-4.col-sm-4
@@ -151,6 +149,15 @@
 						//label.btn.btn-default(ng-click="addRel()" ng-disabled="disableAddRelBtn") 
 							span.fa.fa-plus-circle
 							|  Add
+				.vertical_spacing_lesser
+				.row
+					.col-lg-4.col-md-4.col-sm-4
+						label.btn.btn-default(ng-click="addRel()" ng-disabled="disableAddRelBtn") 
+							span.fa.fa-plus-circle
+							|  Add Relationship
+					.col-lg-3.col-md-3.col-sm-3
+					.col-lg-4.col-md-4.col-sm-4
+					.col-lg-1.col-md-1.col-sm-1
 				.row(role="alert" ng-show="showErrMsg")
 					.col-lg-12.col-md-12.col-sm-12
 						.alert.alert-warning.alert-dismissible(role="alert")
@@ -166,7 +173,7 @@
 						label.btn.btn-default(ng-click="postupdatecr()")
 							span.fa.fa-chevron-circle-right
 							| Submit Change Request
-				.vertical_spacing_more
+				hr
 				.row(ng-show="showButtons")
 					.col-lg-12.col-md-12.col-sm-12
 						h3

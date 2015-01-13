@@ -54,7 +54,8 @@ angular.module('apolloApp').controller('adminCRDiffCtrl', ['$scope', '$http','$r
 
 
 
-                console.log($scope.crApproveDate);
+                console.log($scope.mongoData);
+                console.log($scope.crStatus);
                 if($scope.crRequestType=="UPDATE")
                 {
                     $scope.labelclass="label-warning";

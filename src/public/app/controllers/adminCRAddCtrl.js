@@ -288,8 +288,8 @@ angular.module('apolloApp').controller('adminCRAddCtrl', ['$scope', '$http','$fi
             {
                 $scope.relationshipDescription="N/A";
             }
-            
-            if($scope.endNodeId==$scope.nodeId)
+
+            if($scope.endNodeId==$scope.nodeId || $scope.endNodeId==$scope.nextNodeID)
             {
                 $scope.relvalues.push({aname:$scope.cr.name,aid:$scope.nextNodeID,bname:$scope.startnode,bid:$scope.startNodeId,relid:$scope.relvalues.length,reltype:$scope.relselect,startid:$scope.startNodeId,startname:$scope.startnode,endid:$scope.endNodeId,endname:$scope.endnode,reldesc:$scope.relationshipDescription});   
             }

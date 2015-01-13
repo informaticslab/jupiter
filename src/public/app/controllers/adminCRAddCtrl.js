@@ -20,7 +20,7 @@ angular.module('apolloApp').controller('adminCRAddCtrl', ['$scope', '$http','$fi
     //.fromNewNode=false;
     //$scope.relCheckBox.toNewNode=false;
 
-    console.log(nodeRelationshipDictionary.RelationshipTypes);
+    //console.log(nodeRelationshipDictionary.RelationshipTypes);
     $scope.relValues=nodeRelationshipDictionary.RelationshipTypes;
     $scope.nodeTypeValues=nodeTypeDictionary.NodeTypes;
     
@@ -49,7 +49,7 @@ angular.module('apolloApp').controller('adminCRAddCtrl', ['$scope', '$http','$fi
     //                 d['relid']=i;
     //                 i++;
     //             });
-    //             console.log($scope.relvalues);
+    //             //console.log($scope.relvalues);
 
 
     //         });
@@ -74,16 +74,16 @@ angular.module('apolloApp').controller('adminCRAddCtrl', ['$scope', '$http','$fi
             //console.log(d);
         //});
         $scope.showButtons=true
-        console.log($scope.nodeDictionaryAttributes,$scope.cr);
+        //console.log($scope.nodeDictionaryAttributes,$scope.cr);
 
 
     }
 
 
     $scope.loadNodeFields=function(){
-        console.log($scope.nodetypeselect);
-        console.log($scope.actAttributes);
-        console.log($scope.actAttributes[$scope.nodetypeselect]);
+        //console.log($scope.nodetypeselect);
+        //console.log($scope.actAttributes);
+        //console.log($scope.actAttributes[$scope.nodetypeselect]);
         fetchNodeValues();
         getNextNodeID();
         //console.log(nodeAttributeDictionary[$scope.nodetypeselect].attributeGroups[y].attributes);
@@ -140,7 +140,7 @@ angular.module('apolloApp').controller('adminCRAddCtrl', ['$scope', '$http','$fi
                 $scope.nextNodeID="TAG"+nextNodeIDInt.toString();
             }
 
-            console.log($scope.nextNodeID);
+            //console.log($scope.nextNodeID);
 
         });
 
@@ -148,17 +148,17 @@ angular.module('apolloApp').controller('adminCRAddCtrl', ['$scope', '$http','$fi
 
     $scope.deleterelrow=function(id){
 
-        console.log($scope.relvalues);
+        //console.log($scope.relvalues);
 
         
 
         var x=arrayObjectIndexOf($scope.relvalues, id, "relid"); // 1
 
-        console.log(x);
+        //console.log(x);
 
         ($scope.relvalues).splice(x,1);
 
-        console.log($scope.relvalues);
+        //console.log($scope.relvalues);
         
         //$scope.$apply;
     }
@@ -175,18 +175,18 @@ angular.module('apolloApp').controller('adminCRAddCtrl', ['$scope', '$http','$fi
     {
         $scope.actAttributes = {};
             for (x in nodeAttributeDictionary) {
-                console.log("***********************"+x);
+                //console.log("***********************"+x);
                 $scope.actAttributes[x] = [];
                 for (y in nodeAttributeDictionary[x].attributeGroups) {
                     for (z in nodeAttributeDictionary[x].attributeGroups[y].attributes) {
                         $scope.actAttributes[x].push("" + z + "");
                         //for getting attribute names 
                         // var attname=$filter('unCamelCase')(z);
-                        // console.log("x="+x+", z=" + attname + ", des="+nodeAttributeDictionary[x].attributeGroups[y].attributes[z].description);
+                        // //console.log("x="+x+", z=" + attname + ", des="+nodeAttributeDictionary[x].attributeGroups[y].attributes[z].description);
                     }
                 } //$scope.nodeattributes.x
             }
-            console.log($scope.actAttributes);
+            //console.log($scope.actAttributes);
     }
 
     fetchDictionary();
@@ -214,12 +214,12 @@ angular.module('apolloApp').controller('adminCRAddCtrl', ['$scope', '$http','$fi
         $http.post('/apollo/api/mongo/postaddcr', datapacket).
         //$http({method: 'Post', url: '/apollo/api/mongo/postcr', data: {greeting: 'hi'}}).
           success(function(data, status, headers, config) { 
-            console.log("success");
+            //console.log("success");
             $scope.node="";
             $scope.showButtons=false;
             $scope.crQueueSuccess=true;
           }).error(function(data, status) {
-              console.log("err");
+              //console.log("err");
                 $scope.node="";
                 $scope.showButtons=false;
                 $scope.crQueueFail=true;
@@ -246,12 +246,12 @@ angular.module('apolloApp').controller('adminCRAddCtrl', ['$scope', '$http','$fi
     //     $http.post('/apollo/api/mongo/postdeletecr', $scope.cr).
     //     //$http({method: 'Post', url: '/apollo/api/mongo/postcr', data: {greeting: 'hi'}}).
     //       success(function(data, status, headers, config) { 
-    //         console.log("success");
+    //         //console.log("success");
     //         $scope.node="";
     //         $scope.showButtons=false;
     //         $scope.crQueueSuccess=true;
     //       }).error(function(data, status) {
-    //           console.log("err");
+    //           //console.log("err");
     //           $scope.node="";
     //           $scope.showButtons=false;
     //           $scope.crQueueFail=true;
@@ -262,7 +262,7 @@ angular.module('apolloApp').controller('adminCRAddCtrl', ['$scope', '$http','$fi
 
 
     $scope.startNodeSelected=function($item){
-        console.log("start",$item.id, $scope.node);
+        //console.log("start",$item.id, $scope.node);
         $scope.startNodeId=$item.id;
 
 
@@ -271,7 +271,7 @@ angular.module('apolloApp').controller('adminCRAddCtrl', ['$scope', '$http','$fi
     };
 
     $scope.endNodeSelected=function($item){
-        console.log("end",$item.id);
+        //console.log("end",$item.id);
         $scope.endNodeId=$item.id;
         //checkNewRel();
     };
@@ -316,13 +316,13 @@ angular.module('apolloApp').controller('adminCRAddCtrl', ['$scope', '$http','$fi
             
             $scope.showErrMsg=true;
         }
-        console.log($scope.relvalues);
+        //console.log($scope.relvalues);
         
     }
 
     $scope.setRelValue = function(){
 
-        console.log($scope.relCheckBox.fromNewNode,$scope.relCheckBox.toNewNode);
+        //console.log($scope.relCheckBox.fromNewNode,$scope.relCheckBox.toNewNode);
 
         if($scope.relCheckBox.toNewNode && $scope.relCheckBox.fromNewNode)
         {

@@ -37,7 +37,7 @@ angular.module('apolloApp').controller('adminCtrl', ['$scope','$modal', '$http',
 
     $scope.relationshipDescription="";
 
-    console.log(nodeRelationshipDictionary.RelationshipTypes);
+    //console.log(nodeRelationshipDictionary.RelationshipTypes);
     $scope.relValues=nodeRelationshipDictionary.RelationshipTypes;
     
     if($routeParams.id)
@@ -74,7 +74,7 @@ angular.module('apolloApp').controller('adminCtrl', ['$scope','$modal', '$http',
                     d['relid']=i;
                     i++;
                 });
-                console.log($scope.relvalues);
+                //console.log($scope.relvalues);
 
 
             });
@@ -124,17 +124,17 @@ angular.module('apolloApp').controller('adminCtrl', ['$scope','$modal', '$http',
 
     $scope.deleterelrow=function(id){
 
-        console.log($scope.relvalues);
+        //console.log($scope.relvalues);
 
         
 
         var x=arrayObjectIndexOf($scope.relvalues, id, "relid"); // 1
 
-        console.log(x);
+        //console.log(x);
 
         ($scope.relvalues).splice(x,1);
 
-        console.log($scope.relvalues);
+        //console.log($scope.relvalues);
         
         //$scope.$apply;
     }
@@ -158,7 +158,7 @@ angular.module('apolloApp').controller('adminCtrl', ['$scope','$modal', '$http',
                         $scope.actAttributes[x].push("" + z + "");
                         //for getting attribute names 
                         // var attname=$filter('unCamelCase')(z);
-                        // console.log("x="+x+", z=" + attname + ", des="+nodeAttributeDictionary[x].attributeGroups[y].attributes[z].description);
+                        // //console.log("x="+x+", z=" + attname + ", des="+nodeAttributeDictionary[x].attributeGroups[y].attributes[z].description);
                     }
                 } //$scope.nodeattributes.x
             }
@@ -188,12 +188,12 @@ angular.module('apolloApp').controller('adminCtrl', ['$scope','$modal', '$http',
         $http.post('/apollo/api/mongo/postupdatecr', datapacket).
         //$http({method: 'Post', url: '/apollo/api/mongo/postcr', data: {greeting: 'hi'}}).
           success(function(data, status, headers, config) { 
-            console.log("success");
+            //console.log("success");
             $scope.node="";
             $scope.showButtons=false;
             $scope.crQueueSuccess=true;
           }).error(function(data, status) {
-              console.log("err");
+              //console.log("err");
                 $scope.node="";
                 $scope.showButtons=false;
                 $scope.crQueueFail=true;
@@ -220,12 +220,12 @@ angular.module('apolloApp').controller('adminCtrl', ['$scope','$modal', '$http',
         $http.post('/apollo/api/mongo/postdeletecr', $scope.cr).
         //$http({method: 'Post', url: '/apollo/api/mongo/postcr', data: {greeting: 'hi'}}).
           success(function(data, status, headers, config) { 
-            console.log("success");
+            //console.log("success");
             $scope.node="";
             $scope.showButtons=false;
             $scope.crQueueSuccess=true;
           }).error(function(data, status) {
-              console.log("err");
+              //console.log("err");
               $scope.node="";
               $scope.showButtons=false;
               $scope.crQueueFail=true;
@@ -236,14 +236,14 @@ angular.module('apolloApp').controller('adminCtrl', ['$scope','$modal', '$http',
 
 
     $scope.startNodeSelected=function($item){
-        console.log("start",$item.id);
+        //console.log("start",$item.id);
         $scope.startNodeId=$item.id;
 
         //checkNewRel();
     };
 
     $scope.endNodeSelected=function($item){
-        console.log("end",$item.id);
+        //console.log("end",$item.id);
         $scope.endNodeId=$item.id;
         //checkNewRel();
     };
@@ -251,7 +251,7 @@ angular.module('apolloApp').controller('adminCtrl', ['$scope','$modal', '$http',
 
 
     $scope.addRel = function(){
-        console.log($scope.relvalues);
+        //console.log($scope.relvalues);
         if(($scope.endNodeId==$scope.nodeId || $scope.startNodeId==$scope.nodeId) && ($scope.endNodeId!="" && $scope.startNodeId!="") && ($scope.relselect!="")&& ($scope.relselect!=null))
         {
                 
@@ -296,7 +296,7 @@ angular.module('apolloApp').controller('ModalInstanceCtrl', function ($scope, $m
   // $scope.selected = {
   //   item: $scope.items[0]
   // };
-  console.log(doc_id);
+  //console.log(doc_id);
   $scope.ok = function () {
     //$modalInstance.close('ok');
     $scope.$close(doc_id);

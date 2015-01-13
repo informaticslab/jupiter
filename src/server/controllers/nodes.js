@@ -2034,7 +2034,7 @@ exports.postApproveCR = function(req, res) {
         var params = {
             params:mongodata
         };
-        console.log(query,params);
+        //console.log(query,params);
         neodb.db.query(query, params, function(err, results) {
 
             if (err) {
@@ -2045,7 +2045,7 @@ exports.postApproveCR = function(req, res) {
                 var rels = [];
 
                 rels = eval(mongodata.rels);
-                console.log("rels",rels);
+                //console.log("rels",rels);
                 var matchclause = "(" + mongodata.id + "{id:'" + mongodata.id + "'})";
                 var withclause = "" + mongodata.id + "";
                 var createclause = "";
@@ -2067,11 +2067,11 @@ exports.postApproveCR = function(req, res) {
                         else
                         {
                             reldesc= d.reldesc;
-                            console.log("OLD:",reldesc);
+                            //console.log("OLD:",reldesc);
                             reldesc= reldesc.replace(/\\/g,"\\\\");
                             reldesc= reldesc.replace(/"/g,"\\\"");
                             reldesc= reldesc.replace(/'/g,"\\\'");
-                            console.log("NEW:",reldesc);
+                            //console.log("NEW:",reldesc);
                         }
 
                         createclause = createclause + " create " + d.startid + "-[:`" + d.reltype + "`{`relationshipDescription`:'"+reldesc+"'}]->" + d.endid + " ";
@@ -2085,7 +2085,7 @@ exports.postApproveCR = function(req, res) {
 
                 var params = {};
                 query = 'match ' + matchclause + ' with ' + withclause + createclause;
-                console.log("QUERY",query);
+                //console.log("QUERY",query);
                 neodb.db.query(query, params, function(err1, results1) {
                     //console.log(results1);
 
@@ -2175,11 +2175,11 @@ exports.postApproveCR = function(req, res) {
                 else
                 {
                     reldesc= d.reldesc;
-                    console.log("OLD:",reldesc);
+                    //console.log("OLD:",reldesc);
                     reldesc= reldesc.replace(/\\/g,"\\\\");
                     reldesc= reldesc.replace(/"/g,"\\\"");
                     reldesc= reldesc.replace(/'/g,"\\\'");
-                    console.log("NEW:",reldesc);
+                    //console.log("NEW:",reldesc);
                 }
 
                 createclause = createclause + " create " + d.startid + "-[:`" + d.reltype + "`{`relationshipDescription`:'"+reldesc+"'}]->" + d.endid + " ";
@@ -2191,7 +2191,7 @@ exports.postApproveCR = function(req, res) {
 
         });
         query = 'match ' + matchclause + ' with ' + withclause + createclause;
-        console.log(query);
+        //console.log(query);
 
         var delrelquery = "match (a{id:'" + mongodata.id + "'})-[r]-() delete r";
         //console.log(delrelquery);
@@ -2360,7 +2360,7 @@ exports.getNextNeoID = function(req, res) {
 
 
     var label=req.params.label;
-    console.log(label);
+    //console.log(label);
     var query= 'match (a) where labels(a)[0]={label} return a.id as id, length(a.id) as len order by len desc, id desc limit 1';
     var params = {
         label: label
@@ -2371,7 +2371,7 @@ exports.getNextNeoID = function(req, res) {
             console.error('Error retreiving node from database:', err);
             res.send(404, 'No node at that location');
         } else {
-            console.log(results[0].id);
+            //console.log(results[0].id);
             var id=results[0].id;
 
 

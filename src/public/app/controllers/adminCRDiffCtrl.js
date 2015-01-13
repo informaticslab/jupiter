@@ -54,8 +54,8 @@ angular.module('apolloApp').controller('adminCRDiffCtrl', ['$scope', '$http','$r
 
 
 
-                console.log($scope.mongoData);
-                console.log($scope.crStatus);
+                //console.log($scope.mongoData);
+                //console.log($scope.crStatus);
                 if($scope.crRequestType=="UPDATE")
                 {
                     $scope.labelclass="label-warning";
@@ -243,7 +243,7 @@ angular.module('apolloApp').controller('adminCRDiffCtrl', ['$scope', '$http','$r
                     $scope.relvalues=res.data;
                     currentreldata=res.data;
                     currentneodata["rels"]=JSON.stringify(currentreldata);
-                    console.log(currentneodata);
+                    //console.log(currentneodata);
 
                     //$scope.relarray=[];
 
@@ -426,7 +426,7 @@ angular.module('apolloApp').controller('adminCRDiffCtrl', ['$scope', '$http','$r
 
          //console.log(dbRelArray);
          //console.log(crRelArray);
-         console.log(dbcrRelArray);
+         //console.log(dbcrRelArray);
 
          $scope.dbcrRelArray=dbcrRelArray;
 

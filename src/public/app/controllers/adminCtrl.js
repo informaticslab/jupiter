@@ -235,14 +235,14 @@ angular.module('apolloApp').controller('adminCtrl', ['$scope','$modal', '$http',
     };
 
 
-    $scope.startNodeSelected=function($item){
-        //console.log("start",$item.id);
+    $scope.startNodeSelected=function($item, $model, $label){
+        //console.log("start",$item);
         $scope.startNodeId=$item.id;
-
+        $scope.startnode=$item.displayname;
         //checkNewRel();
     };
 
-    $scope.endNodeSelected=function($item){
+    $scope.endNodeSelected=function($item, $model, $label){
         //console.log("end",$item.id);
         $scope.endNodeId=$item.id;
         //checkNewRel();
@@ -251,13 +251,13 @@ angular.module('apolloApp').controller('adminCtrl', ['$scope','$modal', '$http',
 
 
     $scope.addRel = function(){
-        //console.log($scope.relvalues);
+        console.log($scope.startnode,$scope.endnode);
         if(($scope.endNodeId==$scope.nodeId || $scope.startNodeId==$scope.nodeId) && ($scope.endNodeId!="" && $scope.startNodeId!="") && ($scope.relselect!="")&& ($scope.relselect!=null))
         {
                 
             if($scope.relationshipDescription=="")
             {
-                $scope.relationshipDescription="N/A";
+                $scope.relationshipDescription="n/a";
             }
 
             if($scope.endNodeId==$scope.nodeId)

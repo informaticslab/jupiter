@@ -146,14 +146,14 @@
 							tbody
 								tr(ng-repeat="relrow in dbcrRelArray | orderBy: relrow.found")
 									td
-										| {{relrow.startname | TitleCase }} 
+										| {{relrow.startname }} 
 									td
 										| {{relrow.reltype | TitleCase | unCamelCase}}
 										br
 										.small(ng-if="relrow.reldesc!='undefined'")
 											| ({{relrow.reldesc}})
 									td
-										| {{relrow.endname | TitleCase}}
+										| {{relrow.endname }}
 									td
 										span.label.label-warning(ng-if="relrow.found")
 											| No Change

@@ -144,12 +144,14 @@ exports.searchByName = function(req, res) {
                     if (!(i.shortname)) {
                         nodedata.push({
                             id: i.id,
-                            name: i.name
+                            name: i.name,
+                            displayname: i.name
                         });
                     } else {
                         nodedata.push({
                             id: i.id,
-                            name: i.name + " (" + i.shortname + ")"
+                            name: i.name + " (" + i.shortname + ")",
+                            displayname: i.name
                         });
                     }
 

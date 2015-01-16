@@ -104,14 +104,14 @@
 							tbody
 								tr(ng-repeat="relrow in relvalues" ng-mouseenter="hover = true" ng-mouseleave="hover = false")
 									td
-										| {{relrow.startname | TitleCase }} 
+										| {{relrow.startname }} 
 									td
 										| {{relrow.reltype | TitleCase | unCamelCase}}
 										br
 										.small(ng-if="relrow.reldesc!='undefined'")
 											| ({{relrow.reldesc}})
 									td
-										| {{relrow.endname | TitleCase}}
+										| {{relrow.endname}}
 									td(style="text-align: right;")
 										label.btn.btn-default.btn-xs(ng-show="hover" ng-click="open(relrow.relid)")
 											i.fa.fa-times

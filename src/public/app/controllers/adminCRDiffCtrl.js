@@ -24,8 +24,15 @@ angular.module('apolloApp').controller('adminCRDiffCtrl', ['$scope', '$http','$r
         $scope.status_show_approved=false;
         $scope.status_show_declined=false;
 
+
         var init = function()
         {
+
+            //$scope.editCRFlg=false;
+            
+            $scope.editCRChk={};
+            $scope.editCRChk.yes=false;
+            $scope.editCRValues={};
 
             
             $scope.crDiffValues = [];
@@ -37,7 +44,8 @@ angular.module('apolloApp').controller('adminCRDiffCtrl', ['$scope', '$http','$r
 
             $http.get('/apollo/api/mongo/'+mongoid+'?'+cacheRenew,{cache:false}).then(function(res) {
                 $scope.mongoData=res.data;
-                //console.log($scope.mongoData);
+                $scope.editCRValues=$scope.mongoData[0];
+                console.log($scope.editCRValues);
                 
                 $scope.nodeId=$scope.mongoData[0].id;
                 $scope.nodeType=$scope.mongoData[0].CR_NODE_TYPE;
@@ -86,7 +94,7 @@ angular.module('apolloApp').controller('adminCRDiffCtrl', ['$scope', '$http','$r
 
                     $scope.nodeDictionaryAttributes.forEach(function(d){
                         var valueNew = $scope.mongoData[0][d];
-                        $scope.crDiffValues.push({"key":$filter("unCamelCase")(d),"valueNew":valueNew})
+                        $scope.crDiffValues.push({"key":d,"valueNew":valueNew})
                     });
 
                     fetchRelationshipValues();
@@ -132,9 +140,9 @@ angular.module('apolloApp').controller('adminCRDiffCtrl', ['$scope', '$http','$r
                                         diffFlg=true;
                                     }
                                     if($scope.crPrev != null && $scope.crPrev != "")
-                                        $scope.crDiffValues.push({"key":$filter("unCamelCase")(key),"valueOld":valueOld,"valueNew":valueNew,"diff":diff,"diffFlg":diffFlg,"rollback":rollback[key],"rollbackdiff":rollbackdiff})
+                                        $scope.crDiffValues.push({"key":key,"valueOld":valueOld,"valueNew":valueNew,"diff":diff,"diffFlg":diffFlg,"rollback":rollback[key],"rollbackdiff":rollbackdiff})
                                     else
-                                        $scope.crDiffValues.push({"key":$filter("unCamelCase")(key),"valueOld":valueOld,"valueNew":valueNew,"diff":diff,"diffFlg":diffFlg})
+                                        $scope.crDiffValues.push({"key":key,"valueOld":valueOld,"valueNew":valueNew,"diff":diff,"diffFlg":diffFlg})
                                     currentneodata[key]=valueOld;
                                     //$scope.cr[key]=value;
 
@@ -173,6 +181,27 @@ angular.module('apolloApp').controller('adminCRDiffCtrl', ['$scope', '$http','$r
             {
                 init();
                 $scope.status_show_approved=true;
+            }
+
+          }).error(function(data, status) {
+              //console.log("err");
+        });
+
+
+    };
+
+    $scope.saveEditCR = function(){
+
+
+        console.log($scope.editCRValues);
+        $http.post('/apollo/api/mongo/posteditcr', $scope.editCRValues).
+        //$http({method: 'Post', url: '/apollo/api/mongo/postcr', data: {greeting: 'hi'}}).
+          success(function(data, status, headers, config) { 
+            if(data==("success"))
+            {
+                init();
+                
+                //$scope.status_show_declined=true;
             }
 
           }).error(function(data, status) {

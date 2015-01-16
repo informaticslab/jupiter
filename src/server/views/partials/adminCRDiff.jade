@@ -102,6 +102,11 @@
 							th.col-lg-3.col-md-3.col-sm-3(ng-if="crRequestType!='DELETE'")
 								b
 									| CR Value
+									small
+										| Edit
+									input(type="checkbox" ng-model="editCRChk.yes" )
+									label.btn.btn-primary.btn-XS(ng-if="editCRChk.yes" ng-click="saveEditCR()"  ng-model="saveEditCR")
+										| Save
 							th.col-lg-3.col-md-3.col-sm-3(ng-if="crRequestType!='ADD'")
 								b
 									| Current Database Value
@@ -117,9 +122,12 @@
 						tr(ng-repeat="row in crDiffValues" ng-class="{rowhighlight:row.diffFlg}")
 							td.col-lg-2.col-md-2.col-sm-2
 								b
-									small(ng-bind-html="row.key")
+									small
+										| {{row.key | unCamelCase}}
 							td.col-lg-3.col-md-3.col-sm-3(ng-if="crRequestType!='DELETE'")
-								small(ng-bind-html="row.valueNew")
+								small(ng-if="!editCRChk.yes" ng-bind-html="row.valueNew")
+								small
+									input.form-control(ng-if="editCRChk.yes" type="text" ng-model="editCRValues[row.key]"  placeholder="Search activity")
 							td.col-lg-3.col-md-3.col-sm-3(ng-if="crRequestType!='ADD'")
 								small(ng-bind-html="row.valueOld")
 							td.col-lg-3.col-md-3.col-sm-3(ng-if="crRequestType!='ADD' && crRequestType!='DELETE' && crStatus!='APPROVED' ")

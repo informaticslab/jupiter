@@ -38,6 +38,7 @@ module.exports = function(app) {
     app.post('/apollo/api/mongo/postaddcr', nodes.postAddCR);
     app.post('/apollo/api/mongo/postapprovecr', nodes.postApproveCR);
     app.post('/apollo/api/mongo/postdeclinecr', nodes.postDeclineCR);
+    app.post('/apollo/api/mongo/posteditcr', nodes.postEditCR);
     app.post('/apollo/api/mongo/postrollbackcr', nodes.postRollBackCR);
     //app.get('/apollo/api/neo/nextnodeid/:label', nodes.getNextNeoID);
 

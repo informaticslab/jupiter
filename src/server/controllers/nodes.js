@@ -2425,6 +2425,53 @@ exports.postDeclineCR = function(req, res) {
     //res.send("ok");
 };
 
+exports.postEditCR = function(req, res) {
+
+    var mongodatawithid = req.body;
+    //var mongodatatmp=mongodatawithid;
+    var mongodatawithoutid={};
+
+    for(var key in mongodatawithid)
+    {
+        console.log(key);
+        if(key=="_id")
+        {
+
+        }
+        else
+        {
+            mongodatawithoutid[key]=mongodatawithid[key];
+        }
+    }
+    
+    
+    //console.log("**************with",mongodatawithid);
+    //console.log("$$$$$$$$$$$$$$$without",mongodatawithoutid);
+    var collection = mongo.mongodb.collection('cr');
+    var currenttime = new Date().getTime();
+    //console.log();
+    collection.update({
+        _id: ObjectId(mongodatawithid._id)
+    }, mongodatawithoutid
+    , function(err, result) {
+        //console.log(result,err);
+        if(err)
+        {
+            console.log(err);
+            res.send("fail");
+        }
+        else
+        {
+            console.log("*************result after mongo update",result);
+            res.send("success");
+        }
+        
+    });
+
+
+    //res.send("ok");
+};
+
 
 exports.postRollBackCR = function(req, res) {
 

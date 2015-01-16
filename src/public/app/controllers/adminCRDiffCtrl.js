@@ -371,7 +371,7 @@ angular.module('apolloApp').controller('adminCRDiffCtrl', ['$scope', '$http','$r
 
         var dbprevRelArray=eval(JSON.parse($scope.crPrev).rels);
         
-        console.log(dbprevRelArray);
+        //console.log(dbprevRelArray);
 
         var dbcrRelArray=[];
         //var dbprevdbRelArray=[];

@@ -17,6 +17,8 @@ angular.module('apolloApp').controller('adminCRAddCtrl', ['$scope', '$http','$fi
 
     $scope.relCheckBox={};
     $scope.relvalues=[];
+
+    $scope.nextNodeID="TBD"
     //.fromNewNode=false;
     //$scope.relCheckBox.toNewNode=false;
 
@@ -85,66 +87,66 @@ angular.module('apolloApp').controller('adminCRAddCtrl', ['$scope', '$http','$fi
         //console.log($scope.actAttributes);
         //console.log($scope.actAttributes[$scope.nodetypeselect]);
         fetchNodeValues();
-        getNextNodeID();
+        //getNextNodeID();
         //console.log(nodeAttributeDictionary[$scope.nodetypeselect].attributeGroups[y].attributes);
     }
 
-    function getNextNodeID()
-    {
+    // function getNextNodeID()
+    // {
 
         
 
-        $http.get('/apollo/api/neo/nextnodeid/'+$scope.nodetypeselect).then(function(res) {
-            //console.log(res.data);
-            var nextNodeIDInt=parseInt(res.data)+1;
+    //     $http.get('/apollo/api/neo/nextnodeid/'+$scope.nodetypeselect).then(function(res) {
+    //         //console.log(res.data);
+    //         var nextNodeIDInt=parseInt(res.data)+1;
             
 
-            if($scope.nodeLabel=="Organization")
-            {
-                $scope.nextNodeID="O"+nextNodeIDInt.toString();
-            }
-            else if($scope.nodeLabel=="Program")
-            {
-                $scope.nextNodeID="P"+nextNodeIDInt.toString();
-            }
-            else if($scope.nodeLabel=="SurveillanceSystem")
-            {
-                $scope.nextNodeID="SS"+nextNodeIDInt.toString();
-            }
-            else if($scope.nodeLabel=="Tool")
-            {
-                $scope.nextNodeID="TL"+nextNodeIDInt.toString();
-            }
-            else if($scope.nodeLabel=="Registry")
-            {
-                i$scope.nextNodeID="RG"+nextNodeIDInt.toString();
-            }
-            else if($scope.nodeLabel=="HealthSurvey")
-            {
-                $scope.nextNodeID="HS"+nextNodeIDInt.toString();
-            }
-            else if($scope.nodeLabel=="Collaborative")
-            {
-                $scope.nextNodeID="CO"+nextNodeIDInt.toString();
-            }
-            else if($scope.nodeLabel=="Dataset")
-            {
-                $scope.nextNodeID="DSET"+nextNodeIDInt.toString();
-            }
-            else if($scope.nodeLabel=="DataStandard")
-            {
-                $scope.nextNodeID="DSTD"+nextNodeIDInt.toString();
-            }
-            else if($scope.nodeLabel=="Tag")
-            {
-                $scope.nextNodeID="TAG"+nextNodeIDInt.toString();
-            }
+    //         if($scope.nodeLabel=="Organization")
+    //         {
+    //             $scope.nextNodeID="O"+nextNodeIDInt.toString();
+    //         }
+    //         else if($scope.nodeLabel=="Program")
+    //         {
+    //             $scope.nextNodeID="P"+nextNodeIDInt.toString();
+    //         }
+    //         else if($scope.nodeLabel=="SurveillanceSystem")
+    //         {
+    //             $scope.nextNodeID="SS"+nextNodeIDInt.toString();
+    //         }
+    //         else if($scope.nodeLabel=="Tool")
+    //         {
+    //             $scope.nextNodeID="TL"+nextNodeIDInt.toString();
+    //         }
+    //         else if($scope.nodeLabel=="Registry")
+    //         {
+    //             i$scope.nextNodeID="RG"+nextNodeIDInt.toString();
+    //         }
+    //         else if($scope.nodeLabel=="HealthSurvey")
+    //         {
+    //             $scope.nextNodeID="HS"+nextNodeIDInt.toString();
+    //         }
+    //         else if($scope.nodeLabel=="Collaborative")
+    //         {
+    //             $scope.nextNodeID="CO"+nextNodeIDInt.toString();
+    //         }
+    //         else if($scope.nodeLabel=="Dataset")
+    //         {
+    //             $scope.nextNodeID="DSET"+nextNodeIDInt.toString();
+    //         }
+    //         else if($scope.nodeLabel=="DataStandard")
+    //         {
+    //             $scope.nextNodeID="DSTD"+nextNodeIDInt.toString();
+    //         }
+    //         else if($scope.nodeLabel=="Tag")
+    //         {
+    //             $scope.nextNodeID="TAG"+nextNodeIDInt.toString();
+    //         }
 
-            //console.log($scope.nextNodeID);
+    //         //console.log($scope.nextNodeID);
 
-        });
+    //     });
 
-    }
+    // }
 
     $scope.deleterelrow=function(id){
 
@@ -224,6 +226,8 @@ angular.module('apolloApp').controller('adminCRAddCtrl', ['$scope', '$http','$fi
                 $scope.showButtons=false;
                 $scope.crQueueFail=true;
         });
+
+        //console.log(datapacket);
 
     };
 

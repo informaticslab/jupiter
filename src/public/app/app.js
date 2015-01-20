@@ -14,6 +14,12 @@ var apolloApp = angular.module('apolloApp', [
 //  'apolloAppServices'
 ]);
 
+var routeRoleChecks = {
+  admin:{ auth: function(ngAuth){
+            return ngAuth.authorizeCurrentUserForRoute('admin')
+          }}
+}
+
 apolloApp.config(['$routeProvider', 
   function($routeProvider) {
     $routeProvider.
@@ -93,23 +99,28 @@ apolloApp.config(['$routeProvider',
       }).
           when('/adminCRAdd', {
         templateUrl: 'partials/adminCRAdd',
-        controller: 'adminCRAddCtrl'
+        controller: 'adminCRAddCtrl',
+        resolve: routeRoleChecks.admin
       }).
           when('/adminCREdit', {
         templateUrl: 'partials/admin',
-        controller: 'adminCtrl'
+        controller: 'adminCtrl',
+        resolve: routeRoleChecks.admin
       }).
           when('/adminCREdit/:id', {
         templateUrl: 'partials/admin',
-        controller: 'adminCtrl'
+        controller: 'adminCtrl',
+        resolve: routeRoleChecks.admin
       }).
           when('/adminCRQueue', {
         templateUrl: 'partials/adminCRQueue',
-        controller: 'adminCRQueueCtrl'
+        controller: 'adminCRQueueCtrl',
+        resolve: routeRoleChecks.admin
       }).
           when('/adminCRQueue/CRDiff/:id', {
         templateUrl: 'partials/adminCRDiff',
-        controller: 'adminCRDiffCtrl'
+        controller: 'adminCRDiffCtrl',
+        resolve: routeRoleChecks.admin
       }).
           when('/inTheLab/:topic', { 
             templateUrl: function(params){
@@ -133,6 +144,16 @@ apolloApp.config(['$routeProvider',
         redirectTo: '/main'
       });
   }]);
+
+  
+
+angular.module('apolloApp').run(function($rootScope,$location) {
+  $rootScope.$on('$routeChangeError', function(evt,current, previous,rejection) {
+    if(rejection === 'not authorized'){
+      $location.path('/main');
+    }
+  }) 
+})
 
 // angular.module('app', ['ngResource', 'ngRoute', 'ngAnimate']);
 // apolloApp.config([function($routeProvider, $locationProvider) {

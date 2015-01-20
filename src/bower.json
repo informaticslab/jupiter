@@ -1,0 +1,20 @@
+{
+  "name": "Apollo",
+  "version": "0.0.0",
+  "homepage": "https://github.com/informaticslab/apollo",
+  "authors": [
+    "Kiet Ta <technical.ta@gmail.com>"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "public/vendor",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "toastr": "~2.1.0"
+  }
+}

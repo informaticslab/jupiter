@@ -5,7 +5,7 @@ html(lang="en" ng-app='apolloApp')
 		meta(name="viewport" content="width=device-width, initial-scale=1.0")
 		title Integrated Surveillance Portal
 		link(rel="stylesheet" href="/apollo/css/bootstrap.min.css")
-		//link(rel="stylesheet" href="/apollo/css/bootstrap-theme.min.css")
+		link(rel="stylesheet" href="/apollo/css/bootstrap-theme.min.css")
 		link(rel="stylesheet" href="/apollo/css/font-awesome.min.css")
 		link(rel="stylesheet" href="/apollo/css/sticky-footer-navbar.css")
 		link(rel="stylesheet" href="/apollo/css/animation.css")
@@ -13,6 +13,7 @@ html(lang="en" ng-app='apolloApp')
 		link(rel="stylesheet" href="/apollo/css/d3-viz.css")
 		link(rel="stylesheet" href="/apollo/css/loading-bar.min.css")
 		link(rel="stylesheet" href="/apollo/css/inTheLab.css")
+		link(rel="stylesheet" href="/apollo/vendor/toastr/toastr.css")
 	body(ng-controller='rootCtrl' data-ng-init="open()")
 		.container-fluid
 			// row1
@@ -74,6 +75,7 @@ html(lang="en" ng-app='apolloApp')
 							span.icon-bar
 							span.icon-bar
 					#collapse.collapse.navbar-collapse
+						
 						ul.nav.navbar-nav.scootnav
 							li(ng-class="{active:q == 'home'}")
 								a(href='#/home')
@@ -87,9 +89,10 @@ html(lang="en" ng-app='apolloApp')
 								a(href='#/faq')
 									span.glyphicon.glyphicon-comment.custom_faqs.icon-flipped  
 									| &nbsp;FAQs
-						span.right_nav_content
-							span.glyphicon.glyphicon-user.user_custom  
-							| &nbsp;Welcome, {{loginuser}} &nbsp;
+						div(ng-include="'/apollo/partials/navbar-login'")
+						//span.right_nav_content
+							//span.glyphicon.glyphicon-user.user_custom  
+							//| &nbsp;Welcome, {{loginuser}} &nbsp;
 							//a(href='#')  Logout
 							//span.favorites_icon
 								img(src='img/filled_circle_smaller.png', alt='Favorites')
@@ -146,6 +149,7 @@ html(lang="en" ng-app='apolloApp')
 					| &nbsp; | &nbsp;
 					a.white_link(href='#/bottomNav/contact/') Contact
 					span.cdc_info
-						| Centers for Disease Control and Prevention | &nbsp;Build: {{buildNumber}}		
+						| Centers for Disease Control and Prevention | &nbsp;Build: {{buildNumber}}
+		include currentUser						
 		include scripts
 		

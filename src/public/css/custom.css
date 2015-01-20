@@ -820,4 +820,18 @@ del{background-color: #F38264}
 .fa-times-circle {color:#9C3632;font-size:1.3em;  padding-right:.4em; }
 .rowBackColor{background-color:black; }
 
+.toast-top-right {
+  top: 70px;
+}
+.toast-success {
+  background-color: #13987e;
+}
+
+.navbar-form .form-group {
+  margin-left: 10px;
+}
+.navbar-form button {
+  margin-left: 10px;
+}
+
 

@@ -1,10 +1,20 @@
 //references to controllers go here
 var index = require('../controllers/index');
 var nodes = require('../controllers/nodes');
+var auth = require('./auth');
+var mongoose = require('mongoose'),
+    User = mongoose.model('User');
 module.exports = function(app) {
     app.get('/apollo/partials/*', function(req, res) {
         res.render('partials/' + req.params);
     });
+
+    app.get('/apollo/api/users',auth.requiresRole('admin'),function(req,res) {
+        User.find({}).exec(function(err,collection) {
+            res.send(collection);
+        })
+    });
+
     app.get('/apollo/api/node/:id', nodes.getNodeById);
     app.get('/apollo/api/node/:id/labels', nodes.getLabelsForNode);
     app.get('/apollo/api/node/:id/relations', nodes.getRelationsForNode);
@@ -35,15 +45,20 @@ module.exports = function(app) {
     app.get('/apollo/api/export/adhoccsv/:query', nodes.getAdhocQueryRelatedNodeTypesResultsCSV);
     app.get('/apollo/api/mongo/all', nodes.getMongoAll);
     app.post('/apollo/api/mongo/postupdatecr', nodes.postUpdateCR);
-    app.post('/apollo/api/mongo/postaddcr', nodes.postAddCR);
+    app.post('/apollo/api/mongo/postaddcr',nodes.postAddCR);  //testing authorization
     app.post('/apollo/api/mongo/postapprovecr', nodes.postApproveCR);
     app.post('/apollo/api/mongo/postdeclinecr', nodes.postDeclineCR);
     app.post('/apollo/api/mongo/postrollbackcr', nodes.postRollBackCR);
     app.get('/apollo/api/neo/nextnodeid/:label', nodes.getNextNeoID);
 
+    app.post('/login', auth.authenticate); //passport authentication post
+    app.post('/logout', function(req,res) {
+        req.logout();
+        res.end();
+    });
     
-    app.post('/apollo/api/mongo/postdeletecr', nodes.postDeleteCR);
-    app.post('/apollo/api/mongo/deletecr', nodes.deleteMongoCR);
+    app.post('/apollo/api/mongo/postdeletecr',auth.requiresRole('admin'), nodes.postDeleteCR);
+    app.post('/apollo/api/mongo/deletecr',auth.requiresRole('admin'), nodes.deleteMongoCR);
     app.get('/apollo/api/mongo/:id', nodes.getCR);
     
     //this goes at the bottom.  It is the catchall for everything not defined above.  Silly.

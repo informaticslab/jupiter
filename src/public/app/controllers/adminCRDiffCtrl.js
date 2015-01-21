@@ -43,22 +43,27 @@ angular.module('apolloApp').controller('adminCRDiffCtrl', ['$scope','$modal', '$
             } //$scope.nodeattributes.x
         }
 
-        $scope.status_show_approved=false;
-        $scope.status_show_declined=false;
-        $scope.hover=false;
-        $scope.relValues=nodeRelationshipDictionary.RelationshipTypes;
 
-        $scope.startnode="";
-        $scope.startNodeId="";
-
-        $scope.endnode="";
-        $scope.endNodeId="";
 
         var init = function()
         {
 
             //$scope.editCRFlg=false;
-            
+            $scope.status_show_approved=false;
+            $scope.status_show_declined=false;
+            $scope.hover=false;
+            $scope.relValues=nodeRelationshipDictionary.RelationshipTypes;
+
+            $scope.startnode="";
+            $scope.startNodeId="";
+
+            $scope.endnode="";
+            $scope.endNodeId="";
+
+            $scope.relCheckBox={};
+            $scope.relCheckBox.fromNewNode=false;
+            $scope.relCheckBox.toNewNode=false;
+
             $scope.editCRChk={};
             $scope.editCRChk.yes=false;
             $scope.editCRValues={};
@@ -255,6 +260,41 @@ angular.module('apolloApp').controller('adminCRDiffCtrl', ['$scope','$modal', '$
 
     };
     
+
+    $scope.setRelValue = function(){
+
+        //console.log($scope.relCheckBox.fromNewNode,$scope.relCheckBox.toNewNode);
+
+        if($scope.relCheckBox.toNewNode && $scope.relCheckBox.fromNewNode)
+        {
+
+        }
+        else if(!$scope.relCheckBox.toNewNode && !$scope.relCheckBox.fromNewNode)
+        {
+            $scope.startNodeId="";
+            $scope.startnode="";
+            $scope.toNodeId="";
+            $scope.endnode="";
+        }
+        else if($scope.relCheckBox.fromNewNode && !$scope.relCheckBox.toNewNode)
+        {
+            $scope.startNodeId=$scope.nodeId;
+            $scope.startnode=$scope.nodeName;
+            // $scope.toNodeId="";
+            // $scope.endnode="";
+        }
+        else if($scope.relCheckBox.toNewNode && !$scope.relCheckBox.fromNewNode )
+        {
+            $scope.endNodeId=$scope.nodeId;
+            $scope.endnode=$scope.nodeName;
+            // $scope.startNodeId="";
+            // $scope.startnode="";
+        }
+
+        
+
+        //console.log($scope.toNewNode, $scope.fromNewNode);
+    }
     $scope.cancelEditCR = function(){
 
         console.log($scope.editCRValues.rels);
@@ -574,8 +614,9 @@ angular.module('apolloApp').controller('adminCRDiffCtrl', ['$scope','$modal', '$
         //var nextrelid=$scope.i++;
         if(($scope.endNodeId==$scope.nodeId || $scope.startNodeId==$scope.nodeId) && ($scope.endNodeId!="" && $scope.startNodeId!="") && ($scope.relselect!="")&& ($scope.relselect!=null))
         {
-                
-            if($scope.relationshipDescription=="")
+            
+            console.log($scope.relationshipDescription);
+            if($scope.relationshipDescription=="" || $scope.relationshipDescription==undefined)
             {
                 $scope.relationshipDescription="n/a";
             }

@@ -43,6 +43,9 @@ angular.module('apolloApp').controller('adminCtrl', ['$scope','$modal', '$http',
     $scope.showLockMsg=false;
 
     $scope.relationshipDescription="";
+    $scope.relCheckBox={};
+    $scope.relCheckBox.fromNewNode=false;
+    $scope.relCheckBox.toNewNode=false;
 
     //console.log(nodeRelationshipDictionary.RelationshipTypes);
     $scope.relValues=nodeRelationshipDictionary.RelationshipTypes;
@@ -89,6 +92,42 @@ angular.module('apolloApp').controller('adminCtrl', ['$scope','$modal', '$http',
 
         });
     }
+
+    $scope.setRelValue = function(){
+
+        //console.log($scope.relCheckBox.fromNewNode,$scope.relCheckBox.toNewNode);
+
+        if($scope.relCheckBox.toNewNode && $scope.relCheckBox.fromNewNode)
+        {
+
+        }
+        else if(!$scope.relCheckBox.toNewNode && !$scope.relCheckBox.fromNewNode)
+        {
+            $scope.startNodeId="";
+            $scope.startnode="";
+            $scope.toNodeId="";
+            $scope.endnode="";
+        }
+        else if($scope.relCheckBox.fromNewNode && !$scope.relCheckBox.toNewNode)
+        {
+            $scope.startNodeId=$scope.nodeId;
+            $scope.startnode=$scope.node;
+            // $scope.toNodeId="";
+            // $scope.endnode="";
+        }
+        else if($scope.relCheckBox.toNewNode && !$scope.relCheckBox.fromNewNode )
+        {
+            $scope.endNodeId=$scope.nodeId;
+            $scope.endnode=$scope.node;
+            // $scope.startNodeId="";
+            // $scope.startnode="";
+        }
+
+        
+
+        //console.log($scope.toNewNode, $scope.fromNewNode);
+    }
+
 
 
     function fetchRelationshipValues(){

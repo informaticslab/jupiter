@@ -1,5 +1,5 @@
-angular.module('apolloApp').controller('adminCRDiffCtrl', ['$scope','$modal', '$http','$routeParams','$filter','nodeAttributeDictionary','nodeRelationshipDictionary',
-	function($scope,$modal,$http,$routeParams,$filter,nodeAttributeDictionary,nodeRelationshipDictionary) {
+angular.module('apolloApp').controller('adminCRDiffCtrl', ['$scope','$modal', '$http','$routeParams','$filter','nodeAttributeDictionary','nodeRelationshipDictionary','ngIdentity',
+	function($scope,$modal,$http,$routeParams,$filter,nodeAttributeDictionary,nodeRelationshipDictionary,ngIdentity) {
 
     $scope.open = function (docid) {
 

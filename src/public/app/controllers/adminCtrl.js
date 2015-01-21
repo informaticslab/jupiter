@@ -27,6 +27,9 @@ angular.module('apolloApp').controller('adminCtrl', ['$scope','$modal', '$http',
 
     $scope.identity = ngIdentity;
 
+    console.log($scope.identity.dbUserId());
+    console.log($scope.identity.currentUser.username);
+
     $scope.i=new Date().getTime()+100;
 
     $scope.cr={};

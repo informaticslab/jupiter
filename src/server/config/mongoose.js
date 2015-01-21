@@ -77,6 +77,19 @@ module.exports = function(config) {
 			  }
 			  
 			});
+			salt = createSalt();
+			hash = hashPwd(salt,'sdavidsu');
+			User.create({firstName:'Sanjith SU',lastName:'David',username:'sdavidsu',salt:salt, hashed_pwd: hash, roles:['admin','su']},function(err, docs) {
+			  if (err){
+			  	console.log(err);
+			  } 
+			  else
+			  {
+			  	//console.log(docs);	
+			  }
+			  
+			});
+
 			}
 	})
 }

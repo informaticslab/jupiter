@@ -1,5 +1,5 @@
-angular.module('apolloApp').controller('adminCRQueueCtrl', ['$scope', '$modal','$http','nodeAttributeDictionary',
-	function($scope,$modal,$http,nodeAttributeDictionary) {
+angular.module('apolloApp').controller('adminCRQueueCtrl', ['$scope', '$modal','$http','nodeAttributeDictionary','ngIdentity',
+	function($scope,$modal,$http,nodeAttributeDictionary,ngIdentity) {
 
     $scope.open = function (docid) {
 

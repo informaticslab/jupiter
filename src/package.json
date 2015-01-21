@@ -21,7 +21,11 @@
     "jade": "*",
     "mongodb": "*",
     "neo4j": "*",
-    "underscore": "*"
+    "underscore": "*",
+    "passport":"*",
+    "passport-local":"*",
+    "mongoose":"*",
+    "toastr":"*"
   },
   "devDependencies": {
     "supertest": "~0.8.1",

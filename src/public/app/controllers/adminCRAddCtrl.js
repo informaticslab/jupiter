@@ -11,6 +11,11 @@ angular.module('apolloApp').controller('adminCRAddCtrl', ['$scope', '$http','$fi
     
     $scope.endNodeId="";
     $scope.startNodeId="";
+
+    $scope.startnode="";
+    $scope.endnode="";
+    $scope.relationshipDescription="";
+
     $scope.relselect="";
     $scope.hover=false;
     $scope.showErrMsg=false;
@@ -18,7 +23,10 @@ angular.module('apolloApp').controller('adminCRAddCtrl', ['$scope', '$http','$fi
     $scope.relCheckBox={};
     $scope.relvalues=[];
 
-    $scope.nextNodeID="TBD"
+    $scope.nextNodeID="TBD";
+    $scope.i=100;
+
+
     //.fromNewNode=false;
     //$scope.relCheckBox.toNewNode=false;
 
@@ -268,7 +276,7 @@ angular.module('apolloApp').controller('adminCRAddCtrl', ['$scope', '$http','$fi
     $scope.startNodeSelected=function($item){
         //console.log("start",$item.id, $scope.node);
         $scope.startNodeId=$item.id;
-
+        $scope.startnode=$item.displayname;
 
 
         //checkNewRel();
@@ -277,6 +285,7 @@ angular.module('apolloApp').controller('adminCRAddCtrl', ['$scope', '$http','$fi
     $scope.endNodeSelected=function($item){
         //console.log("end",$item.id);
         $scope.endNodeId=$item.id;
+        $scope.endnode=$item.displayname;
         //checkNewRel();
     };
 
@@ -290,16 +299,16 @@ angular.module('apolloApp').controller('adminCRAddCtrl', ['$scope', '$http','$fi
 
             if($scope.relationshipDescription=="")
             {
-                $scope.relationshipDescription="N/A";
+                $scope.relationshipDescription="n/a";
             }
 
             if($scope.endNodeId==$scope.nodeId || $scope.endNodeId==$scope.nextNodeID)
             {
-                $scope.relvalues.push({aname:$scope.cr.name,aid:$scope.nextNodeID,bname:$scope.startnode,bid:$scope.startNodeId,relid:$scope.relvalues.length,reltype:$scope.relselect,startid:$scope.startNodeId,startname:$scope.startnode,endid:$scope.endNodeId,endname:$scope.endnode,reldesc:$scope.relationshipDescription});   
+                $scope.relvalues.push({aname:$scope.cr.name,aid:$scope.nextNodeID,bname:$scope.startnode,bid:$scope.startNodeId,relid:$scope.i++,reltype:$scope.relselect,startid:$scope.startNodeId,startname:$scope.startnode,endid:$scope.endNodeId,endname:$scope.endnode,reldesc:$scope.relationshipDescription});   
             }
             else
             {
-                $scope.relvalues.push({aname:$scope.cr.name,aid:$scope.nextNodeID,bname:$scope.endnode,bid:$scope.endNodeId,relid:$scope.relvalues.length,reltype:$scope.relselect,startid:$scope.startNodeId,startname:$scope.startnode,endid:$scope.endNodeId,endname:$scope.endnode,reldesc:$scope.relationshipDescription});
+                $scope.relvalues.push({aname:$scope.cr.name,aid:$scope.nextNodeID,bname:$scope.endnode,bid:$scope.endNodeId,relid:$scope.i++,reltype:$scope.relselect,startid:$scope.startNodeId,startname:$scope.startnode,endid:$scope.endNodeId,endname:$scope.endnode,reldesc:$scope.relationshipDescription});
             }
 
             $scope.startnode="";

@@ -115,7 +115,9 @@
 									td(style="text-align: right;")
 										label.btn.btn-default.btn-xs(ng-show="hover" ng-click="open(relrow.relid)")
 											i.fa.fa-times
-						.vertical_spacing_more
+				.vertical_spacing_less
+				.row(ng-show="showButtons")
+					.col-lg-12.col-md-12.col-sm-12				
 						h5
 							| Add New Relationship
 						.vertical_spacing_less

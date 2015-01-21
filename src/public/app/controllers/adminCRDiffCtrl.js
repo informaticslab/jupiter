@@ -1,6 +1,28 @@
-angular.module('apolloApp').controller('adminCRDiffCtrl', ['$scope', '$http','$routeParams','$filter','nodeAttributeDictionary',
-	function($scope,$http,$routeParams,$filter,nodeAttributeDictionary) {
+angular.module('apolloApp').controller('adminCRDiffCtrl', ['$scope','$modal', '$http','$routeParams','$filter','nodeAttributeDictionary','nodeRelationshipDictionary',
+	function($scope,$modal,$http,$routeParams,$filter,nodeAttributeDictionary,nodeRelationshipDictionary) {
 
+    $scope.open = function (docid) {
+
+        var modalInstance = $modal.open({
+          templateUrl: 'myModalContent.html',
+          controller: 'ModalInstanceCtrl',
+          size: 'sm',
+          resolve: {
+            doc_id: function () {
+              return docid;
+            }
+          }
+        });
+
+        modalInstance.result.then(function (docid) {
+            $scope.deleterelrow(docid);
+        }, function () {
+          //$log.info('Modal dismissed at: ' + new Date());
+          //console.log('Modal dismissed at: ' + new Date(),$scope.selected);
+        });
+    };
+        $scope.i=new Date().getTime()+100;
+        $scope.crRelArray=[];
         $scope.crDiffValues = [];
         var mongoid=$routeParams.id;
         var currentneodata={};
@@ -23,7 +45,14 @@ angular.module('apolloApp').controller('adminCRDiffCtrl', ['$scope', '$http','$r
 
         $scope.status_show_approved=false;
         $scope.status_show_declined=false;
+        $scope.hover=false;
+        $scope.relValues=nodeRelationshipDictionary.RelationshipTypes;
 
+        $scope.startnode="";
+        $scope.startNodeId="";
+
+        $scope.endnode="";
+        $scope.endNodeId="";
 
         var init = function()
         {
@@ -193,7 +222,22 @@ angular.module('apolloApp').controller('adminCRDiffCtrl', ['$scope', '$http','$r
     $scope.saveEditCR = function(){
 
 
-        console.log($scope.editCRValues);
+        console.log($scope.editCRValues.rels);
+
+        var finalCRArray=[];
+
+        $scope.dbcrRelArray.forEach(function(d){
+            if(!d.found && d.crdbType=="db")
+            {
+
+            }
+            else
+            {
+                finalCRArray.push(d);
+            }
+        });
+        $scope.editCRValues.rels=JSON.stringify(finalCRArray);
+        console.log($scope.editCRValues.rels);
         $http.post('/apollo/api/mongo/posteditcr', $scope.editCRValues).
         //$http({method: 'Post', url: '/apollo/api/mongo/postcr', data: {greeting: 'hi'}}).
           success(function(data, status, headers, config) { 
@@ -208,6 +252,15 @@ angular.module('apolloApp').controller('adminCRDiffCtrl', ['$scope', '$http','$r
               //console.log("err");
         });
 
+
+    };
+    
+    $scope.cancelEditCR = function(){
+
+        console.log($scope.editCRValues.rels);
+        console.log($scope.relvalues);
+
+        $scope.editCRChk.yes=false;
 
     };
 
@@ -276,11 +329,10 @@ angular.module('apolloApp').controller('adminCRDiffCtrl', ['$scope', '$http','$r
 
                     //$scope.relarray=[];
 
-                    var i=1;
                     $scope.relvalues.forEach(function(d){
                         //$scope.relarray.push({'relid':i,'aid':d.aid,'bid':d.bid,'startid':d.startid,'endid':d.endid,'type':d.reltype});
-                        d['relid']=i;
-                        i++;
+                        d['relid']=$scope.i;
+                        $scope.i++;
                     });
                     //console.log($scope.relvalues, $scope.crRel);
                     if($scope.crStatus=="APPROVED")
@@ -302,6 +354,8 @@ angular.module('apolloApp').controller('adminCRDiffCtrl', ['$scope', '$http','$r
         {
 
                 var crRelArray=eval($scope.crRel);
+
+                $scope.crRelArray=crRelArray;
 
 
                 var dbcrRelArray=[];
@@ -470,7 +524,111 @@ angular.module('apolloApp').controller('adminCRDiffCtrl', ['$scope', '$http','$r
 
     }
 
+    $scope.deleterelrow=function(id){
+
+        //console.log($scope.relvalues);
+
+        
+
+        var x=arrayObjectIndexOf($scope.dbcrRelArray, id, "relid"); // 1
+
+        //console.log(x);
+
+        //($scope.dbcrRelArray).splice(x,1);
+        $scope.dbcrRelArray.forEach(function(d){
+            console.log(d);
+            if(d.relid==id)
+            {
+                d.found=false;
+                d.crdbType="db";
+            }
+        });
+        //console.log($scope.relvalues);
+        
+        //$scope.$apply;
+    }
+
+    function arrayObjectIndexOf(myArray, searchTerm, property) {
+        for(var i = 0, len = myArray.length; i < len; i++) {
+            if (myArray[i][property] === searchTerm) return i;
+        }
+        return -1;
+    }
+
+    $scope.startNodeSelected=function($item, $model, $label){
+        //console.log("start",$item);
+        $scope.startNodeId=$item.id;
+        $scope.startnode=$item.displayname;
+        //checkNewRel();
+    };
+
+    $scope.endNodeSelected=function($item, $model, $label){
+        //console.log("end",$item.id);
+        $scope.endNodeId=$item.id;
+        $scope.endnode=$item.displayname;
+        //checkNewRel();
+    };
+
+    $scope.addRel = function(){
+        console.log($scope.dbcrRelArray);
+        //var nextrelid=$scope.i++;
+        if(($scope.endNodeId==$scope.nodeId || $scope.startNodeId==$scope.nodeId) && ($scope.endNodeId!="" && $scope.startNodeId!="") && ($scope.relselect!="")&& ($scope.relselect!=null))
+        {
+                
+            if($scope.relationshipDescription=="")
+            {
+                $scope.relationshipDescription="n/a";
+            }
+
+            if($scope.endNodeId==$scope.nodeId)
+            {
+                $scope.dbcrRelArray.push({found:false,crdbType:"cr",aname:$scope.nodeName,aid:$scope.nodeId,bname:$scope.startnode,bid:$scope.startNodeId,relid:$scope.i++,reltype:$scope.relselect,startid:$scope.startNodeId,startname:$scope.startnode,endid:$scope.endNodeId,endname:$scope.endnode,reldesc:$scope.relationshipDescription});   
+            }
+            else
+            {
+                $scope.dbcrRelArray.push({found:false,crdbType:"cr",aname:$scope.nodeName,aid:$scope.nodeId,bname:$scope.endnode,bid:$scope.endNodeId,relid:$scope.i++,reltype:$scope.relselect,startid:$scope.startNodeId,startname:$scope.startnode,endid:$scope.endNodeId,endname:$scope.endnode,reldesc:$scope.relationshipDescription});
+            }
+
+            $scope.startnode="";
+            $scope.startNodeId="";
+
+            $scope.endnode="";
+            $scope.endNodeId="";
+
+            $scope.relselect="";
+            
+            $scope.showErrMsg=false;
+            //findRelDifference();
+
+        }
+        else
+        {
+            
+            $scope.showErrMsg=true;
+        }
+        console.log($scope.dbcrRelArray);
+
+        
+    }
 
 }]);
 
+
+angular.module('apolloApp').controller('ModalInstanceCtrl', function ($scope, $modalInstance,doc_id) {
+
+  // $scope.items = items;
+  // $scope.selected = {
+  //   item: $scope.items[0]
+  // };
+  //console.log(doc_id);
+  $scope.ok = function () {
+    //$modalInstance.close('ok');
+    $scope.$close(doc_id);
+  };
+
+  $scope.cancel = function () {
+    //$modalInstance.dismiss('cancel');
+    $scope.$dismiss();
+  };
+});
 

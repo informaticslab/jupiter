@@ -1,9 +1,9 @@
-angular.module('apolloApp').controller('rootCtrl', function($scope, $http, $location, localStorageService, $modal){
+angular.module('apolloApp').controller('rootCtrl', function($scope, $http, $location, localStorageService, $modal,ngIdentity){
     
     $scope.q = 'home';
     $scope.loginuser = 'guest';
     $scope.queryString = '';
-
+    $scope.indentity = ngIdentity;
     $http.get('build.json')
       .then(function(res){
       	
@@ -72,10 +72,10 @@ angular.module('apolloApp').controller('rootCtrl', function($scope, $http, $loca
       $scope.showSidebar = !$scope.showSidebar;
     };
 
-    $scope.signInBtn = false;
-    $scope.toggleSignInBtn = function() {
-        $scope.signInBtn = $scope.signInBtn === false ? true: false;
-    };
+    // $scope.signInBtn = false;
+    // $scope.toggleSignInBtn = function() {
+    //     $scope.signInBtn = $scope.signInBtn === false ? true: false;
+    // };
 
     //SITE HISTORY
 

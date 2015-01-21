@@ -57,8 +57,8 @@ module.exports = function(app) {
         res.end();
     });
     
-    app.post('/apollo/api/mongo/postdeletecr',auth.requiresRole('admin'), nodes.postDeleteCR);
-    app.post('/apollo/api/mongo/deletecr',auth.requiresRole('admin'), nodes.deleteMongoCR);
+    app.post('/apollo/api/mongo/postdeletecr', nodes.postDeleteCR);
+    app.post('/apollo/api/mongo/deletecr', nodes.deleteMongoCR);
     app.get('/apollo/api/mongo/:id', nodes.getCR);
     
     //this goes at the bottom.  It is the catchall for everything not defined above.  Silly.

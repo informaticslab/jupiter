@@ -26,18 +26,21 @@ module.exports = function(config) {
 
 	var User = mongoose.model('User',userSchema);
 
-	User.find({}).exec(function(err, collection){
+	User.find({}).exec(function(err, collection){ 
 		if(collection.length ===0) {
 			var salt, hash;
 			salt = createSalt();
-			hash = hashPwd(salt,'leeroyjenkins');
-			User.create({firstName:'Leeroy',lastName:'Jenkins',username:'leeroyjenkins', salt:salt, hashed_pwd: hash, roles:[]});
+			hash = hashPwd(salt,'cdcuser');
+			User.create({firstName:'CDCUser',lastName:'CDCUser',username:'cdcuser', salt:salt, hashed_pwd: hash, roles:['su']});
 			salt = createSalt();
 			hash = hashPwd(salt,'admin');
-			User.create({firstName:'Tom',lastName:'Savel',username:'admin',salt:salt, hashed_pwd: hash, roles:['admin','su']});
+			User.create({firstName:'Tom',lastName:'Savel',username:'tsavel',salt:salt, hashed_pwd: hash, roles:['admin','su']});
 			salt = createSalt();
-			hash = hashPwd(salt,'crabcrib');
-			User.create({firstName:'Sarah',lastName:'Koenig',username:'mailkimp',salt:salt, hashed_pwd: hash, roles:['su']});
+			hash = hashPwd(salt,'sdavid');
+			User.create({firstName:'Sanjith',lastName:'David',username:'sdavid',salt:salt, hashed_pwd: hash, roles:['su']});
+			salt = createSalt();
+			hash = hashPwd(salt,'kta');
+			User.create({firstName:'Michael',lastName:'Ta',username:'kta',salt:salt, hashed_pwd: hash, roles:['su']});
 			}
 	})
 }

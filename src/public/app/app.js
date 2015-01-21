@@ -118,12 +118,12 @@ apolloApp.config(['$routeProvider',
           when('/adminCRQueue', {
         templateUrl: 'partials/adminCRQueue',
         controller: 'adminCRQueueCtrl',
-        resolve: routeRoleChecks.admin
+        resolve: routeRoleChecks.su
       }).
           when('/adminCRQueue/CRDiff/:id', {
         templateUrl: 'partials/adminCRDiff',
         controller: 'adminCRDiffCtrl',
-        resolve: routeRoleChecks.admin
+        resolve: routeRoleChecks.su
       }).
           when('/inTheLab/:topic', { 
             templateUrl: function(params){

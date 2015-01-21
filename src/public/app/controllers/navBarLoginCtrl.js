@@ -7,8 +7,9 @@ angular.module('apolloApp').controller('navBarLoginCtrl',function($scope,$http,n
 					$location.path('/adminCRQueue');
 				}
 				else if($scope.identity.currentUser.isSU()){
-					$location.path('/adminCRAdd');
+					$location.path('/adminCREdit');
 				}
+				console.log($scope.identity.dbUserId());
 			} else {
 				ngNotifier.notify('Incorrect Username/Password');
 			}

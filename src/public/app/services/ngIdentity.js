@@ -12,6 +12,10 @@ angular.module('apolloApp').factory('ngIdentity', function($window, ngUser) {
 
 		isAuthorized: function(role){
 			return !!this.currentUser && this.currentUser.roles.indexOf(role) > -1;
+		},
+
+		dbUserId: function(){
+			return this.currentUser._id;
 		}
 	}
 });

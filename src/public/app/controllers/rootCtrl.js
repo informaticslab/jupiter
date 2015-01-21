@@ -3,7 +3,7 @@ angular.module('apolloApp').controller('rootCtrl', function($scope, $http, $loca
     $scope.q = 'home';
     $scope.loginuser = 'guest';
     $scope.queryString = '';
-    $scope.indentity = ngIdentity;
+    $scope.identity = ngIdentity;
     $http.get('build.json')
       .then(function(res){
       	
@@ -72,11 +72,17 @@ angular.module('apolloApp').controller('rootCtrl', function($scope, $http, $loca
       $scope.showSidebar = !$scope.showSidebar;
     };
 
-    // $scope.signInBtn = false;
-    // $scope.toggleSignInBtn = function() {
-    //     $scope.signInBtn = $scope.signInBtn === false ? true: false;
-    // };
 
+    if($scope.identity.isAuthenticated()){
+
+      $scope.signInBtn = true;
+    } else if (!$scope.identity.isAuthenticated()){
+      
+    $scope.signInBtn = false;
+    $scope.toggleSignInBtn = function() {
+        $scope.signInBtn = $scope.signInBtn === false ? true: false;
+    };
+    }
     //SITE HISTORY
 
 

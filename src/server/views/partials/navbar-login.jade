@@ -8,13 +8,15 @@
 	ul.nav.navbar-nav.navbar-right(ng-show="identity.isAuthenticated()")
 		li.dropdown
 			a.dropdown-toggle(href="")
-				|Welcome, {{identity.currentUser.firstName + " " + identity.currentUser.lastName}} 
+				|Welcome, {{identity.currentUser.firstName}} 
 				b.caret
 			ul.dropdown-menu 
-				li(ng-show="identity.currentUser.isAdmin()")
+				li(ng-show="identity.currentUser.isSU()")
 					a(href="#/adminCRQueue") CR Queue
 				li(ng-show="identity.currentUser.isSU()")
-					a(href="#/adminCRAdd") CR Add
+					a(href="#/adminCREdit") CR Edit
+				li(ng-show="identity.currentUser.isSU()")
+					a(href="/adminCRAdd") CR Add
 				li 
 					a(href="", ng-click="signout()") Logout
 			

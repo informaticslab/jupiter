@@ -3,17 +3,22 @@ angular.module('apolloApp').controller('navBarLoginCtrl',function($scope,$http,n
 	$scope.signin =function(username, password){
 		ngAuth.authenticateUser(username,password).then(function(success) {
 			if(success) {
-				ngNotifier.notify('You have successfully signed in!');
+				if($scope.identity.currentUser.isAdmin()){
+					$location.path('/adminCRQueue');
+				}
+				else if($scope.identity.currentUser.isSU()){
+					$location.path('/adminCRAdd');
+				}
 			} else {
-				ngNotifier.notify('Username/password combination incorrect');
+				ngNotifier.notify('Incorrect Username/Password');
 			}
 		});
 	}
 	$scope.signout = function(){
 		ngAuth.logoutUser().then(function() {
-			$scope.username = "";
+			$scope.userName = "";
 			$scope.password = "";
-			ngNotifier.notify('You have successfully signed out.');
+			// ngNotifier.notify('You have successfully signed out.');
 			$location.path('/');
 		})
 	}

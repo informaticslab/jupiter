@@ -1,14 +1,14 @@
 .navbar-right(ng-controller="navBarLoginCtrl")
 	form.navbar-form(ng-hide="identity.isAuthenticated()")
 		.form-group
-			input.form-control(placeholder="Email", ng-model="userName")
+			input.form-control(placeholder="Username", ng-model="userName")
 		.form-group
 			input.form-control(type="password", placeholder="Password", ng-model="password")
-		button.btn.btn-primary(ng-click="signin(userName,password)") Sign In
+		button.btn.btn-primary(ng-click="signin(userName,password)") Login
 	ul.nav.navbar-nav.navbar-right(ng-show="identity.isAuthenticated()")
 		li.dropdown
-			a.dropdown-toggle(href="", data-toggle="dropdown")
-				| {{identity.currentUser.firstName + " " + identity.currentUser.lastName}}
+			a.dropdown-toggle(href="")
+				| {{identity.currentUser.firstName + " " + identity.currentUser.lastName}} 
 				b.caret
 			ul.dropdown-menu 
 				li(ng-show="identity.currentUser.isAdmin()")
@@ -16,8 +16,8 @@
 				li(ng-show="identity.currentUser.isSU()")
 					a(href="#/adminCRAdd") CR Add
 				li 
-					a(href="", ng-click="signout()") Sign Out
-			u
+					a(href="", ng-click="signout()") Logout
+			
 				
 
 				

@@ -72,6 +72,10 @@ angular.module('apolloApp').controller('rootCtrl', function($scope, $http, $loca
       $scope.showSidebar = !$scope.showSidebar;
     };
 
+    $scope.signInBtn = false;
+    $scope.toggleSignInBtn = function() {
+        $scope.signInBtn = $scope.signInBtn === false ? true: false;
+    };
 
     //SITE HISTORY
 

@@ -89,8 +89,10 @@ html(lang="en" ng-app='apolloApp')
 								a(href='#/faq')
 									span.glyphicon.glyphicon-comment.custom_faqs.icon-flipped  
 									| &nbsp;FAQs
-						div(ng-include="'/apollo/partials/navbar-login'")
-						//span.right_nav_content
+						
+						span.right_nav_content
+							a(href='#' ng-click="toggleSignInBtn()" ng-hide="signInBtn") Admin?
+						div(ng-include="'/apollo/partials/navbar-login'"  ng-show ="signInBtn")
 							//span.glyphicon.glyphicon-user.user_custom  
 							//| &nbsp;Welcome, {{loginuser}} &nbsp;
 							//a(href='#')  Logout

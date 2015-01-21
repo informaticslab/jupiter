@@ -36,6 +36,7 @@ exports.requiresRole =function(role) {
         if(!req.isAuthenticated() || req.user.roles.indexOf(role) === -1) {
             res.status(403);
             res.end();
+            console.log(role); 
         } else {
             next();
         }

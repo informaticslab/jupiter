@@ -1,5 +1,5 @@
-angular.module('apolloApp').controller('adminCRAddCtrl', ['$scope', '$http','$filter','$location','nodeAttributeDictionary','nodeRelationshipDictionary','nodeTypeDictionary',
-    function($scope,$http,$filter,$location,nodeAttributeDictionary,nodeRelationshipDictionary,nodeTypeDictionary) {
+angular.module('apolloApp').controller('adminCRAddCtrl', ['$scope', '$http','$filter','$location','nodeAttributeDictionary','nodeRelationshipDictionary','nodeTypeDictionary', 'ngIdentity',
+    function($scope,$http,$filter,$location,nodeAttributeDictionary,nodeRelationshipDictionary,nodeTypeDictionary,ngIdentity) {
 
 
 
@@ -24,7 +24,7 @@ angular.module('apolloApp').controller('adminCRAddCtrl', ['$scope', '$http','$fi
     $scope.relValues=nodeRelationshipDictionary.RelationshipTypes;
     $scope.nodeTypeValues=nodeTypeDictionary.NodeTypes;
     
-
+    $scope.identity = ngIdentity;
     
  //   	$scope.itemSelected = function($item, $model, $label, id) {
  //            $scope.crQueueSuccess=false;

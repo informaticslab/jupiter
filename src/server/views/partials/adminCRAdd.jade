@@ -57,7 +57,7 @@
 							li(role="presentation")
 								a(href="#/adminCREdit")
 									| Edit/Delete Node
-							li(role="presentation")
+							li(role="presentation" ng-show="identity.currentUser.isAdmin()")
 								a(href="#/adminCRQueue")
 									| Queue
 				hr

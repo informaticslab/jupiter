@@ -7,7 +7,7 @@ angular.module('apolloApp').factory('ngUser',function($resource) {
 	}
 
 	userResource.prototype.isSU = function() {
-		return this.rolse && this.roles.indexOf('su') > -1;
+		return this.roles && this.roles.indexOf('su') > -1;
 	}
 
 	return userResource;

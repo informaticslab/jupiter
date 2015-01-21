@@ -15,10 +15,13 @@ var apolloApp = angular.module('apolloApp', [
 ]);
 
 var routeRoleChecks = {
-  admin:{ auth: function(ngAuth){
+  admin:{auth: function(ngAuth){
             return ngAuth.authorizeCurrentUserForRoute('admin')
+          }},
+  su:{auth:function(ngAuth){
+    return ngAuth.authorizeCurrentUserForRoute('su')
           }}
-}
+};
 
 apolloApp.config(['$routeProvider', 
   function($routeProvider) {
@@ -100,17 +103,17 @@ apolloApp.config(['$routeProvider',
           when('/adminCRAdd', {
         templateUrl: 'partials/adminCRAdd',
         controller: 'adminCRAddCtrl',
-        resolve: routeRoleChecks.admin
+        resolve: routeRoleChecks.su
       }).
           when('/adminCREdit', {
         templateUrl: 'partials/admin',
         controller: 'adminCtrl',
-        resolve: routeRoleChecks.admin
+        resolve: routeRoleChecks.su
       }).
           when('/adminCREdit/:id', {
         templateUrl: 'partials/admin',
         controller: 'adminCtrl',
-        resolve: routeRoleChecks.admin
+        resolve: routeRoleChecks.su
       }).
           when('/adminCRQueue', {
         templateUrl: 'partials/adminCRQueue',

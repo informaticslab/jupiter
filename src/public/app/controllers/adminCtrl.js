@@ -1,5 +1,5 @@
-angular.module('apolloApp').controller('adminCtrl', ['$scope','$modal', '$http','$filter','$routeParams','$location','nodeAttributeDictionary','nodeRelationshipDictionary',
-	function($scope,$modal,$http,$filter,$routeParams,$location,nodeAttributeDictionary,nodeRelationshipDictionary) {
+angular.module('apolloApp').controller('adminCtrl', ['$scope','$modal', '$http','$filter','$routeParams','$location','nodeAttributeDictionary','nodeRelationshipDictionary', 'ngIdentity',
+	function($scope,$modal,$http,$filter,$routeParams,$location,nodeAttributeDictionary,nodeRelationshipDictionary,ngIdentity) {
 
 
     $scope.open = function (docid) {
@@ -23,6 +23,8 @@ angular.module('apolloApp').controller('adminCtrl', ['$scope','$modal', '$http',
         });
     };
 
+
+    $scope.identity = ngIdentity;
     $scope.cr={};
     $scope.showButtons=false;
     $scope.nodeLabel="";

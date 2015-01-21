@@ -13,6 +13,11 @@
 			ul.dropdown-menu 
 				li(ng-show="identity.currentUser.isAdmin()")
 					a(href="#/adminCRQueue") CR Queue
+				li(ng-show="identity.currentUser.isSU()")
+					a(href="#/adminCRAdd") CR Add
 				li 
 					a(href="", ng-click="signout()") Sign Out
+			u
+				
+
 				

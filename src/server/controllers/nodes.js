@@ -1911,6 +1911,28 @@ exports.getMongoAll = function(req, res) {
 
 };
 
+exports.getMongoStatus = function(req, res) {
+
+    var id = req.params.id;
+    var query={'id':id,'CR_STATUS':'PENDING'};
+    var returnfields = {_id:1};
+
+    var collection = mongo.mongodb.collection('cr');
+
+    
+    collection.find(query,returnfields).toArray(function(err, docs) {
+        //assert.equal(err, null);
+        //assert.equal(2, docs.length);
+        //console.log("Found the following records");
+        //console.log(docs)
+        //callback(docs);
+        res.send(docs);
+    });
+
+    //db.cr.find({'id':'SS15','CR_STATUS':'APPROVED'}).count()
+};
+
+
 exports.postUpdateCR = function(req, res) {
 
 

@@ -39,6 +39,9 @@ angular.module('apolloApp').controller('adminCtrl', ['$scope','$modal', '$http',
     $scope.hover=false;
     $scope.showErrMsg=false;
 
+    $scope.lockedMongoID="";
+    $scope.showLockMsg=false;
+
     $scope.relationshipDescription="";
 
     //console.log(nodeRelationshipDictionary.RelationshipTypes);
@@ -50,8 +53,9 @@ angular.module('apolloApp').controller('adminCtrl', ['$scope','$modal', '$http',
         $scope.crQueueSuccess=false;
         $scope.crQueueFail=false;
 
-        fetchNodeValues();
-        fetchRelationshipValues();
+        checkCRexist();
+        // fetchNodeValues();
+        // fetchRelationshipValues();
         //$scope.itemSelected();
     }
     
@@ -62,9 +66,29 @@ angular.module('apolloApp').controller('adminCtrl', ['$scope','$modal', '$http',
 			//console.log($scope.nodeId,$item,$model,$label);
 
 	       $location.path('/adminCREdit/'+$scope.nodeId);
-            fetchNodeValues();
-            fetchRelationshipValues();   
+           checkCRexist();
+            
+            
 	};
+
+    function checkCRexist(){
+        $http.get('/apollo/api/mongo/getstatus/' + $scope.nodeId).then(function(res) {
+            console.log(res.data.length);
+            if(res.data.length>0)
+            {
+                console.log(res.data[0]._id);
+                $scope.lockedMongoID=res.data[0]._id;
+                $scope.showLockMsg=true;
+            }
+            else
+            {
+                fetchNodeValues();
+                fetchRelationshipValues();   
+            }
+
+
+        });
+    }
 
 
     function fetchRelationshipValues(){

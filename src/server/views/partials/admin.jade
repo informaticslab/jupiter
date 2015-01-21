@@ -69,6 +69,13 @@
 						input(type="text" ng-model="node"  placeholder="Search activity" typeahead-on-select="itemSelected($item, $model, $label)" typeahead-min-length='3' typeahead="node.name for node in getNodes($viewValue)" class="form-control")
 						//input(type="hidden" id="nodeId" ng-value="nodeId")
 				.vertical_spacing_browse
+				.row(ng-show="showLockMsg")
+					.col-md-12.col-lg-12.col-sm-12
+						.alert.alert-success(role="alert")
+							| There is an existing change request on this activity created by user UserX. Click here to 
+							a(href="#/adminCRQueue/CRDiff/{{lockedMongoID}}")
+								| view
+							|  the existing change request.
 				.row(ng-show="showButtons")
 					.col-lg-12.col-md-12.col-sm-12
 						.row(ng-show="showButtons")

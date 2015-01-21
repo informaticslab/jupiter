@@ -11,12 +11,22 @@ angular.module('apolloApp').controller('adminCRAddCtrl', ['$scope', '$http','$fi
     
     $scope.endNodeId="";
     $scope.startNodeId="";
+
+    $scope.startnode="";
+    $scope.endnode="";
+    $scope.relationshipDescription="";
+
     $scope.relselect="";
     $scope.hover=false;
     $scope.showErrMsg=false;
 
     $scope.relCheckBox={};
     $scope.relvalues=[];
+
+    $scope.nextNodeID="TBD";
+    $scope.i=100;
+
+
     //.fromNewNode=false;
     //$scope.relCheckBox.toNewNode=false;
 
@@ -85,66 +95,66 @@ angular.module('apolloApp').controller('adminCRAddCtrl', ['$scope', '$http','$fi
         //console.log($scope.actAttributes);
         //console.log($scope.actAttributes[$scope.nodetypeselect]);
         fetchNodeValues();
-        getNextNodeID();
+        //getNextNodeID();
         //console.log(nodeAttributeDictionary[$scope.nodetypeselect].attributeGroups[y].attributes);
     }
 
-    function getNextNodeID()
-    {
+    // function getNextNodeID()
+    // {
 
         
 
-        $http.get('/apollo/api/neo/nextnodeid/'+$scope.nodetypeselect).then(function(res) {
-            //console.log(res.data);
-            var nextNodeIDInt=parseInt(res.data)+1;
+    //     $http.get('/apollo/api/neo/nextnodeid/'+$scope.nodetypeselect).then(function(res) {
+    //         //console.log(res.data);
+    //         var nextNodeIDInt=parseInt(res.data)+1;
             
 
-            if($scope.nodeLabel=="Organization")
-            {
-                $scope.nextNodeID="O"+nextNodeIDInt.toString();
-            }
-            else if($scope.nodeLabel=="Program")
-            {
-                $scope.nextNodeID="P"+nextNodeIDInt.toString();
-            }
-            else if($scope.nodeLabel=="SurveillanceSystem")
-            {
-                $scope.nextNodeID="SS"+nextNodeIDInt.toString();
-            }
-            else if($scope.nodeLabel=="Tool")
-            {
-                $scope.nextNodeID="TL"+nextNodeIDInt.toString();
-            }
-            else if($scope.nodeLabel=="Registry")
-            {
-                i$scope.nextNodeID="RG"+nextNodeIDInt.toString();
-            }
-            else if($scope.nodeLabel=="HealthSurvey")
-            {
-                $scope.nextNodeID="HS"+nextNodeIDInt.toString();
-            }
-            else if($scope.nodeLabel=="Collaborative")
-            {
-                $scope.nextNodeID="CO"+nextNodeIDInt.toString();
-            }
-            else if($scope.nodeLabel=="Dataset")
-            {
-                $scope.nextNodeID="DSET"+nextNodeIDInt.toString();
-            }
-            else if($scope.nodeLabel=="DataStandard")
-            {
-                $scope.nextNodeID="DSTD"+nextNodeIDInt.toString();
-            }
-            else if($scope.nodeLabel=="Tag")
-            {
-                $scope.nextNodeID="TAG"+nextNodeIDInt.toString();
-            }
+    //         if($scope.nodeLabel=="Organization")
+    //         {
+    //             $scope.nextNodeID="O"+nextNodeIDInt.toString();
+    //         }
+    //         else if($scope.nodeLabel=="Program")
+    //         {
+    //             $scope.nextNodeID="P"+nextNodeIDInt.toString();
+    //         }
+    //         else if($scope.nodeLabel=="SurveillanceSystem")
+    //         {
+    //             $scope.nextNodeID="SS"+nextNodeIDInt.toString();
+    //         }
+    //         else if($scope.nodeLabel=="Tool")
+    //         {
+    //             $scope.nextNodeID="TL"+nextNodeIDInt.toString();
+    //         }
+    //         else if($scope.nodeLabel=="Registry")
+    //         {
+    //             i$scope.nextNodeID="RG"+nextNodeIDInt.toString();
+    //         }
+    //         else if($scope.nodeLabel=="HealthSurvey")
+    //         {
+    //             $scope.nextNodeID="HS"+nextNodeIDInt.toString();
+    //         }
+    //         else if($scope.nodeLabel=="Collaborative")
+    //         {
+    //             $scope.nextNodeID="CO"+nextNodeIDInt.toString();
+    //         }
+    //         else if($scope.nodeLabel=="Dataset")
+    //         {
+    //             $scope.nextNodeID="DSET"+nextNodeIDInt.toString();
+    //         }
+    //         else if($scope.nodeLabel=="DataStandard")
+    //         {
+    //             $scope.nextNodeID="DSTD"+nextNodeIDInt.toString();
+    //         }
+    //         else if($scope.nodeLabel=="Tag")
+    //         {
+    //             $scope.nextNodeID="TAG"+nextNodeIDInt.toString();
+    //         }
 
-            //console.log($scope.nextNodeID);
+    //         //console.log($scope.nextNodeID);
 
-        });
+    //     });
 
-    }
+    // }
 
     $scope.deleterelrow=function(id){
 
@@ -225,6 +235,8 @@ angular.module('apolloApp').controller('adminCRAddCtrl', ['$scope', '$http','$fi
                 $scope.crQueueFail=true;
         });
 
+        //console.log(datapacket);
+
     };
 
     //     $scope.postdeletecr=function(){
@@ -264,7 +276,7 @@ angular.module('apolloApp').controller('adminCRAddCtrl', ['$scope', '$http','$fi
     $scope.startNodeSelected=function($item){
         //console.log("start",$item.id, $scope.node);
         $scope.startNodeId=$item.id;
-
+        $scope.startnode=$item.displayname;
 
 
         //checkNewRel();
@@ -273,6 +285,7 @@ angular.module('apolloApp').controller('adminCRAddCtrl', ['$scope', '$http','$fi
     $scope.endNodeSelected=function($item){
         //console.log("end",$item.id);
         $scope.endNodeId=$item.id;
+        $scope.endnode=$item.displayname;
         //checkNewRel();
     };
 
@@ -286,16 +299,16 @@ angular.module('apolloApp').controller('adminCRAddCtrl', ['$scope', '$http','$fi
 
             if($scope.relationshipDescription=="")
             {
-                $scope.relationshipDescription="N/A";
+                $scope.relationshipDescription="n/a";
             }
 
             if($scope.endNodeId==$scope.nodeId || $scope.endNodeId==$scope.nextNodeID)
             {
-                $scope.relvalues.push({aname:$scope.cr.name,aid:$scope.nextNodeID,bname:$scope.startnode,bid:$scope.startNodeId,relid:$scope.relvalues.length,reltype:$scope.relselect,startid:$scope.startNodeId,startname:$scope.startnode,endid:$scope.endNodeId,endname:$scope.endnode,reldesc:$scope.relationshipDescription});   
+                $scope.relvalues.push({aname:$scope.cr.name,aid:$scope.nextNodeID,bname:$scope.startnode,bid:$scope.startNodeId,relid:$scope.i++,reltype:$scope.relselect,startid:$scope.startNodeId,startname:$scope.startnode,endid:$scope.endNodeId,endname:$scope.endnode,reldesc:$scope.relationshipDescription});   
             }
             else
             {
-                $scope.relvalues.push({aname:$scope.cr.name,aid:$scope.nextNodeID,bname:$scope.endnode,bid:$scope.endNodeId,relid:$scope.relvalues.length,reltype:$scope.relselect,startid:$scope.startNodeId,startname:$scope.startnode,endid:$scope.endNodeId,endname:$scope.endnode,reldesc:$scope.relationshipDescription});
+                $scope.relvalues.push({aname:$scope.cr.name,aid:$scope.nextNodeID,bname:$scope.endnode,bid:$scope.endNodeId,relid:$scope.i++,reltype:$scope.relselect,startid:$scope.startNodeId,startname:$scope.startnode,endid:$scope.endNodeId,endname:$scope.endnode,reldesc:$scope.relationshipDescription});
             }
 
             $scope.startnode="";

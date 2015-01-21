@@ -69,6 +69,13 @@
 						input(type="text" ng-model="node"  placeholder="Search activity" typeahead-on-select="itemSelected($item, $model, $label)" typeahead-min-length='3' typeahead="node.name for node in getNodes($viewValue)" class="form-control")
 						//input(type="hidden" id="nodeId" ng-value="nodeId")
 				.vertical_spacing_browse
+				.row(ng-show="showLockMsg")
+					.col-md-12.col-lg-12.col-sm-12
+						.alert.alert-success(role="alert")
+							| There is an existing change request on this activity created by user UserX. Click here to 
+							a(href="#/adminCRQueue/CRDiff/{{lockedMongoID}}")
+								| view
+							|  the existing change request.
 				.row(ng-show="showButtons")
 					.col-lg-12.col-md-12.col-sm-12
 						.row(ng-show="showButtons")
@@ -104,30 +111,40 @@
 							tbody
 								tr(ng-repeat="relrow in relvalues" ng-mouseenter="hover = true" ng-mouseleave="hover = false")
 									td
-										| {{relrow.startname | TitleCase }} 
+										| {{relrow.startname }} 
 									td
 										| {{relrow.reltype | TitleCase | unCamelCase}}
 										br
 										.small(ng-if="relrow.reldesc!='undefined'")
 											| ({{relrow.reldesc}})
 									td
-										| {{relrow.endname | TitleCase}}
+										| {{relrow.endname}}
 									td(style="text-align: right;")
 										label.btn.btn-default.btn-xs(ng-show="hover" ng-click="open(relrow.relid)")
 											i.fa.fa-times
-						.vertical_spacing_more
+				.vertical_spacing_less
+				.row(ng-show="showButtons")
+					.col-lg-12.col-md-12.col-sm-12				
 						h5
 							| Add New Relationship
 						.vertical_spacing_less
 				.row(ng-show="showButtons")
 					.col-lg-4.col-md-4.col-sm-4
 						input(type="text" ng-model="startnode"  placeholder="From" typeahead-on-select="startNodeSelected($item, $model, $label)" typeahead-min-length='3' typeahead="node.name for node in getNodes($viewValue)" class="form-control")
+						label(ng-if="cr['name']!=''")
+							.small
+								input(type="checkbox" ng-model="relCheckBox.fromNewNode" ng-change="setRelValue()")
+								|  Mark if this node is '{{node}}'
 					.col-lg-3.col-md-3.col-sm-3
 						select.form-control(ng-model="relselect" ng-options="opt as (opt | TitleCase | unCamelCase) for opt in relValues")
 							option(value="")
 								| Select relationship type
 					.col-lg-4.col-md-4.col-sm-4
 						input(type="text" ng-model="endnode"  placeholder="To" typeahead-on-select="endNodeSelected($item, $model, $label)" typeahead-min-length='3' typeahead="node.name for node in getNodes($viewValue)" class="form-control")
+						label(ng-if="cr['name']!=''")
+							.small
+								input(type="checkbox" ng-model="relCheckBox.toNewNode" ng-change="setRelValue()")
+								|  Mark if this node is '{{node}}'
 					.col-lg-1.col-md-1.col-sm-1
 						
 				.vertical_spacing_lesser

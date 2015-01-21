@@ -24,20 +24,33 @@ angular.module('apolloApp').controller('adminCtrl', ['$scope','$modal', '$http',
     };
 
 
+
     $scope.identity = ngIdentity;
+
+    $scope.i=new Date().getTime()+100;
+
     $scope.cr={};
     $scope.showButtons=false;
     $scope.nodeLabel="";
     $scope.crQueueSuccess=false;
     $scope.crQueueFail=false;
     
-    $scope.endNodeId="";
+    $scope.startnode="";
     $scope.startNodeId="";
+
+    $scope.endnode="";
+    $scope.endNodeId="";
     $scope.relselect="";
     $scope.hover=false;
     $scope.showErrMsg=false;
 
+    $scope.lockedMongoID="";
+    $scope.showLockMsg=false;
+
     $scope.relationshipDescription="";
+    $scope.relCheckBox={};
+    $scope.relCheckBox.fromNewNode=false;
+    $scope.relCheckBox.toNewNode=false;
 
     //console.log(nodeRelationshipDictionary.RelationshipTypes);
     $scope.relValues=nodeRelationshipDictionary.RelationshipTypes;
@@ -48,8 +61,9 @@ angular.module('apolloApp').controller('adminCtrl', ['$scope','$modal', '$http',
         $scope.crQueueSuccess=false;
         $scope.crQueueFail=false;
 
-        fetchNodeValues();
-        fetchRelationshipValues();
+        checkCRexist();
+        // fetchNodeValues();
+        // fetchRelationshipValues();
         //$scope.itemSelected();
     }
     
@@ -60,9 +74,65 @@ angular.module('apolloApp').controller('adminCtrl', ['$scope','$modal', '$http',
 			//console.log($scope.nodeId,$item,$model,$label);
 
 	       $location.path('/adminCREdit/'+$scope.nodeId);
-            fetchNodeValues();
-            fetchRelationshipValues();   
+           checkCRexist();
+            
+            
 	};
+
+    function checkCRexist(){
+        $http.get('/apollo/api/mongo/getstatus/' + $scope.nodeId).then(function(res) {
+            console.log(res.data.length);
+            if(res.data.length>0)
+            {
+                console.log(res.data[0]._id);
+                $scope.lockedMongoID=res.data[0]._id;
+                $scope.showLockMsg=true;
+            }
+            else
+            {
+                fetchNodeValues();
+                fetchRelationshipValues();   
+            }
+
+
+        });
+    }
+
+    $scope.setRelValue = function(){
+
+        //console.log($scope.relCheckBox.fromNewNode,$scope.relCheckBox.toNewNode);
+
+        if($scope.relCheckBox.toNewNode && $scope.relCheckBox.fromNewNode)
+        {
+
+        }
+        else if(!$scope.relCheckBox.toNewNode && !$scope.relCheckBox.fromNewNode)
+        {
+            $scope.startNodeId="";
+            $scope.startnode="";
+            $scope.toNodeId="";
+            $scope.endnode="";
+        }
+        else if($scope.relCheckBox.fromNewNode && !$scope.relCheckBox.toNewNode)
+        {
+            $scope.startNodeId=$scope.nodeId;
+            $scope.startnode=$scope.node;
+            // $scope.toNodeId="";
+            // $scope.endnode="";
+        }
+        else if($scope.relCheckBox.toNewNode && !$scope.relCheckBox.fromNewNode )
+        {
+            $scope.endNodeId=$scope.nodeId;
+            $scope.endnode=$scope.node;
+            // $scope.startNodeId="";
+            // $scope.startnode="";
+        }
+
+        
+
+        //console.log($scope.toNewNode, $scope.fromNewNode);
+    }
+
 
 
     function fetchRelationshipValues(){
@@ -73,8 +143,8 @@ angular.module('apolloApp').controller('adminCtrl', ['$scope','$modal', '$http',
                 var i=1;
                 $scope.relvalues.forEach(function(d){
                     //$scope.relarray.push({'relid':i,'aid':d.aid,'bid':d.bid,'startid':d.startid,'endid':d.endid,'type':d.reltype});
-                    d['relid']=i;
-                    i++;
+                    d['relid']=$scope.i;
+                    $scope.i++;
                 });
                 //console.log($scope.relvalues);
 
@@ -237,38 +307,39 @@ angular.module('apolloApp').controller('adminCtrl', ['$scope','$modal', '$http',
     };
 
 
-    $scope.startNodeSelected=function($item){
-        //console.log("start",$item.id);
+    $scope.startNodeSelected=function($item, $model, $label){
+        //console.log("start",$item);
         $scope.startNodeId=$item.id;
-
+        $scope.startnode=$item.displayname;
         //checkNewRel();
     };
 
-    $scope.endNodeSelected=function($item){
+    $scope.endNodeSelected=function($item, $model, $label){
         //console.log("end",$item.id);
         $scope.endNodeId=$item.id;
+        $scope.endnode=$item.displayname;
         //checkNewRel();
     };
 
 
 
     $scope.addRel = function(){
-        //console.log($scope.relvalues);
+        console.log($scope.startnode,$scope.endnode,$scope.relvalues);
         if(($scope.endNodeId==$scope.nodeId || $scope.startNodeId==$scope.nodeId) && ($scope.endNodeId!="" && $scope.startNodeId!="") && ($scope.relselect!="")&& ($scope.relselect!=null))
         {
                 
             if($scope.relationshipDescription=="")
             {
-                $scope.relationshipDescription="N/A";
+                $scope.relationshipDescription="n/a";
             }
 
             if($scope.endNodeId==$scope.nodeId)
             {
-                $scope.relvalues.push({aname:$scope.node,aid:$scope.nodeId,bname:$scope.startnode,bid:$scope.startNodeId,relid:$scope.relvalues.length,reltype:$scope.relselect,startid:$scope.startNodeId,startname:$scope.startnode,endid:$scope.endNodeId,endname:$scope.endnode,reldesc:$scope.relationshipDescription});   
+                $scope.relvalues.push({aname:$scope.node,aid:$scope.nodeId,bname:$scope.startnode,bid:$scope.startNodeId,relid:$scope.i++,reltype:$scope.relselect,startid:$scope.startNodeId,startname:$scope.startnode,endid:$scope.endNodeId,endname:$scope.endnode,reldesc:$scope.relationshipDescription});   
             }
             else
             {
-                $scope.relvalues.push({aname:$scope.node,aid:$scope.nodeId,bname:$scope.endnode,bid:$scope.endNodeId,relid:$scope.relvalues.length,reltype:$scope.relselect,startid:$scope.startNodeId,startname:$scope.startnode,endid:$scope.endNodeId,endname:$scope.endnode,reldesc:$scope.relationshipDescription});
+                $scope.relvalues.push({aname:$scope.node,aid:$scope.nodeId,bname:$scope.endnode,bid:$scope.endNodeId,relid:$scope.i++,reltype:$scope.relselect,startid:$scope.startNodeId,startname:$scope.startnode,endid:$scope.endNodeId,endname:$scope.endnode,reldesc:$scope.relationshipDescription});
             }
 
             $scope.startnode="";

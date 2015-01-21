@@ -144,12 +144,14 @@ exports.searchByName = function(req, res) {
                     if (!(i.shortname)) {
                         nodedata.push({
                             id: i.id,
-                            name: i.name
+                            name: i.name,
+                            displayname: i.name
                         });
                     } else {
                         nodedata.push({
                             id: i.id,
-                            name: i.name + " (" + i.shortname + ")"
+                            name: i.name + " (" + i.shortname + ")",
+                            displayname: i.name
                         });
                     }
 
@@ -1909,6 +1911,28 @@ exports.getMongoAll = function(req, res) {
 
 };
 
+exports.getMongoStatus = function(req, res) {
+
+    var id = req.params.id;
+    var query={'id':id,'CR_STATUS':'PENDING'};
+    var returnfields = {_id:1};
+
+    var collection = mongo.mongodb.collection('cr');
+
+    
+    collection.find(query,returnfields).toArray(function(err, docs) {
+        //assert.equal(err, null);
+        //assert.equal(2, docs.length);
+        //console.log("Found the following records");
+        //console.log(docs)
+        //callback(docs);
+        res.send(docs);
+    });
+
+    //db.cr.find({'id':'SS15','CR_STATUS':'APPROVED'}).count()
+};
+
+
 exports.postUpdateCR = function(req, res) {
 
 
@@ -1936,7 +1960,7 @@ exports.postAddCR = function(req, res) {
 
 
 
-    console.log("req params",req.body);
+    console.log("req params", req.body);
     var nodeDataString = {};
     nodeDataString = req.body.attr;
     nodeDataString["rels"] = JSON.stringify(req.body.rels);
@@ -1947,13 +1971,10 @@ exports.postAddCR = function(req, res) {
     // Insert some documents
     collection.insert(nodeDataString, function(err, result) {
 
-        if(err)
-        {
+        if (err) {
             console.log(err);
             res.send("fail");
-        }
-        else
-        {
+        } else {
             console.log(result);
             res.send("success");
         }
@@ -1961,7 +1982,7 @@ exports.postAddCR = function(req, res) {
         // assert.equal(3, result.result.n);
         // assert.equal(3, result.ops.length);
         //console.log("Inserted 3 documents into the document collection");
-        
+
     });
     //res.send("ok");
 };
@@ -2028,6 +2049,50 @@ exports.getCR = function(req, res) {
     //res.send("ok");
 };
 
+// var testID = function(id){
+
+//     var idnew="";
+
+//     var testquery='match (n) where n.id={testidparam} return n.id as id'
+//     var testparam={
+//         testidparam:id
+//     };
+//     neodb.db.query(testquery, testparam, function(err, results) {
+//         if (err) {
+//             console.error('Error retreiving node from database:', err);
+//             res.send(404, 'No node at that location');
+//         } else {
+//             console.log("results",results);
+
+//             //var idalphanum=;
+//             if(results.length<=0)
+//             {
+//                 console.log("id=",id);
+//                 return id;
+//             }
+//             else
+//             {
+//                 var idalphanum = results[0].id;
+//                 var idnumstring = idalphanum.match(/\d*$/);
+//                 console.log("idnumstring",idnumstring[0]);
+//                 var idnum=parseInt(idnumstring[0]);
+//                 idnum++;
+//                 console.log(idnum);
+//                 idnew=idalphanum.replace(/\d*$/,idnum.toString());
+
+//                 console.log("NEW ID",idnew);
+
+//                 testID(idnew);
+
+
+//             }
+//         }
+
+//     });
+//     console.log("exiting func call",id)
+
+// };
+
 exports.postApproveCR = function(req, res) {
 
     var mongodata = req.body.approved;
@@ -2035,97 +2100,54 @@ exports.postApproveCR = function(req, res) {
 
     var req_type = req.body.type;
 
+    //var checkedid=testID(mongodata.id);
 
+    //console.log("func call for id",checkedid);
     //console.log("req params mongodata",mongodata);
     //console.log("req type",req_type);
 
     if (req_type == "ADD") {
 
-        var query = 'create (n:`'+mongodata.CR_NODE_TYPE+'`{params})';
-        var params = {
-            params:mongodata
-        };
-        //console.log(query,params);
-        neodb.db.query(query, params, function(err, results) {
 
+        var query = 'match (a) where labels(a)[0]={label} return a.id as id, length(a.id) as len order by len desc, id desc limit 1';
+        var params = {
+            label: mongodata.CR_NODE_TYPE
+        };
+
+        neodb.db.query(query, params, function(err, results) {
             if (err) {
                 console.error('Error retreiving node from database:', err);
                 res.send(404, 'No node at that location');
             } else {
-                console.log("mongo els", mongodata.rels)
-                if(mongodata.rels=="[]")
-                {
-                        var collection = mongo.mongodb.collection('cr');
+                //console.log(results[0].id);
+                var id = results[0].id;
+                var idalphanum = id;
+                var idnumstring = idalphanum.match(/\d*$/);
+                console.log("idnumstring", idnumstring[0]);
+                var idnum = parseInt(idnumstring[0]);
+                idnum++;
+                console.log(idnum);
+                idnew = idalphanum.replace(/\d*$/, idnum.toString());
 
-                        var currenttime = new Date().getTime();
-                        //console.log();
-                        collection.update({
-                            _id: ObjectId(mongodata._id)
-                        }, {
-                            $set: {
-                                CR_STATUS: "APPROVED",
-                                CR_DATE: currenttime,
-                                CR_DATE_APPROVED: currenttime
-                            }
-                        }, function(err, result) {
-                            //console.log(result);
-                            res.send("success");
-                        });
-                }
-                else
-                {
-                    var rels = [];
+                console.log("NEW ID", idnew);
 
-                    rels = eval(mongodata.rels);
-                    //console.log("rels",rels);
-                    var matchclause = "(" + mongodata.id + "{id:'" + mongodata.id + "'})";
-                    var withclause = "" + mongodata.id + "";
-                    var createclause = "";
-                    var query = '';
-                    var bnodeids = [];
-                    rels.forEach(function(d) {
-
-                        if (bnodeids.indexOf(d.bid) < 0) {
-                            //console.log(d.startid+'--'+d.endid+'--'+d.reltype);
-
-                            matchclause = matchclause + ", (" + d.bid + "{id:'" + d.bid + "'}) ";
-                            withclause = withclause + ", " + d.bid + " ";
-                            
-                            var reldesc="";
-                            if(d.reldesc==undefined)
-                            {
-                                reldesc="N/A";
-                            }
-                            else
-                            {
-                                reldesc= d.reldesc;
-                                //console.log("OLD:",reldesc);
-                                reldesc= reldesc.replace(/\\/g,"\\\\");
-                                reldesc= reldesc.replace(/"/g,"\\\"");
-                                reldesc= reldesc.replace(/'/g,"\\\'");
-                                //console.log("NEW:",reldesc);
-                            }
-
-                            createclause = createclause + " create " + d.startid + "-[:`" + d.reltype + "`{`relationshipDescription`:'"+reldesc+"'}]->" + d.endid + " ";
-
-                            bnodeids.push(d.bid);
-                        }
+                mongodata.id=idnew;
 
 
 
-                    });
+                var query = 'create (n:`' + mongodata.CR_NODE_TYPE + '`{params})';
+                var params = {
+                    params: mongodata
+                };
+                //console.log(query,params);
+                neodb.db.query(query, params, function(err, results) {
 
-                    var params = {};
-                    query = 'match ' + matchclause + ' with ' + withclause + createclause;
-                    //console.log("QUERY",query);
-                    neodb.db.query(query, params, function(err1, results1) {
-                        //console.log(results1);
-
-                        if (err1) {
-                            console.error('Error retreiving node from database:', err1);
-                            res.send(404, 'No node at that location');
-                        } else {
-                            //console.log(results1);
+                    if (err) {
+                        console.error('Error retreiving node from database:', err);
+                        res.send(404, 'No node at that location');
+                    } else {
+                        console.log("mongo els", mongodata.rels)
+                        if (mongodata.rels == "[]") {
                             var collection = mongo.mongodb.collection('cr');
 
                             var currenttime = new Date().getTime();
@@ -2134,19 +2156,111 @@ exports.postApproveCR = function(req, res) {
                                 _id: ObjectId(mongodata._id)
                             }, {
                                 $set: {
+                                    id:mongodata.id,
                                     CR_STATUS: "APPROVED",
                                     CR_DATE: currenttime,
                                     CR_DATE_APPROVED: currenttime
                                 }
                             }, function(err, result) {
                                 //console.log(result);
-                                res.send("success");
+                                if(err)
+                                {
+                                    res.send("fail");
+                                }
+                                else
+                                {
+                                    res.send("success");    
+                                }
+                                
+                            });
+                            //console.log("MONGO UPATE NO REL:",mongodata.id);
+                        } else {
+                            var rels = [];
+
+                            rels = eval(mongodata.rels);
+                            //console.log("rels",rels);
+                            var matchclause = "(" + mongodata.id + "{id:'" + mongodata.id + "'})";
+                            var withclause = "" + mongodata.id + "";
+                            var createclause = "";
+                            var query = '';
+                            var bnodeids = [];
+                            rels.forEach(function(d) {
+
+                                if (bnodeids.indexOf(d.bid) < 0) {
+                                    //console.log(d.startid+'--'+d.endid+'--'+d.reltype);
+
+                                    matchclause = matchclause + ", (" + d.bid + "{id:'" + d.bid + "'}) ";
+                                    withclause = withclause + ", " + d.bid + " ";
+
+                                    var reldesc = "";
+                                    if (d.reldesc == undefined) {
+                                        reldesc = "N/A";
+                                    } else {
+                                        reldesc = d.reldesc;
+                                        //console.log("OLD:",reldesc);
+                                        reldesc = reldesc.replace(/\\/g, "\\\\");
+                                        reldesc = reldesc.replace(/"/g, "\\\"");
+                                        reldesc = reldesc.replace(/'/g, "\\\'");
+                                        //console.log("NEW:",reldesc);
+                                    }
+
+                                    //console.log(d.startid,d.endid);
+                                    if(d.startid=="TBD")
+                                    {
+                                        d.startid=mongodata.id;
+                                    }
+                                    if(d.endid=="TBD")
+                                    {
+                                        d.endid=mongodata.id;
+                                    }
+
+                                    createclause = createclause + " create " + d.startid + "-[:`" + d.reltype + "`{`relationshipDescription`:'" + reldesc + "'}]->" + d.endid + " ";
+
+                                    bnodeids.push(d.bid);
+                                }
+
+
+
+                            });
+
+                            var params = {};
+                            query = 'match ' + matchclause + ' with ' + withclause + createclause;
+                            console.log("QUERY",query);
+                            neodb.db.query(query, params, function(err1, results1) {
+                                //console.log(results1);
+
+                                if (err1) {
+                                    console.error('Error retreiving node from database:', err1);
+                                    res.send(404, 'No node at that location');
+                                } else {
+                                    //console.log(results1);
+                                    var collection = mongo.mongodb.collection('cr');
+
+                                    var currenttime = new Date().getTime();
+                                    //console.log();
+                                    collection.update({
+                                        _id: ObjectId(mongodata._id)
+                                    }, {
+                                        $set: {
+                                            id:mongodata.id,
+                                            CR_STATUS: "APPROVED",
+                                            CR_DATE: currenttime,
+                                            CR_DATE_APPROVED: currenttime
+                                        }
+                                    }, function(err, result) {
+                                        //console.log(result);
+                                        res.send("success");
+                                    });
+                                    //console.log("MONGO UPATE WITH REL:",mongodata.id);
+                                }
                             });
                         }
-                    });
-                }
-                //res.send("success");
+                        //res.send("success");
+                    }
+                });
+
             }
+
         });
 
 
@@ -2199,22 +2313,19 @@ exports.postApproveCR = function(req, res) {
                 matchclause = matchclause + ", (" + d.bid + "{id:'" + d.bid + "'}) ";
                 withclause = withclause + ", " + d.bid + " ";
                 //createclause = createclause + " create " + d.startid + "-[:`" + d.reltype + "`]->" + d.endid + " ";
-                var reldesc="";
-                if(d.reldesc==undefined)
-                {
-                    reldesc="N/A";
-                }
-                else
-                {
-                    reldesc= d.reldesc;
+                var reldesc = "";
+                if (d.reldesc == undefined) {
+                    reldesc = "N/A";
+                } else {
+                    reldesc = d.reldesc;
                     //console.log("OLD:",reldesc);
-                    reldesc= reldesc.replace(/\\/g,"\\\\");
-                    reldesc= reldesc.replace(/"/g,"\\\"");
-                    reldesc= reldesc.replace(/'/g,"\\\'");
+                    reldesc = reldesc.replace(/\\/g, "\\\\");
+                    reldesc = reldesc.replace(/"/g, "\\\"");
+                    reldesc = reldesc.replace(/'/g, "\\\'");
                     //console.log("NEW:",reldesc);
                 }
 
-                createclause = createclause + " create " + d.startid + "-[:`" + d.reltype + "`{`relationshipDescription`:'"+reldesc+"'}]->" + d.endid + " ";
+                createclause = createclause + " create " + d.startid + "-[:`" + d.reltype + "`{`relationshipDescription`:'" + reldesc + "'}]->" + d.endid + " ";
 
                 bnodeids.push(d.bid);
             }
@@ -2336,6 +2447,53 @@ exports.postDeclineCR = function(req, res) {
     //res.send("ok");
 };
 
+exports.postEditCR = function(req, res) {
+
+    var mongodatawithid = req.body;
+    //var mongodatatmp=mongodatawithid;
+    var mongodatawithoutid={};
+
+    for(var key in mongodatawithid)
+    {
+        console.log(key);
+        if(key=="_id")
+        {
+
+        }
+        else
+        {
+            mongodatawithoutid[key]=mongodatawithid[key];
+        }
+    }
+    
+    
+    //console.log("**************with",mongodatawithid);
+    //console.log("$$$$$$$$$$$$$$$without",mongodatawithoutid);
+    var collection = mongo.mongodb.collection('cr');
+    var currenttime = new Date().getTime();
+    //console.log();
+    collection.update({
+        _id: ObjectId(mongodatawithid._id)
+    }, mongodatawithoutid
+    , function(err, result) {
+        //console.log(result,err);
+        if(err)
+        {
+            console.log(err);
+            res.send("fail");
+        }
+        else
+        {
+            console.log("*************result after mongo update",result);
+            res.send("success");
+        }
+        
+    });
+
+
+    //res.send("ok");
+};
+
 
 exports.postRollBackCR = function(req, res) {
 
@@ -2387,80 +2545,81 @@ exports.postRollBackCR = function(req, res) {
     //res.send("ok");
 };
 
-exports.getNextNeoID = function(req, res) {
+// var getNextNeoID = function(label) {
 
 
 
-    var label=req.params.label;
-    //console.log(label);
-    var query= 'match (a) where labels(a)[0]={label} return a.id as id, length(a.id) as len order by len desc, id desc limit 1';
-    var params = {
-        label: label
-    };
+//     //var label=req.params.label;
+//     //console.log(label);
+//     var query = 'match (a) where labels(a)[0]={label} return a.id as id, length(a.id) as len order by len desc, id desc limit 1';
+//     var params = {
+//         label: label
+//     };
 
-    neodb.db.query(query, params, function(err, results) {
-        if (err) {
-            console.error('Error retreiving node from database:', err);
-            res.send(404, 'No node at that location');
-        } else {
-            //console.log(results[0].id);
-            var id=results[0].id;
+//     neodb.db.query(query, params, function(err, results) {
+//         if (err) {
+//             console.error('Error retreiving node from database:', err);
+//             res.send(404, 'No node at that location');
+//         } else {
+//             //console.log(results[0].id);
+//             var id = results[0].id;
+//             var idalphanum = id;
+//             var idnumstring = idalphanum.match(/\d*$/);
+//             console.log("idnumstring", idnumstring[0]);
+//             var idnum = parseInt(idnumstring[0]);
+//             idnum++;
+//             console.log(idnum);
+//             idnew = idalphanum.replace(/\d*$/, idnum.toString());
 
-
-
-            if(label=="Organization")
-            {
-                id=id.substring(1);
-            }
-            else if(label=="Program")
-            {
-                id=id.substring(1);
-            }
-            else if(label=="SurveillanceSystem")
-            {
-                id=id.substring(2);
-            }
-            else if(label=="Tool")
-            {
-                id=id.substring(2);
-            }
-            else if(label=="Registry")
-            {
-                id=id.substring(2);
-            }
-            else if(label=="HealthSurvey")
-            {
-                id=id.substring(2);
-            }
-            else if(label=="Collaborative")
-            {
-                id=id.substring(2);
-            }
-            else if(label=="Dataset")
-            {
-                id=id.substring(4);
-            }
-            else if(label=="DataStandard")
-            {
-                id=id.substring(4);
-            }
-            else if(label=="Tag")
-            {
-                id=id.substring(3);
-            }
-
-
-            res.json([id]);
-        }
-
-    });
-
-};
+//             console.log("NEW ID", idnew);
 
 
 
+//             // if(label=="Organization")
+//             // {
+//             //     id=id.substring(1);
+//             // }
+//             // else if(label=="Program")
+//             // {
+//             //     id=id.substring(1);
+//             // }
+//             // else if(label=="SurveillanceSystem")
+//             // {
+//             //     id=id.substring(2);
+//             // }
+//             // else if(label=="Tool")
+//             // {
+//             //     id=id.substring(2);
+//             // }
+//             // else if(label=="Registry")
+//             // {
+//             //     id=id.substring(2);
+//             // }
+//             // else if(label=="HealthSurvey")
+//             // {
+//             //     id=id.substring(2);
+//             // }
+//             // else if(label=="Collaborative")
+//             // {
+//             //     id=id.substring(2);
+//             // }
+//             // else if(label=="Dataset")
+//             // {
+//             //     id=id.substring(4);
+//             // }
+//             // else if(label=="DataStandard")
+//             // {
+//             //     id=id.substring(4);
+//             // }
+//             // else if(label=="Tag")
+//             // {
+//             //     id=id.substring(3);
+//             // }
 
 
+//             return (idnew);
+//         }
 
+//     });
 
-
+// };

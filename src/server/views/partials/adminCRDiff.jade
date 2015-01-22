@@ -74,7 +74,18 @@
 										| {{nodeId +" - "+nodeName}} 
 										span.label(ng-class="labelclass")
 											| {{crRequestType | TitleCase}}
-									| {{crUser}}, {{crDate | date :'medium'}}
+									| Created: 
+									strong
+										| {{crUserCreate}}
+									.small
+										| ({{crCreateDate | date :'medium'}})
+									br
+									span(ng-if="crUserUpdate")
+										| Revised: 
+										strong
+											| {{crUserUpdate}}
+										.small
+											| ({{crUpdateDate | date :'medium'}})
 									h2
 										| {{crStatus}}
 								.col-lg-6.col-md-6.col-sm-6
@@ -94,10 +105,14 @@
 												| Rollback
 									.vertical_spacing_lesser
 									.row(ng-hide="crStatus=='APPROVED'" )
-										.col-sm-12.col-md-12.col-lg-12
+										.col-lg-6.col-md-6.col-sm-6
 											input(type="checkbox" ng-model="editCRChk.yes" )
 											strong
 												|  Edit this Change Request
+										.col-lg-6.col-md-6.col-sm-6
+											label.btn.btn-default.btn-xs(ng-click="openlog()")
+												span.glyphicon.glyphicon-list-alt
+												| view history
 									.vertical_spacing_lesser
 									.row(ng-show="editCRChk.yes")
 										.col-sm-12.col-md-12.col-lg-12
@@ -258,6 +273,44 @@
 						<div class="modal-footer">
 						<button class="btn btn-primary" ng-click="ok()">Yes</button>
 						<button class="btn btn-warning" ng-click="cancel()">No</button>
+				.vertical_spacing_less
+					script(id="crlog.html" type="text/ng-template")
+						<div class="modal-header">
+						<h3 class="modal-title">Change Request Log
+						</h3>
+						</div>
+						<div class="modal-body">
+						<table class="table small the-table-wrap">
+						<tr>
+						<th> Action
+						</th>
+						<th> User
+						</th>
+						<th> Date
+						</th>
+						<th> Data
+						</th>
+						</tr>
+						<tr ng-repeat="row in logs">
+						
+						<td>
+						{{row.action}}
+						</td>
+						<td>
+						{{row.user}}
+						</td>
+						<td>
+						{{row.date | date :'medium'}}
+						</td>
+						<td >
+						{{row.crdata}}
+						</td>
+						
+						</tr>
+						</table>
+						</div>
+						<div class="modal-footer">
+						<button class="btn btn-warning" ng-click="cancel()">Close</button>
 				//nested row 
 				
 				//end nested row

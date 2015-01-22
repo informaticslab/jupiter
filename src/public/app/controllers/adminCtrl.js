@@ -251,7 +251,7 @@ angular.module('apolloApp').controller('adminCtrl', ['$scope','$modal', '$http',
 
         //var currentdate = new Date(); 
         $scope.cr['CR_NODE_TYPE']=$scope.nodeLabel;
-        $scope.cr['CR_USER']=$scope.identity.currentUser.username;
+        $scope.cr['CR_USER_CREATE']=$scope.identity.currentUser.username;
         $scope.cr['CR_DATE']= new Date().getTime();
         $scope.cr['CR_REQUEST_TYPE']="UPDATE";
         $scope.cr['CR_STATUS']="PENDING";
@@ -286,7 +286,7 @@ angular.module('apolloApp').controller('adminCtrl', ['$scope','$modal', '$http',
         //var currentdate = new Date(); 
 
         $scope.cr['CR_NODE_TYPE']=$scope.nodeLabel;
-        $scope.cr['CR_USER']="Tom";
+        $scope.cr['CR_USER_CREATE']=$scope.identity.currentUser.username;
         $scope.cr['CR_DATE']= new Date().getTime();
         $scope.cr['CR_REQUEST_TYPE']="DELETE";
         $scope.cr['CR_STATUS']="PENDING";

@@ -23,7 +23,7 @@ angular.module('apolloApp').controller('adminCRQueueCtrl', ['$scope', '$modal','
   };
     
     $scope.crStatusModel='PENDING';
-
+    console.log("test");
     
     $scope.init=function()
     {
@@ -33,7 +33,7 @@ angular.module('apolloApp').controller('adminCRQueueCtrl', ['$scope', '$modal','
         $scope.crtOpen=false;
         $scope.crFilterModel='';
         
-        $scope.sortval="CR_DATE";
+        $scope.sortval="CR_DATE_CREATED";
 
         $scope.crAddCount=0;
         $scope.crDeleteCount=0;

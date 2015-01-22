@@ -114,14 +114,20 @@
 								th.col-md-1(ng-click="sortval='CR_NODE_TYPE';reverse=!reverse;")
 									| Node Type
 									i.fa.fa-sort-desc
-								th.col-md-6(ng-click="sortval='name';reverse=!reverse;")
+								th.col-md-3(ng-click="sortval='name';reverse=!reverse;")
 									| Name
 									i.fa.fa-sort-desc
-								th.col-md-1(ng-click="sortval='CR_USER';reverse=!reverse;")
-									| User
+								th.col-md-1(ng-click="sortval='CR_USER_CREATE';reverse=!reverse;")
+									| Created By
 									i.fa.fa-sort-desc
-								th.col-md-1(ng-click="sortval='CR_DATE';reverse=!reverse;")
-									| Timestamp
+								th.col-md-1(ng-click="sortval='CR_DATE_CREATED';reverse=!reverse;")
+									| Created On
+									i.fa.fa-sort-desc
+								th.col-md-1(ng-click="sortval='CR_USER_UPDATE';reverse=!reverse;")
+									| Revised By
+									i.fa.fa-sort-desc
+								th.col-md-1(ng-click="sortval='CR_DATE_UPDATED';reverse=!reverse;")
+									| Revised On
 									i.fa.fa-sort-desc
 								th.col-md-1(ng-click="sortval='CR_REQUEST_TYPE';reverse=!reverse;")
 									| CR REQUEST TYPE
@@ -136,13 +142,17 @@
 									| {{doc.id}}
 								td.col-md-1
 									| {{doc.CR_NODE_TYPE}}
-								td.col-md-6
+								td.col-md-3
 									a(href="#/adminCRQueue/CRDiff/{{doc._id}}")
 										| {{doc.name}}
 								td.col-md-1
-									| {{doc.CR_USER}}
+									| {{doc.CR_USER_CREATE}}
 								td.col-md-1
-									| {{ doc.CR_DATE | date :'medium'}}
+									| {{ doc.CR_DATE_CREATED | date :'medium'}}
+								td.col-md-1
+									| {{doc.CR_USER_UPDATE}}
+								td.col-md-1
+									| {{ doc.CR_DATE_UPDATED | date :'medium'}}
 								td.col-md-1
 									span.label.label-success(ng-if="doc.CR_REQUEST_TYPE=='ADD'")
 										| {{doc.CR_REQUEST_TYPE}}

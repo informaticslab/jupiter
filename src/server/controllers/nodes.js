@@ -1952,7 +1952,21 @@ exports.postUpdateCR = function(req, res) {
         // assert.equal(3, result.ops.length);
         //console.log("Inserted 3 documents into the document collection");
         res.send("success");
+        console.log("returned",result[0]._id);
+
+        var log={id:result[0]._id,action:"CREATE",user:result[0].CR_USER_CREATE,date:new Date().getTime(),crdata:nodeDataString};
+
+        var logcollection = mongo.mongodb.collection('logs');
+    // Insert some documents
+        logcollection.insert(log, function(err, result) {
+            if(err)
+            {
+                console.log("failed to insert log",err);
+            }
+        });        
     });
+
+
     //res.send("ok");
 };
 
@@ -1977,6 +1991,16 @@ exports.postAddCR = function(req, res) {
         } else {
             console.log(result);
             res.send("success");
+            var log={id:result[0]._id,action:"CREATE",user:result[0].CR_USER_CREATE,date:new Date().getTime(),crdata:nodeDataString};
+
+            var logcollection = mongo.mongodb.collection('logs');
+        // Insert some documents
+            logcollection.insert(log, function(err, result) {
+                if(err)
+                {
+                    console.log("failed to insert log",err);
+                }
+            });        
         }
         // assert.equal(err, null);
         // assert.equal(3, result.result.n);
@@ -2005,6 +2029,17 @@ exports.postDeleteCR = function(req, res) {
         // assert.equal(3, result.ops.length);
         //console.log("Inserted 3 documents into the document collection");
         res.send("success");
+
+        var log={id:result[0]._id,action:"CREATE",user:result[0].CR_USER_CREATE,date:new Date().getTime(),crdata:nodeDataString};
+
+        var logcollection = mongo.mongodb.collection('logs');
+    // Insert some documents
+        logcollection.insert(log, function(err, result) {
+            if(err)
+            {
+                console.log("failed to insert log",err);
+            }
+        });        
     });
     //res.send("ok");
 };
@@ -2041,6 +2076,22 @@ exports.getCR = function(req, res) {
     var collection = mongo.mongodb.collection('cr');
     collection.find({
         _id: ObjectId(mongoid)
+    }).toArray(function(err, docs) {
+
+        res.send(docs);
+    });
+
+    //res.send("ok");
+};
+
+exports.getCRLog = function(req, res) {
+
+    var mongoid = req.params.id;
+
+
+    var collection = mongo.mongodb.collection('logs');
+    collection.find({
+        id: ObjectId(mongoid)
     }).toArray(function(err, docs) {
 
         res.send(docs);
@@ -2169,7 +2220,17 @@ exports.postApproveCR = function(req, res) {
                                 }
                                 else
                                 {
-                                    res.send("success");    
+                                    res.send("success");
+                                    var log={id:mongodata._id,action:"APPROVE",user:mongodata.CR_USER_APPROVE,date:new Date().getTime(),crdata:mongodata};
+
+                                    var logcollection = mongo.mongodb.collection('logs');
+                                // Insert some documents
+                                    logcollection.insert(log, function(err, result) {
+                                        if(err)
+                                        {
+                                            console.log("failed to insert log",err);
+                                        }
+                                    });          
                                 }
                                 
                             });
@@ -2250,6 +2311,17 @@ exports.postApproveCR = function(req, res) {
                                     }, function(err, result) {
                                         //console.log(result);
                                         res.send("success");
+
+                                        var log={id:mongodata._id,action:"APPROVE",user:mongodata.CR_USER_APPROVE,date:new Date().getTime(),crdata:mongodata};
+
+                                        var logcollection = mongo.mongodb.collection('logs');
+                                    // Insert some documents
+                                        logcollection.insert(log, function(err, result) {
+                                            if(err)
+                                            {
+                                                console.log("failed to insert log",err);
+                                            }
+                                        });          
                                     });
                                     //console.log("MONGO UPATE WITH REL:",mongodata.id);
                                 }
@@ -2371,6 +2443,17 @@ exports.postApproveCR = function(req, res) {
                         }, function(err, result) {
                             //console.log(result);
                             res.send("success");
+
+                            var log={id:mongodata._id,action:"APPROVE",user:mongodata.CR_USER_APPROVE,date:new Date().getTime(),crdata:mongodata};
+
+                            var logcollection = mongo.mongodb.collection('logs');
+                        // Insert some documents
+                            logcollection.insert(log, function(err, result) {
+                                if(err)
+                                {
+                                    console.log("failed to insert log",err);
+                                }
+                            });          
                         });
                     }
                 });
@@ -2411,6 +2494,17 @@ exports.postApproveCR = function(req, res) {
                 }, function(err, result) {
                     //console.log(result);
                     res.send("success");
+
+                    var log={id:mongodata._id,action:"APPROVE",user:mongodata.CR_USER_APPROVE,date:new Date().getTime(),crdata:mongodata};
+
+                    var logcollection = mongo.mongodb.collection('logs');
+                // Insert some documents
+                    logcollection.insert(log, function(err, result) {
+                        if(err)
+                        {
+                            console.log("failed to insert log",err);
+                        }
+                    });          
                 });
             }
         });
@@ -2439,8 +2533,18 @@ exports.postDeclineCR = function(req, res) {
             CR_DATE: currenttime
         }
     }, function(err, result) {
-        //console.log(result,err);
+        console.log(result,err);
         res.send("success");
+        var log={id:mongodata._id,action:"DECLINE",user:mongodata.CR_USER_APPROVE,date:new Date().getTime(),crdata:mongodata};
+
+        var logcollection = mongo.mongodb.collection('logs');
+        // Insert some documents
+        logcollection.insert(log, function(err, result) {
+        if(err)
+        {
+        console.log("failed to insert log",err);
+        }
+        });             
     });
 
 
@@ -2486,6 +2590,16 @@ exports.postEditCR = function(req, res) {
         {
             console.log("*************result after mongo update",result);
             res.send("success");
+            var log={id:mongodatawithid._id,action:"EDIT",user:mongodatawithid.CR_USER_UPDATE,date:new Date().getTime(),crdata:mongodatawithid};
+
+            var logcollection = mongo.mongodb.collection('logs');
+            // Insert some documents
+            logcollection.insert(log, function(err, result) {
+                if(err)
+                {
+                    console.log("failed to insert log",err);
+                }
+            });                 
         }
         
     });

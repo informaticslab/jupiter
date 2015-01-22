@@ -212,8 +212,8 @@ angular.module('apolloApp').controller('adminCRAddCtrl', ['$scope', '$http','$fi
         //var currentdate = new Date(); 
         $scope.cr['CR_NODE_TYPE']=$scope.nodeLabel;
         $scope.cr['id']=$scope.nextNodeID;
-        $scope.cr['CR_USER']=$scope.identity.currentUser.username;
-        $scope.cr['CR_DATE']= new Date().getTime();
+        $scope.cr['CR_USER_CREATE']=$scope.identity.currentUser.username;
+        //$scope.cr['CR_DATE']= new Date().getTime();
         $scope.cr['CR_REQUEST_TYPE']="ADD";
         $scope.cr['CR_STATUS']="PENDING";
         $scope.cr['CR_DATE_CREATED']=new Date().getTime();

@@ -205,7 +205,9 @@ angular.module('apolloApp').controller('adminCRDiffCtrl', ['$scope','$modal', '$
 
         //$scope.mongoData[0].CR_DATE_APPROVED=new Date().getTime();
         datapacket={};
+
         datapacket.approved=$scope.mongoData[0];
+        
         datapacket.prev=currentneodata;
         datapacket.type=$scope.mongoData[0].CR_REQUEST_TYPE;
         $http.post('/apollo/api/mongo/postapprovecr', datapacket).
@@ -242,7 +244,10 @@ angular.module('apolloApp').controller('adminCRDiffCtrl', ['$scope','$modal', '$
             }
         });
         $scope.editCRValues.rels=JSON.stringify(finalCRArray);
-        console.log($scope.editCRValues.rels);
+
+        $scope.editCRValues["CR_LAST_USER"]=$scope.identity.currentUser.username;
+        
+        console.log($scope.editCRValues);
         $http.post('/apollo/api/mongo/posteditcr', $scope.editCRValues).
         //$http({method: 'Post', url: '/apollo/api/mongo/postcr', data: {greeting: 'hi'}}).
           success(function(data, status, headers, config) { 

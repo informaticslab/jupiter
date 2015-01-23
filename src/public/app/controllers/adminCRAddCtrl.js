@@ -333,39 +333,35 @@ angular.module('apolloApp').controller('adminCRAddCtrl', ['$scope', '$http','$fi
         
     }
 
-    $scope.setRelValue = function(){
+    $scope.setRelValueFrom = function(){
 
-        //console.log($scope.relCheckBox.fromNewNode,$scope.relCheckBox.toNewNode);
 
-        if($scope.relCheckBox.toNewNode && $scope.relCheckBox.fromNewNode)
-        {
-
-        }
-        else if(!$scope.relCheckBox.toNewNode && !$scope.relCheckBox.fromNewNode)
-        {
-            $scope.startNodeId="";
-            $scope.startnode="";
-            $scope.toNodeId="";
-            $scope.endnode="";
-        }
-        else if($scope.relCheckBox.fromNewNode && !$scope.relCheckBox.toNewNode)
+        if($scope.relCheckBox.fromNewNode)
         {
             $scope.startNodeId=$scope.nextNodeID;
             $scope.startnode=$scope.cr['name'];
-            // $scope.toNodeId="";
-            // $scope.endnode="";
         }
-        else if($scope.relCheckBox.toNewNode && !$scope.relCheckBox.fromNewNode )
+        else
+        {
+            $scope.startNodeId="";
+            $scope.startnode="";
+        }
+
+    }
+
+    $scope.setRelValueTo = function(){
+
+        if($scope.relCheckBox.toNewNode)
         {
             $scope.endNodeId=$scope.nextNodeID;
             $scope.endnode=$scope.cr['name'];
-            // $scope.startNodeId="";
-            // $scope.startnode="";
+        }
+        else
+        {
+            $scope.endNodeId="";
+            $scope.endnode="";
         }
 
-        
-
-        //console.log($scope.toNewNode, $scope.fromNewNode);
     }
 
 }]);

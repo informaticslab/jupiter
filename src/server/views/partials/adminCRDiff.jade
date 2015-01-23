@@ -141,7 +141,7 @@
 									span(ng-if="crApproveDate")
 										| (Before: {{crApproveDate | date :'medium'}})
 					tbody
-						tr(ng-repeat="row in crDiffValues" ng-class="{rowhighlight:row.diffFlg}")
+						tr(ng-repeat="row in crDiffValues" ng-class="{rowhighlight:row.diffFlg}" ng-hide="row.key=='id'")
 							td.col-lg-2.col-md-2.col-sm-2
 								b
 									small
@@ -206,7 +206,7 @@
 						input(type="text" ng-model="startnode"  placeholder="From" typeahead-on-select="startNodeSelected($item, $model, $label)" typeahead-min-length='3' typeahead="node.name for node in getNodes($viewValue)" class="form-control")
 						label(ng-if="cr['name']!=''")
 							.small
-								input(type="checkbox" ng-model="relCheckBox.fromNewNode" ng-change="setRelValue()")
+								input(type="checkbox" ng-model="relCheckBox.fromNewNode" ng-change="setRelValueFrom()")
 								|  Mark if this node is '{{nodeName}}'
 					.col-lg-3.col-md-3.col-sm-3
 						select.form-control(ng-model="relselect" ng-options="opt as (opt | TitleCase | unCamelCase) for opt in relValues")
@@ -216,7 +216,7 @@
 						input(type="text" ng-model="endnode"  placeholder="To" typeahead-on-select="endNodeSelected($item, $model, $label)" typeahead-min-length='3' typeahead="node.name for node in getNodes($viewValue)" class="form-control")
 						label(ng-if="cr['name']!=''")
 							.small
-								input(type="checkbox" ng-model="relCheckBox.toNewNode" ng-change="setRelValue()")
+								input(type="checkbox" ng-model="relCheckBox.toNewNode" ng-change="setRelValueTo()")
 								|  Mark if this node is '{{nodeName}}'
 					.col-lg-1.col-md-1.col-sm-1
 						
@@ -282,8 +282,6 @@
 						</th>
 						<th> Date
 						</th>
-						<th> Data
-						</th>
 						</tr>
 						<tr ng-repeat="row in logs">
 						
@@ -295,9 +293,6 @@
 						</td>
 						<td>
 						{{row.date | date :'medium'}}
-						</td>
-						<td >
-						{{row.crdata}}
 						</td>
 						
 						</tr>

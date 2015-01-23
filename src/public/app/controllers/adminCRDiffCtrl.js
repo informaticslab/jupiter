@@ -300,40 +300,37 @@ angular.module('apolloApp').controller('adminCRDiffCtrl', ['$scope','$modal', '$
     };
     
 
-    $scope.setRelValue = function(){
+    $scope.setRelValueFrom = function(){
 
-        //console.log($scope.relCheckBox.fromNewNode,$scope.relCheckBox.toNewNode);
 
-        if($scope.relCheckBox.toNewNode && $scope.relCheckBox.fromNewNode)
+        if($scope.relCheckBox.fromNewNode)
         {
-
+            $scope.startNodeId=$scope.nextNodeID;
+            $scope.startnode=$scope.cr['name'];
         }
-        else if(!$scope.relCheckBox.toNewNode && !$scope.relCheckBox.fromNewNode)
+        else
         {
             $scope.startNodeId="";
             $scope.startnode="";
-            $scope.toNodeId="";
+        }
+
+    }
+
+    $scope.setRelValueTo = function(){
+
+        if($scope.relCheckBox.toNewNode)
+        {
+            $scope.endNodeId=$scope.nextNodeID;
+            $scope.endnode=$scope.cr['name'];
+        }
+        else
+        {
+            $scope.endNodeId="";
             $scope.endnode="";
         }
-        else if($scope.relCheckBox.fromNewNode && !$scope.relCheckBox.toNewNode)
-        {
-            $scope.startNodeId=$scope.nodeId;
-            $scope.startnode=$scope.nodeName;
-            // $scope.toNodeId="";
-            // $scope.endnode="";
-        }
-        else if($scope.relCheckBox.toNewNode && !$scope.relCheckBox.fromNewNode )
-        {
-            $scope.endNodeId=$scope.nodeId;
-            $scope.endnode=$scope.nodeName;
-            // $scope.startNodeId="";
-            // $scope.startnode="";
-        }
 
-        
-
-        //console.log($scope.toNewNode, $scope.fromNewNode);
     }
+    
     $scope.cancelEditCR = function(){
 
         console.log($scope.editCRValues.rels);

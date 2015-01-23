@@ -2221,7 +2221,7 @@ exports.postApproveCR = function(req, res) {
                                 else
                                 {
                                     res.send("success");
-                                    var log={id:mongodata._id,action:"APPROVE",user:mongodata.CR_USER_APPROVE,date:new Date().getTime(),crdata:mongodata};
+                                    var log={id:ObjectId(mongodata._id),action:"APPROVE",user:mongodata.CR_USER_APPROVE,date:new Date().getTime(),crdata:mongodata};
 
                                     var logcollection = mongo.mongodb.collection('logs');
                                 // Insert some documents
@@ -2312,7 +2312,7 @@ exports.postApproveCR = function(req, res) {
                                         //console.log(result);
                                         res.send("success");
 
-                                        var log={id:mongodata._id,action:"APPROVE",user:mongodata.CR_USER_APPROVE,date:new Date().getTime(),crdata:mongodata};
+                                        var log={id:ObjectId(mongodata._id),action:"APPROVE",user:mongodata.CR_USER_APPROVE,date:new Date().getTime(),crdata:mongodata};
 
                                         var logcollection = mongo.mongodb.collection('logs');
                                     // Insert some documents
@@ -2444,7 +2444,7 @@ exports.postApproveCR = function(req, res) {
                             //console.log(result);
                             res.send("success");
 
-                            var log={id:mongodata._id,action:"APPROVE",user:mongodata.CR_USER_APPROVE,date:new Date().getTime(),crdata:mongodata};
+                            var log={id:ObjectId(mongodata._id),action:"APPROVE",user:mongodata.CR_USER_APPROVE,date:new Date().getTime(),crdata:mongodata};
 
                             var logcollection = mongo.mongodb.collection('logs');
                         // Insert some documents
@@ -2495,7 +2495,7 @@ exports.postApproveCR = function(req, res) {
                     //console.log(result);
                     res.send("success");
 
-                    var log={id:mongodata._id,action:"APPROVE",user:mongodata.CR_USER_APPROVE,date:new Date().getTime(),crdata:mongodata};
+                    var log={id:ObjectId(mongodata._id),action:"APPROVE",user:mongodata.CR_USER_APPROVE,date:new Date().getTime(),crdata:mongodata};
 
                     var logcollection = mongo.mongodb.collection('logs');
                 // Insert some documents
@@ -2535,7 +2535,7 @@ exports.postDeclineCR = function(req, res) {
     }, function(err, result) {
         console.log(result,err);
         res.send("success");
-        var log={id:mongodata._id,action:"DECLINE",user:mongodata.CR_USER_APPROVE,date:new Date().getTime(),crdata:mongodata};
+        var log={id:ObjectId(mongodata._id),action:"DECLINE",user:mongodata.CR_USER_APPROVE,date:new Date().getTime(),crdata:mongodata};
 
         var logcollection = mongo.mongodb.collection('logs');
         // Insert some documents
@@ -2590,7 +2590,7 @@ exports.postEditCR = function(req, res) {
         {
             console.log("*************result after mongo update",result);
             res.send("success");
-            var log={id:mongodatawithid._id,action:"EDIT",user:mongodatawithid.CR_USER_UPDATE,date:new Date().getTime(),crdata:mongodatawithid};
+            var log={id:ObjectId(mongodatawithid._id),action:"EDIT",user:mongodatawithid.CR_USER_UPDATE,date:new Date().getTime(),crdata:mongodatawithid};
 
             var logcollection = mongo.mongodb.collection('logs');
             // Insert some documents

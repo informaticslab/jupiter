@@ -24,9 +24,22 @@ angular.module('apolloApp').controller('adminCRQueueCtrl', ['$scope', '$modal','
     
     $scope.crStatusModel='PENDING';
     console.log("test");
-    
+    $scope.userFilter="";
+    $scope.usersu=false;
+
     $scope.init=function()
     {
+
+        if($scope.identity.currentUser.roles.indexOf("su")>=0)
+        {
+            $scope.usersu=true;
+            $scope.userFilter="";
+        }
+        else
+        {
+            $scope.usersu=false;
+            $scope.userFilter=$scope.identity.currentUser.username;
+        }
 
         $scope.mongoDocumentsAll=[];
         $scope.crtSelect="";

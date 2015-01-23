@@ -44,6 +44,8 @@ angular.module('apolloApp').controller('adminCRDiffCtrl', ['$scope','$modal', '$
         });
     };
 
+
+        $scope.usersu=false;
         $scope.i=new Date().getTime()+100;
         $scope.crRelArray=[];
         $scope.crDiffValues = [];
@@ -73,6 +75,12 @@ angular.module('apolloApp').controller('adminCRDiffCtrl', ['$scope','$modal', '$
         {
 
             //$scope.editCRFlg=false;
+            if($scope.identity.currentUser.roles.indexOf("su")>=0)
+            {
+                $scope.usersu=true;
+            }
+            console.log();
+
             $scope.logs=[];
             $scope.status_show_approved=false;
             $scope.status_show_declined=false;
@@ -330,7 +338,7 @@ angular.module('apolloApp').controller('adminCRDiffCtrl', ['$scope','$modal', '$
         }
 
     }
-    
+
     $scope.cancelEditCR = function(){
 
         console.log($scope.editCRValues.rels);

@@ -182,7 +182,7 @@
 								| Error
 							|  'From', 'To' and 'Relationship Type' fields should be selected, and either 'From' or 'To' field should be equal to '{{node}}'.
 
-				hr
+				hr(ng-show="showButtons")
 				.row(ng-show="showButtons")
 					.col-lg-12.col-md-12.col-sm-12
 						.orange_header_larger
@@ -190,7 +190,7 @@
 						label.btn.btn-default(ng-click="postupdatecr()")
 							span.fa.fa-chevron-circle-right
 							| Submit Change Request
-				hr
+				hr(ng-show="showButtons")
 				.row(ng-show="showButtons")
 					.col-lg-12.col-md-12.col-sm-12
 						h3

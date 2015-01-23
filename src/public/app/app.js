@@ -103,27 +103,27 @@ apolloApp.config(['$routeProvider',
           when('/adminCRAdd', {
         templateUrl: 'partials/adminCRAdd',
         controller: 'adminCRAddCtrl',
-        resolve: routeRoleChecks.su
+        resolve: routeRoleChecks.admin
       }).
           when('/adminCREdit', {
         templateUrl: 'partials/admin',
         controller: 'adminCtrl',
-        resolve: routeRoleChecks.su
+        resolve: routeRoleChecks.admin
       }).
           when('/adminCREdit/:id', {
         templateUrl: 'partials/admin',
         controller: 'adminCtrl',
-        resolve: routeRoleChecks.su
+        resolve: routeRoleChecks.admin
       }).
           when('/adminCRQueue', {
         templateUrl: 'partials/adminCRQueue',
         controller: 'adminCRQueueCtrl',
-        resolve: routeRoleChecks.su
+        resolve: routeRoleChecks.admin
       }).
           when('/adminCRQueue/CRDiff/:id', {
         templateUrl: 'partials/adminCRDiff',
         controller: 'adminCRDiffCtrl',
-        resolve: routeRoleChecks.su
+        resolve: routeRoleChecks.admin
       }).
           when('/inTheLab/:topic', { 
             templateUrl: function(params){

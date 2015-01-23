@@ -2,7 +2,7 @@ angular.module('apolloApp').factory('ngAuth', function($http, ngIdentity, $q, ng
 	return{
 		authenticateUser: function(username,password){
 			var dfd = $q.defer();
-			$http.post('/login',{username:username, password: password}).then(function(response) {
+			$http.post('/apollo/login',{username:username, password: password}).then(function(response) {
 			//console.log(userName);
 			console.log(response.data.success)
 			if(response.data.success) {
@@ -21,7 +21,7 @@ angular.module('apolloApp').factory('ngAuth', function($http, ngIdentity, $q, ng
 		},
 		logoutUser: function(){
 			var dfd = $q.defer();
-			$http.post('/logout', {logout:true}).then(function() { 
+			$http.post('/apollo/logout', {logout:true}).then(function() { 
 				ngIdentity.currentUser = undefined;
 				dfd.resolve();
 			});

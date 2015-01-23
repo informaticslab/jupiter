@@ -54,8 +54,8 @@ module.exports = function(app) {
 
     //app.get('/apollo/api/neo/nextnodeid/:label', nodes.getNextNeoID);
 
-    app.post('/login', auth.authenticate); //passport authentication post
-    app.post('/logout', function(req,res) {
+    app.post('/apollo/login', auth.authenticate); //passport authentication post
+    app.post('/apollo/logout', function(req,res) {
         req.logout();
         res.end();
     });

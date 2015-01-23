@@ -60,64 +60,58 @@
 							li.active(role="presentation")
 								a(href="#/adminCRQueue")
 									| Queue
-				hr
-				.vertical_spacing_less
-				.row
-					.col-lg-12.col-md-12.col-sm-12
-						
-				.row
-					.col-lg-12.col-md-12.col-sm-12
-						.well
+				hr						
+				.well
+					.row
+						.col-lg-6.col-md-6.col-sm-6
+							.orange_header_larger
+								| {{nodeId +" - "+nodeName}} 
+								span.label(ng-class="labelclass")
+									| {{crRequestType | TitleCase}}
 							.row
-								.col-lg-6.col-md-6.col-sm-6
-									.orange_header_larger
-										| {{nodeId +" - "+nodeName}} 
-										span.label(ng-class="labelclass")
-											| {{crRequestType | TitleCase}}
-									| Created: 
-									strong
-										| {{crUserCreate}}
+								.col-sm-12.col-md-12.col-lg-12
 									.small
-										| ({{crCreateDate | date :'medium'}})
-									br
-									span(ng-if="crUserUpdate")
-										| Revised: 
-										strong
-											| {{crUserUpdate}}
-										.small
-											| ({{crUpdateDate | date :'medium'}})
+										span
+											| Created: 
+											strong
+												| {{crUserCreate}}
+											|  ({{crCreateDate | date :'medium'}})
+										|  | 
+										span(ng-if="crUserUpdate")
+											| Revised: 
+											strong
+												| {{crUserUpdate}}
+											|  ({{crUpdateDate | date :'medium'}})
+							.row
+								.col-sm-12.col-md-12.col-lg-12
 									h2
 										| {{crStatus}}
+							.row
+								.col-sm-12.col-md-12.col-lg-12
+									label.btn.btn-default.btn-sm( ng-model="editCRChk.yes" btn-checkbox btn-checkbox-true="true" btn-checkbox-false="false")
+										span.glyphicon.glyphicon-edit
+										|  Edit Change Request
+									|   
+									label.btn.btn-default.btn-sm(ng-click="openlog()")
+										span.glyphicon.glyphicon-th-list
+										|  View History
+						.col-lg-6.col-md-6.col-sm-6
+							.row
 								.col-lg-6.col-md-6.col-sm-6
-									.row
-										.col-lg-6.col-md-6.col-sm-6
-											label.btn.btn-primary.btn-lg.btn-block.btn-success(ng-click="approveCR()" ng-hide="crStatus!='PENDING'" ng-disabled="editCRChk.yes")
-												| Approve
-											.alert.alert-success(role="alert" ng-show="status_show_approved")
-												| Approved! Change request has been executed successfully.
-										.col-lg-6.col-md-6.col-sm-6
-											label.btn.btn-primary.btn-lg.btn-block.btn-danger(ng-click="declineCR()" ng-hide="crStatus!='PENDING'" ng-disabled="editCRChk.yes")
-												| Decline
-											.alert.alert-danger(role="alert" ng-show="status_show_declined")
-												| Declined! Change request has been declined.
-										//.col-lg-12.col-md-12.col-sm-12
-											label.btn.btn-primary.btn-lg.btn-block.btn-danger(ng-click="rollbackCR()" ng-show="crStatus=='APPROVED' && crStatus!='ROLLEDBACK' && crRequestType!='DELETE'")
-												| Rollback
-									.vertical_spacing_lesser
-									.row(ng-hide="crStatus=='APPROVED'" )
-										.col-lg-6.col-md-6.col-sm-6
-											input(type="checkbox" ng-model="editCRChk.yes" )
-											strong
-												|  Edit this Change Request
-										.col-lg-6.col-md-6.col-sm-6
-											label.btn.btn-default.btn-xs(ng-click="openlog()")
-												span.glyphicon.glyphicon-list-alt
-												| view history
-									.vertical_spacing_lesser
-									.row(ng-show="editCRChk.yes")
-										.col-sm-12.col-md-12.col-lg-12
-											.alert.alert-danger
-												| Change Request open for modification. Save or Cancel changes to proceed.
+									label.btn.btn-primary.btn-lg.btn-block.btn-success(ng-click="approveCR()" ng-hide="crStatus!='PENDING'" ng-disabled="editCRChk.yes")
+										| Approve
+									.alert.alert-success(role="alert" ng-show="status_show_approved")
+										| Approved! Change request has been executed successfully.
+								.col-lg-6.col-md-6.col-sm-6
+									label.btn.btn-primary.btn-lg.btn-block.btn-danger(ng-click="declineCR()" ng-hide="crStatus!='PENDING'" ng-disabled="editCRChk.yes")
+										| Decline
+									.alert.alert-danger(role="alert" ng-show="status_show_declined")
+										| Declined! Change request has been declined.
+							.vertical_spacing_less
+							.row(ng-show="editCRChk.yes")
+								.col-sm-12.col-md-12.col-lg-12
+									.alert.alert-info
+										| Change Request open for modification. Save or Cancel changes to proceed.
 									.row
 										.col-lg-6.col-md-6.col-sm-6
 											label.btn.btn-primary.btn-sm.btn-block.btn-info(ng-show="editCRChk.yes" ng-click="saveEditCR()"  ng-model="saveEditCR")
@@ -125,7 +119,8 @@
 										.col-lg-6.col-md-6.col-sm-6
 											label.btn.btn-primary.btn-sm.btn-block.btn-info(ng-show="editCRChk.yes" ng-click="cancelEditCR()"  ng-model="cancelEditCR")
 												| Cancel
-									
+
+				.vertical_spacing_lesser		
 				table.table
 					thead
 						tr

@@ -31,7 +31,31 @@ module.exports = function(config) {
 			var salt, hash;
 			salt = createSalt();
 			hash = hashPwd(salt,'cdcuser');
-			User.create({firstName:'CDCUser',lastName:'CDCUser',username:'cdcuser', salt:salt, hashed_pwd: hash, roles:['su']},function(err, docs) {
+			User.create({firstName:'CDCUser',lastName:'CDCUser',username:'cdcuser', salt:salt, hashed_pwd: hash, roles:['admin']},function(err, docs) {
+			  if (err){
+			  	console.log(err);
+			  } 
+			  else
+			  {
+			  	//console.log(docs);	
+			  }
+			  
+			});
+			salt = createSalt();
+			hash = hashPwd(salt,'cdcuser1');
+			User.create({firstName:'CDCUser1',lastName:'CDCUser1',username:'cdcuser1', salt:salt, hashed_pwd: hash, roles:['admin']},function(err, docs) {
+			  if (err){
+			  	console.log(err);
+			  } 
+			  else
+			  {
+			  	//console.log(docs);	
+			  }
+			  
+			});
+			salt = createSalt();
+			hash = hashPwd(salt,'cdcuser2');
+			User.create({firstName:'CDCUser2',lastName:'CDCUser2',username:'cdcuser2', salt:salt, hashed_pwd: hash, roles:['admin']},function(err, docs) {
 			  if (err){
 			  	console.log(err);
 			  } 
@@ -55,7 +79,7 @@ module.exports = function(config) {
 			});
 			salt = createSalt();
 			hash = hashPwd(salt,'sdavid');
-			User.create({firstName:'Sanjith',lastName:'David',username:'sdavid',salt:salt, hashed_pwd: hash, roles:['su']},function(err, docs) {
+			User.create({firstName:'Sanjith',lastName:'David',username:'sdavid',salt:salt, hashed_pwd: hash, roles:['admin']},function(err, docs) {
 			  if (err){
 			  	console.log(err);
 			  } 
@@ -67,7 +91,7 @@ module.exports = function(config) {
 			});
 			salt = createSalt();
 			hash = hashPwd(salt,'kta');
-			User.create({firstName:'Michael',lastName:'Ta',username:'kta',salt:salt, hashed_pwd: hash, roles:['su']},function(err, docs) {
+			User.create({firstName:'Michael',lastName:'Ta',username:'kta',salt:salt, hashed_pwd: hash, roles:['admin']},function(err, docs) {
 			  if (err){
 			  	console.log(err);
 			  } 

@@ -819,7 +819,8 @@ del{background-color: #F38264}
 
 .fa-plus-circle {font-size:1.3em; padding-right:.4em; }
 .fa-times-circle {color:#9C3632;font-size:1.3em;  padding-right:.4em; }
-.rowBackColor{background-color:black; }
+.rowBackColorApproved{color:#669933; }
+.rowBackColorDeclined{color:#515151; }
 
 .toast-top-right {
   top: 70px;

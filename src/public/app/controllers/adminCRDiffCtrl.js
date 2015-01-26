@@ -241,7 +241,7 @@ angular.module('apolloApp').controller('adminCRDiffCtrl', ['$scope','$modal', '$
         init();
     $scope.approveCR = function(){
 
-
+        console.log($scope.identity.currentUser.username);
         $scope.mongoData[0].CR_DATE_APPROVED=new Date().getTime();
         $scope.mongoData[0].CR_USER_APPROVE=$scope.identity.currentUser.username;
 
@@ -251,6 +251,7 @@ angular.module('apolloApp').controller('adminCRDiffCtrl', ['$scope','$modal', '$
         
         datapacket.prev=currentneodata;
         datapacket.type=$scope.mongoData[0].CR_REQUEST_TYPE;
+        console.log(datapacket);
         $http.post('/apollo/api/mongo/postapprovecr', datapacket).
         //$http({method: 'Post', url: '/apollo/api/mongo/postcr', data: {greeting: 'hi'}}).
           success(function(data, status, headers, config) { 

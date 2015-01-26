@@ -81,16 +81,22 @@
 											strong
 												| {{crUserUpdate}}
 											|  ({{crUpdateDate | date :'medium'}})
+										span(ng-if="crUserApprove")
+											|  | Executed: 
+											strong
+												| {{crUserApprove}}
+											|  ({{crApproveDate | date :'medium'}})
 							.row
 								.col-sm-12.col-md-12.col-lg-12
 									h2
 										| {{crStatus}}
 							.row
 								.col-sm-12.col-md-12.col-lg-12
-									label.btn.btn-default.btn-sm( ng-model="editCRChk.yes" btn-checkbox btn-checkbox-true="true" btn-checkbox-false="false")
+									label.btn.btn-default.btn-sm( ng-hide="crStatus!='PENDING'" ng-model="editCRChk.yes" btn-checkbox btn-checkbox-true="true" btn-checkbox-false="false")
 										span.glyphicon.glyphicon-edit
 										|  Edit Change Request
-									|   
+									span(ng-hide="crStatus!='PENDING'")
+										|   
 									label.btn.btn-default.btn-sm(ng-click="openlog()")
 										span.glyphicon.glyphicon-th-list
 										|  View History

@@ -2210,7 +2210,8 @@ exports.postApproveCR = function(req, res) {
                                     id:mongodata.id,
                                     CR_STATUS: "APPROVED",
                                     CR_DATE: currenttime,
-                                    CR_DATE_APPROVED: currenttime
+                                    CR_DATE_APPROVED: currenttime,
+                                    CR_USER_APPROVE: mongodata.CR_USER_APPROVE
                                 }
                             }, function(err, result) {
                                 //console.log(result);
@@ -2306,7 +2307,8 @@ exports.postApproveCR = function(req, res) {
                                             id:mongodata.id,
                                             CR_STATUS: "APPROVED",
                                             CR_DATE: currenttime,
-                                            CR_DATE_APPROVED: currenttime
+                                            CR_DATE_APPROVED: currenttime,
+                                            CR_USER_APPROVE: mongodata.CR_USER_APPROVE
                                         }
                                     }, function(err, result) {
                                         //console.log(result);
@@ -2438,7 +2440,8 @@ exports.postApproveCR = function(req, res) {
                                 CR_STATUS: "APPROVED",
                                 CR_DATE: currenttime,
                                 CR_DATE_APPROVED: currenttime,
-                                CR_PREVIOUS: prevdata
+                                CR_PREVIOUS: prevdata,
+                                CR_USER_APPROVE: mongodata.CR_USER_APPROVE
                             }
                         }, function(err, result) {
                             //console.log(result);
@@ -2489,7 +2492,9 @@ exports.postApproveCR = function(req, res) {
                     $set: {
                         CR_STATUS: "APPROVED",
                         CR_DATE: currenttime,
-                        CR_PREVIOUS: prevdata
+                        CR_PREVIOUS: prevdata,
+                        CR_DATE_APPROVED: currenttime,
+                        CR_USER_APPROVE: mongodata.CR_USER_APPROVE
                     }
                 }, function(err, result) {
                     //console.log(result);
@@ -2530,7 +2535,9 @@ exports.postDeclineCR = function(req, res) {
     }, {
         $set: {
             CR_STATUS: "DECLINED",
-            CR_DATE: currenttime
+            CR_DATE: currenttime,
+            CR_DATE_APPROVED: currenttime,
+            CR_USER_APPROVE: mongodata.CR_USER_APPROVE
         }
     }, function(err, result) {
         console.log(result,err);

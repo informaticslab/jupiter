@@ -106,7 +106,7 @@ angular.module('apolloApp').controller('adminCtrl', ['$scope','$modal', '$http',
 
         if($scope.relCheckBox.fromNewNode)
         {
-            $scope.startNodeId=$scope.nextNodeID;
+            $scope.startNodeId=$scope.nodeId;
             $scope.startnode=$scope.cr['name'];
         }
         else
@@ -121,7 +121,7 @@ angular.module('apolloApp').controller('adminCtrl', ['$scope','$modal', '$http',
 
         if($scope.relCheckBox.toNewNode)
         {
-            $scope.endNodeId=$scope.nextNodeID;
+            $scope.endNodeId=$scope.nodeId;
             $scope.endnode=$scope.cr['name'];
         }
         else

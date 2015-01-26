@@ -314,8 +314,8 @@ angular.module('apolloApp').controller('adminCRDiffCtrl', ['$scope','$modal', '$
 
         if($scope.relCheckBox.fromNewNode)
         {
-            $scope.startNodeId=$scope.nextNodeID;
-            $scope.startnode=$scope.cr['name'];
+            $scope.startNodeId=$scope.nodeId;
+            $scope.startnode=$scope.editCRValues['name'];
         }
         else
         {
@@ -329,8 +329,8 @@ angular.module('apolloApp').controller('adminCRDiffCtrl', ['$scope','$modal', '$
 
         if($scope.relCheckBox.toNewNode)
         {
-            $scope.endNodeId=$scope.nextNodeID;
-            $scope.endnode=$scope.cr['name'];
+            $scope.endNodeId=$scope.nodeId;
+            $scope.endnode=$scope.editCRValues['name'];
         }
         else
         {

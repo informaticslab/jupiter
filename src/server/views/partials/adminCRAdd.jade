@@ -75,16 +75,22 @@
 						.row(ng-show="showButtons")
 							.col-lg-12.col-md-12.col-sm-12
 								.h1.orange_header_larger
-									| {{nextNodeID}} 
-									span(ng-if="cr['name']!=''")
+									//| {{nextNodeID}} 
+									//span(ng-if="cr['name']!=''")
 										| - 
 									| {{cr['name']}}
 						.vertical_spacing_lesser
 						.row(ng-repeat="node in nodeDictionaryAttributes")
 							.col-lg-2.col-md-2.col-sm-2(ng-hide="node=='id'")
-								| {{node | unCamelCase}}
+								span(ng-if="node=='name'")
+									| {{node+'*' | unCamelCase}}
+								span(ng-if="node!='name'")
+									| {{node | unCamelCase}}
 							.col-lg-10.col-md-10.col-sm-10(ng-hide="node=='id'")
-								input.form-control(id="{{txtid=node}}" type="text" ng-model="cr[txtid]" )
+								.form-group(ng-class="{'has-error':txtid=='name' && highlightMissingTxt && cr['name']==''}")
+									input.form-control(id="{{txtid=node}}" type="text" ng-model="cr[txtid]" )
+								.alert.alert-danger(ng-if="highlightMissingTxt && txtid=='name' && cr['name']==''" role="alert")
+									| Name field is required
 								.vertical_spacing_lesser
 				.vertical_spacing_lesser
 				.orange_header_larger(ng-show="showButtons")
@@ -184,6 +190,9 @@
 						label.btn.btn-default(ng-click="postaddcr()")
 							span.fa.fa-chevron-circle-right
 							| Submit Add Request
+						.vertical_spacing_less
+						.alert.alert-danger(ng-if="highlightMissingTxt" role="alert")
+							| Name field is required
 				.vertical_spacing_more
 				.row(ng-show="crQueueSuccess")
 					.col-lg-12.col-md-12.col-sm-12

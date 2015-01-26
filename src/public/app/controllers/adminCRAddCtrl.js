@@ -26,6 +26,7 @@ angular.module('apolloApp').controller('adminCRAddCtrl', ['$scope', '$http','$fi
     $scope.nextNodeID="TBD";
     $scope.i=100;
 
+    $scope.highlightMissingTxt=false;
 
     //.fromNewNode=false;
     //$scope.relCheckBox.toNewNode=false;
@@ -69,7 +70,7 @@ angular.module('apolloApp').controller('adminCRAddCtrl', ['$scope', '$http','$fi
 
         $scope.nodeLabel=$scope.nodetypeselect;
         $scope.nodeDictionaryAttributes=$scope.actAttributes[$scope.nodeLabel];
-
+        $scope.highlightMissingTxt=false;
         $scope.cr={};
         $scope.nodeDictionaryAttributes.forEach(function(d){
 
@@ -205,35 +206,42 @@ angular.module('apolloApp').controller('adminCRAddCtrl', ['$scope', '$http','$fi
     $scope.postaddcr=function(){
 
 
+        if($scope.cr['name'].trim()=="")
+        {
+            $scope.highlightMissingTxt=true;
+        }
+        else
+        {
+            //var nodeDataString=$scope.nodeKeyValues;//JSON.stringify($scope.nodeKeyValues);
+            //console.log($scope.cr, );
 
-        //var nodeDataString=$scope.nodeKeyValues;//JSON.stringify($scope.nodeKeyValues);
-        //console.log($scope.cr, );
+            //var currentdate = new Date(); 
+            $scope.cr['CR_NODE_TYPE']=$scope.nodeLabel;
+            $scope.cr['id']=$scope.nextNodeID;
+            $scope.cr['CR_USER_CREATE']=$scope.identity.currentUser.username;
+            //$scope.cr['CR_DATE']= new Date().getTime();
+            $scope.cr['CR_REQUEST_TYPE']="ADD";
+            $scope.cr['CR_STATUS']="PENDING";
+            $scope.cr['CR_DATE_CREATED']=new Date().getTime();
 
-        //var currentdate = new Date(); 
-        $scope.cr['CR_NODE_TYPE']=$scope.nodeLabel;
-        $scope.cr['id']=$scope.nextNodeID;
-        $scope.cr['CR_USER_CREATE']=$scope.identity.currentUser.username;
-        //$scope.cr['CR_DATE']= new Date().getTime();
-        $scope.cr['CR_REQUEST_TYPE']="ADD";
-        $scope.cr['CR_STATUS']="PENDING";
-        $scope.cr['CR_DATE_CREATED']=new Date().getTime();
-
-        var datapacket={};
-        datapacket['attr']=$scope.cr;
-        datapacket['rels']=$scope.relvalues;
-        $http.post('/apollo/api/mongo/postaddcr', datapacket).
-        //$http({method: 'Post', url: '/apollo/api/mongo/postcr', data: {greeting: 'hi'}}).
-          success(function(data, status, headers, config) { 
-            //console.log("success");
-            $scope.node="";
-            $scope.showButtons=false;
-            $scope.crQueueSuccess=true;
-          }).error(function(data, status) {
-              //console.log("err");
+            var datapacket={};
+            datapacket['attr']=$scope.cr;
+            datapacket['rels']=$scope.relvalues;
+            $http.post('/apollo/api/mongo/postaddcr', datapacket).
+            //$http({method: 'Post', url: '/apollo/api/mongo/postcr', data: {greeting: 'hi'}}).
+              success(function(data, status, headers, config) { 
+                //console.log("success");
                 $scope.node="";
                 $scope.showButtons=false;
-                $scope.crQueueFail=true;
-        });
+                $scope.crQueueSuccess=true;
+              }).error(function(data, status) {
+                  //console.log("err");
+                    $scope.node="";
+                    $scope.showButtons=false;
+                    $scope.crQueueFail=true;
+            });
+        }
+
 
         //console.log(datapacket);
 

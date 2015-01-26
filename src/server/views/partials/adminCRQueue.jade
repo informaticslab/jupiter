@@ -108,41 +108,41 @@
 					.col-lg-12.col-md-12.col-sm-12
 						table.table
 							tr
-								th.col-md-1(ng-click="sortval='id';reverse=!reverse;")
+								th.col-md-0.mouse-pointer(ng-click="sortval='id';reverse=!reverse;")
 									| ID
-									i.fa.fa-sort-desc
-								th.col-md-1(ng-click="sortval='CR_NODE_TYPE';reverse=!reverse;")
+									i.fa.fa-sort(ng-class="{'fa-sort-asc':reverse && sortval=='id','fa-sort-desc':!reverse && sortval=='id'}" )
+								th.col-md-1.mouse-pointer(ng-click="sortval='CR_NODE_TYPE';reverse=!reverse;")
 									| Node Type
-									i.fa.fa-sort-desc
-								th.col-md-4(ng-click="sortval='name';reverse=!reverse;")
+									i.fa.fa-sort(ng-class="{'fa-sort-asc':reverse && sortval=='CR_NODE_TYPE','fa-sort-desc':!reverse && sortval=='CR_NODE_TYPE'}" )
+								th.col-md-3.mouse-pointer(ng-click="sortval='name';reverse=!reverse;")
 									| Name
-									i.fa.fa-sort-desc
-								th.col-md-1(ng-click="sortval='CR_USER_CREATE';reverse=!reverse;")
+									i.fa.fa-sort(ng-class="{'fa-sort-asc':reverse && sortval=='name','fa-sort-desc':!reverse && sortval=='name'}" )
+								th.col-md-1.mouse-pointer(ng-click="sortval='CR_USER_CREATE';reverse=!reverse;")
 									| Created By
-									i.fa.fa-sort-desc
-								th.col-md-1(ng-click="sortval='CR_DATE_CREATED';reverse=!reverse;")
+									i.fa.fa-sort(ng-class="{'fa-sort-asc':reverse && sortval=='CR_USER_CREATE','fa-sort-desc':!reverse && sortval=='CR_USER_CREATE'}" )
+								th.col-md-1.mouse-pointer(ng-click="sortval='CR_DATE_CREATED';reverse=!reverse;")
 									| Created On
-									i.fa.fa-sort-desc
-								th.col-md-1(ng-click="sortval='CR_USER_UPDATE';reverse=!reverse;")
+									i.fa.fa-sort(ng-class="{'fa-sort-asc':reverse && sortval=='CR_DATE_CREATED','fa-sort-desc':!reverse && sortval=='CR_DATE_CREATED'}" )
+								th.col-md-1.mouse-pointer(ng-click="sortval='CR_USER_UPDATE';reverse=!reverse;")
 									| Revised By
-									i.fa.fa-sort-desc
-								th.col-md-1(ng-click="sortval='CR_DATE_UPDATED';reverse=!reverse;")
+									i.fa.fa-sort(ng-class="{'fa-sort-asc':reverse && sortval=='CR_USER_UPDATE','fa-sort-desc':!reverse && sortval=='CR_USER_UPDATE'}" )
+								th.col-md-1.mouse-pointer(ng-click="sortval='CR_DATE_UPDATED';reverse=!reverse;")
 									| Revised On
-									i.fa.fa-sort-desc
-								th.col-md-1(ng-click="sortval='CR_REQUEST_TYPE';reverse=!reverse;")
+									i.fa.fa-sort(ng-class="{'fa-sort-asc':reverse && sortval=='CR_DATE_UPDATED','fa-sort-desc':!reverse && sortval=='CR_DATE_UPDATED'}" )
+								th.col-md-1.mouse-pointer(ng-click="sortval='CR_REQUEST_TYPE';reverse=!reverse;")
 									| CR REQUEST TYPE
-									i.fa.fa-sort-desc
-								th.col-md-1(ng-click="sortval='CR_STATUS';reverse=!reverse;")
+									i.fa.fa-sort(ng-class="{'fa-sort-asc':reverse && sortval=='CR_REQUEST_TYPE','fa-sort-desc':!reverse && sortval=='CR_REQUEST_TYPE'}" )
+								th.col-md-1.mouse-pointer(ng-click="sortval='CR_STATUS';reverse=!reverse;")
 									| CR STATUS
-									i.fa.fa-sort-desc
+									i.fa.fa-sort(ng-class="{'fa-sort-asc':reverse && sortval=='CR_STATUS','fa-sort-desc':!reverse && sortval=='CR_STATUS'}" )
 								td.col-md-0(ng-click="sortval='id';reverse=!reverse;")
 									| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 							tr(ng-repeat="doc in mongoDocumentsAll | filter:{CR_REQUEST_TYPE:crFilterModel,CR_STATUS:crStatusModel,CR_USER_CREATE:userFilter}  | orderBy: sortval : reverse" ng-init="hover=false"  ng-mouseenter="hover = true" ng-mouseleave="hover = false")
-								td.col-md-1
+								td.col-md-0
 									| {{doc.id}}
 								td.col-md-1
 									| {{doc.CR_NODE_TYPE}}
-								td.col-md-4
+								td.col-md-3
 									a(href="#/adminCRQueue/CRDiff/{{doc._id}}")
 										| {{doc.name}}
 								td.col-md-1

@@ -27,8 +27,8 @@ angular.module('apolloApp').controller('adminCtrl', ['$scope','$modal', '$http',
 
     $scope.identity = ngIdentity;
 
-    console.log($scope.identity.dbUserId());
-    console.log($scope.identity.currentUser.username);
+    //console.log($scope.identity.dbUserId());
+    //console.log($scope.identity.currentUser.username);
 
     $scope.i=new Date().getTime()+100;
 
@@ -84,10 +84,10 @@ angular.module('apolloApp').controller('adminCtrl', ['$scope','$modal', '$http',
 
     function checkCRexist(){
         $http.get('/apollo/api/mongo/getstatus/' + $scope.nodeId).then(function(res) {
-            console.log(res.data.length);
+            //console.log(res.data.length);
             if(res.data.length>0)
             {
-                console.log(res.data[0]._id);
+                //console.log(res.data[0]._id);
                 $scope.lockedMongoID=res.data[0]._id;
                 $scope.showLockMsg=true;
             }
@@ -323,7 +323,7 @@ angular.module('apolloApp').controller('adminCtrl', ['$scope','$modal', '$http',
 
 
     $scope.addRel = function(){
-        console.log($scope.startnode,$scope.endnode,$scope.relvalues);
+        //console.log($scope.startnode,$scope.endnode,$scope.relvalues);
         if(($scope.endNodeId==$scope.nodeId || $scope.startNodeId==$scope.nodeId) && ($scope.endNodeId!="" && $scope.startNodeId!="") && ($scope.relselect!="")&& ($scope.relselect!=null))
         {
                 

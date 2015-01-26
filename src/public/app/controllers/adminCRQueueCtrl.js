@@ -23,7 +23,7 @@ angular.module('apolloApp').controller('adminCRQueueCtrl', ['$scope', '$modal','
   };
     
     $scope.crStatusModel='PENDING';
-    console.log("test");
+    //console.log("test");
     $scope.userFilter="";
     $scope.usersu=false;
 

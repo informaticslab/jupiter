@@ -79,7 +79,7 @@ angular.module('apolloApp').controller('adminCRDiffCtrl', ['$scope','$modal', '$
             {
                 $scope.usersu=true;
             }
-            console.log();
+            //console.log();
 
             $scope.logs=[];
             $scope.status_show_approved=false;
@@ -112,7 +112,7 @@ angular.module('apolloApp').controller('adminCRDiffCtrl', ['$scope','$modal', '$
             $http.get('/apollo/api/mongo/'+mongoid+'?'+cacheRenew,{cache:false}).then(function(res) {
                 $scope.mongoData=res.data;
                 $scope.editCRValues=$scope.mongoData[0];
-                console.log($scope.editCRValues);
+                //console.log($scope.editCRValues);
                 
                 $scope.nodeId=$scope.mongoData[0].id;
                 $scope.nodeType=$scope.mongoData[0].CR_NODE_TYPE;
@@ -131,7 +131,7 @@ angular.module('apolloApp').controller('adminCRDiffCtrl', ['$scope','$modal', '$
                 $scope.crUpdateDate=$scope.mongoData[0].CR_DATE_UPDATED;
 
                 $http.get('/apollo/api/mongo/log/'+mongoid+'?'+cacheRenew,{cache:false}).then(function(res) {
-                    console.log(res.data);
+                    //console.log(res.data);
                     $scope.logs=res.data;
                 });
 
@@ -270,7 +270,7 @@ angular.module('apolloApp').controller('adminCRDiffCtrl', ['$scope','$modal', '$
     $scope.saveEditCR = function(){
 
 
-        console.log($scope.editCRValues.rels);
+        //console.log($scope.editCRValues.rels);
 
         var finalCRArray=[];
 
@@ -289,7 +289,7 @@ angular.module('apolloApp').controller('adminCRDiffCtrl', ['$scope','$modal', '$
         $scope.editCRValues["CR_USER_UPDATE"]=$scope.identity.currentUser.username;
         $scope.editCRValues["CR_DATE_UPDATED"]=new Date().getTime();
         
-        console.log($scope.editCRValues);
+        //console.log($scope.editCRValues);
         $http.post('/apollo/api/mongo/posteditcr', $scope.editCRValues).
         //$http({method: 'Post', url: '/apollo/api/mongo/postcr', data: {greeting: 'hi'}}).
           success(function(data, status, headers, config) { 
@@ -341,8 +341,8 @@ angular.module('apolloApp').controller('adminCRDiffCtrl', ['$scope','$modal', '$
 
     $scope.cancelEditCR = function(){
 
-        console.log($scope.editCRValues.rels);
-        console.log($scope.relvalues);
+        //console.log($scope.editCRValues.rels);
+        //console.log($scope.relvalues);
 
         $scope.editCRChk.yes=false;
 
@@ -624,7 +624,7 @@ angular.module('apolloApp').controller('adminCRDiffCtrl', ['$scope','$modal', '$
 
         //($scope.dbcrRelArray).splice(x,1);
         $scope.dbcrRelArray.forEach(function(d){
-            console.log(d);
+            //console.log(d);
             if(d.relid==id)
             {
                 d.found=false;
@@ -658,12 +658,12 @@ angular.module('apolloApp').controller('adminCRDiffCtrl', ['$scope','$modal', '$
     };
 
     $scope.addRel = function(){
-        console.log($scope.dbcrRelArray);
+        //console.log($scope.dbcrRelArray);
         //var nextrelid=$scope.i++;
         if(($scope.endNodeId==$scope.nodeId || $scope.startNodeId==$scope.nodeId) && ($scope.endNodeId!="" && $scope.startNodeId!="") && ($scope.relselect!="")&& ($scope.relselect!=null))
         {
             
-            console.log($scope.relationshipDescription);
+            //console.log($scope.relationshipDescription);
             if($scope.relationshipDescription=="" || $scope.relationshipDescription==undefined)
             {
                 $scope.relationshipDescription="n/a";
@@ -695,7 +695,7 @@ angular.module('apolloApp').controller('adminCRDiffCtrl', ['$scope','$modal', '$
             
             $scope.showErrMsg=true;
         }
-        console.log($scope.dbcrRelArray);
+        //console.log($scope.dbcrRelArray);
 
         
     }
@@ -727,7 +727,7 @@ angular.module('apolloApp').controller('crlogCtrl', function ($scope,logs) {
   // $scope.selected = {
   //   item: $scope.items[0]
   // };
-  console.log(logs);
+  //console.log(logs);
   $scope.ok = function () {
     //$modalInstance.close('ok');
     $scope.$close();

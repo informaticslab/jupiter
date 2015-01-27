@@ -92,7 +92,7 @@
 										| {{crStatus}}
 							.row
 								.col-sm-12.col-md-12.col-lg-12
-									label.btn.btn-default.btn-sm( ng-hide="crStatus!='PENDING'" ng-model="editCRChk.yes" btn-checkbox btn-checkbox-true="true" btn-checkbox-false="false")
+									label.btn.btn-default.btn-sm( ng-show="crStatus=='PENDING' && crRequestType!='DELETE'" ng-model="editCRChk.yes" btn-checkbox btn-checkbox-true="true" btn-checkbox-false="false")
 										span.glyphicon.glyphicon-edit
 										|  Edit Change Request
 									span(ng-hide="crStatus!='PENDING'")
@@ -113,7 +113,7 @@
 									.alert.alert-danger(role="alert" ng-show="status_show_declined")
 										| Declined! Change request has been declined.
 							.vertical_spacing_less
-							.row(ng-show="editCRChk.yes")
+							.row(ng-show="editCRChk.yes && crRequestType!='DELETE'")
 								.col-sm-12.col-md-12.col-lg-12
 									.alert.alert-info
 										| Change Request open for modification. Save or Cancel changes to proceed.
@@ -177,7 +177,7 @@
 										| Relationship Type
 									th.col-lg-4.col-md-4.col-sm-4
 										| To Node
-									th.col-lg-1.col-md-1.col-sm-2
+									th.col-lg-1.col-md-1.col-sm-2(ng-show="crRequestType!='DELETE'")
 										| Action
 							tbody
 								tr(ng-repeat="relrow in dbcrRelArray | orderBy: relrow.found" ng-mouseenter="hover = true" ng-mouseleave="hover = false")
@@ -190,7 +190,7 @@
 											| ({{relrow.reldesc}})
 									td
 										| {{relrow.endname }}
-									td
+									td(ng-show="crRequestType!='DELETE'")
 										span.label.label-warning(ng-if="relrow.found")
 											| No Change
 										span.label.label-success(ng-if="!relrow.found && relrow.crdbType=='cr'")

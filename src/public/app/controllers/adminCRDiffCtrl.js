@@ -45,16 +45,6 @@ angular.module('apolloApp').controller('adminCRDiffCtrl', ['$scope','$modal', '$
     };
 
 
-        $scope.usersu=false;
-        $scope.i=new Date().getTime()+100;
-        $scope.crRelArray=[];
-        $scope.crDiffValues = [];
-        var mongoid=$routeParams.id;
-        $scope.mongoid=mongoid;
-        var currentneodata={};
-        var currentreldata={};
-        var rollback;
-        $scope.labelclass="";
         $scope.actAttributes = {};
         for (x in nodeAttributeDictionary) {
             //console.log("***********************"+x);
@@ -80,6 +70,18 @@ angular.module('apolloApp').controller('adminCRDiffCtrl', ['$scope','$modal', '$
                 $scope.usersu=true;
             }
             //console.log();
+            $scope.dbcrRelArray=[];
+            $scope.usersu=false;
+            $scope.i=new Date().getTime()+100;
+            $scope.crRelArray=[];
+            $scope.crDiffValues = [];
+            var mongoid=$routeParams.id;
+            $scope.mongoid=mongoid;
+            var currentneodata={};
+            var currentreldata={};
+            var rollback;
+            $scope.labelclass="";
+
 
             $scope.logs=[];
             $scope.status_show_approved=false;
@@ -362,6 +364,8 @@ angular.module('apolloApp').controller('adminCRDiffCtrl', ['$scope','$modal', '$
           success(function(data, status, headers, config) { 
             if(data==("success"))
             {
+                
+
                 init();
                 
                 $scope.status_show_declined=true;
@@ -458,7 +462,7 @@ angular.module('apolloApp').controller('adminCRDiffCtrl', ['$scope','$modal', '$
 
                 $scope.dbcrRelArray=dbcrRelArray;
         }
-        else
+        else if($scope.crRequestType=="UPDATE")
         {      
                 var dbRelArray=$scope.relvalues;
 
@@ -524,11 +528,12 @@ angular.module('apolloApp').controller('adminCRDiffCtrl', ['$scope','$modal', '$
 
                  $scope.dbcrRelArray=dbcrRelArray;
         }
+        else
+        {
 
-         // if(!$scope.$$phase)
-         // {
-         //      $scope.$apply();
-         // }
+            $scope.dbcrRelArray=$scope.relvalues;
+
+        }
 
 
     }

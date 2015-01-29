@@ -1,5 +1,10 @@
 angular.module('apolloApp').controller('navBarLoginCtrl',function($scope,$http,ngIdentity,ngNotifier,ngAuth,$location){ 
 	$scope.identity = ngIdentity;
+
+	$http.get('/apollo/api/piv').then(function(res) {
+		console.log(res);
+	});
+
 	$scope.signin =function(username, password){
 		ngAuth.authenticateUser(username,password).then(function(success) {
 			if(success) {
@@ -14,7 +19,10 @@ angular.module('apolloApp').controller('navBarLoginCtrl',function($scope,$http,n
 				ngNotifier.notify('Incorrect Username/Password');
 			}
 		});
+	
+
 	}
+
 	$scope.signout = function(){
 		ngAuth.logoutUser().then(function() {
 			$scope.userName = "";

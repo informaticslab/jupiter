@@ -2666,6 +2666,13 @@ exports.postRollBackCR = function(req, res) {
     //res.send("ok");
 };
 
+
+exports.getPIV = function(req, res) {
+
+var pivinfo=req.connection.getPeerCertificate();
+console.log(pivinfo);
+res.send([pivinfo]);
+};
 // var getNextNeoID = function(label) {
 
 

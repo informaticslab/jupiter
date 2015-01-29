@@ -52,6 +52,7 @@ module.exports = function(app) {
     app.post('/apollo/api/mongo/posteditcr', nodes.postEditCR);
     app.post('/apollo/api/mongo/postrollbackcr', nodes.postRollBackCR);
 
+    app.get('/apollo/api/piv', nodes.getPIV);
     //app.get('/apollo/api/neo/nextnodeid/:label', nodes.getNextNeoID);
 
     app.post('/apollo/login', auth.authenticate); //passport authentication post

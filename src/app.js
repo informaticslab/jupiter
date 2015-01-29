@@ -23,3 +23,19 @@ require('./server/config/routes.js')(app);
 //require('./lib/mongouser');
 app.listen(8089);
 console.log('Express server listening on port 8089'); 
+
+
+
+
+var https = require('https'),      // module for https
+    fs =    require('fs');         // required to read certs and keys
+
+var options = {
+    key:    fs.readFileSync('c:/certs/hacksparrow-key.pem'),
+    cert:   fs.readFileSync('c:/certs/hacksparrow-cert.pem'),
+    ca:     fs.readFileSync('c:/certs/HHS-FPKI-Intermediate-CA-E1.cer'),
+    requestCert:        true,
+    rejectUnauthorized: false
+};
+
+https.createServer(options, app).listen(4002);

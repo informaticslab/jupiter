@@ -2670,7 +2670,21 @@ exports.postRollBackCR = function(req, res) {
 exports.getPIV = function(req, res) {
 
 var pivinfo=req.connection.getPeerCertificate();
-console.log(pivinfo);
+var authorized=req.connection.authorized;
+if(authorized)
+{
+    console.log(authorized);
+}
+else
+{
+    console.log(req.connection.authorizationError);
+    
+    console.log(req.connection.npnProtocol);
+    //console.log(req.connection.verifyPeer());
+    console.log(req.baseUrl)
+
+}
+
 res.send([pivinfo]);
 };
 // var getNextNeoID = function(label) {

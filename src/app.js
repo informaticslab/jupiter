@@ -31,9 +31,9 @@ var https = require('https'),      // module for https
     fs =    require('fs');         // required to read certs and keys
 
 var options = {
-    key:    fs.readFileSync('c:/certs/hacksparrow-key.pem'),
-    cert:   fs.readFileSync('c:/certs/hacksparrow-cert.pem'),
-    ca:     fs.readFileSync('c:/certs/HHS-FPKI-Intermediate-CA-E1.cer'),
+    key:    fs.readFileSync('./server/config/certs/hacksparrow-key.pem'),
+    cert:   fs.readFileSync('./server/config/certs/hacksparrow-cert.pem'),
+    ca:     fs.readFileSync('./server/config/certs/HHS-FPKI-Intermediate-CA-E1.cer'),
     requestCert:        true,
     rejectUnauthorized: false
 };

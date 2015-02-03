@@ -2669,11 +2669,12 @@ exports.postRollBackCR = function(req, res) {
 
 exports.getPIV = function(req, res) {
 
-var pivinfo=req.connection.getPeerCertificate();
+var pivinfo="";
 var authorized=req.connection.authorized;
 if(authorized)
 {
     console.log(authorized);
+    pivinfo=req.connection.getPeerCertificate();
 }
 else
 {

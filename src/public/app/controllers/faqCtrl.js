@@ -16,7 +16,7 @@ angular.module('apolloApp').controller('faqCtrl', function($scope,$location,$win
     	var path = $location.path();
 
 
-    	var redirectUrl="https://"+host+":4400"+path;
+    	var redirectUrl="https://"+host+":4400/apollo/#"+path;
 	    
 	    console.log( absUrl,redirectUrl);
 

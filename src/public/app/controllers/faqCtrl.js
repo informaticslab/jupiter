@@ -1,4 +1,4 @@
-angular.module('apolloApp').controller('faqCtrl', function($scope,$location,$window){
+angular.module('apolloApp').controller('faqCtrl', function($scope,$location,$window,$http){
     $scope.rayes = 'sunny';
     $scope.$parent.q = 'faq';
 

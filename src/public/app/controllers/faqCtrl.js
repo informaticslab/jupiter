@@ -4,24 +4,32 @@ angular.module('apolloApp').controller('faqCtrl', function($scope,$location,$win
 
 
 
-        console.log($location.absUrl());
-	console.log($location.protocol());
+    console.log("before",$location.absUrl());
+	console.log("before",$location.protocol());
 
     if($location.protocol()=="http")
     {
+    	var protocol=$location.protocol();
     	var absUrl=$location.absUrl();
-	    console.log( absUrl,$location.protocol());
+    	var host=$location.host();
+    	var port = $location.port();
+    	var path = $location.path();
 
-	    absUrl=absUrl.replace('http', 'https');
-	    absUrl=absUrl.replace('8089', '4400');
 
-	    console.log( absUrl);
+    	var redirectUrl="https://"+host+":4400"+path;
+	    
+	    console.log( absUrl,redirectUrl);
+
+	    //absUrl=absUrl.replace('http', 'https');
+	    //absUrl=absUrl.replace('8089', '4400');
+
+	    //console.log( absUrl);
 
     	//$location.protocol("https");
-    	$window.location.href=absUrl;
+    	$window.location.href=redirectUrl;
     }
-    console.log($location.absUrl());
-	console.log($location.protocol());
+    console.log("after",$location.absUrl());
+	console.log("after",$location.protocol());
 
 });
 

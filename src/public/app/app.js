@@ -28,7 +28,12 @@ apolloApp.config(['$routeProvider',
     $routeProvider.
           when('/faq', {
         templateUrl: 'partials/faq',
-        controller: 'mainCtrl'
+        controller: 'faqCtrl'
+      }).
+          when('/login', {
+        redirectTo: function (routeParams, path, search) {
+        return "/faq" ;
+      }
       }).
           when('/dashboard', {
         templateUrl: 'partials/dashboard',

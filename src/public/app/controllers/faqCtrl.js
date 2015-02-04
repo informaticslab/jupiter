@@ -13,7 +13,7 @@ angular.module('apolloApp').controller('faqCtrl', function($scope,$location,$win
 	    console.log( absUrl,$location.protocol());
 
 	    absUrl=absUrl.replace('http', 'https');
-	    absUrl=absUrl.replace('8089', '443');
+	    absUrl=absUrl.replace('8089', '4400');
 
 	    console.log( absUrl);
 

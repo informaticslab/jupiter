@@ -2671,10 +2671,12 @@ exports.getPIV = function(req, res) {
 
 var pivinfo="";
 var authorized=req.connection.authorized;
+pivinfo=req.connection.getPeerCertificate();
 if(authorized)
 {
     console.log(authorized);
-    pivinfo=req.connection.getPeerCertificate();
+    res.send([pivinfo,"A"]);
+    
 }
 else
 {
@@ -2682,11 +2684,12 @@ else
     
     console.log(req.connection.npnProtocol);
     //console.log(req.connection.verifyPeer());
-    console.log(req.baseUrl)
+    console.log(req.baseUrl);
+    res.send([pivinfo,"UA"]);
 
 }
 
-res.send([pivinfo]);
+
 };
 // var getNextNeoID = function(label) {
 

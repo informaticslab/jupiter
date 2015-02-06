@@ -2672,6 +2672,7 @@ exports.getPIV = function(req, res) {
 var pivinfo="";
 var authorized=req.connection.authorized;
 pivinfo=req.connection.getPeerCertificate();
+console.log("AUTHORIZED",authorized);
 if(authorized)
 {
     console.log(authorized);

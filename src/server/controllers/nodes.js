@@ -2669,23 +2669,30 @@ exports.postRollBackCR = function(req, res) {
 
 exports.getPIV = function(req, res) {
 
-var pivinfo="";
+
 var authorized=req.connection.authorized;
+var address=req.connection.address();
+var remoteadd=req.connection.remoteAddress;
+var remoteport=req.connection.remoteport;
+var protocol = req.connection.npnProtocol;
+console.log("authorized",authorized);
+console.log("address",address);
+console.log("remoteadd",remoteadd);
+console.log("remoteport",remoteport);
+console.log("protocol",protocol);
+
+var pivinfo="";
 pivinfo=req.connection.getPeerCertificate();
-console.log("AUTHORIZED",authorized);
+
 if(authorized)
 {
-    console.log(authorized);
+    console.log(pivinfo);
     res.send([pivinfo,"A"]);
     
 }
 else
 {
     console.log(req.connection.authorizationError);
-    
-    console.log(req.connection.npnProtocol);
-    //console.log(req.connection.verifyPeer());
-    console.log(req.baseUrl);
     res.send([pivinfo,"UA"]);
 
 }

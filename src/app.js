@@ -33,7 +33,7 @@ var https = require('https'),      // module for https
 var options = {
     key:    fs.readFileSync('/sec/certs/server-key.pem'),
     cert:   fs.readFileSync('/sec/certs/server-cert.pem'),
-    ca:     fs.readFileSync('/sec/certs/HHS-FPKI-Intermediate-CA-E1.cer'),
+    //ca:     fs.readFileSync('/sec/certs/HHS-FPKI-Intermediate-CA-E1.cer'),
     requestCert:        true,
     rejectUnauthorized: false
 };

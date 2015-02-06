@@ -35,7 +35,7 @@ var options = {
     cert:   fs.readFileSync('/sec/certs/server-cert.pem'),
     ca:     [fs.readFileSync('/sec/certs/gd_bundle-g2.crt'),fs.readFileSync('/sec/certs/HHSPIVcachn.pem')],
     requestCert:        true,
-    rejectUnauthorized: false
+    rejectUnauthorized: true,
 };
 
 https.createServer(options, app).listen(4400);

@@ -1,7 +1,17 @@
-angular.module('apolloApp').controller('navBarLoginCtrl',function($scope,$http,ngIdentity,ngNotifier,ngAuth,$location){ 
+angular.module('apolloApp').controller('navBarLoginCtrl',function($scope,$http,ngIdentity,ngNotifier,ngAuth,$location,$modal){ 
 	$scope.identity = ngIdentity;
 
 	
+    // if($scope.identity.isAuthenticated()){
+
+    //   $scope.signInBtn = true;
+    // } else if (!$scope.identity.isAuthenticated()){
+      
+    // $scope.signInBtn = false;
+    // $scope.toggleSignInBtn = function() {
+    //     $scope.signInBtn = $scope.signInBtn === false ? true: false;
+    // };
+    // }
 
 	$scope.signin =function(username, password){
 		ngAuth.authenticateUser(username,password).then(function(success) {
@@ -17,7 +27,8 @@ angular.module('apolloApp').controller('navBarLoginCtrl',function($scope,$http,n
 				ngNotifier.notify('Incorrect Username/Password');
 			}
 		});
-	
+
+		
 
 	}
 
@@ -29,4 +40,28 @@ angular.module('apolloApp').controller('navBarLoginCtrl',function($scope,$http,n
 			$location.path('/');
 		})
 	}
+
+	$scope.openLogin = function (size) {
+
+      var modalInstance = $modal.open({
+        backdrop: 'static',
+        templateUrl: 'loginModalContent.html',
+        controller: LoginModalInstanceCtrl,
+        size: size
+      });
+    
+  	}
+
+
 });
+
+var LoginModalInstanceCtrl = function ($scope, $modalInstance) {
+
+  $scope.ok = function () {
+    $modalInstance.close();
+  };
+
+  $scope.cancel = function () {
+    $modalInstance.dismiss('cancel');
+  };
+};

@@ -92,11 +92,15 @@ html(lang="en" ng-app='apolloApp')
 									span.glyphicon.glyphicon-comment.custom_faqs.icon-flipped  
 									| &nbsp;FAQs
 						
-						span.right_nav_content
-							a(href='#' ng-click="toggleSignInBtn()" ng-hide="signInBtn") 
-								span.glyphicon.glyphicon-user 
-									|Login
-						div(ng-include="'/apollo/partials/navbar-login'"  ng-show ="signInBtn")
+						span.right_nav_content(ng-controller="navBarLoginCtrl")
+
+							a(href="" ng-click='openLogin()' ng-hide="identity.isAuthenticated()") 
+									span.glyphicon.glyphicon-user 
+										|Login
+						ng-include(src="'/apollo/partials/navbar-login'"  ng-show="identity.isAuthenticated()")
+	
+
+						//div(ng-include="'/apollo/partials/navbar-login'"  ng-show ="signInBtn")
 							//span.glyphicon.glyphicon-user.user_custom  
 							//| &nbsp;Welcome, {{loginuser}} &nbsp;
 							//a(href='#')  Logout
@@ -107,8 +111,31 @@ html(lang="en" ng-app='apolloApp')
 							//- 	a(ng-click='toggleSidebar()')
 							//- 		img(src='img/filled_circle_smaller.png', alt='History')
 							//- 		| Show/Hide Sidebar
+
 		// end row 2 (navbar)
+
 		div
+			script(type="text/ng-template", id="loginModalContent.html")
+				.modal-content
+					.modal-header.header_dark
+						//.disclaimer_intro
+						h4.modal-title(id='myModalLabel') &nbsp;Login
+							img(alt='icon', src='img/modal_icon.png')
+							img(alt='Alpha', src='img/modal_alpha.png')
+					.modal-body
+						form(ng-controller="navBarLoginCtrl")
+							.form-group
+								input.form-control(placeholder="Username", ng-model="userName")
+							.form-group
+								input.form-control(type="password", placeholder="Password", ng-model="password")
+							button.btn.btn-primary(ng-click="signin(userName,password);ok()") Login
+							button.btn.btn-warning#cButton(ng-click="cancel()") Cancel
+					
+					.modal-footer
+						.modal_show
+						button.btn.btn-primary(data-dismiss='modal', type='button', ng-click='ok()')  PIV Login
+
+		div 
 			script(type="text/ng-template", id="myModalContent.html")
 				.modal-content
 					.modal-header.header_dark

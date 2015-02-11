@@ -72,8 +72,7 @@ angular.module('apolloApp').controller('rootCtrl', function($scope, $http, $loca
       $scope.showSidebar = !$scope.showSidebar;
     };
 
-
-    if($scope.identity.isAuthenticated()){
+     if($scope.identity.isAuthenticated()){
 
       $scope.signInBtn = true;
     } else if (!$scope.identity.isAuthenticated()){
@@ -83,6 +82,7 @@ angular.module('apolloApp').controller('rootCtrl', function($scope, $http, $loca
         $scope.signInBtn = $scope.signInBtn === false ? true: false;
     };
     }
+
     //SITE HISTORY
 
 
@@ -241,7 +241,13 @@ angular.module('apolloApp').controller('rootCtrl', function($scope, $http, $loca
 
   }
 
+
+
 });
+
+
+
+
 
 var ModalInstanceCtrl = function ($scope, $modalInstance, disclaimerStatus) {
 

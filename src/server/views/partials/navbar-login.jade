@@ -5,11 +5,11 @@
 				|Welcome, {{identity.currentUser.firstName}} 
 				b.caret
 			ul.dropdown-menu 
-				li(ng-show="identity.currentUser.isSU()")
+				li(ng-show="identity.currentUser.isAdmin()")
 					a(href="#/adminCRQueue") CR Queue
-				li(ng-show="identity.currentUser.isSU()")
+				li(ng-show="identity.currentUser.isAdmin()")
 					a(href="#/adminCREdit") CR Edit
-				li(ng-show="identity.currentUser.isSU()")
+				li(ng-show="identity.currentUser.isAdmin()")
 					a(href="#/adminCRAdd") CR Add
 				li 
 					a(href="", ng-click="signout()") Logout

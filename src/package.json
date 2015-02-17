@@ -25,7 +25,9 @@
     "passport":"*",
     "passport-local":"*",
     "mongoose":"*",
-    "toastr":"*"
+    "toastr":"*",
+    "passport-facebook":"*",
+    "passport-google":"*"
   },
   "devDependencies": {
     "supertest": "~0.8.1",

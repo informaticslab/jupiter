@@ -65,6 +65,22 @@ module.exports = function(app) {
     app.post('/apollo/api/mongo/deletecr', nodes.deleteMongoCR);
     app.get('/apollo/api/mongo/:id', nodes.getCR);
     app.get('/apollo/api/mongo/log/:id', nodes.getCRLog);
+
+
+    // =====================================
+    // FACEBOOK ROUTES =====================
+    // =====================================
+    // route for facebook authentication and login
+    app.get('/apollo/auth/facebook', passport.authenticate('facebook', { scope : ['email'] }));
+
+    // handle the callback after facebook has authenticated the user
+    app.get('/apollo/auth/facebook/callback',
+        passport.authenticate('facebook', {
+            scope           : ['email'], 
+            successRedirect : '/apollo/#/faq',
+            failureRedirect : '/apollo/#/quickGuide'
+        }));
+
     
     //this goes at the bottom.  It is the catchall for everything not defined above.  Silly.
     app.get('/apollo/*', index.index);

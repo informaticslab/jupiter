@@ -9,12 +9,17 @@ module.exports = function(config) {
 		console.log('connected to apollo user');
 	});
 
+
 	var userSchema = mongoose.Schema({
+		id: String,
 		firstName: String,
 		lastName: String,
 		username : String,
+		email: String,
+		provider: String,
 		salt: String,
 		hashed_pwd: String,
+		token: String,
 		roles: [String]
 	});
 
@@ -24,7 +29,13 @@ module.exports = function(config) {
 		}
 	}
 
+	var loghistorySchema = mongoose.Schema({
+		id: String,
+		loginDateTime: Date
+	});
+
 	var User = mongoose.model('User',userSchema);
+	var Loghistory = mongoose.model('loghistorySchema',loghistorySchema);
 
 	User.find({}).exec(function(err, collection){ 
 		if(collection.length ==0) {

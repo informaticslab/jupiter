@@ -123,19 +123,53 @@ html(lang="en" ng-app='apolloApp')
 							img(alt='icon', src='img/modal_icon.png')
 							img(alt='Alpha', src='img/modal_alpha.png')
 					.modal-body
-						form(ng-controller="navBarLoginCtrl")
-							.form-group
-								input.form-control(placeholder="Username", ng-model="userName")
-							.form-group
-								input.form-control(type="password", placeholder="Password", ng-model="password")
-							button.btn.btn-primary(ng-click="signin(userName,password);ok()") Login
-							button.btn.btn-warning#cButton(ng-click="cancel()") Cancel
-					
-					.modal-footer
+						.row
+							.col-lg-5.col-md-5.col-sm-5
+								h4
+									| CDC Smart Card Login
+								.row
+									.col-lg-4.col-md-4.col-sm-4
+										img.pull-left(src="img/PIV_Card_Sample.png")
+									.col-lg-8.col-md-8.col-sm-8
+										| Insert your Smart Card into your smart card reader before you click the Login button.
+								br
+								.row
+									.col-lg-12.col-md-12.col-sm-12
+										button.btn.btn-primary(data-dismiss='modal', type='button', ng-click='ok()') 
+											| Login
+							.col-lg-1.col-md-1.col-sm-1
+								p.text-center
+									br
+									br
+									br
+									| (or)
+							.col-lg-6.col-md-6.col-sm-6
+								h4
+									| CISP Login
+								form(ng-controller="navBarLoginCtrl")
+									.form-group
+										input.form-control(placeholder="Username", ng-model="userName")
+									.form-group
+										input.form-control(type="password", placeholder="Password", ng-model="password")
+									br
+									button.btn.btn-primary(ng-click="signin(userName,password);ok()")
+										| Login
+									button.btn.btn-warning#cButton(ng-click="cancel()")
+										| Cancel
+						hr
+						.row
+							.col-lg-12.col-md-12.col-sm-12
+								h5
+									| You can also login using
+								a(href="/apollo/auth/facebook")
+									img(src="img/FB-f-Logo__blue_29.png" )
+					//.modal-footer
 						.modal_show
-						button.btn.btn-primary(data-dismiss='modal', type='button', ng-click='ok()')  PIV Login
-						a(href="/apollo/auth/facebook")
-							| login using facebook
+							h4
+								| Login Using
+								i.fa.fa-facebook-official
+							//a(href="/apollo/auth/facebook")
+								| login using facebook
 
 		div 
 			script(type="text/ng-template", id="myModalContent.html")

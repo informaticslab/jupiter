@@ -41,6 +41,7 @@ angular.module('apolloApp').factory('ngAuth', function($http, ngIdentity, $q, ng
 			var dfd = $q.defer();
 			$http.get('/apollo/api/getpiv').then(function(res){
 				if(res.data.success) {
+
 					var user = new ngUser();
 					angular.extend(user, res.data.user);
 					console.log(res.data.success);

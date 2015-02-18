@@ -125,7 +125,20 @@ module.exports = function(config) {
 			  
 			});
 
+			User.create({id:'1001619186',firstName:'Michael',lastName:'Ta',username:'XYT8',salt:null, hashed_pwd: null, provider:'PIV', roles:['admin']},function(err, docs) {
+			  if (err){
+			  	console.log(err);
+			  } 
+			  else
+			  {
+			  	//console.log(docs);	
+			  }
+			  
+			});
+
 			}
+
+
 	})
 }
 

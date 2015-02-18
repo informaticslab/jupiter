@@ -3,6 +3,8 @@ var urlFactory = require('../lib/urlFactory');
 var mongo = require('../lib/mongoConnection');
 var ObjectId = require('mongodb').ObjectID;
 var _ = require('underscore');
+var mongoose = require('mongoose');
+
 
 // /apollo/api/node/{id}/relations
 exports.getRelationsForNode = function(req, res) {
@@ -2670,49 +2672,74 @@ exports.postRollBackCR = function(req, res) {
 exports.getPIV = function(req, res) {
 
 
+    //TODO: Look at handling "Cancel Button"
+
     var authorized=req.connection.authorized;
-    var address=req.connection.address();
-    var remoteadd=req.connection.remoteAddress;
-    var remoteport=req.connection.remoteport;
+    var User =  mongoose.model('User');
+    //var address=req.connection.address();
+    //var remoteadd=req.connection.remoteAddress;
+    //var remoteport=req.connection.remoteport;
     var protocol = req.connection.npnProtocol;
     console.log("authorized",authorized);
-    // console.log("address",address);
-    // console.log("remoteadd",remoteadd);
-    // console.log("remoteport",remoteport);
-    // console.log("protocol",protocol);
+  
+    var pivinfo=req.connection.getPeerCertificate().subject;
+    var pivUserID = pivinfo.UID.slice(0,9);
+    var pivUserName = pivinfo.UID.slice(16);
 
-    var pivinfo="";
-    var pivUserID="";
-    var pivUserName="";
-    var pivInfoAll= req.connection.getPeerCertificate();
-    var altName = req.connection.getPeerCertificate().subject.subjectAltName;
-    pivinfo=req.connection.getPeerCertificate().subject;
-    pivUserID = pivinfo.UID.slice(0,9);
-    pivUserName = pivinfo.UID.slice(16);
+    var name ="Michael";
+    //TODO: Role check against DB
 
-    var userResource = {_v:null, _id:pivUserID, firstName:pivUserName,lastName:null ,username:'pivuser', salt:null, hashed_pwd: null, roles:['admin']};
+            
+    console.log(pivUserID);
 
-    if(authorized)
-    {
-        console.log(pivinfo);
-        console.log(pivInfoAll);
-        //res.send(userResource);
-        res.send({success:true, user:userResource, allInfo: pivInfoAll, altName : altName});
+    var query = User.where({id:pivUserID});
+
+
+    query.findOne( function(err, user) {
+        console.log(user);
+        if (err) {
+            return err
+        }
+        else if(user){
+            if(authorized){
+                res.send({success:true, user:user});
+                console.log(user);
+            }  else{
+            res.send({success:false});
+            console.log(req.connection.authorizationError);
+            // res.send(req.connection.authorizationError);
+            }   
+        }
+        else{
+            var userResource = {_v:null, _id:pivUserID, firstName: pivUserName,lastName: null ,username:pivUserName, salt:null, hashed_pwd: null};
+            res.send({success:true, user:userResource});
+        }
+    });      
+
+            
+    
+    //  var userResource = {_v:null, _id:pivUserID, firstName: pivUserName,lastName: null ,username:'XYT8', salt:null, hashed_pwd: null};
+    // if(authorized)
+    // {
+    //     res.send({success:true, user:userResource});
+    //     // console.log(pivinfo);
+    //     // console.log(pivInfoAll);
+    //     //res.send(userResource);
+    //     //var currentUser = findUser(pivUserID);
+    //     //console.log(dbUser);
         
-        //$location.path('/adminCRQueue');
-        
-    }
-    else
-    {
-        res.send({success:false});
-        console.log(req.connection.authorizationError);
-        // res.send(req.connection.authorizationError);
-
-
-    }
+    // }
+    // else
+    // {
+    //     res.send({success:false});
+    //     console.log(req.connection.authorizationError);
+    //     // res.send(req.connection.authorizationError);
+    // }
 
 
 };
+
+
 // var getNextNeoID = function(label) {
 
 

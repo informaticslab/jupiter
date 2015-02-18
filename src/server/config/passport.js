@@ -12,6 +12,7 @@ module.exports = function(){
 	function(username, password, done) {
 		User.findOne({username:username}).exec(function(err,user) {
 			if(user && user.authenticate(password)) {
+				//console.log(user);
 				return done(null,user);
 			} else {
 				return done(null,false);

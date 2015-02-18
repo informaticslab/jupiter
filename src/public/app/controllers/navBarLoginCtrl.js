@@ -1,21 +1,12 @@
-angular.module('apolloApp').controller('navBarLoginCtrl',function($scope,$http,ngIdentity,ngNotifier,ngAuth,$location,$modal){ 
+angular.module('apolloApp').controller('navBarLoginCtrl',function($scope,$http,ngIdentity,ngNotifier,ngAuth,$location,$modal,$window){ 
 	$scope.identity = ngIdentity;
 
-	
-    // if($scope.identity.isAuthenticated()){
 
-    //   $scope.signInBtn = true;
-    // } else if (!$scope.identity.isAuthenticated()){
-      
-    // $scope.signInBtn = false;
-    // $scope.toggleSignInBtn = function() {
-    //     $scope.signInBtn = $scope.signInBtn === false ? true: false;
-    // };
-    // }
 
-	$scope.signin =function(username, password){
+	$scope.signin = function(username, password){
 		ngAuth.authenticateUser(username,password).then(function(success) {
 			if(success) {
+				console.log($scope.identity.currentUser.isAdmin());
 				if($scope.identity.currentUser.isAdmin()){
 					$location.path('/adminCRQueue');
 				}
@@ -27,9 +18,38 @@ angular.module('apolloApp').controller('navBarLoginCtrl',function($scope,$http,n
 				ngNotifier.notify('Incorrect Username/Password');
 			}
 		});
+	}
 
+
+	
+    if($scope.identity.isAuthenticated()){
+
+      $scope.signInBtn = true;
+    } else if (!$scope.identity.isAuthenticated()){
+      
+    $scope.signInBtn = false;
+    $scope.toggleSignInBtn = function() {
+        $scope.signInBtn = $scope.signInBtn === false ? true: false;
+    };
+    }
+
+	$scope.pivLogin = function(){
+		//todo
+	   	var forceSsl = function () {
+			$window.location.href = $location.absUrl().replace('http','https').replace('8089','4400');
+		 };
+		// console.log($location.protocol()); 
+		// console.log($location.absUrl());
+		var protocol = $location.protocol();
+		console.log(protocol);
+
+		if($location.protocol() != 'https'){
+			forceSsl();
+		}
+		// else if($location.protocol() == 'https'){
+		// 	$scope.rootCtrl.getPIVinfo();
+		// }
 		
-
 	}
 
 	$scope.signout = function(){
@@ -37,6 +57,9 @@ angular.module('apolloApp').controller('navBarLoginCtrl',function($scope,$http,n
 			$scope.userName = "";
 			$scope.password = "";
 			// ngNotifier.notify('You have successfully signed out.');
+			if($location.protocol()=='https'){
+				$window.location.href = $location.absUrl().replace('https','http').replace('4400','8089');
+			}
 			$location.path('/');
 		})
 	}
@@ -65,3 +88,6 @@ var LoginModalInstanceCtrl = function ($scope, $modalInstance) {
     $modalInstance.dismiss('cancel');
   };
 };
+
+
+

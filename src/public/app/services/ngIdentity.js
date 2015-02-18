@@ -1,6 +1,9 @@
-angular.module('apolloApp').factory('ngIdentity', function($window, ngUser) {
+angular.module('apolloApp').factory('ngIdentity', function($window, ngUser,$location) {
 	var currentUser;
-	if(!!$window.bootstrappedUserObject) {
+	if($location.protocol() == 'https') {
+		currentUser = new ngUser();
+	}
+	else if(!!$window.bootstrappedUserObject) {
 		currentUser = new ngUser();
 		angular.extend(currentUser, $window.bootstrappedUserObject);
 	}

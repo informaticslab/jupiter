@@ -1,13 +1,15 @@
-angular.module('apolloApp').factory('ngAuth', function($http, ngIdentity, $q, ngUser) {
+angular.module('apolloApp').factory('ngAuth', function($http, ngIdentity, $q, ngUser, $location) {
 	return{
 		authenticateUser: function(username,password){
 			var dfd = $q.defer();
 			$http.post('/apollo/login',{username:username, password: password}).then(function(response) {
 			//console.log(userName);
-			console.log(response.data.success)
+			//console.log(response.data.success)
 			if(response.data.success) {
 				var user = new ngUser();
+				
 				angular.extend(user, response.data.user);
+				console.log(user);
 				ngIdentity.currentUser = user;
 				dfd.resolve(true);
 
@@ -34,6 +36,32 @@ angular.module('apolloApp').factory('ngAuth', function($http, ngIdentity, $q, ng
               } else {
                 return $q.reject('not authorized');
               }
+		},
+		autheticateUserPiv : function(){
+			var dfd = $q.defer();
+			$http.get('/apollo/api/getpiv').then(function(res){
+				if(res.data.success) {
+					var user = new ngUser();
+					angular.extend(user, res.data.user);
+					console.log(res.data.success);
+					console.log(user);
+
+					ngIdentity.currentUser = user;
+					
+					console.log(res);
+					//console.log(ngIdentity.currentUser.isAdmin());
+					dfd.resolve(true);
+					// if(res != null){
+
+	    //       		$location.path('/adminCRQueue');
+	    //     		}
+				}
+				else {
+					dfd.resolve(false);
+				}
+				
+			});
+			return dfd.promise;
 		}
 	}
 })

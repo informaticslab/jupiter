@@ -2670,32 +2670,46 @@ exports.postRollBackCR = function(req, res) {
 exports.getPIV = function(req, res) {
 
 
-var authorized=req.connection.authorized;
-var address=req.connection.address();
-var remoteadd=req.connection.remoteAddress;
-var remoteport=req.connection.remoteport;
-var protocol = req.connection.npnProtocol;
-console.log("authorized",authorized);
-console.log("address",address);
-console.log("remoteadd",remoteadd);
-console.log("remoteport",remoteport);
-console.log("protocol",protocol);
+    var authorized=req.connection.authorized;
+    var address=req.connection.address();
+    var remoteadd=req.connection.remoteAddress;
+    var remoteport=req.connection.remoteport;
+    var protocol = req.connection.npnProtocol;
+    console.log("authorized",authorized);
+    // console.log("address",address);
+    // console.log("remoteadd",remoteadd);
+    // console.log("remoteport",remoteport);
+    // console.log("protocol",protocol);
 
-var pivinfo="";
-pivinfo=req.connection.getPeerCertificate();
+    var pivinfo="";
+    var pivUserID="";
+    var pivUserName="";
+    var pivInfoAll= req.connection.getPeerCertificate();
+    var altName = req.connection.getPeerCertificate().subject.subjectAltName;
+    pivinfo=req.connection.getPeerCertificate().subject;
+    pivUserID = pivinfo.UID.slice(0,9);
+    pivUserName = pivinfo.UID.slice(16);
 
-if(authorized)
-{
-    console.log(pivinfo);
-    res.send([pivinfo,"A"]);
-    
-}
-else
-{
-    console.log(req.connection.authorizationError);
-    res.send([pivinfo,"UA"]);
+    var userResource = {_v:null, _id:pivUserID, firstName:pivUserName,lastName:null ,username:'pivuser', salt:null, hashed_pwd: null, roles:['admin']};
 
-}
+    if(authorized)
+    {
+        console.log(pivinfo);
+        console.log(pivInfoAll);
+        //res.send(userResource);
+        res.send({success:true, user:userResource, allInfo: pivInfoAll, altName : altName});
+        
+        //$location.path('/adminCRQueue');
+        
+    }
+    else
+    {
+        res.send({success:false});
+        console.log(req.connection.authorizationError);
+        // res.send(req.connection.authorizationError);
+
+
+    }
 
 
 };

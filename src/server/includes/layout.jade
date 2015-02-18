@@ -14,7 +14,7 @@ html(lang="en" ng-app='apolloApp')
 		link(rel="stylesheet" href="/apollo/css/loading-bar.min.css")
 		link(rel="stylesheet" href="/apollo/css/inTheLab.css")
 		link(rel="stylesheet" href="/apollo/vendor/toastr/toastr.css")
-	body(ng-controller='rootCtrl' data-ng-init="open()")
+	body(ng-controller='rootCtrl' data-ng-init="open();getPIVinfo()")
 		.container-fluid
 			// row1
 			.row.headerblue
@@ -114,15 +114,17 @@ html(lang="en" ng-app='apolloApp')
 
 		// end row 2 (navbar)
 
+		//Login modal
 		div
 			script(type="text/ng-template", id="loginModalContent.html")
-				.modal-content
+				.modal-content(ng-controller="navBarLoginCtrl")
 					.modal-header.header_dark
 						//.disclaimer_intro
 						h4.modal-title(id='myModalLabel') &nbsp;Login
 							img(alt='icon', src='img/modal_icon.png')
 							img(alt='Alpha', src='img/modal_alpha.png')
 					.modal-body
+
 						.row
 							.col-lg-5.col-md-5.col-sm-5
 								h4
@@ -135,7 +137,7 @@ html(lang="en" ng-app='apolloApp')
 								br
 								.row
 									.col-lg-12.col-md-12.col-sm-12
-										button.btn.btn-primary(data-dismiss='modal', type='button', ng-click='ok()') 
+										button.btn.btn-primary(data-dismiss='modal', type='button', ng-click='ok();pivLogin()') 
 											| Login
 							.col-lg-1.col-md-1.col-sm-1
 								p.text-center
@@ -170,6 +172,10 @@ html(lang="en" ng-app='apolloApp')
 								i.fa.fa-facebook-official
 							//a(href="/apollo/auth/facebook")
 								| login using facebook
+
+		// end login modal
+
+
 
 		div 
 			script(type="text/ng-template", id="myModalContent.html")

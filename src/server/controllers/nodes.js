@@ -2683,20 +2683,18 @@ exports.getPIV = function(req, res) {
     console.log("authorized",authorized);
   
     var pivinfo=req.connection.getPeerCertificate().subject;
-    var pivUserID = pivinfo.UID.slice(0,9);
-    var pivUserName = pivinfo.UID.slice(16);
+    var pivUserID = pivinfo.UID.substr(0,pivinfo.UID.indexOf(' '));
+    var pivUserName = pivinfo.UID.substr(pivinfo.UID.indexOf('=')+1);
 
-    var name ="Michael";
+
     //TODO: Role check against DB
-
+    //pivUserID = '\''+pivUserID+'\'';
             
     console.log(pivUserID);
+    console.log(pivUserName);
 
-    var query = User.where({id:pivUserID});
 
-
-    query.findOne( function(err, user) {
-        console.log(user);
+    User.findOne({'id': pivUserID}, function(err, user) {
         if (err) {
             return err
         }

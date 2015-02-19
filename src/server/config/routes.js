@@ -59,7 +59,8 @@ module.exports = function(app) {
 
     app.post('/apollo/login', auth.authenticate); //passport authentication post
     app.post('/apollo/logout', function(req,res) {
-        req.logout();
+        //req.logout();
+        req.session.destroy();
         res.end();
     });
     

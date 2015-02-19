@@ -244,6 +244,7 @@ angular.module('apolloApp').controller('rootCtrl', function($scope, $http, $loca
 
   $scope.getPIVinfo = function(){
      console.log($scope.identity.isAuthenticated());
+     console.log('protocol'+ $location.protocol());
     if($location.protocol() == 'https'){
      
         ngAuth.autheticateUserPiv().then(function(success){
@@ -259,12 +260,15 @@ angular.module('apolloApp').controller('rootCtrl', function($scope, $http, $loca
         } 
         else {
             $window.location.href = $location.absUrl().replace('https','http').replace('4400','8089');
-            $location.path('/');
+
+            //$location.path('/');
         }
 
 //
       });
     }
+            // window.location = $location.absUrl().replace('https','http').replace('4400','8089');
+            // console.log($location.absUrl().replace('https','http').replace('4400','8089'));
   }
 
 

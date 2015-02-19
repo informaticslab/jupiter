@@ -94,7 +94,7 @@ html(lang="en" ng-app='apolloApp')
 						
 						span.right_nav_content(ng-controller="navBarLoginCtrl")
 
-							a(href="" ng-click='openLogin()' ng-hide="identity.isAuthenticated()") 
+							a(href="" ng-click="openLogin('lg')" ng-hide="identity.isAuthenticated()") 
 									span.glyphicon.glyphicon-user 
 										|Login
 						ng-include(src="'/apollo/partials/navbar-login'"  ng-show="identity.isAuthenticated()")
@@ -129,10 +129,11 @@ html(lang="en" ng-app='apolloApp')
 							.col-lg-5.col-md-5.col-sm-5
 								h4
 									| CDC Smart Card Login
+								br
 								.row
-									.col-lg-4.col-md-4.col-sm-4
+									.col-lg-3.col-md-3.col-sm-3
 										img.pull-left(src="img/PIV_Card_Sample.png")
-									.col-lg-8.col-md-8.col-sm-8
+									.col-lg-9.col-md-9.col-sm-9
 										| Insert your Smart Card into your smart card reader before you click the Login button.
 								br
 								.row
@@ -148,6 +149,7 @@ html(lang="en" ng-app='apolloApp')
 							.col-lg-6.col-md-6.col-sm-6
 								h4
 									| CISP Login
+								br
 								form(ng-controller="navBarLoginCtrl")
 									.form-group
 										input.form-control(placeholder="Username", ng-model="userName")
@@ -162,7 +164,7 @@ html(lang="en" ng-app='apolloApp')
 						.row
 							.col-lg-12.col-md-12.col-sm-12
 								h5
-									| You can also login using
+									| You can also login using:
 								a(href="/apollo/auth/facebook")
 									img(src="img/FB-f-Logo__blue_29.png" )
 					//.modal-footer

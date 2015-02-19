@@ -74,14 +74,13 @@ module.exports = function(app) {
     // FACEBOOK ROUTES =====================
     // =====================================
     // route for facebook authentication and login
-    app.get('/apollo/auth/facebook', auth.authenticateFB);
-    app.get('/apollo/auth/fbResponse', auth.authenticateFBresponse);
+    app.get('/apollo/auth/facebook', passport.authenticate('facebook', { scope : ['email'] }));
 
     // handle the callback after facebook has authenticated the user
     app.get('/apollo/auth/facebook/callback',
         passport.authenticate('facebook', {
             scope           : ['email'], 
-            successRedirect : '/apollo/auth/fbResponse',
+            successRedirect : '/apollo/#/faq',
             failureRedirect : '/apollo/#/quickGuide'
         }));
 

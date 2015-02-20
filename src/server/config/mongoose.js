@@ -31,7 +31,12 @@ module.exports = function(config) {
 
 	var loghistorySchema = mongoose.Schema({
 		id: String,
-		loginDateTime: Date
+		loginDateTime: Date,
+		firstName: String,
+		lastName: String,
+		username : String,
+		email: String,
+		provider: String
 	});
 
 	var User = mongoose.model('User',userSchema);

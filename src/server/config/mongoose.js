@@ -1,8 +1,10 @@
 var mongoose = require('mongoose'),
 	crypto = require('crypto');
+	
 
 module.exports = function(config) {
-	mongoose.connect(config.db)
+	
+	//mongoose.connect(mongo.mongodbUrl)
 	var db = mongoose.connection;
 	db.on('error', console.error.bind(console, 'connection error..'));
 	db.once('open',function callback(){

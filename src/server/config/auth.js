@@ -43,10 +43,7 @@ exports.requiresRole =function(role) {
     }
 };
 
-
-
-
-exports.authPropertiesLocal = {
+exports.authProperties = {
 
     'facebookAuth' : {
         'clientID'      : '1429109474024840', // your App ID
@@ -68,26 +65,6 @@ exports.authPropertiesLocal = {
 
 };
 
-exports.authProperties = {
 
-    'facebookAuth' : {
-        'clientID'      : '1501295270085876', // your App ID
-        'clientSecret'  : 'd96bbe79faf92c6aa88fc9e4dba53501', // your App Secret
-        'callbackURL'   : 'http://sectest.phiresearchlab.org/apollo/auth/facebook/callback'
-    },
-
-    // 'twitterAuth' : {
-    //     'consumerKey'       : 'your-consumer-key-here',
-    //     'consumerSecret'    : 'your-client-secret-here',
-    //     'callbackURL'       : 'http://localhost:8080/auth/twitter/callback'
-    // },
-
-    // 'googleAuth' : {
-    //     'clientID'      : 'your-secret-clientID-here',
-    //     'clientSecret'  : 'your-client-secret-here',
-    //     'callbackURL'   : 'http://localhost:8080/auth/google/callback'
-    // }
-
-};
 
  

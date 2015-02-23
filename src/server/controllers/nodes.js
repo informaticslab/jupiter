@@ -2825,37 +2825,3 @@ exports.getPIV = function(req, res) {
 //     });
 
 // };
-
-
-exports.getLoggedInUser = function(req, res) {
-
-    var collection = mongo.mongodb.collection('loghistoryschemas');
-    collection.find({}).sort({loginDateTime:1}).limit(1).toArray(function(err, docs) {
-
-        res.send(docs);
-    });
-
-
-};
-
-exports.clearUser = function(req, res) {
-
-    var collection = mongo.mongodb.collection('loghistoryschemas');
-    collection.remove({
-        
-    }, function(err, result) {
-        //console.log(result,err);
-        res.send("success");
-    });
-
-
-};
-
-
-
-
-
-
-
-
-

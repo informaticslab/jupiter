@@ -55,9 +55,6 @@ module.exports = function(app) {
     app.post('/apollo/api/mongo/postrollbackcr', nodes.postRollBackCR);
 
     app.get('/apollo/api/getpiv', nodes.getPIV);
-    app.get('/apollo/api/user/loggedinuser', nodes.getLoggedInUser);
-    app.get('/apollo/api/user/clearuser', nodes.clearUser);
-
     //app.get('/apollo/api/neo/nextnodeid/:label', nodes.getNextNeoID);
 
     app.post('/apollo/login', auth.authenticate); //passport authentication post
@@ -83,7 +80,7 @@ module.exports = function(app) {
     app.get('/apollo/auth/facebook/callback',
         passport.authenticate('facebook', {
             scope           : ['email'], 
-            successRedirect : '/apollo/#/main',
+            successRedirect : '/apollo/#/faq',
             failureRedirect : '/apollo/#/quickGuide'
         }));
 

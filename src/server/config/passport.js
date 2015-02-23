@@ -94,13 +94,7 @@ module.exports = function(){
 
 			// set all of the facebook information in our user model
 			newLoghistory.id    = profile.id; // set the users facebook id                   
-			newLoghistory.loginDateTime = new Date();
-
-			newLoghistory.firstName = profile.name.givenName;
-			newLoghistory.lastName = profile.name.familyName;
-			newLoghistory.username = "NA";
-			newLoghistory.email = profile.emails[0].value;
-			newLoghistory.provider = "Facebook";              
+			newLoghistory.loginDateTime = new Date();                 
 
 			console.log("First Name Info",profile.displayName);
 			// save our user to the database

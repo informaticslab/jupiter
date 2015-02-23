@@ -1,19 +1,7 @@
-angular.module('apolloApp').controller('navBarLoginCtrl',function($scope,$http,ngIdentity,ngNotifier,ngAuth,$location,$modal,$window,ngIdentity){ 
+angular.module('apolloApp').controller('navBarLoginCtrl',function($scope,$http,ngIdentity,ngNotifier,ngAuth,$location,$modal,$window){ 
 	$scope.identity = ngIdentity;
 
-	$scope.userprofile={};
 
-	var userprofile = $http.get('/apollo/api/user/loggedinuser').success(function(data) {
-            
-
-            console.log("$scope.userprofile",$scope.userprofile);
-            if(data.length>0)
-            {	
-            	$scope.userprofile = data;
-            	$scope.identity.currentUser=$scope.userprofile[0];
-            	ngIdentity.currentUser = $scope.userprofile[0];
-        	}
-    });
 
 	$scope.signin = function(username, password){
 		ngAuth.authenticateUser(username,password).then(function(success) {
@@ -73,22 +61,7 @@ angular.module('apolloApp').controller('navBarLoginCtrl',function($scope,$http,n
 				$window.location.href = $location.absUrl().replace('https','http').replace('4400','8089');
 			}
 			$location.path('/');
-
-
-		});
-
-		var userprofile = $http.get('/apollo/api/user/clearuser').success(function(data) {
-            	if(data=="success")
-            	{
-            		console.log("signout success");
-            	}
-            	else
-            	{
-            		console.log("signout failed")
-            	}	
-            	$scope.userprofile = {};
-        });
-		
+		})
 	}
 
 	$scope.openLogin = function (size) {

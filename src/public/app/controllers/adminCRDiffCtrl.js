@@ -65,11 +65,8 @@ angular.module('apolloApp').controller('adminCRDiffCtrl', ['$scope','$modal', '$
         {
 
             //$scope.editCRFlg=false;
-            if($scope.identity.currentUser.roles.indexOf("su")>=0)
-            {
-                $scope.usersu=true;
-            }
-            //console.log();
+
+            console.log($scope.usersu);
             $scope.dbcrRelArray=[];
             $scope.usersu=false;
             $scope.i=new Date().getTime()+100;
@@ -77,12 +74,12 @@ angular.module('apolloApp').controller('adminCRDiffCtrl', ['$scope','$modal', '$
             $scope.crDiffValues = [];
             var mongoid=$routeParams.id;
             $scope.mongoid=mongoid;
-            var currentneodata={};
-            var currentreldata={};
+            //var currentneodata={};
+            //var currentreldata={};
             var rollback;
             $scope.labelclass="";
 
-
+            $scope.relationshipDescription="";
             $scope.logs=[];
             $scope.status_show_approved=false;
             $scope.status_show_declined=false;
@@ -110,6 +107,13 @@ angular.module('apolloApp').controller('adminCRDiffCtrl', ['$scope','$modal', '$
             currentreldata=[];
 
             var cacheRenew=new Date().getTime();
+
+
+            console.log($scope.identity.currentUser.roles.indexOf("su"));
+            if($scope.identity.currentUser.roles.indexOf("su")>=0)
+            {
+                $scope.usersu=true;
+            }
 
             $http.get('/apollo/api/mongo/'+mongoid+'?'+cacheRenew,{cache:false}).then(function(res) {
                 $scope.mongoData=res.data;
@@ -250,8 +254,9 @@ angular.module('apolloApp').controller('adminCRDiffCtrl', ['$scope','$modal', '$
         datapacket={};
 
         datapacket.approved=$scope.mongoData[0];
-        
+        console.log(currentneodata);
         datapacket.prev=currentneodata;
+
         datapacket.type=$scope.mongoData[0].CR_REQUEST_TYPE;
         console.log(datapacket);
         $http.post('/apollo/api/mongo/postapprovecr', datapacket).
@@ -348,6 +353,7 @@ angular.module('apolloApp').controller('adminCRDiffCtrl', ['$scope','$modal', '$
         //console.log($scope.relvalues);
 
         $scope.editCRChk.yes=false;
+        init();
 
     };
 
@@ -417,6 +423,7 @@ angular.module('apolloApp').controller('adminCRDiffCtrl', ['$scope','$modal', '$
                 $http.get('/apollo/api/node/relationships/' + $scope.nodeId+'?'+cacheRenew).then(function(res) {
                     $scope.relvalues=res.data;
                     currentreldata=res.data;
+                    console.log(currentreldata);
                     currentneodata["rels"]=JSON.stringify(currentreldata);
                     //console.log(currentneodata);
 

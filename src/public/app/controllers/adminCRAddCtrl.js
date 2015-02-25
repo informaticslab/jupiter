@@ -327,6 +327,7 @@ angular.module('apolloApp').controller('adminCRAddCtrl', ['$scope', '$http','$fi
 
             $scope.relselect="";
             
+            $scope.relationshipDescription="";
             $scope.relCheckBox.fromNewNode=false;
             $scope.relCheckBox.toNewNode=false;
             $scope.showErrMsg=false;

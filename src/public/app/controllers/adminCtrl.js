@@ -350,6 +350,9 @@ angular.module('apolloApp').controller('adminCtrl', ['$scope','$modal', '$http',
             $scope.relselect="";
             
             $scope.showErrMsg=false;
+            $scope.relationshipDescription="";
+            $scope.relCheckBox.fromNewNode=false;
+            $scope.relCheckBox.toNewNode=false;
 
         }
         else

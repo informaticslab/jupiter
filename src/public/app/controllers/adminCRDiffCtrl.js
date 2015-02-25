@@ -671,7 +671,7 @@ angular.module('apolloApp').controller('adminCRDiffCtrl', ['$scope','$modal', '$
     };
 
     $scope.addRel = function(){
-        //console.log($scope.dbcrRelArray);
+        console.log($scope.dbcrRelArray);
         //var nextrelid=$scope.i++;
         if(($scope.endNodeId==$scope.nodeId || $scope.startNodeId==$scope.nodeId) && ($scope.endNodeId!="" && $scope.startNodeId!="") && ($scope.relselect!="")&& ($scope.relselect!=null))
         {
@@ -700,6 +700,9 @@ angular.module('apolloApp').controller('adminCRDiffCtrl', ['$scope','$modal', '$
             $scope.relselect="";
             
             $scope.showErrMsg=false;
+            $scope.relationshipDescription="";
+            $scope.relCheckBox.fromNewNode=false;
+            $scope.relCheckBox.toNewNode=false;
             //findRelDifference();
 
         }

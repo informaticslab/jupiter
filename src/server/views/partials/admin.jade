@@ -130,7 +130,7 @@
 						.vertical_spacing_less
 				.row(ng-show="showButtons")
 					.col-lg-4.col-md-4.col-sm-4
-						input(type="text" ng-model="startnode"  placeholder="From" typeahead-on-select="startNodeSelected($item, $model, $label)" typeahead-min-length='3' typeahead="node.name for node in getNodes($viewValue)" class="form-control")
+						input(type="text" ng-model="startnode"  ng-disabled="relCheckBox.fromNewNode" placeholder="From" typeahead-on-select="startNodeSelected($item, $model, $label)" typeahead-min-length='3' typeahead="node.name for node in getNodes($viewValue)" class="form-control")
 						label(ng-if="cr['name']!=''")
 							.small
 								input(type="checkbox" ng-model="relCheckBox.fromNewNode" ng-change="setRelValueFrom()")
@@ -140,7 +140,7 @@
 							option(value="")
 								| Select relationship type
 					.col-lg-4.col-md-4.col-sm-4
-						input(type="text" ng-model="endnode"  placeholder="To" typeahead-on-select="endNodeSelected($item, $model, $label)" typeahead-min-length='3' typeahead="node.name for node in getNodes($viewValue)" class="form-control")
+						input(type="text" ng-model="endnode"  ng-disabled="relCheckBox.toNewNode" placeholder="To" typeahead-on-select="endNodeSelected($item, $model, $label)" typeahead-min-length='3' typeahead="node.name for node in getNodes($viewValue)" class="form-control")
 						label(ng-if="cr['name']!=''")
 							.small
 								input(type="checkbox" ng-model="relCheckBox.toNewNode" ng-change="setRelValueTo()")

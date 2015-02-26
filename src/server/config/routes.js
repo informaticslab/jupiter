@@ -59,8 +59,8 @@ module.exports = function(app) {
 
     app.post('/apollo/login', auth.authenticate); //passport authentication post
     app.post('/apollo/logout', function(req,res) {
-        //req.logout();
-        req.session.destroy();
+        req.logout();
+        //req.session.destroy();
         res.end();
     });
     
@@ -74,14 +74,14 @@ module.exports = function(app) {
     // FACEBOOK ROUTES =====================
     // =====================================
     // route for facebook authentication and login
-    app.get('/apollo/auth/facebook', passport.authenticate('facebook', { scope : ['email'] }));
+    app.get('/apollo/auth/facebook',auth.authenticateFB);
 
     // handle the callback after facebook has authenticated the user
     app.get('/apollo/auth/facebook/callback',
         passport.authenticate('facebook', {
             scope           : ['email'], 
-            successRedirect : '/apollo/#/faq',
-            failureRedirect : '/apollo/#/quickGuide'
+            successRedirect : '/apollo/#/main',
+            failureRedirect : '/apollo/#/main'
         }));
 
     

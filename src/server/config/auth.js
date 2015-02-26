@@ -1,26 +1,34 @@
 var passport = require('passport');
 
 exports.authenticate = function(req,res,next){
-            var auth = passport.authenticate('local', function(err, user) {
-            if (err) {return next(err);}
-            if(!user) {res.send({success:false})}
-            req.logIn(user, function(err) {
-                if(err) {return next(err);}
-                res.send({success:true, user:user});
+        var auth = passport.authenticate('local', function(err, user) {
+        if (err) 
+            {return next(err);}
+        if(!user) 
+            {res.send({success:false})}
+        req.logIn(user, function(err) {
+            if(err) {return next(err);}
+            res.send({success:true, user:user});
+        })
+    })
+    auth(req,res,next);
+};
+
+
+exports.authenticateFB =  function(req, res,next){
+        var auth = passport.authenticate('facebook',{ scope : ['email'] },function(err,user){
+            if(err)
+                {return next(err);}
+            if(!user)
+                {res.send({sucess:false})}
+            req.logIn(user,function(err) {
+                if(err)
+                {return next(err);}
+                res.send({sucess:true, user:user});
             })
         })
         auth(req,res,next);
 };
-
-// exports.requiresApiLogin = function(req,res,next) {
-//     if(!req.isAuthenticated()){
-//         res.status(403);
-//         res.end();
-//     }else {
-//         next();
-//     }
-// };
-
 
 exports.requiresLogin = function(req,res,next) {
     if(!req.isAuthenticated()){

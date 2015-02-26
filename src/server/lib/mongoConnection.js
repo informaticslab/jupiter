@@ -1,4 +1,5 @@
 var MongoClient = require('mongodb').MongoClient;
+var mongoose = require('mongoose');
   //, assert = require('assert');
 
 // Connection URL
@@ -11,3 +12,5 @@ MongoClient.connect(url, function(err, db) {
   //console.log(db);
   //db.close();
 });
+
+mongoose.connect(url);

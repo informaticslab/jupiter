@@ -10,7 +10,7 @@ module.exports = function(app, config) {
         app.set('view engine', 'jade');
         app.use(cookieParser());
         app.use(express.bodyParser());
-        app.use(session({secret:'use the force'}));
+        app.use(session({secret:'use the force',resave:false,saveUninitialized:false}));
         app.use(passport.initialize());
         app.use(passport.session());
     });

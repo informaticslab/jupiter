@@ -2,7 +2,7 @@
 	ul.nav.navbar-nav.navbar-right(ng-controller="navBarLoginCtrl")
 		li.dropdown
 			a.dropdown-toggle(href="")
-				|Welcome, {{identity.currentUser.firstName}} 
+				|Welcome, {{identity.currentUser.firstName}} {{identity.currentUser.lastName}} 
 				b.caret
 			ul.dropdown-menu 
 				li(ng-show="identity.currentUser.isAdmin()")

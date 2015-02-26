@@ -54,10 +54,13 @@ module.exports = function(app) {
     app.post('/apollo/api/mongo/posteditcr', nodes.postEditCR);
     app.post('/apollo/api/mongo/postrollbackcr', nodes.postRollBackCR);
 
-    app.get('/apollo/api/getpiv', nodes.getPIV);
+    
     //app.get('/apollo/api/neo/nextnodeid/:label', nodes.getNextNeoID);
 
-    app.post('/apollo/login', auth.authenticate); //passport authentication post
+    app.post('/apollo/login', auth.authenticate); //Username/password route
+
+    app.get('/apollo/api/getpiv', auth.authenticatePIV); //PIV route
+
     app.post('/apollo/logout', function(req,res) {
         req.logout();
         //req.session.destroy();

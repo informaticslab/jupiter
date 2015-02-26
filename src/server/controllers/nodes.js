@@ -3,7 +3,7 @@ var urlFactory = require('../lib/urlFactory');
 var mongo = require('../lib/mongoConnection');
 var ObjectId = require('mongodb').ObjectID;
 var _ = require('underscore');
-var mongoose = require('mongoose');
+
 
 
 // /apollo/api/node/{id}/relations
@@ -2669,82 +2669,6 @@ exports.postRollBackCR = function(req, res) {
 };
 
 
-exports.getPIV = function(req, res) {
-
-
-    //TODO: Look at handling "Cancel Button"
-
-    var authorized=req.connection.authorized;
-    var User =  mongoose.model('User');
-    //var address=req.connection.address();
-    //var remoteadd=req.connection.remoteAddress;
-    //var remoteport=req.connection.remoteport;
-    var protocol = req.connection.npnProtocol;
-    console.log("authorized",authorized);
-  
-   
-
-
-    //TODO: Role check against DB
-    //pivUserID = '\''+pivUserID+'\'';
-    var pivinfo=req.connection.getPeerCertificate().subject;
-    console.log(pivinfo);
-
-    if(pivinfo != undefined){
-
-    var pivUserID = pivinfo.UID.substr(0,pivinfo.UID.indexOf(' '));
-    var pivUserName = pivinfo.UID.substr(pivinfo.UID.indexOf('=')+1);        
-    console.log(pivUserID);
-    console.log(pivUserName);
-
-        User.findOne({'id': pivUserID}, function(err, user) {
-            if (err) {
-                return err
-            }
-            else if(user){
-                if(authorized){
-                    res.send({success:true, user:user});
-                    console.log(user);
-                }  else{
-                res.send({success:false});
-                console.log(req.connection.authorizationError);
-                // res.send(req.connection.authorizationError);
-                }   
-            }
-            else{
-                var userResource = {_v:null, _id:pivUserID, firstName: pivUserName,lastName: null ,username:pivUserName, salt:null, hashed_pwd: null};
-                res.send({success:true, user:userResource});
-            }
-        });      
-    }
-
-    else
-    {
-        console.log("failed need to reroute to index");
-        res.send({success:false});
-    }
-            
-    
-    //  var userResource = {_v:null, _id:pivUserID, firstName: pivUserName,lastName: null ,username:'XYT8', salt:null, hashed_pwd: null};
-    // if(authorized)
-    // {
-    //     res.send({success:true, user:userResource});
-    //     // console.log(pivinfo);
-    //     // console.log(pivInfoAll);
-    //     //res.send(userResource);
-    //     //var currentUser = findUser(pivUserID);
-    //     //console.log(dbUser);
-        
-    // }
-    // else
-    // {
-    //     res.send({success:false});
-    //     console.log(req.connection.authorizationError);
-    //     // res.send(req.connection.authorizationError);
-    // }
-    
-
-};
 
 
 // var getNextNeoID = function(label) {

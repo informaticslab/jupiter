@@ -33,7 +33,7 @@ angular.module('apolloApp').controller('navBarLoginCtrl',function($scope,$http,n
     };
     }
 
-	$scope.pivLogin = function(){
+	$scope.pivLogin = function(){   //only function is to kick off the switch to HTTPS for Certificate Authentication
 		//todo
 	   	var forceSsl = function () {
 			$window.location.href = $location.absUrl().replace('http','https').replace('8089','4400');
@@ -58,9 +58,11 @@ angular.module('apolloApp').controller('navBarLoginCtrl',function($scope,$http,n
 			$scope.password = "";
 			// ngNotifier.notify('You have successfully signed out.');
 			if($location.protocol()=='https'){
-				$window.location.href = $location.absUrl().replace('https','http').replace('4400','8089');
+				$window.location = $location.absUrl().replace('https','http').replace('4400','8089');
 			}
-			$location.path('/');
+			else{
+				$location.path('/');
+			}
 		})
 	}
 

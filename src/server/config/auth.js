@@ -39,16 +39,9 @@ exports.authenticatePIV = function(req, res) {
 
     var authorized=req.connection.authorized;
     var User =  mongoose.model('User');
-    //var address=req.connection.address();
-    //var remoteadd=req.connection.remoteAddress;
-    //var remoteport=req.connection.remoteport;
     var protocol = req.connection.npnProtocol;
     console.log("authorized",authorized);
   
-   
-
-
-    //TODO: Role check against DB
     //pivUserID = '\''+pivUserID+'\'';
     var pivinfo=req.connection.getPeerCertificate().subject;
     console.log(pivinfo);
@@ -56,11 +49,24 @@ exports.authenticatePIV = function(req, res) {
     if(pivinfo != undefined){
 
     var pivUserID = pivinfo.UID.substr(0,pivinfo.UID.indexOf(' '));
-    var pivUserName = pivinfo.UID.substr(pivinfo.UID.indexOf('=')+1);        
-    console.log(pivUserID);
-    console.log(pivUserName);
+    var pivUserName = pivinfo.UID.substr(pivinfo.UID.indexOf('=')+1);   
+    var pivFirstName = pivUserName.substr(0,pivUserName.indexOf(' '));
+    var pivLastName;
 
-        User.findOne({'id': pivUserID}, function(err, user) {
+    if(pivUserName.indexOf('.') != null){
+        pivLastName = pivUserName.substr(pivUserName.indexOf('.')+2, pivUserName.indexOf(' ')-1);
+    } else {
+        pivLastName = pivUserName.substr(pivUserName.indexOf(' ')+1, pivUserName.indexOf(' '));
+    }
+
+
+
+    //console.log(pivUserID);
+    // console.log(pivUserName);
+    // console.log(pivFirstName);
+    // console.log(pivLastName);
+
+        User.findOne({'id': '23212312'}, function(err, user) {
             if (err) {
                 return err
             }
@@ -75,7 +81,7 @@ exports.authenticatePIV = function(req, res) {
                 }   
             }
             else{
-                var userResource = {_v:null, _id:pivUserID, firstName: pivUserName,lastName: null ,username:pivUserName, salt:null, hashed_pwd: null};
+                var userResource = {_v:null, _id:pivUserID, firstName: pivFirstName,lastName: pivLastName ,username:pivUserName, salt:null, hashed_pwd: null};
                 res.send({success:true, user:userResource});
             }
         });      

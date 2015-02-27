@@ -3,8 +3,9 @@ angular.module('apolloApp').controller('navBarLoginCtrl',function($scope,$http,n
 
 
 
-	$scope.signin = function(username, password){
-		ngAuth.authenticateUser(username,password).then(function(success) {
+	$scope.signin = function(email, password){
+		ngAuth.authenticateUser(email,password).then(function(success) {
+			
 			if(success) {
 				console.log($scope.identity.currentUser.isAdmin());
 				if($scope.identity.currentUser.isAdmin()){
@@ -15,7 +16,8 @@ angular.module('apolloApp').controller('navBarLoginCtrl',function($scope,$http,n
 				}
 				console.log($scope.identity.dbUserId());
 			} else {
-				ngNotifier.notify('Incorrect Username/Password');
+				console.log(success);
+				ngNotifier.notify('Incorrect Email/Password');
 			}
 		});
 	}
@@ -54,7 +56,7 @@ angular.module('apolloApp').controller('navBarLoginCtrl',function($scope,$http,n
 
 	$scope.signout = function(){
 		ngAuth.logoutUser().then(function() {
-			$scope.userName = "";
+			$scope.email = "";
 			$scope.password = "";
 			// ngNotifier.notify('You have successfully signed out.');
 			if($location.protocol()=='https'){

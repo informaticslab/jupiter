@@ -57,7 +57,7 @@ module.exports = function(app) {
     
     //app.get('/apollo/api/neo/nextnodeid/:label', nodes.getNextNeoID);
 
-    app.post('/apollo/login', auth.authenticate); //Username/password route
+    app.post('/apollo/login', auth.authenticate); //Email/password route
 
     app.get('/apollo/api/getpiv', auth.authenticatePIV); //PIV route
 

@@ -96,7 +96,7 @@ html(lang="en" ng-app='apolloApp')
 
 							a(href="" ng-click="openLogin('lg')" ng-hide="identity.isAuthenticated()") 
 									span.glyphicon.glyphicon-user 
-										|Login
+										| &nbsp;Login
 						ng-include(src="'/apollo/partials/navbar-login'"  ng-show="identity.isAuthenticated()")
 	
 
@@ -152,11 +152,11 @@ html(lang="en" ng-app='apolloApp')
 								br
 								form(ng-controller="navBarLoginCtrl")
 									.form-group
-										input.form-control(placeholder="Username", ng-model="userName")
+										input.form-control(placeholder="Email", ng-model="email")
 									.form-group
 										input.form-control(type="password", placeholder="Password", ng-model="password")
 									br
-									button.btn.btn-primary(ng-click="signin(userName,password);ok()")
+									button.btn.btn-primary(ng-click="signin(email,password);ok()")
 										| Login
 									button.btn.btn-warning#cButton(ng-click="cancel()")
 										| Cancel

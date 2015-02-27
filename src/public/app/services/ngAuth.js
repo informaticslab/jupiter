@@ -1,8 +1,8 @@
 angular.module('apolloApp').factory('ngAuth', function($http, ngIdentity, $q, ngUser, $location) {
 	return{
-		authenticateUser: function(username,password){
+		authenticateUser: function(email,password){
 			var dfd = $q.defer();
-			$http.post('/apollo/login',{username:username, password: password}).then(function(response) {
+			$http.post('/apollo/login',{email:email, password: password}).then(function(response) {
 			//console.log(userName);
 			//console.log(response.data.success)
 			if(response.data.success) {

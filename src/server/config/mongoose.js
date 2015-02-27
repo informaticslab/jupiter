@@ -14,13 +14,14 @@ module.exports = function(config) {
 		id: String,
 		firstName: String,
 		lastName: String,
-		username : String,
+		//username : String,
 		email: String,
 		provider: String,
 		salt: String,
 		hashed_pwd: String,
 		token: String,
-		roles: [String]
+		roles: [String],
+		displayName: String
 	});
 
 	userSchema.methods = {
@@ -42,7 +43,7 @@ module.exports = function(config) {
 			var salt, hash;
 			salt = createSalt();
 			hash = hashPwd(salt,'cdcuser');
-			User.create({firstName:'CDCUser',lastName:'CDCUser',username:'cdcuser', salt:salt, hashed_pwd: hash, roles:['admin']},function(err, docs) {
+			User.create({firstName:'CDCUser',lastName:'CDCUser',email:'cdcuser@cdc.gov', salt:salt, hashed_pwd: hash, roles:['admin']},function(err, docs) {
 			  if (err){
 			  	console.log(err);
 			  } 
@@ -54,7 +55,7 @@ module.exports = function(config) {
 			});
 			salt = createSalt();
 			hash = hashPwd(salt,'cdcuser1');
-			User.create({firstName:'CDCUser1',lastName:'CDCUser1',username:'cdcuser1', salt:salt, hashed_pwd: hash, roles:['admin']},function(err, docs) {
+			User.create({firstName:'CDCUser1',lastName:'CDCUser1',email:'cdcuser1@cdc.gov', salt:salt, hashed_pwd: hash, roles:['admin']},function(err, docs) {
 			  if (err){
 			  	console.log(err);
 			  } 
@@ -66,7 +67,7 @@ module.exports = function(config) {
 			});
 			salt = createSalt();
 			hash = hashPwd(salt,'cdcuser2');
-			User.create({firstName:'CDCUser2',lastName:'CDCUser2',username:'cdcuser2', salt:salt, hashed_pwd: hash, roles:['admin']},function(err, docs) {
+			User.create({firstName:'CDCUser2',lastName:'CDCUser2',email:'cdcuser2@cdc.gov', salt:salt, hashed_pwd: hash, roles:['admin']},function(err, docs) {
 			  if (err){
 			  	console.log(err);
 			  } 
@@ -78,7 +79,7 @@ module.exports = function(config) {
 			});
 			salt = createSalt();
 			hash = hashPwd(salt,'admin');
-			User.create({firstName:'Tom',lastName:'Savel',username:'tsavel',salt:salt, hashed_pwd: hash, roles:['admin','su']},function(err, docs) {
+			User.create({firstName:'Tom',lastName:'Savel',email:'tsavel@cdc.gov',salt:salt, hashed_pwd: hash, roles:['admin','su']},function(err, docs) {
 			  if (err){
 			  	console.log(err);
 			  } 
@@ -90,7 +91,7 @@ module.exports = function(config) {
 			});
 			salt = createSalt();
 			hash = hashPwd(salt,'sdavid');
-			User.create({firstName:'Sanjith',lastName:'David',username:'sdavid',salt:salt, hashed_pwd: hash, roles:['admin']},function(err, docs) {
+			User.create({firstName:'Sanjith',lastName:'David',email:'sdavid@cdc.gov',salt:salt, hashed_pwd: hash, roles:['admin']},function(err, docs) {
 			  if (err){
 			  	console.log(err);
 			  } 
@@ -102,7 +103,7 @@ module.exports = function(config) {
 			});
 			salt = createSalt();
 			hash = hashPwd(salt,'kta');
-			User.create({firstName:'Michael',lastName:'Ta',username:'kta',salt:salt, hashed_pwd: hash, roles:['admin']},function(err, docs) {
+			User.create({firstName:'Michael',lastName:'Ta',email:'kta@cdc.gov',salt:salt, hashed_pwd: hash, roles:['admin']},function(err, docs) {
 			  if (err){
 			  	console.log(err);
 			  } 
@@ -114,7 +115,7 @@ module.exports = function(config) {
 			});
 			salt = createSalt();
 			hash = hashPwd(salt,'sdavidsu');
-			User.create({firstName:'Sanjith SU',lastName:'David',username:'sdavidsu',salt:salt, hashed_pwd: hash, roles:['admin','su']},function(err, docs) {
+			User.create({firstName:'Sanjith SU',lastName:'David',email:'sdavidsu@cdc.gov',salt:salt, hashed_pwd: hash, roles:['admin','su']},function(err, docs) {
 			  if (err){
 			  	console.log(err);
 			  } 
@@ -125,7 +126,7 @@ module.exports = function(config) {
 			  
 			});
 
-			User.create({id:'1001619186',firstName:'Michael',lastName:'Ta',username:'XYT8',salt:null, hashed_pwd: null, provider:'PIV', roles:['admin']},function(err, docs) {
+			User.create({id:'1001619186',firstName:'Michael',lastName:'Ta',email:'XYT8@cdc.gov',salt:null, hashed_pwd: null, provider:'PIV', roles:['admin']},function(err, docs) {
 			  if (err){
 			  	console.log(err);
 			  } 

@@ -42,7 +42,6 @@ exports.authenticatePIV = function(req, res) {
     var protocol = req.connection.npnProtocol;
     console.log("authorized",authorized);
   
-    //pivUserID = '\''+pivUserID+'\'';
     var pivinfo=req.connection.getPeerCertificate().subject;
     console.log(pivinfo);
 
@@ -59,14 +58,12 @@ exports.authenticatePIV = function(req, res) {
         pivLastName = pivUserName.substr(pivUserName.indexOf(' ')+1, pivUserName.indexOf(' '));
     }
 
-
-
     //console.log(pivUserID);
     // console.log(pivUserName);
     // console.log(pivFirstName);
     // console.log(pivLastName);
 
-        User.findOne({'id': '23212312'}, function(err, user) {
+        User.findOne({'id': pivUserID}, function(err, user) {
             if (err) {
                 return err
             }
@@ -138,10 +135,16 @@ exports.requiresRole =function(role) {
 
 exports.authProperties = {
 
-    'facebookAuth' : {
-        'clientID'      : '1429109474024840', // your App ID
-        'clientSecret'  : '71ce33ce1aaa2da3d859d78a3848c164', // your App Secret
-        'callbackURL'   : 'http://localhost:8089/apollo/auth/facebook/callback'
+    // 'facebookAuth' : {   //LOCALHOST
+    //     'clientID'      : '1429109474024840', // your App ID
+    //     'clientSecret'  : '71ce33ce1aaa2da3d859d78a3848c164', // your App Secret
+    //     'callbackURL'   : 'http://localhost:8089/apollo/auth/facebook/callback'
+    // },
+
+    'facebookAuth' : {   //Apollo Dev
+        'clientID'      : '1554174378185015', // your App ID
+        'clientSecret'  : '9df38cf87b6508ff6680073d1497c46f', // your App Secret
+        'callbackURL'   : 'http://apollodev.phiresearchlab.org/apollo/auth/facebook/callback'
     },
 
     // 'twitterAuth' : {

@@ -142,8 +142,8 @@ exports.authProperties = {
     // },
 
     'facebookAuth' : {   //Apollo Dev
-        'clientID'      : '1554174378185015', // your App ID
-        'clientSecret'  : '9df38cf87b6508ff6680073d1497c46f', // your App Secret
+        'clientID'      : '656663327793594', // your App ID
+        'clientSecret'  : 'c798e54fa699da3041de84d64f492b39', // your App Secret
         'callbackURL'   : 'http://apollodev.phiresearchlab.org/apollo/auth/facebook/callback'
     },
 

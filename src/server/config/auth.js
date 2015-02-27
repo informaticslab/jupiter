@@ -78,7 +78,7 @@ exports.authenticatePIV = function(req, res) {
                 }   
             }
             else{
-                var userResource = {_v:null, _id:pivUserID, firstName: pivFirstName,lastName: pivLastName ,username:pivUserName, salt:null, hashed_pwd: null};
+                var userResource = {_v:null, _id:pivUserID, firstName: pivFirstName,lastName: pivLastName ,displayName:pivUserName, salt:null, hashed_pwd: null};
                 res.send({success:true, user:userResource});
             }
         });      

@@ -85,6 +85,7 @@ module.exports = function(){
                     //newUser.name  = profile.name.givenName + ' ' + profile.name.familyName; // look at the passport user profile to see how names are returned
                     newUser.firstName = profile.name.givenName;
                     newUser.lastName = profile.name.familyName;
+                    newUser.displayName = profile.name.givenName+' '+profile.name.familyName;
                     newUser.email = profile.emails[0].value; // facebook can return multiple emails so we'll take the first
 
                     console.log("newUser",newUser);

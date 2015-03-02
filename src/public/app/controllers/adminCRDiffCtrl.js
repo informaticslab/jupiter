@@ -263,7 +263,7 @@ angular.module('apolloApp').controller('adminCRDiffCtrl', ['$scope','$modal', '$
         // $scope.cr['CR_USER_ID_EDIT']="";
         // $scope.cr['CR_USER_EMAIL_EDIT']="";
         $scope.mongoData[0].CR_USER_DN_EXECUTE=$scope.identity.currentUser.displayName;
-        $scope.mongoData[0].CR_USER_ID_EXECUTE=$scope.identity.currentUser.id;
+        $scope.mongoData[0].CR_USER_ID_EXECUTE=$scope.identity.currentUser._id;
         $scope.mongoData[0].CR_USER_EMAIL_EXECUTE=$scope.identity.currentUser.email;
         // $scope.cr['CR_DATE_CREATED']=new Date().getTime();
         // $scope.cr['CR_DATE_EDITED']="";
@@ -321,7 +321,7 @@ angular.module('apolloApp').controller('adminCRDiffCtrl', ['$scope','$modal', '$
         // $scope.cr['CR_USER_ID_CREATE']=$scope.identity.currentUser.id;
         // $scope.cr['CR_USER_EMAIL_CREATE']=$scope.identity.currentUser.email;
         $scope.editCRValues.CR_USER_DN_EDIT=$scope.identity.currentUser.displayName;
-        $scope.editCRValues.CR_USER_ID_EDIT=$scope.identity.currentUser.id;
+        $scope.editCRValues.CR_USER_ID_EDIT=$scope.identity.currentUser._id;
         $scope.editCRValues.CR_USER_EMAIL_EDIT=$scope.identity.currentUser.email;
         // $scope.cr['CR_DATE_CREATED']=new Date().getTime();
         //$scope.editCRValues['CR_DATE_EDITED']=new Date().getTime();
@@ -395,7 +395,7 @@ angular.module('apolloApp').controller('adminCRDiffCtrl', ['$scope','$modal', '$
         // $scope.mongoData[0].CR_USER_APPROVE=$scope.identity.currentUser.username;
 
         $scope.mongoData[0].CR_USER_DN_EXECUTE=$scope.identity.currentUser.displayName;
-        $scope.mongoData[0].CR_USER_ID_EXECUTE=$scope.identity.currentUser.id;
+        $scope.mongoData[0].CR_USER_ID_EXECUTE=$scope.identity.currentUser._id;
         $scope.mongoData[0].CR_USER_EMAIL_EXECUTE=$scope.identity.currentUser.email;
         // $scope.cr['CR_DATE_CREATED']=new Date().getTime();
         // $scope.cr['CR_DATE_EDITED']="";

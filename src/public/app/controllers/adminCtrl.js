@@ -257,7 +257,7 @@ angular.module('apolloApp').controller('adminCtrl', ['$scope','$modal', '$http',
         $scope.cr['CR_REQUEST_TYPE']="UPDATE";
         $scope.cr['CR_STATUS']="PENDING";
         $scope.cr['CR_USER_DN_CREATE']=$scope.identity.currentUser.displayName;
-        $scope.cr['CR_USER_ID_CREATE']=$scope.identity.currentUser.id;
+        $scope.cr['CR_USER_ID_CREATE']=$scope.identity.currentUser._id;
         $scope.cr['CR_USER_EMAIL_CREATE']=$scope.identity.currentUser.email;
         $scope.cr['CR_USER_DN_EDIT']="";
         $scope.cr['CR_USER_ID_EDIT']="";
@@ -308,7 +308,7 @@ angular.module('apolloApp').controller('adminCtrl', ['$scope','$modal', '$http',
         $scope.cr['CR_REQUEST_TYPE']="DELETE";
         $scope.cr['CR_STATUS']="PENDING";
         $scope.cr['CR_USER_DN_CREATE']=$scope.identity.currentUser.displayName;
-        $scope.cr['CR_USER_ID_CREATE']=$scope.identity.currentUser.id;
+        $scope.cr['CR_USER_ID_CREATE']=$scope.identity.currentUser._id;
         $scope.cr['CR_USER_EMAIL_CREATE']=$scope.identity.currentUser.email;
         $scope.cr['CR_USER_DN_EDIT']="";
         $scope.cr['CR_USER_ID_EDIT']="";

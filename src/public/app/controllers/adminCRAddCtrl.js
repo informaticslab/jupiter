@@ -220,7 +220,7 @@ angular.module('apolloApp').controller('adminCRAddCtrl', ['$scope', '$http','$fi
             $scope.cr['CR_REQUEST_TYPE']="ADD";
             $scope.cr['CR_STATUS']="PENDING";
             $scope.cr['CR_USER_DN_CREATE']=$scope.identity.currentUser.displayName;
-            $scope.cr['CR_USER_ID_CREATE']=$scope.identity.currentUser.id;
+            $scope.cr['CR_USER_ID_CREATE']=$scope.identity.currentUser._id;
             $scope.cr['CR_USER_EMAIL_CREATE']=$scope.identity.currentUser.email;
             $scope.cr['CR_USER_DN_EDIT']="";
             $scope.cr['CR_USER_ID_EDIT']="";

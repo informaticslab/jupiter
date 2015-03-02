@@ -1,7 +1,9 @@
 var passport = require('passport'),
 	mongoose = require('mongoose'),
 	LocalStrategy = require('passport-local');
-var auth = require('./auth').authProperties;
+
+var auth = require('../lib/oAuthProperties').authProperties;
+
 var FacebookStrategy = require('passport-facebook').Strategy;
 
 var User = mongoose.model('User');

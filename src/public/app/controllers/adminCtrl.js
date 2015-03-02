@@ -246,12 +246,28 @@ angular.module('apolloApp').controller('adminCtrl', ['$scope','$modal', '$http',
         //console.log($scope.cr, );
 
         //var currentdate = new Date(); 
+        // $scope.cr['CR_NODE_TYPE']=$scope.nodeLabel;
+        // $scope.cr['CR_USER_CREATE']=$scope.identity.currentUser.username;
+        // $scope.cr['CR_DATE']= new Date().getTime();
+        // $scope.cr['CR_REQUEST_TYPE']="UPDATE";
+        // $scope.cr['CR_STATUS']="PENDING";
+        // $scope.cr['CR_DATE_CREATED']=new Date().getTime();
+
         $scope.cr['CR_NODE_TYPE']=$scope.nodeLabel;
-        $scope.cr['CR_USER_CREATE']=$scope.identity.currentUser.username;
-        $scope.cr['CR_DATE']= new Date().getTime();
         $scope.cr['CR_REQUEST_TYPE']="UPDATE";
         $scope.cr['CR_STATUS']="PENDING";
-        $scope.cr['CR_DATE_CREATED']=new Date().getTime();
+        $scope.cr['CR_USER_DN_CREATE']=$scope.identity.currentUser.displayName;
+        $scope.cr['CR_USER_ID_CREATE']=$scope.identity.currentUser.id;
+        $scope.cr['CR_USER_EMAIL_CREATE']=$scope.identity.currentUser.email;
+        $scope.cr['CR_USER_DN_EDIT']="";
+        $scope.cr['CR_USER_ID_EDIT']="";
+        $scope.cr['CR_USER_EMAIL_EDIT']="";
+        $scope.cr['CR_USER_DN_EXECUTE']="";
+        $scope.cr['CR_USER_ID_EXECUTE']="";
+        $scope.cr['CR_USER_EMAIL_EXECUTE']="";
+        $scope.cr['CR_DATE_CREATED']="";
+        $scope.cr['CR_DATE_EDITED']="";
+        $scope.cr['CR_DATE_EXECUTED']="";
 
         var datapacket={};
         datapacket['attr']=$scope.cr;
@@ -281,12 +297,28 @@ angular.module('apolloApp').controller('adminCtrl', ['$scope','$modal', '$http',
 
         //var currentdate = new Date(); 
 
+        // $scope.cr['CR_NODE_TYPE']=$scope.nodeLabel;
+        // $scope.cr['CR_USER_CREATE']=$scope.identity.currentUser.username;
+        // $scope.cr['CR_DATE']= new Date().getTime();
+        // $scope.cr['CR_REQUEST_TYPE']="DELETE";
+        // $scope.cr['CR_STATUS']="PENDING";
+        // $scope.cr['CR_DATE_CREATED']=new Date().getTime();
+
         $scope.cr['CR_NODE_TYPE']=$scope.nodeLabel;
-        $scope.cr['CR_USER_CREATE']=$scope.identity.currentUser.username;
-        $scope.cr['CR_DATE']= new Date().getTime();
         $scope.cr['CR_REQUEST_TYPE']="DELETE";
         $scope.cr['CR_STATUS']="PENDING";
-        $scope.cr['CR_DATE_CREATED']=new Date().getTime();
+        $scope.cr['CR_USER_DN_CREATE']=$scope.identity.currentUser.displayName;
+        $scope.cr['CR_USER_ID_CREATE']=$scope.identity.currentUser.id;
+        $scope.cr['CR_USER_EMAIL_CREATE']=$scope.identity.currentUser.email;
+        $scope.cr['CR_USER_DN_EDIT']="";
+        $scope.cr['CR_USER_ID_EDIT']="";
+        $scope.cr['CR_USER_EMAIL_EDIT']="";
+        $scope.cr['CR_USER_DN_EXECUTE']="";
+        $scope.cr['CR_USER_ID_EXECUTE']="";
+        $scope.cr['CR_USER_EMAIL_EXECUTE']="";
+        $scope.cr['CR_DATE_CREATED']="";
+        $scope.cr['CR_DATE_EDITED']="";
+        $scope.cr['CR_DATE_EXECUTED']="";
 
         $http.post('/apollo/api/mongo/postdeletecr', $scope.cr).
         //$http({method: 'Post', url: '/apollo/api/mongo/postcr', data: {greeting: 'hi'}}).

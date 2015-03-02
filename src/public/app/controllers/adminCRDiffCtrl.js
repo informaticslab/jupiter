@@ -118,7 +118,9 @@ angular.module('apolloApp').controller('adminCRDiffCtrl', ['$scope','$modal', '$
             $http.get('/apollo/api/mongo/'+mongoid+'?'+cacheRenew,{cache:false}).then(function(res) {
                 $scope.mongoData=res.data;
                 $scope.editCRValues=$scope.mongoData[0];
-                //console.log($scope.editCRValues);
+                
+
+                console.log("********************CR DATE*****************",$scope.mongoData);
                 
                 $scope.nodeId=$scope.mongoData[0].id;
                 $scope.nodeType=$scope.mongoData[0].CR_NODE_TYPE;
@@ -127,14 +129,14 @@ angular.module('apolloApp').controller('adminCRDiffCtrl', ['$scope','$modal', '$
                 $scope.crStatus=$scope.mongoData[0].CR_STATUS;
                 $scope.crNodeType=$scope.mongoData[0].CR_NODE_TYPE;
                 //$scope.crDate=$scope.mongoData[0].CR_DATE;
-                $scope.crUserCreate=$scope.mongoData[0].CR_USER_CREATE;
-                $scope.crUserUpdate=$scope.mongoData[0].CR_USER_UPDATE;
-                $scope.crUserApprove=$scope.mongoData[0].CR_USER_APPROVE;
+                $scope.crUserCreate=$scope.mongoData[0].CR_USER_DN_CREATE;
+                $scope.crUserUpdate=$scope.mongoData[0].CR_USER_DN_EDIT;
+                $scope.crUserApprove=$scope.mongoData[0].CR_USER_DN_EXECUTE;
                 $scope.crPrev=$scope.mongoData[0].CR_PREVIOUS;
                 $scope.crRel=$scope.mongoData[0].rels;
                 $scope.crCreateDate=$scope.mongoData[0].CR_DATE_CREATED;
-                $scope.crApproveDate=$scope.mongoData[0].CR_DATE_APPROVED;
-                $scope.crUpdateDate=$scope.mongoData[0].CR_DATE_UPDATED;
+                $scope.crApproveDate=$scope.mongoData[0].CR_DATE_EXECUTED;
+                $scope.crUpdateDate=$scope.mongoData[0].CR_DATE_EDITED;
 
                 $http.get('/apollo/api/mongo/log/'+mongoid+'?'+cacheRenew,{cache:false}).then(function(res) {
                     //console.log(res.data);
@@ -248,9 +250,24 @@ angular.module('apolloApp').controller('adminCRDiffCtrl', ['$scope','$modal', '$
     $scope.approveCR = function(){
 
         console.log($scope.identity.currentUser.username);
-        $scope.mongoData[0].CR_DATE_APPROVED=new Date().getTime();
-        $scope.mongoData[0].CR_USER_APPROVE=$scope.identity.currentUser.username;
+        // $scope.mongoData[0].CR_DATE_APPROVED=new Date().getTime();
+        // $scope.mongoData[0].CR_USER_APPROVE=$scope.identity.currentUser.username;
 
+        // $scope.cr['CR_NODE_TYPE']=$scope.nodeLabel;
+        // $scope.cr['CR_REQUEST_TYPE']="ADD";
+        // $scope.cr['CR_STATUS']="PENDING";
+        // $scope.cr['CR_USER_DN_CREATE']=$scope.identity.currentUser.displayName;
+        // $scope.cr['CR_USER_ID_CREATE']=$scope.identity.currentUser.id;
+        // $scope.cr['CR_USER_EMAIL_CREATE']=$scope.identity.currentUser.email;
+        // $scope.cr['CR_USER_DN_EDIT']="";
+        // $scope.cr['CR_USER_ID_EDIT']="";
+        // $scope.cr['CR_USER_EMAIL_EDIT']="";
+        $scope.mongoData[0].CR_USER_DN_EXECUTE=$scope.identity.currentUser.displayName;
+        $scope.mongoData[0].CR_USER_ID_EXECUTE=$scope.identity.currentUser.id;
+        $scope.mongoData[0].CR_USER_EMAIL_EXECUTE=$scope.identity.currentUser.email;
+        // $scope.cr['CR_DATE_CREATED']=new Date().getTime();
+        // $scope.cr['CR_DATE_EDITED']="";
+        //$scope.mongoData[0]['CR_DATE_EXECUTED']=new Date().getTime();
         datapacket={};
 
         datapacket.approved=$scope.mongoData[0];
@@ -294,8 +311,20 @@ angular.module('apolloApp').controller('adminCRDiffCtrl', ['$scope','$modal', '$
         });
         $scope.editCRValues.rels=JSON.stringify(finalCRArray);
 
-        $scope.editCRValues["CR_USER_UPDATE"]=$scope.identity.currentUser.username;
-        $scope.editCRValues["CR_DATE_UPDATED"]=new Date().getTime();
+        // $scope.editCRValues["CR_USER_UPDATE"]=$scope.identity.currentUser.username;
+        // $scope.editCRValues["CR_DATE_UPDATED"]=new Date().getTime();
+
+        //$scope.cr['CR_NODE_TYPE']=$scope.nodeLabel;
+        // $scope.cr['CR_REQUEST_TYPE']="ADD";
+        // $scope.cr['CR_STATUS']="PENDING";
+        // $scope.cr['CR_USER_DN_CREATE']=$scope.identity.currentUser.displayName;
+        // $scope.cr['CR_USER_ID_CREATE']=$scope.identity.currentUser.id;
+        // $scope.cr['CR_USER_EMAIL_CREATE']=$scope.identity.currentUser.email;
+        $scope.editCRValues.CR_USER_DN_EDIT=$scope.identity.currentUser.displayName;
+        $scope.editCRValues.CR_USER_ID_EDIT=$scope.identity.currentUser.id;
+        $scope.editCRValues.CR_USER_EMAIL_EDIT=$scope.identity.currentUser.email;
+        // $scope.cr['CR_DATE_CREATED']=new Date().getTime();
+        //$scope.editCRValues['CR_DATE_EDITED']=new Date().getTime();
         
         //console.log($scope.editCRValues);
         $http.post('/apollo/api/mongo/posteditcr', $scope.editCRValues).
@@ -362,8 +391,15 @@ angular.module('apolloApp').controller('adminCRDiffCtrl', ['$scope','$modal', '$
 
         //console.log($scope.mongoData[0]);
 
-        $scope.mongoData[0].CR_DATE_APPROVED=new Date().getTime();
-        $scope.mongoData[0].CR_USER_APPROVE=$scope.identity.currentUser.username;
+        // $scope.mongoData[0].CR_DATE_APPROVED=new Date().getTime();
+        // $scope.mongoData[0].CR_USER_APPROVE=$scope.identity.currentUser.username;
+
+        $scope.mongoData[0].CR_USER_DN_EXECUTE=$scope.identity.currentUser.displayName;
+        $scope.mongoData[0].CR_USER_ID_EXECUTE=$scope.identity.currentUser.id;
+        $scope.mongoData[0].CR_USER_EMAIL_EXECUTE=$scope.identity.currentUser.email;
+        // $scope.cr['CR_DATE_CREATED']=new Date().getTime();
+        // $scope.cr['CR_DATE_EDITED']="";
+        //$scope.mongoData[0]['CR_DATE_EXECUTED']=new Date().getTime();
 
         $http.post('/apollo/api/mongo/postdeclinecr', $scope.mongoData[0]).
         //$http({method: 'Post', url: '/apollo/api/mongo/postcr', data: {greeting: 'hi'}}).
@@ -384,28 +420,28 @@ angular.module('apolloApp').controller('adminCRDiffCtrl', ['$scope','$modal', '$
 
     };
 
-    $scope.rollbackCR = function(){
+    // $scope.rollbackCR = function(){
 
 
-        datapacket={};
-        datapacket.rollback=$scope.rollback;
-        datapacket.mongoid=mongoid;
-        $http.post('/apollo/api/mongo/postrollbackcr', datapacket).
-        //$http({method: 'Post', url: '/apollo/api/mongo/postcr', data: {greeting: 'hi'}}).
-          success(function(data, status, headers, config) { 
-            if(data==("success"))
-            {
-                init();
+    //     datapacket={};
+    //     datapacket.rollback=$scope.rollback;
+    //     datapacket.mongoid=mongoid;
+    //     $http.post('/apollo/api/mongo/postrollbackcr', datapacket).
+    //     //$http({method: 'Post', url: '/apollo/api/mongo/postcr', data: {greeting: 'hi'}}).
+    //       success(function(data, status, headers, config) { 
+    //         if(data==("success"))
+    //         {
+    //             init();
                 
-                $scope.status_show_declined=true;
-            }
+    //             $scope.status_show_declined=true;
+    //         }
 
-          }).error(function(data, status) {
-              //console.log("err");
-        });
+    //       }).error(function(data, status) {
+    //           //console.log("err");
+    //     });
 
 
-    };
+    // };
 
 
     function fetchRelationshipValues(){

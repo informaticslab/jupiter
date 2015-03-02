@@ -1945,7 +1945,8 @@ exports.postUpdateCR = function(req, res) {
     nodeDataString["rels"] = JSON.stringify(req.body.rels);
 
     //console.log(nodeDataString);
-
+    var currenttime = new Date().getTime();
+    nodeDataString['CR_DATE_CREATED']=currenttime;
     var collection = mongo.mongodb.collection('cr');
     // Insert some documents
     collection.insert(nodeDataString, function(err, result) {
@@ -1956,7 +1957,7 @@ exports.postUpdateCR = function(req, res) {
         res.send("success");
         console.log("returned",result[0]._id);
 
-        var log={id:result[0]._id,action:"CREATE",user:result[0].CR_USER_CREATE,date:new Date().getTime(),crdata:nodeDataString};
+        var log={id:result[0]._id,action:"CREATE",user:result[0].CR_USER_DN_CREATE,date:currenttime,crdata:nodeDataString};
 
         var logcollection = mongo.mongodb.collection('logs');
     // Insert some documents
@@ -1980,7 +1981,8 @@ exports.postAddCR = function(req, res) {
     var nodeDataString = {};
     nodeDataString = req.body.attr;
     nodeDataString["rels"] = JSON.stringify(req.body.rels);
-
+    var currenttime = new Date().getTime();
+    nodeDataString['CR_DATE_CREATED']=currenttime;
     //console.log(nodeDataString);
 
     var collection = mongo.mongodb.collection('cr');
@@ -1993,7 +1995,7 @@ exports.postAddCR = function(req, res) {
         } else {
             console.log(result);
             res.send("success");
-            var log={id:result[0]._id,action:"CREATE",user:result[0].CR_USER_CREATE,date:new Date().getTime(),crdata:nodeDataString};
+            var log={id:result[0]._id,action:"CREATE",user:result[0].CR_USER_DN_CREATE,date:currenttime,crdata:nodeDataString};
 
             var logcollection = mongo.mongodb.collection('logs');
         // Insert some documents
@@ -2020,7 +2022,8 @@ exports.postDeleteCR = function(req, res) {
     //console.log("req params",req.body);
 
     var nodeDataString = req.body;
-
+    var currenttime = new Date().getTime();
+    nodeDataString['CR_DATE_CREATED']=currenttime;
 
 
     var collection = mongo.mongodb.collection('cr');
@@ -2032,7 +2035,7 @@ exports.postDeleteCR = function(req, res) {
         //console.log("Inserted 3 documents into the document collection");
         res.send("success");
 
-        var log={id:result[0]._id,action:"CREATE",user:result[0].CR_USER_CREATE,date:new Date().getTime(),crdata:nodeDataString};
+        var log={id:result[0]._id,action:"CREATE",user:result[0].CR_USER_DN_CREATE,date:currenttime,crdata:nodeDataString};
 
         var logcollection = mongo.mongodb.collection('logs');
     // Insert some documents
@@ -2149,14 +2152,20 @@ exports.getCRLog = function(req, res) {
 exports.postApproveCR = function(req, res) {
 
     var mongodata = req.body.approved;
-    var prevdata = JSON.stringify(req.body.prev);
+    var currenttime = new Date().getTime();
+    mongodata['CR_DATE_EXECUTED']=currenttime;
+    mongodata['CR_STATUS']="APPROVED";
 
+
+
+    var prevdata = JSON.stringify(req.body.prev);
+    mongodata['CR_PREVIOUS']=prevdata;
     var req_type = req.body.type;
 
     //var checkedid=testID(mongodata.id);
 
     //console.log("func call for id",checkedid);
-    //console.log("req params mongodata",mongodata);
+    console.log("***********APPROVED***********req params mongodata",mongodata);
     //console.log("req type",req_type);
 
     if (req_type == "ADD") {
@@ -2203,28 +2212,38 @@ exports.postApproveCR = function(req, res) {
                         if (mongodata.rels == "[]") {
                             var collection = mongo.mongodb.collection('cr');
 
-                            var currenttime = new Date().getTime();
+                            //var currenttime = new Date().getTime();
                             //console.log();
+                            var mongodatawithoutid={};
+
+                            for(var key in mongodata)
+                            {
+                                console.log(key);
+                                if(key=="_id")
+                                {
+
+                                }
+                                else
+                                {
+                                    mongodatawithoutid[key]=mongodata[key];
+                                }
+                            }
                             collection.update({
                                 _id: ObjectId(mongodata._id)
-                            }, {
-                                $set: {
-                                    id:mongodata.id,
-                                    CR_STATUS: "APPROVED",
-                                    CR_DATE: currenttime,
-                                    CR_DATE_APPROVED: currenttime,
-                                    CR_USER_APPROVE: mongodata.CR_USER_APPROVE
-                                }
-                            }, function(err, result) {
+                            }, 
+                                mongodatawithoutid
+                            , function(err, result) {
                                 //console.log(result);
                                 if(err)
                                 {
+                                    console.log(err);
                                     res.send("fail");
                                 }
                                 else
                                 {
+                                    console.log(result,"success?",mongodata);
                                     res.send("success");
-                                    var log={id:ObjectId(mongodata._id),action:"APPROVE",user:mongodata.CR_USER_APPROVE,date:new Date().getTime(),crdata:mongodata};
+                                    var log={id:ObjectId(mongodata._id),action:"APPROVE",user:mongodata.CR_USER_DN_EXECUTE,date:currenttime,crdata:mongodata};
 
                                     var logcollection = mongo.mongodb.collection('logs');
                                 // Insert some documents
@@ -2300,23 +2319,32 @@ exports.postApproveCR = function(req, res) {
                                     //console.log(results1);
                                     var collection = mongo.mongodb.collection('cr');
 
-                                    var currenttime = new Date().getTime();
+                                    //var currenttime = new Date().getTime();
                                     //console.log();
+                                    var mongodatawithoutid={};
+
+                                    for(var key in mongodata)
+                                    {
+                                        console.log(key);
+                                        if(key=="_id")
+                                        {
+
+                                        }
+                                        else
+                                        {
+                                            mongodatawithoutid[key]=mongodata[key];
+                                        }
+                                    }
+
                                     collection.update({
                                         _id: ObjectId(mongodata._id)
-                                    }, {
-                                        $set: {
-                                            id:mongodata.id,
-                                            CR_STATUS: "APPROVED",
-                                            CR_DATE: currenttime,
-                                            CR_DATE_APPROVED: currenttime,
-                                            CR_USER_APPROVE: mongodata.CR_USER_APPROVE
-                                        }
-                                    }, function(err, result) {
+                                    }, 
+                                    mongodatawithoutid
+                                    , function(err, result) {
                                         //console.log(result);
                                         res.send("success");
 
-                                        var log={id:ObjectId(mongodata._id),action:"APPROVE",user:mongodata.CR_USER_APPROVE,date:new Date().getTime(),crdata:mongodata};
+                                        var log={id:ObjectId(mongodata._id),action:"APPROVE",user:mongodata.CR_USER_DN_EXECUTE,date:currenttime,crdata:mongodata};
 
                                         var logcollection = mongo.mongodb.collection('logs');
                                     // Insert some documents
@@ -2433,23 +2461,31 @@ exports.postApproveCR = function(req, res) {
                         //console.log(results1);
                         var collection = mongo.mongodb.collection('cr');
 
-                        var currenttime = new Date().getTime();
+                        //var currenttime = new Date().getTime();
                         //console.log();
+
+                        var mongodatawithoutid={};
+
+                        for(var key in mongodata)
+                        {
+                            console.log(key);
+                            if(key=="_id")
+                            {
+
+                            }
+                            else
+                            {
+                                mongodatawithoutid[key]=mongodata[key];
+                            }
+                        }
                         collection.update({
                             _id: ObjectId(mongodata._id)
-                        }, {
-                            $set: {
-                                CR_STATUS: "APPROVED",
-                                CR_DATE: currenttime,
-                                CR_DATE_APPROVED: currenttime,
-                                CR_PREVIOUS: prevdata,
-                                CR_USER_APPROVE: mongodata.CR_USER_APPROVE
-                            }
-                        }, function(err, result) {
+                        }, mongodatawithoutid
+                        , function(err, result) {
                             //console.log(result);
                             res.send("success");
 
-                            var log={id:ObjectId(mongodata._id),action:"APPROVE",user:mongodata.CR_USER_APPROVE,date:new Date().getTime(),crdata:mongodata};
+                            var log={id:ObjectId(mongodata._id),action:"APPROVE",user:mongodata.CR_USER_DN_EXECUTE,date:currenttime,crdata:mongodata};
 
                             var logcollection = mongo.mongodb.collection('logs');
                         // Insert some documents
@@ -2486,23 +2522,29 @@ exports.postApproveCR = function(req, res) {
                 //console.log(results);
                 var collection = mongo.mongodb.collection('cr');
 
-                var currenttime = new Date().getTime();
+                var mongodatawithoutid={};
+
+                for(var key in mongodata)
+                {
+                    console.log(key);
+                    if(key=="_id")
+                    {
+
+                    }
+                    else
+                    {
+                        mongodatawithoutid[key]=mongodata[key];
+                    }
+                }
                 //console.log();
                 collection.update({
                     _id: ObjectId(mongodata._id)
-                }, {
-                    $set: {
-                        CR_STATUS: "APPROVED",
-                        CR_DATE: currenttime,
-                        CR_PREVIOUS: prevdata,
-                        CR_DATE_APPROVED: currenttime,
-                        CR_USER_APPROVE: mongodata.CR_USER_APPROVE
-                    }
-                }, function(err, result) {
+                }, mongodatawithoutid
+                , function(err, result) {
                     //console.log(result);
                     res.send("success");
 
-                    var log={id:ObjectId(mongodata._id),action:"APPROVE",user:mongodata.CR_USER_APPROVE,date:new Date().getTime(),crdata:mongodata};
+                    var log={id:ObjectId(mongodata._id),action:"APPROVE",user:mongodata.CR_USER_DN_EXECUTE,date:currenttime,crdata:mongodata};
 
                     var logcollection = mongo.mongodb.collection('logs');
                 // Insert some documents
@@ -2526,25 +2568,37 @@ exports.postApproveCR = function(req, res) {
 exports.postDeclineCR = function(req, res) {
 
     var mongodata = req.body;
-
+    var currenttime = new Date().getTime();
+    mongodata['CR_DATE_EXECUTED']=currenttime;
+    mongodata['CR_STATUS']="DECLINED";
     //console.log("req params",mongodata.id);
 
     var collection = mongo.mongodb.collection('cr');
-    var currenttime = new Date().getTime();
+    //var currenttime = new Date().getTime();
     //console.log();
+
+    var mongodatawithoutid={};
+
+    for(var key in mongodata)
+    {
+        console.log(key);
+        if(key=="_id")
+        {
+
+        }
+        else
+        {
+            mongodatawithoutid[key]=mongodata[key];
+        }
+    }
+
     collection.update({
         _id: ObjectId(mongodata._id)
-    }, {
-        $set: {
-            CR_STATUS: "DECLINED",
-            CR_DATE: currenttime,
-            CR_DATE_APPROVED: currenttime,
-            CR_USER_APPROVE: mongodata.CR_USER_APPROVE
-        }
-    }, function(err, result) {
+    },mongodatawithoutid
+    , function(err, result) {
         console.log(result,err);
         res.send("success");
-        var log={id:ObjectId(mongodata._id),action:"DECLINE",user:mongodata.CR_USER_APPROVE,date:new Date().getTime(),crdata:mongodata};
+        var log={id:ObjectId(mongodata._id),action:"DECLINE",user:mongodata.CR_USER_DN_EXECUTE,date:currenttime,crdata:mongodata};
 
         var logcollection = mongo.mongodb.collection('logs');
         // Insert some documents
@@ -2563,6 +2617,9 @@ exports.postDeclineCR = function(req, res) {
 exports.postEditCR = function(req, res) {
 
     var mongodatawithid = req.body;
+    var currenttime = new Date().getTime();
+    console.log("***************************mongodatawithid***********************************",mongodatawithid);
+
     //var mongodatatmp=mongodatawithid;
     var mongodatawithoutid={};
 
@@ -2582,8 +2639,11 @@ exports.postEditCR = function(req, res) {
     
     //console.log("**************with",mongodatawithid);
     //console.log("$$$$$$$$$$$$$$$without",mongodatawithoutid);
+
+    //mongodatawithid['CR_DATE_EDITED']=currenttime;
+    mongodatawithoutid['CR_DATE_EDITED']=currenttime;
     var collection = mongo.mongodb.collection('cr');
-    var currenttime = new Date().getTime();
+    
     //console.log();
     collection.update({
         _id: ObjectId(mongodatawithid._id)
@@ -2599,7 +2659,7 @@ exports.postEditCR = function(req, res) {
         {
             console.log("*************result after mongo update",result);
             res.send("success");
-            var log={id:ObjectId(mongodatawithid._id),action:"EDIT",user:mongodatawithid.CR_USER_UPDATE,date:new Date().getTime(),crdata:mongodatawithid};
+            var log={id:ObjectId(mongodatawithid._id),action:"EDIT",user:mongodatawithid.CR_USER_DN_EDIT,date:currenttime,crdata:mongodatawithid};
 
             var logcollection = mongo.mongodb.collection('logs');
             // Insert some documents
@@ -2618,55 +2678,55 @@ exports.postEditCR = function(req, res) {
 };
 
 
-exports.postRollBackCR = function(req, res) {
+// exports.postRollBackCR = function(req, res) {
 
-    var mongodata = req.body.rollback;
-    var mongoid = req.body.mongoid;
-    //var prevdata=JSON.stringify(req.body.prev);
-
-
-    //console.log("req params mongodata",mongodata);
-    //console.log("req params pev",prevdata);
+//     var mongodata = req.body.rollback;
+//     var mongoid = req.body.mongoid;
+//     //var prevdata=JSON.stringify(req.body.prev);
 
 
+//     //console.log("req params mongodata",mongodata);
+//     //console.log("req params pev",prevdata);
 
-    var query = 'match (n{id:\'' + mongodata.id + '\'}) set n={params}, n.CR_PREVIOUS={prevdata} return n';
 
-    // //var query = 'MATCH n WHERE lower(n.name)=~".*' + searchTerm + '.*" or lower(n.shortName)=~".*' + searchTerm + '.*" RETURN distinct n.id as id, n.name as name, n.shortName as shortname';
-    // //console.log(query);
-    var params = {
-        params: mongodata,
-        prevdata: ""
-    };
-    neodb.db.query(query, params, function(err, results) {
-        //console.log(results);
 
-        if (err) {
-            console.error('Error retreiving node from database:', err);
-            res.send(404, 'No node at that location');
-        } else {
-            //console.log(results);
-            var collection = mongo.mongodb.collection('cr');
+//     var query = 'match (n{id:\'' + mongodata.id + '\'}) set n={params}, n.CR_PREVIOUS={prevdata} return n';
 
-            var currenttime = new Date().getTime();
+//     // //var query = 'MATCH n WHERE lower(n.name)=~".*' + searchTerm + '.*" or lower(n.shortName)=~".*' + searchTerm + '.*" RETURN distinct n.id as id, n.name as name, n.shortName as shortname';
+//     // //console.log(query);
+//     var params = {
+//         params: mongodata,
+//         prevdata: ""
+//     };
+//     neodb.db.query(query, params, function(err, results) {
+//         //console.log(results);
 
-            collection.update({
-                _id: ObjectId(mongoid)
-            }, {
-                $set: {
-                    CR_STATUS: "ROLLEDBACK",
-                    CR_DATE: currenttime,
-                    CR_PREVIOUS: ""
-                }
-            }, function(err, result) {
-                //console.log(result);
-                res.send("success");
-            });
-        }
-    });
+//         if (err) {
+//             console.error('Error retreiving node from database:', err);
+//             res.send(404, 'No node at that location');
+//         } else {
+//             //console.log(results);
+//             var collection = mongo.mongodb.collection('cr');
 
-    //res.send("ok");
-};
+//             var currenttime = new Date().getTime();
+
+//             collection.update({
+//                 _id: ObjectId(mongoid)
+//             }, {
+//                 $set: {
+//                     CR_STATUS: "ROLLEDBACK",
+//                     CR_DATE: currenttime,
+//                     CR_PREVIOUS: ""
+//                 }
+//             }, function(err, result) {
+//                 //console.log(result);
+//                 res.send("success");
+//             });
+//         }
+//     });
+
+//     //res.send("ok");
+// };
 
 
 

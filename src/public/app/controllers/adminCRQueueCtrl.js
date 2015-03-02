@@ -38,7 +38,7 @@ angular.module('apolloApp').controller('adminCRQueueCtrl', ['$scope', '$modal','
         else
         {
             $scope.usersu=false;
-            $scope.userFilter=$scope.identity.currentUser.username;
+            $scope.userFilter=$scope.identity.currentUser.displayName;
         }
 
         $scope.mongoDocumentsAll=[];
@@ -56,7 +56,7 @@ angular.module('apolloApp').controller('adminCRQueueCtrl', ['$scope', '$modal','
         var cacheRenew=new Date().getTime();
         $http.get('/apollo/api/mongo/all'+'?'+cacheRenew).then(function(res) {
             $scope.mongoDocumentsAll=res.data;
-            //console.log($scope.mongoDocumentsAll.length);
+            console.log($scope.mongoDocumentsAll);
 
             for (var i=0;i<$scope.mongoDocumentsAll.length;i++)
             {

@@ -137,7 +137,7 @@
 									i.fa.fa-sort(ng-class="{'fa-sort-asc':reverse && sortval=='CR_STATUS','fa-sort-desc':!reverse && sortval=='CR_STATUS'}" )
 								td.col-md-0(ng-click="sortval='id';reverse=!reverse;")
 									| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-							tr( ng-repeat="doc in mongoDocumentsAll | filter:{CR_REQUEST_TYPE:crFilterModel,CR_STATUS:crStatusModel,CR_USER_CREATE:userFilter}  | orderBy: sortval : reverse" ng-init="hover=false"  ng-mouseenter="hover = true" ng-mouseleave="hover = false")
+							tr( ng-repeat="doc in mongoDocumentsAll | filter:{CR_REQUEST_TYPE:crFilterModel,CR_STATUS:crStatusModel,CR_USER_DN_CREATE:userFilter}  | orderBy: sortval : reverse" ng-init="hover=false"  ng-mouseenter="hover = true" ng-mouseleave="hover = false")
 								td.col-md-0
 									| {{doc.id}}
 								td.col-md-1
@@ -146,13 +146,13 @@
 									a(ng-class="{'rowBackColorApproved':doc.CR_STATUS=='APPROVED','rowBackColorDeclined':doc.CR_STATUS=='DECLINED'}" href="#/adminCRQueue/CRDiff/{{doc._id}}")
 										| {{doc.name}}
 								td.col-md-1
-									| {{doc.CR_USER_CREATE}}
+									| {{doc.CR_USER_DN_CREATE}}
 								td.col-md-1
 									| {{ doc.CR_DATE_CREATED | date :'medium'}}
 								td.col-md-1
-									| {{doc.CR_USER_UPDATE}}
+									| {{doc.CR_USER_DN_EDIT}}
 								td.col-md-1
-									| {{ doc.CR_DATE_UPDATED | date :'medium'}}
+									| {{ doc.CR_DATE_EDITED | date :'medium'}}
 								td.col-md-1
 									span.label.label-success(ng-if="doc.CR_REQUEST_TYPE=='ADD'")
 										| {{doc.CR_REQUEST_TYPE}}

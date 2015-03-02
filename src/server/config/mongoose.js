@@ -115,7 +115,7 @@ module.exports = function(config) {
 			});
 			salt = createSalt();
 			hash = hashPwd(salt,'sdavidsu');
-			User.create({firstName:'Sanjith SU',lastName:'David',email:'sdavidsu@cdc.gov',salt:salt, hashed_pwd: hash, roles:['admin','su'],displayName:'Sanjith David SU'},function(err, docs) {
+			User.create({id:'0010',firstName:'Sanjith SU',lastName:'David',email:'sdavidsu@cdc.gov',salt:salt, hashed_pwd: hash, roles:['admin','su'],displayName:'Sanjith David SU'},function(err, docs) {
 			  if (err){
 			  	console.log(err);
 			  } 

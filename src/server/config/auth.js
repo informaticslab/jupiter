@@ -58,6 +58,7 @@ exports.authenticatePIV = function(req, res) {
         pivLastName = pivUserName.substr(pivUserName.indexOf(' ')+1, pivUserName.indexOf(' '));
     }
 
+    var pivDisplayName = pivFirstName +' '+pivLastName;
     //console.log(pivUserID);
     // console.log(pivUserName);
     // console.log(pivFirstName);
@@ -78,8 +79,21 @@ exports.authenticatePIV = function(req, res) {
                 }   
             }
             else{
-                var userResource = {_v:null, _id:pivUserID, firstName: pivFirstName,lastName: pivLastName ,displayName:pivUserName, salt:null, hashed_pwd: null};
-                res.send({success:true, user:userResource});
+                //var userResource = {_v:null, _id:pivUserID, firstName: pivFirstName,lastName: pivLastName ,displayName:pivUserName, salt:null, hashed_pwd: null};
+                var newUser = new User();
+                newUser.id = pivUserID;
+                newUser.firstName = pivFirstName;
+                newUser.lastName = pivLastName;
+                newUser.displayName = pivDisplayName;
+
+                console.log("newUser",newUser);
+
+                newUser.save(function(err){
+                    if (err)
+                            throw err;
+                        res.send({success:true, user:newUser});
+                });
+                
             }
         });      
     }

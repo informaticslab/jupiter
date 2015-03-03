@@ -34,46 +34,37 @@ exports.authenticateFB =  function(req, res, next){
 
 exports.authenticatePIV = function(req, res) {
 
-
-    //TODO: Look at handling "Cancel Button"
-
     var authorized=req.connection.authorized;
     var User =  mongoose.model('User');
     var protocol = req.connection.npnProtocol;
     console.log("authorized",authorized);
-  
+
+    var pivUserID, pivUserName,pivFirstName,pivLastName,pivDisplayName;
     var pivinfo=req.connection.getPeerCertificate().subject;
     console.log(pivinfo);
 
-    if(pivinfo != undefined){
+    if(pivinfo != undefined && (pivinfo.UID != undefined || pivinfo.CN != undefined)){
 
-    var pivUserID = pivinfo.UID.substr(0,pivinfo.UID.indexOf(' '));
-    //var  pivUserName= pivinfo.UID.substr(pivinfo.UID.indexOf('=')+1);   
-    
-    var pivLastName;
+        if(pivinfo.UID != undefined){
+            pivUserID = pivinfo.UID.substr(0,pivinfo.UID.indexOf(' '));
+            pivUserName = pivinfo.UID.substring(pivinfo.UID.indexOf('CN=')+3, pivinfo.UID.indexOf('-A')-1);
+            pivFirstName = pivUserName.substring(0,pivUserName.indexOf(' '));
+            pivLastName = pivUserName.substring(pivUserName.lastIndexOf(' '));
+            pivDisplayName = pivFirstName +pivLastName;
+            
+        } else if(pivinfo.CN != undefined){
+            pivUserID = pivinfo.CN.substring(pivinfo.CN.indexOf('ID=')+3);
+            pivUserName = pivinfo.CN.substring(0, pivinfo.CN.indexOf('-A')-1);
+            pivFirstName = pivUserName.substring(0,pivUserName.indexOf(' '));
+            pivLastName = pivUserName.substring(pivUserName.lastIndexOf(' '));
+            pivDisplayName = pivFirstName +pivLastName;
+        }
 
-   
-
-   
-    var pivUserName = pivinfo.UID.substring(pivinfo.UID.indexOf('CN=')+3, pivinfo.UID.indexOf('-A')-1);
-
-    var pivFirstName = pivUserName.substring(0,pivUserName.indexOf(' '));
-
-     //if(pivUserName.indexOf('.') != null){
-        pivLastName = pivUserName.substring(pivUserName.lastIndexOf(' '));
-    // } else {
-    //     pivLastName = pivUserName.substring(pivUserName.lastindexOf(' ')+1);
-    // }
-
-        //var pivDisplayName = pivDisplayName.slice('.');
-     var pivDisplayName = pivFirstName +pivLastName;
-    
-    //console.log(pivUserID);
-     console.log(pivUserName);
-     console.log(pivFirstName);
-     console.log(pivLastName);
-     console.log('DISPLAY------' + pivDisplayName);
-
+         console.log(pivUserID);
+         console.log(pivUserName);
+         console.log(pivFirstName);
+         console.log(pivLastName);
+         console.log('DISPLAY------' + pivDisplayName);
 
         User.findOne({'id': pivUserID}, function(err, user) {
             if (err) {
@@ -113,30 +104,10 @@ exports.authenticatePIV = function(req, res) {
 
     else
     {
-        console.log("failed need to reroute to index");
+        console.log("Failed: No CN or UID field");
         res.send({success:false});
     }
-            
-    
-    //  var userResource = {_v:null, _id:pivUserID, firstName: pivUserName,lastName: null ,username:'XYT8', salt:null, hashed_pwd: null};
-    // if(authorized)
-    // {
-    //     res.send({success:true, user:userResource});
-    //     // console.log(pivinfo);
-    //     // console.log(pivInfoAll);
-    //     //res.send(userResource);
-    //     //var currentUser = findUser(pivUserID);
-    //     //console.log(dbUser);
-        
-    // }
-    // else
-    // {
-    //     res.send({success:false});
-    //     console.log(req.connection.authorizationError);
-    //     // res.send(req.connection.authorizationError);
-    // }
-    
-
+     
 };
 
 exports.requiresLogin = function(req,res,next) {

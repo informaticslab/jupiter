@@ -100,9 +100,11 @@ exports.authenticatePIV = function(req, res) {
                 console.log("newUser",newUser);
 
                 newUser.save(function(err){
-                    if (err)
+                    if (err){
                             throw err;
+                        } else{
                         res.send({success:true, user:newUser});
+                        }
                 });
                 
             }

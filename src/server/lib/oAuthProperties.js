@@ -10,11 +10,19 @@ module.exports = {
     //     'callbackURL'   : 'http://localhost:8089/apollo/auth/facebook/callback'
     // },
 
-    'facebookAuth' : {   //Apollo Dev
-        'clientID'      : '656663327793594', // your App ID
-        'clientSecret'  : 'c798e54fa699da3041de84d64f492b39', // your App Secret
-        'callbackURL'   : 'http://apollodev.phiresearchlab.org/apollo/auth/facebook/callback'
+    // 'facebookAuth' : {   //Apollo Dev
+    //     'clientID'      : '656663327793594', // your App ID
+    //     'clientSecret'  : 'c798e54fa699da3041de84d64f492b39', // your App Secret
+    //     'callbackURL'   : 'http://apollodev.phiresearchlab.org/apollo/auth/facebook/callback'
+    // }
+
+      'facebookAuth' : {   //Apollo Test
+        'clientID'      : '1530749310479360', // your App ID
+        'clientSecret'  : '405b8e4a47df445cf58fc9c0f557d843', // your App Secret
+        'callbackURL'   : 'http://apollotest.phiresearchlab.org/apollo/auth/facebook/callback'
+        //'callbackURL' : 'http://apollotest.phiresearchlab.org/apollo/auth/facebook/callback'
     }
+
 
     // 'twitterAuth' : {
     //     'consumerKey'       : 'your-consumer-key-here',

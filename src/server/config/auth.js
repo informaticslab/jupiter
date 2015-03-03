@@ -48,21 +48,32 @@ exports.authenticatePIV = function(req, res) {
     if(pivinfo != undefined){
 
     var pivUserID = pivinfo.UID.substr(0,pivinfo.UID.indexOf(' '));
-    var pivUserName = pivinfo.UID.substr(pivinfo.UID.indexOf('=')+1);   
-    var pivFirstName = pivUserName.substr(0,pivUserName.indexOf(' '));
+    //var  pivUserName= pivinfo.UID.substr(pivinfo.UID.indexOf('=')+1);   
+    
     var pivLastName;
 
-    if(pivUserName.indexOf('.') != null){
-        pivLastName = pivUserName.substr(pivUserName.indexOf('.')+2, pivUserName.indexOf(' ')-1);
-    } else {
-        pivLastName = pivUserName.substr(pivUserName.indexOf(' ')+1, pivUserName.indexOf(' '));
-    }
+   
 
-    var pivDisplayName = pivFirstName +' '+pivLastName;
+   
+    var pivUserName = pivinfo.UID.substring(pivinfo.UID.indexOf('CN=')+3, pivinfo.UID.indexOf('-A')-1);
+
+    var pivFirstName = pivUserName.substring(0,pivUserName.indexOf(' '));
+
+     //if(pivUserName.indexOf('.') != null){
+        pivLastName = pivUserName.substring(pivUserName.lastIndexOf(' '));
+    // } else {
+    //     pivLastName = pivUserName.substring(pivUserName.lastindexOf(' ')+1);
+    // }
+
+        //var pivDisplayName = pivDisplayName.slice('.');
+     var pivDisplayName = pivFirstName +pivLastName;
+    
     //console.log(pivUserID);
-    // console.log(pivUserName);
-    // console.log(pivFirstName);
-    // console.log(pivLastName);
+     console.log(pivUserName);
+     console.log(pivFirstName);
+     console.log(pivLastName);
+     console.log('DISPLAY------' + pivDisplayName);
+
 
         User.findOne({'id': pivUserID}, function(err, user) {
             if (err) {

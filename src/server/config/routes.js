@@ -52,6 +52,9 @@ module.exports = function(app) {
     app.post('/apollo/api/mongo/postapprovecr', nodes.postApproveCR);
     app.post('/apollo/api/mongo/postdeclinecr', nodes.postDeclineCR);
     app.post('/apollo/api/mongo/posteditcr', nodes.postEditCR);
+
+    app.get('/apollo/api/mongo/users/all', nodes.getUsers);
+    app.post('/apollo/api/mongo/users/updateRights', nodes.updateRights);
     //app.post('/apollo/api/mongo/postrollbackcr', nodes.postRollBackCR);
 
     

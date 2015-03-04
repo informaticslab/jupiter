@@ -130,6 +130,10 @@ apolloApp.config(['$routeProvider',
         controller: 'adminCRDiffCtrl',
         resolve: routeRoleChecks.admin
       }).
+          when('/adminRights', {
+        templateUrl: 'partials/adminRights',
+        controller: 'adminRightsCtrl'
+      }).
           when('/inTheLab/:topic', { 
             templateUrl: function(params){
           return 'partials/inTheLab/' + params.topic

@@ -2089,6 +2089,17 @@ exports.getCR = function(req, res) {
     //res.send("ok");
 };
 
+exports.getUsers = function(req, res) {
+
+    var collection = mongo.mongodb.collection('users');
+    collection.find({},{_id:1,firstName:1,lastName:1,email:1,provider:1,lastLogin:1,roles:1}).toArray(function(err, docs) {
+
+        res.send(docs);
+    });
+
+    //res.send("ok");
+};
+
 exports.getCRLog = function(req, res) {
 
     var mongoid = req.params.id;
@@ -2677,6 +2688,35 @@ exports.postEditCR = function(req, res) {
     //res.send("ok");
 };
 
+
+exports.updateRights = function(req, res) {
+
+    var data = req.body;
+    console.log(data);
+
+    // var collection = mongo.mongodb.collection('users');
+
+    // collection.update({
+    //     _id: ObjectId(data.user._id)
+    // },mongodatawithoutid
+    // , function(err, result) {
+    //     console.log(result,err);
+    //     res.send("success");
+    //     var log={id:ObjectId(mongodata._id),action:"DECLINE",user:mongodata.CR_USER_DN_EXECUTE,date:currenttime,crdata:mongodata};
+
+    //     var logcollection = mongo.mongodb.collection('logs');
+    //     // Insert some documents
+    //     logcollection.insert(log, function(err, result) {
+    //     if(err)
+    //     {
+    //     console.log("failed to insert log",err);
+    //     }
+    //     });             
+    // });
+
+
+    res.send("success");
+}
 
 // exports.postRollBackCR = function(req, res) {
 

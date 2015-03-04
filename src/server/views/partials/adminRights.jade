@@ -1,0 +1,117 @@
+// new row
+.row
+	.div(ng-class='getContentWidth()')
+		.content_block_faq
+			span.visible-md.visible-lg
+				.subnav
+					ul.nav.nav-pills
+						li
+							a(href='#/quickGuide/') Quick Guide
+						li
+							a(href='#/browse/') Browse
+						li
+							a(href='#/search/') Search
+						li
+							a(href='#/advancedSearch/') Relationship Explorer
+						li
+							a(href='' class='inactive') Favorites
+						li.active
+							a(href='#/inTheLab/') In the Lab
+				// end subnav
+			span.visible-sm
+				.subnav_sm
+					ul.nav.nav-pills
+						li
+							a(href='#/quickGuide/') Quick Guide
+						li
+							a(href='#/browse/') Browse
+						li
+							a(href='#/search/') Search
+						li
+							a(href='#/advancedSearch/') Relationship Explorer
+						li
+							a(href='' class='inactive') Favorites
+						li.active
+							a(href='#/inTheLab/') In the Lab
+				// end subnav
+			//- a.btn.btn-custom(onclick='goBack()') Back
+			//- .nav_split
+			//- 	.btn-group.btn-group-md.btn-group-justified
+			//- 		.btn-group
+			//- 			a.btn.btn-custom(href="#/dashboard", id='btnDashboard') Summary
+			//- 		.btn-group
+			//- 			a.btn.btn-default(href='#/dashboarddetail', id='btnDashboardDetail') Detail
+			//- 	// end button group
+			//- // end nav_split
+			.top_block_faq
+				h4.orange_main_faq
+					span.glyphicon.glyphicon-comment.icon-flipped.faq_icon
+					| CISP Admin Console
+				.vertical_spacing_browse
+				.row
+					.col-lg-12.col-md-12.col-sm-12
+						ul.nav.nav-pills
+							li(role="presentation")
+								a(href="#/adminCRAdd")
+									| Add Node
+							li(role="presentation")
+								a(href="#/adminCREdit")
+									| Edit/Delete Node
+							li(role="presentation")
+								a(href="#/adminCRQueue")
+									| Queue
+							li.active(role="presentation")
+								a(href="#/adminRights")
+									| Rights Management
+				hr
+				.vertical_spacing_less
+				.row
+					.col-lg-12.col-md-12.col-sm-12
+						.orange_header_larger
+							| CISP Users
+				.vertical_spacing_less
+				.row
+					.col-lg-2.col-md-2.col-sm-2
+						h4
+							| Search User
+					.col-lg-10.col-md-10.col-sm-10
+						input.form-control(type="text" ng-model="filterUser")
+				.vertical_spacing_more
+				.row
+					.col-lg-12.col-md-12.col-sm-12
+						table.table.table-hover
+							tr
+								th.col-md-1
+									| Provider
+								th.col-md-6
+									| Name
+								//th.col-md-2
+									| Last login
+								th.col-md-1
+									| Root
+								th.col-md-1
+									| SU
+								th.col-md-1
+									| Admin
+								//th.col-md-3
+							tr(ng-repeat="user in usersAll | filter : filterUser")
+								td
+									img(ng-if="user.provider=='facebook'" src="img/FB-f-Logo__blue_29.png" )
+									img(ng-if="user.provider=='local'" src="img/header_graphic_small.png" )
+									img(ng-if="user.provider=='piv'" src="img/PIV_Card_Sample_sm.png" )
+								td
+									| {{user.lastName + ', ' + user.firstName}}
+									br
+									.small
+										| {{user.email}} - {{user.lastLogin | date :'medium'}}
+								td
+									input(type="checkbox" ng-checked="user.roles.indexOf('root')>=0" ng-change="updateRights(user,'root',rightValue)" ng-model="rightValue")
+								td
+									input(type="checkbox" ng-checked="user.roles.indexOf('su')>=0")
+								td
+									input(type="checkbox" ng-checked="user.roles.indexOf('admin')>=0")
+				
+				
+		// end content block
+	// end col spec
+// end row.orange_header Overview

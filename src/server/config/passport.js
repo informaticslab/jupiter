@@ -38,7 +38,14 @@ module.exports = function(){
 		User.findOne({email:email}).exec(function(err,user) {
 			if(user && user.authenticate(password)) {
 				//console.log(user);
-				return done(null,user);
+				user.lastLogin = new Date();
+                user.save(function(err) {
+            		if (err){
+            			throw err;
+            		} else {
+            			 return done(null, user); // user found, return that user
+            		}
+            	})
 			} else {
 				return done(null,false);
 			}
@@ -76,7 +83,15 @@ module.exports = function(){
 
                 // if the user is found, then log them in
                 if (user) {
-                    return done(null, user); // user found, return that user
+                	user.lastLogin = new Date();
+                	user.save(function(err) {
+                		if (err){
+                			throw err;
+                		} else {
+                			 return done(null, user); // user found, return that user
+                		}
+                	})
+                   
                 } else {
                     // if there is no user found with that facebook id, create them
                     var newUser            = new User();
@@ -89,6 +104,8 @@ module.exports = function(){
                     newUser.lastName = profile.name.familyName;
                     newUser.displayName = profile.name.givenName+' '+profile.name.familyName;
                     newUser.email = profile.emails[0].value; // facebook can return multiple emails so we'll take the first
+                    newUser.lastLogin = new Date();
+                    newUser.provider = 'facebook';
 
                     console.log("newUser",newUser);
                     // save our user to the database

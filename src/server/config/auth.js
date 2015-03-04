@@ -72,8 +72,16 @@ exports.authenticatePIV = function(req, res) {
             }
             else if(user){
                 if(authorized){
-                    res.send({success:true, user:user});
-                    console.log(user);
+                    user.lastLogin = new Date();
+                    user.save(function(err) {
+                        if (err){
+                            throw err;
+                        } else {
+                             res.send({success:true, user:user});
+                        }
+                    })
+                   
+                  
                 }  else{
                 res.send({success:false});
                 console.log(req.connection.authorizationError);
@@ -87,6 +95,8 @@ exports.authenticatePIV = function(req, res) {
                 newUser.firstName = pivFirstName;
                 newUser.lastName = pivLastName;
                 newUser.displayName = pivDisplayName;
+                newUser.provider = 'piv';
+                newUser.lastLogin = new Date();
 
                 console.log("newUser",newUser);
 

@@ -6,11 +6,13 @@
 				b.caret
 			ul.dropdown-menu 
 				li(ng-show="identity.currentUser.isLevelThree()")
-					a(href="#/adminCRQueue") CR Queue
+					a(href="#/adminCRAdd") Add Node
 				li(ng-show="identity.currentUser.isLevelThree()")
-					a(href="#/adminCREdit") CR Edit
+					a(href="#/adminCREdit") Edit Node	
 				li(ng-show="identity.currentUser.isLevelThree()")
-					a(href="#/adminCRAdd") CR Add
+					a(href="#/adminCRQueue") Request Queue
+				li(ng-show="identity.currentUser.isLevelOne()")
+					a(href="#/adminRights") Rights Management
 				li 
 					a(href="", ng-click="signout()") Logout
 			

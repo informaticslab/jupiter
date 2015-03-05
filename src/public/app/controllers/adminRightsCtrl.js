@@ -56,5 +56,28 @@ angular.module('apolloApp').controller('adminRightsCtrl', ['$scope', '$modal','$
 
 
   init();
+
+  $scope.setFilterProvider=function(provider)
+  {
+    $scope.filterProvider=provider;
+  }
+
+  $scope.setFilterRight=function(right)
+  {
+    $scope.filterRight={};
+    
+    if(right=="")
+    {
+      $scope.filterRight="";
+    }
+    else
+    {
+      $scope.filterRight[right]=true;
+    }
+
+    console.log($scope.filterRight);
+  }
+
+
 }]);
 

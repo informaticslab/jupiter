@@ -50,7 +50,7 @@ angular.module('apolloApp').factory('ngAuth', function($http, ngIdentity, $q, ng
 					ngIdentity.currentUser = user;
 					
 					console.log(res);
-					//console.log(ngIdentity.currentUser.isAdmin());
+					//console.log(ngIdentity.currentUser.isLevelThree());
 					dfd.resolve(true);
 					// if(res != null){
 

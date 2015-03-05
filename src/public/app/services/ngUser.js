@@ -12,15 +12,18 @@ angular.module('apolloApp').factory('ngUser',function($resource,$location) {
 
 	// userResource = $resource('/api/users/:id',{_id:"@id"});
 	
-	userResource.prototype.isAdmin = function() {
-		return this.roles && this.roles.indexOf('admin') > -1;
+	userResource.prototype.isLevelThree = function() {
+		return this.roles && this.roles.levelThree;
 
 	}
 
-	userResource.prototype.isSU = function() {
-		return this.roles && this.roles.indexOf('su') > -1;
+	userResource.prototype.isLevelTwo = function() {
+		return this.roles && this.roles.levelTwo;
 	}
 
+	userResource.prototype.isLevelOne = function() {
+		return this.roles && this.roles.levelOne;
+	}
 
 	return userResource;
 });

@@ -7,7 +7,7 @@ angular.module('apolloApp').factory('ngIdentity', function($window, ngUser,$loca
 	// 	currentUser = new ngUser();
 	// 	angular.extend(currentUser, $window.bootstrappedUserObject);
 	// }
-	if(!!$window.bootstrappedUserObject) {
+	if (!!$window.bootstrappedUserObject) {
 		currentUser = new ngUser();
 		angular.extend(currentUser, $window.bootstrappedUserObject);
 	}
@@ -18,7 +18,16 @@ angular.module('apolloApp').factory('ngIdentity', function($window, ngUser,$loca
 		},
 
 		isAuthorized: function(role){
-			return !!this.currentUser && this.currentUser.roles.indexOf(role) > -1;
+			if (role == 'levelThree') {
+				return !!this.currentUser && this.currentUser.roles.levelThree;
+			}
+			if (role == 'levelTwo') {
+				return !!this.currentUser && this.currentUser.roles.levelTwo;
+			}
+			if (role == 'levelOne') {
+				return !!this.currentUser && this.currentUser.roles.levelOne;
+			}
+			
 		},
 
 		dbUserId: function(){

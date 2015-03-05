@@ -7,11 +7,11 @@ angular.module('apolloApp').controller('navBarLoginCtrl',function($scope,$http,n
 		ngAuth.authenticateUser(email,password).then(function(success) {
 			
 			if(success) {
-				console.log($scope.identity.currentUser.isAdmin());
-				if($scope.identity.currentUser.isAdmin()){
+				console.log($scope.identity.currentUser.isLevelThree());
+				if($scope.identity.currentUser.isLevelTwo()){
 					$location.path('/adminCRQueue');
 				}
-				else if($scope.identity.currentUser.isSU()){
+				else if($scope.identity.currentUser.isLevelThree()){
 					$location.path('/adminCREdit');
 				}
 				console.log($scope.identity.dbUserId());

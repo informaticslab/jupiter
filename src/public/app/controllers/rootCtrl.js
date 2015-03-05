@@ -250,13 +250,12 @@ angular.module('apolloApp').controller('rootCtrl', function($scope, $http, $loca
         ngAuth.autheticateUserPiv().then(function(success){
         //console.log(success);
         if(success) {
-          if($scope.identity.currentUser.isAdmin()){
+          if($scope.identity.currentUser.isLevelTwo()){
             $location.path('/adminCRQueue');
           }
-          else if($scope.identity.currentUser.isSU()){
+          else if($scope.identity.currentUser.isLevelThree()){
             $location.path('/adminCREdit');
           }
-        console.log($scope.identity.currentUser.isAdmin());
         } 
         else {
             $window.location.href = $location.absUrl().replace('https','http').replace('4400','8089');

@@ -20,7 +20,11 @@ module.exports = function(config) {
 		salt: String,
 		hashed_pwd: String,
 		token: String,
-		roles: [String],
+		roles: {
+				levelOne: Boolean,     
+				levelTwo: Boolean,			
+				levelThree: Boolean
+			},
 		displayName: String,
 		lastLogin: Date
 	});
@@ -44,7 +48,7 @@ module.exports = function(config) {
 			var salt, hash;
 			salt = createSalt();
 			hash = hashPwd(salt,'cdcuser');
-			User.create({firstName:'CDCUser',lastName:'Test',email:'cdcuser@cdc.gov', salt:salt, hashed_pwd: hash, roles:['admin'],displayName:'CDCUser Test',provider:'local',lastLogin: new Date()},function(err, docs) {
+			User.create({firstName:'CDCUser',lastName:'Test',email:'cdcuser@cdc.gov', salt:salt, hashed_pwd: hash, roles:{levelOne:false,levelTwo: false, levelThree:true},displayName:'CDCUser Test',provider:'local',lastLogin: new Date()},function(err, docs) {
 			  if (err){
 			  	console.log(err);
 			  } 
@@ -56,7 +60,7 @@ module.exports = function(config) {
 			});
 			salt = createSalt();
 			hash = hashPwd(salt,'cdcuser1');
-			User.create({firstName:'CDCUser1',lastName:'Test',email:'cdcuser1@cdc.gov', salt:salt, hashed_pwd: hash, roles:['admin'],displayName:'CDCUser1 Test',provider:'local',lastLogin: new Date()},function(err, docs) {
+			User.create({firstName:'CDCUser1',lastName:'Test',email:'cdcuser1@cdc.gov', salt:salt, hashed_pwd: hash, roles:{levelOne:false,levelTwo: false, levelThree:true},displayName:'CDCUser1 Test',provider:'local',lastLogin: new Date()},function(err, docs) {
 			  if (err){
 			  	console.log(err);
 			  } 
@@ -68,7 +72,7 @@ module.exports = function(config) {
 			});
 			salt = createSalt();
 			hash = hashPwd(salt,'cdcuser2');
-			User.create({firstName:'CDCUser2',lastName:'Test',email:'cdcuser2@cdc.gov', salt:salt, hashed_pwd: hash, roles:['admin'],displayName:'CDCUser2 Test',provider:'local',lastLogin: new Date()},function(err, docs) {
+			User.create({firstName:'CDCUser2',lastName:'Test',email:'cdcuser2@cdc.gov', salt:salt, hashed_pwd: hash, roles:{levelOne:false,levelTwo: false, levelThree:true},displayName:'CDCUser2 Test',provider:'local',lastLogin: new Date()},function(err, docs) {
 			  if (err){
 			  	console.log(err);
 			  } 
@@ -80,7 +84,7 @@ module.exports = function(config) {
 			});
 			salt = createSalt();
 			hash = hashPwd(salt,'admin');
-			User.create({firstName:'Tom',lastName:'Savel',email:'tsavel@cdc.gov',salt:salt, hashed_pwd: hash, roles:['admin','su'],displayName:'Tom Savel',provider:'local',lastLogin: new Date()},function(err, docs) {
+			User.create({firstName:'Tom',lastName:'Savel',email:'tsavel@cdc.gov',salt:salt, hashed_pwd: hash, roles:{levelOne:true,levelTwo: true, levelThree:true},displayName:'Tom Savel',provider:'local',lastLogin: new Date()},function(err, docs) {
 			  if (err){
 			  	console.log(err);
 			  } 
@@ -92,7 +96,7 @@ module.exports = function(config) {
 			});
 			salt = createSalt();
 			hash = hashPwd(salt,'sdavid');
-			User.create({firstName:'Sanjith',lastName:'David',email:'sdavid@cdc.gov',salt:salt, hashed_pwd: hash, roles:['admin'],displayName:'Sanjith David',provider:'local',lastLogin: new Date()},function(err, docs) {
+			User.create({firstName:'Sanjith',lastName:'David',email:'sdavid@cdc.gov',salt:salt, hashed_pwd: hash, roles:{levelOne:false,levelTwo: false, levelThree:true},displayName:'Sanjith David',provider:'local',lastLogin: new Date()},function(err, docs) {
 			  if (err){
 			  	console.log(err);
 			  } 
@@ -104,7 +108,7 @@ module.exports = function(config) {
 			});
 			salt = createSalt();
 			hash = hashPwd(salt,'kta');
-			User.create({firstName:'Michael',lastName:'Ta',email:'kta@cdc.gov',salt:salt, hashed_pwd: hash, roles:['admin'],displayName: 'Michael Ta',provider:'local',lastLogin: new Date()},function(err, docs) {
+			User.create({firstName:'Michael',lastName:'Ta',email:'kta@cdc.gov',salt:salt, hashed_pwd: hash, roles:{levelOne:false,levelTwo: false, levelThree:true},displayName: 'Michael Ta',provider:'local',lastLogin: new Date()},function(err, docs) {
 			  if (err){
 			  	console.log(err);
 			  } 
@@ -116,7 +120,7 @@ module.exports = function(config) {
 			});
 			salt = createSalt();
 			hash = hashPwd(salt,'sdavidsu');
-			User.create({id:'0010',firstName:'Sanjith SU',lastName:'David',email:'sdavidsu@cdc.gov',salt:salt, hashed_pwd: hash, roles:['admin','su'],displayName:'Sanjith David SU', provider:'local',lastLogin: new Date()},function(err, docs) {
+			User.create({id:'0010',firstName:'Sanjith SU',lastName:'David',email:'sdavidsu@cdc.gov',salt:salt, hashed_pwd: hash, roles:{levelOne:true,levelTwo: true, levelThree:true},displayName:'Sanjith David SU', provider:'local',lastLogin: new Date()},function(err, docs) {
 			  if (err){
 			  	console.log(err);
 			  } 
@@ -127,7 +131,7 @@ module.exports = function(config) {
 			  
 			});
 
-			// User.create({id:'1001619186',firstName:'Kiet',lastName:'Ta',email:'XYT8@cdc.gov',salt:null, hashed_pwd: null, provider:'PIV', roles:['admin'],displayName:'Kiet Ta', provider:'PIV'},function(err, docs) {
+			// User.create({id:'1001619186',firstName:'Kiet',lastName:'Ta',email:'XYT8@cdc.gov',salt:null, hashed_pwd: null, provider:'PIV', roles:{levelOne:false,levelTwo: false levelThree:true},displayName:'Kiet Ta', provider:'PIV'},function(err, docs) {
 			//   if (err){
 			//   	console.log(err);
 			//   } 

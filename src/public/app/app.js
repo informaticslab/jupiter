@@ -15,12 +15,15 @@ var apolloApp = angular.module('apolloApp', [
 ]);
 
 var routeRoleChecks = {
-  admin:{auth: function(ngAuth){
-            return ngAuth.authorizeCurrentUserForRoute('admin')
+  levelThree:{auth: function(ngAuth){
+            return ngAuth.authorizeCurrentUserForRoute('levelThree')
           }},
-  su:{auth:function(ngAuth){
-    return ngAuth.authorizeCurrentUserForRoute('su')
-          }}
+  levelTwo:{auth:function(ngAuth){
+    return ngAuth.authorizeCurrentUserForRoute('levelTwo')
+          }},
+  levelOne:{auth:function(ngAuth){
+    return ngAuth.authorizeCurrentUserForRoute('levelOne')
+          }}        
 };
 
 apolloApp.config(['$routeProvider', 
@@ -108,31 +111,32 @@ apolloApp.config(['$routeProvider',
           when('/adminCRAdd', {
         templateUrl: 'partials/adminCRAdd',
         controller: 'adminCRAddCtrl',
-        resolve: routeRoleChecks.admin
+        resolve: routeRoleChecks.levelThree
       }).
           when('/adminCREdit', {
         templateUrl: 'partials/admin',
         controller: 'adminCtrl',
-        resolve: routeRoleChecks.admin
+        resolve: routeRoleChecks.levelThree
       }).
           when('/adminCREdit/:id', {
         templateUrl: 'partials/admin',
         controller: 'adminCtrl',
-        resolve: routeRoleChecks.admin
+        resolve: routeRoleChecks.levelThree
       }).
           when('/adminCRQueue', {
         templateUrl: 'partials/adminCRQueue',
         controller: 'adminCRQueueCtrl',
-        resolve: routeRoleChecks.admin
+        resolve: routeRoleChecks.levelThree
       }).
           when('/adminCRQueue/CRDiff/:id', {
         templateUrl: 'partials/adminCRDiff',
         controller: 'adminCRDiffCtrl',
-        resolve: routeRoleChecks.admin
+        resolve: routeRoleChecks.levelThree
       }).
           when('/adminRights', {
         templateUrl: 'partials/adminRights',
-        controller: 'adminRightsCtrl'
+        controller: 'adminRightsCtrl',
+        //resolve: routeRoleChecks.levelOne
       }).
           when('/inTheLab/:topic', { 
             templateUrl: function(params){

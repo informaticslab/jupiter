@@ -71,8 +71,54 @@
 							| CISP Users
 				.vertical_spacing_less
 				.row
-					.col-lg-4.col-md-4.col-sm-4
+					.col-lg-2.col-md-2.col-sm-2
 						input.form-control(type="text" ng-model="filterUser" Placeholder="Filter User")
+					.col-lg-6.col-md-6.col-sm-6.pull-right
+						.btn-group.pull-right
+							button.btn.btn-default(type="button")
+								| Provider
+							button.btn.btn-default.dropdown-toggle(type="button" data-toggle="dropdown" aria-expanded="false")
+								span.caret
+								span.sr-only
+									| Toggle Dropdown
+							ul.dropdown-menu(role="menu")
+								li
+									a(href="" ng-click="setFilterProvider('local')")
+										| Local
+								li
+									a(href="" ng-click="setFilterProvider('piv')")
+										| PIV
+								li
+									a(href="" ng-click="setFilterProvider('facebook')")
+										| Facebook
+								li.divider
+								li
+									a(href="" ng-click="setFilterProvider('')")
+										| All
+						.pull-right
+							| &nbsp;&nbsp;
+						.btn-group.pull-right
+							button.btn.btn-default(type="button")
+								| Rights
+							button.btn.btn-default.dropdown-toggle(type="button" data-toggle="dropdown" aria-expanded="false")
+								span.caret
+								span.sr-only
+									| Toggle Dropdown
+							ul.dropdown-menu(role="menu")
+								li
+									a(href="" ng-click="setFilterRight('levelOne')")
+										| Level 1
+								li
+									a(href="" ng-click="setFilterRight('levelTwo')")
+										| Level 2
+								li
+									a(href="" ng-click="setFilterRight('levelThree')")
+										| Level 3
+								li.divider
+								li
+									a(href="" ng-click="setFilterRight('')")
+										| All
+					
 				.vertical_spacing_less
 				.row
 					.col-lg-12.col-md-12.col-sm-12
@@ -80,18 +126,39 @@
 							tr
 								th.col-md-1
 									| Provider
-								th.col-md-6
+								th.col-md-5
 									| Name
 								//th.col-md-2
 									| Last login
 								th.col-md-1
-									| Level 1
+									//span.cursor-help(tooltip='Access Rights Management', tooltip-placement='top') 
+										| Level 1
+									//br
+									//small
+									| Rights Management
+									br
+									small
+										| (Level 1)
 								th.col-md-1
-									| Level 2
+									//span.cursor-help(tooltip='Aprrove/Decline Change Requests', tooltip-placement='top') 
+										| Level 2
+									//br
+									//small
+									| Aprrove/Decline Change Requests
+									br
+									small
+										| (Level 2)
 								th.col-md-1
-									| Level 3
+									//span.cursor-help(tooltip='Add/Modify/View Change Requests', tooltip-placement='top') 
+										| Level 3
+									//br
+									//small
+									| Add/Modify/View Change Requests
+									br
+									small
+										| (Level 3)
 								//th.col-md-3
-							tr(ng-repeat="user in usersAll | filter : filterUser")
+							tr(ng-repeat="user in usersAll | filter : {firstName:filterUser,provider:filterProvider,roles:filterRight}")
 								td
 									img(ng-if="user.provider=='facebook'" src="img/FB-f-Logo__blue_29.png" )
 									img(ng-if="user.provider=='local'" src="img/header_graphic_small.png" )

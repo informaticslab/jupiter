@@ -109,8 +109,8 @@ angular.module('apolloApp').controller('adminCRDiffCtrl', ['$scope','$modal', '$
             var cacheRenew=new Date().getTime();
 
 
-            console.log($scope.identity.currentUser.roles.indexOf("su"));
-            if($scope.identity.currentUser.roles.indexOf("su")>=0)
+            console.log($scope.identity.currentUser.roles.levelTwo);
+            if($scope.identity.currentUser.roles.levelTwo)
             {
                 $scope.usersu=true;
             }

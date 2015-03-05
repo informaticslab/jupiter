@@ -2694,25 +2694,49 @@ exports.updateRights = function(req, res) {
     var data = req.body;
     console.log(data);
 
-    // var collection = mongo.mongodb.collection('users');
+    
+    var right=data.right;
+    var update = { $set : {} };
+    update.$set['roles.' + right] = data.value;
+    //queryparam.$set.roles.$set=data.value;
+    // var roles={};
+    // queryparam.$set={};
+    // queryparam.$set.roles.$set={};
+    // queryparam.$set.roles[data.right]=data.value;
 
-    // collection.update({
-    //     _id: ObjectId(data.user._id)
-    // },mongodatawithoutid
-    // , function(err, result) {
-    //     console.log(result,err);
-    //     res.send("success");
-    //     var log={id:ObjectId(mongodata._id),action:"DECLINE",user:mongodata.CR_USER_DN_EXECUTE,date:currenttime,crdata:mongodata};
+    //console.log(findparam, queryparam);
+    var collection = mongo.mongodb.collection('users');
 
-    //     var logcollection = mongo.mongodb.collection('logs');
-    //     // Insert some documents
-    //     logcollection.insert(log, function(err, result) {
-    //     if(err)
-    //     {
-    //     console.log("failed to insert log",err);
-    //     }
-    //     });             
-    // });
+    collection.update({
+        _id:ObjectId(data.user._id)
+    },
+    update
+    , function(err, result) {
+         console.log(result,err);
+        if(err)
+        {
+            res.send("fail");
+        }
+        else if(result==0)
+        {
+            res.send("no change");
+        }
+        else
+        {
+            res.send("success");
+        }
+        // res.send("success");
+        // var log={id:ObjectId(mongodata._id),action:"DECLINE",user:mongodata.CR_USER_DN_EXECUTE,date:currenttime,crdata:mongodata};
+
+        // var logcollection = mongo.mongodb.collection('logs');
+        // // Insert some documents
+        // logcollection.insert(log, function(err, result) {
+        // if(err)
+        // {
+        // console.log("failed to insert log",err);
+        // }
+        // });             
+    });
 
 
     res.send("success");

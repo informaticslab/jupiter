@@ -71,12 +71,9 @@
 							| CISP Users
 				.vertical_spacing_less
 				.row
-					.col-lg-2.col-md-2.col-sm-2
-						h4
-							| Search User
-					.col-lg-10.col-md-10.col-sm-10
-						input.form-control(type="text" ng-model="filterUser")
-				.vertical_spacing_more
+					.col-lg-4.col-md-4.col-sm-4
+						input.form-control(type="text" ng-model="filterUser" Placeholder="Filter User")
+				.vertical_spacing_less
 				.row
 					.col-lg-12.col-md-12.col-sm-12
 						table.table.table-hover
@@ -88,11 +85,11 @@
 								//th.col-md-2
 									| Last login
 								th.col-md-1
-									| Root
+									| Level 1
 								th.col-md-1
-									| SU
+									| Level 2
 								th.col-md-1
-									| Admin
+									| Level 3
 								//th.col-md-3
 							tr(ng-repeat="user in usersAll | filter : filterUser")
 								td
@@ -105,11 +102,11 @@
 									.small
 										| {{user.email}} - {{user.lastLogin | date :'medium'}}
 								td
-									input(type="checkbox" ng-checked="user.roles.indexOf('root')>=0" ng-change="updateRights(user,'root',rightValue)" ng-model="rightValue")
+									input(type="checkbox" ng-checked="user.roles.levelOne" ng-change="updateRights(user,'levelOne',l1Value)" ng-model="l1Value")
 								td
-									input(type="checkbox" ng-checked="user.roles.indexOf('su')>=0")
+									input(type="checkbox" ng-checked="user.roles.levelTwo" ng-change="updateRights(user,'levelTwo',l2Value)" ng-model="l2Value")
 								td
-									input(type="checkbox" ng-checked="user.roles.indexOf('admin')>=0")
+									input(type="checkbox" ng-checked="user.roles.levelThree" ng-change="updateRights(user,'levelThree',l3Value)" ng-model="l3Value")
 				
 				
 		// end content block

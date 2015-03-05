@@ -824,6 +824,11 @@ del{background-color: #F38264}
 
 .toast-top-right {
   top: 70px;
+  margin-top: 10px;
+}
+.toast-bottom-right {
+ margin-right: 355px;
+ margin-bottom: 365px;
 }
 .toast-success {
   background-color: #13987e;

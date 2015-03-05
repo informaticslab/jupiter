@@ -14,10 +14,11 @@ angular.module('apolloApp').controller('navBarLoginCtrl',function($scope,$http,n
 				else if($scope.identity.currentUser.isLevelThree()){
 					$location.path('/adminCREdit');
 				}
-				console.log($scope.identity.dbUserId());
+				$scope.ok();
+
 			} else {
 				console.log(success);
-				ngNotifier.notify('Incorrect Email/Password');
+				ngNotifier.notifyError('Incorrect Email/Password');
 			}
 		});
 	}

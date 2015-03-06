@@ -126,9 +126,9 @@
 							tr
 								th.col-md-1
 									| Provider
-								th.col-md-1
+								th.col-md-5
 									| Name
-								th.col-md-4
+								//th.col-md-4
 									| Last login
 								th.col-md-2
 									//span.cursor-help(tooltip='Access Rights Management', tooltip-placement='top') 
@@ -170,7 +170,9 @@
 									br
 									.small
 										| {{user.email}}
-								td
+										|  - 
+										| {{user.lastLogin | date :'medium'}}
+								//td
 									| {{user.lastLogin | date :'medium'}}
 								td
 									input(type="checkbox" ng-checked="user.roles.levelOne" ng-change="updateRights(user,'levelOne',l1Value)" ng-model="l1Value")

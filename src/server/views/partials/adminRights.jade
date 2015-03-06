@@ -76,47 +76,47 @@
 					.col-lg-6.col-md-6.col-sm-6.pull-right
 						.btn-group.pull-right
 							button.btn.btn-default(type="button")
-								| Provider
+								| {{ProviderBtnLabl}}
 							button.btn.btn-default.dropdown-toggle(type="button" data-toggle="dropdown" aria-expanded="false")
 								span.caret
 								span.sr-only
 									| Toggle Dropdown
 							ul.dropdown-menu(role="menu")
 								li
-									a(href="" ng-click="setFilterProvider('local')")
+									a(href="" ng-click="setFilterProvider('local');ProviderBtnLabl='Local'")
 										| Local
 								li
-									a(href="" ng-click="setFilterProvider('piv')")
+									a(href="" ng-click="setFilterProvider('piv');ProviderBtnLabl='PIV'")
 										| PIV
 								li
-									a(href="" ng-click="setFilterProvider('facebook')")
+									a(href="" ng-click="setFilterProvider('facebook');ProviderBtnLabl='Facebook'")
 										| Facebook
 								li.divider
 								li
-									a(href="" ng-click="setFilterProvider('')")
+									a(href="" ng-click="setFilterProvider('');ProviderBtnLabl='User Type'")
 										| All
 						.pull-right
 							| &nbsp;&nbsp;
 						.btn-group.pull-right
 							button.btn.btn-default(type="button")
-								| Rights
+								| {{RightsBtnLabl}}
 							button.btn.btn-default.dropdown-toggle(type="button" data-toggle="dropdown" aria-expanded="false")
 								span.caret
 								span.sr-only
 									| Toggle Dropdown
 							ul.dropdown-menu(role="menu")
 								li
-									a(href="" ng-click="setFilterRight('levelOne')")
+									a(href="" ng-click="setFilterRight('levelOne');RightsBtnLabl='Level 1'")
 										| Level 1
 								li
-									a(href="" ng-click="setFilterRight('levelTwo')")
+									a(href="" ng-click="setFilterRight('levelTwo');RightsBtnLabl='Level 2'")
 										| Level 2
 								li
-									a(href="" ng-click="setFilterRight('levelThree')")
+									a(href="" ng-click="setFilterRight('levelThree');RightsBtnLabl='Level 3'")
 										| Level 3
 								li.divider
 								li
-									a(href="" ng-click="setFilterRight('')")
+									a(href="" ng-click="setFilterRight('');RightsBtnLabl='Right'")
 										| All
 					
 				.vertical_spacing_less
@@ -125,7 +125,7 @@
 						table.table.table-hover
 							tr
 								th.col-md-1
-									| Provider
+									| User Type
 								th.col-md-5
 									| Name
 								//th.col-md-4

@@ -4,9 +4,16 @@ var nodes = require('../controllers/nodes');
 var auth = require('./auth');
 var mongoose = require('mongoose'),
     User = mongoose.model('User');
+    var redirecturlto="/apollo/#/main";
+
+
 module.exports = function(app) {
     app.get('/apollo/partials/*', function(req, res) {
         res.render('partials/' + req.params);
+        if(req.originalUrl!="/apollo/partials/navbar-login")
+        {
+            redirecturlto=req.originalUrl;
+        }    
     });
 
     app.get('/apollo/api/users',auth.requiresRole('admin'),function(req,res) {
@@ -82,11 +89,24 @@ module.exports = function(app) {
     // route for facebook authentication and login
     app.get('/apollo/auth/facebook',auth.authenticateFB);
 
+    app.get('/apollo/redirect', function(req,res) {
+
+        if(redirecturlto.search("/partials/"))
+        {
+            redirecturlto=redirecturlto.replace("partials","#");
+        }
+        else
+        {
+            redirecturlto="/apollo/#/main";
+        }
+        res.redirect(redirecturlto);    
+    });
+
     // handle the callback after facebook has authenticated the user
     app.get('/apollo/auth/facebook/callback',
         passport.authenticate('facebook', {
             scope           : ['email'], 
-            successRedirect : '/apollo/#/main',
+            successRedirect : '/apollo/redirect',
             failureRedirect : '/apollo/#/main'
         }));
 

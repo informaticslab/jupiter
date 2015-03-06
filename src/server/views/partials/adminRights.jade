@@ -158,7 +158,7 @@
 									small
 										| (Level 3)
 								//th.col-md-3
-							tr(ng-repeat="user in usersAll | filter : {firstName:filterUser,provider:filterProvider,roles:filterRight}")
+							tr(ng-repeat="user in usersAll | filter : filterUser | filter: {provider:filterProvider,roles:filterRight}")
 								td
 									img(ng-if="user.provider=='facebook'" src="img/FB-f-Logo__blue_29.png" )
 									img(ng-if="user.provider=='local'" src="img/header_graphic_small.png" )

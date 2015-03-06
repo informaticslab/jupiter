@@ -126,11 +126,11 @@
 							tr
 								th.col-md-1
 									| Provider
-								th.col-md-5
-									| Name
-								//th.col-md-2
-									| Last login
 								th.col-md-1
+									| Name
+								th.col-md-4
+									| Last login
+								th.col-md-2
 									//span.cursor-help(tooltip='Access Rights Management', tooltip-placement='top') 
 										| Level 1
 									//br
@@ -139,16 +139,16 @@
 									br
 									small
 										| (Level 1)
-								th.col-md-1
+								th.col-md-2
 									//span.cursor-help(tooltip='Aprrove/Decline Change Requests', tooltip-placement='top') 
 										| Level 2
 									//br
 									//small
-									| Aprrove/Decline Change Requests
+									| Aprove/Decline Change Requests
 									br
 									small
 										| (Level 2)
-								th.col-md-1
+								th.col-md-2
 									//span.cursor-help(tooltip='Add/Modify/View Change Requests', tooltip-placement='top') 
 										| Level 3
 									//br
@@ -163,11 +163,15 @@
 									img(ng-if="user.provider=='facebook'" src="img/FB-f-Logo__blue_29.png" )
 									img(ng-if="user.provider=='local'" src="img/header_graphic_small.png" )
 									img(ng-if="user.provider=='piv'" src="img/PIV_Card_Sample_sm.png" )
+									//small
+										|  {{user.provider | TitleCase}}
 								td
 									| {{user.lastName + ', ' + user.firstName}}
 									br
 									.small
-										| {{user.email}} - {{user.lastLogin | date :'medium'}}
+										| {{user.email}}
+								td
+									| {{user.lastLogin | date :'medium'}}
 								td
 									input(type="checkbox" ng-checked="user.roles.levelOne" ng-change="updateRights(user,'levelOne',l1Value)" ng-model="l1Value")
 								td

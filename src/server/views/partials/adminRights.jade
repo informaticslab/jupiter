@@ -76,47 +76,47 @@
 					.col-lg-6.col-md-6.col-sm-6.pull-right
 						.btn-group.pull-right
 							button.btn.btn-default(type="button")
-								| Provider
+								| {{ProviderBtnLabl}}
 							button.btn.btn-default.dropdown-toggle(type="button" data-toggle="dropdown" aria-expanded="false")
 								span.caret
 								span.sr-only
 									| Toggle Dropdown
 							ul.dropdown-menu(role="menu")
 								li
-									a(href="" ng-click="setFilterProvider('local')")
+									a(href="" ng-click="setFilterProvider('local');ProviderBtnLabl='Local'")
 										| Local
 								li
-									a(href="" ng-click="setFilterProvider('piv')")
+									a(href="" ng-click="setFilterProvider('piv');ProviderBtnLabl='PIV'")
 										| PIV
 								li
-									a(href="" ng-click="setFilterProvider('facebook')")
+									a(href="" ng-click="setFilterProvider('facebook');ProviderBtnLabl='Facebook'")
 										| Facebook
 								li.divider
 								li
-									a(href="" ng-click="setFilterProvider('')")
+									a(href="" ng-click="setFilterProvider('');ProviderBtnLabl='User Type'")
 										| All
 						.pull-right
 							| &nbsp;&nbsp;
 						.btn-group.pull-right
 							button.btn.btn-default(type="button")
-								| Rights
+								| {{RightsBtnLabl}}
 							button.btn.btn-default.dropdown-toggle(type="button" data-toggle="dropdown" aria-expanded="false")
 								span.caret
 								span.sr-only
 									| Toggle Dropdown
 							ul.dropdown-menu(role="menu")
 								li
-									a(href="" ng-click="setFilterRight('levelOne')")
+									a(href="" ng-click="setFilterRight('levelOne');RightsBtnLabl='Level 1'")
 										| Level 1
 								li
-									a(href="" ng-click="setFilterRight('levelTwo')")
+									a(href="" ng-click="setFilterRight('levelTwo');RightsBtnLabl='Level 2'")
 										| Level 2
 								li
-									a(href="" ng-click="setFilterRight('levelThree')")
+									a(href="" ng-click="setFilterRight('levelThree');RightsBtnLabl='Level 3'")
 										| Level 3
 								li.divider
 								li
-									a(href="" ng-click="setFilterRight('')")
+									a(href="" ng-click="setFilterRight('');RightsBtnLabl='Right'")
 										| All
 					
 				.vertical_spacing_less
@@ -125,10 +125,10 @@
 						table.table.table-hover
 							tr
 								th.col-md-1
-									| Provider
-								th.col-md-1
+									| User Type
+								th.col-md-5
 									| Name
-								th.col-md-4
+								//th.col-md-4
 									| Last login
 								th.col-md-2
 									//span.cursor-help(tooltip='Access Rights Management', tooltip-placement='top') 
@@ -158,7 +158,7 @@
 									small
 										| (Level 3)
 								//th.col-md-3
-							tr(ng-repeat="user in usersAll | filter : {firstName:filterUser,provider:filterProvider,roles:filterRight}")
+							tr(ng-repeat="user in usersAll | filter : filterUser | filter: {provider:filterProvider,roles:filterRight}")
 								td
 									img(ng-if="user.provider=='facebook'" src="img/FB-f-Logo__blue_29.png" )
 									img(ng-if="user.provider=='local'" src="img/header_graphic_small.png" )
@@ -170,7 +170,9 @@
 									br
 									.small
 										| {{user.email}}
-								td
+										|  - 
+										| {{user.lastLogin | date :'medium'}}
+								//td
 									| {{user.lastLogin | date :'medium'}}
 								td
 									input(type="checkbox" ng-checked="user.roles.levelOne" ng-change="updateRights(user,'levelOne',l1Value)" ng-model="l1Value")

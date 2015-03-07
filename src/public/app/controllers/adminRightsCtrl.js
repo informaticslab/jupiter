@@ -4,6 +4,9 @@ angular.module('apolloApp').controller('adminRightsCtrl', ['$scope', '$modal','$
 
     var init = function(){
 
+    $scope.RightsBtnLabl="Right";
+    $scope.ProviderBtnLabl="User Type";
+
     var cacheRenew=new Date().getTime();
     $http.get('/apollo/api/mongo/users/all'+'?'+cacheRenew).then(function(res) {
             $scope.usersAll=res.data;
@@ -59,7 +62,12 @@ angular.module('apolloApp').controller('adminRightsCtrl', ['$scope', '$modal','$
 
   $scope.setFilterProvider=function(provider)
   {
+    if(provider=="")
+    {
+      $scope.filterProvider=undefined;
+    }
     $scope.filterProvider=provider;
+
   }
 
   $scope.setFilterRight=function(right)
@@ -68,7 +76,7 @@ angular.module('apolloApp').controller('adminRightsCtrl', ['$scope', '$modal','$
     
     if(right=="")
     {
-      $scope.filterRight="";
+      $scope.filterRight=undefined;
     }
     else
     {

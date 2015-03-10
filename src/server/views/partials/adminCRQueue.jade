@@ -44,25 +44,7 @@
 			//- 	// end button group
 			//- // end nav_split
 			.top_block_faq
-				h4.orange_main_faq
-					span.glyphicon.glyphicon-comment.icon-flipped.faq_icon
-					| CISP Admin Console
-				.vertical_spacing_browse
-				.row
-					.col-lg-12.col-md-12.col-sm-12
-						ul.nav.nav-pills
-							li(role="presentation")
-								a(href="#/adminCRAdd")
-									| Add Node
-							li(role="presentation")
-								a(href="#/adminCREdit")
-									| Edit/Delete Node
-							li.active(role="presentation")
-								a(href="#/adminCRQueue")
-									| Queue
-							li(role="presentation")
-								a(href="#/adminRights")
-									| Rights Management
+				ng-include(src="'/apollo/partials/adminMenuBar'")
 				hr
 				.vertical_spacing_less
 				.row

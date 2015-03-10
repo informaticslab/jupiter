@@ -1,0 +1,19 @@
+h4.orange_main_faq
+	span.glyphicon.glyphicon-comment.icon-flipped.faq_icon
+	| CISP Admin Console
+.vertical_spacing_browse
+.row
+	.col-lg-12.col-md-12.col-sm-12
+		ul.nav.nav-pills
+			li.active(role="presentation" ng-show="identity.currentUser.isLevelThree()")
+				a(href="#/adminCRAdd")
+					| Add Node
+			li(role="presentation" ng-show="identity.currentUser.isLevelThree()")
+				a(href="#/adminCREdit")
+					| Edit/Delete Node
+			li(role="presentation" ng-show="identity.currentUser.isLevelThree()")
+				a(href="#/adminCRQueue" )
+					| Queue
+			li(role="presentation" ng-show="identity.currentUser.isLevelOne()")
+				a(href="#/adminRights")
+					| Rights Management

@@ -814,7 +814,7 @@ td.result_number_total {font-weight: bold; padding-top:.7em;}
 .border{border-bottom-color:#ddd;border-bottom-width: .06em ; border-bottom-style: solid;}
 .mouse-pointer{cursor:pointer;}
 ins{background-color: #75BAA8}
-del{background-color: #F38264}
+del{}
 .rowhighlight{background-color: #F7F7F7}
 
 .fa-plus-circle {font-size:1.3em; padding-right:.4em; }

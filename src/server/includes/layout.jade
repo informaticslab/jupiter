@@ -158,15 +158,25 @@ html(lang="en" ng-app='apolloApp')
 									br
 									button.btn.btn-primary(ng-click="signin(email,password)")
 										| Login
-									button.btn.btn-warning#cButton(ng-click="cancel()")
-										| Cancel
 						hr
 						.row
-							.col-lg-12.col-md-12.col-sm-12
-								h5
-									| You can also login using:
+							.col-lg-6.col-md-6.col-sm-6
+								strong
+									span
+										| You can also login using:
+								br
+								br
 								a(href="/apollo/auth/facebook")
 									img(src="img/FB-f-Logo__blue_29.png" )
+							.col-lg-6.col-md-6.col-sm-6
+								strong
+									span
+										|  
+								br
+								br
+								span.pull-right
+									button.btn.btn-warning#cButton(ng-click="cancel()")
+										| Cancel
 					//.modal-footer
 						.modal_show
 							h4

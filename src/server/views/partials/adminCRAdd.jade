@@ -65,15 +65,15 @@
 										| - 
 									| {{cr['name']}}
 						.vertical_spacing_lesser
-						.row(ng-repeat="node in nodeDictionaryAttributes")
-							.col-lg-4.col-md-4.col-sm-4(ng-hide="node.attribute=='id'")
+						.row(ng-repeat="node in nodeDictionaryAttributes | orderBy:'sortIndex'")
+							.col-lg-3.col-md-3.col-sm-3(ng-hide="node.attribute=='id'")
 								span.cursor-help(ng-if="node.attribute=='name'" tooltip='{{node.description}}', tooltip-placement='right') 
 									b
 										| {{node.displayLabel+'*' | unCamelCase}}
 								span.cursor-help(ng-if="node.attribute!='name'" tooltip='{{node.description}}', tooltip-placement='right') 
 									b
 										| {{node.displayLabel | unCamelCase}}
-							.col-lg-8.col-md-8.col-sm-8(ng-hide="node.attribute=='id'")
+							.col-lg-9.col-md-9.col-sm-9(ng-hide="node.attribute=='id'")
 								.form-group(ng-class="{'has-error':txtid=='name' && highlightMissingTxt && cr['name']==''}")
 									input.form-control(id="{{txtid=node.attribute}}" type="text" ng-model="cr[txtid]" )
 								.alert.alert-danger(ng-if="highlightMissingTxt && txtid=='name' && cr['name']==''" role="alert")

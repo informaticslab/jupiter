@@ -1,5 +1,6 @@
-angular.module('apolloApp').controller('adminCRQueueCtrl', ['$scope', '$modal','$http','nodeAttributeDictionary','ngIdentity',
-	function($scope,$modal,$http,nodeAttributeDictionary,ngIdentity) {
+angular.module('apolloApp').controller('adminCRQueueCtrl', ['$scope','$modal','$location','$http','nodeAttributeDictionary','ngIdentity',
+	function($scope,$modal,$location, $http,nodeAttributeDictionary,ngIdentity) {
+
 
     $scope.open = function (docid) {
 
@@ -20,12 +21,21 @@ angular.module('apolloApp').controller('adminCRQueueCtrl', ['$scope', '$modal','
           //$log.info('Modal dismissed at: ' + new Date());
           //console.log('Modal dismissed at: ' + new Date(),$scope.selected);
         });
-  };
+    };
     
     $scope.crStatusModel='PENDING';
     //console.log("test");
     $scope.userFilter="";
     $scope.usersu=false;
+
+
+    // var location = $location.path();
+    // console.log(location);
+    
+     $scope.isActive = function(route) {
+        return route === $location.path();
+    }
+
 
     $scope.init=function()
     {
@@ -90,6 +100,8 @@ angular.module('apolloApp').controller('adminCRQueueCtrl', ['$scope', '$modal','
 
 
     $scope.init();
+
+   
 
     $scope.deleteCR = function(id){
         //console.log(id);

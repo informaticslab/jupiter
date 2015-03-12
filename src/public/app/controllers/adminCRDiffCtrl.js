@@ -51,7 +51,14 @@ angular.module('apolloApp').controller('adminCRDiffCtrl', ['$scope','$modal', '$
             $scope.actAttributes[x] = [];
             for (y in nodeAttributeDictionary[x].attributeGroups) {
                 for (z in nodeAttributeDictionary[x].attributeGroups[y].attributes) {
-                    $scope.actAttributes[x].push("" + z + "");
+                    //$scope.actAttributes[x].push("" + z + "");
+                    $scope.actAttributes[x].push({
+                        attribute:z,
+                        description:nodeAttributeDictionary[x].attributeGroups[y].attributes[z].description,
+                        displayLabel:nodeAttributeDictionary[x].attributeGroups[y].attributes[z].displayLabel,                        
+                        sortIndex:nodeAttributeDictionary[x].attributeGroups[y].attributes[z].sortIndex
+                    });
+                    
                     //for getting attribute names 
                     // var attname=$filter('unCamelCase')(z);
                     // //console.log("x="+x+", z=" + attname + ", des="+nodeAttributeDictionary[x].attributeGroups[y].attributes[z].description);
@@ -174,8 +181,8 @@ angular.module('apolloApp').controller('adminCRDiffCtrl', ['$scope','$modal', '$
 
 
                     $scope.nodeDictionaryAttributes.forEach(function(d){
-                        var valueNew = $scope.mongoData[0][d];
-                        $scope.crDiffValues.push({"key":d,"valueNew":valueNew})
+                        var valueNew = $scope.mongoData[0][d.attribute];
+                        $scope.crDiffValues.push({"key":d.attribute,"valueNew":valueNew})
                     });
 
                     fetchRelationshipValues();
@@ -193,22 +200,32 @@ angular.module('apolloApp').controller('adminCRDiffCtrl', ['$scope','$modal', '$
                         
                         $scope.nodeDictionaryAttributes.forEach(function(d){
 
-                            
+                            console.log(d.attribute);
                             for(na in $scope.nodeData.attributes)
                             {
                                 var key = $scope.nodeData.attributes[na].key;
 
                                 var valueOld = $scope.nodeData.attributes[na].value;
-                                var valueNew = $scope.mongoData[0][d];
+                                var valueNew = $scope.mongoData[0][d.attribute];
                                 var diffFlg=false;
-                                if(key==d)
+                                var rollbackdiffFlg=false;
+                                if(key==d.attribute)
                                 {
                                     //console.log(value);
                                     var diff=diffString(valueOld,valueNew);
-                                    var rollbackdiff;
+                                    var rollbackdiff,rollbackdiffreverse;
                                     if($scope.crPrev != null && $scope.crPrev != "")
                                     {
                                         rollbackdiff=diffString(valueOld,rollback[key]);
+                                        rollbackdiffreverse=diffString(rollback[key],valueOld);
+                                        if(rollbackdiff.indexOf("<ins>")>-1)
+                                        {
+                                            rollbackdiffFlg=true;
+                                        }
+                                        if(rollbackdiff.indexOf("<del>")>-1)
+                                        {
+                                            rollbackdiffFlg=true;
+                                        }
                                     }
                                     //console.log(diff);
                                     
@@ -220,10 +237,12 @@ angular.module('apolloApp').controller('adminCRDiffCtrl', ['$scope','$modal', '$
                                     {
                                         diffFlg=true;
                                     }
+
+
                                     if($scope.crPrev != null && $scope.crPrev != "")
-                                        $scope.crDiffValues.push({"key":key,"valueOld":valueOld,"valueNew":valueNew,"diff":diff,"diffFlg":diffFlg,"rollback":rollback[key],"rollbackdiff":rollbackdiff})
+                                        $scope.crDiffValues.push({"key":key,"valueOld":valueOld,"valueNew":valueNew,"diff":diff,"diffFlg":diffFlg,"rollback":rollback[key],"rollbackdiff":rollbackdiff,"rollbackdiffreverse":rollbackdiffreverse,"rollbackdiffFlg":rollbackdiffFlg,sortIndex:d.sortIndex,displayLabel:d.displayLabel,description:d.description})
                                     else
-                                        $scope.crDiffValues.push({"key":key,"valueOld":valueOld,"valueNew":valueNew,"diff":diff,"diffFlg":diffFlg})
+                                        $scope.crDiffValues.push({"key":key,"valueOld":valueOld,"valueNew":valueNew,"diff":diff,"diffFlg":diffFlg,sortIndex:d.sortIndex,displayLabel:d.displayLabel,description:d.description})
                                     currentneodata[key]=valueOld;
                                     //$scope.cr[key]=value;
 
@@ -235,7 +254,7 @@ angular.module('apolloApp').controller('adminCRDiffCtrl', ['$scope','$modal', '$
                         });
 
                        
-                        //console.log("currentneodata=",currentneodata); 
+                        console.log("$scope.crDiffValues=",$scope.crDiffValues); 
                         fetchRelationshipValues();
                     }); //http get
 

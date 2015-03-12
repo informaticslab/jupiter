@@ -9,7 +9,7 @@ angular.module('apolloApp').factory('nodeAttributeDictionary', function() {
                         'name': {
                             'description': 'Organization Name',
                             'displayLabel': 'Name',
-                            'sortIndex': '1'
+                            'sortIndex': '01'
                         },
                         'mission': {
                             'description': 'Describes the overall purpose / mission of Organization',
@@ -19,7 +19,7 @@ angular.module('apolloApp').factory('nodeAttributeDictionary', function() {
                         'id': {
                             'description': 'Identifier',
                             'displayLabel': 'ID',
-                            'sortIndex': '2'
+                            'sortIndex': '02'
                         }
                     }
                 },
@@ -45,57 +45,57 @@ angular.module('apolloApp').factory('nodeAttributeDictionary', function() {
                         'lastUpdated': {
                             'description': 'Date of last update to information in this system',
                             'displayLabel': 'Last Updated',
-                            'sortIndex': '3'
+                            'sortIndex': '03'
                         },
                         'informationValidated': {
                             'description': 'Has the information in this system been validated by an appropriate program / team?',
                             'displayLabel': 'Information Validated by Program',
-                            'sortIndex': '4'
+                            'sortIndex': '04'
                         },
                         'lastUpdatedBy': {
                             'description': 'By whom was the information last updated?',
                             'displayLabel': 'Information Updated By',
-                            'sortIndex': '3.1'
+                            'sortIndex': '03.1'
                         },'informationValidatedBy': {
                             'description': 'By whom was the information validated?',
                             'displayLabel': 'Information Validated By',
-                            'sortIndex': '4.1'
+                            'sortIndex': '04.1'
                         },
                         'informationValidatedOn': {
                             'description': 'When was the information last validated?',
                             'displayLabel': 'Date Validated',
-                            'sortIndex': '4.2'
+                            'sortIndex': '04.2'
                         },
                         'cdcEntity': {
                             'description': 'Is this organization a part of CDC',
                             'displayLabel': 'CDC Entity',
-                            'sortIndex': '5'
+                            'sortIndex': '05'
                         },
                         'fullName': {
                             'description': 'Full name of Organization, Center, Institute or Office',
                             'displayLabel': 'Full Name',
-                            'sortIndex': '6'
+                            'sortIndex': '06'
                         },
                         'shortName': {
                             'description': 'Abbreviation or Acronym of the Organization (e.g., CDC).',
                             'displayLabel': 'Short Name',
-                            'sortIndex': '7'
+                            'sortIndex': '07'
                         },
                         'fullNameDivision': {
                             'description': 'Full name of the Division (if applies)',
                             'displayLabel': 'Division Full Name',
-                            'sortIndex': '8'
+                            'sortIndex': '08'
                         },
                         'shortNameDivision': {
                             'description': 'Abbreviation or Acronym of the Division (if applies)',
                             'displayLabel': 'Division Short Name',
-                            'sortIndex': '9'
+                            'sortIndex': '09'
                         }
                     }
                 },
                 'Contact Information': {
                     'heading': 'Contact Information',
-                    'sortIndex': '5',
+                    'sortIndex': '05',
                     'attributes': {
                         'contactName': {
                             'description': 'Person who is the best to contact for more information',

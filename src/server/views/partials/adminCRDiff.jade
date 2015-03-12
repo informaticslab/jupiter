@@ -117,34 +117,36 @@
 							th.col-lg-2.col-md-2.col-sm-2
 								b
 									| Attribute Name
-							th.col-lg-3.col-md-3.col-sm-3(ng-if="crRequestType!='DELETE'")
-								b
-									| CR Value 
 							th.col-lg-3.col-md-3.col-sm-3(ng-if="crRequestType!='ADD'")
 								b
-									| Current Database Value
+									| Current Version
+							th.col-lg-3.col-md-3.col-sm-3(ng-if="crRequestType!='DELETE'")
+								b
+									| Requested Edits
 							th.col-lg-3.col-md-3.col-sm-3(ng-if="crRequestType!='ADD' && crRequestType!='DELETE' && crStatus!='APPROVED' ")
 								b
-									| Difference
+									| Proposed Revised Version
 							th.col-lg-3.col-md-3.col-sm-3(ng-if="crRequestType!='ADD' && crStatus=='APPROVED' && crRequestType!='DELETE'")
 								b
 									| Previous Value 
 									span(ng-if="crApproveDate")
 										| (Before: {{crApproveDate | date :'medium'}})
 					tbody
-						tr(ng-repeat="row in crDiffValues" ng-class="{rowhighlight:row.diffFlg}" ng-hide="row.key=='id'")
+						tr(ng-repeat="row in crDiffValues | orderBy:'sortIndex'" ng-class="{rowhighlight:row.diffFlg}" ng-hide="row.key=='id'")
 							td.col-lg-2.col-md-2.col-sm-2
-								b
+								span.cursor-help(tooltip='{{row.description}}', tooltip-placement='right') 
 									small
-										| {{row.key | unCamelCase}}
-							td.col-lg-3.col-md-3.col-sm-3(ng-if="crRequestType!='DELETE'")
-								small(ng-show="!editCRChk.yes" ng-bind-html="row.valueNew")
-								small
-									input.form-control(ng-show="editCRChk.yes" type="text" ng-model="editCRValues[row.key]"  placeholder="")
+										b
+											| {{row.displayLabel | unCamelCase}}
 							td.col-lg-3.col-md-3.col-sm-3(ng-if="crRequestType!='ADD'")
 								small(ng-bind-html="row.valueOld")
 							td.col-lg-3.col-md-3.col-sm-3(ng-if="crRequestType!='ADD' && crRequestType!='DELETE' && crStatus!='APPROVED' ")
 								small(ng-bind-html="row.diff" ng-if="row.diffFlg" )
+							td.col-lg-3.col-md-3.col-sm-3(ng-if="crRequestType!='DELETE'")
+								small(ng-show="!editCRChk.yes" ng-bind-html="row.valueNew" ng-if="crStatus=='PENDING'")
+								small(ng-if="crStatus=='PENDING'")
+									input.form-control(ng-show="editCRChk.yes" type="text" ng-model="editCRValues[row.key]"  placeholder="")
+								small(ng-bind-html="row.rollbackdiffreverse" ng-if="crStatus!='PENDING' && row.rollbackdiffFlg")
 							td.col-lg-3.col-md-3.col-sm-3(ng-if="crRequestType!='ADD' && crStatus=='APPROVED' && crRequestType!='DELETE'")
 								small(ng-bind-html="row.rollbackdiff")
 				.row

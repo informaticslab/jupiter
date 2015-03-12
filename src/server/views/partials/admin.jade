@@ -71,10 +71,12 @@
 										| - 
 									| {{node}}
 						.vertical_spacing_lesser
-						.row(ng-repeat="node in nodeKeyValues")
-							.col-lg-2.col-md-2.col-sm-2(ng-hide="node.key=='id'")
-								| {{node.key | unCamelCase}}
-							.col-lg-10.col-md-10.col-sm-10(ng-hide="node.key=='id'")
+						.row(ng-repeat="node in nodeKeyValues | orderBy:'sortIndex' ")
+							.col-lg-4.col-md-4.col-sm-4(ng-hide="node.key=='id'")
+								span.cursor-help(tooltip='{{node.description}}', tooltip-placement='right') 
+									b
+										| {{node.displayLabel | unCamelCase}}
+							.col-lg-8.col-md-8.col-sm-8(ng-hide="node.key=='id'")
 								input.form-control(id="{{txtid=node.key}}" type="text" ng-model="cr[txtid]" )
 								.vertical_spacing_lesser
 				.vertical_spacing_lesser

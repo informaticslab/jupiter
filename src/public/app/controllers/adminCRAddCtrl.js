@@ -74,7 +74,7 @@ angular.module('apolloApp').controller('adminCRAddCtrl', ['$scope', '$http','$fi
         $scope.cr={};
         $scope.nodeDictionaryAttributes.forEach(function(d){
 
-            $scope.cr[d]="";
+            $scope.cr[d.attribute]="";
 
             //console.log(d, nodeData.attributes);
         });
@@ -190,7 +190,13 @@ angular.module('apolloApp').controller('adminCRAddCtrl', ['$scope', '$http','$fi
                 $scope.actAttributes[x] = [];
                 for (y in nodeAttributeDictionary[x].attributeGroups) {
                     for (z in nodeAttributeDictionary[x].attributeGroups[y].attributes) {
-                        $scope.actAttributes[x].push("" + z + "");
+                        //$scope.actAttributes[x].push("" + z + "");
+                        $scope.actAttributes[x].push({
+                            attribute:z,
+                            description:nodeAttributeDictionary[x].attributeGroups[y].attributes[z].description,
+                            displayLabel:nodeAttributeDictionary[x].attributeGroups[y].attributes[z].displayLabel,                        
+                            sortIndex:nodeAttributeDictionary[x].attributeGroups[y].attributes[z].sortIndex
+                        });
                         //for getting attribute names 
                         // var attname=$filter('unCamelCase')(z);
                         // //console.log("x="+x+", z=" + attname + ", des="+nodeAttributeDictionary[x].attributeGroups[y].attributes[z].description);

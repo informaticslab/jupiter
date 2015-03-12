@@ -135,7 +135,7 @@ angular.module('apolloApp').controller('adminCtrl', ['$scope','$modal', '$http',
 
 
     function fetchRelationshipValues(){
-                    $http.get('/apollo/api/node/relationships/' + $scope.nodeId).then(function(res) {
+                $http.get('/apollo/api/node/relationships/' + $scope.nodeId).then(function(res) {
                 $scope.relvalues=res.data;
                 //$scope.relarray=[];
 
@@ -162,14 +162,15 @@ angular.module('apolloApp').controller('adminCtrl', ['$scope','$modal', '$http',
                 //console.log(nodeData.attributes[0].key);
                 $scope.nodeKeyValues=[];
                 $scope.nodeDictionaryAttributes.forEach(function(d){
+                    console.log(d);
                     for(na in nodeData.attributes)
                     {
                         var key = nodeData.attributes[na].key;
                         var value = nodeData.attributes[na].value;
-                        if(key==d)
+                        if(key==d.attribute)
                         {
                             //console.log(value);
-                            $scope.nodeKeyValues.push({"key":key,"value":value})
+                            $scope.nodeKeyValues.push({"key":d.attribute,"value":value,"displayLabel":d.displayLabel,"sortIndex":d.sortIndex,"description":d.description})
                             $scope.cr[key]=value;
                         }
                         if(key=="name")
@@ -226,7 +227,13 @@ angular.module('apolloApp').controller('adminCtrl', ['$scope','$modal', '$http',
                 $scope.actAttributes[x] = [];
                 for (y in nodeAttributeDictionary[x].attributeGroups) {
                     for (z in nodeAttributeDictionary[x].attributeGroups[y].attributes) {
-                        $scope.actAttributes[x].push("" + z + "");
+                        //$scope.actAttributes[x].push("" + z + "");
+                        $scope.actAttributes[x].push({
+                            attribute:z,
+                            description:nodeAttributeDictionary[x].attributeGroups[y].attributes[z].description,
+                            displayLabel:nodeAttributeDictionary[x].attributeGroups[y].attributes[z].displayLabel,                        
+                            sortIndex:nodeAttributeDictionary[x].attributeGroups[y].attributes[z].sortIndex
+                        });
                         //for getting attribute names 
                         // var attname=$filter('unCamelCase')(z);
                         // //console.log("x="+x+", z=" + attname + ", des="+nodeAttributeDictionary[x].attributeGroups[y].attributes[z].description);

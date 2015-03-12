@@ -95,7 +95,7 @@ angular.module('apolloApp').factory('nodeAttributeDictionary', function() {
                 },
                 'Contact Information': {
                     'heading': 'Contact Information',
-                    'sortIndex': '05',
+                    'sortIndex': '5',
                     'attributes': {
                         'contactName': {
                             'description': 'Person who is the best to contact for more information',

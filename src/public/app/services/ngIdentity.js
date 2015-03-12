@@ -18,6 +18,7 @@ angular.module('apolloApp').factory('ngIdentity', function($window, ngUser,$loca
 		},
 
 		isAuthorized: function(role){
+
 			if (role == 'levelThree') {
 				return !!this.currentUser && this.currentUser.roles.levelThree;
 			}
@@ -26,6 +27,9 @@ angular.module('apolloApp').factory('ngIdentity', function($window, ngUser,$loca
 			}
 			if (role == 'levelOne') {
 				return !!this.currentUser && this.currentUser.roles.levelOne;
+			}
+			if (role == 'levelTwoOrThree') {
+				return !!this.currentUser && (this.currentUser.roles.levelThree || this.currentUser.roles.levelTwo);
 			}
 			
 		},

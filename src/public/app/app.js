@@ -23,7 +23,10 @@ var routeRoleChecks = {
           }},
   levelOne:{auth:function(ngAuth){
     return ngAuth.authorizeCurrentUserForRoute('levelOne')
-          }}        
+          }},
+  levelTwoOrThree:{auth:function(ngAuth){
+    return ngAuth.authorizeCurrentUserForRoute('levelTwoOrThree')
+  }}     
 };
 
 apolloApp.config(['$routeProvider', 
@@ -126,7 +129,7 @@ apolloApp.config(['$routeProvider',
           when('/adminCRQueue', {
         templateUrl: 'partials/adminCRQueue',
         controller: 'adminCRQueueCtrl',
-        resolve: routeRoleChecks.levelThree
+        resolve: routeRoleChecks.levelTwoOrThree
       }).
           when('/adminCRQueue/CRDiff/:id', {
         templateUrl: 'partials/adminCRDiff',

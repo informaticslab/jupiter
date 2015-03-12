@@ -9,8 +9,7 @@
 					a(href="#/adminCRAdd") Add Node
 				li(ng-show="identity.currentUser.isLevelThree()")
 					a(href="#/adminCREdit") Edit/Delete Node	
-				//- li(ng-show="identity.currentUser.isLevelTwo() || identity.currentUser.isLevelThree()")
-				li(ng-show="identity.currentUser.isLevelThree()")
+				li(ng-show="identity.currentUser.isLevelTwo() || identity.currentUser.isLevelThree()")
 					a(href="#/adminCRQueue") Request Queue
 				li(ng-show="identity.currentUser.isLevelOne()")
 					a(href="#/adminRights") Rights Management

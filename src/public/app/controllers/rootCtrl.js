@@ -245,7 +245,7 @@ angular.module('apolloApp').controller('rootCtrl', function($scope, $http, $loca
   $scope.getPIVinfo = function(){
      console.log($scope.identity.isAuthenticated());
      console.log('protocol'+ $location.protocol());
-    if($location.protocol() == 'https'){
+    if($location.protocol() == 'https' && !$scope.identity.isAuthenticated()){
      
         ngAuth.autheticateUserPiv().then(function(success){
         //console.log(success);

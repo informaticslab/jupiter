@@ -60,12 +60,6 @@ exports.authenticatePIV = function(req, res) {
             pivDisplayName = pivFirstName +pivLastName;
         }
 
-         console.log(pivUserID);
-         console.log(pivUserName);
-         console.log(pivFirstName);
-         console.log(pivLastName);
-         console.log('DISPLAY------' + pivDisplayName);
-
         User.findOne({'id': pivUserID}, function(err, user) {
             if (err) {
                 return err
@@ -77,7 +71,10 @@ exports.authenticatePIV = function(req, res) {
                         if (err){
                             throw err;
                         } else {
-                             res.send({success:true, user:user});
+                             req.logIn(user, function(err) {
+                                if(err) {return next(err);}
+                                res.send({success:true, user:user});
+                            })
                         }
                     })
                    
@@ -98,13 +95,14 @@ exports.authenticatePIV = function(req, res) {
                 newUser.provider = 'piv';
                 newUser.lastLogin = new Date();
 
-                console.log("newUser",newUser);
-
                 newUser.save(function(err){
                     if (err){
                             throw err;
                         } else{
-                        res.send({success:true, user:newUser});
+                        req.logIn(user, function(err) {
+            if(err) {return next(err);}
+            res.send({success:true, user:newUser});
+        })
                         }
                 });
                 

@@ -1,11 +1,13 @@
-angular.module('apolloApp').controller('adminRightsCtrl', ['$scope', '$modal','$http','nodeAttributeDictionary','ngIdentity','ngNotifier',
-	function($scope,$modal,$http,nodeAttributeDictionary,ngIdentity,ngNotifier) {
+angular.module('apolloApp').controller('adminRightsCtrl', ['$scope', '$modal','$location','$http','nodeAttributeDictionary','ngIdentity','ngNotifier',
+	function($scope,$modal,$location,$http,nodeAttributeDictionary,ngIdentity,ngNotifier) {
 
 
     var init = function(){
 
     $scope.RightsBtnLabl="Right";
     $scope.ProviderBtnLabl="User Type";
+
+    
 
     var cacheRenew=new Date().getTime();
     $http.get('/apollo/api/mongo/users/all'+'?'+cacheRenew).then(function(res) {
@@ -18,6 +20,10 @@ angular.module('apolloApp').controller('adminRightsCtrl', ['$scope', '$modal','$
             }
            
     });
+
+    $scope.isActive = function(route) {
+        return route === $location.path();
+    };
 
     $scope.updateRights = function(user,right,rightValue)
     {

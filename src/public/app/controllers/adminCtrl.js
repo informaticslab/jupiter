@@ -1,6 +1,9 @@
 angular.module('apolloApp').controller('adminCtrl', ['$scope','$modal', '$http','$filter','$routeParams','$location','nodeAttributeDictionary','nodeRelationshipDictionary', 'ngIdentity',
 	function($scope,$modal,$http,$filter,$routeParams,$location,nodeAttributeDictionary,nodeRelationshipDictionary,ngIdentity) {
 
+    $scope.isActive = function(route) {
+        return route === $location.path();
+    }
 
     $scope.open = function (docid) {
 

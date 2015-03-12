@@ -65,6 +65,9 @@ angular.module('apolloApp').controller('adminCRAddCtrl', ['$scope', '$http','$fi
 
     //         });
     // }
+    $scope.isActive = function(route) {
+        return route === $location.path();
+    }
 
     function fetchNodeValues(){
 

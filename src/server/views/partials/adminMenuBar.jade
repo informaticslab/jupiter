@@ -5,15 +5,16 @@ h4.orange_main_faq
 .row
 	.col-lg-12.col-md-12.col-sm-12
 		ul.nav.nav-pills
-			li.active(role="presentation" ng-show="identity.currentUser.isLevelThree()")
+			li(role="presentation" ng-show="identity.currentUser.isLevelThree()" ng-class="{active:isActive('/adminCRAdd')}")
 				a(href="#/adminCRAdd")
 					| Add Node
-			li(role="presentation" ng-show="identity.currentUser.isLevelThree()")
+			li(role="presentation" ng-show="identity.currentUser.isLevelThree()" ng-class="{active:isActive('/adminCREdit')}")
 				a(href="#/adminCREdit")
 					| Edit/Delete Node
-			li(role="presentation" ng-show="identity.currentUser.isLevelThree()")
+			//- li(role="presentation" ng-show="identity.currentUser.isLevelTwo() || identity.currentUser.isLevelThree()" ng-class="{active:isActive('/adminCRQueue')}")
+			li(role="presentation" ng-show="identity.currentUser.isLevelThree()" ng-class="{active:isActive('/adminCRQueue')}")
 				a(href="#/adminCRQueue" )
-					| Queue
-			li(role="presentation" ng-show="identity.currentUser.isLevelOne()")
+					| Request Queue
+			li(role="presentation" ng-show="identity.currentUser.isLevelOne()" ng-class="{active:isActive('/adminRights')}")
 				a(href="#/adminRights")
 					| Rights Management

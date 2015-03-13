@@ -74,7 +74,6 @@ angular.module('apolloApp').controller('navBarLoginCtrl',function($scope,$http,n
 	$scope.openLogin = function (size) {
 
       var modalInstance = $modal.open({
-        backdrop: 'static',
         templateUrl: 'loginModalContent.html',
         controller: LoginModalInstanceCtrl,
         size: size

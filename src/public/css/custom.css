@@ -53,6 +53,8 @@ html, body { overflow-x: hidden; }
 
 .search_button {position:relative; top:1.5em; }
 
+.close_button{background-color: #34495e}
+
 .hide_activity {background-color:#fdf3d0; border-bottom-style:solid; border-color:#f8ecc1; border-width:1px; min-height:45px; padding-top:.8em; padding-bottom:.7em; padding-left:1em; padding-right:1em;}
 
 .hide_activity_label {font-weight:bold; color:#555758; font-size:small; float:right; }

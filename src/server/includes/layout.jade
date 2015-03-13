@@ -119,6 +119,8 @@ html(lang="en" ng-app='apolloApp')
 			script(type="text/ng-template", id="loginModalContent.html")
 				.modal-content(ng-controller="navBarLoginCtrl")
 					.modal-header.header_dark
+						span.pull-right
+							button.btn.close_button.glyphicon.glyphicon-remove(ng-click="cancel()")
 						//.disclaimer_intro
 						h4.modal-title(id='myModalLabel') &nbsp;Login
 							img(alt='icon', src='img/modal_icon.png')
@@ -174,9 +176,8 @@ html(lang="en" ng-app='apolloApp')
 										|  
 								br
 								br
-								span.pull-right
-									button.btn.btn-warning#cButton(ng-click="cancel()")
-										| Cancel
+								
+									
 					//.modal-footer
 						.modal_show
 							h4

@@ -150,7 +150,7 @@ apolloApp.config(['$routeProvider',
           when('/adminCRQueue/CRDiff/:id', {
         templateUrl: 'partials/adminCRDiff',
         controller: 'adminCRDiffCtrl',
-        resolve: routeRoleChecks.levelThree
+        resolve: routeRoleChecks.levelTwoOrThree
       }).
           when('/adminRights', {
         templateUrl: 'partials/adminRights',

@@ -161,11 +161,16 @@ angular.module('apolloApp').controller('adminCtrl', ['$scope','$modal', '$http',
             $http.get('/apollo/api/node/'+ $scope.nodeId +'/labels').then(function(res1) {
                 $scope.nodeLabel=res1.data[0];
                 $scope.nodeDictionaryAttributes=$scope.actAttributes[res1.data[0]];
+                //console.log($scope.nodeDictionaryAttributes);
 
                 //console.log(nodeData.attributes[0].key);
                 $scope.nodeKeyValues=[];
                 $scope.nodeDictionaryAttributes.forEach(function(d){
-                    console.log(d);
+                    //console.log(d);
+                    console.log(d.attribute);
+
+                    var foundmatch=false;
+
                     for(na in nodeData.attributes)
                     {
                         var key = nodeData.attributes[na].key;
@@ -174,12 +179,18 @@ angular.module('apolloApp').controller('adminCtrl', ['$scope','$modal', '$http',
                         {
                             //console.log(value);
                             $scope.nodeKeyValues.push({"key":d.attribute,"value":value,"displayLabel":d.displayLabel,"sortIndex":d.sortIndex,"description":d.description})
-                            $scope.cr[key]=value;
+                            $scope.cr[d.attribute]=value;
+                            foundmatch=true;
                         }
                         if(key=="name")
                         {
                             $scope.node=value;
                         }
+                    }
+                    if(!foundmatch)
+                    {
+                        $scope.nodeKeyValues.push({"key":d.attribute,"value":"","displayLabel":d.displayLabel,"sortIndex":d.sortIndex,"description":d.description})
+                        $scope.cr[d.attribute]="";
                     }
 
                     //console.log(d, nodeData.attributes);

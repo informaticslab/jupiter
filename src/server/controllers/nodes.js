@@ -2176,7 +2176,7 @@ exports.postApproveCR = function(req, res) {
     //var checkedid=testID(mongodata.id);
 
     //console.log("func call for id",checkedid);
-    console.log("***********APPROVED***********req params mongodata",mongodata);
+    //console.log("***********APPROVED***********req params mongodata",mongodata);
     //console.log("req type",req_type);
 
     if (req_type == "ADD") {
@@ -2384,7 +2384,7 @@ exports.postApproveCR = function(req, res) {
     if (req_type == "UPDATE") {
 
         var query = 'match (n{id:\'' + mongodata.id + '\'}) set n={params}, n.CR_PREVIOUS={prevdata} return n';
-
+        console.log(query);
         var params = {
             params: mongodata,
             prevdata: prevdata
@@ -2449,68 +2449,113 @@ exports.postApproveCR = function(req, res) {
 
         });
         query = 'match ' + matchclause + ' with ' + withclause + createclause;
-        //console.log(query);
+        console.log(query);
 
         var delrelquery = "match (a{id:'" + mongodata.id + "'})-[r]-() delete r";
         //console.log(delrelquery);
 
-        neodb.db.query(delrelquery, {}, function(err, results) {
-            //console.log(results);
+        if(createclause.trim()=="")
+        {
+            var collection = mongo.mongodb.collection('cr');
 
-            if (err) {
-                console.error('Error retreiving node from database:', err);
-                res.send(404, 'No node at that location');
-            } else {
-                var params = {};
-                neodb.db.query(query, params, function(err1, results1) {
-                    //console.log(results1);
+            //var currenttime = new Date().getTime();
+            //console.log();
 
-                    if (err1) {
-                        console.error('Error retreiving node from database:', err1);
-                        res.send(404, 'No node at that location');
-                    } else {
-                        //console.log(results1);
-                        var collection = mongo.mongodb.collection('cr');
+            var mongodatawithoutid={};
 
-                        //var currenttime = new Date().getTime();
-                        //console.log();
+            for(var key in mongodata)
+            {
+                console.log(key);
+                if(key=="_id")
+                {
 
-                        var mongodatawithoutid={};
-
-                        for(var key in mongodata)
-                        {
-                            console.log(key);
-                            if(key=="_id")
-                            {
-
-                            }
-                            else
-                            {
-                                mongodatawithoutid[key]=mongodata[key];
-                            }
-                        }
-                        collection.update({
-                            _id: ObjectId(mongodata._id)
-                        }, mongodatawithoutid
-                        , function(err, result) {
-                            //console.log(result);
-                            res.send("success");
-
-                            var log={id:ObjectId(mongodata._id),action:"APPROVE",user:mongodata.CR_USER_DN_EXECUTE,date:currenttime,crdata:mongodata};
-
-                            var logcollection = mongo.mongodb.collection('logs');
-                        // Insert some documents
-                            logcollection.insert(log, function(err, result) {
-                                if(err)
-                                {
-                                    console.log("failed to insert log",err);
-                                }
-                            });          
-                        });
-                    }
-                });
+                }
+                else
+                {
+                    mongodatawithoutid[key]=mongodata[key];
+                }
             }
-        });
+            collection.update({
+                _id: ObjectId(mongodata._id)
+            }, mongodatawithoutid
+            , function(err, result) {
+                //console.log(result);
+                res.send("success");
+
+                var log={id:ObjectId(mongodata._id),action:"APPROVE",user:mongodata.CR_USER_DN_EXECUTE,date:currenttime,crdata:mongodata};
+
+                var logcollection = mongo.mongodb.collection('logs');
+            // Insert some documents
+                logcollection.insert(log, function(err, result) {
+                    if(err)
+                    {
+                        console.log("failed to insert log",err);
+                    }
+                });          
+            });
+        }
+        else
+        {
+                neodb.db.query(delrelquery, {}, function(err, results) {
+                //console.log(results);
+
+                if (err) {
+                    console.error('Error retreiving node from database:', err);
+                    res.send(404, 'No node at that location');
+                } else {
+                    var params = {};
+                    neodb.db.query(query, params, function(err1, results1) {
+                        //console.log(results1);
+
+                        if (err1) {
+                            console.error('Error retreiving node from database:', err1);
+                            res.send(404, 'No node at that location');
+                        } else {
+                            //console.log(results1);
+                            var collection = mongo.mongodb.collection('cr');
+
+                            //var currenttime = new Date().getTime();
+                            //console.log();
+
+                            var mongodatawithoutid={};
+
+                            for(var key in mongodata)
+                            {
+                                console.log(key);
+                                if(key=="_id")
+                                {
+
+                                }
+                                else
+                                {
+                                    mongodatawithoutid[key]=mongodata[key];
+                                }
+                            }
+                            collection.update({
+                                _id: ObjectId(mongodata._id)
+                            }, mongodatawithoutid
+                            , function(err, result) {
+                                //console.log(result);
+                                res.send("success");
+
+                                var log={id:ObjectId(mongodata._id),action:"APPROVE",user:mongodata.CR_USER_DN_EXECUTE,date:currenttime,crdata:mongodata};
+
+                                var logcollection = mongo.mongodb.collection('logs');
+                            // Insert some documents
+                                logcollection.insert(log, function(err, result) {
+                                    if(err)
+                                    {
+                                        console.log("failed to insert log",err);
+                                    }
+                                });          
+                            });
+                        }
+                    });
+                }
+            });
+        }
+
+
 
 
 
@@ -2537,7 +2582,7 @@ exports.postApproveCR = function(req, res) {
 
                 for(var key in mongodata)
                 {
-                    console.log(key);
+                    //console.log(key);
                     if(key=="_id")
                     {
 

@@ -73,7 +73,7 @@ angular.module('apolloApp').controller('adminCRAddCtrl', ['$scope', '$http','$fi
 
         $scope.nodeLabel=$scope.nodetypeselect;
         $scope.nodeDictionaryAttributes=$scope.actAttributes[$scope.nodeLabel];
-
+        //console.log($scope.nodeDictionaryAttributes);
         $scope.nodeGroups=[];
         for(a in nodeAttributeDictionary[$scope.nodeLabel].attributeGroups)
         {
@@ -85,17 +85,20 @@ angular.module('apolloApp').controller('adminCRAddCtrl', ['$scope', '$http','$fi
         $scope.nodeGroupAttributes={};
         for(group in $scope.nodeGroups)
         {
+            //console.log($scope.nodeGroups[group]);
             var heading=$scope.nodeGroups[group].heading;
             $scope.nodeGroupAttributes[heading]=[];
             for(attribute in $scope.nodeGroups[group].attributes)
             {
                 //console.log(group,$scope.nodeGroups[group].attributes[attribute]);
+                //console.log(attribute,$scope.nodeGroups[group]);
         
-                $scope.nodeGroupAttributes[heading].push($scope.nodeGroups[group].attributes[attribute]);
+                $scope.nodeGroupAttributes[heading].push({attributes:$scope.nodeGroups[group].attributes[attribute],attributeName:attribute});
             }
             //$scope.nodeGroups[group].heading
             
         }
+        console.log($scope.nodeGroupAttributes);
 
         $scope.highlightMissingTxt=false;
         $scope.cr={};

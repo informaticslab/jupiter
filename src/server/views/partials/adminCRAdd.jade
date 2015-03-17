@@ -71,17 +71,16 @@
 									| {{group.heading}}
 									//.vertical_spacing_lesser
 								.row(ng-repeat="node in nodeGroupAttributes[group.heading] | orderBy:'sortIndex'")
-									.col-lg-3.col-md-3.col-sm-3(ng-hide="node.attribute=='id'")
-										//| {{node}}
-										span.cursor-help(ng-if="node.attribute=='name'" tooltip='{{node.description}}', tooltip-placement='right') 
+									.col-lg-3.col-md-3.col-sm-3(ng-hide="node.attributeName=='id'")
+										span.cursor-help(ng-if="node.attributeName=='name'" tooltip='{{node.attributes.description}}', tooltip-placement='right') 
 											b
-												| {{node.displayLabel+'*' | unCamelCase}}
-										span.cursor-help(ng-if="node.attribute!='name'" tooltip='{{node.description}}', tooltip-placement='right') 
+												| {{node.attributes.displayLabel+'*' | unCamelCase}}
+										span.cursor-help(ng-if="node.attributeName!='name'" tooltip='{{node.attributes.description}}', tooltip-placement='right') 
 											b
-												| {{node.displayLabel | unCamelCase}}
-									.col-lg-9.col-md-9.col-sm-9(ng-hide="node.attribute=='id'")
+												| {{node.attributes.displayLabel | unCamelCase}}
+									.col-lg-9.col-md-9.col-sm-9(ng-hide="node.attributeName=='id'")
 										.form-group(ng-class="{'has-error':txtid=='name' && highlightMissingTxt && cr['name']==''}")
-											input.form-control(id="{{txtid=node.attribute}}" type="text" ng-model="cr[txtid]" )
+											input.form-control(id="{{txtid=node.attributeName}}" type="text" ng-model="cr[txtid]" )
 										.alert.alert-danger(ng-if="highlightMissingTxt && txtid=='name' && cr['name']==''" role="alert")
 											| Name field is required
 										.vertical_spacing_lesser

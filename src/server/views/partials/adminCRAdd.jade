@@ -49,12 +49,12 @@
 				.vertical_spacing_less
 				.row
 					.col-lg-4.col-md-4.col-sm-4
-						.orange_header_larger
-							| Seelect node type
+						.h3
+							| Select node type
 						select.form-control(ng-model="nodetypeselect" ng-options="opt as (opt | unCamelCase) for opt in nodeTypeValues" ng-change="loadNodeFields()")
 							option(value="")
 								| Select node type
-				.vertical_spacing_browse
+				//.vertical_spacing_less
 				.row(ng-show="showButtons")
 					.col-lg-12.col-md-12.col-sm-12
 						.row(ng-show="showButtons")
@@ -65,20 +65,26 @@
 										| - 
 									| {{cr['name']}}
 						.vertical_spacing_lesser
-						.row(ng-repeat="node in nodeDictionaryAttributes | orderBy:'sortIndex'")
-							.col-lg-3.col-md-3.col-sm-3(ng-hide="node.attribute=='id'")
-								span.cursor-help(ng-if="node.attribute=='name'" tooltip='{{node.description}}', tooltip-placement='right') 
-									b
-										| {{node.displayLabel+'*' | unCamelCase}}
-								span.cursor-help(ng-if="node.attribute!='name'" tooltip='{{node.description}}', tooltip-placement='right') 
-									b
-										| {{node.displayLabel | unCamelCase}}
-							.col-lg-9.col-md-9.col-sm-9(ng-hide="node.attribute=='id'")
-								.form-group(ng-class="{'has-error':txtid=='name' && highlightMissingTxt && cr['name']==''}")
-									input.form-control(id="{{txtid=node.attribute}}" type="text" ng-model="cr[txtid]" )
-								.alert.alert-danger(ng-if="highlightMissingTxt && txtid=='name' && cr['name']==''" role="alert")
-									| Name field is required
-								.vertical_spacing_lesser
+						.row(ng-repeat="group in nodeGroups")
+							.col-lg-12.col-md-12.col-sm-12
+								.orange_header_larger
+									| {{group.heading}}
+									//.vertical_spacing_lesser
+								.row(ng-repeat="node in nodeGroupAttributes[group.heading] | orderBy:'sortIndex'")
+									.col-lg-3.col-md-3.col-sm-3(ng-hide="node.attribute=='id'")
+										//| {{node}}
+										span.cursor-help(ng-if="node.attribute=='name'" tooltip='{{node.description}}', tooltip-placement='right') 
+											b
+												| {{node.displayLabel+'*' | unCamelCase}}
+										span.cursor-help(ng-if="node.attribute!='name'" tooltip='{{node.description}}', tooltip-placement='right') 
+											b
+												| {{node.displayLabel | unCamelCase}}
+									.col-lg-9.col-md-9.col-sm-9(ng-hide="node.attribute=='id'")
+										.form-group(ng-class="{'has-error':txtid=='name' && highlightMissingTxt && cr['name']==''}")
+											input.form-control(id="{{txtid=node.attribute}}" type="text" ng-model="cr[txtid]" )
+										.alert.alert-danger(ng-if="highlightMissingTxt && txtid=='name' && cr['name']==''" role="alert")
+											| Name field is required
+										.vertical_spacing_lesser
 				.vertical_spacing_lesser
 				.orange_header_larger(ng-show="showButtons")
 					| Relationships
@@ -169,7 +175,7 @@
 								| Error
 							|  'From', 'To' and 'Relationship Type' fields should be selected, and either 'From' or 'To' field should be equal to '{{node}}'.
 
-				hr
+				hr(ng-show="showButtons")
 				.row(ng-show="showButtons")
 					.col-lg-12.col-md-12.col-sm-12
 						.orange_header_larger

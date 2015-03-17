@@ -73,6 +73,30 @@ angular.module('apolloApp').controller('adminCRAddCtrl', ['$scope', '$http','$fi
 
         $scope.nodeLabel=$scope.nodetypeselect;
         $scope.nodeDictionaryAttributes=$scope.actAttributes[$scope.nodeLabel];
+
+        $scope.nodeGroups=[];
+        for(a in nodeAttributeDictionary[$scope.nodeLabel].attributeGroups)
+        {
+            $scope.nodeGroups.push(nodeAttributeDictionary[$scope.nodeLabel].attributeGroups[a]);
+        }
+
+        //$scope.nodeGroups=nodeAttributeDictionary[$scope.nodeLabel].attributeGroups;
+
+        $scope.nodeGroupAttributes={};
+        for(group in $scope.nodeGroups)
+        {
+            var heading=$scope.nodeGroups[group].heading;
+            $scope.nodeGroupAttributes[heading]=[];
+            for(attribute in $scope.nodeGroups[group].attributes)
+            {
+                //console.log(group,$scope.nodeGroups[group].attributes[attribute]);
+        
+                $scope.nodeGroupAttributes[heading].push($scope.nodeGroups[group].attributes[attribute]);
+            }
+            //$scope.nodeGroups[group].heading
+            
+        }
+
         $scope.highlightMissingTxt=false;
         $scope.cr={};
         $scope.nodeDictionaryAttributes.forEach(function(d){

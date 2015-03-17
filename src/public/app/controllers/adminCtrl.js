@@ -195,6 +195,31 @@ angular.module('apolloApp').controller('adminCtrl', ['$scope','$modal', '$http',
 
                     //console.log(d, nodeData.attributes);
                 });
+
+                $scope.nodeGroups=[];
+                for(a in nodeAttributeDictionary[$scope.nodeLabel].attributeGroups)
+                {
+                    $scope.nodeGroups.push(nodeAttributeDictionary[$scope.nodeLabel].attributeGroups[a]);
+                }
+
+                //$scope.nodeGroups=nodeAttributeDictionary[$scope.nodeLabel].attributeGroups;
+
+                $scope.nodeGroupAttributes={};
+                for(group in $scope.nodeGroups)
+                {
+                    var heading=$scope.nodeGroups[group].heading;
+                    $scope.nodeGroupAttributes[heading]=[];
+                    for(attribute in $scope.nodeGroups[group].attributes)
+                    {
+                        //console.log(group,$scope.nodeGroups[group].attributes[attribute]);
+                
+                        //$scope.nodeGroupAttributes[heading].push($scope.nodeGroups[group].attributes[attribute]);
+                        $scope.nodeGroupAttributes[heading].push({attributes:$scope.nodeGroups[group].attributes[attribute],attributeName:attribute});
+                    }
+                    //$scope.nodeGroups[group].heading
+                    
+                }
+
                 $scope.showButtons=true;
                 //console.log(nodeData.attributes);
 

@@ -98,7 +98,7 @@ angular.module('apolloApp').controller('adminCRAddCtrl', ['$scope', '$http','$fi
             //$scope.nodeGroups[group].heading
             
         }
-        console.log($scope.nodeGroupAttributes);
+        //console.log($scope.nodeGroupAttributes);
 
         $scope.highlightMissingTxt=false;
         $scope.cr={};

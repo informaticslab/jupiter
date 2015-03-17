@@ -78,20 +78,28 @@ angular.module('apolloApp').controller('nodeCtrl', ['$scope', '$location', '$res
             };
             $scope.hiddenGroupAttributes = function(group) {
                 var groupAttributeKeys = Object.keys(group.attributes);
-                var intersection = _.intersection(attributeKeys, groupAttributeKeys)
+                var intersection = groupAttributeKeys;//_.intersection(attributeKeys, groupAttributeKeys)
                 var toRet = [];
                 _.each(intersection, function(i) {
+                    group.attributes[i].key=i
+                    group.attributes[i].value='';
                     _.each(_.where(data.attributes, {
                         'key': i
                     }), function(j) {
                         toRet.push(j);
                     });
                 });
-                _.each(toRet, function(i) {
-                    i.displayLabel = group.attributes[i.key].displayLabel;
-                    i.description = group.attributes[i.key].description;
-                    i.sortIndex = group.attributes[i.key].sortIndex;
+
+                
+                //console.log(toRet.length,toRet[0].sortIndex);
+                var missingCol=_.difference(groupAttributeKeys,_.pluck(toRet, 'key'));
+
+                _.each(missingCol, function(i) {
+                    _.each(_.where(group.attributes,{key:i}), function(k) {
+                        toRet.push(k);
+                    });
                 });
+
                 return _.filter(toRet, function(i) {
                     return i.value == null || i.value == '' || i.value.toLowerCase() == 'null';
                 });

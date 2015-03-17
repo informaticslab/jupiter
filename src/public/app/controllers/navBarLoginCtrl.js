@@ -19,7 +19,7 @@ angular.module('apolloApp').controller('navBarLoginCtrl',function($scope,$http,n
 				$scope.ok();
 
 			} else {
-				console.log(success);
+				//console.log(success);
 				ngNotifier.notifyError('Incorrect Email/Password');
 			}
 		});
@@ -46,7 +46,7 @@ angular.module('apolloApp').controller('navBarLoginCtrl',function($scope,$http,n
 		// console.log($location.protocol()); 
 		// console.log($location.absUrl());
 		var protocol = $location.protocol();
-		console.log(protocol);
+		//console.log(protocol);
 
 		if($location.protocol() != 'https'){
 			forceSsl();

@@ -211,7 +211,7 @@ angular.module('apolloApp').controller('adminCRDiffCtrl', ['$scope','$modal', '$
                         $scope.crDiffValues.push(obj);
                     });
 
-                    console.log($scope.crDiffValues);
+                    //console.log($scope.crDiffValues);
                     fetchRelationshipValues();
                 }
                 else
@@ -221,7 +221,7 @@ angular.module('apolloApp').controller('adminCRDiffCtrl', ['$scope','$modal', '$
                         //console.log("mongo and node datat",res.data,$scope.mongoData);
                         $scope.nodeData = res.data;
 
-                        console.log($scope.nodeData);
+                        // console.log($scope.nodeData);
                         
                         $scope.nodeDictionaryAttributes=$scope.actAttributes[$scope.nodeType];
                         
@@ -259,7 +259,7 @@ angular.module('apolloApp').controller('adminCRDiffCtrl', ['$scope','$modal', '$
                                     //console.log($scope.mongoData[0][obj.key]);
                                 }
                             
-                            console.log(obj.valueNew,obj.valueOld);
+                            //console.log(obj.valueNew,obj.valueOld);
                             // for(na in $scope.nodeData.attributes)
                             // {
                             //     //var key = $scope.nodeData.attributes[na].key;
@@ -273,7 +273,7 @@ angular.module('apolloApp').controller('adminCRDiffCtrl', ['$scope','$modal', '$
                             //     {
                                     //console.log(value);
                                     var diff=diffString(obj.valueOld,obj.valueNew);
-                                    console.log(diff);
+                                    // console.log(diff);
 
                                     obj.diff=diff;
                                     var rollbackdiff,rollbackdiffreverse;
@@ -328,7 +328,7 @@ angular.module('apolloApp').controller('adminCRDiffCtrl', ['$scope','$modal', '$
                         });
 
                        
-                        console.log("$scope.crDiffValues=",$scope.crDiffValues); 
+                        //console.log("$scope.crDiffValues=",$scope.crDiffValues); 
                         fetchRelationshipValues();
                     }); //http get
 

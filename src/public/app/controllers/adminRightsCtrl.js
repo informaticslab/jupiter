@@ -39,7 +39,7 @@ angular.module('apolloApp').controller('adminRightsCtrl', ['$scope', '$modal','$
       $http.post('/apollo/api/mongo/users/updateRights', datapacket).
         //$http({method: 'Post', url: '/apollo/api/mongo/postcr', data: {greeting: 'hi'}}).
         success(function(data, status, headers, config) { 
-            console.log(data);
+            //console.log(data);
             if(data=="success")
             {
               ngNotifier.notify('Rights updated');
@@ -89,7 +89,7 @@ angular.module('apolloApp').controller('adminRightsCtrl', ['$scope', '$modal','$
       $scope.filterRight[right]=true;
     }
 
-    console.log($scope.filterRight);
+    //console.log($scope.filterRight);
   }
 
 

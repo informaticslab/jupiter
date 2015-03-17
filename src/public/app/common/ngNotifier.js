@@ -8,7 +8,7 @@ angular.module('apolloApp').factory('ngNotifier',function(ngToastr) {
 				'timeOut' : '1800'
 			};
 			ngToastr.error(msg);
-			console.log(msg);
+			//console.log(msg);
 		},
 		notify: function(msg) {
 			ngToastr.options = {
@@ -16,7 +16,7 @@ angular.module('apolloApp').factory('ngNotifier',function(ngToastr) {
 				'timeOut' : '3000'
 			};
 			ngToastr.success(msg);
-			console.log(msg);
+			//console.log(msg);
 		}
 	}
 })

@@ -66,7 +66,7 @@ angular.module('apolloApp').controller('adminCRQueueCtrl', ['$scope','$modal','$
         var cacheRenew=new Date().getTime();
         $http.get('/apollo/api/mongo/all'+'?'+cacheRenew).then(function(res) {
             $scope.mongoDocumentsAll=res.data;
-            console.log($scope.mongoDocumentsAll);
+            //console.log($scope.mongoDocumentsAll);
 
             for (var i=0;i<$scope.mongoDocumentsAll.length;i++)
             {

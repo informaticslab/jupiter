@@ -411,7 +411,7 @@ angular.module('apolloApp').controller('queryCtrl', ['$filter','$scope', '$locat
 		};
 
 		$scope.filterresults = function() {
-			console.log($scope.checkModel);
+			//console.log($scope.checkModel);
 			if ($scope.checkModel.direct && $scope.checkModel.indirect) {
 				$scope.adhocresultsactve = $scope.adhocresults;
 			} else if ($scope.checkModel.direct && !$scope.checkModel.indirect) {

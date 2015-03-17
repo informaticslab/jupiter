@@ -68,7 +68,7 @@ module.exports = function(){
     // facebook will send back the token and profile
     function(token, refreshToken, profile, done) {
 
-    	console.log("profile",profile);
+    	//console.log("profile",profile);
 
         // asynchronous
         process.nextTick(function() {	
@@ -107,7 +107,7 @@ module.exports = function(){
                     newUser.lastLogin = new Date();
                     newUser.provider = 'facebook';
 
-                    console.log("newUser",newUser);
+                    //console.log("newUser",newUser);
                     // save our user to the database
                     newUser.save(function(err) {
                         if (err)

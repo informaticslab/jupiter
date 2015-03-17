@@ -167,7 +167,7 @@ angular.module('apolloApp').controller('adminCtrl', ['$scope','$modal', '$http',
                 $scope.nodeKeyValues=[];
                 $scope.nodeDictionaryAttributes.forEach(function(d){
                     //console.log(d);
-                    console.log(d.attribute);
+                    // console.log(d.attribute);
 
                     var foundmatch=false;
 

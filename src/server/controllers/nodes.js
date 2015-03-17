@@ -1977,7 +1977,7 @@ exports.postAddCR = function(req, res) {
 
 
 
-    console.log("req params", req.body);
+    //console.log("req params", req.body);
     var nodeDataString = {};
     nodeDataString = req.body.attr;
     nodeDataString["rels"] = JSON.stringify(req.body.rels);
@@ -2196,13 +2196,13 @@ exports.postApproveCR = function(req, res) {
                 var id = results[0].id;
                 var idalphanum = id;
                 var idnumstring = idalphanum.match(/\d*$/);
-                console.log("idnumstring", idnumstring[0]);
+                //console.log("idnumstring", idnumstring[0]);
                 var idnum = parseInt(idnumstring[0]);
                 idnum++;
-                console.log(idnum);
+                //console.log(idnum);
                 idnew = idalphanum.replace(/\d*$/, idnum.toString());
 
-                console.log("NEW ID", idnew);
+                //console.log("NEW ID", idnew);
 
                 mongodata.id=idnew;
 
@@ -2229,7 +2229,7 @@ exports.postApproveCR = function(req, res) {
 
                             for(var key in mongodata)
                             {
-                                console.log(key);
+                                //console.log(key);
                                 if(key=="_id")
                                 {
 
@@ -2319,7 +2319,7 @@ exports.postApproveCR = function(req, res) {
 
                             var params = {};
                             query = 'match ' + matchclause + ' with ' + withclause + createclause;
-                            console.log("QUERY",query);
+                            //console.log("QUERY",query);
                             neodb.db.query(query, params, function(err1, results1) {
                                 //console.log(results1);
 
@@ -2336,7 +2336,7 @@ exports.postApproveCR = function(req, res) {
 
                                     for(var key in mongodata)
                                     {
-                                        console.log(key);
+                                        //console.log(key);
                                         if(key=="_id")
                                         {
 
@@ -2384,7 +2384,7 @@ exports.postApproveCR = function(req, res) {
     if (req_type == "UPDATE") {
 
         var query = 'match (n{id:\'' + mongodata.id + '\'}) set n={params}, n.CR_PREVIOUS={prevdata} return n';
-        console.log(query);
+        //console.log(query);
         var params = {
             params: mongodata,
             prevdata: prevdata
@@ -2449,7 +2449,7 @@ exports.postApproveCR = function(req, res) {
 
         });
         query = 'match ' + matchclause + ' with ' + withclause + createclause;
-        console.log(query);
+        //console.log(query);
 
         var delrelquery = "match (a{id:'" + mongodata.id + "'})-[r]-() delete r";
         //console.log(delrelquery);
@@ -2521,7 +2521,7 @@ exports.postApproveCR = function(req, res) {
 
                             for(var key in mongodata)
                             {
-                                console.log(key);
+                                //console.log(key);
                                 if(key=="_id")
                                 {
 
@@ -2637,7 +2637,7 @@ exports.postDeclineCR = function(req, res) {
 
     for(var key in mongodata)
     {
-        console.log(key);
+        //console.log(key);
         if(key=="_id")
         {
 
@@ -2674,14 +2674,14 @@ exports.postEditCR = function(req, res) {
 
     var mongodatawithid = req.body;
     var currenttime = new Date().getTime();
-    console.log("***************************mongodatawithid***********************************",mongodatawithid);
+    //console.log("***************************mongodatawithid***********************************",mongodatawithid);
 
     //var mongodatatmp=mongodatawithid;
     var mongodatawithoutid={};
 
     for(var key in mongodatawithid)
     {
-        console.log(key);
+        //console.log(key);
         if(key=="_id")
         {
 
@@ -2713,7 +2713,7 @@ exports.postEditCR = function(req, res) {
         }
         else
         {
-            console.log("*************result after mongo update",result);
+            //console.log("*************result after mongo update",result);
             res.send("success");
             var log={id:ObjectId(mongodatawithid._id),action:"EDIT",user:mongodatawithid.CR_USER_DN_EDIT,date:currenttime,crdata:mongodatawithid};
 
@@ -2737,7 +2737,7 @@ exports.postEditCR = function(req, res) {
 exports.updateRights = function(req, res) {
 
     var data = req.body;
-    console.log(data);
+    //console.log(data);
 
     
     var right=data.right;

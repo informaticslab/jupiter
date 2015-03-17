@@ -37,11 +37,11 @@ exports.authenticatePIV = function(req, res) {
     var authorized=req.connection.authorized;
     var User =  mongoose.model('User');
     var protocol = req.connection.npnProtocol;
-    console.log("authorized",authorized);
+    //console.log("authorized",authorized);
 
     var pivUserID, pivUserName,pivFirstName,pivLastName,pivDisplayName;
     var pivinfo=req.connection.getPeerCertificate().subject;
-    console.log(pivinfo);
+    //console.log(pivinfo);
 
     if(pivinfo != undefined && (pivinfo.UID != undefined || pivinfo.CN != undefined)){
 
@@ -81,7 +81,7 @@ exports.authenticatePIV = function(req, res) {
                   
                 }  else{
                 res.send({success:false});
-                console.log(req.connection.authorizationError);
+                //console.log(req.connection.authorizationError);
                 // res.send(req.connection.authorizationError);
                 }   
             }
@@ -112,7 +112,7 @@ exports.authenticatePIV = function(req, res) {
 
     else
     {
-        console.log("Failed: No CN or UID field");
+        //console.log("Failed: No CN or UID field");
         res.send({success:false});
     }
      
@@ -132,7 +132,7 @@ exports.requiresRole =function(role) {
         if(!req.isAuthenticated() || req.user.roles.indexOf(role) === -1) {
             res.status(403);
             res.end();
-            console.log(role); 
+            //console.log(role); 
         } else {
             next();
         }

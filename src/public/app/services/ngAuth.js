@@ -9,7 +9,7 @@ angular.module('apolloApp').factory('ngAuth', function($http, ngIdentity, $q, ng
 				var user = new ngUser();
 				
 				angular.extend(user, response.data.user);
-				console.log(user);
+				//console.log(user);
 				ngIdentity.currentUser = user;
 				dfd.resolve(true);
 
@@ -44,12 +44,12 @@ angular.module('apolloApp').factory('ngAuth', function($http, ngIdentity, $q, ng
 
 					var user = new ngUser();
 					angular.extend(user, res.data.user);
-					console.log(res.data.success);
-					console.log(user);
+					//console.log(res.data.success);
+					//console.log(user);
 
 					ngIdentity.currentUser = user;
 					
-					console.log(res);
+					//console.log(res);
 					//console.log(ngIdentity.currentUser.isLevelThree());
 					dfd.resolve(true);
 					// if(res != null){

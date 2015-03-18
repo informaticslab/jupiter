@@ -40,7 +40,7 @@ angular.module('apolloApp').controller('adminCRQueueCtrl', ['$scope','$modal','$
     $scope.init=function()
     {
 
-        if($scope.identity.currentUser.roles.levelTwo)
+        if($scope.identity.currentUser.roles.levelTwoOrThree)
         {
             $scope.usersu=true;
             $scope.userFilter="";

@@ -50,7 +50,7 @@
 					.row
 						.col-lg-6.col-md-6.col-sm-6
 							.orange_header_larger
-								| {{nodeId +" - "+nodeName}} 
+								| {{nodeName}} ({{nodeType}})
 								span.label(ng-class="labelclass")
 									| {{crRequestType | TitleCase}}
 							.row
@@ -110,7 +110,9 @@
 											label.btn.btn-primary.btn-sm.btn-block.btn-info(ng-show="editCRChk.yes" ng-click="cancelEditCR()"  ng-model="cancelEditCR")
 												| Cancel
 
-				.vertical_spacing_lesser		
+				.vertical_spacing_more
+				span.orange_header_larger
+					| Attributes	
 				table.table
 					thead
 						tr
@@ -149,6 +151,10 @@
 								small(ng-bind-html="row.rollbackdiffreverse" ng-if="crStatus!='PENDING' && row.rollbackdiffFlg")
 							td.col-lg-3.col-md-3.col-sm-3(ng-if="crRequestType!='ADD' && crStatus=='APPROVED' && crRequestType!='DELETE'")
 								small(ng-bind-html="row.rollbackdiff")
+				.vertical_spacing_more
+				span.orange_header_larger
+					| Relationships
+				.vertical_spacing_less
 				.row
 					//.col-lg-12.col-md-12.col-sm-12
 						.row

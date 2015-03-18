@@ -145,6 +145,8 @@ angular.module('apolloApp').controller('adminCRDiffCtrl', ['$scope','$modal', '$
                 $scope.crApproveDate=$scope.mongoData[0].CR_DATE_EXECUTED;
                 $scope.crUpdateDate=$scope.mongoData[0].CR_DATE_EDITED;
 
+                $scope.getAttributesAndGroups($scope.nodeType);
+
                 $http.get('/apollo/api/mongo/log/'+mongoid+'?'+cacheRenew,{cache:false}).then(function(res) {
                     //console.log(res.data);
                     $scope.logs=res.data;
@@ -228,7 +230,9 @@ angular.module('apolloApp').controller('adminCRDiffCtrl', ['$scope','$modal', '$
                         $scope.nodeDictionaryAttributes.forEach(function(d){
                             var obj={};
                             obj.key=d.attribute;
-                            obj.sortIndex=d.sortIndex;
+                            obj.sortIndex=$scope.nodeAllGroupAttributes[obj.key].sortIndex;
+                            obj.groupHeading=$scope.nodeAllGroupAttributes[obj.key].groupHeading;
+                            //obj.sortIndex=d.sortIndex;
                             obj.description=d.description;
                             obj.displayLabel=d.displayLabel;
 
@@ -384,6 +388,38 @@ angular.module('apolloApp').controller('adminCRDiffCtrl', ['$scope','$modal', '$
 
 
     };
+
+    $scope.getAttributesAndGroups = function(nodeLabel)
+    {
+        $scope.nodeGroups=[];
+        for(a in nodeAttributeDictionary[nodeLabel].attributeGroups)
+        {
+            $scope.nodeGroups.push(nodeAttributeDictionary[nodeLabel].attributeGroups[a]);
+        }
+
+        //$scope.nodeGroups=nodeAttributeDictionary[nodeLabel].attributeGroups;
+        $scope.nodeAllGroupAttributes={};
+        $scope.nodeGroupAttributes={};
+        for(group in $scope.nodeGroups)
+        {
+            var heading=$scope.nodeGroups[group].heading;
+            var groupSortIndex=$scope.nodeGroups[group].sortIndex;
+            $scope.nodeGroupAttributes[heading]=[];
+            for(attribute in $scope.nodeGroups[group].attributes)
+            {
+                //console.log(group,$scope.nodeGroups[group].attributes[attribute]);
+        
+                //$scope.nodeGroupAttributes[heading].push($scope.nodeGroups[group].attributes[attribute]);
+                $scope.nodeGroupAttributes[heading].push({attributes:$scope.nodeGroups[group].attributes[attribute],attributeName:attribute});
+                $scope.nodeAllGroupAttributes[attribute]={attributeName:attribute,groupHeading:heading,sortIndex:groupSortIndex+''+$scope.nodeGroups[group].attributes[attribute].sortIndex};
+
+            }
+            //$scope.nodeGroups[group].heading
+            
+        }
+        console.log($scope.nodeGroups);
+        console.log($scope.nodeAllGroupAttributes);
+    }
 
     $scope.saveEditCR = function(){
 

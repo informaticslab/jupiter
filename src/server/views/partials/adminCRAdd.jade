@@ -65,7 +65,7 @@
 										| - 
 									| {{cr['name']}}
 						.vertical_spacing_lesser
-						.row(ng-repeat="group in nodeGroups")
+						.row(ng-repeat="group in nodeGroups | orderBy:'sortIndex'")
 							.col-lg-12.col-md-12.col-sm-12
 								.orange_header_larger
 									| {{group.heading}}

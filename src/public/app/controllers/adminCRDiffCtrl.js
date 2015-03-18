@@ -117,7 +117,7 @@ angular.module('apolloApp').controller('adminCRDiffCtrl', ['$scope','$modal', '$
 
 
             // ///console.log($scope.identity.currentUser.roles.levelTwo);
-            //if($scope.identity.currentUser.roles.levelTwo)
+            if($scope.identity.currentUser.roles.levelTwo)
             {
                 $scope.usersu=true;
             }

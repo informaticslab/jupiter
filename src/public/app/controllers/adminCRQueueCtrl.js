@@ -40,15 +40,15 @@ angular.module('apolloApp').controller('adminCRQueueCtrl', ['$scope','$modal','$
     $scope.init=function()
     {
 
-        if($scope.identity.currentUser.roles.levelTwoOrThree)
+        if($scope.identity.currentUser.roles.levelTwo)
         {
             $scope.usersu=true;
-            $scope.userFilter="";
+            //$scope.userFilter="";
         }
         else
         {
             $scope.usersu=false;
-            $scope.userFilter=$scope.identity.currentUser.displayName;
+            //$scope.userFilter=$scope.identity.currentUser.displayName;
         }
 
         $scope.mongoDocumentsAll=[];

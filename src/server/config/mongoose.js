@@ -40,8 +40,17 @@ module.exports = function(config) {
 		loginDateTime: Date
 	});
 
+	var auditLogSchema =  mongoose.Schema({
+		type: String,
+		date: Date,
+		userId: String,
+		userName: String,
+		notes: String
+	});
+
 	var User = mongoose.model('User',userSchema);
 	var Loghistory = mongoose.model('loghistorySchema',loghistorySchema);
+	var Log = mongoose.model('auditLog',auditLogSchema);
 
 	User.find({}).exec(function(err, collection){ 
 		if(collection.length ==0) {

@@ -3,6 +3,8 @@ var urlFactory = require('../lib/urlFactory');
 var mongo = require('../lib/mongoConnection');
 var ObjectId = require('mongodb').ObjectID;
 var _ = require('underscore');
+var auditLog = require('../config/auditLog')
+
 
 
 
@@ -1975,7 +1977,7 @@ exports.postUpdateCR = function(req, res) {
 
 exports.postAddCR = function(req, res) {
 
-
+    
 
     //console.log("req params", req.body);
     var nodeDataString = {};
@@ -1983,7 +1985,12 @@ exports.postAddCR = function(req, res) {
     nodeDataString["rels"] = JSON.stringify(req.body.rels);
     var currenttime = new Date().getTime();
     nodeDataString['CR_DATE_CREATED']=currenttime;
+    var type ='CR';
+    var userId ="";
+    var userName = "";
+    var notes = "";
     //console.log(nodeDataString);
+  
 
     var collection = mongo.mongodb.collection('cr');
     // Insert some documents
@@ -2004,7 +2011,27 @@ exports.postAddCR = function(req, res) {
                 {
                     console.log("failed to insert log",err);
                 }
-            });        
+               
+            });
+            
+            // var auditLog = new Log();
+            userId = result[0].CR_USER_ID_CREATE;
+            userName = result[0].CR_USER_DN_CREATE;
+            notes = 'CREATE ID: '+ result[0]._id;
+
+            // auditLog.type = 'CR';
+            // auditLog.date = new Date();
+            // auditLog.userId = result[0].CR_USER_ID_CREATE;
+            // auditLog.userName= result[0].CR_USER_DN_CREATE;
+            // auditLog.notes = 'CREATE ID: '+ result[0]._id;
+
+            // auditLog.save(function(err) {
+            //             if (err)
+            //                 throw err;
+            // });
+            auditLog.add(type,userId,userName,notes);
+
+
         }
         // assert.equal(err, null);
         // assert.equal(3, result.result.n);

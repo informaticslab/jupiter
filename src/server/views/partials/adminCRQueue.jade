@@ -128,8 +128,10 @@
 								td.col-md-1
 									| {{doc.CR_NODE_TYPE}}
 								td.col-md-3
-									a(ng-class="{'rowBackColorApproved':doc.CR_STATUS=='APPROVED','rowBackColorDeclined':doc.CR_STATUS=='DECLINED'}" href="#/adminCRQueue/CRDiff/{{doc._id}}")
-										| {{doc.name}}
+									span.cursor-help(tooltip='{{doc.similarities}}', tooltip-placement='right')
+										a(ng-class="{'rowBackColorApproved':doc.CR_STATUS=='APPROVED','rowBackColorDeclined':doc.CR_STATUS=='DECLINED'}" href="#/adminCRQueue/CRDiff/{{doc._id}}")
+											| {{doc.name}}
+
 								td.col-md-1
 									| {{doc.CR_USER_DN_CREATE}}
 								td.col-md-1

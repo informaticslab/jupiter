@@ -83,6 +83,21 @@ exports.getLabelsForNode = function(req, res) {
     });
 }
 
+
+exports.getNodeNameAll = function(req, res) {
+    //var query = ['START n=node({nodeId}) ', 'RETURN labels(n)'].join('\n');
+    var query = 'MATCH n RETURN distinct n.name as name,n.id as id';
+    var params = {
+    };
+    neodb.db.query(query, params, function(err, results) {
+        if (err) {
+            console.error('Error retreiving labels from database:', err);
+            res.send(404, "No node at that locaton")
+        } else {
+            res.send(results);
+        }
+    });
+}
 // /apollo/api/node/{id}
 exports.getNodeById = function(req, res) {
     var query = 'MATCH n WHERE n.id ={nodeId} RETURN n'

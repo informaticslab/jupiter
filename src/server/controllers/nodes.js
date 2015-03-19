@@ -1945,6 +1945,10 @@ exports.postUpdateCR = function(req, res) {
     var nodeDataString = {};
     nodeDataString = req.body.attr;
     nodeDataString["rels"] = JSON.stringify(req.body.rels);
+    var type ='CR';
+    var userId ="";
+    var userName = "";
+    var notes = "";
 
     //console.log(nodeDataString);
     var currenttime = new Date().getTime();
@@ -1968,7 +1972,12 @@ exports.postUpdateCR = function(req, res) {
             {
                 console.log("failed to insert log",err);
             }
-        });        
+        });    
+        userId = result[0].CR_USER_ID_CREATE;
+        userName = result[0].CR_USER_DN_CREATE;
+        notes = 'EDIT_ID: '+ result[0]._id;
+
+        auditLog.add(type,userId,userName,notes);    
     });
 
 
@@ -2014,21 +2023,10 @@ exports.postAddCR = function(req, res) {
                
             });
             
-            // var auditLog = new Log();
             userId = result[0].CR_USER_ID_CREATE;
             userName = result[0].CR_USER_DN_CREATE;
-            notes = 'CREATE ID: '+ result[0]._id;
+            notes = 'CREATE_ID: '+ result[0]._id;
 
-            // auditLog.type = 'CR';
-            // auditLog.date = new Date();
-            // auditLog.userId = result[0].CR_USER_ID_CREATE;
-            // auditLog.userName= result[0].CR_USER_DN_CREATE;
-            // auditLog.notes = 'CREATE ID: '+ result[0]._id;
-
-            // auditLog.save(function(err) {
-            //             if (err)
-            //                 throw err;
-            // });
             auditLog.add(type,userId,userName,notes);
 
 
@@ -2051,6 +2049,10 @@ exports.postDeleteCR = function(req, res) {
     var nodeDataString = req.body;
     var currenttime = new Date().getTime();
     nodeDataString['CR_DATE_CREATED']=currenttime;
+    var type ='CR';
+    var userId ="";
+    var userName = "";
+    var notes = "";
 
 
     var collection = mongo.mongodb.collection('cr');
@@ -2071,7 +2073,14 @@ exports.postDeleteCR = function(req, res) {
             {
                 console.log("failed to insert log",err);
             }
-        });        
+        });    
+
+        userId = result[0].CR_USER_ID_CREATE;
+        userName = result[0].CR_USER_DN_CREATE;
+        notes = 'DELETE_ID: '+ result[0]._id;
+
+        auditLog.add(type,userId,userName,notes);  
+
     });
     //res.send("ok");
 };
@@ -2765,7 +2774,7 @@ exports.updateRights = function(req, res) {
 
     var data = req.body;
     //console.log(data);
-
+    
     
     var right=data.right;
     var update = { $set : {} };

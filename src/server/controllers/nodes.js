@@ -1947,7 +1947,7 @@ exports.postUpdateCR = function(req, res) {
     nodeDataString["rels"] = JSON.stringify(req.body.rels);
     var type ='CR';
     var userId ="";
-    var userName = "";
+    var displayName = "";
     var notes = "";
 
     //console.log(nodeDataString);
@@ -1974,10 +1974,10 @@ exports.postUpdateCR = function(req, res) {
             }
         });    
         userId = result[0].CR_USER_ID_CREATE;
-        userName = result[0].CR_USER_DN_CREATE;
+        displayName = result[0].CR_USER_DN_CREATE;
         notes = 'EDIT_ID: '+ result[0]._id;
 
-        auditLog.add(type,userId,userName,notes);    
+        auditLog.add(type,userId,displayName,notes);    
     });
 
 
@@ -1996,7 +1996,7 @@ exports.postAddCR = function(req, res) {
     nodeDataString['CR_DATE_CREATED']=currenttime;
     var type ='CR';
     var userId ="";
-    var userName = "";
+    var displayName = "";
     var notes = "";
     //console.log(nodeDataString);
   
@@ -2024,10 +2024,10 @@ exports.postAddCR = function(req, res) {
             });
             
             userId = result[0].CR_USER_ID_CREATE;
-            userName = result[0].CR_USER_DN_CREATE;
+            displayName = result[0].CR_USER_DN_CREATE;
             notes = 'CREATE_ID: '+ result[0]._id;
 
-            auditLog.add(type,userId,userName,notes);
+            auditLog.add(type,userId,displayName,notes);
 
 
         }
@@ -2051,7 +2051,7 @@ exports.postDeleteCR = function(req, res) {
     nodeDataString['CR_DATE_CREATED']=currenttime;
     var type ='CR';
     var userId ="";
-    var userName = "";
+    var displayName = "";
     var notes = "";
 
 
@@ -2076,10 +2076,10 @@ exports.postDeleteCR = function(req, res) {
         });    
 
         userId = result[0].CR_USER_ID_CREATE;
-        userName = result[0].CR_USER_DN_CREATE;
+        displayName = result[0].CR_USER_DN_CREATE;
         notes = 'DELETE_ID: '+ result[0]._id;
 
-        auditLog.add(type,userId,userName,notes);  
+        auditLog.add(type,userId,displayName,notes);  
 
     });
     //res.send("ok");
@@ -2774,7 +2774,7 @@ exports.updateRights = function(req, res) {
 
     var data = req.body;
     //console.log(data);
-    
+
     
     var right=data.right;
     var update = { $set : {} };

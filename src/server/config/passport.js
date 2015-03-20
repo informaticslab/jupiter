@@ -8,6 +8,12 @@ var FacebookStrategy = require('passport-facebook').Strategy;
 
 var User = mongoose.model('User');
 var Loghistory = mongoose.model('loghistorySchema');
+var auditLog = require('../config/auditLog')
+
+var type ='login';
+var userId ="";
+var displayName = "";
+var notes = "";
 
 module.exports = function(){
 	
@@ -43,7 +49,12 @@ module.exports = function(){
             		if (err){
             			throw err;
             		} else {
+                         userId = user._id;
+                         displayName = user.displayName;
+                         notes = 'USER_TYPE: LOCAL';
+                         auditLog.add(type,userId,displayName,notes);
             			 return done(null, user); // user found, return that user
+                       
             		}
             	})
 			} else {
@@ -68,6 +79,7 @@ module.exports = function(){
     // facebook will send back the token and profile
     function(token, refreshToken, profile, done) {
 
+
     	//console.log("profile",profile);
 
         // asynchronous
@@ -88,9 +100,14 @@ module.exports = function(){
                 		if (err){
                 			throw err;
                 		} else {
+                             userId = user._id;
+                             displayName = user.displayName;
+                             notes = 'USER_TYPE: FACEBOOK';
+                             auditLog.add(type,userId,displayName,notes);
                 			 return done(null, user); // user found, return that user
                 		}
                 	})
+
                    
                 } else {
                     // if there is no user found with that facebook id, create them
@@ -110,11 +127,17 @@ module.exports = function(){
                     //console.log("newUser",newUser);
                     // save our user to the database
                     newUser.save(function(err) {
-                        if (err)
+                        if (err) {
                             throw err;
-
+                        } else {
                         // if successful, return the new user
-                        return done(null, newUser);
+                            userId = user._id;
+                            displayName = user.displayName;
+                            notes = 'USER_TYPE: FACEBOOK';
+                            auditLog.add(type,userId,displayName,notes);
+                            return done(null, newUser);
+                        }
+
                     });
                 }
 

@@ -44,7 +44,7 @@ module.exports = function(config) {
 		type: String,
 		date: Date,
 		userId: String,
-		userName: String,
+		displayName: String,
 		notes: String
 	});
 

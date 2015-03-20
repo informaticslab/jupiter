@@ -103,10 +103,10 @@ apolloApp.config(['$routeProvider',
         templateUrl: 'partials/search',
         controller: 'searchCtrl'
       }).
-          when('/template/', {
-        templateUrl: 'partials/template'
-        //controller: 'linkageCtrl'
-      }).
+      //     when('/template/', {
+      //   templateUrl: 'partials/template'
+      //   //controller: 'linkageCtrl'
+      // }).
           when('/linkage/:id', {
         templateUrl: 'partials/linkage',
         controller: 'linkageCtrl'

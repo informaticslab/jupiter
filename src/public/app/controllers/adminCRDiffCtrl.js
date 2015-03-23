@@ -417,8 +417,8 @@ angular.module('apolloApp').controller('adminCRDiffCtrl', ['$scope','$modal', '$
             //$scope.nodeGroups[group].heading
             
         }
-        console.log($scope.nodeGroups);
-        console.log($scope.nodeAllGroupAttributes);
+        // console.log($scope.nodeGroups);
+        // console.log($scope.nodeAllGroupAttributes);
     }
 
     $scope.saveEditCR = function(){

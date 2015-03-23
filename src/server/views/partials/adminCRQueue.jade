@@ -129,7 +129,8 @@
 									| {{doc.CR_NODE_TYPE}}
 								td.col-md-3
 									a(ng-class="{'rowBackColorApproved':doc.CR_STATUS=='APPROVED','rowBackColorDeclined':doc.CR_STATUS=='DECLINED'}" href="#/adminCRQueue/CRDiff/{{doc._id}}")
-										| {{doc.name}}
+										| {{doc.name}} 
+									i.fa.fa-files-o(ng-if="doc.similarities!='Similar to none'" tooltip='{{doc.similarities}}', tooltip-placement='right')
 								td.col-md-1
 									| {{doc.CR_USER_DN_CREATE}}
 								td.col-md-1

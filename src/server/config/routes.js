@@ -24,6 +24,7 @@ module.exports = function(app) {
 
 
 
+    app.get('/apollo/api/node/all', nodes.getNodeNameAll);
     app.get('/apollo/api/node/:id', nodes.getNodeById);
     app.get('/apollo/api/node/:id/labels', nodes.getLabelsForNode);
     app.get('/apollo/api/node/:id/relations', nodes.getRelationsForNode);

@@ -1,6 +1,19 @@
 angular.module('apolloApp').controller('adminCRQueueCtrl', ['$scope','$modal','$location','$http','nodeAttributeDictionary','ngIdentity',
 	function($scope,$modal,$location, $http,nodeAttributeDictionary,ngIdentity) {
 
+    var checkcounter=0;
+    var cacheRenew=new Date().getTime();
+    $http.get('/apollo/api/node/all'+'?'+cacheRenew).then(function(res) {
+      $scope.nodeNameallArray=res.data;
+      //console.log($scope.nodeNameallArray);
+      checkcounter++;
+      if(checkcounter==2)
+      {
+        getSimilarities();
+      }
+    });
+
+
 
     $scope.open = function (docid) {
 
@@ -88,8 +101,13 @@ angular.module('apolloApp').controller('adminCRQueueCtrl', ['$scope','$modal','$
             // if(!$scope.$$phase) {
             //   $scope.$apply();
             // }
+            checkcounter++;
+            if(checkcounter==2)
+            {
+              getSimilarities();
+            }
             
-
+            
         });
 
         
@@ -101,7 +119,108 @@ angular.module('apolloApp').controller('adminCRQueueCtrl', ['$scope','$modal','$
 
     $scope.init();
 
-   
+   var getSimilarities = function()
+   {
+
+      for(cr in $scope.mongoDocumentsAll)
+      {
+        
+        var crnodename=$scope.mongoDocumentsAll[cr].name;
+        var crnodeid=$scope.mongoDocumentsAll[cr].id;
+        if(crnodeid==undefined || crnodeid==null || crnodeid=="")
+        {
+          crnodeid="TBD";
+        }
+        //console.log("******************",crnodename,"*******************");
+
+        var similarNodes=[];
+        //console.log($scope.nodeNameallArray);
+        for(n in $scope.nodeNameallArray)
+        {
+          var neonodename=$scope.nodeNameallArray[n].name;
+          var neonodeid=$scope.nodeNameallArray[n].id;
+          if(neonodeid==crnodeid)
+          {
+
+          }
+          else
+          {
+            if(crnodename==neonodename)
+            {
+              similarNodes.push({neonodename:neonodename,neonodeid:neonodeid,level:1});
+            }
+            var crnodename1=crnodename.replace(/the|\sa\s|\s/gi, function myFunction(x){return "";});
+            var neonodename1=neonodename.replace(/the|\sa\s|\s/gi, function myFunction(x){return "";});
+            if(crnodename1.match(/biosense/))
+            //console.log("*************",crnodename1,"**************",neonodename1);
+            if(crnodename1.toLowerCase()==neonodename1.toLowerCase())
+            {
+              var found = false;
+              for(i=0;i<similarNodes.length;i++)
+              {
+                if(similarNodes[i].neonodeid==neonodeid)
+                {
+                  found = true;
+                }
+              }
+              if(!found)
+              {
+                similarNodes.push({neonodename:neonodename,neonodeid:neonodeid,level:2});  
+              }
+              else
+              {
+                //console.log("skipped");
+              }
+              
+            }
+
+            var crnodename2=crnodename1.replace(/system|program|registry|survey|tool|data|dataset|standard|collaborative|element/gi, function myFunction(x){return "";});
+            var neonodename2=neonodename1.replace(/system|program|registry|survey|tool|data|dataset|standard|collaborative|element/gi, function myFunction(x){return "";});
+            if(crnodename2.match(/biosense/))
+            //console.log("***",crnodename2,"***",neonodename2);
+            if(crnodename2.toLowerCase()==neonodename2.toLowerCase())
+            {
+              //console.log(crnodename2,neonodename2);
+              var found = false;
+              for(i=0;i<similarNodes.length;i++)
+              {
+                if(similarNodes[i].neonodeid==neonodeid)
+                {
+                  found = true;
+                }
+              }
+              if(!found)
+              {
+                similarNodes.push({neonodename:neonodename,neonodeid:neonodeid,level:2});  
+              }
+              else
+              {
+                //console.log("skipped");
+              }
+              
+            }
+          }
+
+
+
+
+
+        }
+
+        var similarNodesString="Similar to: ";
+        for(i=0;i<similarNodes.length;i++)
+        {
+          similarNodesString=similarNodesString+", "+similarNodes[i].neonodename+" ("+similarNodes[i].neonodeid+")";
+        }
+        if(similarNodesString=="Similar to: ")
+        {
+          similarNodesString="Similar to none";
+        }
+        //console.log(similarNodesString);
+        similarNodesString=similarNodesString.replace("Similar to: , ","Similar to: ");
+        $scope.mongoDocumentsAll[cr].similarities=similarNodesString;
+      }
+   }
 
     $scope.deleteCR = function(id){
         //console.log(id);

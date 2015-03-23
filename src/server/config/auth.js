@@ -109,11 +109,12 @@ exports.authenticatePIV = function(req, res) {
                     if (err){
                             throw err;
                         } else{
-                        req.logIn(newUser, function(err) {
-                    if(err) {return next(err);}
-                    res.send({success:true, user:newUser});
-                })
-                        }
+                            req.logIn(newUser, function(err) {
+                                if(err) {return next(err);}
+                                res.send({success:true, user:newUser});
+                            })
+
+                        }       
                 });
 
                 userId = newUser._id;

@@ -2712,6 +2712,11 @@ exports.postEditCR = function(req, res) {
     var currenttime = new Date().getTime();
     //console.log("***************************mongodatawithid***********************************",mongodatawithid);
 
+    var type ='CR';
+    var userId ="";
+    var displayName = "";
+    var notes = "";
+
     //var mongodatatmp=mongodatawithid;
     var mongodatawithoutid={};
 
@@ -2760,7 +2765,14 @@ exports.postEditCR = function(req, res) {
                 {
                     console.log("failed to insert log",err);
                 }
-            });                 
+            });
+
+            userId = mongodatawithid.CR_USER_ID_CREATE;
+            displayName = mongodatawithid.CR_USER_DN_CREATE;
+            notes = 'EDIT_ID: '+ mongodatawithid._id;
+
+            auditLog.add(type,userId,displayName,notes);
+
         }
         
     });
@@ -2774,7 +2786,10 @@ exports.updateRights = function(req, res) {
 
     var data = req.body;
     //console.log(data);
-
+    var type ='rights';
+    var userId ="";
+    var displayName = "";
+    var notes = "";
     
     var right=data.right;
     var update = { $set : {} };

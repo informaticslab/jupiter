@@ -1,5 +1,7 @@
 var passport = require('passport');
 var mongoose = require('mongoose');
+var auditLog = require('../config/auditLog')
+
 
 exports.authenticate = function(req,res,next){
         var auth = passport.authenticate('local', function(err, user) {
@@ -37,6 +39,10 @@ exports.authenticatePIV = function(req, res) {
     var authorized=req.connection.authorized;
     var User =  mongoose.model('User');
     var protocol = req.connection.npnProtocol;
+    var type ='login';
+    var userId ="";
+    var displayName = "";
+    var notes = "USER_TYPE: PIV";
     //console.log("authorized",authorized);
 
     var pivUserID, pivUserName,pivFirstName,pivLastName,pivDisplayName;
@@ -76,7 +82,11 @@ exports.authenticatePIV = function(req, res) {
                                 res.send({success:true, user:user});
                             })
                         }
-                    })
+                    });
+                    userId = user._id;
+                    displayName = user.displayName;
+
+                    auditLog.add(type,userId,displayName,notes);
                    
                   
                 }  else{
@@ -99,12 +109,18 @@ exports.authenticatePIV = function(req, res) {
                     if (err){
                             throw err;
                         } else{
-                        req.logIn(user, function(err) {
-            if(err) {return next(err);}
-            res.send({success:true, user:newUser});
-        })
+                        req.logIn(newUser, function(err) {
+                    if(err) {return next(err);}
+                    res.send({success:true, user:newUser});
+                })
                         }
                 });
+
+                userId = newUser._id;
+                displayName = newUser.displayName;
+
+                auditLog.add(type,userId,displayName,notes);
+               
                 
             }
         });      

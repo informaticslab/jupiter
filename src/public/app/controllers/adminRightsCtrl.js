@@ -1,6 +1,6 @@
 angular.module('apolloApp').controller('adminRightsCtrl', ['$scope', '$modal','$location','$http','nodeAttributeDictionary','ngIdentity','ngNotifier',
 	function($scope,$modal,$location,$http,nodeAttributeDictionary,ngIdentity,ngNotifier) {
-
+    $scope.identity = ngIdentity;
 
     var init = function(){
 
@@ -34,6 +34,9 @@ angular.module('apolloApp').controller('adminRightsCtrl', ['$scope', '$modal','$
       datapacket.user=user;
       datapacket.right=right;
       datapacket.value=rightValue;
+      datapacket.adminUserId = $scope.identity.currentUser._id;
+      datapacket.adminUserDisplayName = $scope.identity.currentUser.displayName;
+      
 
       var cacheRenew=new Date().getTime();
       $http.post('/apollo/api/mongo/users/updateRights', datapacket).

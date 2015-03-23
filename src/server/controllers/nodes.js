@@ -2808,7 +2808,7 @@ exports.updateRights = function(req, res) {
     },
     update
     , function(err, result) {
-         console.log(result,err);
+         //console.log(result,err);
         if(err)
         {
             res.send("fail");
@@ -2834,6 +2834,12 @@ exports.updateRights = function(req, res) {
         // });             
     });
 
+    console.log(data);
+    userId = data.adminUserId;
+    displayName = data.adminUserDisplayName;
+    notes = 'Changed USER_ID: ' + data.user._id +'('+data.user.lastName+', '+ data.user.firstName+')'+ ' ROLE: '+data.right+ ' to ' + data.value;
+
+    auditLog.add(type,userId,displayName,notes);
 
     res.send("success");
 }

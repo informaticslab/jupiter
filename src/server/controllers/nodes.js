@@ -2025,7 +2025,7 @@ exports.postAddCR = function(req, res) {
             
             userId = result[0].CR_USER_ID_CREATE;
             displayName = result[0].CR_USER_DN_CREATE;
-            notes = 'CREATE_ID: '+ result[0]._id;
+            notes = 'ADD_ID: '+ result[0]._id;
 
             auditLog.add(type,userId,displayName,notes);
 
@@ -2202,7 +2202,10 @@ exports.postApproveCR = function(req, res) {
     var currenttime = new Date().getTime();
     mongodata['CR_DATE_EXECUTED']=currenttime;
     mongodata['CR_STATUS']="APPROVED";
-
+    var type ='CR-AD';
+    var userId ="";
+    var displayName = "";
+    var notes = "";
 
 
     var prevdata = JSON.stringify(req.body.prev);
@@ -2299,7 +2302,15 @@ exports.postApproveCR = function(req, res) {
                                         {
                                             console.log("failed to insert log",err);
                                         }
-                                    });          
+                                    }); 
+
+                                    //insert record to auditLogs
+                                    userId = mongodata.CR_USER_ID_EXECUTE;
+                                    displayName = mongodata.CR_USER_DN_EXECUTE;
+                                    notes = 'APPROVED; ADD_ID: '+mongodata._id;
+
+                                    auditLog.add(type,userId,displayName,notes);
+
                                 }
                                 
                             });
@@ -2400,8 +2411,15 @@ exports.postApproveCR = function(req, res) {
                                             {
                                                 console.log("failed to insert log",err);
                                             }
-                                        });          
-                                    });
+                                        }); 
+
+                                        //insert record to auditLogs
+                                        userId = mongodata.CR_USER_ID_EXECUTE;
+                                        displayName = mongodata.CR_USER_DN_EXECUTE;
+                                        notes = 'APPROVED; ADD_ID: '+mongodata._id;
+
+                                        auditLog.add(type,userId,displayName,notes);         
+                                        });
                                     //console.log("MONGO UPATE WITH REL:",mongodata.id);
                                 }
                             });
@@ -2527,7 +2545,14 @@ exports.postApproveCR = function(req, res) {
                     {
                         console.log("failed to insert log",err);
                     }
-                });          
+                });
+                //insert entry to auditLogs
+
+                userId = mongodata.CR_USER_ID_EXECUTE;
+                displayName = mongodata.CR_USER_DN_EXECUTE;
+                notes = 'APPROVED; UPDATE_ID: '+mongodata._id;
+
+                auditLog.add(type,userId,displayName,notes);          
             });
         }
         else
@@ -2583,7 +2608,14 @@ exports.postApproveCR = function(req, res) {
                                     {
                                         console.log("failed to insert log",err);
                                     }
-                                });          
+                                });  
+
+                                //insert entry to auditLogs
+                                userId = mongodata.CR_USER_ID_EXECUTE;
+                                displayName = mongodata.CR_USER_DN_EXECUTE;
+                                notes = 'APPROVED; UPDATE_ID: '+mongodata._id;
+
+                                auditLog.add(type,userId,displayName,notes);         
                             });
                         }
                     });
@@ -2645,7 +2677,14 @@ exports.postApproveCR = function(req, res) {
                         {
                             console.log("failed to insert log",err);
                         }
-                    });          
+                    });
+
+                    //insert entry to auditLogs
+                    userId = mongodata.CR_USER_ID_EXECUTE;
+                    displayName = mongodata.CR_USER_DN_EXECUTE;
+                    notes = 'APPROVED; DELETE_ID: '+mongodata._id;
+
+                    auditLog.add(type,userId,displayName,notes);           
                 });
             }
         });
@@ -2664,6 +2703,11 @@ exports.postDeclineCR = function(req, res) {
     mongodata['CR_DATE_EXECUTED']=currenttime;
     mongodata['CR_STATUS']="DECLINED";
     //console.log("req params",mongodata.id);
+
+    var type ='CR';
+    var userId ="";
+    var displayName = "";
+    var notes = "";
 
     var collection = mongo.mongodb.collection('cr');
     //var currenttime = new Date().getTime();
@@ -2699,7 +2743,14 @@ exports.postDeclineCR = function(req, res) {
         {
         console.log("failed to insert log",err);
         }
-        });             
+        });    
+
+        userId = mongodata.CR_USER_ID_EXECUTE;
+        displayName = mongodata.CR_USER_DN_EXECUTE;
+        notes = 'DECLINED; '+mongodata.CR_REQUEST_TYPE+'_ID: '+mongodata._id;
+        console.log(mongodata);
+
+        auditLog.add(type,userId,displayName,notes);          
     });
 
 

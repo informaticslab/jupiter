@@ -145,7 +145,7 @@ angular.module('apolloApp').controller('adminCRQueueCtrl', ['$scope','$modal','$
           }
           else
           {
-            if(crnodename==neonodename)
+            if(crnodename.toLowerCase()==neonodename.toLowerCase())
             {
               similarNodes.push({neonodename:neonodename,neonodeid:neonodeid,level:1});
             }
@@ -228,7 +228,11 @@ angular.module('apolloApp').controller('adminCRQueueCtrl', ['$scope','$modal','$
 
         $http.post('/apollo/api/mongo/deletecr', mongoid).
         //$http({method: 'Post', url: '/apollo/api/mongo/postcr', data: {greeting: 'hi'}}).
-          success(function(data, status, headers, config) { 
+          success(function(data, status, headers, config) {
+              if(checkcounter==2)
+              {
+                checkcounter--;
+              }
                 $scope.init();
           }).error(function(data, status) {
               

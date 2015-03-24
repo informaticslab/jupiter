@@ -225,6 +225,8 @@ angular.module('apolloApp').controller('adminCRQueueCtrl', ['$scope','$modal','$
     $scope.deleteCR = function(id){
         //console.log(id);
         mongoid={mongoid:id};
+        mongoid.adminUserId = $scope.identity.currentUser._id;
+        mongoid.adminUserDisplayName = $scope.identity.currentUser.displayName;
 
         $http.post('/apollo/api/mongo/deletecr', mongoid).
         //$http({method: 'Post', url: '/apollo/api/mongo/postcr', data: {greeting: 'hi'}}).

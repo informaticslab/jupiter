@@ -2109,6 +2109,11 @@ exports.deleteMongoCR = function(req, res) {
 
     var mongoid = req.body.mongoid;
 
+    var type ='CR';
+    var userId ="";
+    var displayName = "";
+    var notes = "";
+
 
 
     var collection = mongo.mongodb.collection('cr');
@@ -2119,7 +2124,15 @@ exports.deleteMongoCR = function(req, res) {
         //console.log(result,err);
         res.send("success");
     });
+
+    userId = req.body.adminUserId;
+    displayName = req.body.adminUserDisplayName;
+    notes = 'DELETE_FROM_QUEUE_ID: '+ mongoid;
+
+    auditLog.add(type,userId,displayName,notes);  
     //res.send("ok");
+
+
 };
 
 

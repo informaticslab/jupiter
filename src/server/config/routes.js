@@ -51,6 +51,7 @@ module.exports = function(app) {
     app.get('/apollo/api/node/managed/:id', nodes.getManagedSystems);
     app.get('/apollo/api/export/csv/:id/:qparam', nodes.exportCSV);
     app.get('/apollo/api/export/csvrelations/:id', nodes.exportCSVNodeRelations);
+    app.get('/apollo/api/export/csvnodedetails/:id/:attributes', nodes.exportCSVNodeDetails);
     app.get('/apollo/api/attributes/getValues/:attr', nodes.getAttributeValues);
     app.get('/apollo/api/export/adhoccsv/:query', nodes.getAdhocQueryRelatedNodeTypesResultsCSV);
     app.get('/apollo/api/mongo/all', nodes.getMongoAll);

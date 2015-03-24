@@ -2,12 +2,34 @@ angular.module('apolloApp').controller('nodeCtrl', ['$scope', '$location', '$res
     function($scope, $location, $resource, $http, $routeParams, nodeAttributeDictionary) {
         
         
-
+        $scope.nodesArray=[];
         $scope.contentLoading = true;
         $scope.nodeId = $routeParams.id
         $scope.$parent.q = 'explore';
         $scope.isCollapsed = true;
         $scope.tablength=[];
+        
+        $scope.actAttributes = {};
+        for (x in nodeAttributeDictionary) {
+            //console.log("***********************"+x);
+            $scope.actAttributes[x] = [];
+            for (y in nodeAttributeDictionary[x].attributeGroups) {
+                for (z in nodeAttributeDictionary[x].attributeGroups[y].attributes) {
+                    //$scope.actAttributes[x].push("" + z + "");
+                    $scope.actAttributes[x].push({
+                        attribute:z,
+                        description:nodeAttributeDictionary[x].attributeGroups[y].attributes[z].description,
+                        displayLabel:nodeAttributeDictionary[x].attributeGroups[y].attributes[z].displayLabel,                        
+                        sortIndex:nodeAttributeDictionary[x].attributeGroups[y].attributes[z].sortIndex
+                    });
+                    //for getting attribute names 
+                    // var attname=$filter('unCamelCase')(z);
+                    // //console.log("x="+x+", z=" + attname + ", des="+nodeAttributeDictionary[x].attributeGroups[y].attributes[z].description);
+                }
+            } //$scope.nodeattributes.x
+        }
+
+
         var siteName = 'Node Viewer: ' + $scope.nodeId
         var node = $resource('/apollo/api/node/:id', {
             id: '@id'
@@ -62,6 +84,7 @@ angular.module('apolloApp').controller('nodeCtrl', ['$scope', '$location', '$res
                         'key': i
                     }), function(j) {
                         toRet.push(j);
+                        $scope.nodesArray.push(j);
                     });
                 });
                 _.each(toRet, function(i) {
@@ -87,6 +110,7 @@ angular.module('apolloApp').controller('nodeCtrl', ['$scope', '$location', '$res
                         'key': i
                     }), function(j) {
                         toRet.push(j);
+                        $scope.nodesArray.push(j);
                     });
                 });
 
@@ -97,6 +121,7 @@ angular.module('apolloApp').controller('nodeCtrl', ['$scope', '$location', '$res
                 _.each(missingCol, function(i) {
                     _.each(_.where(group.attributes,{key:i}), function(k) {
                         toRet.push(k);
+                        $scope.nodesArray.push(k);
                     });
                 });
 
@@ -129,7 +154,39 @@ angular.module('apolloApp').controller('nodeCtrl', ['$scope', '$location', '$res
 
         $scope.exportrelationships= function()
         {
+            console.log($scope.nodesArray);
             window.location =  '/apollo/api/export/csvrelations/' + $scope.nodeId;
+        }
+
+        $scope.exportnodedetails= function()
+        {
+            
+           
+            var id=$scope.nodeId;
+            var attributes='{"attributes":[';
+            var displayLabels='{"displayLabel":[';
+            var returnString="";
+
+            for(att in $scope.actAttributes[$scope.labels])
+            {
+                var attribute=$scope.actAttributes[$scope.labels][att].attribute;
+                var displayLabel=$scope.actAttributes[$scope.labels][att].displayLabel;
+                //returnString=returnString+attribute+' as '+'`'+displayLabel+'`, ';
+                attributes=attributes+'{"attribute":"'+attribute+'"},';//,displayLabel:'"+displayLabel+"'},";
+                displayLabels=displayLabels+'{"displayLabel":"'+displayLabel+'"},';//,displayLabel:'"+displayLabel+"'},";
+                //console.log(attribute);
+            }
+            //console.log(attributes);
+            var strlen=attributes.length-1;
+            var attributesnew=attributes.substring(0,strlen);
+            attributesnew=attributesnew+"]}";
+
+            var strlen1=displayLabels.length-1;
+            var displayLabelsnew=displayLabels.substring(0,strlen1);
+            displayLabelsnew=displayLabelsnew+"]}";
+
+            window.location =  '/apollo/api/export/csvnodedetails/' +id+'/'+attributesnew;
+
         }
 
         $scope.twitterBlurb = encodeURIComponent($location.absUrl());

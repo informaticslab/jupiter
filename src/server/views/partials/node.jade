@@ -173,13 +173,19 @@
 												span {{node.name}} 
 					// end linkage
 					.row
-						.col-lg-6
-							label.btn.btn-default.pull-left(ng-click="exportrelationships()")
+						.col-lg-12
+							.vertical_spacing
+							.orange_header_larger Download:
+							label.btn.btn-default(ng-click="exportnodedetails()")
+								i.fa.fa-download
+								|  Download node attributes as CSV
+							|  | 	
+							label.btn.btn-default(ng-click="exportrelationships()")
 								i.fa.fa-download
 								|  Download relationships as CSV
-						.col-lg-6
-							//a.pull-right(ng-click="nodesearch=''; nodetype=''" href='/apollo/#/template/' ng-hide="hideReturnLink")
-								//label.btn.btn-mini(ng-click="exporttable()" ng-hide="showVSTableLoading")
+						//.col-lg-6
+							a.pull-right(ng-click="nodesearch=''; nodetype=''" href='/apollo/#/template/' ng-hide="hideReturnLink")
+								label.btn.btn-mini(ng-click="exporttable()" ng-hide="showVSTableLoading")
 								i.fa.fa-edit 
 								| Edit activity details
 						

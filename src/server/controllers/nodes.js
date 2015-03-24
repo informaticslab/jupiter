@@ -2217,7 +2217,7 @@ exports.postApproveCR = function(req, res) {
     var currenttime = new Date().getTime();
     mongodata['CR_DATE_EXECUTED']=currenttime;
     mongodata['CR_STATUS']="APPROVED";
-    var type ='CR-AD';
+    var type ='AD';
     var userId ="";
     var displayName = "";
     var notes = "";
@@ -2565,7 +2565,7 @@ exports.postApproveCR = function(req, res) {
 
                 userId = mongodata.CR_USER_ID_EXECUTE;
                 displayName = mongodata.CR_USER_DN_EXECUTE;
-                notes = 'APPROVED; UPDATE_ID: '+mongodata._id;
+                notes = 'APPROVED; EDIT_ID: '+mongodata._id;
 
                 auditLog.add(type,userId,displayName,notes);          
             });
@@ -2628,7 +2628,7 @@ exports.postApproveCR = function(req, res) {
                                 //insert entry to auditLogs
                                 userId = mongodata.CR_USER_ID_EXECUTE;
                                 displayName = mongodata.CR_USER_DN_EXECUTE;
-                                notes = 'APPROVED; UPDATE_ID: '+mongodata._id;
+                                notes = 'APPROVED; EDIT_ID: '+mongodata._id;
 
                                 auditLog.add(type,userId,displayName,notes);         
                             });
@@ -2719,7 +2719,7 @@ exports.postDeclineCR = function(req, res) {
     mongodata['CR_STATUS']="DECLINED";
     //console.log("req params",mongodata.id);
 
-    var type ='CR';
+    var type ='AD';
     var userId ="";
     var displayName = "";
     var notes = "";
@@ -2763,7 +2763,7 @@ exports.postDeclineCR = function(req, res) {
         userId = mongodata.CR_USER_ID_EXECUTE;
         displayName = mongodata.CR_USER_DN_EXECUTE;
         notes = 'DECLINED; '+mongodata.CR_REQUEST_TYPE+'_ID: '+mongodata._id;
-        console.log(mongodata);
+        //console.log(mongodata);
 
         auditLog.add(type,userId,displayName,notes);          
     });

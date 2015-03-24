@@ -131,8 +131,8 @@ module.exports = function(){
                             throw err;
                         } else {
                         // if successful, return the new user
-                            userId = user._id;
-                            displayName = user.displayName;
+                            userId = newUser._id;
+                            displayName = newUser.displayName;
                             notes = 'USER_TYPE: FACEBOOK';
                             auditLog.add(type,userId,displayName,notes);
                             return done(null, newUser);

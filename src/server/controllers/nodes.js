@@ -1976,7 +1976,7 @@ exports.postUpdateCR = function(req, res) {
         // assert.equal(3, result.ops.length);
         //console.log("Inserted 3 documents into the document collection");
         res.send("success");
-        console.log("returned",result[0]._id);
+        //console.log("returned",result[0]._id);
 
         var log={id:result[0]._id,action:"CREATE",user:result[0].CR_USER_DN_CREATE,date:currenttime,crdata:nodeDataString};
 
@@ -2024,7 +2024,7 @@ exports.postAddCR = function(req, res) {
             console.log(err);
             res.send("fail");
         } else {
-            console.log(result);
+            //console.log(result);
             res.send("success");
             var log={id:result[0]._id,action:"CREATE",user:result[0].CR_USER_DN_CREATE,date:currenttime,crdata:nodeDataString};
 
@@ -2306,7 +2306,7 @@ exports.postApproveCR = function(req, res) {
                                 }
                                 else
                                 {
-                                    console.log(result,"success?",mongodata);
+                                    //console.log(result,"success?",mongodata);
                                     res.send("success");
                                     var log={id:ObjectId(mongodata._id),action:"APPROVE",user:mongodata.CR_USER_DN_EXECUTE,date:currenttime,crdata:mongodata};
 
@@ -2747,7 +2747,7 @@ exports.postDeclineCR = function(req, res) {
         _id: ObjectId(mongodata._id)
     },mongodatawithoutid
     , function(err, result) {
-        console.log(result,err);
+        //console.log(result,err);
         res.send("success");
         var log={id:ObjectId(mongodata._id),action:"DECLINE",user:mongodata.CR_USER_DN_EXECUTE,date:currenttime,crdata:mongodata};
 
@@ -2900,7 +2900,7 @@ exports.updateRights = function(req, res) {
         // });             
     });
 
-    console.log(data);
+    
     userId = data.adminUserId;
     displayName = data.adminUserDisplayName;
     notes = 'Changed USER_ID: ' + data.user._id +'('+data.user.lastName+', '+ data.user.firstName+')'+ ' ROLE: '+data.right+ ' to ' + data.value;

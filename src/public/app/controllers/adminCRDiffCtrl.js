@@ -67,7 +67,7 @@ angular.module('apolloApp').controller('adminCRDiffCtrl', ['$scope','$modal', '$
         }
 
 
-
+        var crPrevEval;
         var init = function()
         {
 
@@ -217,8 +217,8 @@ angular.module('apolloApp').controller('adminCRDiffCtrl', ['$scope','$modal', '$
                     //console.log($scope.crDiffValues);
                     fetchRelationshipValues();
                 }
-                else
-                {//console.log();
+                else if($scope.crRequestType=="UPDATE")
+                {
                     var cacheRenew=new Date().getTime();
                     $http.get('/apollo/api/node/' + $scope.nodeId+'?'+cacheRenew).then(function(res) {
                         //console.log("mongo and node datat",res.data,$scope.mongoData);
@@ -254,81 +254,55 @@ angular.module('apolloApp').controller('adminCRDiffCtrl', ['$scope','$modal', '$
                             }
 
 
-                                if($scope.mongoData[0][obj.key]==undefined)
-                                {
-                                    obj.valueNew="";
-                                }
-                                else
-                                {
-                                    obj.valueNew=$scope.mongoData[0][obj.key];
-                                    //console.log($scope.mongoData[0][obj.key]);
-                                }
+                            if($scope.mongoData[0][obj.key]==undefined)
+                            {
+                                obj.valueNew="";
+                            }
+                            else
+                            {
+                                obj.valueNew=$scope.mongoData[0][obj.key];
+                                //console.log($scope.mongoData[0][obj.key]);
+                            }
+                            var diff=diffString(obj.valueOld,obj.valueNew);
+                            // //console.log(diff);
+
+                            obj.diff=diff;
+                            var rollbackdiff,rollbackdiffreverse;
                             
-                            //console.log(obj.valueNew,obj.valueOld);
-                            // for(na in $scope.nodeData.attributes)
-                            // {
-                            //     //var key = $scope.nodeData.attributes[na].key;
-                            //     var key = d.attribute;
-
-                            //     var valueOld = $scope.nodeData.attributes[na].value;
-                            //     var valueNew = $scope.mongoData[0][d.attribute];
-                            //     var diffFlg=false;
-                            //     var rollbackdiffFlg=false;
-                            //     if(key==d.attribute)
-                            //     {
-                                    //console.log(value);
-                                    var diff=diffString(obj.valueOld,obj.valueNew);
-                                    // //console.log(diff);
-
-                                    obj.diff=diff;
-                                    var rollbackdiff,rollbackdiffreverse;
-                                    
-                                    if($scope.crPrev != null && $scope.crPrev != "")
-                                    {
-                                        
-                                        if(rollback[obj.key]==undefined)
-                                        {
-                                            rollback[obj.key]="";
-
-                                        }
-                                        obj.rollback=rollback[obj.key];
-                                        obj.rollbackdiff=diffString(obj.valueOld,obj.rollback);
-                                        obj.rollbackdiffreverse=diffString(obj.rollback,obj.valueOld);
-                                        if(obj.rollbackdiff.indexOf("<ins>")>-1)
-                                        {
-                                            obj.rollbackdiffFlg=true;
-                                        }
-                                        if(obj.rollbackdiff.indexOf("<del>")>-1)
-                                        {
-                                            obj.rollbackdiffFlg=true;
-                                        }
-                                    }
-                                    //console.log(diff);
-                                    
-                                    if(diff.indexOf("<ins>")>-1)
-                                    {
-                                        obj.diffFlg=true;
-                                    }
-                                    if(diff.indexOf("<del>")>-1)
-                                    {
-                                        obj.diffFlg=true;
-                                    }
-
-                                    //console.log(obj);
-                                    // if($scope.crPrev != null && $scope.crPrev != "")
-                                    //     $scope.crDiffValues.push({"key":key,"valueOld":valueOld,"valueNew":valueNew,"diff":diff,"diffFlg":diffFlg,"rollback":obj.rollback,"rollbackdiff":rollbackdiff,"rollbackdiffreverse":rollbackdiffreverse,"rollbackdiffFlg":rollbackdiffFlg,sortIndex:d.sortIndex,displayLabel:d.displayLabel,description:d.description})
-                                    // else
-                                    //     $scope.crDiffValues.push({"key":key,"valueOld":valueOld,"valueNew":valueNew,"diff":diff,"diffFlg":diffFlg,sortIndex:d.sortIndex,displayLabel:d.displayLabel,description:d.description})
-                                    
-                                    $scope.crDiffValues.push(obj);
-
-                                    currentneodata[obj.key]=obj.valueOld;
-                                    //$scope.cr[key]=value;
-
-                            //     }
-                            // }
+                            if($scope.crPrev != null && $scope.crPrev != "")
+                            {
                                 
-                                //console.log(d, nodeData.attributes);
+                                if(rollback[obj.key]==undefined)
+                                {
+                                    rollback[obj.key]="";
+
+                                }
+                                obj.rollback=rollback[obj.key];
+                                obj.rollbackdiff=diffString(obj.valueOld,obj.rollback);
+                                obj.rollbackdiffreverse=diffString(obj.rollback,obj.valueOld);
+                                if(obj.rollbackdiff.indexOf("<ins>")>-1)
+                                {
+                                    obj.rollbackdiffFlg=true;
+                                }
+                                if(obj.rollbackdiff.indexOf("<del>")>-1)
+                                {
+                                    obj.rollbackdiffFlg=true;
+                                }
+                            }
+                            //console.log(diff);
+                            
+                            if(diff.indexOf("<ins>")>-1)
+                            {
+                                obj.diffFlg=true;
+                            }
+                            if(diff.indexOf("<del>")>-1)
+                            {
+                                obj.diffFlg=true;
+                            }
+
+                            $scope.crDiffValues.push(obj);
+
+                            currentneodata[obj.key]=obj.valueOld;
                             
                         });
 
@@ -337,6 +311,51 @@ angular.module('apolloApp').controller('adminCRDiffCtrl', ['$scope','$modal', '$
                         fetchRelationshipValues();
                     }); //http get
 
+                }
+                else
+                {
+                    //console.log($scope.crPrev);
+                    crPrevEval=JSON.parse($scope.crPrev);
+                    //console.log(crPrevEval);
+
+                    $scope.nodeDictionaryAttributes=$scope.actAttributes[$scope.nodeType];
+
+
+                    $scope.nodeDictionaryAttributes.forEach(function(d){
+
+                        //console.log(d);
+
+                        var obj={};
+                            obj.key=d.attribute;
+                            obj.sortIndex=d.sortIndex;
+                            obj.description=d.description;
+                            obj.displayLabel=d.displayLabel;
+                        
+                        if(crPrevEval[obj.key]==undefined)
+                        {
+                            obj.valueOld="";
+                        }
+                        else
+                        {
+                            obj.valueOld=crPrevEval[obj.key];
+                            //console.log(crPrevEval[obj.key]);
+                        }
+
+                        if(obj.valueOld.trim()=="")
+                        {
+                            obj.diffFlg=false;
+                        }
+                        else
+                        {
+                            obj.diffFlg=true;
+                        }
+
+
+                        $scope.crDiffValues.push(obj);
+                    });
+
+                    //console.log($scope.crDiffValues);
+                    fetchRelationshipValues();
                 }
 
             });//http get
@@ -582,7 +601,7 @@ angular.module('apolloApp').controller('adminCRDiffCtrl', ['$scope','$modal', '$
             {
                 findRelDifference();
             }
-            else
+            else if($scope.crRequestType=="UPDATE")
             {
 
 
@@ -612,6 +631,10 @@ angular.module('apolloApp').controller('adminCRDiffCtrl', ['$scope','$modal', '$
                     }
                     
                 });
+            }
+            else
+            {
+                findRelDifference();
             }
     }
 
@@ -705,7 +728,16 @@ angular.module('apolloApp').controller('adminCRDiffCtrl', ['$scope','$modal', '$
         else
         {
 
-            $scope.dbcrRelArray=$scope.relvalues;
+            
+            if($scope.crStatus=="APPROVED")
+            {
+                $scope.dbcrRelArray=eval(crPrevEval.rels);
+                //console.log();
+            }
+            else
+            {
+                $scope.dbcrRelArray=$scope.relvalues;
+            }
 
         }
 

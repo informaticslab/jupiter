@@ -2302,9 +2302,7 @@ exports.postApproveCR = function(req, res) {
     var prevdata = JSON.stringify(req.body.prev);
     mongodata['CR_PREVIOUS']=prevdata;
     var req_type = req.body.type;
-    console.log("2305",mongodata);
-    console.log("2306",prevdata);
-    console.log("2307",req_type);
+
     //var checkedid=testID(mongodata.id);
 
     //console.log("func call for id",checkedid);
@@ -2739,11 +2737,9 @@ exports.postApproveCR = function(req, res) {
 
     } else if (req_type == "DELETE") {
 
-        var query = 'match (n{id:\'' + mongodata.id + '\'})-[r]-()  delete n,r';
+        var query = 'match (n{id:\'' + mongodata.id + '\'}) optional match (n{id:\'' + mongodata.id + '\'})-[r]-()  delete n,r';
 
-        //console.log(query,req_type);
         neodb.db.query(query, params, function(err, results) {
-            //console.log(results);
 
             if (err) {
                 console.error('Error retreiving node from database:', err);

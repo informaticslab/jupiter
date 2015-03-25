@@ -51,6 +51,7 @@ angular.module('apolloApp').controller('adminCtrl', ['$scope','$modal', '$http',
     $scope.showErrMsg=false;
 
     $scope.lockedMongoID="";
+    $scope.lockedMongoUserDN="";
     $scope.showLockMsg=false;
 
     $scope.relationshipDescription="";
@@ -90,8 +91,9 @@ angular.module('apolloApp').controller('adminCtrl', ['$scope','$modal', '$http',
             //console.log(res.data.length);
             if(res.data.length>0)
             {
-                //console.log(res.data[0]._id);
+                //console.log(res);
                 $scope.lockedMongoID=res.data[0]._id;
+                $scope.lockedMongoUserDN=res.data[0].CR_USER_DN_CREATE;
                 $scope.showLockMsg=true;
             }
             else

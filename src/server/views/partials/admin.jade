@@ -57,7 +57,7 @@
 				.row(ng-show="showLockMsg")
 					.col-md-12.col-lg-12.col-sm-12
 						.alert.alert-success(role="alert")
-							| There is an existing change request on this activity created by user UserX. Click here to 
+							| There is an existing change request on this activity created by {{lockedMongoUserDN}}. Click here to 
 							a(href="#/adminCRQueue/CRDiff/{{lockedMongoID}}")
 								| view
 							|  the existing change request.

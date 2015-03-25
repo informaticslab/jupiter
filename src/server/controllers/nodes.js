@@ -1997,7 +1997,7 @@ exports.getMongoStatus = function(req, res) {
 
     var id = req.params.id;
     var query={'id':id,'CR_STATUS':'PENDING'};
-    var returnfields = {_id:1};
+    var returnfields = {_id:1, CR_USER_DN_CREATE:1};
 
     var collection = mongo.mongodb.collection('cr');
 

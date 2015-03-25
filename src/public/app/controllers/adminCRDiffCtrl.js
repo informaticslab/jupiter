@@ -91,7 +91,7 @@ angular.module('apolloApp').controller('adminCRDiffCtrl', ['$scope','$modal', '$
             $scope.status_show_approved=false;
             $scope.status_show_declined=false;
             $scope.hover=false;
-            //$scope.relValues=nodeRelationshipDictionary.RelationshipTypes;
+            $scope.relTypeValues=nodeRelationshipDictionary.RelationshipTypes;
             //console.log("UK $scope.relvalues",$scope.relvalues);
 
             $scope.startnode="";

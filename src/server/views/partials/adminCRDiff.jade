@@ -208,7 +208,7 @@
 								input(type="checkbox" ng-model="relCheckBox.fromNewNode" ng-change="setRelValueFrom()")
 								|  Mark if this node is '{{nodeName}}'
 					.col-lg-3.col-md-3.col-sm-3
-						select.form-control(ng-model="relselect" ng-options="opt as (opt | TitleCase | unCamelCase) for opt in relValues")
+						select.form-control(ng-model="relselect" ng-options="opt as (opt | TitleCase | unCamelCase) for opt in relTypeValues")
 							option(value="")
 								| Select relationship type
 					.col-lg-4.col-md-4.col-sm-4

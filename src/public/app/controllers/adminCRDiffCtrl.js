@@ -91,7 +91,8 @@ angular.module('apolloApp').controller('adminCRDiffCtrl', ['$scope','$modal', '$
             $scope.status_show_approved=false;
             $scope.status_show_declined=false;
             $scope.hover=false;
-            $scope.relValues=nodeRelationshipDictionary.RelationshipTypes;
+            //$scope.relValues=nodeRelationshipDictionary.RelationshipTypes;
+            //console.log("UK $scope.relvalues",$scope.relvalues);
 
             $scope.startnode="";
             $scope.startNodeId="";
@@ -223,7 +224,7 @@ angular.module('apolloApp').controller('adminCRDiffCtrl', ['$scope','$modal', '$
                         //console.log("mongo and node datat",res.data,$scope.mongoData);
                         $scope.nodeData = res.data;
 
-                        // console.log($scope.nodeData);
+                        // //console.log($scope.nodeData);
                         
                         $scope.nodeDictionaryAttributes=$scope.actAttributes[$scope.nodeType];
                         
@@ -277,7 +278,7 @@ angular.module('apolloApp').controller('adminCRDiffCtrl', ['$scope','$modal', '$
                             //     {
                                     //console.log(value);
                                     var diff=diffString(obj.valueOld,obj.valueNew);
-                                    // console.log(diff);
+                                    // //console.log(diff);
 
                                     obj.diff=diff;
                                     var rollbackdiff,rollbackdiffreverse;
@@ -417,8 +418,8 @@ angular.module('apolloApp').controller('adminCRDiffCtrl', ['$scope','$modal', '$
             //$scope.nodeGroups[group].heading
             
         }
-        // console.log($scope.nodeGroups);
-        // console.log($scope.nodeAllGroupAttributes);
+        // //console.log($scope.nodeGroups);
+        // //console.log($scope.nodeAllGroupAttributes);
     }
 
     $scope.saveEditCR = function(){
@@ -587,6 +588,7 @@ angular.module('apolloApp').controller('adminCRDiffCtrl', ['$scope','$modal', '$
 
                 $http.get('/apollo/api/node/relationships/' + $scope.nodeId+'?'+cacheRenew).then(function(res) {
                     $scope.relvalues=res.data;
+                    //console.log("$scope.relvalues",$scope.relvalues);
                     currentreldata=res.data;
                     //console.log(currentreldata);
                     currentneodata["rels"]=JSON.stringify(currentreldata);
@@ -707,6 +709,8 @@ angular.module('apolloApp').controller('adminCRDiffCtrl', ['$scope','$modal', '$
 
         }
 
+        //console.log($scope.dbcrRelArray);
+
 
     }
 
@@ -715,7 +719,7 @@ angular.module('apolloApp').controller('adminCRDiffCtrl', ['$scope','$modal', '$
                    
         //console.log($scope.crRel);
         var dbRelArray=$scope.relvalues;
-
+        //console.log(dbRelArray);
         //var crRelArray=eval($scope.crRel);
 
         var dbprevRelArray=eval(JSON.parse($scope.crPrev).rels);
@@ -726,12 +730,13 @@ angular.module('apolloApp').controller('adminCRDiffCtrl', ['$scope','$modal', '$
         //var dbprevdbRelArray=[];
 
         dbprevRelArray.some(function(d){
-            
+            d.found=false;
+            d.crdbType="db";
             dbRelArray.some(function(d1){
                 var dbstr=d1.startid+d1.reltype+d1.endid+d1.reldesc;
                 var crstr=d.startid+d.reltype+d.endid+d.reldesc;
-                d.found=false;
-                d.crdbType="db";
+                
+                
                 //console.log("111111",crstr,dbstr);
                 if(dbstr==crstr)
                 {
@@ -752,12 +757,12 @@ angular.module('apolloApp').controller('adminCRDiffCtrl', ['$scope','$modal', '$
 
 
         dbRelArray.some(function(d){
-            
+            d.found=false;
+            d.crdbType="cr";
             dbprevRelArray.some(function(d1){
                 var crstr=d1.startid+d1.reltype+d1.endid+d1.reldesc;
                 var dbstr=d.startid+d.reltype+d.endid+d.reldesc;
-                d.found=false;
-                d.crdbType="cr";
+                
                 //console.log("22222",dbstr,crstr);
                 if(dbstr==crstr)
                 {

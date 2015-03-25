@@ -2302,7 +2302,9 @@ exports.postApproveCR = function(req, res) {
     var prevdata = JSON.stringify(req.body.prev);
     mongodata['CR_PREVIOUS']=prevdata;
     var req_type = req.body.type;
-
+    console.log("2305",mongodata);
+    console.log("2306",prevdata);
+    console.log("2307",req_type);
     //var checkedid=testID(mongodata.id);
 
     //console.log("func call for id",checkedid);
@@ -2559,7 +2561,7 @@ exports.postApproveCR = function(req, res) {
         var rels = [];
 
         rels = eval(mongodata.rels);
-        //console.log("rels",rels);
+        console.log("rels",rels);
         var matchclause = "(" + mongodata.id + "{id:'" + mongodata.id + "'})";
         var withclause = "" + mongodata.id + "";
         var createclause = "";
@@ -2601,49 +2603,62 @@ exports.postApproveCR = function(req, res) {
 
         if(createclause.trim()=="")
         {
-            var collection = mongo.mongodb.collection('cr');
+            
+            neodb.db.query(delrelquery, {}, function(err, results) {
+                //console.log(results);
 
-            //var currenttime = new Date().getTime();
-            //console.log();
+                if (err) {
+                    console.error('Error retreiving node from database:', err);
+                    res.send(404, 'No node at that location');
+                } else {
 
-            var mongodatawithoutid={};
 
-            for(var key in mongodata)
-            {
-                console.log(key);
-                if(key=="_id")
-                {
 
-                }
-                else
-                {
-                    mongodatawithoutid[key]=mongodata[key];
-                }
-            }
-            collection.update({
-                _id: ObjectId(mongodata._id)
-            }, mongodatawithoutid
-            , function(err, result) {
-                //console.log(result);
-                res.send("success");
+                    var collection = mongo.mongodb.collection('cr');
 
-                var log={id:ObjectId(mongodata._id),action:"APPROVE",user:mongodata.CR_USER_DN_EXECUTE,date:currenttime,crdata:mongodata};
+                    //var currenttime = new Date().getTime();
+                    //console.log();
 
-                var logcollection = mongo.mongodb.collection('logs');
-            // Insert some documents
-                logcollection.insert(log, function(err, result) {
-                    if(err)
+                    var mongodatawithoutid={};
+
+                    for(var key in mongodata)
                     {
-                        console.log("failed to insert log",err);
+                        console.log(key);
+                        if(key=="_id")
+                        {
+
+                        }
+                        else
+                        {
+                            mongodatawithoutid[key]=mongodata[key];
+                        }
                     }
-                });
-                //insert entry to auditLogs
+                    collection.update({
+                        _id: ObjectId(mongodata._id)
+                    }, mongodatawithoutid
+                    , function(err, result) {
+                        //console.log(result);
+                        res.send("success");
 
-                userId = mongodata.CR_USER_ID_EXECUTE;
-                displayName = mongodata.CR_USER_DN_EXECUTE;
-                notes = 'APPROVED; EDIT_ID: '+mongodata._id;
+                        var log={id:ObjectId(mongodata._id),action:"APPROVE",user:mongodata.CR_USER_DN_EXECUTE,date:currenttime,crdata:mongodata};
 
-                auditLog.add(type,userId,displayName,notes);          
+                        var logcollection = mongo.mongodb.collection('logs');
+                    // Insert some documents
+                        logcollection.insert(log, function(err, result) {
+                            if(err)
+                            {
+                                console.log("failed to insert log",err);
+                            }
+                        });
+                        //insert entry to auditLogs
+
+                        userId = mongodata.CR_USER_ID_EXECUTE;
+                        displayName = mongodata.CR_USER_DN_EXECUTE;
+                        notes = 'APPROVED; EDIT_ID: '+mongodata._id;
+
+                        auditLog.add(type,userId,displayName,notes);          
+                    });
+                }
             });
         }
         else

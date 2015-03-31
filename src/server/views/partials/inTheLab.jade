@@ -151,11 +151,17 @@
 								//- img.pull-left.lab_icon(src='img/FoamTreeIcon.png', alt='Visualization Voronoi Treemap')
 								.visual_section_text
 									a.bold_link(ng-click='goToTop()' href="#/dashboard", id='btnDetails') Executive Summary Dashboard
+									br
+									.vertical_spacing_lesser
+									| This resource provides an overview / dashboard view of all the data within CISP.  Specifically, this tool focuses on a high-level overview of the validation status of the activities within the organization selected.  Any organization can be selected, as well as any type of activity.  Results are shown as both a total count, as well as a percentage.
 							.visual_section
 								.vertical_spacing_lesser
 								//- img.pull-left.lab_icon(src='img/FoamTreeIcon.png', alt='Visualization Voronoi Treemap')
 								.visual_section_text
 									a.bold_link(ng-click='goToTop()' href="#/query", id='btnDetails') Advanced Query Tool
+									br
+									.vertical_spacing_lesser
+									| This tool enables users to carry out a very customized search of information within CISP.  The user can select a specific activity, and select specific related activity types (e.g., surveillance systems) - and then search for specific metadata (i.e., specific attributes within those related systems).  Examples of specific metadata include elements such as "report frequency," "data technology," or "operational status."
 							.vertical_spacing_more
 	.div(ng-class='getSidebarWidth()')
 		.hx_side(ng-show='!showSidebar' ng-click='toggleSidebar()')

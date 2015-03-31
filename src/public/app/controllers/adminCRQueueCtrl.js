@@ -151,7 +151,7 @@ angular.module('apolloApp').controller('adminCRQueueCtrl', ['$scope','$modal','$
             }
             var crnodename1=crnodename.replace(/the|\sa\s|\s/gi, function myFunction(x){return "";});
             var neonodename1=neonodename.replace(/the|\sa\s|\s/gi, function myFunction(x){return "";});
-            if(crnodename1.match(/biosense/))
+            //if(crnodename1.match(/biosense/))
             //console.log("*************",crnodename1,"**************",neonodename1);
             if(crnodename1.toLowerCase()==neonodename1.toLowerCase())
             {
@@ -176,7 +176,7 @@ angular.module('apolloApp').controller('adminCRQueueCtrl', ['$scope','$modal','$
 
             var crnodename2=crnodename1.replace(/system|program|registry|survey|tool|data|dataset|standard|collaborative|element/gi, function myFunction(x){return "";});
             var neonodename2=neonodename1.replace(/system|program|registry|survey|tool|data|dataset|standard|collaborative|element/gi, function myFunction(x){return "";});
-            if(crnodename2.match(/biosense/))
+            //if(crnodename2.match(/biosense/))
             //console.log("***",crnodename2,"***",neonodename2);
             if(crnodename2.toLowerCase()==neonodename2.toLowerCase())
             {

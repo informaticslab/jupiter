@@ -124,7 +124,7 @@ angular.module('apolloApp').controller('nodeCtrl', ['$scope', '$location', '$res
                         $scope.nodesArray.push(k);
                     });
                 });
-
+                $scope.toRet=toRet;
                 return _.filter(toRet, function(i) {
                     return i.value == null || i.value == '' || i.value.toLowerCase() == 'null';
                 });
@@ -160,32 +160,26 @@ angular.module('apolloApp').controller('nodeCtrl', ['$scope', '$location', '$res
 
         $scope.exportnodedetails= function()
         {
-            
-           
-            var id=$scope.nodeId;
-            var attributes='{"attributes":[';
-            var displayLabels='{"displayLabel":[';
-            var returnString="";
 
-            for(att in $scope.actAttributes[$scope.labels])
+            var csvString="\"Attribute Name\",\"Attribute Value\"\r\n";
+
+            var attrArray= $scope.node.attributes;
+            console.log(attrArray);            attrArray.sort(function(a,b) { return parseFloat(a.sortIndex) - parseFloat(b.sortIndex) } );
+            for(att in attrArray)
             {
-                var attribute=$scope.actAttributes[$scope.labels][att].attribute;
-                var displayLabel=$scope.actAttributes[$scope.labels][att].displayLabel;
-                //returnString=returnString+attribute+' as '+'`'+displayLabel+'`, ';
-                attributes=attributes+'{"attribute":"'+attribute+'"},';//,displayLabel:'"+displayLabel+"'},";
-                displayLabels=displayLabels+'{"displayLabel":"'+displayLabel+'"},';//,displayLabel:'"+displayLabel+"'},";
-                //console.log(attribute);
+                if(attrArray[att].displayLabel!=undefined)
+                {
+                    csvString=csvString+"\""+attrArray[att].displayLabel+"\",\""+attrArray[att].value+"\"\r\n";
+                }
+                //var csvrow=$scope.actAttributes[$scope.labels][att].displayLabel+","+
             }
-            //console.log(attributes);
-            var strlen=attributes.length-1;
-            var attributesnew=attributes.substring(0,strlen);
-            attributesnew=attributesnew+"]}";
 
-            var strlen1=displayLabels.length-1;
-            var displayLabelsnew=displayLabels.substring(0,strlen1);
-            displayLabelsnew=displayLabelsnew+"]}";
-
-            window.location =  '/apollo/api/export/csvnodedetails/' +id+'/'+attributesnew;
+           var element = angular.element('<a/>');
+                 element.attr({
+                     href: 'data:attachment/csv;charset=utf-8,' + encodeURI(csvString),
+                     target: '_blank',
+                     download: 'NodeDetails.csv'
+                 })[0].click();
 
         }
 

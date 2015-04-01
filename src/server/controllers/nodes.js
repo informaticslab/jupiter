@@ -784,68 +784,7 @@ exports.exportCSVNodeRelations = function(req, res) {
 };
 
 
-exports.exportCSVNodeDetails = function(req, res) {
 
-    var id = req.params.id;
-    var attributes = req.params.attributes;
-
-    var attributesObj=JSON.parse(attributes);
-
-    var returnString="";
-    for(att in attributesObj.attributes)
-    {
-        returnString=returnString+"n."+attributesObj.attributes[att].attribute+" as "+attributesObj.attributes[att].attribute+",";
-    }
-    returnString=returnString.substring(0,returnString.length-1);
-
-    query = ['MATCH (n) where n.id={id}',
-        'return '+returnString
-    ].join('\n');
-
-    params = {
-        id: id
-    };
-
-    //console.log(query, params);
-    neodb.db.query(query, params, function(err, r) {
-        if (err) {
-            console.error('Error retreiving statistics from database:', err);
-            res.send(404, 'Error encountered');
-        } else {
-
-
-            resultsarr=[];
-            resultsarr.push([
-                "Attribute Name",
-                "Attribute Value"
-            ]);
-            r.forEach(function(d) {
-
-                for(att in attributesObj.attributes)
-                {
-                    //console.log(attributesObj.attributes[att].attribute,"------",d[attributesObj.attributes[att].attribute]);
-                    resultsarr.push([
-                        attributesObj.attributes[att].attribute,
-                        d[attributesObj.attributes[att].attribute]
-                    ]);
-                }
-
-
-
-            });
-
-            res.header('content-type', 'text/csv');
-            res.header('content-disposition', 'attachment; filename=NodeDetails.csv');
-
-            res.csv(resultsarr);
-            //res.csv(resultsarr);
-
-        }
-    });
-
-
-
-};
 
 exports.getPortalStatisticsNodesValidated = function(req, res) {
 

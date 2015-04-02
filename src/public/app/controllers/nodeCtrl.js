@@ -183,16 +183,48 @@ angular.module('apolloApp').controller('nodeCtrl', ['$scope', '$location', '$res
            //           target: '_blank',
            //           download: 'NodeDetails.csv'
            //       })[0].click();
-            var hiddenElement = document.createElement('a');
 
-            hiddenElement.href = 'data:attachment/csv,' + encodeURI(csvString);
-            hiddenElement.target = '_blank';
-            hiddenElement.download = 'NodeDetails.csv';
 
-            document.body.appendChild(hiddenElement);
-            hiddenElement.click();
+            var IEcheck = checkIE();
+            console.log("ver=",IEcheck)
+            if(IEcheck)
+            {
+                //console.log(navigator.appVersion);
+                var csvContent=csvString; //here we load our csv data 
+                var blob = new Blob([csvContent],{
+                    type: "text/csv;charset=utf-8;"
+                });
+
+                navigator.msSaveBlob(blob, "NodeDetails.csv");
+            }
+            else
+            {
+                //console.log(navigator.appVersion);
+                var hiddenElement = document.createElement('a');
+
+                hiddenElement.href = 'data:attachment/csv,' + encodeURI(csvString);
+                hiddenElement.target = '_blank';
+                hiddenElement.download = 'NodeDetails.csv';
+
+                document.body.appendChild(hiddenElement);
+                hiddenElement.click();
+            }
+
+            
 
         }
+
+        function checkIE()
+        {
+          var ua = window.navigator.userAgent;
+            var msie = ua.indexOf("MSIE ");
+
+            if (msie > 0 || !!navigator.userAgent.match(/Trident.*rv\:11\./))      // If Internet Explorer, return version number
+                return true
+            else                 // If another browser, return 0
+                return false;
+        }
+
 
         $scope.twitterBlurb = encodeURIComponent($location.absUrl());
 

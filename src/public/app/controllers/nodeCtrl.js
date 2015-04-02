@@ -14,8 +14,11 @@ angular.module('apolloApp').controller('nodeCtrl', ['$scope', '$location', '$res
             //console.log("***********************"+x);
             $scope.actAttributes[x] = [];
             for (y in nodeAttributeDictionary[x].attributeGroups) {
+                var attGroupSortIndex=nodeAttributeDictionary[x].attributeGroups[y].sortIndex;
                 for (z in nodeAttributeDictionary[x].attributeGroups[y].attributes) {
                     //$scope.actAttributes[x].push("" + z + "");
+                    var newattSortIndex=attGroupSortIndex+""+nodeAttributeDictionary[x].attributeGroups[y].attributes[z].sortIndex;
+                    nodeAttributeDictionary[x].attributeGroups[y].attributes[z].sortIndex=newattSortIndex;
                     $scope.actAttributes[x].push({
                         attribute:z,
                         description:nodeAttributeDictionary[x].attributeGroups[y].attributes[z].description,
@@ -164,7 +167,7 @@ angular.module('apolloApp').controller('nodeCtrl', ['$scope', '$location', '$res
             var csvString="\"Attribute Name\",\"Attribute Value\"\r\n";
 
             var attrArray= $scope.node.attributes;
-            console.log(attrArray);            attrArray.sort(function(a,b) { return parseFloat(a.sortIndex) - parseFloat(b.sortIndex) } );
+            attrArray.sort(function(a,b) { return parseFloat(a.sortIndex) - parseFloat(b.sortIndex) } );
             for(att in attrArray)
             {
                 if(attrArray[att].displayLabel!=undefined)
@@ -174,12 +177,20 @@ angular.module('apolloApp').controller('nodeCtrl', ['$scope', '$location', '$res
                 //var csvrow=$scope.actAttributes[$scope.labels][att].displayLabel+","+
             }
 
-           var element = angular.element('<a/>');
-                 element.attr({
-                     href: 'data:attachment/csv;charset=utf-8,' + encodeURI(csvString),
-                     target: '_blank',
-                     download: 'NodeDetails.csv'
-                 })[0].click();
+           // var element = angular.element('<a/>');
+           //       element.attr({
+           //           href: 'data:attachment/csv;charset=utf-8,' + encodeURI(csvString),
+           //           target: '_blank',
+           //           download: 'NodeDetails.csv'
+           //       })[0].click();
+            var hiddenElement = document.createElement('a');
+
+            hiddenElement.href = 'data:attachment/csv,' + encodeURI(csvString);
+            hiddenElement.target = '_blank';
+            hiddenElement.download = 'NodeDetails.csv';
+
+            document.body.appendChild(hiddenElement);
+            hiddenElement.click();
 
         }
 

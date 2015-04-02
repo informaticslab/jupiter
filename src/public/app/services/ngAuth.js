@@ -27,7 +27,6 @@ angular.module('apolloApp').factory('ngAuth', function($http, ngIdentity, $q, ng
 			var dfd = $q.defer();
 
 			$http.post('/apollo/api/saveUser',newUser).then(function(res) {
-				//ngIdentity.currentUser = newUser;
 				if(res.data.success){
 					dfd.resolve(true);
 				} else {

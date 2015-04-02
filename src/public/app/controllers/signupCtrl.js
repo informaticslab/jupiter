@@ -1,11 +1,14 @@
-angular.module('apolloApp').controller('signupCtrl', function($scope,$location,ngUser,ngNotifier,ngAuth) {
+angular.module('apolloApp').controller('signupCtrl', function($scope,$location,ngUser,ngNotifier,ngAuth,ngIdentity) {
+$scope.identity = ngIdentity;
 
 	$scope.signup = function() {
 		var newUserData = {
 			email: $scope.email,
 			password: $scope.password,
 			firstName: $scope.firstName,
-			lastName: $scope.lastName
+			lastName: $scope.lastName,
+			adminUserId: $scope.identity.currentUser._id,
+			adminUserDisplayName: $scope.identity.currentUser.displayName
 		};
 
 		ngAuth.createUser(newUserData).then(function(success) {

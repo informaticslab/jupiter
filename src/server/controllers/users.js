@@ -13,7 +13,12 @@ exports.createUser = function(req,res,next) {
 	userData.salt = createSalt();
 	userData.hashed_pwd = hashPwd(userData.salt, userData.password);
 
-	console.log(userData);
+	var type ='rights';
+    var userId ='';
+    var displayName = '';
+    var notes = '';
+
+    console.log(userData);
 
 	User.findOne({email:userData.email}).exec(function(err, user){
 		if(user) {
@@ -38,6 +43,13 @@ exports.createUser = function(req,res,next) {
 					res.send({success:true});
 				}
 			})
+
+			userId = userData.adminUserId;
+			displayName = userData.adminUserDisplayName;
+			notes = 'Created new local user; ID: '+ newUser._id+'('+newUser.displayName+')';
+
+			auditLog.add(type,userId,displayName,notes);
+
 		}
 	})
 	// User.create(userData, function(err, user) {

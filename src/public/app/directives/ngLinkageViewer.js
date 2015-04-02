@@ -870,13 +870,13 @@ angular.module('apolloApp')
 
 									midx = (d.source.x + d.target.x) / 2;
 									midy = (d.source.y + d.target.y) / 2;
-									console.log("true",d,d.source.name);
+									//console.log("true",d,d.source.name);
 									return 'rotate(180 ' + midx + ' ' + midy + ') ';
 									//return ' rotate(180)';
 								} 
 								else {
 
-										console.log("false",d,d.source.name);
+										//console.log("false",d,d.source.name);
 										return ' rotate(0)';
 								}
 							    })

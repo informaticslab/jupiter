@@ -8,7 +8,7 @@ angular.module('apolloApp').controller('sysTreeCtrl', function($scope, $routePar
     var nodeDetails = $http.get('/apollo/api/node/managed/' + $routeParams.id).success(function(data) {
         $scope.node = data;
         if ($scope.node != null && $scope.node.length > 0 && $scope.node[0].name != null && $scope.node[0].name.length > 0) {
-            console.log('node name was: ' + $scope.node[0].name[0])
+            //console.log('node name was: ' + $scope.node[0].name[0])
             siteName = 'SysTree: ' + $scope.node[0].name[0];
             var site = {
                 'name': siteName,

@@ -46,7 +46,7 @@
 			.top_block_faq
 				h4.orange_main_faq(ng-click="print()")
 					span.glyphicon.glyphicon-comment.icon-flipped.faq_icon
-					| Ad-Hoc Query Tool
+					| Advanced Query Tool
 				.vertical_spacing_browse
 				.vertical_spacing_lesser
 				.row
@@ -92,6 +92,10 @@
 						label.btn.btn-default(ng-click="isCollapsed = !isCollapsed" ng-disabled="!q_acttypes")
 							| Advanced filtering for selected activities 
 							i.fa.fa-chevron-circle-right(ng-class="{'fa fa-chevron-circle-down': !isCollapsed, 'fa fa-chevron-circle-right': isCollapsed}")
+						.faq_footnote(ng-if="attrdisplaystring.length>0")
+							| Attributes filtered: {{attrdisplaystring}}
+						.faq_footnote(ng-if="attrdisplaystring.length<=0")
+							| Attributes filtered: none
 					.col-lg-4.col-md-4.col-sm-4.gray_text
 						label.btn.btn-default.pull-right(ng-click="getrelatedactivitytypes()" ng-disabled="dissearchbtn")
 							i.fa.fa-chevron-circle-right
@@ -116,7 +120,7 @@
 										| Filter 
 										b
 											|'{{activitytype.nodetypes | unCamelCase}}' 
-										| activities further by specific attributes
+										| activities further by using specific values with its attributes
 									.vertical_spacing_less
 									.well.well-lg
 										.adhocad(ng-repeat="act in actAttributes[activitytype.nodetypes] track by $index")
@@ -162,8 +166,11 @@
 									.col-lg-8.col-md-8.col-sm-8
 										.fg_placeholder.forcegraph-bordered(id="fg_{{row.aid+row.bid}}" attribute-divid="fg_{{row.aid+row.bid}}" ng-force-graph attribute-readytoload=true  attribute-percent=10 attribute-nodelinks="{{row.pathlinks}}" attribute-nodes="{{row.pathnodes}}")
 								.vertical_spacing_less			
-
-
+				.row(ng-if="lengthrel>0" ng-hide="q_results")
+					.col-lg-12.col-md-12.col-sm-12
+						label.btn.btn-default.pull-right(ng-click="exportadhocresults()")
+							i.fa.fa-download
+							|  Download results as CSV
 				
 				//end nested row
 				

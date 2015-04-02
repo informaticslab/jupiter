@@ -5,7 +5,7 @@ html(lang="en" ng-app='apolloApp')
 		meta(name="viewport" content="width=device-width, initial-scale=1.0")
 		title Integrated Surveillance Portal
 		link(rel="stylesheet" href="/apollo/css/bootstrap.min.css")
-		//link(rel="stylesheet" href="/apollo/css/bootstrap-theme.min.css")
+		link(rel="stylesheet" href="/apollo/css/bootstrap-theme.min.css")
 		link(rel="stylesheet" href="/apollo/css/font-awesome.min.css")
 		link(rel="stylesheet" href="/apollo/css/sticky-footer-navbar.css")
 		link(rel="stylesheet" href="/apollo/css/animation.css")
@@ -13,7 +13,8 @@ html(lang="en" ng-app='apolloApp')
 		link(rel="stylesheet" href="/apollo/css/d3-viz.css")
 		link(rel="stylesheet" href="/apollo/css/loading-bar.min.css")
 		link(rel="stylesheet" href="/apollo/css/inTheLab.css")
-	body(ng-controller='rootCtrl' data-ng-init="open()")
+		link(rel="stylesheet" href="/apollo/vendor/toastr/toastr.css")
+	body(ng-controller='rootCtrl' data-ng-init="open();getPIVinfo()")
 		.container-fluid
 			// row1
 			.row.headerblue
@@ -23,34 +24,36 @@ html(lang="en" ng-app='apolloApp')
 							img.img-responsive.pull-left.cdclogo(src='img/cdc_logo.png', alt='CDC logo')
 						span.cdctext Integrated Surveillance Portal
 						span.header_icon
-							img(src='img/header_graphic_alpha.png', alt='Integrated Surveillance Portal graphic')
+							img(src='img/header_graphic_beta.png', alt='Integrated Surveillance Portal graphic')
 						// This line changed for new graphic
 					span.visible-md
 						a(href='http://www.cdc.gov' target='_blank')
 							img.img-responsive.pull-left.cdclogo2(src='img/cdc_logo_smaller.png', alt='CDC logo')
 						span.cdctext2 Integrated Surveillance Portal
 						span.header_icon
-							img(src='img/header_graphic_small_alpha.png', alt='Integrated Surveillance Portal graphic')
+							img(src='img/header_graphic_small_beta.png', alt='Integrated Surveillance Portal graphic')
 						// This line changed for new graphic
 					span.visible-sm
 						a(href='http://www.cdc.gov' target='_blank')
 							img.img-responsive.pull-left.cdclogo2(src='img/cdc_logo_smaller.png', alt='CDC logo')
 						span.cdctext3 Integrated Surveillance Portal
 						span.header_icon
-							img(src='img/header_graphic_smaller_alpha.png', alt='Integrated Surveillance Portal graphic')
+							img(src='img/header_graphic_smaller_beta.png', alt='Integrated Surveillance Portal graphic')
 						// This line changed for new graphic
 				.col-lg-3.col-md-3.col-sm-3
 					span.visible-lg.visible-md
 						.input-group.search_button
-							input.form-control(id='bigSearchBawks', typeahead-on-select="itemSelected($item, $model, $label)", typeahead-min-length='3', typeahead="node.name for node in getNodes($viewValue)", type='text', ng-model='queryString')							
+							input.form-control(id='bigSearchBawks', typeahead-on-select="itemSelected($item, $model, $label)", typeahead-min-length='3', typeahead="node.name for node in getNodes($viewValue)", type='text', ng-model='queryString')
 							span.input-group-btn
-								button.btn.btn-default(type='button', id='bigSearchButton', ng-click='redirectToSearch()') Search
+								button.btn.btn-default(type='button', id='bigSearchButton', ng-click='redirectToSearch()')
+									| Search
 						// /input-group
 					span.visible-sm
 						.input-group.search_button
 							input.form-control(id='lilSearchBawks', typeahead-on-select="itemSelected($item, $model, $label)", typeahead-min-length='3', typeahead="node.name for node in getNodes($viewValue)",  type='text', ng-model='queryString', ng-enter='redirectToSearch()')
 							span.input-group-btn
-								button.btn.btn-default(type='button' id='lilSearchButton', ng-click='redirectToSearch()') Search
+								button.btn.btn-default(type='button' id='lilSearchButton', ng-click='redirectToSearch()')
+									| Search
 						// /input-group
 				.col-lg-2.col-md-2.col-sm-2.clearfix
 					span.visible-lg.visible-md
@@ -74,6 +77,7 @@ html(lang="en" ng-app='apolloApp')
 							span.icon-bar
 							span.icon-bar
 					#collapse.collapse.navbar-collapse
+						
 						ul.nav.navbar-nav.scootnav
 							li(ng-class="{active:q == 'home'}")
 								a(href='#/home')
@@ -87,9 +91,18 @@ html(lang="en" ng-app='apolloApp')
 								a(href='#/faq')
 									span.glyphicon.glyphicon-comment.custom_faqs.icon-flipped  
 									| &nbsp;FAQs
-						span.right_nav_content
-							span.glyphicon.glyphicon-user.user_custom  
-							| &nbsp;Welcome, {{loginuser}} &nbsp;
+						
+						span.right_nav_content(ng-controller="navBarLoginCtrl")
+
+							a(href="" ng-click="openLogin('lg')" ng-hide="identity.isAuthenticated()") 
+									span.glyphicon.glyphicon-user 
+										| &nbsp;Login
+						ng-include(src="'/apollo/partials/navbar-login'"  ng-show="identity.isAuthenticated()")
+	
+
+						//div(ng-include="'/apollo/partials/navbar-login'"  ng-show ="signInBtn")
+							//span.glyphicon.glyphicon-user.user_custom  
+							//| &nbsp;Welcome, {{loginuser}} &nbsp;
 							//a(href='#')  Logout
 							//span.favorites_icon
 								img(src='img/filled_circle_smaller.png', alt='Favorites')
@@ -98,15 +111,93 @@ html(lang="en" ng-app='apolloApp')
 							//- 	a(ng-click='toggleSidebar()')
 							//- 		img(src='img/filled_circle_smaller.png', alt='History')
 							//- 		| Show/Hide Sidebar
+
 		// end row 2 (navbar)
+
+		//Login modal
 		div
+			script(type="text/ng-template", id="loginModalContent.html")
+				.modal-content(ng-controller="navBarLoginCtrl")
+					.modal-header.header_dark
+						span.pull-right
+							button.btn.close_button.glyphicon.glyphicon-remove(ng-click="cancel()")
+						//.disclaimer_intro
+						h4.modal-title(id='myModalLabel') &nbsp;Login
+							img(alt='icon', src='img/modal_icon.png')
+							img(alt='Beta', src='img/modal_beta.png')
+					.modal-body
+
+						.row
+							.col-lg-5.col-md-5.col-sm-5
+								h4
+									| CDC Smart Card Login
+								br
+								.row
+									.col-lg-3.col-md-3.col-sm-3
+										img.pull-left(src="img/PIV_Card_Sample.png")
+									.col-lg-9.col-md-9.col-sm-9
+										| Insert your Smart Card into your smart card reader before you click the Login button.
+								br
+								.row
+									.col-lg-12.col-md-12.col-sm-12
+										button.btn.btn-primary(data-dismiss='modal', type='button', ng-click='ok();pivLogin()') 
+											| Login
+							.col-lg-1.col-md-1.col-sm-1
+								p.text-center
+									br
+									br
+									br
+									| (or)
+							.col-lg-6.col-md-6.col-sm-6
+								h4
+									| CISP Login
+								br
+								form(ng-controller="navBarLoginCtrl")
+									.form-group
+										input.form-control(placeholder="Email", ng-model="email")
+									.form-group
+										input.form-control(type="password", placeholder="Password", ng-model="password")
+									br
+									button.btn.btn-primary(ng-click="signin(email,password)")
+										| Login
+						hr
+						.row
+							.col-lg-6.col-md-6.col-sm-6
+								strong
+									span
+										| You can also login using:
+								br
+								br
+								a(href="/apollo/auth/facebook")
+									img(src="img/FB-f-Logo__blue_29.png" )
+							.col-lg-6.col-md-6.col-sm-6
+								strong
+									span
+										|  
+								br
+								br
+								
+									
+					//.modal-footer
+						.modal_show
+							h4
+								| Login Using
+								i.fa.fa-facebook-official
+							//a(href="/apollo/auth/facebook")
+								| login using facebook
+
+		// end login modal
+
+
+
+		div 
 			script(type="text/ng-template", id="myModalContent.html")
 				.modal-content
 					.modal-header.header_dark
 						.disclaimer_intro
 						h4.modal-title(id='myModalLabel') &nbsp;CDC Integrated Surveillance Portal
 							img(alt='icon', src='img/modal_icon.png')
-							img(alt='Alpha', src='img/modal_alpha.png')
+							img(alt='Beta', src='img/modal_beta.png')
 					.modal-body
 						.disclaimer_title Disclaimer:
 						P
@@ -146,6 +237,7 @@ html(lang="en" ng-app='apolloApp')
 					| &nbsp; | &nbsp;
 					a.white_link(href='#/bottomNav/contact/') Contact
 					span.cdc_info
-						| Centers for Disease Control and Prevention | &nbsp;Build: {{buildNumber}}		
+						| Centers for Disease Control and Prevention | &nbsp;Build: {{buildNumber}}
+		include currentUser						
 		include scripts
 		

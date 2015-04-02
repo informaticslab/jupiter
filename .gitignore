@@ -13,3 +13,5 @@ src/results
 
 src/npm-debug.log
 src/node_modules
+
+src/server/config/certs

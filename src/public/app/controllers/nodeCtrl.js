@@ -2,12 +2,37 @@ angular.module('apolloApp').controller('nodeCtrl', ['$scope', '$location', '$res
     function($scope, $location, $resource, $http, $routeParams, nodeAttributeDictionary) {
         
         
-
+        $scope.nodesArray=[];
         $scope.contentLoading = true;
         $scope.nodeId = $routeParams.id
         $scope.$parent.q = 'explore';
         $scope.isCollapsed = true;
         $scope.tablength=[];
+        
+        $scope.actAttributes = {};
+        for (x in nodeAttributeDictionary) {
+            //console.log("***********************"+x);
+            $scope.actAttributes[x] = [];
+            for (y in nodeAttributeDictionary[x].attributeGroups) {
+                var attGroupSortIndex=nodeAttributeDictionary[x].attributeGroups[y].sortIndex;
+                for (z in nodeAttributeDictionary[x].attributeGroups[y].attributes) {
+                    //$scope.actAttributes[x].push("" + z + "");
+                    var newattSortIndex=attGroupSortIndex+""+nodeAttributeDictionary[x].attributeGroups[y].attributes[z].sortIndex;
+                    nodeAttributeDictionary[x].attributeGroups[y].attributes[z].sortIndex=newattSortIndex;
+                    $scope.actAttributes[x].push({
+                        attribute:z,
+                        description:nodeAttributeDictionary[x].attributeGroups[y].attributes[z].description,
+                        displayLabel:nodeAttributeDictionary[x].attributeGroups[y].attributes[z].displayLabel,                        
+                        sortIndex:nodeAttributeDictionary[x].attributeGroups[y].attributes[z].sortIndex
+                    });
+                    //for getting attribute names 
+                    // var attname=$filter('unCamelCase')(z);
+                    // //console.log("x="+x+", z=" + attname + ", des="+nodeAttributeDictionary[x].attributeGroups[y].attributes[z].description);
+                }
+            } //$scope.nodeattributes.x
+        }
+
+
         var siteName = 'Node Viewer: ' + $scope.nodeId
         var node = $resource('/apollo/api/node/:id', {
             id: '@id'
@@ -62,6 +87,7 @@ angular.module('apolloApp').controller('nodeCtrl', ['$scope', '$location', '$res
                         'key': i
                     }), function(j) {
                         toRet.push(j);
+                        $scope.nodesArray.push(j);
                     });
                 });
                 _.each(toRet, function(i) {
@@ -78,20 +104,30 @@ angular.module('apolloApp').controller('nodeCtrl', ['$scope', '$location', '$res
             };
             $scope.hiddenGroupAttributes = function(group) {
                 var groupAttributeKeys = Object.keys(group.attributes);
-                var intersection = _.intersection(attributeKeys, groupAttributeKeys)
+                var intersection = groupAttributeKeys;//_.intersection(attributeKeys, groupAttributeKeys)
                 var toRet = [];
                 _.each(intersection, function(i) {
+                    group.attributes[i].key=i
+                    group.attributes[i].value='';
                     _.each(_.where(data.attributes, {
                         'key': i
                     }), function(j) {
                         toRet.push(j);
+                        $scope.nodesArray.push(j);
                     });
                 });
-                _.each(toRet, function(i) {
-                    i.displayLabel = group.attributes[i.key].displayLabel;
-                    i.description = group.attributes[i.key].description;
-                    i.sortIndex = group.attributes[i.key].sortIndex;
+
+                
+                //console.log(toRet.length,toRet[0].sortIndex);
+                var missingCol=_.difference(groupAttributeKeys,_.pluck(toRet, 'key'));
+
+                _.each(missingCol, function(i) {
+                    _.each(_.where(group.attributes,{key:i}), function(k) {
+                        toRet.push(k);
+                        $scope.nodesArray.push(k);
+                    });
                 });
+                $scope.toRet=toRet;
                 return _.filter(toRet, function(i) {
                     return i.value == null || i.value == '' || i.value.toLowerCase() == 'null';
                 });
@@ -121,8 +157,74 @@ angular.module('apolloApp').controller('nodeCtrl', ['$scope', '$location', '$res
 
         $scope.exportrelationships= function()
         {
+            console.log($scope.nodesArray);
             window.location =  '/apollo/api/export/csvrelations/' + $scope.nodeId;
         }
+
+        $scope.exportnodedetails= function()
+        {
+
+            var csvString="\"Attribute Name\",\"Attribute Value\"\r\n";
+
+            var attrArray= $scope.node.attributes;
+            attrArray.sort(function(a,b) { return parseFloat(a.sortIndex) - parseFloat(b.sortIndex) } );
+            for(att in attrArray)
+            {
+                if(attrArray[att].displayLabel!=undefined)
+                {
+                    csvString=csvString+"\""+attrArray[att].displayLabel+"\",\""+attrArray[att].value+"\"\r\n";
+                }
+                //var csvrow=$scope.actAttributes[$scope.labels][att].displayLabel+","+
+            }
+
+           // var element = angular.element('<a/>');
+           //       element.attr({
+           //           href: 'data:attachment/csv;charset=utf-8,' + encodeURI(csvString),
+           //           target: '_blank',
+           //           download: 'NodeDetails.csv'
+           //       })[0].click();
+
+
+            var IEcheck = checkIE();
+            console.log("ver=",IEcheck)
+            if(IEcheck)
+            {
+                //console.log(navigator.appVersion);
+                var csvContent=csvString; //here we load our csv data 
+                var blob = new Blob([csvContent],{
+                    type: "text/csv;charset=utf-8;"
+                });
+
+                navigator.msSaveBlob(blob, "NodeDetails.csv");
+            }
+            else
+            {
+                //console.log(navigator.appVersion);
+                var hiddenElement = document.createElement('a');
+
+                hiddenElement.href = 'data:attachment/csv,' + encodeURI(csvString);
+                hiddenElement.target = '_blank';
+                hiddenElement.download = 'NodeDetails.csv';
+
+                document.body.appendChild(hiddenElement);
+                hiddenElement.click();
+            }
+
+            
+
+        }
+
+        function checkIE()
+        {
+          var ua = window.navigator.userAgent;
+            var msie = ua.indexOf("MSIE ");
+
+            if (msie > 0 || !!navigator.userAgent.match(/Trident.*rv\:11\./))      // If Internet Explorer, return version number
+                return true
+            else                 // If another browser, return 0
+                return false;
+        }
+
 
         $scope.twitterBlurb = encodeURIComponent($location.absUrl());
 

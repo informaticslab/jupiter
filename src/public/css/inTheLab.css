@@ -112,7 +112,7 @@ path.arc {
 }
 
 /*  styles for tooltip for treemap */
-.tooltip {
+/*.tooltip {
   position: absolute;
   width: 220px;
   height: auto;
@@ -125,7 +125,7 @@ path.arc {
   -moz-box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.4);
   box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.4);
   pointer-events: none;
-}
+}*/
 
 .tooltip.hidden {
   display: none;

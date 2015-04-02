@@ -4,12 +4,12 @@ angular.module('apolloApp').factory('nodeAttributeDictionary', function() {
             'attributeGroups': {
                 'Summary': {
                     'heading': 'Summary',
-                    'sortIndex': '1',
+                    'sortIndex': '01',
                     'attributes': {
                         'name': {
                             'description': 'Organization Name',
                             'displayLabel': 'Name',
-                            'sortIndex': '1'
+                            'sortIndex': '01'
                         },
                         'mission': {
                             'description': 'Describes the overall purpose / mission of Organization',
@@ -19,13 +19,13 @@ angular.module('apolloApp').factory('nodeAttributeDictionary', function() {
                         'id': {
                             'description': 'Identifier',
                             'displayLabel': 'ID',
-                            'sortIndex': '2'
+                            'sortIndex': '02'
                         }
                     }
                 },
                 'General Information': {
                     'heading': 'General Information',
-                    'sortIndex': '2',
+                    'sortIndex': '02',
                     'attributes': {
                         'locationCity': {
                             'description': 'City location of Organization, Center, Institute or Office',
@@ -45,57 +45,57 @@ angular.module('apolloApp').factory('nodeAttributeDictionary', function() {
                         'lastUpdated': {
                             'description': 'Date of last update to information in this system',
                             'displayLabel': 'Last Updated',
-                            'sortIndex': '3'
+                            'sortIndex': '03'
                         },
                         'informationValidated': {
                             'description': 'Has the information in this system been validated by an appropriate program / team?',
                             'displayLabel': 'Information Validated by Program',
-                            'sortIndex': '4'
+                            'sortIndex': '04'
                         },
                         'lastUpdatedBy': {
                             'description': 'By whom was the information last updated?',
                             'displayLabel': 'Information Updated By',
-                            'sortIndex': '3.1'
+                            'sortIndex': '03.1'
                         },'informationValidatedBy': {
                             'description': 'By whom was the information validated?',
                             'displayLabel': 'Information Validated By',
-                            'sortIndex': '4.1'
+                            'sortIndex': '04.1'
                         },
                         'informationValidatedOn': {
                             'description': 'When was the information last validated?',
                             'displayLabel': 'Date Validated',
-                            'sortIndex': '4.2'
+                            'sortIndex': '04.2'
                         },
                         'cdcEntity': {
                             'description': 'Is this organization a part of CDC',
                             'displayLabel': 'CDC Entity',
-                            'sortIndex': '5'
+                            'sortIndex': '05'
                         },
                         'fullName': {
                             'description': 'Full name of Organization, Center, Institute or Office',
                             'displayLabel': 'Full Name',
-                            'sortIndex': '6'
+                            'sortIndex': '06'
                         },
                         'shortName': {
                             'description': 'Abbreviation or Acronym of the Organization (e.g., CDC).',
                             'displayLabel': 'Short Name',
-                            'sortIndex': '7'
+                            'sortIndex': '07'
                         },
                         'fullNameDivision': {
                             'description': 'Full name of the Division (if applies)',
                             'displayLabel': 'Division Full Name',
-                            'sortIndex': '8'
+                            'sortIndex': '08'
                         },
                         'shortNameDivision': {
                             'description': 'Abbreviation or Acronym of the Division (if applies)',
                             'displayLabel': 'Division Short Name',
-                            'sortIndex': '9'
+                            'sortIndex': '09'
                         }
                     }
                 },
                 'Contact Information': {
                     'heading': 'Contact Information',
-                    'sortIndex': '5',
+                    'sortIndex': '05',
                     'attributes': {
                         'contactName': {
                             'description': 'Person who is the best to contact for more information',
@@ -120,7 +120,7 @@ angular.module('apolloApp').factory('nodeAttributeDictionary', function() {
             'attributeGroups': {
                 'Summary': {
                     'heading': 'Summary',
-                    'sortIndex': '1',
+                    'sortIndex': '01',
                     'attributes': {
                         'name': {
                             'description': 'Program Name',
@@ -141,7 +141,7 @@ angular.module('apolloApp').factory('nodeAttributeDictionary', function() {
                 },
                 'General Information': {
                     'heading': 'General Information',
-                    'sortIndex': '2',
+                    'sortIndex': '02',
                     'attributes': {
                         'lastUpdated': {
                             'description': 'Date of last update to information in this program.',
@@ -246,7 +246,7 @@ angular.module('apolloApp').factory('nodeAttributeDictionary', function() {
                 },
                 'Technical Information': {
                     'heading': 'Technical Information',
-                    'sortIndex': '3',
+                    'sortIndex': '03',
                     'attributes': {
                         'applicationSolutionType': {
                             'description': 'Is the program based on a commercial off-the-shelf (COTS) solution or is it custom built?',
@@ -272,7 +272,7 @@ angular.module('apolloApp').factory('nodeAttributeDictionary', function() {
                 },
                 'Data-Related Information': {
                     'heading': 'Data-Related Information',
-                    'sortIndex': '4',
+                    'sortIndex': '04',
                     'attributes': {
                         'startDateGeneration': {
                             'description': 'What was the first year data became available or were collected from the program?',
@@ -323,7 +323,7 @@ angular.module('apolloApp').factory('nodeAttributeDictionary', function() {
                 },
                 'Contact Information': {
                     'heading': 'Contact Information',
-                    'sortIndex': '5',
+                    'sortIndex': '05',
                     'attributes': {
                         'contactName': {
                             'description': 'Person who is the best to contact for more information',
@@ -344,7 +344,7 @@ angular.module('apolloApp').factory('nodeAttributeDictionary', function() {
                 },
                 'Other Information': {
                     'heading': 'Other Information',
-                    'sortIndex': '6',
+                    'sortIndex': '06',
                     'attributes': {
                         'evaluationDate': {
                             'description': 'If available, please provide the date of the program\'s most recent formal evaluation.',
@@ -384,7 +384,7 @@ angular.module('apolloApp').factory('nodeAttributeDictionary', function() {
             'attributeGroups': {
                 'Summary': {
                     'heading': 'Summary',
-                    'sortIndex': '1',
+                    'sortIndex': '01',
                     'attributes': {
                         'name': {
                             'description': 'System Name',
@@ -405,7 +405,7 @@ angular.module('apolloApp').factory('nodeAttributeDictionary', function() {
                 },
                 'General Information': {
                     'heading': 'General Information',
-                    'sortIndex': '2',
+                    'sortIndex': '02',
                     'attributes': {
                         'lastUpdated': {
                             'description': 'Date of last update to information in this surveillance system.',
@@ -511,7 +511,7 @@ angular.module('apolloApp').factory('nodeAttributeDictionary', function() {
                 },
                 'Technical Information': {
                     'heading': 'Technical Information',
-                    'sortIndex': '3',
+                    'sortIndex': '03',
                     'attributes': {
                         'applicationSolutionType': {
                             'description': 'Is the surveillance system based on a commercial off-the-shelf (COTS) solution or is it custom built?',
@@ -537,7 +537,7 @@ angular.module('apolloApp').factory('nodeAttributeDictionary', function() {
                 },
                 'Data-Related Information': {
                     'heading': 'Data-Related Information',
-                    'sortIndex': '4',
+                    'sortIndex': '04',
                     'attributes': {
                         'startDateGeneration': {
                             'description': 'What was the first year data became available or were collected from the surveillance system?',
@@ -588,7 +588,7 @@ angular.module('apolloApp').factory('nodeAttributeDictionary', function() {
                 },
                 'Contact Information': {
                     'heading': 'Contact Information',
-                    'sortIndex': '5',
+                    'sortIndex': '05',
                     'attributes': {
                         'contactName': {
                             'description': 'Person who is the best to contact for more information',
@@ -609,7 +609,7 @@ angular.module('apolloApp').factory('nodeAttributeDictionary', function() {
                 },
                 'Other Information': {
                     'heading': 'Other Information',
-                    'sortIndex': '6',
+                    'sortIndex': '06',
                     'attributes': {
                         'Notes': {
                             'description': 'Please add any relevant information that may be of use.',
@@ -649,7 +649,7 @@ angular.module('apolloApp').factory('nodeAttributeDictionary', function() {
             'attributeGroups': {
                 'Summary': {
                     'heading': 'Summary',
-                    'sortIndex': '1',
+                    'sortIndex': '01',
                     'attributes': {
                         'name': {
                             'description': 'Name',
@@ -670,7 +670,7 @@ angular.module('apolloApp').factory('nodeAttributeDictionary', function() {
                 },
                 'General Information': {
                     'heading': 'General Information',
-                    'sortIndex': '2',
+                    'sortIndex': '02',
                     'attributes': {
                         'lastUpdated': {
                             'description': 'Date of last update to information in this tool.',
@@ -775,7 +775,7 @@ angular.module('apolloApp').factory('nodeAttributeDictionary', function() {
                 },
                 'Technical Information': {
                     'heading': 'Technical Information',
-                    'sortIndex': '3',
+                    'sortIndex': '03',
                     'attributes': {
                         'applicationSolutionType': {
                             'description': 'Is the tool based on a commercial off-the-shelf (COTS) solution or is it custom built?',
@@ -801,7 +801,7 @@ angular.module('apolloApp').factory('nodeAttributeDictionary', function() {
                 },
                 'Data-Related Information': {
                     'heading': 'Data-Related Information',
-                    'sortIndex': '4',
+                    'sortIndex': '04',
                     'attributes': {
                         'startDateGeneration': {
                             'description': 'What was the first year data became available or were collected from the tool?',
@@ -852,7 +852,7 @@ angular.module('apolloApp').factory('nodeAttributeDictionary', function() {
                 },
                 'Contact Information': {
                     'heading': 'Contact Information',
-                    'sortIndex': '5',
+                    'sortIndex': '05',
                     'attributes': {
                         'contactName': {
                             'description': 'Person who is the best to contact for more information',
@@ -873,7 +873,7 @@ angular.module('apolloApp').factory('nodeAttributeDictionary', function() {
                 },
                 'Other Information': {
                     'heading': 'Other Information',
-                    'sortIndex': '6',
+                    'sortIndex': '06',
                     'attributes': {
                         'evaluationDate': {
                             'description': 'If available, please provide the date of the tool\'s most recent formal evaluation.',
@@ -913,7 +913,7 @@ angular.module('apolloApp').factory('nodeAttributeDictionary', function() {
             'attributeGroups': {
                 'Summary': {
                     'heading': 'Summary',
-                    'sortIndex': '1',
+                    'sortIndex': '01',
                     'attributes': {
                         'name': {
                             'description': 'Name',
@@ -934,7 +934,7 @@ angular.module('apolloApp').factory('nodeAttributeDictionary', function() {
                 },
                 'General Information': {
                     'heading': 'General Information',
-                    'sortIndex': '2',
+                    'sortIndex': '02',
                     'attributes': {
                         'lastUpdated': {
                             'description': 'Date of last update to information in this registry.',
@@ -1044,7 +1044,7 @@ angular.module('apolloApp').factory('nodeAttributeDictionary', function() {
                 },
                 'Technical Information': {
                     'heading': 'Technical Information',
-                    'sortIndex': '3',
+                    'sortIndex': '03',
                     'attributes': {
                         'applicationSolutionType': {
                             'description': 'Is the registry based on a commercial off-the-shelf (COTS) solution or is it custom built?',
@@ -1070,7 +1070,7 @@ angular.module('apolloApp').factory('nodeAttributeDictionary', function() {
                 },
                 'Data-Related Information': {
                     'heading': 'Data-Related Information',
-                    'sortIndex': '4',
+                    'sortIndex': '04',
                     'attributes': {
                         'startDateGeneration': {
                             'description': 'What was the first year data became available or were collected from the registry?',
@@ -1121,7 +1121,7 @@ angular.module('apolloApp').factory('nodeAttributeDictionary', function() {
                 },
                 'Contact Information': {
                     'heading': 'Contact Information',
-                    'sortIndex': '5',
+                    'sortIndex': '05',
                     'attributes': {
                         'contactName': {
                             'description': 'Person who is the best to contact for more information',
@@ -1142,7 +1142,7 @@ angular.module('apolloApp').factory('nodeAttributeDictionary', function() {
                 },
                 'Other Information': {
                     'heading': 'Other Information',
-                    'sortIndex': '6',
+                    'sortIndex': '06',
                     'attributes': {
                         'evaluationDate': {
                             'description': 'If available, please provide the date of the registry\'s most recent formal evaluation.',
@@ -1182,7 +1182,7 @@ angular.module('apolloApp').factory('nodeAttributeDictionary', function() {
             'attributeGroups': {
                 'Summary': {
                     'heading': 'Summary',
-                    'sortIndex': '1',
+                    'sortIndex': '01',
                     'attributes': {
                         'name': {
                             'description': 'Name',
@@ -1203,7 +1203,7 @@ angular.module('apolloApp').factory('nodeAttributeDictionary', function() {
                 },
                 'General Information': {
                     'heading': 'General Information',
-                    'sortIndex': '2',
+                    'sortIndex': '02',
                     'attributes': {
                         'lastUpdated': {
                             'description': 'Date of last update to information in this heath survey.',
@@ -1308,7 +1308,7 @@ angular.module('apolloApp').factory('nodeAttributeDictionary', function() {
                 },
                 'Technical Information': {
                     'heading': 'Technical Information',
-                    'sortIndex': '3',
+                    'sortIndex': '03',
                     'attributes': {
                         'applicationSolutionType': {
                             'description': 'Is the heath survey based on a commercial off-the-shelf (COTS) solution or is it custom built?',
@@ -1334,7 +1334,7 @@ angular.module('apolloApp').factory('nodeAttributeDictionary', function() {
                 },
                 'Data-Related Information': {
                     'heading': 'Data-Related Information',
-                    'sortIndex': '4',
+                    'sortIndex': '04',
                     'attributes': {
                         'startDateGeneration': {
                             'description': 'What was the first year data became available or were collected from the heath survey?',
@@ -1385,7 +1385,7 @@ angular.module('apolloApp').factory('nodeAttributeDictionary', function() {
                 },
                 'Contact Information': {
                     'heading': 'Contact Information',
-                    'sortIndex': '5',
+                    'sortIndex': '05',
                     'attributes': {
                         'contactName': {
                             'description': 'Person who is the best to contact for more information',
@@ -1406,7 +1406,7 @@ angular.module('apolloApp').factory('nodeAttributeDictionary', function() {
                 },
                 'Other Information': {
                     'heading': 'Other Information',
-                    'sortIndex': '6',
+                    'sortIndex': '06',
                     'attributes': {
                         'evaluationDate': {
                             'description': 'If available, please provide the date of the heath survey\'s most recent formal evaluation.',
@@ -1446,7 +1446,7 @@ angular.module('apolloApp').factory('nodeAttributeDictionary', function() {
             'attributeGroups': {
                 'Summary': {
                     'heading': 'Summary',
-                    'sortIndex': '1',
+                    'sortIndex': '01',
                     'attributes': {
                         'name': {
                             'description': 'Name',
@@ -1467,7 +1467,7 @@ angular.module('apolloApp').factory('nodeAttributeDictionary', function() {
                 },
                 'General Information': {
                     'heading': 'General Information',
-                    'sortIndex': '2',
+                    'sortIndex': '02',
                     'attributes': {
                         'lastUpdated': {
                             'description': 'Date of last update to information in this collaborative.',
@@ -1542,7 +1542,7 @@ angular.module('apolloApp').factory('nodeAttributeDictionary', function() {
                 },
                 'Data-Related Information': {
                     'heading': 'Data-Related Information',
-                    'sortIndex': '4',
+                    'sortIndex': '04',
                     'attributes': {
                         'startDateGeneration': {
                             'description': 'What was the first year data became available or were collected from the program?',
@@ -1593,7 +1593,7 @@ angular.module('apolloApp').factory('nodeAttributeDictionary', function() {
                 },
                 'Contact Information': {
                     'heading': 'Contact Information',
-                    'sortIndex': '5',
+                    'sortIndex': '05',
                     'attributes': {
                         'contactName': {
                             'description': 'Person who is the best to contact for more information',
@@ -1614,7 +1614,7 @@ angular.module('apolloApp').factory('nodeAttributeDictionary', function() {
                 },
                 'Other Information': {
                     'heading': 'Other Information',
-                    'sortIndex': '6',
+                    'sortIndex': '06',
                     'attributes': {
                         'Notes': {
                             'description': 'Please add any relevant information that may be of use.',
@@ -1629,7 +1629,7 @@ angular.module('apolloApp').factory('nodeAttributeDictionary', function() {
             'attributeGroups': {
                 'Summary': {
                     'heading': 'Summary',
-                    'sortIndex': '1',
+                    'sortIndex': '01',
                     'attributes': {
                         'name': {
                             'description': 'Name',
@@ -1650,7 +1650,7 @@ angular.module('apolloApp').factory('nodeAttributeDictionary', function() {
                 },
                 'General Information': {
                     'heading': 'General Information',
-                    'sortIndex': '2',
+                    'sortIndex': '02',
                     'attributes': {
                         'lastUpdated': {
                             'description': 'Date of last update to information in this dataset.',
@@ -1691,7 +1691,7 @@ angular.module('apolloApp').factory('nodeAttributeDictionary', function() {
                             'displayLabel': 'Currently Available?',
                             'sortIndex': '259'
                         },
-                        'data.govLink': {
+                        'dataGovLink': {
                             'description': 'This is a link to the dataset on data.gov',
                             'displayLabel': 'Data.gov Link',
                             'sortIndex': '260'
@@ -1710,7 +1710,7 @@ angular.module('apolloApp').factory('nodeAttributeDictionary', function() {
                 },
                 'Data-Related Information': {
                     'heading': 'Data-Related Information',
-                    'sortIndex': '4',
+                    'sortIndex': '04',
                     'attributes': {
                         'startDate': {
                             'description': 'When did data start being collected for this dataset?',
@@ -1741,7 +1741,7 @@ angular.module('apolloApp').factory('nodeAttributeDictionary', function() {
                 },
                 'Contact Information': {
                     'heading': 'Contact Information',
-                    'sortIndex': '5',
+                    'sortIndex': '05',
                     'attributes': {
                         'nameContact': {
                             'description': 'Person who is the best to contact for more information',
@@ -1766,7 +1766,7 @@ angular.module('apolloApp').factory('nodeAttributeDictionary', function() {
             'attributeGroups': {
                 'Summary': {
                     'heading': 'Summary',
-                    'sortIndex': '1',
+                    'sortIndex': '01',
                     'attributes': {
                         'name': {
                             'description': 'Name',
@@ -1787,7 +1787,7 @@ angular.module('apolloApp').factory('nodeAttributeDictionary', function() {
                 },
                 'General Information': {
                     'heading': 'General Information',
-                    'sortIndex': '2',
+                    'sortIndex': '02',
                     'attributes': {
                         'lastUpdated': {
                             'description': 'Date of last update to information in this data standard.',
@@ -1856,7 +1856,7 @@ angular.module('apolloApp').factory('nodeAttributeDictionary', function() {
             'attributeGroups': {
                 'Summary': {
                     'heading': 'Summary',
-                    'sortIndex': '1',
+                    'sortIndex': '01',
                     'attributes': {
                         'name': {
                             'description': 'Name',
@@ -1872,7 +1872,7 @@ angular.module('apolloApp').factory('nodeAttributeDictionary', function() {
                 },
                 'General Information': {
                     'heading': 'General Information',
-                    'sortIndex': '2',
+                    'sortIndex': '02',
                     'attributes': {
                         'tagRelationship': {
                             'description': 'Denotes the tagging relationship between the core and tag nodes.',

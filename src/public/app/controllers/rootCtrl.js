@@ -1,9 +1,9 @@
-angular.module('apolloApp').controller('rootCtrl', function($scope, $http, $location, localStorageService, $modal){
+angular.module('apolloApp').controller('rootCtrl', function($scope, $http, $location, localStorageService, $modal,ngIdentity,ngAuth,ngNotifier,$window){
     
     $scope.q = 'home';
     $scope.loginuser = 'guest';
     $scope.queryString = '';
-
+    $scope.identity = ngIdentity;
     $http.get('build.json')
       .then(function(res){
       	
@@ -72,6 +72,16 @@ angular.module('apolloApp').controller('rootCtrl', function($scope, $http, $loca
       $scope.showSidebar = !$scope.showSidebar;
     };
 
+    //  if($scope.identity.isAuthenticated()){
+
+    //   $scope.signInBtn = true;
+    // } else if (!$scope.identity.isAuthenticated()){
+      
+    // $scope.signInBtn = false;
+    // $scope.toggleSignInBtn = function() {
+    //     $scope.signInBtn = $scope.signInBtn === false ? true: false;
+    // };
+    // }
 
     //SITE HISTORY
 
@@ -231,7 +241,42 @@ angular.module('apolloApp').controller('rootCtrl', function($scope, $http, $loca
 
   }
 
+
+  $scope.getPIVinfo = function(){
+     // console.log($scope.identity.isAuthenticated());
+     // console.log('protocol'+ $location.protocol());
+    if($location.protocol() == 'https' && !$scope.identity.isAuthenticated()){
+     
+        ngAuth.autheticateUserPiv().then(function(success){
+        //console.log(success);
+        if(success) {
+          if($scope.identity.currentUser.isLevelTwo()){
+            $location.path('/adminCRQueue');
+          }
+          else if($scope.identity.currentUser.isLevelThree()){
+            $location.path('/adminCREdit');
+          }
+        } 
+        else {
+            $window.location.href = $location.absUrl().replace('https','http').replace('4400','8089');
+
+            //$location.path('/');
+        }
+
+//
+      });
+    }
+            // window.location = $location.absUrl().replace('https','http').replace('4400','8089');
+            // console.log($location.absUrl().replace('https','http').replace('4400','8089'));
+  }
+
+
+
 });
+
+
+
+
 
 var ModalInstanceCtrl = function ($scope, $modalInstance, disclaimerStatus) {
 

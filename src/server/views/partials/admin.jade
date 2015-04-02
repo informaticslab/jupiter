@@ -1,0 +1,223 @@
+// new row
+.row
+	.div(ng-class='getContentWidth()')
+		.content_block_faq
+			span.visible-md.visible-lg
+				.subnav
+					ul.nav.nav-pills
+						li
+							a(href='#/quickGuide/') Quick Guide
+						li
+							a(href='#/browse/') Browse
+						li
+							a(href='#/search/') Search
+						li
+							a(href='#/advancedSearch/') Relationship Explorer
+						li
+							a(href='' class='inactive') Favorites
+						li.active
+							a(href='#/inTheLab/') In the Lab
+				// end subnav
+			span.visible-sm
+				.subnav_sm
+					ul.nav.nav-pills
+						li
+							a(href='#/quickGuide/') Quick Guide
+						li
+							a(href='#/browse/') Browse
+						li
+							a(href='#/search/') Search
+						li
+							a(href='#/advancedSearch/') Relationship Explorer
+						li
+							a(href='' class='inactive') Favorites
+						li.active
+							a(href='#/inTheLab/') In the Lab
+				// end subnav
+			//- a.btn.btn-custom(onclick='goBack()') Back
+			//- .nav_split
+			//- 	.btn-group.btn-group-md.btn-group-justified
+			//- 		.btn-group
+			//- 			a.btn.btn-custom(href="#/dashboard", id='btnDashboard') Summary
+			//- 		.btn-group
+			//- 			a.btn.btn-default(href='#/dashboarddetail', id='btnDashboardDetail') Detail
+			//- 	// end button group
+			//- // end nav_split
+			.top_block_faq
+				ng-include(src="'/apollo/partials/adminMenuBar'")
+				hr
+				.vertical_spacing_less
+				.row
+					.col-lg-12.col-md-12.col-sm-12
+						//.h4
+							| Search node to edit
+						input(type="text" ng-model="node"  placeholder="Search activity" typeahead-on-select="itemSelected($item, $model, $label)" typeahead-min-length='3' typeahead="node.name for node in getNodes($viewValue)" class="form-control")
+						//input(type="hidden" id="nodeId" ng-value="nodeId")
+				.vertical_spacing_browse
+				.row(ng-show="showLockMsg")
+					.col-md-12.col-lg-12.col-sm-12
+						.alert.alert-success(role="alert")
+							| There is an existing change request on this activity created by {{lockedMongoUserDN}}. Click here to 
+							a(href="#/adminCRQueue/CRDiff/{{lockedMongoID}}")
+								| view
+							|  the existing change request.
+				.row(ng-show="showButtons")
+					.col-lg-12.col-md-12.col-sm-12
+						.row(ng-show="showButtons")
+							.col-lg-12.col-md-12.col-sm-12
+								.h2
+									//| {{nodeId}} 
+									//- /span
+										| - 
+									| {{node}}
+						.vertical_spacing_lesser
+						.row(ng-repeat="group in nodeGroups | orderBy:'sortIndex'")
+							.col-lg-12.col-md-12.col-sm-12
+								.orange_header_larger
+									| {{group.heading}}
+								//.row(ng-repeat="node in nodeKeyValues | orderBy:'sortIndex' ")
+								.row(ng-repeat="node in nodeGroupAttributes[group.heading] | orderBy:'sortIndex'")
+									.col-lg-3.col-md-3.col-sm-3(ng-hide="node.attributeName=='id'")
+										span.cursor-help(tooltip='{{node.attributes.description}}', tooltip-placement='right') 
+											b
+												| {{node.attributes.displayLabel | unCamelCase}}
+									.col-lg-9.col-md-9.col-sm-9(ng-hide="node.attributeName=='id'")
+										input.form-control(id="{{txtid=node.attributeName}}" type="text" ng-model="cr[txtid]" )
+										.vertical_spacing_lesser
+				.vertical_spacing_lesser
+				.orange_header_larger(ng-show="showButtons")
+					| Relationships
+				.row(ng-show="showButtons")
+					.col-lg-12.col-md-12.col-sm-12
+						table.table.table-striped
+							thead
+								tr
+									th.col-lg-4.col-md-4.col-sm-4
+										| From Node
+									th.col-lg-3.col-md-3.col-sm-3
+										| Relationship Type
+									th.col-lg-4.col-md-4.col-sm-4
+										| To Node
+									th.col-lg-1.col-md-1.col-sm-1
+										| 
+							tbody
+								tr(ng-repeat="relrow in relvalues" ng-mouseenter="hover = true" ng-mouseleave="hover = false")
+									td
+										| {{relrow.startname }} 
+									td
+										| {{relrow.reltype | TitleCase | unCamelCase}}
+										br
+										.small(ng-if="relrow.reldesc!='undefined'")
+											| ({{relrow.reldesc}})
+									td
+										| {{relrow.endname}}
+									td(style="text-align: right;")
+										label.btn.btn-default.btn-xs(ng-show="hover" ng-click="open(relrow.relid)")
+											i.fa.fa-times
+				.vertical_spacing_less
+				.row(ng-show="showButtons")
+					.col-lg-12.col-md-12.col-sm-12				
+						h5
+							| Add New Relationship
+						.vertical_spacing_less
+				.row(ng-show="showButtons")
+					.col-lg-4.col-md-4.col-sm-4
+						input(type="text" ng-model="startnode"  ng-disabled="relCheckBox.fromNewNode" placeholder="From" typeahead-on-select="startNodeSelected($item, $model, $label)" typeahead-min-length='3' typeahead="node.name for node in getNodes($viewValue)" class="form-control")
+						label(ng-if="cr['name']!=''")
+							.small
+								input(type="checkbox" ng-model="relCheckBox.fromNewNode" ng-change="setRelValueFrom()")
+								|  Mark if this node is '{{node}}'
+					.col-lg-3.col-md-3.col-sm-3
+						select.form-control(ng-model="relselect" ng-options="opt as (opt | TitleCase | unCamelCase) for opt in relValues")
+							option(value="")
+								| Select relationship type
+					.col-lg-4.col-md-4.col-sm-4
+						input(type="text" ng-model="endnode"  ng-disabled="relCheckBox.toNewNode" placeholder="To" typeahead-on-select="endNodeSelected($item, $model, $label)" typeahead-min-length='3' typeahead="node.name for node in getNodes($viewValue)" class="form-control")
+						label(ng-if="cr['name']!=''")
+							.small
+								input(type="checkbox" ng-model="relCheckBox.toNewNode" ng-change="setRelValueTo()")
+								|  Mark if this node is '{{node}}'
+					.col-lg-1.col-md-1.col-sm-1
+						
+				.vertical_spacing_lesser
+				.row(ng-show="showButtons")
+					.col-lg-4.col-md-4.col-sm-4
+						.small
+							| Describe this relationship ({{relnotelength=100-relationshipDescription.length}} 
+							span(ng-if="relnotelength!=1")
+								| characters left)
+							span(ng-if="relnotelength==1")
+								| character left)
+						input.form-control(type="text" maxlength="100" ng-model="relationshipDescription")
+						//input(type="text" ng-model="startnode"  placeholder="From" typeahead-on-select="startNodeSelected($item, $model, $label)" typeahead-min-length='3' typeahead="node.name for node in getNodes($viewValue)" class="form-control")
+					.col-lg-3.col-md-3.col-sm-3
+						
+					.col-lg-4.col-md-4.col-sm-4
+						//input(type="text" ng-model="endnode"  placeholder="To" typeahead-on-select="endNodeSelected($item, $model, $label)" typeahead-min-length='3' typeahead="node.name for node in getNodes($viewValue)" class="form-control")
+					.col-lg-1.col-md-1.col-sm-1
+						//label.btn.btn-default(ng-click="addRel()" ng-disabled="disableAddRelBtn") 
+							span.fa.fa-plus-circle
+							|  Add
+				.vertical_spacing_less
+				.row(ng-show="showButtons")
+					.col-lg-4.col-md-4.col-sm-4
+						label.btn.btn-default(ng-click="addRel()" ng-disabled="disableAddRelBtn") 
+							span.fa.fa-plus-circle
+							|  Add Relationship
+					.col-lg-3.col-md-3.col-sm-3
+					.col-lg-4.col-md-4.col-sm-4
+					.col-lg-1.col-md-1.col-sm-1
+				.row(role="alert" ng-show="showErrMsg")
+					.col-lg-12.col-md-12.col-sm-12
+						.alert.alert-warning.alert-dismissible(role="alert")
+							strong
+								| Error
+							|  'From', 'To' and 'Relationship Type' fields should be selected, and either 'From' or 'To' field should be equal to '{{node}}'.
+
+				hr(ng-show="showButtons")
+				.row(ng-show="showButtons")
+					.col-lg-12.col-md-12.col-sm-12
+						.orange_header_larger
+							| Submit
+						label.btn.btn-default(ng-click="postupdatecr()")
+							span.fa.fa-chevron-circle-right
+							| Submit Change Request
+				hr(ng-show="showButtons")
+				.row(ng-show="showButtons")
+					.col-lg-12.col-md-12.col-sm-12
+						h3
+							| Delete this node?
+						label.btn.btn-default(ng-click="postdeletecr()")
+							span.fa.fa-times-circle
+							| Submit Delete Request
+				.row(ng-show="crQueueSuccess")
+					.col-lg-12.col-md-12.col-sm-12
+						.alert.alert-success(role="alert")
+							| Your request has been queued successfully. 
+							a(href="#/adminCRQueue")
+								| View queue
+				.row(ng-show="crQueueFail")
+					.col-lg-12.col-md-12.col-sm-12
+						.alert.alert-danger(role="alert")
+							| Error: Your request could not be queued. Please try again later.		
+				.vertical_spacing_less
+						img.img-responsive.linkage_empty( id="defaultimg" src="img/ajax-loader.gif" ng-show="showVSTableLoading")
+				.vertical_spacing_less
+					script(id="myModalContent.html" type="text/ng-template")
+						<div class="modal-header">
+						<h3 class="modal-title">Delete Relationship</h3>
+						</div>
+						<div class="modal-body">
+						<p>Are you sure you want to delete this relationship?</p>
+						</div>
+						<div class="modal-footer">
+						<button class="btn btn-primary" ng-click="ok()">Yes</button>
+						<button class="btn btn-warning" ng-click="cancel()">No</button>
+						</div>
+				//nested row 
+				
+				//end nested row
+				
+		// end content block
+	// end col spec
+// end row.orange_header Overview

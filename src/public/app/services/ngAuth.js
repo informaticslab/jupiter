@@ -21,6 +21,24 @@ angular.module('apolloApp').factory('ngAuth', function($http, ngIdentity, $q, ng
 		return dfd.promise;
 
 		},
+
+		createUser: function(newUserData) {
+			var newUser = new ngUser(newUserData);
+			var dfd = $q.defer();
+
+			$http.post('/apollo/api/saveUser',newUser).then(function(res) {
+				//ngIdentity.currentUser = newUser;
+				if(res.data.success){
+					dfd.resolve(true);
+				} else {
+					dfd.resolve(false);
+				}
+				
+			});
+
+			return dfd.promise;
+		},
+
 		logoutUser: function(){
 			var dfd = $q.defer();
 			$http.post('/apollo/logout', {logout:true}).then(function() { 

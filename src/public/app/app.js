@@ -157,6 +157,11 @@ apolloApp.config(['$routeProvider',
         controller: 'adminRightsCtrl',
         resolve: routeRoleChecks.levelOne
       }).
+          when('/signup',{
+          templateUrl: 'partials/signup',
+          controller: 'signupCtrl',
+          resolve:routeRoleChecks.levelOne
+      }).
           when('/inTheLab/:topic', { 
             templateUrl: function(params){
           return 'partials/inTheLab/' + params.topic

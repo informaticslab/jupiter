@@ -1,6 +1,7 @@
 //references to controllers go here
 var index = require('../controllers/index');
 var nodes = require('../controllers/nodes');
+var users = require('../controllers/users');
 var auth = require('./auth');
 var mongoose = require('mongoose'),
     User = mongoose.model('User');
@@ -16,11 +17,8 @@ module.exports = function(app) {
         }    
     });
 
-    app.get('/apollo/api/users',auth.requiresRole('admin'),function(req,res) {
-        User.find({}).exec(function(err,collection) {
-            res.send(collection);
-        })
-    });
+    app.get('/apollo/api/users',auth.requiresRole('admin'), users.getUsers);
+    app.post('/apollo/api/saveUser', users.createUser);
 
 
 

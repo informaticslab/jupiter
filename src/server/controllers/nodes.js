@@ -3,7 +3,8 @@ var urlFactory = require('../lib/urlFactory');
 var mongo = require('../lib/mongoConnection');
 var ObjectId = require('mongodb').ObjectID;
 var _ = require('underscore');
-var auditLog = require('../config/auditLog')
+var auditLog = require('../config/auditLog');
+
 
 
 
@@ -2155,6 +2156,17 @@ exports.getCR = function(req, res) {
     //res.send("ok");
 };
 
+exports.getLatestChanges = function(req,res) {
+    var collection = mongo.mongodb.collection('logs');
+
+    collection.find({'crdata.CR_STATUS': 'APPROVED'}).sort({_id:-1}).limit(8).toArray(function(err, docs) {
+        
+        res.send(docs);
+    });
+
+
+}
+
 exports.getUsers = function(req, res) {
 
     var collection = mongo.mongodb.collection('users');
@@ -2935,6 +2947,9 @@ exports.updateRights = function(req, res) {
 
     res.send("success");
 }
+
+
+
 
 // exports.postRollBackCR = function(req, res) {
 

@@ -360,8 +360,10 @@
 								span.glyphicon.glyphicon-user.avatar
 							td.recent_activity
 								| {{doc.crdata.CR_USER_DN_CREATE}}
-								| {{doc.crdata.CR_REQUEST_TYPE | lowercase}}{{doc.crdata.CR_REQUEST_TYPE === 'ADD' ? 'ed' : 'd'}}
+								| {{doc.crdata.CR_REQUEST_TYPE | lowercase}}{{doc.crdata.CR_REQUEST_TYPE === 'ADD' ? 'ed' : 'd'}} 
+								| the {{doc.crdata.CR_NODE_TYPE | unCamelCase | lowercase}},
 								| {{doc.crdata.name}}
+
 								.small_text_main
 									| {{ doc.crdata.CR_DATE_EXECUTED | date :'medium'}}
 

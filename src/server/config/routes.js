@@ -113,4 +113,11 @@ module.exports = function(app) {
     
     //this goes at the bottom.  It is the catchall for everything not defined above.  Silly.
     app.get('/apollo/*', index.index);
+
+    //catchall for invalid GET requests
+    app.use(function(err, req, res, next) {
+      console.error(err.stack);
+      res.redirect('/apollo/#/main');
+      //res.status(500).send('Something broke!');
+    });
 };	

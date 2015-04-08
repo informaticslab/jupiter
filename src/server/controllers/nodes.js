@@ -2498,7 +2498,7 @@ exports.postApproveCR = function(req, res) {
         var rels = [];
 
         rels = eval(mongodata.rels);
-        console.log("rels",rels);
+        //console.log("rels",rels);
         var matchclause = "(" + mongodata.id + "{id:'" + mongodata.id + "'})";
         var withclause = "" + mongodata.id + "";
         var createclause = "";
@@ -2511,23 +2511,24 @@ exports.postApproveCR = function(req, res) {
 
                 matchclause = matchclause + ", (" + d.bid + "{id:'" + d.bid + "'}) ";
                 withclause = withclause + ", " + d.bid + " ";
-                //createclause = createclause + " create " + d.startid + "-[:`" + d.reltype + "`]->" + d.endid + " ";
-                var reldesc = "";
-                if (d.reldesc == undefined) {
-                    reldesc = "N/A";
-                } else {
-                    reldesc = d.reldesc;
-                    //console.log("OLD:",reldesc);
-                    reldesc = reldesc.replace(/\\/g, "\\\\");
-                    reldesc = reldesc.replace(/"/g, "\\\"");
-                    reldesc = reldesc.replace(/'/g, "\\\'");
-                    //console.log("NEW:",reldesc);
-                }
-
-                createclause = createclause + " create " + d.startid + "-[:`" + d.reltype + "`{`relationshipDescription`:'" + reldesc + "'}]->" + d.endid + " ";
-
-                bnodeids.push(d.bid);
             }
+            //createclause = createclause + " create " + d.startid + "-[:`" + d.reltype + "`]->" + d.endid + " ";
+            var reldesc = "";
+            if (d.reldesc == undefined) {
+                reldesc = "N/A";
+            } else {
+                reldesc = d.reldesc;
+                //console.log("OLD:",reldesc);
+                reldesc = reldesc.replace(/\\/g, "\\\\");
+                reldesc = reldesc.replace(/"/g, "\\\"");
+                reldesc = reldesc.replace(/'/g, "\\\'");
+                //console.log("NEW:",reldesc);
+            }
+
+            createclause = createclause + " create " + d.startid + "-[:`" + d.reltype + "`{`relationshipDescription`:'" + reldesc + "'}]->" + d.endid + " ";
+
+            bnodeids.push(d.bid);
+            //}
 
 
 
@@ -2600,6 +2601,9 @@ exports.postApproveCR = function(req, res) {
         }
         else
         {
+                
+                
+                //console.log("2605",delrelquery);
                 neodb.db.query(delrelquery, {}, function(err, results) {
                 //console.log(results);
 
@@ -2608,9 +2612,10 @@ exports.postApproveCR = function(req, res) {
                     res.send(404, 'No node at that location');
                 } else {
                     var params = {};
+
                     neodb.db.query(query, params, function(err1, results1) {
                         //console.log(results1);
-
+                        //console.log("2617",query);
                         if (err1) {
                             console.error('Error retreiving node from database:', err1);
                             res.send(404, 'No node at that location');

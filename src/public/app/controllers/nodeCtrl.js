@@ -186,7 +186,7 @@ angular.module('apolloApp').controller('nodeCtrl', ['$scope', '$location', '$res
 
 
             var IEcheck = checkIE();
-            console.log("ver=",IEcheck)
+            console.log(navigator.userAgent);
             if(IEcheck)
             {
                 //console.log(navigator.appVersion);

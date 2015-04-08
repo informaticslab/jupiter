@@ -64,6 +64,8 @@ module.exports = function(app) {
     app.post('/apollo/api/mongo/users/updateRights', nodes.updateRights);
     //app.post('/apollo/api/mongo/postrollbackcr', nodes.postRollBackCR);
 
+    app.get('/apollo/api/mongo/latestChanges', nodes.getLatestChanges);
+
     
     //app.get('/apollo/api/neo/nextnodeid/:label', nodes.getNextNeoID);
 

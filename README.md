@@ -6,6 +6,7 @@ Integrated Surveillance Portal
 # Quick setup guide
 * Install and run [Neo4J](http://www.neo4j.org/download) preferably the latest 2.0.* release
 * Run the import.txt from [apollo_root]/data/ according to the import_instructions
+* For change management, install [mongoDB](https://www.mongodb.org/downloads) and run mongorestore on the [apollo_root]/data/apollo directory
 * Install node.js
 * Navigate to [apollo_root]/src/ and run 'npm install'
 * Then run 'node app.js' from [apollo_root]/src/
@@ -15,9 +16,11 @@ Integrated Surveillance Portal
 * Node.js
 * Neo4j
 
+
 ## Handy things to npm install -g
 * forever (forever start/stop/list [app.js] to run/stop/list-running-apps given node.js application as a service in background)
 * nodemon (start and run [app.js], runs node [app.js] in perpetuity.  Automatically restarts upon changing system js files)
+* MongoDB (for change management)
 
 ##Documentation
 * Integrated Surveillance Portal [Confluence](http://code.phiresearchlab.org/confluence/pages/viewpage.action?pageId=9797792)

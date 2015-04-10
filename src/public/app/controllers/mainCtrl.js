@@ -37,7 +37,7 @@ angular.module('apolloApp').controller('mainCtrl', function($scope,$resource,$lo
 		$scope.latestChanges = res.data;
 		
 		//$scope.latestChanges.crdata.CR_REQUEST_TYPE.toLowerCase();
-		console.log(res.data);
+		
 	})
 
 

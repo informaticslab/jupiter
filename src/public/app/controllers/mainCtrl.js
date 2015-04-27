@@ -1,6 +1,8 @@
-angular.module('apolloApp').controller('mainCtrl', function($scope,$resource,$location){
+angular.module('apolloApp').controller('mainCtrl', function($scope,$resource,$location,$http){
 	$scope.$parent.q = 'home';
     $scope.rays = 'sunshine';
+    $scope.latestChanges = [];
+    $scope.crType = [];
 
    	var nodestotal=0;
 
@@ -29,6 +31,14 @@ angular.module('apolloApp').controller('mainCtrl', function($scope,$resource,$lo
 	}
 
 	});
+
+
+	$http.get('/apollo/api/mongo/latestChanges').then(function(res) {
+		$scope.latestChanges = res.data;
+		
+		//$scope.latestChanges.crdata.CR_REQUEST_TYPE.toLowerCase();
+		
+	})
 
 
 	var portalstatsrelations = $resource('/apollo/api/stats/relations', {

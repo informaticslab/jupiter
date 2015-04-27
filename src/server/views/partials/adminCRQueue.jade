@@ -150,7 +150,7 @@
 									| {{doc.CR_STATUS}}
 								td.col-md-0
 									//button.btn.btn-default(ng-click='open(doc._id)') Open me!
-									label.btn.btn-default.btn-xs(ng-show="hover" ng-click="open(doc._id)")
+									label.btn.btn-default.btn-xs(ng-show="hover && identity.currentUser.isLevelTwo()" ng-click="open(doc._id)")
 										i.fa.fa-times
 
 				.vertical_spacing_lesser

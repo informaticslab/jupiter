@@ -14,6 +14,9 @@ html(lang="en" ng-app='apolloApp')
 		link(rel="stylesheet" href="/apollo/css/loading-bar.min.css")
 		link(rel="stylesheet" href="/apollo/css/inTheLab.css")
 		link(rel="stylesheet" href="/apollo/vendor/toastr/toastr.css")
+		link(rel="P3Pv1" href="http://www.cdc.gov/w3c/p3p.xml")
+
+		
 	body(ng-controller='rootCtrl' data-ng-init="open();getPIVinfo()")
 		.container-fluid
 			// row1
@@ -222,6 +225,8 @@ html(lang="en" ng-app='apolloApp')
 					| &nbsp; | &nbsp;
 					a.white_link(href='#/bottomNav/codeofconduct/') Code of Conduct
 					| &nbsp; | &nbsp;
+					a.white_link(href='http://www.cdc.gov/other/privacy.html') Privacy
+					| &nbsp; | &nbsp;
 					a.white_link(href='#/bottomNav/contact/') Contact
 					span.cdc_info
 						| Centers for Disease Control and Prevention | &nbsp;Build: {{buildNumber}}
@@ -234,6 +239,8 @@ html(lang="en" ng-app='apolloApp')
 					a.white_link(href='#/bottomNav/accessibility/') Accessibility
 					| &nbsp; | &nbsp;
 					a.white_link(href='#/bottomNav/codeofconduct/') Code of Conduct
+					| &nbsp; | &nbsp;
+					a.white_link(href='http://www.cdc.gov/other/privacy.html') Privacy
 					| &nbsp; | &nbsp;
 					a.white_link(href='#/bottomNav/contact/') Contact
 					span.cdc_info

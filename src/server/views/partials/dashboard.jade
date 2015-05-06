@@ -264,7 +264,7 @@
 						.row(ng-hide="hideNodeStatus").fixed_height_dashboard
 							.col-lg-12.col-md-12.col-sm-12
 								table.table.table-hover.table-condensed.validationstatus_table
-									tr( ng-repeat="user in validationresults | filter:{type:nodetype,name:nodesearch} | orderBy:orderByField:!reverse" ng-class="{background_yes:user.validationstatus=='Yes'}")
+									tr( ng-repeat="user in validationresults | filter:{type:nodetype,name:nodesearch} | orderBy:orderByField:!reverse" ng-class="{background_yes:user.validationstatus.toLowerCase()=='yes' || user.validationstatus.toLowerCase()=='y'}")
 										td.col-lg-6.col-md-6.col-sm-6(data-title="'Name'")
 											a(href="#/node/{{user.id}}")
 												| {{user.name}}

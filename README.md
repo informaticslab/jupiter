@@ -1,7 +1,7 @@
-Apollo
+Jupiter
 ======
 
-Integrated Surveillance Portal
+Integrated Surveillance Portal with Data Element metadata and DataSet merging
 
 # Quick setup guide
 * Install and run [Neo4J](http://www.neo4j.org/download) preferably the latest 2.0.* release
@@ -12,9 +12,10 @@ Integrated Surveillance Portal
 * Then run 'node app.js' from [apollo_root]/src/
 
 # Requirements
-* JQuery 1.10.2 compatible browser (Internet Explorer 8+, Firefox, Opera, Chrome)
-* Node.js
-* Neo4j
+* To View: JQuery 1.10.2 compatible browser (Internet Explorer 8+, Edge, Firefox, Opera, Chrome)
+* To Run: 
+** Node.js
+** Neo4j
 
 
 ## Handy things to npm install -g
@@ -31,8 +32,7 @@ Integrated Surveillance Portal
 * Integrated Surveillance Portal [Jira](https://code.phiresearchlab.org/jira/browse/AP)
 
 ## Roadmap
-* Currently Data Updates and Bug Fixes
-* Previously Active development, 2 week iterations (completed Sep 2014)
+* BiWeekly sprint to build out Data Element Metadata and DataSet Merge Tools
 
 ## Contributing
 Anyone is encouraged to contribute to the project by [forking](https://help.github.com/articles/fork-a-repo) and submitting a pull request. (If you are new to GitHub, you might start with a [basic tutorial](https://help.github.com/articles/set-up-git).) 

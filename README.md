@@ -14,8 +14,8 @@ Integrated Surveillance Portal with Data Element metadata and DataSet merging
 # Requirements
 * To View: JQuery 1.10.2 compatible browser (Internet Explorer 8+, Edge, Firefox, Opera, Chrome)
 * To Run: 
-** Node.js
-** Neo4j
+- Node.js
+- Neo4j
 
 
 ## Handy things to npm install -g
@@ -24,12 +24,12 @@ Integrated Surveillance Portal with Data Element metadata and DataSet merging
 * MongoDB (for change management)
 
 ##Documentation
-* Integrated Surveillance Portal [Confluence](http://code.phiresearchlab.org/confluence/pages/viewpage.action?pageId=9797792)
+* Integrated Surveillance Portal [Confluence](http://confluence.phiresearchlab.org/confluence/pages/viewpage.action?pageId=9797792)
 * Server code is located in src.  To run, clone this project, move into the src directory, npm install, then node app.js
 * Data for Neo4J database is loaded in Data.  To run, clone this project, move into the data directory, then cat ./import.txt | [path-to-your-neo4j-shell]/neo4j-shell (read the import instructions for further instructions).
 
 ##Issue Tracker
-* Integrated Surveillance Portal [Jira](https://code.phiresearchlab.org/jira/browse/AP)
+* Integrated Surveillance Portal [Jira](http://jira.phiresearchlab.org/jira/browse/AP)
 
 ## Roadmap
 * BiWeekly sprint to build out Data Element Metadata and DataSet Merge Tools

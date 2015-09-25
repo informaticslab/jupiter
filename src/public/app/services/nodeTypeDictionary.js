@@ -10,7 +10,8 @@ angular.module('apolloApp').factory('nodeTypeDictionary', function() {
                                 "Registry",
                                 "SurveillanceSystem",
                                 "Tag",
-                                "Tool"
+                                "Tool",
+                                "DataElement"
                             ]
     };
 });

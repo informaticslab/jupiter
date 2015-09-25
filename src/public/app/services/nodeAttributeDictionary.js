@@ -1882,6 +1882,37 @@ angular.module('apolloApp').factory('nodeAttributeDictionary', function() {
                     }
                 }
             }
+        },
+        'DataElement': {
+            'attributeGroups': {
+                'Summary': {
+                    'heading': 'Summary',
+                    'sortIndex': '01',
+                    'attributes': {
+                        'name': {
+                            'description': 'Name',
+                            'displayLabel': 'Name',
+                            'sortIndex': '283'
+                        },
+                        'id': {
+                            'description': 'Identifier',
+                            'displayLabel': 'ID',
+                            'sortIndex': '284'
+                        }
+                    }
+                },
+                'General Information': {
+                    'heading': 'General Information',
+                    'sortIndex': '02',
+                    'attributes': {
+                        'elementDescription': {
+                            'description': 'Data elemeent description',
+                            'displayLabel': 'Data Element',
+                            'sortIndex': '285'
+                        }
+                    }
+                }
+            }
         }
     };
 });

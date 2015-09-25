@@ -114,7 +114,7 @@ module.exports = function(app) {
 
     
     //this goes at the bottom.  It is the catchall for everything not defined above.  Silly.
-    app.get('/*', index.index);
+    app.get('/apollo/*', index.index);
 
     //catchall for invalid GET requests
     app.use(function(err, req, res, next) {

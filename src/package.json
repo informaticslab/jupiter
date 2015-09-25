@@ -22,7 +22,7 @@
     "mongodb": "1.4.22",
     "mongoose": "3.5.16",
     "morgan": "^1.5.2",
-    "neo4j": "1.1.0",
+    "neo4j": "^1.1.1",
     "passport": "*",
     "passport-facebook": "*",
     "passport-google": "*",

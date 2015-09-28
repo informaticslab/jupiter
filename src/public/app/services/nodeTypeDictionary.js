@@ -1,4 +1,4 @@
-angular.module('apolloApp').factory('nodeTypeDictionary', function() {
+angular.module('jupiterApp').factory('nodeTypeDictionary', function() {
     return {
         "NodeTypes":[
                                 "Collaborative",

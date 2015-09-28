@@ -1,4 +1,4 @@
-angular.module('apolloApp')
+angular.module('jupiterApp')
 	.directive('ngLinkageViewer', [
 
 		function() {
@@ -55,7 +55,7 @@ angular.module('apolloApp')
 						var rootnodelabel = "";
 
 
-						d3.json("/apollo/api/node/viewer/" + id, function(error, json) {
+						d3.json("/jupiter/api/node/viewer/" + id, function(error, json) {
 
 							scope.showLinkageLoading = false;
 							scope.$apply();
@@ -83,7 +83,7 @@ angular.module('apolloApp')
 								
 
 								var nodename = "";
-								d3.text("/apollo/api/node/name/" + id, function(error, data) {
+								d3.text("/jupiter/api/node/name/" + id, function(error, data) {
 
 									nodename = data;
 
@@ -231,7 +231,7 @@ angular.module('apolloApp')
 							.text(function(d) { return d.name; });*/
 
 								text.append("a").attr("xlink:href", function(d) {
-									return "/apollo/#/linkage/" + d.id;
+									return "/jupiter/#/linkage/" + d.id;
 								})
 									.append("svg:text")
 									.attr("class", function(d) {

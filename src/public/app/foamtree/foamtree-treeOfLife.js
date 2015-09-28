@@ -23,7 +23,7 @@ if(treemapObj){
 }
 else{
   console.log("The treemap is empty, getting the JSON data");
-  d3.json("/apollo/api/lab/relations", function(error, relations){
+  d3.json("/jupiter/api/lab/relations", function(error, relations){
 
   if(relations==undefined | error)
   { 
@@ -31,7 +31,7 @@ else{
   }
   else{
     
-    d3.json("/apollo/api/lab/nodes", function(error, nodes) {
+    d3.json("/jupiter/api/lab/nodes", function(error, nodes) {
         if(nodes == undefined | error){
           console.log("Could not retrieve all the nodes");
         }

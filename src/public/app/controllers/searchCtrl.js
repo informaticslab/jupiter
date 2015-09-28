@@ -1,4 +1,4 @@
-angular.module('apolloApp').controller('searchCtrl', function($scope, $resource, $http, $routeParams, $timeout, $filter, $location, $anchorScroll) {
+angular.module('jupiterApp').controller('searchCtrl', function($scope, $resource, $http, $routeParams, $timeout, $filter, $location, $anchorScroll) {
 	
     $scope.goToTop = function(){
         $anchorScroll();
@@ -23,7 +23,7 @@ angular.module('apolloApp').controller('searchCtrl', function($scope, $resource,
 
         pageName = 'Label Search: ' + $routeParams.query;
         //console.log('\'tis a label search');
-        nodes = $resource('/apollo/api/node/search/label/:query', {
+        nodes = $resource('/jupiter/api/node/search/label/:query', {
         query: '@query'
         },{'query': {isArray: false }});
         $scope.queryString = '';
@@ -34,7 +34,7 @@ angular.module('apolloApp').controller('searchCtrl', function($scope, $resource,
         {
             pageName = 'Search: ' + $routeParams.query;
         }
-        var nodes = $resource('/apollo/api/node/search/:query', {
+        var nodes = $resource('/jupiter/api/node/search/:query', {
         query: '@query'
     },{'query': {isArray: false }});
         
@@ -66,18 +66,18 @@ angular.module('apolloApp').controller('searchCtrl', function($scope, $resource,
     }
 
     $scope.redirectToSearch = function(){
-       //window.location =  '/apollo/#/search/' + $scope.queryString;
+       //window.location =  '/jupiter/#/search/' + $scope.queryString;
        $location.path('/search/' + $scope.queryString);
     };
 
     $scope.itemSelected = function($item, $model, $label) {
-        //window.location =  '/apollo/#/node/' + $item.id;
+        //window.location =  '/jupiter/#/node/' + $item.id;
         $location.path('/node/' + $item.id);
         $scope.queryString = null;
     };
 
     $scope.getNodes = function(val) {
-        return $http.get('/apollo/api/node/searchByName/' + val).then(function(res) {
+        return $http.get('/jupiter/api/node/searchByName/' + val).then(function(res) {
             var nodes = [];
             angular.forEach(res.data, function(item) {
                 nodes.push(item);

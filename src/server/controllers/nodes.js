@@ -9,7 +9,7 @@ var auditLog = require('../config/auditLog');
 
 
 
-// /apollo/api/node/{id}/relations
+// /jupiter/api/node/{id}/relations
 exports.getRelationsForNode = function(req, res) {
     var query = ['MATCH n-[r]-x ', 'where n.id={nodeId} ' //maaaaaaaagic
         , 'return id(r) as relId,type(r) as relType, x.id as childId, ', 'startNode(r).id as startNode,', 'labels(x) as childLabels, x.name as childName order by relType, childName '
@@ -65,7 +65,7 @@ exports.getRelationsForNode = function(req, res) {
     });
 }
 
-// /apollo/api/node/{id}/labels
+// /jupiter/api/node/{id}/labels
 exports.getLabelsForNode = function(req, res) {
     //var query = ['START n=node({nodeId}) ', 'RETURN labels(n)'].join('\n');
     var query = ['MATCH n WHERE n.id ={nodeId}', 'RETURN labels(n)'].join('\n');
@@ -101,7 +101,7 @@ exports.getNodeNameAll = function(req, res) {
         }
     });
 }
-// /apollo/api/node/{id}
+// /jupiter/api/node/{id}
 exports.getNodeById = function(req, res) {
     var query = 'MATCH n WHERE n.id ={nodeId} RETURN n'
     var params = {
@@ -350,7 +350,7 @@ exports.searchNodesByLabel = function(req, res) {
     });
 }
 
-// /apollo/api/nodes/search/{searchTerm}
+// /jupiter/api/nodes/search/{searchTerm}
 exports.searchNodesByString = function(req, res) {
 
     var query = 'MATCH n-[r]-x WHERE n.name=~{qString} RETURN n, labels(n), count(r) as relCount skip {skipnum} limit {retNum}' +

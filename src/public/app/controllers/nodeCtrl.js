@@ -1,4 +1,4 @@
-angular.module('apolloApp').controller('nodeCtrl', ['$scope', '$location', '$resource', '$http', '$routeParams', 'nodeAttributeDictionary',
+angular.module('jupiterApp').controller('nodeCtrl', ['$scope', '$location', '$resource', '$http', '$routeParams', 'nodeAttributeDictionary',
     function($scope, $location, $resource, $http, $routeParams, nodeAttributeDictionary) {
         
         
@@ -34,18 +34,18 @@ angular.module('apolloApp').controller('nodeCtrl', ['$scope', '$location', '$res
 
 
         var siteName = 'Node Viewer: ' + $scope.nodeId
-        var node = $resource('/apollo/api/node/:id', {
+        var node = $resource('/jupiter/api/node/:id', {
             id: '@id'
         });
-        var labels = $http.get('/apollo/api/node/' + $routeParams.id + '/labels').success(function(data) {
+        var labels = $http.get('/jupiter/api/node/' + $routeParams.id + '/labels').success(function(data) {
             $scope.labels = data;
         });
-        var relations = $resource('/apollo/api/node/:id/relations', {
+        var relations = $resource('/jupiter/api/node/:id/relations', {
             id: '@id'
         });
 
 
-        var labels = $http.get('/apollo/api/node/'+$scope.nodeId+'/relations').success(function(data) {
+        var labels = $http.get('/jupiter/api/node/'+$scope.nodeId+'/relations').success(function(data) {
 
             for(i=0;i<data.length;i++)
             {
@@ -61,7 +61,7 @@ angular.module('apolloApp').controller('nodeCtrl', ['$scope', '$location', '$res
             
         });
 
-        var nodeDetails = $http.get('/apollo/api/node/' + $routeParams.id).success(function(data) {
+        var nodeDetails = $http.get('/jupiter/api/node/' + $routeParams.id).success(function(data) {
             var attributeKeys = _.pluck(data.attributes, 'key');
             $scope.node = data;
             siteName = 'Details: ' + data.name;
@@ -158,7 +158,7 @@ angular.module('apolloApp').controller('nodeCtrl', ['$scope', '$location', '$res
         $scope.exportrelationships= function()
         {
             console.log($scope.nodesArray);
-            window.location =  '/apollo/api/export/csvrelations/' + $scope.nodeId;
+            window.location =  '/jupiter/api/export/csvrelations/' + $scope.nodeId;
         }
 
         $scope.exportnodedetails= function()

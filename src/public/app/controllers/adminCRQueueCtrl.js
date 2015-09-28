@@ -1,9 +1,9 @@
-angular.module('apolloApp').controller('adminCRQueueCtrl', ['$scope','$modal','$location','$http','nodeAttributeDictionary','ngIdentity',
+angular.module('jupiterApp').controller('adminCRQueueCtrl', ['$scope','$modal','$location','$http','nodeAttributeDictionary','ngIdentity',
 	function($scope,$modal,$location, $http,nodeAttributeDictionary,ngIdentity) {
 
     var checkcounter=0;
     var cacheRenew=new Date().getTime();
-    $http.get('/apollo/api/node/all'+'?'+cacheRenew).then(function(res) {
+    $http.get('/jupiter/api/node/all'+'?'+cacheRenew).then(function(res) {
       $scope.nodeNameallArray=res.data;
       //console.log($scope.nodeNameallArray);
       checkcounter++;
@@ -77,7 +77,7 @@ angular.module('apolloApp').controller('adminCRQueueCtrl', ['$scope','$modal','$
         $scope.hover=false;
         $scope.reverse = true;
         var cacheRenew=new Date().getTime();
-        $http.get('/apollo/api/mongo/all'+'?'+cacheRenew).then(function(res) {
+        $http.get('/jupiter/api/mongo/all'+'?'+cacheRenew).then(function(res) {
             $scope.mongoDocumentsAll=res.data;
             //console.log($scope.mongoDocumentsAll);
 
@@ -232,8 +232,8 @@ angular.module('apolloApp').controller('adminCRQueueCtrl', ['$scope','$modal','$
         mongoid.adminUserId = $scope.identity.currentUser._id;
         mongoid.adminUserDisplayName = $scope.identity.currentUser.displayName;
 
-        $http.post('/apollo/api/mongo/deletecr', mongoid).
-        //$http({method: 'Post', url: '/apollo/api/mongo/postcr', data: {greeting: 'hi'}}).
+        $http.post('/jupiter/api/mongo/deletecr', mongoid).
+        //$http({method: 'Post', url: '/jupiter/api/mongo/postcr', data: {greeting: 'hi'}}).
           success(function(data, status, headers, config) {
               if(checkcounter==2)
               {
@@ -249,7 +249,7 @@ angular.module('apolloApp').controller('adminCRQueueCtrl', ['$scope','$modal','$
 
 }]);
 
-angular.module('apolloApp').controller('ModalInstanceCtrl', function ($scope, $modalInstance,doc_id) {
+angular.module('jupiterApp').controller('ModalInstanceCtrl', function ($scope, $modalInstance,doc_id) {
 
   // $scope.items = items;
   // $scope.selected = {

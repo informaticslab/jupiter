@@ -1,4 +1,4 @@
-angular.module('apolloApp').controller('adminRightsCtrl', ['$scope', '$modal','$location','$http','nodeAttributeDictionary','ngIdentity','ngNotifier',
+angular.module('jupiterApp').controller('adminRightsCtrl', ['$scope', '$modal','$location','$http','nodeAttributeDictionary','ngIdentity','ngNotifier',
 	function($scope,$modal,$location,$http,nodeAttributeDictionary,ngIdentity,ngNotifier) {
     $scope.identity = ngIdentity;
 
@@ -10,7 +10,7 @@ angular.module('apolloApp').controller('adminRightsCtrl', ['$scope', '$modal','$
     
 
     var cacheRenew=new Date().getTime();
-    $http.get('/apollo/api/mongo/users/all'+'?'+cacheRenew).then(function(res) {
+    $http.get('/jupiter/api/mongo/users/all'+'?'+cacheRenew).then(function(res) {
             $scope.usersAll=res.data;
             //console.log($scope.usersAll);
 
@@ -39,8 +39,8 @@ angular.module('apolloApp').controller('adminRightsCtrl', ['$scope', '$modal','$
       
 
       var cacheRenew=new Date().getTime();
-      $http.post('/apollo/api/mongo/users/updateRights', datapacket).
-        //$http({method: 'Post', url: '/apollo/api/mongo/postcr', data: {greeting: 'hi'}}).
+      $http.post('/jupiter/api/mongo/users/updateRights', datapacket).
+        //$http({method: 'Post', url: '/jupiter/api/mongo/postcr', data: {greeting: 'hi'}}).
         success(function(data, status, headers, config) { 
             //console.log(data);
             if(data=="success")

@@ -1,4 +1,4 @@
-angular.module('apolloApp').controller('adminCRAddCtrl', ['$scope', '$http','$filter','$location','nodeAttributeDictionary','nodeRelationshipDictionary','nodeTypeDictionary', 'ngIdentity',
+angular.module('jupiterApp').controller('adminCRAddCtrl', ['$scope', '$http','$filter','$location','nodeAttributeDictionary','nodeRelationshipDictionary','nodeTypeDictionary', 'ngIdentity',
     function($scope,$http,$filter,$location,nodeAttributeDictionary,nodeRelationshipDictionary,nodeTypeDictionary,ngIdentity) {
 
 
@@ -50,7 +50,7 @@ angular.module('apolloApp').controller('adminCRAddCtrl', ['$scope', '$http','$fi
 
 
     // function fetchRelationshipValues(){
-    //                 $http.get('/apollo/api/node/relationships/' + $scope.nodeId).then(function(res) {
+    //                 $http.get('/jupiter/api/node/relationships/' + $scope.nodeId).then(function(res) {
     //             $scope.relvalues=res.data;
     //             //$scope.relarray=[];
 
@@ -135,7 +135,7 @@ angular.module('apolloApp').controller('adminCRAddCtrl', ['$scope', '$http','$fi
 
         
 
-    //     $http.get('/apollo/api/neo/nextnodeid/'+$scope.nodetypeselect).then(function(res) {
+    //     $http.get('/jupiter/api/neo/nextnodeid/'+$scope.nodetypeselect).then(function(res) {
     //         //console.log(res.data);
     //         var nextNodeIDInt=parseInt(res.data)+1;
             
@@ -272,8 +272,8 @@ angular.module('apolloApp').controller('adminCRAddCtrl', ['$scope', '$http','$fi
             var datapacket={};
             datapacket['attr']=$scope.cr;
             datapacket['rels']=$scope.relvalues;
-            $http.post('/apollo/api/mongo/postaddcr', datapacket).
-            //$http({method: 'Post', url: '/apollo/api/mongo/postcr', data: {greeting: 'hi'}}).
+            $http.post('/jupiter/api/mongo/postaddcr', datapacket).
+            //$http({method: 'Post', url: '/jupiter/api/mongo/postcr', data: {greeting: 'hi'}}).
               success(function(data, status, headers, config) { 
                 //console.log("success");
                 $scope.node="";
@@ -308,8 +308,8 @@ angular.module('apolloApp').controller('adminCRAddCtrl', ['$scope', '$http','$fi
     //     $scope.cr['CR_STATUS']="PENDING";
     //     $scope.cr['CR_DATE_CREATED']=new Date().getTime();
 
-    //     $http.post('/apollo/api/mongo/postdeletecr', $scope.cr).
-    //     //$http({method: 'Post', url: '/apollo/api/mongo/postcr', data: {greeting: 'hi'}}).
+    //     $http.post('/jupiter/api/mongo/postdeletecr', $scope.cr).
+    //     //$http({method: 'Post', url: '/jupiter/api/mongo/postcr', data: {greeting: 'hi'}}).
     //       success(function(data, status, headers, config) { 
     //         //console.log("success");
     //         $scope.node="";

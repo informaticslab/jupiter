@@ -1,8 +1,8 @@
-angular.module('apolloApp').factory('ngAuth', function($http, ngIdentity, $q, ngUser, $location) {
+angular.module('jupiterApp').factory('ngAuth', function($http, ngIdentity, $q, ngUser, $location) {
 	return{
 		authenticateUser: function(email,password){
 			var dfd = $q.defer();
-			$http.post('/apollo/login',{email:email, password: password}).then(function(response) {
+			$http.post('/jupiter/login',{email:email, password: password}).then(function(response) {
 			//console.log(userName);
 			//console.log(response.data.success)
 			if(response.data.success) {
@@ -26,7 +26,7 @@ angular.module('apolloApp').factory('ngAuth', function($http, ngIdentity, $q, ng
 			var newUser = new ngUser(newUserData);
 			var dfd = $q.defer();
 
-			$http.post('/apollo/api/saveUser',newUser).then(function(res) {
+			$http.post('/jupiter/api/saveUser',newUser).then(function(res) {
 				if(res.data.success){
 					dfd.resolve(true);
 				} else {
@@ -40,7 +40,7 @@ angular.module('apolloApp').factory('ngAuth', function($http, ngIdentity, $q, ng
 
 		logoutUser: function(){
 			var dfd = $q.defer();
-			$http.post('/apollo/logout', {logout:true}).then(function() { 
+			$http.post('/jupiter/logout', {logout:true}).then(function() { 
 				ngIdentity.currentUser = undefined;
 				dfd.resolve();
 			});
@@ -56,7 +56,7 @@ angular.module('apolloApp').factory('ngAuth', function($http, ngIdentity, $q, ng
 		},
 		autheticateUserPiv : function(){
 			var dfd = $q.defer();
-			$http.get('/apollo/api/getpiv').then(function(res){
+			$http.get('/jupiter/api/getpiv').then(function(res){
 				if(res.data.success) {
 
 					var user = new ngUser();

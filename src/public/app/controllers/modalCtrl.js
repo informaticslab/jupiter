@@ -1,4 +1,4 @@
-angular.module('apolloApp').controller('modalCtrl', function($scope, $modal){
+angular.module('jupiterApp').controller('modalCtrl', function($scope, $modal){
     $scope.q = 'home';
 
     $scope.open = function(size){

@@ -1,4 +1,4 @@
-angular.module('apolloApp').factory('nodeAttributeDictionary', function() {
+angular.module('jupiterApp').factory('nodeAttributeDictionary', function() {
     return {
         'Organization': {
             'attributeGroups': {

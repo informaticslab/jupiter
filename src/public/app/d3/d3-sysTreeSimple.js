@@ -6,7 +6,7 @@ var treeData;
 var url = $(location).attr('href');
   var split = url.split('/');
   var id = split[split.length - 1];
-  d3.json("/apollo/api/node/managed/"+id, function(error, treeData) { 
+  d3.json("/jupiter/api/node/managed/"+id, function(error, treeData) { 
 
 function visit(parent, visitFn, childrenFn)
 {
@@ -112,7 +112,7 @@ function buildTree(containerName, customOptions)
         })
         .attr("r", options.nodeRadius);
 
-    nodeGroup.append("a").attr("xlink:href",function(d) { return "/apollo/#/node/" + d.id; })
+    nodeGroup.append("a").attr("xlink:href",function(d) { return "/jupiter/#/node/" + d.id; })
         .append("svg:text")
         .attr("text-anchor", function(d)
         {

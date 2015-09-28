@@ -1,4 +1,4 @@
-angular.module('apolloApp').controller('mainCtrl', function($scope,$resource,$location,$http){
+angular.module('jupiterApp').controller('mainCtrl', function($scope,$resource,$location,$http){
 	$scope.$parent.q = 'home';
     $scope.rays = 'sunshine';
     $scope.latestChanges = [];
@@ -6,7 +6,7 @@ angular.module('apolloApp').controller('mainCtrl', function($scope,$resource,$lo
 
    	var nodestotal=0;
 
-	var portalstatsnodes = $resource('/apollo/api/stats/nodes', {
+	var portalstatsnodes = $resource('/jupiter/api/stats/nodes', {
 	});
 
 	statsarr={};
@@ -33,7 +33,7 @@ angular.module('apolloApp').controller('mainCtrl', function($scope,$resource,$lo
 	});
 
 
-	$http.get('/apollo/api/mongo/latestChanges').then(function(res) {
+	$http.get('/jupiter/api/mongo/latestChanges').then(function(res) {
 		$scope.latestChanges = res.data;
 		
 		//$scope.latestChanges.crdata.CR_REQUEST_TYPE.toLowerCase();
@@ -41,7 +41,7 @@ angular.module('apolloApp').controller('mainCtrl', function($scope,$resource,$lo
 	})
 
 
-	var portalstatsrelations = $resource('/apollo/api/stats/relations', {
+	var portalstatsrelations = $resource('/jupiter/api/stats/relations', {
 	});
 
 	var stats = portalstatsrelations.query({

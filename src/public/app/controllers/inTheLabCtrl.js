@@ -1,4 +1,4 @@
-angular.module('apolloApp').controller('inTheLabCtrl', function($scope, $routeParams, $resource, $location, $anchorScroll){
+angular.module('jupiterApp').controller('inTheLabCtrl', function($scope, $routeParams, $resource, $location, $anchorScroll){
     // $scope.rayes = 'sunny';
     // $scope.$parent.q = 'explore';
 

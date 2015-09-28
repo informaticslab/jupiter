@@ -1,4 +1,4 @@
-angular.module('apolloApp').filter('searchCheckFilter', function() {
+angular.module('jupiterApp').filter('searchCheckFilter', function() {
    return function( items, types) {
     var filtered = [];
     

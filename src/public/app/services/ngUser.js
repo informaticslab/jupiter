@@ -1,8 +1,8 @@
-angular.module('apolloApp').factory('ngUser',function($resource,$location) {
+angular.module('jupiterApp').factory('ngUser',function($resource,$location) {
 	var userResource;
 
 	if($location.protocol() == 'https'){
-		userResource = $resource('/apollo/api/getpiv')
+		userResource = $resource('/jupiter/api/getpiv')
 		
 	}
 	else {

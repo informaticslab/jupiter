@@ -5,11 +5,11 @@ Integrated Surveillance Portal with Data Element metadata and DataSet merging
 
 # Quick setup guide
 * Install and run [Neo4J](http://www.neo4j.org/download) preferably the latest 2.0.* release
-* Run the import.txt from [apollo_root]/data/ according to the import_instructions
-* For change management, install [mongoDB](https://www.mongodb.org/downloads) and run mongorestore on the [apollo_root]/data/apollo directory
+* Run the import.txt from [jupiter_root]/data/ according to the import_instructions
+* For change management, install [mongoDB](https://www.mongodb.org/downloads) and run mongorestore on the [jupiter_root]/data/jupiter directory
 * Install node.js
-* Navigate to [apollo_root]/src/ and run 'npm install'
-* Then run 'node app.js' from [apollo_root]/src/
+* Navigate to [jupiter_root]/src/ and run 'npm install'
+* Then run 'node app.js' from [jupiter_root]/src/
 
 # Requirements
 * To View: JQuery 1.10.2 compatible browser (Internet Explorer 8+, Edge, Firefox, Opera, Chrome)

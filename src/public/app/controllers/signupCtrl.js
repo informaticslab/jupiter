@@ -1,4 +1,4 @@
-angular.module('apolloApp').controller('signupCtrl', function($scope,$location,ngUser,ngNotifier,ngAuth,ngIdentity) {
+angular.module('jupiterApp').controller('signupCtrl', function($scope,$location,ngUser,ngNotifier,ngAuth,ngIdentity) {
 $scope.identity = ngIdentity;
 
 	$scope.signup = function() {

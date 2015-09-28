@@ -1,9 +1,9 @@
-angular.module('apolloApp').controller('advancedSearchCtrl', function($scope, $http, $routeParams, $resource) {
+angular.module('jupiterApp').controller('advancedSearchCtrl', function($scope, $http, $routeParams, $resource) {
     $scope.$parent.q = 'explore';
     $scope.nodeId = $routeParams.id;
     $scope.showImage = true;
     $scope.getNodes = function(val) {
-        return $http.get('/apollo/api/node/searchByName/' + val).then(function(res) {
+        return $http.get('/jupiter/api/node/searchByName/' + val).then(function(res) {
             var nodes = [];
             angular.forEach(res.data, function(item) {
                 nodes.push(item);
@@ -19,10 +19,10 @@ angular.module('apolloApp').controller('advancedSearchCtrl', function($scope, $h
     if (id) {
         var queryVals = id.split("-");
         if (queryVals.length) {
-            $http.get('/apollo/api/node/name/' + id.split("-")[0]).then(function(res) {
+            $http.get('/jupiter/api/node/name/' + id.split("-")[0]).then(function(res) {
                 $scope.nodeA = res.data;
             });
-            $http.get('/apollo/api/node/name/' + id.split("-")[1]).then(function(res) {
+            $http.get('/jupiter/api/node/name/' + id.split("-")[1]).then(function(res) {
                 $scope.nodeB = res.data;
             });
             $scope.nodeAId = id.split("-")[0];
@@ -59,7 +59,7 @@ angular.module('apolloApp').controller('advancedSearchCtrl', function($scope, $h
         $scope.step3json="NA";
         $scope.step4json="NA";
 
-        jsonret = d3.json("/apollo/api/node/advancedSearch/" + $scope.nodeAId + "-" + $scope.nodeBId + "-" + "1", function(error, json) {
+        jsonret = d3.json("/jupiter/api/node/advancedSearch/" + $scope.nodeAId + "-" + $scope.nodeBId + "-" + "1", function(error, json) {
             if(error)
             {
                 //console.log("1 error");
@@ -77,7 +77,7 @@ angular.module('apolloApp').controller('advancedSearchCtrl', function($scope, $h
                 $scope.checkComplete();
             }
         });
-        jsonret = d3.json("/apollo/api/node/advancedSearch/" + $scope.nodeAId + "-" + $scope.nodeBId + "-" + "2", function(error, json) {
+        jsonret = d3.json("/jupiter/api/node/advancedSearch/" + $scope.nodeAId + "-" + $scope.nodeBId + "-" + "2", function(error, json) {
             if(error)
             {
                 //console.log("2 error");
@@ -96,7 +96,7 @@ angular.module('apolloApp').controller('advancedSearchCtrl', function($scope, $h
                 $scope.checkComplete();
             }
         });
-        jsonret = d3.json("/apollo/api/node/advancedSearch/" + $scope.nodeAId + "-" + $scope.nodeBId + "-" + "3", function(error, json) {
+        jsonret = d3.json("/jupiter/api/node/advancedSearch/" + $scope.nodeAId + "-" + $scope.nodeBId + "-" + "3", function(error, json) {
             if(error)
             {
                 //console.log("3 error");
@@ -115,7 +115,7 @@ angular.module('apolloApp').controller('advancedSearchCtrl', function($scope, $h
                 $scope.checkComplete();
             }
         });
-        jsonret = d3.json("/apollo/api/node/advancedSearch/" + $scope.nodeAId + "-" + $scope.nodeBId + "-" + "4", function(error, json) {
+        jsonret = d3.json("/jupiter/api/node/advancedSearch/" + $scope.nodeAId + "-" + $scope.nodeBId + "-" + "4", function(error, json) {
             if(error)
             {
                 //console.log("4 error");

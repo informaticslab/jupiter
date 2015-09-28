@@ -1,4 +1,4 @@
-angular.module('apolloApp').factory('nodeRelationshipDictionary', function() {
+angular.module('jupiterApp').factory('nodeRelationshipDictionary', function() {
     return {
         "RelationshipTypes":[
                                 "CONTRACTS_WITH",

@@ -1,6 +1,6 @@
-angular.module('apolloApp').value('ngToastr',toastr);
+angular.module('jupiterApp').value('ngToastr',toastr);
 
-angular.module('apolloApp').factory('ngNotifier',function(ngToastr) {
+angular.module('jupiterApp').factory('ngNotifier',function(ngToastr) {
 	return {
 		notifyError: function(msg) {
 			ngToastr.options = {

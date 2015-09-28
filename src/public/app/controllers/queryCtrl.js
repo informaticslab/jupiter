@@ -1,4 +1,4 @@
-angular.module('apolloApp').controller('queryCtrl', ['$filter','$scope', '$location', '$resource', '$http', '$routeParams', 'nodeAttributeDictionary',
+angular.module('jupiterApp').controller('queryCtrl', ['$filter','$scope', '$location', '$resource', '$http', '$routeParams', 'nodeAttributeDictionary',
 	function($filter,$scope, $location, $resource, $http, $routeParams, nodeAttributeDictionary) {
 
 		$scope.reltypes = "";
@@ -89,7 +89,7 @@ angular.module('apolloApp').controller('queryCtrl', ['$filter','$scope', '$locat
 			
 		};
 
-		var relationships = $resource('/apollo/api/relationships/all', {});
+		var relationships = $resource('/jupiter/api/relationships/all', {});
 
 		var rels = relationships.query({}, function(result) {
 			$scope.showActlistLoading=false;
@@ -105,7 +105,7 @@ angular.module('apolloApp').controller('queryCtrl', ['$filter','$scope', '$locat
 
 		});
 
-		var nodetypes = $resource('/apollo/api/activitytypes/all', {});
+		var nodetypes = $resource('/jupiter/api/activitytypes/all', {});
 
 		var nt = nodetypes.query({}, function(result) {
 			if (!result.nullset) {
@@ -170,7 +170,7 @@ angular.module('apolloApp').controller('queryCtrl', ['$filter','$scope', '$locat
 
 		// 		//console.log(nodeid+"+"+ndtypes+"+"+retypes);
 
-		// 		var queryresults = $resource('/apollo/api/adhoc/'+ndids+"+"+ndtypes+"+"+retypes, {
+		// 		var queryresults = $resource('/jupiter/api/adhoc/'+ndids+"+"+ndtypes+"+"+retypes, {
 		// 		});
 
 		// 		var q = queryresults.query({
@@ -324,7 +324,7 @@ angular.module('apolloApp').controller('queryCtrl', ['$filter','$scope', '$locat
 				}
 
 
-				//console.log('/apollo/api/adhoc/relatednoodetypes/'+ndids+"+"+ndtypes+"+"+adsstring);
+				//console.log('/jupiter/api/adhoc/relatednoodetypes/'+ndids+"+"+ndtypes+"+"+adsstring);
 
 				//console.log(nodeid+"+"+ndtypes+"+"+retypes);
 
@@ -335,7 +335,7 @@ angular.module('apolloApp').controller('queryCtrl', ['$filter','$scope', '$locat
 				}
 
 				$scope.adhocparams = ndids + "+" + ndtypes + "+" + adsstring;
-				var queryresults = $resource('/apollo/api/adhoc/relatednoodetypes/' + $scope.adhocparams, {});
+				var queryresults = $resource('/jupiter/api/adhoc/relatednoodetypes/' + $scope.adhocparams, {});
 
 				var q = queryresults.query({}, function(result) {
 					if (!result.nullset) {
@@ -433,7 +433,7 @@ angular.module('apolloApp').controller('queryCtrl', ['$filter','$scope', '$locat
 			var attrarr = attr.split("_");
 
 			var val = attrarr[1] + "+" + attrarr[0] + "+" + likeval;
-			return $http.get('/apollo/api/attributes/getValues/' + val).then(function(res) {
+			return $http.get('/jupiter/api/attributes/getValues/' + val).then(function(res) {
 				var nodes = [];
 				angular.forEach(res.data, function(item) {
 					nodes.push(item);
@@ -444,7 +444,7 @@ angular.module('apolloApp').controller('queryCtrl', ['$filter','$scope', '$locat
 
 		$scope.exportadhocresults= function()
         {
-            window.location =  '/apollo/api/export/adhoccsv/' + $scope.adhocparams;
+            window.location =  '/jupiter/api/export/adhoccsv/' + $scope.adhocparams;
         };
 
 

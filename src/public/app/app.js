@@ -1,4 +1,4 @@
-var apolloApp = angular.module('apolloApp', [
+var jupiterApp = angular.module('jupiterApp', [
   'ngRoute'
   ,'ngResource'
   ,'ngAnimate'
@@ -8,10 +8,10 @@ var apolloApp = angular.module('apolloApp', [
   ,'chieffancypants.loadingBar'
   ,'angulartics'
   ,'angulartics.google.analytics'
-  //'apolloAppAnimations',
- // 'apolloAppControllers',
- // 'apolloAppFilters',
-//  'apolloAppServices'
+  //'jupiterAppAnimations',
+ // 'jupiterAppControllers',
+ // 'jupiterAppFilters',
+//  'jupiterAppServices'
 ]);
 
 var routeRoleChecks = {
@@ -31,7 +31,7 @@ var routeRoleChecks = {
 
 
 //to prevent IE caching
-apolloApp.config([
+jupiterApp.config([
     '$httpProvider', function ($httpProvider) {
         // Initialize get if not there
         if (!$httpProvider.defaults.headers.get) {
@@ -45,7 +45,7 @@ apolloApp.config([
         $httpProvider.defaults.headers.get['If-Modified-Since'] = '0';
     }
 ])
-apolloApp.config(['$routeProvider', 
+jupiterApp.config(['$routeProvider', 
   function($routeProvider) {
     $routeProvider.
           when('/faq', {
@@ -187,7 +187,7 @@ apolloApp.config(['$routeProvider',
 
   
 
-angular.module('apolloApp').run(function($rootScope,$location) {
+angular.module('jupiterApp').run(function($rootScope,$location) {
   $rootScope.$on('$routeChangeError', function(evt,current, previous,rejection) {
     if(rejection === 'not authorized'){
       $location.path('/main');
@@ -196,19 +196,19 @@ angular.module('apolloApp').run(function($rootScope,$location) {
 })
 
 // angular.module('app', ['ngResource', 'ngRoute', 'ngAnimate']);
-// apolloApp.config([function($routeProvider, $locationProvider) {
+// jupiterApp.config([function($routeProvider, $locationProvider) {
 
 //     $locationProvider.html5Mode(true);
-//     $routeProvider.when('/apollo/', {
-//         templateUrl: '/apollo/partials/main',
+//     $routeProvider.when('/jupiter/', {
+//         templateUrl: '/jupiter/partials/main',
 //         controller: 'mainCtrl'
-//     }).when('/apollo/faq', {
-//         templateUrl: '/apollo/partials/faq',
+//     }).when('/jupiter/faq', {
+//         templateUrl: '/jupiter/partials/faq',
 //         controller: 'faqCtrl'
-//     }).when('/apollo/node/:id', {
-//         templateUrl: '/apollo/partials/node',
+//     }).when('/jupiter/node/:id', {
+//         templateUrl: '/jupiter/partials/node',
 //         controller: 'nodeCtrl'
 //     }).otherwise({
-//         templateUrl: '/apollo/partials/404'
+//         templateUrl: '/jupiter/partials/404'
 //     });
 // }]);

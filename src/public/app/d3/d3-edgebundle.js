@@ -45,7 +45,7 @@
 														var link = svg.append("g").selectAll(".link"),
 																		node = svg.append("g").selectAll(".node");
 
-														d3.json("/apollo/api/lab/relations", function(error, relations){
+														d3.json("/jupiter/api/lab/relations", function(error, relations){
 
 															if(relations==undefined | error)
 															{	
@@ -56,8 +56,8 @@
 																.attr("y",h/4);
 															}
 															else{
-																// d3.json("/apollo/api/lab/nodes", function(error, classes) {
-																d3.json("/apollo/api/lab/nodes", function(error, classes) {
+																// d3.json("/jupiter/api/lab/nodes", function(error, classes) {
+																d3.json("/jupiter/api/lab/nodes", function(error, classes) {
 																		if(classes == undefined | error){
 																			var errormsg=svg.append("text")
 																			.text("Could not retrieve all the nodes")

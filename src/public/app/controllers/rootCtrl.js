@@ -1,4 +1,4 @@
-angular.module('apolloApp').controller('rootCtrl', function($scope, $http, $location, localStorageService, $modal,ngIdentity,ngAuth,ngNotifier,$window){
+angular.module('jupiterApp').controller('rootCtrl', function($scope, $http, $location, localStorageService, $modal,ngIdentity,ngAuth,ngNotifier,$window){
     
     $scope.q = 'home';
     $scope.loginuser = 'guest';
@@ -22,19 +22,19 @@ angular.module('apolloApp').controller('rootCtrl', function($scope, $http, $loca
     }
 
     $scope.redirectToSearch = function(){
-       //window.location =  '/apollo/#/search/' + $scope.queryString;
+       //window.location =  '/jupiter/#/search/' + $scope.queryString;
        $location.path('/search/' + $scope.queryString);
 
     };
 
     $scope.itemSelected = function($item, $model, $label) {
-        ///window.location =  '/apollo/#/node/' + $item.id;
+        ///window.location =  '/jupiter/#/node/' + $item.id;
         $location.path('/node/' + $item.id);
         $scope.queryString = null;
     };
 
     $scope.getNodes = function(val) {
-        return $http.get('/apollo/api/node/searchByName/' + val).then(function(res) {
+        return $http.get('/jupiter/api/node/searchByName/' + val).then(function(res) {
             var nodes = [];
             angular.forEach(res.data, function(item) {
                 nodes.push(item);
@@ -167,23 +167,23 @@ angular.module('apolloApp').controller('rootCtrl', function($scope, $http, $loca
       
       if(window.location.hostname == 'localhost'){
         $scope.facebook_appID = '1429109474024840';
-        $scope.app_domain = 'localhost:8089/apollo/';
-        $scope.app_image = 'http://edemo.phiresearchlab.org/apollo/img/header_graphic_alpha.png';
+        $scope.app_domain = 'localhost:8089/jupiter/';
+        $scope.app_image = 'http://edemo.phiresearchlab.org/jupiter/img/header_graphic_alpha.png';
       }
       else if(window.location.hostname == 'edemo.phiresearchlab.org'){
         $scope.facebook_appID = '1501295270085876';
-        $scope.app_domain = 'edemo.phiresearchlab.org/apollo/';
-        $scope.app_image = 'http://edemo.phiresearchlab.org/apollo/img/header_graphic_alpha.png';
+        $scope.app_domain = 'edemo.phiresearchlab.org/jupiter/';
+        $scope.app_image = 'http://edemo.phiresearchlab.org/jupiter/img/header_graphic_alpha.png';
       }
       else if(window.location.hostname == 'cloudev.phiresearchlab.org'){
         $scope.facebook_appID = '669609933094570';
-        $scope.app_domain = 'cloudev.phiresearchlab.org/apollo/';
-        $scope.app_image = 'http://cloudev.phiresearchlab.org/apollo/img/header_graphic_alpha.png';
+        $scope.app_domain = 'cloudev.phiresearchlab.org/jupiter/';
+        $scope.app_image = 'http://cloudev.phiresearchlab.org/jupiter/img/header_graphic_alpha.png';
       }
       else if(window.location.hostname == 'cloudtest.phiresearchlab.org'){
         $scope.facebook_appID = '1530749310479360';
-        $scope.app_domain = 'cloudtest.phiresearchlab.org/apollo/';
-        $scope.app_image = 'http://cloudtest.phiresearchlab.org/apollo/img/header_graphic_alpha.png';
+        $scope.app_domain = 'cloudtest.phiresearchlab.org/jupiter/';
+        $scope.app_image = 'http://cloudtest.phiresearchlab.org/jupiter/img/header_graphic_alpha.png';
       }
 
       FB.init({appId: $scope.facebook_appID, status: true, cookie: true,

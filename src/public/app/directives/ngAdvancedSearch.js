@@ -1,4 +1,4 @@
-angular.module('apolloApp')
+angular.module('jupiterApp')
 	.directive('ngAdvancedSearch', [
 
 		function() {
@@ -97,7 +97,7 @@ angular.module('apolloApp')
 
 						//console.log(".."+id+"..");
 
-						//d3.json("/apollo/api/node/viewer/" + id, function(error, json) {
+						//d3.json("/jupiter/api/node/viewer/" + id, function(error, json) {
 						var leftnodeid = id.split("-")[0];
 						var rightnodeid = id.split("-")[1];
 						//var hop = id.split("-")[2];
@@ -203,7 +203,7 @@ angular.module('apolloApp')
 
 
 
-						//jsonret = d3.json("/apollo/api/node/advancedSearch/" + leftnodeid + "-" + rightnodeid + "-" + hop, function(error, json) {
+						//jsonret = d3.json("/jupiter/api/node/advancedSearch/" + leftnodeid + "-" + rightnodeid + "-" + hop, function(error, json) {
 
 
 
@@ -500,7 +500,7 @@ angular.module('apolloApp')
 
 
 							text.append("a").attr("xlink:href", function(d) {
-								return "/apollo/#/linkage/" + d.id;
+								return "/jupiter/#/linkage/" + d.id;
 							})
 								.append("svg:text")
 								.attr("x", 25)

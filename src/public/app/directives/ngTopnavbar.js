@@ -1,4 +1,4 @@
-angular.module('apolloApp').directive('ngTopnavbar', function () {
+angular.module('jupiterApp').directive('ngTopnavbar', function () {
     return {
       restrict: 'A',
       template: '<ul class="nav nav-pills"> ' +

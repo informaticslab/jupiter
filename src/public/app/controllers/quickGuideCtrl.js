@@ -1,4 +1,4 @@
-angular.module('apolloApp').controller('quickGuideCtrl', function($scope, $location, $anchorScroll, $routeParams){
+angular.module('jupiterApp').controller('quickGuideCtrl', function($scope, $location, $anchorScroll, $routeParams){
     $scope.$parent.q = 'explore';
 
 	//function for scrolling to the top

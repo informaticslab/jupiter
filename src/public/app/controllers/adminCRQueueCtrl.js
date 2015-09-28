@@ -126,7 +126,6 @@ angular.module('apolloApp').controller('adminCRQueueCtrl', ['$scope','$modal','$
       {
         
         var crnodename=$scope.mongoDocumentsAll[cr].name;
-        console.log('CR NODE NAME',crnodename);
         var crnodeid=$scope.mongoDocumentsAll[cr].id;
         if(crnodeid==undefined || crnodeid==null || crnodeid=="")
         {
@@ -141,8 +140,6 @@ angular.module('apolloApp').controller('adminCRQueueCtrl', ['$scope','$modal','$
           var neonodename=$scope.nodeNameallArray[n].name;
 
           var neonodeid=$scope.nodeNameallArray[n].id;
-          console.log('NEO NODE NAME', neonodename);
-          console.log('NEO NODE ID', neonodeid);
           if(neonodeid==crnodeid)
           {
 

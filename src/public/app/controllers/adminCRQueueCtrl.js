@@ -126,6 +126,7 @@ angular.module('apolloApp').controller('adminCRQueueCtrl', ['$scope','$modal','$
       {
         
         var crnodename=$scope.mongoDocumentsAll[cr].name;
+        console.log('CR NODE NAME',crnodename);
         var crnodeid=$scope.mongoDocumentsAll[cr].id;
         if(crnodeid==undefined || crnodeid==null || crnodeid=="")
         {
@@ -138,67 +139,73 @@ angular.module('apolloApp').controller('adminCRQueueCtrl', ['$scope','$modal','$
         for(n in $scope.nodeNameallArray)
         {
           var neonodename=$scope.nodeNameallArray[n].name;
+
           var neonodeid=$scope.nodeNameallArray[n].id;
+          console.log('NEO NODE NAME', neonodename);
+          console.log('NEO NODE ID', neonodeid);
           if(neonodeid==crnodeid)
           {
 
           }
           else
           {
-            if(crnodename.toLowerCase()==neonodename.toLowerCase())
-            {
-              similarNodes.push({neonodename:neonodename,neonodeid:neonodeid,level:1});
-            }
-            var crnodename1=crnodename.replace(/the|\sa\s|\s/gi, function myFunction(x){return "";});
-            var neonodename1=neonodename.replace(/the|\sa\s|\s/gi, function myFunction(x){return "";});
-            //if(crnodename1.match(/biosense/))
-            //console.log("*************",crnodename1,"**************",neonodename1);
-            if(crnodename1.toLowerCase()==neonodename1.toLowerCase())
-            {
-              var found = false;
-              for(i=0;i<similarNodes.length;i++)
+            if(neonodename != null){
+              if(crnodename.toLowerCase()==neonodename.toLowerCase())
               {
-                if(similarNodes[i].neonodeid==neonodeid)
+                similarNodes.push({neonodename:neonodename,neonodeid:neonodeid,level:1});
+              }
+              var crnodename1=crnodename.replace(/the|\sa\s|\s/gi, function myFunction(x){return "";});
+              var neonodename1=neonodename.replace(/the|\sa\s|\s/gi, function myFunction(x){return "";});
+              //if(crnodename1.match(/biosense/))
+              //console.log("*************",crnodename1,"**************",neonodename1);
+              if(crnodename1.toLowerCase()==neonodename1.toLowerCase())
+              {
+                var found = false;
+                for(i=0;i<similarNodes.length;i++)
                 {
-                  found = true;
+                  if(similarNodes[i].neonodeid==neonodeid)
+                  {
+                    found = true;
+                  }
                 }
+                if(!found)
+                {
+                  similarNodes.push({neonodename:neonodename,neonodeid:neonodeid,level:2});  
+                }
+                else
+                {
+                  //console.log("skipped");
+                }
+                
               }
-              if(!found)
-              {
-                similarNodes.push({neonodename:neonodename,neonodeid:neonodeid,level:2});  
-              }
-              else
-              {
-                //console.log("skipped");
-              }
-              
-            }
 
-            var crnodename2=crnodename1.replace(/system|program|registry|survey|tool|data|dataset|standard|collaborative|element/gi, function myFunction(x){return "";});
-            var neonodename2=neonodename1.replace(/system|program|registry|survey|tool|data|dataset|standard|collaborative|element/gi, function myFunction(x){return "";});
-            //if(crnodename2.match(/biosense/))
-            //console.log("***",crnodename2,"***",neonodename2);
-            if(crnodename2.toLowerCase()==neonodename2.toLowerCase())
-            {
-              //console.log(crnodename2,neonodename2);
-              var found = false;
-              for(i=0;i<similarNodes.length;i++)
+              var crnodename2=crnodename1.replace(/system|program|registry|survey|tool|data|dataset|standard|collaborative|element/gi, function myFunction(x){return "";});
+              var neonodename2=neonodename1.replace(/system|program|registry|survey|tool|data|dataset|standard|collaborative|element/gi, function myFunction(x){return "";});
+              //if(crnodename2.match(/biosense/))
+              //console.log("***",crnodename2,"***",neonodename2);
+              if(crnodename2.toLowerCase()==neonodename2.toLowerCase())
               {
-                if(similarNodes[i].neonodeid==neonodeid)
+                //console.log(crnodename2,neonodename2);
+                var found = false;
+                for(i=0;i<similarNodes.length;i++)
                 {
-                  found = true;
+                  if(similarNodes[i].neonodeid==neonodeid)
+                  {
+                    found = true;
+                  }
                 }
+                if(!found)
+                {
+                  similarNodes.push({neonodename:neonodename,neonodeid:neonodeid,level:2});  
+                }
+                else
+                {
+                  //console.log("skipped");
+                }
+                
               }
-              if(!found)
-              {
-                similarNodes.push({neonodename:neonodename,neonodeid:neonodeid,level:2});  
-              }
-              else
-              {
-                //console.log("skipped");
-              }
-              
             }
+            
           }
 
 

@@ -3,7 +3,7 @@ angular.module('jupiterApp').controller('adminCRQueueCtrl', ['$scope','$modal','
 
     var checkcounter=0;
     var cacheRenew=new Date().getTime();
-    $http.get('/jupiter/api/node/all'+'?'+cacheRenew).then(function(res) {
+    $http.get('/api/node/all'+'?'+cacheRenew).then(function(res) {
       $scope.nodeNameallArray=res.data;
       //console.log($scope.nodeNameallArray);
       checkcounter++;
@@ -77,7 +77,7 @@ angular.module('jupiterApp').controller('adminCRQueueCtrl', ['$scope','$modal','
         $scope.hover=false;
         $scope.reverse = true;
         var cacheRenew=new Date().getTime();
-        $http.get('/jupiter/api/mongo/all'+'?'+cacheRenew).then(function(res) {
+        $http.get('/api/mongo/all'+'?'+cacheRenew).then(function(res) {
             $scope.mongoDocumentsAll=res.data;
             //console.log($scope.mongoDocumentsAll);
 
@@ -232,8 +232,8 @@ angular.module('jupiterApp').controller('adminCRQueueCtrl', ['$scope','$modal','
         mongoid.adminUserId = $scope.identity.currentUser._id;
         mongoid.adminUserDisplayName = $scope.identity.currentUser.displayName;
 
-        $http.post('/jupiter/api/mongo/deletecr', mongoid).
-        //$http({method: 'Post', url: '/jupiter/api/mongo/postcr', data: {greeting: 'hi'}}).
+        $http.post('/api/mongo/deletecr', mongoid).
+        //$http({method: 'Post', url: '/api/mongo/postcr', data: {greeting: 'hi'}}).
           success(function(data, status, headers, config) {
               if(checkcounter==2)
               {

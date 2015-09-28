@@ -55,7 +55,7 @@ angular.module('jupiterApp')
 						var rootnodelabel = "";
 
 
-						d3.json("/jupiter/api/node/viewer/" + id, function(error, json) {
+						d3.json("/api/node/viewer/" + id, function(error, json) {
 
 							scope.showLinkageLoading = false;
 							scope.$apply();
@@ -83,7 +83,7 @@ angular.module('jupiterApp')
 								
 
 								var nodename = "";
-								d3.text("/jupiter/api/node/name/" + id, function(error, data) {
+								d3.text("/api/node/name/" + id, function(error, data) {
 
 									nodename = data;
 
@@ -231,7 +231,7 @@ angular.module('jupiterApp')
 							.text(function(d) { return d.name; });*/
 
 								text.append("a").attr("xlink:href", function(d) {
-									return "/jupiter/#/linkage/" + d.id;
+									return "/#/linkage/" + d.id;
 								})
 									.append("svg:text")
 									.attr("class", function(d) {

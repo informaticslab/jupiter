@@ -2,7 +2,7 @@ angular.module('jupiterApp').factory('ngAuth', function($http, ngIdentity, $q, n
 	return{
 		authenticateUser: function(email,password){
 			var dfd = $q.defer();
-			$http.post('/jupiter/login',{email:email, password: password}).then(function(response) {
+			$http.post('/login',{email:email, password: password}).then(function(response) {
 			//console.log(userName);
 			//console.log(response.data.success)
 			if(response.data.success) {
@@ -26,7 +26,7 @@ angular.module('jupiterApp').factory('ngAuth', function($http, ngIdentity, $q, n
 			var newUser = new ngUser(newUserData);
 			var dfd = $q.defer();
 
-			$http.post('/jupiter/api/saveUser',newUser).then(function(res) {
+			$http.post('/api/saveUser',newUser).then(function(res) {
 				if(res.data.success){
 					dfd.resolve(true);
 				} else {
@@ -40,7 +40,7 @@ angular.module('jupiterApp').factory('ngAuth', function($http, ngIdentity, $q, n
 
 		logoutUser: function(){
 			var dfd = $q.defer();
-			$http.post('/jupiter/logout', {logout:true}).then(function() { 
+			$http.post('/logout', {logout:true}).then(function() { 
 				ngIdentity.currentUser = undefined;
 				dfd.resolve();
 			});
@@ -56,7 +56,7 @@ angular.module('jupiterApp').factory('ngAuth', function($http, ngIdentity, $q, n
 		},
 		autheticateUserPiv : function(){
 			var dfd = $q.defer();
-			$http.get('/jupiter/api/getpiv').then(function(res){
+			$http.get('/api/getpiv').then(function(res){
 				if(res.data.success) {
 
 					var user = new ngUser();

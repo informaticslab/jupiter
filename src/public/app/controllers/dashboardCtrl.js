@@ -44,7 +44,7 @@ angular.module('jupiterApp').controller('dashboardCtrl', function($scope,$resour
 
 		if($routeParams.id)
 		{
-			var nodeDetails = $http.get('/jupiter/api/node/' + $routeParams.id).success(function(data) {
+			var nodeDetails = $http.get('/api/node/' + $routeParams.id).success(function(data) {
             //console.log(data.name);
             $scope.nodeNm=data.name;
             $scope.hideReturnLink=false;
@@ -53,7 +53,7 @@ angular.module('jupiterApp').controller('dashboardCtrl', function($scope,$resour
 		}
 	
 getnodestatsdata=function(){
-	var portalstatsnodes = $resource('/jupiter/api/stats/nodes/'+$scope.nodeId, {
+	var portalstatsnodes = $resource('/api/stats/nodes/'+$scope.nodeId, {
 	});
 
 	var stats = portalstatsnodes.query({
@@ -79,7 +79,7 @@ getnodestatsdata=function(){
 }
 
 getnodestatsdatavalidated=function(){
-	var portalstatsrelations = $resource('/jupiter/api/stats/nodesvalidated/'+$scope.nodeId, {
+	var portalstatsrelations = $resource('/api/stats/nodesvalidated/'+$scope.nodeId, {
 	});
 
 	var stats = portalstatsrelations.query({
@@ -163,7 +163,7 @@ getnodestatsdatavalidated=function(){
 
 	loadvalidaationdata=function(){
 
-	var validationStatus = $resource('/jupiter/api/dashboard/validationStatus/'+$scope.nodeId, {
+	var validationStatus = $resource('/api/dashboard/validationStatus/'+$scope.nodeId, {
 	});
 
 	var stats = validationStatus.query({
@@ -189,7 +189,7 @@ $scope.itemSelected = function($item, $model, $label) {
         //console.log($item);//.nodeId);
 		//console.log($model);
 		//console.log($label);
-        //window.location =  '/jupiter/#/dashboard/' + $scope.nodeId;
+        //window.location =  '/#/dashboard/' + $scope.nodeId;
         $location.path('/dashboard/' + $scope.nodeId);
         //loaddata($scope.nodeId);
 };
@@ -197,9 +197,9 @@ $scope.itemSelected = function($item, $model, $label) {
 $scope.exporttable= function()
 {
 
-	//console.log('/jupiter/api/export/csv/' + $scope.nodeId+'/'+'ntype-'+$scope.nodetype+',nname='+$scope.nodesearch+',orderby='+$scope.orderByField+',asc='+$scope.reverse);
+	//console.log('/api/export/csv/' + $scope.nodeId+'/'+'ntype-'+$scope.nodetype+',nname='+$scope.nodesearch+',orderby='+$scope.orderByField+',asc='+$scope.reverse);
 	//console.log($scope.orderByField,$scope.reverse);
-	window.location =  '/jupiter/api/export/csv/' + $scope.nodeId+'/'+'ntype='+$scope.nodetype+',nname='+$scope.nodesearch+',orderby='+$scope.orderByField+',asc='+$scope.reverse;
+	window.location =  '/api/export/csv/' + $scope.nodeId+'/'+'ntype='+$scope.nodetype+',nname='+$scope.nodesearch+',orderby='+$scope.orderByField+',asc='+$scope.reverse;
 }
 
 
@@ -214,8 +214,8 @@ loadvalidaationdata();
 // $scope.fetchvsdetails=function(val){
 
 // 	//console.log(val);
-// 	//var vsdetails = $http.get('/jupiter/api/dashboard/validationStatusDetails/'+val, {
-// 	return $http.get('/jupiter/api/dashboard/validationStatusDetails/'+val).then(function(res) {
+// 	//var vsdetails = $http.get('/api/dashboard/validationStatusDetails/'+val, {
+// 	return $http.get('/api/dashboard/validationStatusDetails/'+val).then(function(res) {
 //             var nodes = [];
 //             angular.forEach(res.data, function(item) {
 //                 nodes.push(item);
@@ -228,7 +228,7 @@ loadvalidaationdata();
 // };
 
 // $scope.getNodes = function(val) {
-//         return $http.get('/jupiter/api/node/searchSysTreeByName/' + val).then(function(res) {
+//         return $http.get('/api/node/searchSysTreeByName/' + val).then(function(res) {
 //             var nodes = [];
 //             angular.forEach(res.data, function(item) {
 //                 nodes.push(item);

@@ -3,7 +3,7 @@ angular.module('jupiterApp').controller('advancedSearchCtrl', function($scope, $
     $scope.nodeId = $routeParams.id;
     $scope.showImage = true;
     $scope.getNodes = function(val) {
-        return $http.get('/jupiter/api/node/searchByName/' + val).then(function(res) {
+        return $http.get('/api/node/searchByName/' + val).then(function(res) {
             var nodes = [];
             angular.forEach(res.data, function(item) {
                 nodes.push(item);
@@ -19,10 +19,10 @@ angular.module('jupiterApp').controller('advancedSearchCtrl', function($scope, $
     if (id) {
         var queryVals = id.split("-");
         if (queryVals.length) {
-            $http.get('/jupiter/api/node/name/' + id.split("-")[0]).then(function(res) {
+            $http.get('/api/node/name/' + id.split("-")[0]).then(function(res) {
                 $scope.nodeA = res.data;
             });
-            $http.get('/jupiter/api/node/name/' + id.split("-")[1]).then(function(res) {
+            $http.get('/api/node/name/' + id.split("-")[1]).then(function(res) {
                 $scope.nodeB = res.data;
             });
             $scope.nodeAId = id.split("-")[0];
@@ -59,7 +59,7 @@ angular.module('jupiterApp').controller('advancedSearchCtrl', function($scope, $
         $scope.step3json="NA";
         $scope.step4json="NA";
 
-        jsonret = d3.json("/jupiter/api/node/advancedSearch/" + $scope.nodeAId + "-" + $scope.nodeBId + "-" + "1", function(error, json) {
+        jsonret = d3.json("/api/node/advancedSearch/" + $scope.nodeAId + "-" + $scope.nodeBId + "-" + "1", function(error, json) {
             if(error)
             {
                 //console.log("1 error");
@@ -77,7 +77,7 @@ angular.module('jupiterApp').controller('advancedSearchCtrl', function($scope, $
                 $scope.checkComplete();
             }
         });
-        jsonret = d3.json("/jupiter/api/node/advancedSearch/" + $scope.nodeAId + "-" + $scope.nodeBId + "-" + "2", function(error, json) {
+        jsonret = d3.json("/api/node/advancedSearch/" + $scope.nodeAId + "-" + $scope.nodeBId + "-" + "2", function(error, json) {
             if(error)
             {
                 //console.log("2 error");
@@ -96,7 +96,7 @@ angular.module('jupiterApp').controller('advancedSearchCtrl', function($scope, $
                 $scope.checkComplete();
             }
         });
-        jsonret = d3.json("/jupiter/api/node/advancedSearch/" + $scope.nodeAId + "-" + $scope.nodeBId + "-" + "3", function(error, json) {
+        jsonret = d3.json("/api/node/advancedSearch/" + $scope.nodeAId + "-" + $scope.nodeBId + "-" + "3", function(error, json) {
             if(error)
             {
                 //console.log("3 error");
@@ -115,7 +115,7 @@ angular.module('jupiterApp').controller('advancedSearchCtrl', function($scope, $
                 $scope.checkComplete();
             }
         });
-        jsonret = d3.json("/jupiter/api/node/advancedSearch/" + $scope.nodeAId + "-" + $scope.nodeBId + "-" + "4", function(error, json) {
+        jsonret = d3.json("/api/node/advancedSearch/" + $scope.nodeAId + "-" + $scope.nodeBId + "-" + "4", function(error, json) {
             if(error)
             {
                 //console.log("4 error");

@@ -87,7 +87,7 @@ angular.module('jupiterApp').controller('adminCtrl', ['$scope','$modal', '$http'
 	};
 
     function checkCRexist(){
-        $http.get('/jupiter/api/mongo/getstatus/' + $scope.nodeId).then(function(res) {
+        $http.get('/api/mongo/getstatus/' + $scope.nodeId).then(function(res) {
             //console.log(res.data.length);
             if(res.data.length>0)
             {
@@ -140,7 +140,7 @@ angular.module('jupiterApp').controller('adminCtrl', ['$scope','$modal', '$http'
 
 
     function fetchRelationshipValues(){
-                $http.get('/jupiter/api/node/relationships/' + $scope.nodeId).then(function(res) {
+                $http.get('/api/node/relationships/' + $scope.nodeId).then(function(res) {
                 $scope.relvalues=res.data;
                 //$scope.relarray=[];
 
@@ -157,10 +157,10 @@ angular.module('jupiterApp').controller('adminCtrl', ['$scope','$modal', '$http'
     }
 
     function fetchNodeValues(){
-        $http.get('/jupiter/api/node/' + $scope.nodeId).then(function(res) {
+        $http.get('/api/node/' + $scope.nodeId).then(function(res) {
             //console.log(res.data);
             var nodeData = res.data;
-            $http.get('/jupiter/api/node/'+ $scope.nodeId +'/labels').then(function(res1) {
+            $http.get('/api/node/'+ $scope.nodeId +'/labels').then(function(res1) {
                 $scope.nodeLabel=res1.data[0];
                 $scope.nodeDictionaryAttributes=$scope.actAttributes[res1.data[0]];
                 //console.log($scope.nodeDictionaryAttributes);
@@ -320,8 +320,8 @@ angular.module('jupiterApp').controller('adminCtrl', ['$scope','$modal', '$http'
         var datapacket={};
         datapacket['attr']=$scope.cr;
         datapacket['rels']=$scope.relvalues;
-        $http.post('/jupiter/api/mongo/postupdatecr', datapacket).
-        //$http({method: 'Post', url: '/jupiter/api/mongo/postcr', data: {greeting: 'hi'}}).
+        $http.post('/api/mongo/postupdatecr', datapacket).
+        //$http({method: 'Post', url: '/api/mongo/postcr', data: {greeting: 'hi'}}).
           success(function(data, status, headers, config) { 
             //console.log("success");
             $scope.node="";
@@ -368,8 +368,8 @@ angular.module('jupiterApp').controller('adminCtrl', ['$scope','$modal', '$http'
         $scope.cr['CR_DATE_EDITED']="";
         $scope.cr['CR_DATE_EXECUTED']="";
 
-        $http.post('/jupiter/api/mongo/postdeletecr', $scope.cr).
-        //$http({method: 'Post', url: '/jupiter/api/mongo/postcr', data: {greeting: 'hi'}}).
+        $http.post('/api/mongo/postdeletecr', $scope.cr).
+        //$http({method: 'Post', url: '/api/mongo/postcr', data: {greeting: 'hi'}}).
           success(function(data, status, headers, config) { 
             //console.log("success");
             $scope.node="";

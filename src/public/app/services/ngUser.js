@@ -2,7 +2,7 @@ angular.module('jupiterApp').factory('ngUser',function($resource,$location) {
 	var userResource;
 
 	if($location.protocol() == 'https'){
-		userResource = $resource('/jupiter/api/getpiv')
+		userResource = $resource('/api/getpiv')
 		
 	}
 	else {

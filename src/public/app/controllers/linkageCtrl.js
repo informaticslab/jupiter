@@ -4,7 +4,7 @@ angular.module('jupiterApp').controller('linkageCtrl', function($scope, $routePa
 
     //console.log("linkageCtrl",$scope.showOrganization);
 
-    var node = $resource('/jupiter/api/node/:id', {
+    var node = $resource('/api/node/:id', {
         id: '@id'
     });
 

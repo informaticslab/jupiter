@@ -199,16 +199,16 @@ angular.module('jupiterApp').run(function($rootScope,$location) {
 // jupiterApp.config([function($routeProvider, $locationProvider) {
 
 //     $locationProvider.html5Mode(true);
-//     $routeProvider.when('/jupiter/', {
-//         templateUrl: '/jupiter/partials/main',
+//     $routeProvider.when('/', {
+//         templateUrl: '/partials/main',
 //         controller: 'mainCtrl'
-//     }).when('/jupiter/faq', {
-//         templateUrl: '/jupiter/partials/faq',
+//     }).when('/faq', {
+//         templateUrl: '/partials/faq',
 //         controller: 'faqCtrl'
-//     }).when('/jupiter/node/:id', {
-//         templateUrl: '/jupiter/partials/node',
+//     }).when('/node/:id', {
+//         templateUrl: '/partials/node',
 //         controller: 'nodeCtrl'
 //     }).otherwise({
-//         templateUrl: '/jupiter/partials/404'
+//         templateUrl: '/partials/404'
 //     });
 // }]);

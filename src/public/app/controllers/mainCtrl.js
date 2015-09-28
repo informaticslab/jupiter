@@ -6,7 +6,7 @@ angular.module('jupiterApp').controller('mainCtrl', function($scope,$resource,$l
 
    	var nodestotal=0;
 
-	var portalstatsnodes = $resource('/jupiter/api/stats/nodes', {
+	var portalstatsnodes = $resource('/api/stats/nodes', {
 	});
 
 	statsarr={};
@@ -33,7 +33,7 @@ angular.module('jupiterApp').controller('mainCtrl', function($scope,$resource,$l
 	});
 
 
-	$http.get('/jupiter/api/mongo/latestChanges').then(function(res) {
+	$http.get('/api/mongo/latestChanges').then(function(res) {
 		$scope.latestChanges = res.data;
 		
 		//$scope.latestChanges.crdata.CR_REQUEST_TYPE.toLowerCase();
@@ -41,7 +41,7 @@ angular.module('jupiterApp').controller('mainCtrl', function($scope,$resource,$l
 	})
 
 
-	var portalstatsrelations = $resource('/jupiter/api/stats/relations', {
+	var portalstatsrelations = $resource('/api/stats/relations', {
 	});
 
 	var stats = portalstatsrelations.query({

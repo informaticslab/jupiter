@@ -22,19 +22,19 @@ angular.module('jupiterApp').controller('rootCtrl', function($scope, $http, $loc
     }
 
     $scope.redirectToSearch = function(){
-       //window.location =  '/jupiter/#/search/' + $scope.queryString;
+       //window.location =  '/#/search/' + $scope.queryString;
        $location.path('/search/' + $scope.queryString);
 
     };
 
     $scope.itemSelected = function($item, $model, $label) {
-        ///window.location =  '/jupiter/#/node/' + $item.id;
+        ///window.location =  '/#/node/' + $item.id;
         $location.path('/node/' + $item.id);
         $scope.queryString = null;
     };
 
     $scope.getNodes = function(val) {
-        return $http.get('/jupiter/api/node/searchByName/' + val).then(function(res) {
+        return $http.get('/api/node/searchByName/' + val).then(function(res) {
             var nodes = [];
             angular.forEach(res.data, function(item) {
                 nodes.push(item);
@@ -167,23 +167,23 @@ angular.module('jupiterApp').controller('rootCtrl', function($scope, $http, $loc
       
       if(window.location.hostname == 'localhost'){
         $scope.facebook_appID = '1429109474024840';
-        $scope.app_domain = 'localhost:8089/jupiter/';
-        $scope.app_image = 'http://edemo.phiresearchlab.org/jupiter/img/header_graphic_alpha.png';
+        $scope.app_domain = 'localhost:8089/';
+        $scope.app_image = 'http://edemo.phiresearchlab.org/img/header_graphic_alpha.png';
       }
       else if(window.location.hostname == 'edemo.phiresearchlab.org'){
         $scope.facebook_appID = '1501295270085876';
-        $scope.app_domain = 'edemo.phiresearchlab.org/jupiter/';
-        $scope.app_image = 'http://edemo.phiresearchlab.org/jupiter/img/header_graphic_alpha.png';
+        $scope.app_domain = 'edemo.phiresearchlab.org/';
+        $scope.app_image = 'http://edemo.phiresearchlab.org/img/header_graphic_alpha.png';
       }
       else if(window.location.hostname == 'cloudev.phiresearchlab.org'){
         $scope.facebook_appID = '669609933094570';
-        $scope.app_domain = 'cloudev.phiresearchlab.org/jupiter/';
-        $scope.app_image = 'http://cloudev.phiresearchlab.org/jupiter/img/header_graphic_alpha.png';
+        $scope.app_domain = 'cloudev.phiresearchlab.org/';
+        $scope.app_image = 'http://cloudev.phiresearchlab.org/img/header_graphic_alpha.png';
       }
       else if(window.location.hostname == 'cloudtest.phiresearchlab.org'){
         $scope.facebook_appID = '1530749310479360';
-        $scope.app_domain = 'cloudtest.phiresearchlab.org/jupiter/';
-        $scope.app_image = 'http://cloudtest.phiresearchlab.org/jupiter/img/header_graphic_alpha.png';
+        $scope.app_domain = 'cloudtest.phiresearchlab.org/';
+        $scope.app_image = 'http://cloudtest.phiresearchlab.org/img/header_graphic_alpha.png';
       }
 
       FB.init({appId: $scope.facebook_appID, status: true, cookie: true,

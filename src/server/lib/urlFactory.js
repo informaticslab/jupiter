@@ -1,5 +1,5 @@
 exports.nodeUrl = function(req, id) {
-    return req.protocol + '://' + req.get('host') + '/jupiter/api/node/' + id;
+    return req.protocol + '://' + req.get('host') + '/api/node/' + id;
 }
 
 exports.nodeRelationsUrl = function(req, id){

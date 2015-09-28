@@ -50,7 +50,7 @@ angular.module('jupiterApp').controller('adminCRAddCtrl', ['$scope', '$http','$f
 
 
     // function fetchRelationshipValues(){
-    //                 $http.get('/jupiter/api/node/relationships/' + $scope.nodeId).then(function(res) {
+    //                 $http.get('/api/node/relationships/' + $scope.nodeId).then(function(res) {
     //             $scope.relvalues=res.data;
     //             //$scope.relarray=[];
 
@@ -135,7 +135,7 @@ angular.module('jupiterApp').controller('adminCRAddCtrl', ['$scope', '$http','$f
 
         
 
-    //     $http.get('/jupiter/api/neo/nextnodeid/'+$scope.nodetypeselect).then(function(res) {
+    //     $http.get('/api/neo/nextnodeid/'+$scope.nodetypeselect).then(function(res) {
     //         //console.log(res.data);
     //         var nextNodeIDInt=parseInt(res.data)+1;
             
@@ -272,8 +272,8 @@ angular.module('jupiterApp').controller('adminCRAddCtrl', ['$scope', '$http','$f
             var datapacket={};
             datapacket['attr']=$scope.cr;
             datapacket['rels']=$scope.relvalues;
-            $http.post('/jupiter/api/mongo/postaddcr', datapacket).
-            //$http({method: 'Post', url: '/jupiter/api/mongo/postcr', data: {greeting: 'hi'}}).
+            $http.post('/api/mongo/postaddcr', datapacket).
+            //$http({method: 'Post', url: '/api/mongo/postcr', data: {greeting: 'hi'}}).
               success(function(data, status, headers, config) { 
                 //console.log("success");
                 $scope.node="";
@@ -308,8 +308,8 @@ angular.module('jupiterApp').controller('adminCRAddCtrl', ['$scope', '$http','$f
     //     $scope.cr['CR_STATUS']="PENDING";
     //     $scope.cr['CR_DATE_CREATED']=new Date().getTime();
 
-    //     $http.post('/jupiter/api/mongo/postdeletecr', $scope.cr).
-    //     //$http({method: 'Post', url: '/jupiter/api/mongo/postcr', data: {greeting: 'hi'}}).
+    //     $http.post('/api/mongo/postdeletecr', $scope.cr).
+    //     //$http({method: 'Post', url: '/api/mongo/postcr', data: {greeting: 'hi'}}).
     //       success(function(data, status, headers, config) { 
     //         //console.log("success");
     //         $scope.node="";

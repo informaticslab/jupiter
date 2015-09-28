@@ -34,18 +34,18 @@ angular.module('jupiterApp').controller('nodeCtrl', ['$scope', '$location', '$re
 
 
         var siteName = 'Node Viewer: ' + $scope.nodeId
-        var node = $resource('/jupiter/api/node/:id', {
+        var node = $resource('/api/node/:id', {
             id: '@id'
         });
-        var labels = $http.get('/jupiter/api/node/' + $routeParams.id + '/labels').success(function(data) {
+        var labels = $http.get('/api/node/' + $routeParams.id + '/labels').success(function(data) {
             $scope.labels = data;
         });
-        var relations = $resource('/jupiter/api/node/:id/relations', {
+        var relations = $resource('/api/node/:id/relations', {
             id: '@id'
         });
 
 
-        var labels = $http.get('/jupiter/api/node/'+$scope.nodeId+'/relations').success(function(data) {
+        var labels = $http.get('/api/node/'+$scope.nodeId+'/relations').success(function(data) {
 
             for(i=0;i<data.length;i++)
             {
@@ -61,7 +61,7 @@ angular.module('jupiterApp').controller('nodeCtrl', ['$scope', '$location', '$re
             
         });
 
-        var nodeDetails = $http.get('/jupiter/api/node/' + $routeParams.id).success(function(data) {
+        var nodeDetails = $http.get('/api/node/' + $routeParams.id).success(function(data) {
             var attributeKeys = _.pluck(data.attributes, 'key');
             $scope.node = data;
             siteName = 'Details: ' + data.name;
@@ -158,7 +158,7 @@ angular.module('jupiterApp').controller('nodeCtrl', ['$scope', '$location', '$re
         $scope.exportrelationships= function()
         {
             console.log($scope.nodesArray);
-            window.location =  '/jupiter/api/export/csvrelations/' + $scope.nodeId;
+            window.location =  '/api/export/csvrelations/' + $scope.nodeId;
         }
 
         $scope.exportnodedetails= function()

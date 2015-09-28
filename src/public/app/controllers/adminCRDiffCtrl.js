@@ -123,7 +123,7 @@ angular.module('jupiterApp').controller('adminCRDiffCtrl', ['$scope','$modal', '
                 $scope.usersu=true;
             }
 
-            $http.get('/jupiter/api/mongo/'+mongoid+'?'+cacheRenew,{cache:false}).then(function(res) {
+            $http.get('/api/mongo/'+mongoid+'?'+cacheRenew,{cache:false}).then(function(res) {
                 $scope.mongoData=res.data;
                 $scope.editCRValues=$scope.mongoData[0];
                 
@@ -148,7 +148,7 @@ angular.module('jupiterApp').controller('adminCRDiffCtrl', ['$scope','$modal', '
 
                 $scope.getAttributesAndGroups($scope.nodeType);
 
-                $http.get('/jupiter/api/mongo/log/'+mongoid+'?'+cacheRenew,{cache:false}).then(function(res) {
+                $http.get('/api/mongo/log/'+mongoid+'?'+cacheRenew,{cache:false}).then(function(res) {
                     //console.log(res.data);
                     $scope.logs=res.data;
                 });
@@ -220,7 +220,7 @@ angular.module('jupiterApp').controller('adminCRDiffCtrl', ['$scope','$modal', '
                 else if($scope.crRequestType=="UPDATE")
                 {
                     var cacheRenew=new Date().getTime();
-                    $http.get('/jupiter/api/node/' + $scope.nodeId+'?'+cacheRenew).then(function(res) {
+                    $http.get('/api/node/' + $scope.nodeId+'?'+cacheRenew).then(function(res) {
                         //console.log("mongo and node datat",res.data,$scope.mongoData);
                         $scope.nodeData = res.data;
 
@@ -393,8 +393,8 @@ angular.module('jupiterApp').controller('adminCRDiffCtrl', ['$scope','$modal', '
 
         datapacket.type=$scope.mongoData[0].CR_REQUEST_TYPE;
         //console.log(datapacket);
-        $http.post('/jupiter/api/mongo/postapprovecr', datapacket).
-        //$http({method: 'Post', url: '/jupiter/api/mongo/postcr', data: {greeting: 'hi'}}).
+        $http.post('/api/mongo/postapprovecr', datapacket).
+        //$http({method: 'Post', url: '/api/mongo/postcr', data: {greeting: 'hi'}}).
           success(function(data, status, headers, config) { 
             if(data==("success"))
             {
@@ -476,8 +476,8 @@ angular.module('jupiterApp').controller('adminCRDiffCtrl', ['$scope','$modal', '
         //$scope.editCRValues['CR_DATE_EDITED']=new Date().getTime();
         
         //console.log($scope.editCRValues);
-        $http.post('/jupiter/api/mongo/posteditcr', $scope.editCRValues).
-        //$http({method: 'Post', url: '/jupiter/api/mongo/postcr', data: {greeting: 'hi'}}).
+        $http.post('/api/mongo/posteditcr', $scope.editCRValues).
+        //$http({method: 'Post', url: '/api/mongo/postcr', data: {greeting: 'hi'}}).
           success(function(data, status, headers, config) { 
             if(data==("success"))
             {
@@ -550,8 +550,8 @@ angular.module('jupiterApp').controller('adminCRDiffCtrl', ['$scope','$modal', '
         // $scope.cr['CR_DATE_EDITED']="";
         //$scope.mongoData[0]['CR_DATE_EXECUTED']=new Date().getTime();
 
-        $http.post('/jupiter/api/mongo/postdeclinecr', $scope.mongoData[0]).
-        //$http({method: 'Post', url: '/jupiter/api/mongo/postcr', data: {greeting: 'hi'}}).
+        $http.post('/api/mongo/postdeclinecr', $scope.mongoData[0]).
+        //$http({method: 'Post', url: '/api/mongo/postcr', data: {greeting: 'hi'}}).
           success(function(data, status, headers, config) { 
             if(data==("success"))
             {
@@ -575,8 +575,8 @@ angular.module('jupiterApp').controller('adminCRDiffCtrl', ['$scope','$modal', '
     //     datapacket={};
     //     datapacket.rollback=$scope.rollback;
     //     datapacket.mongoid=mongoid;
-    //     $http.post('/jupiter/api/mongo/postrollbackcr', datapacket).
-    //     //$http({method: 'Post', url: '/jupiter/api/mongo/postcr', data: {greeting: 'hi'}}).
+    //     $http.post('/api/mongo/postrollbackcr', datapacket).
+    //     //$http({method: 'Post', url: '/api/mongo/postcr', data: {greeting: 'hi'}}).
     //       success(function(data, status, headers, config) { 
     //         if(data==("success"))
     //         {
@@ -605,7 +605,7 @@ angular.module('jupiterApp').controller('adminCRDiffCtrl', ['$scope','$modal', '
             {
 
 
-                $http.get('/jupiter/api/node/relationships/' + $scope.nodeId+'?'+cacheRenew).then(function(res) {
+                $http.get('/api/node/relationships/' + $scope.nodeId+'?'+cacheRenew).then(function(res) {
                     $scope.relvalues=res.data;
                     //console.log("$scope.relvalues",$scope.relvalues);
                     currentreldata=res.data;

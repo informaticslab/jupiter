@@ -282,13 +282,31 @@
 					.col-lg-3.col-md-3.col-sm-3
 						span.visible-lg.visible-md
 							.stat_box
-								.stat_count 0
-								.stat_label Data Elements
+								.stat_count {{statsarr['DataElement']}}
+								.stat_label 
+									a(ng-click='goToTop()' href='#/search/label/DataElement') Data Elements
 						span.visible-sm
 							.stat_box_sm
-								.stat_count 0
-								.stat_label_sm
-									| Data Elemets
+								.stat_count {{statsarr['DataElement']}}
+								.stat_label 
+									a(ng-click='goToTop()' href='#/search/label/DataElement') Data Elements
+					//end column specs
+					.col-lg-3.col-md-3.col-sm-3
+						span.visible-lg.visible-md
+							.stat_box
+								.stat_count {{statsarr['Concept']}}
+								.stat_label 
+									a(ng-click='goToTop()' href='#/search/label/Concept') Concepts
+						span.visible-sm
+							.stat_box_sm
+								.stat_count {{statsarr['Concept']}}
+								.stat_label 
+									a(ng-click='goToTop()' href='#/search/label/Concept') Concepts
+					//end column specs 
+				//end nested row
+				.vertical_spacing_less
+				//nested row 
+				.row
 					//end column specs
 					.col-lg-3.col-md-3.col-sm-3
 						span.visible-lg.visible-md
@@ -301,11 +319,6 @@
 								.stat_label_sm Inter-
 								.stat_label_sm
 									| connections
-					//end column specs 
-				//end nested row
-				.vertical_spacing_less
-				//nested row 
-				.row
 					//end column specs 
 					.col-lg-3.col-md-3.col-sm-3
 						span.visible-lg.visible-md

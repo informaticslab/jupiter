@@ -1906,9 +1906,40 @@ angular.module('apolloApp').factory('nodeAttributeDictionary', function() {
                     'sortIndex': '02',
                     'attributes': {
                         'elementDescription': {
-                            'description': 'Data elemeent description',
+                            'description': 'Data element description',
                             'displayLabel': 'Data Element',
                             'sortIndex': '285'
+                        }
+                    }
+                }
+            }
+        },
+        'Concept': {
+            'attributeGroups': {
+                'Summary': {
+                    'heading': 'Summary',
+                    'sortIndex': '01',
+                    'attributes': {
+                        'name': {
+                            'description': 'Name',
+                            'displayLabel': 'Name',
+                            'sortIndex': '286'
+                        },
+                        'id': {
+                            'description': 'Identifier',
+                            'displayLabel': 'ID',
+                            'sortIndex': '287'
+                        }
+                    }
+                },
+                'General Information': {
+                    'heading': 'General Information',
+                    'sortIndex': '02',
+                    'attributes': {
+                        'elementDescription': {
+                            'description': 'Concept description',
+                            'displayLabel': 'Concept',
+                            'sortIndex': '288'
                         }
                     }
                 }

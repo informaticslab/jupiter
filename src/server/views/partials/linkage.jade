@@ -92,64 +92,11 @@
 				.hide_activity
 					.hide_activity_label
 						| Show activity type:
-						span.hide_activity_check(ng-show="showOrganization")
-							input(type='checkbox' ng-change="hidenodes(\'Organization\',checkModel.Organization)" ng-model="checkModel.Organization" ng-show="showOrganization")
-							| &nbsp;Organization ({{countOrganization}})
-						span.hide_activity_check(ng-show="showProgram")
-							input(type='checkbox', ng-change="hidenodes(\'Program\',checkModel.Program)" ng-model="checkModel.Program" ng-show="showProgram")
-							| &nbsp;Program ({{countProgram}})
-						span.hide_activity_check(ng-show="showSurveillanceSystem")
-							input(type='checkbox', ng-change="hidenodes(\'SurveillanceSystem\',checkModel.SurveillanceSystem)" ng-model="checkModel.SurveillanceSystem" ng-show="showSurveillanceSystem")
-							| &nbsp;Surveillance System ({{countSurveillanceSystem}})
-						span.hide_activity_check(ng-show="showTool")
-							input(type='checkbox', ng-change="hidenodes(\'Tool\',checkModel.Tool)" ng-model="checkModel.Tool" ng-show="showTool")
-							| &nbsp;Tool ({{countTool}})
-						span.hide_activity_check(ng-show="showRegistry")
-							input(type='checkbox', ng-change="hidenodes(\'Registry\',checkModel.Registry)" ng-model="checkModel.Registry" ng-show="showRegistry")
-							| &nbsp;Registry ({{countRegistry}})
-						span.hide_activity_check(ng-show="showHealthSurvey")
-							input(type='checkbox', ng-change="hidenodes(\'HealthSurvey\',checkModel.HealthSurvey)" ng-model="checkModel.HealthSurvey" ng-show="showHealthSurvey")
-							| &nbsp;Health Survey ({{countHealthSurvey}})
-						span.hide_activity_check(ng-show="showCollaborative")
-							input(type='checkbox', ng-change="hidenodes(\'Collaborative\',checkModel.Collaborative)" ng-model="checkModel.Collaborative" ng-show="showCollaborative")
-							| &nbsp;Collaborative ({{countCollaborative}})
-						span.hide_activity_check(ng-show="showDataset")
-							input(type='checkbox', ng-change="hidenodes(\'Dataset\',checkModel.Dataset)" ng-model="checkModel.Dataset" ng-show="showDataset")
-							| &nbsp;Dataset ({{countDataset}})
-						span.hide_activity_check(ng-show="showDataStandard")
-							input(type='checkbox', ng-change="hidenodes(\'DataStandard\',checkModel.DataStandard)" ng-model="checkModel.DataStandard" ng-show="showDataStandard")
-							| &nbsp;Data Standard ({{countDataStandard}})
-						span.hide_activity_check(ng-show="showTag")
-							input(type='checkbox', ng-change="hidenodes(\'Tag\',checkModel.Tag)" ng-model="checkModel.Tag" ng-show="showTag")
-							| &nbsp;Tag ({{countTag}})
-						span.hide_activity_check(ng-show="showDataElement")
-							input(type='checkbox', ng-change="hidenodes(\'DataElement\',checkModel.DataElement)" ng-model="checkModel.DataElement" ng-show="showDataElement")
-							| &nbsp;Data Element ({{countDataElement}})
-						span.hide_activity_check(ng-show="showConcept")
-							input(type='checkbox', ng-change="hidenodes(\'Concept\',checkModel.Concept)" ng-model="checkModel.Concept" ng-show="showConcept")
-							| &nbsp;Concept ({{countConcept}})
+						span(ng-repeat='nodes in nodeArray')
+							span.hide_activity_check(ng-show="nodes.show")
+								input(type='checkbox' ng-change="hidenodes(\'{{nodes.nodeType}}\',nodes.checked)" ng-model="nodes.checked" ng-show="nodes.show")
+								| &nbsp;{{nodes.displayName}} ({{nodes.count}})
 				.block_linkage(ng-linkage-viewer)
-					//- .btn-group
-					//- 	label.btn.btn-primary(id='chk1' ng-model='checkModel.Organization' btn-checkbox ng-show='showOrganization')
-					//- 		| Organization
-					//- 	label.btn.btn-primary(ng-model='checkModel.Program' btn-checkbox ng-show='showProgram')
-					//- 		| Program
-					//- 	label.btn.btn-primary(ng-model='checkModel.SurveillanceSystem' btn-checkbox ng-show='showSurveillanceSystem')
-					//- 		| SurveillanceSystem
-					//- 	label.btn.btn-primary(ng-model='checkModel.Tool' btn-checkbox ng-show='showTool')
-					//- 		| Tool
-					//- 	label.btn.btn-primary(ng-model='checkModel.Registry' btn-checkbox ng-show='showRegistry') 
-					//- 		| Registry
-					//- 	label.btn.btn-primary(ng-model='checkModel.HealthSurvey' btn-checkbox ng-show='showHealthSurvey')
-					//- 		| HealthSurvey
-					//- 	label.btn.btn-primary(ng-model='checkModel.Collaborative' btn-checkbox ng-show='showCollaborative')
-					//- 		| Collaborative
-					//- 	label.btn.btn-primary(ng-model='checkModel.Dataset' btn-checkbox ng-show='showDataset')
-					//- 		| Dataset
-					//- 	label.btn.btn-primary(ng-model='checkModel.DataStandard' btn-checkbox ng-show='showDataStandard')
-					//- 		| DataStandard
-					//- 	label.btn.btn-primary(ng-model='checkModel.Tag' btn-checkbox ng-show='showTag')
-					//- 		| Tag
 					.vertical_spacing1
 						//script(type="text/javascript", src="/app/d3/d3-linkage.js")
 				// end block_linkage

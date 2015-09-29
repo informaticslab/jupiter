@@ -12,7 +12,7 @@ angular.module('jupiterApp').factory('nodeTypeDictionary', function() {
                                 "Registry",
                                 "SurveillanceSystem",
                                 "Tag",
-                                "Tool",
+                                "Tool"
                                 
                             ]
     };

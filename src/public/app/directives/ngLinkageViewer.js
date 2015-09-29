@@ -17,7 +17,9 @@ angular.module('jupiterApp')
 							Collaborative: true,
 							Dataset: true,
 							DataStandard: true,
-							Tag: true
+							Tag: true,
+							Concept: true,
+							DataElement: true
 						};
 
 						scope.showLinkageLoading = true;
@@ -33,6 +35,8 @@ angular.module('jupiterApp')
 						scope.showDataset = false;
 						scope.showDataStandard = false;
 						scope.showTag = false;
+						scope.showDataElement = false;
+						scope.showConcept = false;
 
 						scope.countOrganization = 0;
 						scope.countProgram = 0;
@@ -44,6 +48,8 @@ angular.module('jupiterApp')
 						scope.countDataset = 0;
 						scope.countDataStandard = 0;
 						scope.countTag = 0;
+						scope.countConcept = 0;
+						scope.countDataElement = 0;
 
 
 						var url = $(location).attr('href');

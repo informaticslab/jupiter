@@ -122,6 +122,12 @@
 						span.hide_activity_check(ng-show="showTag")
 							input(type='checkbox', ng-change="hidenodes(\'Tag\',checkModel.Tag)" ng-model="checkModel.Tag" ng-show="showTag")
 							| &nbsp;Tag ({{countTag}})
+						span.hide_activity_check(ng-show="showDataElement")
+							input(type='checkbox', ng-change="hidenodes(\'DataElement\',checkModel.DataElement)" ng-model="checkModel.DataElement" ng-show="showDataElement")
+							| &nbsp;Data Element ({{countDataElement}})
+						span.hide_activity_check(ng-show="showConcept")
+							input(type='checkbox', ng-change="hidenodes(\'Concept\',checkModel.Concept)" ng-model="checkModel.Concept" ng-show="showConcept")
+							| &nbsp;Concept ({{countConcept}})
 				.block_linkage(ng-linkage-viewer)
 					//- .btn-group
 					//- 	label.btn.btn-primary(id='chk1' ng-model='checkModel.Organization' btn-checkbox ng-show='showOrganization')

@@ -241,6 +241,8 @@ var compileSearchResults = function(req, res, err, results) {
         DataStandard: 0,
         Collaborative: 0,
         Organization: 0,
+        Concept:0,
+        DataElement: 0,
         Tag: 0,
         Total: 0,
         FutureDev: 0,

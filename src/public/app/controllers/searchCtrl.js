@@ -90,7 +90,7 @@ angular.module('jupiterApp').controller('searchCtrl', function($scope, $resource
                             HealthSurvey:false,Tool:false,Dataset:false,DataStandard:false,
                             Collaborative:false,Organization:false,Tag:false, 
                             FutureDev:false, UnderDev:false, PartOperational:false,
-                            FullOperational:false, Retired:false, NotAvailable:false};
+                            FullOperational:false, Retired:false, NotAvailable:false,Concept:false,DataElement:false};
 
     searchTimeout.catch( function(err){
             if(err != 'canceled')
@@ -114,9 +114,9 @@ angular.module('jupiterApp').controller('searchCtrl', function($scope, $resource
         //check all checkboxes, if all are unchecked, then reset totalItems count for pagination
             if (!$scope.checkedLabels.Program && !$scope.checkedLabels.SurveillanceSystem && !$scope.checkedLabels.Registry 
                                 && !$scope.checkedLabels.HealthSurvey&& !$scope.checkedLabels.Tool&& !$scope.checkedLabels.Dataset&& !$scope.checkedLabels.DataStandard
-                                && !$scope.checkedLabels.Collaborative && !$scope.checkedLabels.Organization && !$scope.checkedLabels.Tag
+                                && !$scope.checkedLabels.Collaborative && !$scope.checkedLabels.Organization && !$scope.checkedLabels.Tag && !$scope.checkedLabels.DataElement
                                 && !$scope.checkedLabels.FutureDev && !$scope.checkedLabels.UnderDev && !$scope.checkedLabels.PartOperational
-                                && !$scope.checkedLabels.FullOperational && !$scope.checkedLabels.Retired && !$scope.checkedLabels.NotAvailable)
+                                && !$scope.checkedLabels.FullOperational && !$scope.checkedLabels.Retired && !$scope.checkedLabels.NotAvailable && !$scope.checkedLabels.Concept)
             {
                 $scope.totalItems =  $scope.nodes.length;
             }
@@ -163,6 +163,14 @@ angular.module('jupiterApp').controller('searchCtrl', function($scope, $resource
                 if ($scope.checkedLabels.Tag)
                 {
                     filteredTotalItems = filteredTotalItems +  $scope.labelCounts.Tag;
+                }
+                if ($scope.checkedLabels.Concept)
+                {
+                    filteredTotalItems = filteredTotalItems +  $scope.labelCounts.Concept;
+                }
+                if ($scope.checkedLabels.DataElement)
+                {
+                    filteredTotalItems = filteredTotalItems +  $scope.labelCounts.DataElement;
                 }
                 if ($scope.checkedLabels.FutureDev)
                 {

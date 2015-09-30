@@ -166,6 +166,13 @@
 							tr
 								td
 									.input-group
+										input(type='checkbox' data-ng-model='checkedLabels.DataElement' ng-click='filterclick()')
+										| &nbsp;Data Element
+									// /input-group
+								td.result_number {{labelCounts.DataElement}}
+							tr
+								td
+									.input-group
 										input(type='checkbox' data-ng-model='checkedLabels.DataStandard' ng-click='filterclick()')
 										| &nbsp;Data Standard
 									// /input-group
@@ -184,6 +191,13 @@
 										| &nbsp;Organization
 									// /input-group
 								td.result_number {{labelCounts.Organization}}
+							tr
+								td
+									.input-group
+										input(type='checkbox' data-ng-model='checkedLabels.Concept' ng-click='filterclick()')
+										| &nbsp;Concept
+									// /input-group
+								td.result_number {{labelCounts.Concept}}
 							tr
 								td
 									.input-group

@@ -5,7 +5,7 @@ angular.module('jupiterApp').filter('searchCheckFilter', function() {
     angular.forEach(items, function(item) {
       if (!types.Program && !types.SurveillanceSystem && !types.Registry  
         && !types.Tool  && !types.Dataset && !types.DataStandard && !types.Collaborative
-        && !types.HealthSurvey && !types.Organization && !types.Tag 
+        && !types.HealthSurvey && !types.Organization && !types.Tag && !types.Concept && !types.DataElement
         && !types.FutureDev  && !types.UnderDev && !types.PartOperational
         && !types.FullOperational && !types.Retired && !types.NotAvailable)
         {
@@ -39,6 +39,12 @@ angular.module('jupiterApp').filter('searchCheckFilter', function() {
       else if(types.Organization == true && item.labels == 'Organization'){
           filtered.push(item);
         }
+      else if(types.Concept == true && item.labels == 'Concept'){
+        filtered.push(item);
+      }
+      else if(types.DataElement == true && item.labels == 'DataElement'){
+        filtered.push(item);
+      }
       else if(types.Tag == true && item.labels == 'Tag'){
           filtered.push(item);
         }

@@ -2,6 +2,7 @@
 var index = require('../controllers/index');
 var nodes = require('../controllers/nodes');
 var users = require('../controllers/users');
+var data = require('../controllers/data');
 var auth = require('./auth');
 var mongoose = require('mongoose'),
     User = mongoose.model('User');
@@ -11,10 +12,10 @@ var mongoose = require('mongoose'),
 module.exports = function(app) {
     app.get('/partials/*', function(req, res) {
         res.render('partials/' + req.params);
-        if(req.originalUrl!="/partials/navbar-login")
-        {
-            redirecturlto=req.originalUrl;
-        }    
+        // if(req.originalUrl!="/partials/navbar-login")
+        // {
+        //     redirecturlto=req.originalUrl;
+        // }    
     });
 
     app.get('/api/users',auth.requiresRole('admin'), users.getUsers);
@@ -59,6 +60,8 @@ module.exports = function(app) {
     app.post('/api/mongo/postapprovecr', nodes.postApproveCR);
     app.post('/api/mongo/postdeclinecr', nodes.postDeclineCR);
     app.post('/api/mongo/posteditcr', nodes.postEditCR);
+
+    app.post('/api/mysql/fileUpload', data.upload);
 
     app.get('/api/mongo/users/all', nodes.getUsers);
     app.post('/api/mongo/users/updateRights', nodes.updateRights);

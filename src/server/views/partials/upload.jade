@@ -2,15 +2,10 @@
       .row
         .col-md-3
           h3 Select files
-          div(ng-show='uploader.isHTML5')
-            // 3. nv-file-over uploader="link" over-class="className"
-            .well.my-drop-zone(nv-file-over='', uploader='uploader')
-              | Base drop zone
-          // Example: nv-file-select="" uploader="{Object}" options="{Object}" filters="{String}"
           | Multiple
           input(type='file', nv-file-select='', uploader='uploader', multiple='')
           br
-          |                     Single
+          | Single
           input(type='file', nv-file-select='', uploader='uploader')
         .col-md-9(style='margin-bottom: 40px')
           h3 Upload queue

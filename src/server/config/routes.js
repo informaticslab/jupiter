@@ -61,7 +61,7 @@ module.exports = function(app) {
     app.post('/api/mongo/postdeclinecr', nodes.postDeclineCR);
     app.post('/api/mongo/posteditcr', nodes.postEditCR);
 
-    app.post('/api/mysql/fileUpload', data.upload);
+    app.post('/api/fileUpload', data.upload);
 
     app.get('/api/mongo/users/all', nodes.getUsers);
     app.post('/api/mongo/users/updateRights', nodes.updateRights);

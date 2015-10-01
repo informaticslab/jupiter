@@ -8,6 +8,7 @@ var jupiterApp = angular.module('jupiterApp', [
   ,'chieffancypants.loadingBar'
   ,'angulartics'
   ,'angulartics.google.analytics'
+  ,'angularFileUpload'
   //'jupiterAppAnimations',
  // 'jupiterAppControllers',
  // 'jupiterAppFilters',
@@ -126,6 +127,10 @@ jupiterApp.config(['$routeProvider',
           when('/sysTree/:id', {
         templateUrl: 'partials/sysTree',
         controller: 'sysTreeCtrl'
+      }).
+          when('/data', {
+        templateUrl: 'partials/upload',
+        controller: 'uploadCtrl'
       }).
           when('/adminCRAdd', {
         templateUrl: 'partials/adminCRAdd',

@@ -1,11 +1,14 @@
 var parse =require('csv');
+var mongo = require ('../lib/mongoConnection');
+var fs = require('fs');
 
 
 exports.upload = function(req, res){
-	var input = '#Welcome\n"1","2","3","4"\n"a","b","c","d"';
+	//TODO
+	console.log(req);
+};
 
-	parse(input, function(err, output){
-		console.log(output);
-		res.send('ok');
-	});
+
+exports.getFile = function(req,res){
+	//TODO
 };

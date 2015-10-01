@@ -8,7 +8,12 @@ module.exports = {
   FACEBOOK_SECRET:  '71ce33ce1aaa2da3d859d78a3848c164',
   FACEBOOK_CALLBACK: 'http://localhost:8089/auth/facebook/callback',
 
-  ACCESS_LOG: __dirname+'/access_log'
+  ACCESS_LOG: __dirname+'/access_log',
+
+  mysqlhost: '127.0.0.1',
+  mysqluser: 'jupiterapp',
+  mysqlpassword: 'jupiterwebapp',
+  mysqldatabase: 'jupiter'
 
 };
 

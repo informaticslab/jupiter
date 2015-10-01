@@ -190,12 +190,13 @@ angular.module('jupiterApp').controller('rootCtrl', function($scope, $http, $loc
       xfbml: true});
     };
     
-    (function() {
-      var e = document.createElement('script'); e.async = true;
-      e.src = document.location.protocol +
-      '//connect.facebook.net/en_US/all.js';
-      document.getElementById('fb-root').appendChild(e);
-    }());
+    //REMOVED FOR UNEXPECTED TOKEN & ERROR
+    // (function() {
+    //   var e = document.createElement('script'); e.async = true;
+    //   e.src = document.location.protocol +
+    //   '//connect.facebook.net/en_US/all.js';
+    //   document.getElementById('fb-root').appendChild(e);
+    // }());
 
     //START Facebook Share - Sample Post
     $scope.foodbornePost = {id:1, title:"Foodborne Illness Surveillance, Response and Data Systems", app_sublink:"/#/quickGuide/foodBorneIllness", caption:"", content:"The CDC Integrated Surveillance Portal (CISP) is a comprehensive, real-time, interactive resource for CDC, its partners, and the public to explore and discover information about the full inventory of CDC’s Surveillance Systems, Programs, Registries, Health Surveys, Tools, and Collaboratives. CISP contains not only descriptive information about these CDC resources"};

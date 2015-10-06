@@ -1,4 +1,4 @@
-var parse =require('csv');
+
 var mysql = require('../lib/mysqlConnection');
 var fs = require('fs');
 

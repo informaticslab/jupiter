@@ -1907,8 +1907,18 @@ angular.module('jupiterApp').factory('nodeAttributeDictionary', function() {
                     'attributes': {
                         'elementDescription': {
                             'description': 'Data element description',
-                            'displayLabel': 'Data Element',
+                            'displayLabel': 'Description',
                             'sortIndex': '285'
+                        },
+                        'concept': {
+                            'description': 'Concept',
+                            'displayLabel': 'ID',
+                            'sortIndex': '287'
+                        },
+                        'cui': {
+                            'description': 'Concept Identifier',
+                            'displayLabel': 'CUI',
+                            'sortIndex': '287'
                         }
                     }
                 }

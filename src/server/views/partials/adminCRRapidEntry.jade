@@ -60,6 +60,9 @@
 						alert
 							a(href="#/adminCRRapidEntry")
 								| click here for rapid entry of data elements
+				.row
+					.col-lg-12.col-md-12.col-sm-12
+						input(type="text" ng-model="datasetSelected"  placeholder="Enter Dataset" typeahead-on-select="setDataElement($item, $model, $label)" typeahead-min-length='3' typeahead="node.name for node in getNodes($viewValue)" class="form-control")
 				.row(ng-show="showButtons")
 					.col-lg-12.col-md-12.col-sm-12
 						.row(ng-show="showButtons")
@@ -89,10 +92,10 @@
 										.alert.alert-danger(ng-if="highlightMissingTxt && txtid=='name' && cr['name']==''" role="alert")
 											| Name field is required
 										.vertical_spacing_lesser
-				.vertical_spacing_lesser
-				.orange_header_larger(ng-show="showButtons")
+				//.vertical_spacing_lesser
+				//.orange_header_larger(ng-show="showButtons")
 					| Relationships
-				.row(ng-show="showButtons")
+				//.row(ng-show="showButtons")
 					.col-lg-12.col-md-12.col-sm-12
 						table.table.table-striped
 							thead
@@ -123,7 +126,7 @@
 						h5
 							| Add New Relationship
 						.vertical_spacing_less
-				.row(ng-show="showButtons")
+				//.row(ng-show="showButtons")
 					.col-lg-4.col-md-4.col-sm-4
 						input(type="text" ng-disabled="relCheckBox.fromNewNode" ng-model="startnode"  placeholder="From" typeahead-on-select="startNodeSelected($item, $model, $label)" typeahead-min-length='3' typeahead="node.name for node in getNodes($viewValue)" class="form-control")
 						label(ng-if="cr['name']!=''")
@@ -142,8 +145,8 @@
 								|  Mark if this node is '{{cr['name']}}'
 					.col-lg-1.col-md-1.col-sm-1
 						
-				.vertical_spacing_lesser
-				.row(ng-show="showButtons")
+				//.vertical_spacing_lesser
+				//.row(ng-show="showButtons")
 					.col-lg-4.col-md-4.col-sm-4
 						.small
 							| Describe this relationship ({{relnotelength=100-relationshipDescription.length}} 
@@ -161,8 +164,8 @@
 						//label.btn.btn-default(ng-click="addRel()" ng-disabled="disableAddRelBtn") 
 							span.fa.fa-plus-circle
 							|  Add
-				.vertical_spacing_less
-				.row(ng-show="showButtons")
+				//.vertical_spacing_less
+				//.row(ng-show="showButtons")
 					.col-lg-4.col-md-4.col-sm-4
 						label.btn.btn-default(ng-click="addRel()" ng-disabled="disableAddRelBtn") 
 							span.fa.fa-plus-circle
@@ -172,7 +175,7 @@
 					.col-lg-4.col-md-4.col-sm-4
 						//input(type="text" ng-model="endnode"  placeholder="To" typeahead-on-select="endNodeSelected($item, $model, $label)" typeahead-min-length='3' typeahead="node.name for node in getNodes($viewValue)" class="form-control")
 					.col-lg-1.col-md-1.col-sm-1
-				.row(role="alert" ng-show="showErrMsg")
+				//.row(role="alert" ng-show="showErrMsg")
 					.col-lg-12.col-md-12.col-sm-12
 						.alert.alert-warning.alert-dismissible(role="alert")
 							strong

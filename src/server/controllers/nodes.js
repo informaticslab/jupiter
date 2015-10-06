@@ -6,7 +6,27 @@ var _ = require('underscore');
 var auditLog = require('../config/auditLog');
 
 
-
+exports.getDataElements = function(req, res) {
+    //var query = ['START n=node({nodeId}) ', 'RETURN labels(n)'].join('\n');
+    console.log("get Data Elements");
+    var query = 'MATCH n-[:CONTAINS]->x WHERE n.id ={nodeId} RETURN x.id,x.name,x.description,x.concept,x.cui';
+    var params = {
+        nodeId: req.params.id
+    };
+    neodb.db.query(query, params, function(err, results) {
+        if (err) {
+            console.error('Error retreiving data elements from database:', err);
+            res.send(404, "No node at that locaton")
+        } else {
+            console.log(results);
+            if (results[0] != null) {
+                res.json(results[0]['labels(n)']);
+            } else {
+                res.send(404, "No node at that location");
+            }
+        }
+    });
+}
 
 
 // /api/node/{id}/relations

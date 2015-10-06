@@ -85,6 +85,14 @@
 										input.form-control(id="{{txtid=node.attributeName}}" type="text" ng-model="cr[txtid]" )
 										.vertical_spacing_lesser
 				.vertical_spacing_lesser
+				.orange_header_larger(ng-show="showButtons && nodeLabel =='Dataset'")
+					| Local Data
+				.row(ng-show="showButtons")
+					.col-lg-12.col-md-12.col-sm-12
+						button.btn.btn-default
+							span.fa.fa-upload
+								|  Upload Dataset
+				.vertical_spacing_lesser
 				.orange_header_larger(ng-show="showButtons")
 					| Relationships
 				.row(ng-show="showButtons")

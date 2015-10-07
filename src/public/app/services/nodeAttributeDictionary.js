@@ -1946,9 +1946,9 @@ angular.module('jupiterApp').factory('nodeAttributeDictionary', function() {
                     'heading': 'General Information',
                     'sortIndex': '02',
                     'attributes': {
-                        'elementDescription': {
-                            'description': 'Concept description',
-                            'displayLabel': 'Concept',
+                        'cui': {
+                            'description': 'Concept Unique Identifier',
+                            'displayLabel': 'CUI',
                             'sortIndex': '288'
                         }
                     }

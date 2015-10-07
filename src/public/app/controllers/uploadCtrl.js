@@ -1,6 +1,8 @@
-angular.module('jupiterApp').controller('uploadCtrl', function($scope, FileUploader) {
+angular.module('jupiterApp').controller('uploadCtrl', function($scope, FileUploader,$modal, $modalInstance, nodeId, $http) {
+    
 	var uploader = $scope.uploader = new FileUploader({
-		url:'/api/fileUpload'
+		url:'/api/fileUpload',
+        formData:nodeId
 	});
 
    	uploader.onWhenAddingFileFailed = function(item /*{File|FileLikeObject}*/, filter, options) {
@@ -23,6 +25,7 @@ angular.module('jupiterApp').controller('uploadCtrl', function($scope, FileUploa
     };
     uploader.onSuccessItem = function(fileItem, response, status, headers) {
         console.info('onSuccessItem', fileItem, response, status, headers);
+        
     };
     uploader.onErrorItem = function(fileItem, response, status, headers) {
         console.info('onErrorItem', fileItem, response, status, headers);
@@ -38,6 +41,14 @@ angular.module('jupiterApp').controller('uploadCtrl', function($scope, FileUploa
     };
 
     console.info('uploader', uploader);
+
+    $scope.ok = function() {
+        $modalInstance.close();
+    };
+
+    $scope.cancel = function() {
+        $modalInstance.dismiss('cancel');
+    };
 
 
 });

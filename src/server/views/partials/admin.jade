@@ -89,9 +89,12 @@
 					| Local Data
 				.row(ng-show="showButtons")
 					.col-lg-12.col-md-12.col-sm-12
-						button.btn.btn-default
+						button.btn.btn-default(ng-click='openDataUpload(nodeId)')
 							span.fa.fa-upload
 								|  Upload Dataset
+				.vertical_spacing_lesser
+				.orange_header_larger(ng-show="showButtons")
+					| Data Elements
 				.vertical_spacing_lesser
 				.orange_header_larger(ng-show="showButtons")
 					| Relationships

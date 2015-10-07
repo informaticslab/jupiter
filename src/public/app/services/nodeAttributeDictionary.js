@@ -1912,7 +1912,7 @@ angular.module('jupiterApp').factory('nodeAttributeDictionary', function() {
                         },
                         'concept': {
                             'description': 'Concept',
-                            'displayLabel': 'ID',
+                            'displayLabel': 'Concept',
                             'sortIndex': '287'
                         },
                         'cui': {

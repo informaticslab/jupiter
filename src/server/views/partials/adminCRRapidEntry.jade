@@ -47,7 +47,7 @@
 				ng-include(src="'/partials/adminMenuBar'")
 				hr
 				.vertical_spacing_less
-				.row
+				//.row
 					.col-lg-4.col-md-4.col-sm-4
 						//.h4
 							| Select node type
@@ -67,18 +67,47 @@
 					table.table.table-striped
 						thead
 							tr
-								th(ng-repeat="colHeader in colHeaders")
-									|{{colHeader.displayLabel}}
+								th(ng-repeat='colHeader in colHeaders'  ng-if="colHeader!='id' && colHeader!='cid'")
+									| {{colHeader | TitleCase}}
+								th
+									| 
 						tbody
-							tr(ng-repeat='oneDataElement in dataElementsArray')
-								td
-									| {{oneDataElement.name}}
-								td
-									| {{oneDataElement.description}}
-								td
-									| 
-								td
-									| 
+							tr(ng-repeat='row in dataElementsArray track by $index')
+								td(ng-repeat='colHeader in colHeaders' ng-mouseenter="hover = true" ng-mouseleave="hover = false" ng-if="colHeader!='id' && colHeader!='cid'" )
+									input(ng-if='colHeader != "cui"' type="text" ng-model="row[colHeader]"  placeholder="{{colHeader}}" class="form-control")
+									input(ng-if='colHeader == "cui"' readonly='true' type="text" ng-model="row[colHeader]"  placeholder="{{colHeader}}" class="form-control")
+								td(style="text-align: right;")
+									label.btn.btn-default.btn-xs(ng-click="deleteDataElmRow($index)")
+										i.fa.fa-times
+					.vertical_spacing_more
+						h5
+							| Add New Data Element
+					.vertical_spacing_less
+				.row
+					table.table.table-striped
+						tbody
+							tr
+								td(ng-repeat='colHeader in colHeaders' ng-if="colHeader!='id' && colHeader!='cid'")
+									input(type="text" ng-model="oneDataElement[colHeader]"  placeholder="{{colHeader}}" class="form-control")
+				.vertical_spacing_lesser
+				.row
+					.col-lg-4.col-md-4.col-sm-4
+						label.btn.btn-default(ng-click="addDataElement()") 
+							span.fa.fa-plus-circle
+							|  Add Data Element
+					.col-lg-3.col-md-3.col-sm-3
+						
+					.col-lg-4.col-md-4.col-sm-4
+				br
+				br
+				.row(ng-if ='dataElementsArray.length > 0')
+					.col-lg-12.col-md-12.col-sm-12
+						.orange_header_larger
+							| Submit
+						label.btn.btn-default(ng-click="postaddcrNew()")
+							span.fa.fa-chevron-circle-right
+							| Submit Add Request
+				.vertical_spacing_less
 				.row(ng-show="showButtons")
 					.col-lg-12.col-md-12.col-sm-12
 						.row(ng-show="showButtons")

@@ -9,10 +9,11 @@ var auditLog = require('../config/auditLog');
 exports.getDataElements = function(req, res) {
     //var query = ['START n=node({nodeId}) ', 'RETURN labels(n)'].join('\n');
     console.log("get Data Elements");
-    var query = 'MATCH n-[:CONTAINS]->x WHERE n.id ={nodeId} RETURN x.id as id,x.name as name,x.description as description';
+    var query = 'MATCH (n)-[:CONTAINS]->(x:DataElement)-[*0..1]->(c:Concept) WHERE n.id ={nodeId} RETURN distinct x.id as id,x.name as name,x.description as description, c.id as cid, c.name as concept,c.cui as cui';
     var params = {
         nodeId: req.params.id
     };
+   // console.log(params);
     neodb.db.query(query, params, function(err, results) {
         if (err) {
             console.error('Error retreiving data elements from database:', err);
@@ -22,7 +23,7 @@ exports.getDataElements = function(req, res) {
             if (results[0] != null) {
                 res.json(results);
             } else {
-                res.send(404, "No node at that location");
+                res.json([{'id':'','name':'',description:'',cid:'',concept:'',cui:''}]);
             }
         }
     });

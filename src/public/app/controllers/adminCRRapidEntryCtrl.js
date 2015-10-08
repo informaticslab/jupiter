@@ -37,6 +37,8 @@ angular.module('jupiterApp').controller('adminCRRapidEntryCtrl', ['$scope', '$ht
     
     $scope.identity = ngIdentity;
     $scope.colHeaders = [];
+    $scope.nodetypeselect = 'DataElement';
+    $scope.oneDataElement = {};
     
  //   	$scope.itemSelected = function($item, $model, $label, id) {
  //            $scope.crQueueSuccess=false;
@@ -53,23 +55,28 @@ angular.module('jupiterApp').controller('adminCRRapidEntryCtrl', ['$scope', '$ht
     function fetchDataElements(){
                 $http.get('/api/node/dataElements/' + $scope.dataElementSelectedId).then(function(res) {
                 $scope.dataElementsArray=res.data;
+
                 //$scope.relarray=[];
                 console.log(res.data);
                 var i=1;
                 $scope.dataElementsArray.forEach(function(d){
                     console.log(d);
                 });
-                $scope.nodetypeselect = 'DataElement';
-                fetchNodeValues();
-                console.log($scope.nodeDictionaryAttributes);
-                for (var i = 0; i < $scope.nodeDictionaryAttributes.length; i++) {
-                    if ($scope.nodeDictionaryAttributes[i].attribute !== 'id') {
-                        $scope.colHeaders.push({'displayLabel': $scope.nodeDictionaryAttributes[i].displayLabel});
-                    }
+                $scope.colHeaders=Object.keys($scope.dataElementsArray[0]);
+                if ($scope.dataElementsArray.length == 1 && $scope.dataElementsArray[0].id === '') {
+                    $scope.dataElementsArray = [];
                 }
-                $scope.colHeaders.push({'displayLabel':'Concept'});
-                $scope.colHeaders.push({'displayLabel':'CUI'});
-                console.log(colHeaders);
+
+                //$scope.dataElementsArray;
+       
+                //fetchNodeValues();
+                // for (var i = 0; i < $scope.nodeDictionaryAttributes.length; i++) {
+                //     if ($scope.nodeDictionaryAttributes[i].attribute !== 'id') {
+                //         $scope.colHeaders.push({'displayLabel': $scope.nodeDictionaryAttributes[i].displayLabel});
+                //     }
+                // }
+                // $scope.colHeaders.push({'displayLabel':'Concept'});
+                // $scope.colHeaders.push({'displayLabel':'CUI'});
                 //console.log($scope.relvalues);
 
 
@@ -124,7 +131,7 @@ angular.module('jupiterApp').controller('adminCRRapidEntryCtrl', ['$scope', '$ht
         //nodeData.attributes.forEach(function(d){
             //console.log(d);
         //});
-        $scope.showButtons=true
+  //      $scope.showButtons=true
         //console.log($scope.nodeDictionaryAttributes,$scope.cr);
 
 
@@ -261,7 +268,69 @@ angular.module('jupiterApp').controller('adminCRRapidEntryCtrl', ['$scope', '$ht
         //checkNewRel();
     };
 
+    $scope.addDataElement = function() {
+        if (Object.keys($scope.oneDataElement).length > 0) {
+            $scope.dataElementsArray.push($scope.oneDataElement);
+            $scope.oneDataElement= {};
+        }
+    }
+    $scope.deleteDataElmRow = function(index) {
+
+        $scope.dataElementsArray.splice(index,1);
+
+    }
+
+    $scope.postaddcrNew=function(){
 
 
+        if($scope.cr['name'].trim()=="")
+        {
+            $scope.highlightMissingTxt=true;
+        }
+        else
+        {
+            //var nodeDataString=$scope.nodeKeyValues;//JSON.stringify($scope.nodeKeyValues);
+            //console.log($scope.cr, );
+
+            //var currentdate = new Date(); 
+            $scope.cr['CR_NODE_TYPE']=$scope.nodeLabel;
+            $scope.cr['CR_REQUEST_TYPE']="ADD";
+            $scope.cr['CR_STATUS']="PENDING";
+            $scope.cr['CR_USER_DN_CREATE']=$scope.identity.currentUser.displayName;
+            $scope.cr['CR_USER_ID_CREATE']=$scope.identity.currentUser._id;
+            $scope.cr['CR_USER_EMAIL_CREATE']=$scope.identity.currentUser.email;
+            $scope.cr['CR_USER_DN_EDIT']="";
+            $scope.cr['CR_USER_ID_EDIT']="";
+            $scope.cr['CR_USER_EMAIL_EDIT']="";
+            $scope.cr['CR_USER_DN_EXECUTE']="";
+            $scope.cr['CR_USER_ID_EXECUTE']="";
+            $scope.cr['CR_USER_EMAIL_EXECUTE']="";
+            $scope.cr['CR_DATE_CREATED']="";
+            $scope.cr['CR_DATE_EDITED']="";
+            $scope.cr['CR_DATE_EXECUTED']="";
+
+            $scope.cr['id']=$scope.nextNodeID;
+            var datapacket={};
+            datapacket['attr']=$scope.cr;
+            datapacket['rels']=$scope.relvalues;
+            $http.post('/api/mongo/postaddcr', datapacket).
+            //$http({method: 'Post', url: '/api/mongo/postcr', data: {greeting: 'hi'}}).
+              success(function(data, status, headers, config) { 
+                //console.log("success");
+                $scope.node="";
+                $scope.showButtons=false;
+                $scope.crQueueSuccess=true;
+              }).error(function(data, status) {
+                  //console.log("err");
+                    $scope.node="";
+                    $scope.showButtons=false;
+                    $scope.crQueueFail=true;
+            });
+        }
+
+
+        //console.log(datapacket);
+
+    };
 
 }]);

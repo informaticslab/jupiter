@@ -82,7 +82,9 @@
 											b
 												| {{node.attributes.displayLabel | unCamelCase}}
 									.col-lg-9.col-md-9.col-sm-9(ng-hide="node.attributeName=='id'")
-										input.form-control(id="{{txtid=node.attributeName}}" type="text" ng-model="cr[txtid]" )
+										input.form-control(id="{{txtid=node.attributeName}}" type="text" ng-model="cr[txtid]" ng-hide='txtid =="fileName"')
+										//input.form-control(id="{{txtid=node.attributeName}}" type="text" ng-model="cr[txtid]" ng-show='txtid =="fileName"')
+										a(href= "" ng-show='txtid =="fileName"') {{cr[txtid]}} 
 										.vertical_spacing_lesser
 				.vertical_spacing_lesser
 				.orange_header_larger(ng-show="showButtons && nodeLabel =='Dataset'")

@@ -9,7 +9,7 @@ var auditLog = require('../config/auditLog');
 exports.getDataElements = function(req, res) {
     //var query = ['START n=node({nodeId}) ', 'RETURN labels(n)'].join('\n');
     console.log("get Data Elements");
-    var query = 'MATCH n-[:CONTAINS]->x WHERE n.id ={nodeId} RETURN x.id,x.name,x.description,x.concept,x.cui';
+    var query = 'MATCH n-[:CONTAINS]->x WHERE n.id ={nodeId} RETURN x.id as id,x.name as name,x.description as description';
     var params = {
         nodeId: req.params.id
     };
@@ -20,7 +20,7 @@ exports.getDataElements = function(req, res) {
         } else {
             console.log(results);
             if (results[0] != null) {
-                res.json(results[0]['labels(n)']);
+                res.json(results);
             } else {
                 res.send(404, "No node at that location");
             }

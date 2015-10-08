@@ -63,6 +63,22 @@
 				.row
 					.col-lg-12.col-md-12.col-sm-12
 						input(type="text" ng-model="datasetSelected"  placeholder="Enter Dataset" typeahead-on-select="setDataElement($item, $model, $label)" typeahead-min-length='3' typeahead="node.name for node in getNodes($viewValue)" class="form-control")
+				.row
+					table.table.table-striped
+						thead
+							tr
+								th(ng-repeat="colHeader in colHeaders")
+									|{{colHeader.displayLabel}}
+						tbody
+							tr(ng-repeat='oneDataElement in dataElementsArray')
+								td
+									| {{oneDataElement.name}}
+								td
+									| {{oneDataElement.description}}
+								td
+									| 
+								td
+									| 
 				.row(ng-show="showButtons")
 					.col-lg-12.col-md-12.col-sm-12
 						.row(ng-show="showButtons")

@@ -36,6 +36,7 @@ angular.module('jupiterApp').controller('adminCRRapidEntryCtrl', ['$scope', '$ht
     $scope.nodeTypeValues=nodeTypeDictionary.NodeTypes;
     
     $scope.identity = ngIdentity;
+    $scope.colHeaders = [];
     
  //   	$scope.itemSelected = function($item, $model, $label, id) {
  //            $scope.crQueueSuccess=false;
@@ -58,6 +59,17 @@ angular.module('jupiterApp').controller('adminCRRapidEntryCtrl', ['$scope', '$ht
                 $scope.dataElementsArray.forEach(function(d){
                     console.log(d);
                 });
+                $scope.nodetypeselect = 'DataElement';
+                fetchNodeValues();
+                console.log($scope.nodeDictionaryAttributes);
+                for (var i = 0; i < $scope.nodeDictionaryAttributes.length; i++) {
+                    if ($scope.nodeDictionaryAttributes[i].attribute !== 'id') {
+                        $scope.colHeaders.push({'displayLabel': $scope.nodeDictionaryAttributes[i].displayLabel});
+                    }
+                }
+                $scope.colHeaders.push({'displayLabel':'Concept'});
+                $scope.colHeaders.push({'displayLabel':'CUI'});
+                console.log(colHeaders);
                 //console.log($scope.relvalues);
 
 

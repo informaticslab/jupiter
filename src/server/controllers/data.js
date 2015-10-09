@@ -33,35 +33,41 @@ exports.upload = function(req, res){
 			console.log(result);
 			res.send(result);
 
-			var query = 'match (n:`DataElement`) return n.id as id, length(n.id) as len order by len desc, id desc limit 1';
-	       
+			var parser = parse(function(err,data){
+				// console.log('callback data', data[0]);
+				//TODO: Need to parse our headers.
+				var headers = data[0];
+				console.log(headers);
+				// console.log(data);
+				var ts = Math.round((new Date()).getTime() / 1000);
+				var idObjArray = [];
 
-	        neodb.db.query(query, function(err, results) {
-	            if (err) {
-	                console.error('Error retreiving node from database:', err);
-	                res.send(404, 'No node at that location');
-	            } else {
-	                //console.log(results[0].id);
-	                var id = results[0].id;
-	                var idalphanum = id;
-	                var idnumstring = idalphanum.match(/\d*$/);
-	                //console.log("idnumstring", idnumstring[0]);
-	                var idnum = parseInt(idnumstring[0]);
-	                idnum++;
-	                //console.log(idnum);
-	                idnew = idalphanum.replace(/\d*$/, idnum.toString());
-	                console.log(idnew)
-				}
+				res.send(data);
+
+				// THIS IS FOR ADDING DE NODES
+				// for(var i = 0; i < headers.length; i++) {
+				// 	var newObj ={};
+				// 	newObj.name = headers[i];
+				// 	newObj.id = 'DE-'+nodeId+'-'+ts+'-'+(i+1);
+				// 	idObjArray.push(newObj);	
+				// }
+				// console.log(idObjArray);
+				// var params = {ids: idObjArray};
+				// var query = 'create (n {'+params+'}) RETURN n';
+				
+				// neodb.db.query(query, function(err, result) {
+				// 	console.log(result);
+				// });
 			});
+
+
+		fs.createReadStream(filePath).pipe(parser); 
+
+
 		}
 	});
 	
-	var parser = parse(function(err,data){
-		console.log('callback data', data[0]);
-
-	});
-
-	fs.createReadStream(filePath).pipe(parser); 
+	
 
 	//var sqlImport = "load data local infile ? into table ?? fields terminated by ','";
 
@@ -74,6 +80,33 @@ exports.upload = function(req, res){
 	// });
 };
 
+exports.getDataFile = function(req,res){
+	//TODO
+	var nodeId = req.params.id;
+	console.log(nodeId);
+
+	var query = 'match (n) where n.id="'+nodeId+'" RETURN n';
+	neodb.db.query(query, function(err, result) {
+		if (result[0] != null && result[0]['n'] != null && result[0]['n']['data'] != null) {
+			var data =result[0]['n']['data'];
+			var filePath = data.fileLocation;
+			console.log(filePath);
+			
+			var parser = parse({columns:true}, function(err, gridData) { 
+				res.send(gridData);
+			});
+
+			fs.createReadStream(filePath).pipe(parser); 
+		} else {
+			console.log('ERROR: No node at this location');
+		}
+		
+
+	});
+
+	//res.send('done');
+	
+};
 
 exports.parseCSV = function(req, res) {
 
@@ -84,6 +117,3 @@ exports.parseCSV = function(req, res) {
 // };
 
 
-exports.getFile = function(req,res){
-	//TODO
-};

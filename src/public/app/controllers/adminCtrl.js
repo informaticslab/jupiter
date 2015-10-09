@@ -457,6 +457,19 @@ angular.module('jupiterApp').controller('adminCtrl', ['$scope','$modal', '$http'
         });
     };
 
+    $scope.openGridModal = function(nodeId) {
+        var modalInstance = $modal.open({
+            templateUrl: 'partials/modals/previewGrid',
+            controller: 'previewGridCtrl',
+            size: 'lg',
+            resolve: {
+                nodeId :function() {
+                    return nodeId;
+                }
+            }
+        });
+    };
+
 }]);
 
 angular.module('jupiterApp').controller('ModalInstanceCtrl', function ($scope, $modalInstance,doc_id) {

@@ -82,18 +82,21 @@
 											b
 												| {{node.attributes.displayLabel | unCamelCase}}
 									.col-lg-9.col-md-9.col-sm-9(ng-hide="node.attributeName=='id'")
-										input.form-control(id="{{txtid=node.attributeName}}" type="text" ng-model="cr[txtid]" ng-hide='txtid =="fileName"')
+										input.form-control(id="{{txtid=node.attributeName}}" type="text" ng-model="cr[txtid]")
 										//input.form-control(id="{{txtid=node.attributeName}}" type="text" ng-model="cr[txtid]" ng-show='txtid =="fileName"')
-										a(href= "" ng-show='txtid =="fileName"') {{cr[txtid]}} 
+										//a(href= "" ng-click='openGridModal(nodeId)' ng-show='txtid =="fileLocation"') {{cr[txtid]}} 
 										.vertical_spacing_lesser
 				.vertical_spacing_lesser
 				.orange_header_larger(ng-show="showButtons && nodeLabel =='Dataset'")
 					| Local Data
 				.row(ng-show="showButtons")
 					.col-lg-12.col-md-12.col-sm-12
-						button.btn.btn-default(ng-click='openDataUpload(nodeId)')
+						button.btn.btn-default(ng-click='openDataUpload(nodeId)' )
 							span.fa.fa-upload
 								|  Upload Dataset
+						button.btn.btn-default(ng-click='openGridModal(nodeId)')
+							span.fa.fa-table
+								|  Preview Dataset
 				.vertical_spacing_lesser
 				.orange_header_larger(ng-show="showButtons")
 					| Data Elements

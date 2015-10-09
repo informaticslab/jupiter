@@ -63,6 +63,7 @@ module.exports = function(app) {
 
     app.post('/api/fileUpload', data.upload);
     // app.post('/api/updateDataNode', data.updateNode);
+    app.get('/api/getDataFile:id', data.getDataFile);
 
     app.get('/api/mongo/users/all', nodes.getUsers);
     app.post('/api/mongo/users/updateRights', nodes.updateRights);

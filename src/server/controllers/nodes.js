@@ -29,6 +29,28 @@ exports.getDataElements = function(req, res) {
     });
 }
 
+exports.saveDataElements = function(req, res) {
+    console.log(req.body.dsetid);
+    console.log(req.body.dearray);
+    var deArray=req.body.dearray;
+    
+
+    _.each(deArray, function(i) {
+        console.log(i);
+        var query='match (n)-[:CONTAINS]->(de) where n.id={dsetid} and de.id={deid} set n.name={dename}, n.description={dedescription},';
+        var params={
+            dsetid:req.body.dsetid,
+            deid:i.id,
+            dename:i.name,
+            dedescription:i.description
+        };
+
+        console.log(query);
+
+    })
+
+    res.send("success");
+}
 
 // /api/node/{id}/relations
 exports.getRelationsForNode = function(req, res) {

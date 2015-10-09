@@ -40,6 +40,8 @@ module.exports = function(app) {
     app.get('/api/relationships/all', nodes.getAllRelationships);
     app.get('/api/activitytypes/all', nodes.getAllNodeTypes);
     app.get('/api/adhoc/:query', nodes.getAdhocQueryResults);
+    app.post('/api/node/save/saveDE', nodes.saveDataElements);
+
     app.get('/api/adhoc/relatednoodetypes/:query', nodes.getAdhocQueryRelatedNodeTypesResults);
     //app.get('/api/dashboard/validationStatusDetails/:query', nodes.getValidationStatusDetails);
     app.get('/api/node/advancedSearch/:id', nodes.getAdvancedSearchData);

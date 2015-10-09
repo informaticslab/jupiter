@@ -22,7 +22,7 @@ exports.upload = function(req, res){
 	// console.log('REQ', req);
 	//console.log('input',input);
 	//console.log('filepath', filePath);
-	var query = "MATCH (n {id:'"+nodeId+"'}) SET n.fileLocation = '"+filePath+"', n.fileName = '"+originalFileName+"' RETURN n";
+	var query = "MATCH (n {id:'"+nodeId+"'}) SET n.filePath = '"+filePath+"', n.localfileName = '"+originalFileName+"' RETURN n";
 
 
 	neodb.db.query(query,function(err, result){
@@ -83,15 +83,15 @@ exports.upload = function(req, res){
 exports.getDataFile = function(req,res){
 	//TODO
 	var nodeId = req.params.id;
-	console.log(nodeId);
+	// console.log(nodeId);
 
 	var query = 'match (n) where n.id="'+nodeId+'" RETURN n';
 	neodb.db.query(query, function(err, result) {
 		if (result[0] != null && result[0]['n'] != null && result[0]['n']['data'] != null) {
 			var data =result[0]['n']['data'];
-			var filePath = data.fileLocation;
-			console.log(filePath);
-			
+			var filePath = data.filePath;
+			// console.log(filePath);
+
 			var parser = parse({columns:true}, function(err, gridData) { 
 				res.send(gridData);
 			});
@@ -108,12 +108,9 @@ exports.getDataFile = function(req,res){
 	
 };
 
-exports.parseCSV = function(req, res) {
-
+exports.deleteFile = function(req, res) {
+	//TODO
 };
 
-// exports.updateNode = function(req,res) {
-// 	console.log(req.body);
-// };
 
 

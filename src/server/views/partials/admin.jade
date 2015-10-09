@@ -91,15 +91,14 @@
 					| Local Data
 				.row(ng-show="showButtons")
 					.col-lg-12.col-md-12.col-sm-12
-						button.btn.btn-default(ng-click='openDataUpload(nodeId)' )
+						button.btn.btn-default(ng-click='openDataUpload(nodeId)' ng-hide='nodeData.attributes.filePath != null')
 							span.fa.fa-upload
 								|  Upload Dataset
-						button.btn.btn-default(ng-click='openGridModal(nodeId)')
+						button.btn.btn-default(ng-click='openGridModal(nodeId)' )
 							span.fa.fa-table
 								|  Preview Dataset
-				.vertical_spacing_lesser
-				.orange_header_larger(ng-show="showButtons")
-					| Data Elements
+						button.btn.btn-danger
+							| Delete Local Data
 				.vertical_spacing_lesser
 				.orange_header_larger(ng-show="showButtons")
 					| Relationships

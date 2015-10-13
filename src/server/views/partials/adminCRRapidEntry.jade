@@ -92,8 +92,8 @@
 						table.table.table-striped
 							tbody
 								tr
-									td(ng-repeat='colHeader in colHeaders' ng-if="colHeader!='id' && colHeader!='cid'")
-										input(type="text" ng-init="oneDataElement[colHeader]=null" ng-model="oneDataElement[colHeader]"  placeholder="{{colHeader}}" class="form-control")
+									td(ng-repeat='colHeader in colHeaders' ng-if="colHeader!='id' && colHeader!='cid'" ng-class="{deChanged:oneDataElement['changed']}")
+										input(type="text" ng-init="oneDataElement[colHeader]=null" ng-model="oneDataElement[colHeader]"  placeholder="{{colHeader}}" class="form-control" ng-change="deFieldChanged()")
 				.vertical_spacing_lesser
 				.row(ng-if="showAddDataElement")
 					.col-lg-4.col-md-4.col-sm-4

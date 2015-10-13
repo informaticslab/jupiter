@@ -72,6 +72,8 @@ angular.module('jupiterApp').controller('adminCRRapidEntryCtrl', ['$scope', '$ht
     };
 
     $scope.addDataElement = function() {
+        $scope.oneDataElement["id"]=null;
+        $scope.oneDataElement["cid"]=null;
         if (Object.keys($scope.oneDataElement).length > 0) {
             $scope.dataElementsArray.push($scope.oneDataElement);
             $scope.oneDataElement= {};
@@ -83,6 +85,12 @@ angular.module('jupiterApp').controller('adminCRRapidEntryCtrl', ['$scope', '$ht
         $scope.dataElementsArray.splice(index,1);
         console.log($scope.dataElementsArray);
 
+    }
+
+    $scope.deFieldChanged = function()
+    {
+        //field=true;
+        console.log("changed=true");
     }
 
 

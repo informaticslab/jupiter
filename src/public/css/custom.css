@@ -852,3 +852,7 @@ del{}
   margin-left: 10px;
 }
 
+.deChanged{
+  background-color: red;  
+}
+

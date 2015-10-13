@@ -87,10 +87,17 @@ angular.module('jupiterApp').controller('adminCRRapidEntryCtrl', ['$scope', '$ht
 
     }
 
-    $scope.deFieldChanged = function()
+    $scope.deFieldChanged = function(row,fldIdx)
     {
         //field=true;
-        console.log("changed=true");
+     if (!isNaN(row)) {
+        $scope.dataElementsArray[row]['changed'] = true;
+     }
+     else {
+        $scope.oneDataElement['changed'] = true;
+      
+    }
+  //    console.log("changed=true");
     }
 
 

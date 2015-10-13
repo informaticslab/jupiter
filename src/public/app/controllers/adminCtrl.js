@@ -1,5 +1,5 @@
-angular.module('jupiterApp').controller('adminCtrl', ['$scope','$modal', '$http','$filter','$routeParams','$location','nodeAttributeDictionary','nodeRelationshipDictionary', 'ngIdentity',
-	function($scope,$modal,$http,$filter,$routeParams,$location,nodeAttributeDictionary,nodeRelationshipDictionary,ngIdentity) {
+angular.module('jupiterApp').controller('adminCtrl', ['$scope','$modal', '$http','$filter','$routeParams','$location','nodeAttributeDictionary','nodeRelationshipDictionary', 'ngIdentity', '$rootScope',
+	function($scope,$modal,$http,$filter,$routeParams,$location,nodeAttributeDictionary,nodeRelationshipDictionary,ngIdentity,$rootScope) {
 
     $scope.isActive = function(route) {
         return route === $location.path();
@@ -58,6 +58,7 @@ angular.module('jupiterApp').controller('adminCtrl', ['$scope','$modal', '$http'
     $scope.relCheckBox={};
     $scope.relCheckBox.fromNewNode=false;
     $scope.relCheckBox.toNewNode=false;
+    $rootScope.showFileButtons = true;
 
     //console.log(nodeRelationshipDictionary.RelationshipTypes);
     $scope.relValues=nodeRelationshipDictionary.RelationshipTypes;
@@ -476,6 +477,7 @@ angular.module('jupiterApp').controller('adminCtrl', ['$scope','$modal', '$http'
             console.log(res);
             if(res.data.success) {
                 console.log('File successfully deleted.');
+                $rootScope.showFileButtons = true;
             } else {
                 console.log('deletion failed');
             }

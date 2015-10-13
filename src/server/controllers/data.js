@@ -22,7 +22,7 @@ exports.upload = function(req, res){
 	// console.log('REQ', req);
 	//console.log('input',input);
 	//console.log('filepath', filePath);
-	var query = "MATCH (n {id:'"+nodeId+"'}) SET n.filePath = '"+filePath+"', n.localfileName = '"+originalFileName+"' RETURN n";
+	var query = "MATCH (n {id:'"+nodeId+"'}) SET n.filePath = '"+filePath+"', n.localFileName = '"+originalFileName+"' RETURN n";
 
 
 	neodb.db.query(query,function(err, result){
@@ -110,6 +110,33 @@ exports.getDataFile = function(req,res){
 
 exports.deleteFile = function(req, res) {
 	//TODO
+	// console.log(req.body);
+	var id = req.body.id;
+	var query = 'match (n) where n.id="'+id+'" RETURN n';
+	var deleteQuery = 'match (n {id:"'+id+'"}) remove n.filePath, n.localFileName return n';
+
+	neodb.db.query(query, function(err, result) {
+		if (result[0] != null && result[0]['n'] != null && result[0]['n']['data'] != null) {
+			var data =result[0]['n']['data'];
+			var filePath = data.filePath;
+			// console.log(filePath);
+			neodb.db.query(deleteQuery, function(err, result) {
+				if(err) {
+					console.log('error deleting file');
+					res.send(err);
+				} else {
+					fs.unlinkSync(filePath);
+					res.send({
+						success: true,
+						result:result
+					});
+				}
+			});
+		} else {
+			console.log('ERROR: No node at this location');
+			res.send(err);
+		}
+	});
 };
 
 

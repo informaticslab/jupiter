@@ -189,6 +189,7 @@ angular.module('jupiterApp').controller('adminCtrl', ['$scope','$modal', '$http'
                             $scope.node=value;
                         }
                     }
+
                     if(!foundmatch)
                     {
                         $scope.nodeKeyValues.push({"key":d.attribute,"value":"","displayLabel":d.displayLabel,"sortIndex":d.sortIndex,"description":d.description})
@@ -469,6 +470,17 @@ angular.module('jupiterApp').controller('adminCtrl', ['$scope','$modal', '$http'
             }
         });
     };
+
+    $scope.deleteFile =function(node) {
+        $http.post('/api/deletefile/', node).then(function(res) {
+            console.log(res);
+            if(res.data.success) {
+                console.log('File successfully deleted.');
+            } else {
+                console.log('deletion failed');
+            }
+        })
+    }
 
 }]);
 

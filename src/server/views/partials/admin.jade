@@ -94,7 +94,7 @@
 						button.btn.btn-default(ng-click='openDataUpload(nodeId)' ng-show ='showFileButtons')
 							span.fa.fa-upload
 								|  Upload Dataset
-						button.btn.btn-default(ng-click='openGridModal(nodeId)' ng-show = '!showFileButtons')
+						button.btn.btn-default.button-padding(ng-click='openGridModal(nodeId)' ng-show = '!showFileButtons')
 							span.fa.fa-table
 								|  Preview Dataset
 						button.btn.btn-danger(ng-click='deleteFile(cr)' ng-show = '!showFileButtons')

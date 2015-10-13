@@ -13,7 +13,8 @@ exports.getDataElements = function(req, res) {
     var params = {
         nodeId: req.params.id
     };
-   // console.log(params);
+    console.log('query ', query);
+    console.log('parm ' ,params);
     neodb.db.query(query, params, function(err, results) {
         if (err) {
             console.error('Error retreiving data elements from database:', err);
@@ -31,25 +32,51 @@ exports.getDataElements = function(req, res) {
 
 exports.saveDataElements = function(req, res) {
     console.log(req.body.dsetid);
-    console.log(req.body.dearray);
-    var deArray=req.body.dearray;
-    
-
-    _.each(deArray, function(i) {
-        console.log(i);
-        var query='match (n)-[:CONTAINS]->(de) where n.id={dsetid} and de.id={deid} set n.name={dename}, n.description={dedescription},';
+    console.log(req.body.deObject);
+    var deObject=req.body.deObject;
+    if (deObject.id) {
+    var query='match (n)-[:CONTAINS]->(de) where n.id={dsetid} and de.id={deid} set de.name={dename}, de.description={dedescription}';
         var params={
             dsetid:req.body.dsetid,
-            deid:i.id,
-            dename:i.name,
-            dedescription:i.description
+            deid: deObject.id,
+            dename:deObject.name,
+            dedescription:deObject.description
         };
+        neodb.db.query(query, params, function(err, r) {
+            if (err) {
+                console.error('Error retreiving relations from database:', err);
+                res.send(404, 'no node at that location');
+            }
+            else {
+                res.send('success');
+            }
+        });
+        //console.log(query);
+    }
+    else {
+        var newDE = {};
+        newDE.id = 'DE-' + req.body.dsetid + '-' + new Date().getTime() +'-1';
+        newDE.name = deObject.name;
+        newDE.description = deObject.description;
+        var query= 'MATCH (ds {id: {dsId}}) create (ds)-[r:CONTAINS]->(n:DataElement {newDE})';
+        
+        var params={
+            dsId : req.body.dsetid,
+            newDE: newDE
+        };
+        console.log('params ', params);
+        neodb.db.query(query, params, function(err, r) {
+            if (err) {
+                console.error('Error retreiving relations from database:', err);
+                res.send(404, 'no node at that location');
+            }
+            else {
+                res.send('add success');
+            }
+        });
+      //  console.log(query);
+    }
 
-        console.log(query);
-
-    })
-
-    res.send("success");
 }
 
 // /api/node/{id}/relations

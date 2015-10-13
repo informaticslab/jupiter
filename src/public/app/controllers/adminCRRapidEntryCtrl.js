@@ -58,7 +58,24 @@ angular.module('jupiterApp').controller('adminCRRapidEntryCtrl', ['$scope', '$ht
     };
 
 
+     $scope.saveDataElmRow =function(index){
+            var datapacket={};
+            datapacket.dsetid=$scope.dataElementSelectedId;
+            datapacket.deObject=$scope.dataElementsArray[index];
+            console.log(datapacket);
+            $http.post('/api/node/save/saveDE/', datapacket).
+                //$http({method: 'Post', url: '/api/mongo/postcr', data: {greeting: 'hi'}}).
+              success(function(data, status, headers, config) { 
+                console.log(data);
+                $scope.dataElementsArray[index].changed = false;
+                alert('Data Element saved');
+              }).error(function(data, status) {
+                console.log(data);
+                alert('Save failed');
+            });
 
+
+    };
 
     $scope.setDataElement=function($item){
         //console.log("start",$item.id, $scope.node);

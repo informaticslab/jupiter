@@ -89,11 +89,9 @@ angular.module('jupiterApp').controller('adminCRRapidEntryCtrl', ['$scope', '$ht
     };
 
     $scope.addDataElement = function() {
-       
+        $scope.oneDataElement["id"]=null;
+        $scope.oneDataElement["cid"]=null;
         if (Object.keys($scope.oneDataElement).length > 0) {
-            $scope.oneDataElement["id"]=null;
-            $scope.oneDataElement["cid"]=null;
-            $scope.oneDataElement['changed'] = true;
             $scope.dataElementsArray.push($scope.oneDataElement);
             $scope.oneDataElement= {};
         }

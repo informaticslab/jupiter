@@ -225,8 +225,10 @@ angular.module('jupiterApp').controller('adminCtrl', ['$scope','$modal', '$http'
                 }
 
                 $scope.showButtons=true;
-                //console.log(nodeData.attributes);
+                console.log(nodeData.attributes);
 
+                $scope.filePath = nodeData.attributes[1].value;
+                console.log($scope.filePath);
                 //nodeData.attributes.forEach(function(d){
                     //console.log(d);
                 //});
@@ -478,6 +480,7 @@ angular.module('jupiterApp').controller('adminCtrl', ['$scope','$modal', '$http'
             if(res.data.success) {
                 console.log('File successfully deleted.');
                 $rootScope.showFileButtons = true;
+                $location.path('/adminCREdit/'+nodeId);
             } else {
                 console.log('deletion failed');
             }

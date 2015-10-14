@@ -66,18 +66,6 @@ exports.upload = function(req, res){
 
 		}
 	});
-	
-	
-
-	//var sqlImport = "load data local infile ? into table ?? fields terminated by ','";
-
-	// mysql.query(sqlImport,[filePath, originalFileName], function(err, result) {
-	// 	if(err) {
-	// 		console.log(err);
-	// 	} else {
-	// 		console.log(result);
-	// 	}
-	// });
 };
 
 exports.getDataFile = function(req,res){

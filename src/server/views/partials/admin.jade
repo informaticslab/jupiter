@@ -71,7 +71,7 @@
 										| - 
 									| {{node}}
 						.vertical_spacing_lesser
-						.row(ng-repeat="group in nodeGroups | orderBy:'sortIndex'")
+						.row(ng-repeat="group in nodeGroups | orderBy:'sortIndex'" ng-hide='group.heading=="Local Data"')
 							.col-lg-12.col-md-12.col-sm-12
 								.orange_header_larger
 									| {{group.heading}}
@@ -91,13 +91,17 @@
 					| Local Data
 				.row(ng-show="showButtons")
 					.col-lg-12.col-md-12.col-sm-12
-						button.btn.btn-default(ng-click='openDataUpload(nodeId)' ng-show ='showFileButtons')
+						button.btn.btn-default.button-padding(ng-click='openDataUpload(nodeId)')
 							span.fa.fa-upload
 								|  Upload Dataset
-						button.btn.btn-default.button-padding(ng-click='openGridModal(nodeId)' ng-show = '!showFileButtons')
+						button.btn.btn-default.button-padding(ng-click='openGridModal(nodeId)')
 							span.fa.fa-table
 								|  Preview Dataset
-						button.btn.btn-danger(ng-click='deleteFile(cr)' ng-show = '!showFileButtons')
+						button.btn.btn-default.button-padding
+							a(href='{{filePath}}' download='' )
+								span.fa.fa-download
+									| Download CSV
+						button.btn.btn-danger(ng-click='deleteFile(cr)')
 							| Delete Local Data
 				.vertical_spacing_lesser
 				.orange_header_larger(ng-show="showButtons")

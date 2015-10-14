@@ -1759,6 +1759,22 @@ angular.module('jupiterApp').factory('nodeAttributeDictionary', function() {
                             'sortIndex': '265'
                         }
                     }
+                },
+                'Local Data': {
+                    'heading': 'Local Data',
+                    'sortIndex': '06',
+                    'attributes': {
+                        'filePath': {
+                            'description': 'File path to uploaded file',
+                            'displayLabel': 'File Path',
+                            'sortIndex': '266'
+                        },
+                        'localFileName':{
+                            'description': 'File name of uploaded file',
+                            'displayLabel': 'Local File Name',
+                            'sortIndex':'267'
+                        }
+                    }
                 }
             }
         },

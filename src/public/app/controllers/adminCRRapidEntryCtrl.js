@@ -91,8 +91,9 @@ angular.module('jupiterApp').controller('adminCRRapidEntryCtrl', ['$scope', '$ht
     $scope.addDataElement = function() {
        
         if (Object.keys($scope.oneDataElement).length > 0) {
+
             $scope.oneDataElement["id"]=null;
-            $scope.oneDataElement["cid"]=null;
+           // $scope.oneDataElement["cid"]=null;
             $scope.oneDataElement['changed'] = true;
             $scope.dataElementsArray.push($scope.oneDataElement);
             $scope.oneDataElement= {};
@@ -133,10 +134,13 @@ angular.module('jupiterApp').controller('adminCRRapidEntryCtrl', ['$scope', '$ht
 
 $scope.setConcept = function($item, $model, $label,index) {
     //console.log($item);
+    $scope.dataElementsArray[index].cid = $item.id;
     $scope.dataElementsArray[index].cui = $item.cui;
+    $scope.dataElementsArray[index].changed = true;
 }
 
 $scope.setNewDataElmConcept = function($item, $model, $label) {
     $scope.oneDataElement['cui'] = $item.cui;
+    $scope.oneDataElement.cid = $item.id;
 }
 }]);

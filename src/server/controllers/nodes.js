@@ -34,36 +34,103 @@ exports.saveDataElements = function(req, res) {
     console.log(req.body.dsetid);
     console.log(req.body.deObject);
     var deObject=req.body.deObject;
+    var params={};
+    var query ='';
+
     if (deObject.id) {
-    var query='match (n)-[:CONTAINS]->(de) where n.id={dsetid} and de.id={deid} set de.name={dename}, de.description={dedescription}';
-        var params={
-            dsetid:req.body.dsetid,
-            deid: deObject.id,
-            dename:deObject.name,
-            dedescription:deObject.description
-        };
-        neodb.db.query(query, params, function(err, r) {
+        // id for date element exist
+       if (deObject.cid == '' || deObject.cid == null) {  // no concept relationship exist
+            query = 'match (n)-[:CONTAINS]->(de)-[r:SHARES_MEANING_WITH]->(c) where n.id={dsetid} and de.id={deid} delete r';
+              params={
+                dsetid:req.body.dsetid,
+                deid: deObject.id
+            };
+            neodb.db.query(query, params, function(err, r) {
             if (err) {
                 console.error('Error retreiving relations from database:', err);
                 res.send(404, 'no node at that location');
             }
             else {
-                res.send('success');
+                var query2 ='match (de {id:{deid}}) set de.name={dename}, de.description={dedescription}';
+                params2 =   {
+                    deid: deObject.id,
+                    dename:deObject.name,
+                    dedescription:deObject.description
+                };
+                    neodb.db.query(query2, params2, function(err, r) {
+                    if (err) {
+                        console.error('Error retreiving relations from database:', err);
+                        res.send(404, 'no node at that location');
+                    }
+                    else {
+                        res.send('success updating concept was null');
+                    }
+                });
+                     
             }
         });
-        //console.log(query);
+     
+       } 
+       else {
+         //   console.log('cid is not null')
+            query = 'match (n)-[:CONTAINS]->(de)-[r:SHARES_MEANING_WITH]->(c) where n.id={dsetid} and de.id={deid} delete r';
+              params={
+                dsetid:req.body.dsetid,
+                deid: deObject.id
+            };
+            neodb.db.query(query, params, function(err, r) {
+            if (err) {
+                console.error('Error retreiving relations from database:', err);
+                res.send(404, 'no node at that location');
+            }
+            else {
+                var query2 ='match (de {id:{deid}}),(c {id:{cid}}) set de.name={dename}, de.description={dedescription} with de,c create (de)-[r:SHARES_MEANING_WITH]->(c)';
+                params2 =   {
+                    deid: deObject.id,
+                    dename:deObject.name,
+                    dedescription:deObject.description,
+                    cid: deObject.cid
+                };
+                neodb.db.query(query2, params2, function(err, r) {
+                    if (err) {
+                        console.error('Error retreiving relations from database:', err);
+                        res.send(404, 'no node at that location');
+                    }
+                    else {
+                        res.send('success updating concept not null');
+                    }
+                });
+                     
+            }
+        });
+
+       }
+                
+         // query='match (n)-[:CONTAINS]->(de) where n.id={dsetid} and de.id={deid} set de.name={dename}, de.description={dedescription}';
+     
+       
     }
     else {
         var newDE = {};
+        var query = '';
+        var params = {};
         newDE.id = 'DE-' + req.body.dsetid + '-' + new Date().getTime() +'-1';
         newDE.name = deObject.name;
         newDE.description = deObject.description;
-        var query= 'MATCH (ds {id: {dsId}}) create (ds)-[r:CONTAINS]->(n:DataElement {newDE})';
-        
-        var params={
+        if (deObject.cid == '' || deObject.cid == null) {
+            params={
+                dsId : req.body.dsetid,
+                newDE: newDE
+            };      
+            query= 'MATCH (ds {id: {dsId}}) create (ds)-[r:CONTAINS]->(n:DataElement {newDE})';
+        } else {
+            params={
             dsId : req.body.dsetid,
-            newDE: newDE
+            newDE: newDE,
+            cid: deObject.cid 
         };
+            query= 'MATCH (ds {id: {dsId}}),(c {id: {cid}}) create (ds)-[r:CONTAINS]->(n:DataElement {newDE})-[:SHARES_MEANING_WITH]->(c)';
+        }
         console.log('params ', params);
         neodb.db.query(query, params, function(err, r) {
             if (err) {

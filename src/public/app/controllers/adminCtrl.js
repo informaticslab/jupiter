@@ -480,7 +480,7 @@ angular.module('jupiterApp').controller('adminCtrl', ['$scope','$modal', '$http'
             if(res.data.success) {
                 console.log('File successfully deleted.');
                 $rootScope.showFileButtons = true;
-                $location.path('/adminCREdit/'+nodeId);
+                $location.path('/adminCREdit/'+$scope.nodeId);
             } else {
                 console.log('deletion failed');
             }

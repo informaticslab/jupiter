@@ -1,4 +1,4 @@
-angular.module('jupiterApp').controller('uploadCtrl', function($scope, FileUploader,$modal, $modalInstance, nodeId, $http, $rootScope, $location) {
+angular.module('jupiterApp').controller('uploadCtrl', function($scope, FileUploader,$modal, $modalInstance, nodeId, $http, $rootScope, $route) {
     
 	var uploader = $scope.uploader = new FileUploader({
 		url:'/api/fileUpload',
@@ -40,7 +40,7 @@ angular.module('jupiterApp').controller('uploadCtrl', function($scope, FileUploa
     uploader.onCompleteAll = function() {
         console.info('onCompleteAll');
         $modalInstance.close();
-        $location.path('/adminCREdit/'+nodeId);
+        $route.reload();
         $rootScope.showFileButtons = false;
     };
 

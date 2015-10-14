@@ -13,7 +13,7 @@ exports.upload = function(req, res){
 	for(var i =0; i < body[0].length; i++){
 		nodeId = nodeId + body[0][i];
 	}
-	//console.log(nodeId);
+	// console.log(nodeId);
 	// console.log('formData', formData);
 	var filePath = req.files.file.path;
 	var originalFileName = req.files.file.originalFilename;
@@ -35,16 +35,17 @@ exports.upload = function(req, res){
 
 			var parser = parse(function(err,data){
 				// console.log('callback data', data[0]);
-				//TODO: Need to parse our headers.
-				var headers = data[0];
-				console.log(headers);
-				// console.log(data);
-				var ts = Math.round((new Date()).getTime() / 1000);
-				var idObjArray = [];
+				//TODO: CREATE QUERY BUILDER FOR MASS NODE AND RELATIONSHIP CREATION
 
-				res.send(data);
 
-				// THIS IS FOR ADDING DE NODES
+				// var headers = data[0];
+				// console.log(headers);
+				// // console.log(data);
+				// var ts = Math.round((new Date()).getTime() / 1000);
+				// var idObjArray = [];
+
+				// res.send(data);
+
 				// for(var i = 0; i < headers.length; i++) {
 				// 	var newObj ={};
 				// 	newObj.name = headers[i];

@@ -54,7 +54,12 @@
 						select.form-control(ng-model="nodetypeselect" ng-options="opt as (opt | unCamelCase) for opt in nodeTypeValues" ng-change="loadNodeFields()")
 							option(value="")
 								| Select node type
-				//.vertical_spacing_less
+				.vertical_spacing_less
+				.row(ng-show="showButtons && nodetypeselect=='DataElement'")
+					.col-lg-12.col-md-12.col-sm-12
+						alert
+							a(href="#/adminCRRapidEntry")
+								| click here for rapid entry of data elements
 				.row(ng-show="showButtons")
 					.col-lg-12.col-md-12.col-sm-12
 						.row(ng-show="showButtons")

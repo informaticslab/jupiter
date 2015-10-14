@@ -1,0 +1,134 @@
+// new row
+.row
+	.div(ng-class='getContentWidth()')
+		.content_block_faq
+			span.visible-md.visible-lg
+				.subnav
+					ul.nav.nav-pills
+						li
+							a(href='#/quickGuide/') Quick Guide
+						li
+							a(href='#/browse/') Browse
+						li
+							a(href='#/search/') Search
+						li
+							a(href='#/advancedSearch/') Relationship Explorer
+						li
+							a(href='' class='inactive') Favorites
+						li.active
+							a(href='#/inTheLab/') In the Lab
+				// end subnav
+			span.visible-sm
+				.subnav_sm
+					ul.nav.nav-pills
+						li
+							a(href='#/quickGuide/') Quick Guide
+						li
+							a(href='#/browse/') Browse
+						li
+							a(href='#/search/') Search
+						li
+							a(href='#/advancedSearch/') Relationship Explorer
+						li
+							a(href='' class='inactive') Favorites
+						li.active
+							a(href='#/inTheLab/') In the Lab
+				// end subnav
+			//- a.btn.btn-custom(onclick='goBack()') Back
+			//- .nav_split
+			//- 	.btn-group.btn-group-md.btn-group-justified
+			//- 		.btn-group
+			//- 			a.btn.btn-custom(href="#/dashboard", id='btnDashboard') Summary
+			//- 		.btn-group
+			//- 			a.btn.btn-default(href='#/dashboarddetail', id='btnDashboardDetail') Detail
+			//- 	// end button group
+			//- // end nav_split
+			.top_block_faq
+				ng-include(src="'/partials/adminMenuBar'")
+				hr
+				.vertical_spacing_less
+				//.row
+					.col-lg-4.col-md-4.col-sm-4
+						//.h4
+							| Select node type
+						select.form-control(ng-model="nodetypeselect" ng-options="opt as (opt | unCamelCase) for opt in nodeTypeValues" ng-change="loadNodeFields()")
+							option(value="")
+								| Select node type
+				//.vertical_spacing_less
+				//.row(ng-show="showButtons && nodetypeselect=='DataElement'")
+					.col-lg-12.col-md-12.col-sm-12
+						alert
+							a(href="#/adminCRRapidEntry")
+								| click here for rapid entry of data elements
+				.row
+					.col-lg-12.col-md-12.col-sm-12
+						input(type="text" ng-model="datasetSelected"  placeholder="Enter Dataset" typeahead-on-select="setDataElement($item, $model, $label)" typeahead-min-length='3' typeahead="node.name for node in getNodes($viewValue)" class="form-control")
+				.vertical_spacing_less
+				.row(ng-if="showAddDataElement")
+					.col-lg-12.col-md-12.col-sm-12
+						table.table.table-striped
+							thead
+								tr
+									th(ng-repeat='colHeader in colHeaders'  ng-if="colHeader!='id' && colHeader!='cid'")
+										| {{colHeader | TitleCase}}
+									th
+										| 
+							tbody
+								tr(ng-repeat='(rowIdx,row) in dataElementsArray')
+									td(ng-repeat='colHeader in colHeaders' ng-mouseenter="hover = true" ng-mouseleave="hover = false" ng-if="colHeader!='id' && colHeader!='cid'" )
+										input(ng-if='colHeader != "cui" && colHeader != "concept"' type="text" ng-model="row[colHeader]"  class="form-control" ng-change="deFieldChanged(rowIdx,$index)")
+										input(ng-if='colHeader == "cui" || colHeader == "concept"' readonly='true' type="text" ng-model="row[colHeader]"  class="form-control")
+									td(style="text-align: right;")
+										label.btn.btn-succes.btn-xs(style="color: blue;font-size: 1.5em;"  ng-click="saveDataElmRow(rowIdx)" ng-show='row.changed')
+											i.fa.fa-floppy-o
+										|&nbsp;
+										label.btn.btn-default.btn-xs(ng-if="row.id == null" ng-click="deleteDataElmRow(rowIdx)")
+											i.fa.fa-times
+				.vertical_spacing_more
+				.row(ng-if="showAddDataElement")
+					.col-lg-12.col-md-12.col-sm-12
+						h5
+							| Add New Data Element
+				.vertical_spacing_less
+				.row(ng-if="showAddDataElement")
+					.col-lg-12.col-md-12.col-sm-12
+						table.table.table-striped
+							tbody
+								tr
+									td(ng-repeat='colHeader in colHeaders' ng-if="colHeader!='id' && colHeader!='cid'" )
+										input(type="text" ng-init="oneDataElement[colHeader]=''"  ng-readonly='colHeader == "cui" || colHeader=="concept"' ng-model="oneDataElement[colHeader]"  placeholder="{{colHeader}}" class="form-control")
+
+				.vertical_spacing_lesser
+				.row(ng-if="showAddDataElement")
+					.col-lg-4.col-md-4.col-sm-4
+						label.btn.btn-default(ng-click="addDataElement()") 
+							span.fa.fa-plus-circle
+							|  Add Data Element
+				.vertical_spacing_less
+				.row(ng-if="showAddDataElement")
+					.col-lg-12.col-md-12.col-sm-12
+						.orange_header_larger
+							| Save
+						label.btn.btn-default(ng-click="saveDataElementsServer()")
+							span.fa.fa-chevron-circle-right
+							| Save Data Elemnts
+				.vertical_spacing_more
+				.row(ng-show="crQueueSuccess")
+					.col-lg-12.col-md-12.col-sm-12
+						.alert.alert-success(role="alert")
+							| Your request has been queued successfully. 
+							a(href="#/adminCRQueue")
+								| View queue
+				.row(ng-show="crQueueFail")
+					.col-lg-12.col-md-12.col-sm-12
+						.alert.alert-danger(role="alert")
+							| Error: Your request could not be queued. Please try again later.		
+				.vertical_spacing_less
+						img.img-responsive.linkage_empty( id="defaultimg" src="img/ajax-loader.gif" ng-show="showVSTableLoading")
+				//nested row 
+				
+				//end nested row
+				
+		// end content block
+	// end col spec
+// end row.orange_header Overview

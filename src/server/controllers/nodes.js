@@ -6,8 +6,78 @@ var _ = require('underscore');
 var auditLog = require('../config/auditLog');
 
 
+exports.getDataElements = function(req, res) {
+    //var query = ['START n=node({nodeId}) ', 'RETURN labels(n)'].join('\n');
+    console.log("get Data Elements");
+    var query = 'MATCH (n)-[:CONTAINS]->(x:DataElement) optional match x-[*0..1]->(c:Concept) WHERE n.id ={nodeId} RETURN distinct x.id as id,x.name as name,x.description as description, c.id as cid, c.name as concept,c.cui as cui';
+    var params = {
+        nodeId: req.params.id
+    };
+    console.log('query ', query);
+    console.log('parm ' ,params);
+    neodb.db.query(query, params, function(err, results) {
+        if (err) {
+            console.error('Error retreiving data elements from database:', err);
+            res.send(404, "No node at that locaton")
+        } else {
+            console.log(results);
+            if (results[0] != null) {
+                res.json(results);
+            } else {
+                res.json([{'id':'','name':'',description:'',cid:'',concept:'',cui:''}]);
+            }
+        }
+    });
+}
 
+exports.saveDataElements = function(req, res) {
+    console.log(req.body.dsetid);
+    console.log(req.body.deObject);
+    var deObject=req.body.deObject;
+    if (deObject.id) {
+    var query='match (n)-[:CONTAINS]->(de) where n.id={dsetid} and de.id={deid} set de.name={dename}, de.description={dedescription}';
+        var params={
+            dsetid:req.body.dsetid,
+            deid: deObject.id,
+            dename:deObject.name,
+            dedescription:deObject.description
+        };
+        neodb.db.query(query, params, function(err, r) {
+            if (err) {
+                console.error('Error retreiving relations from database:', err);
+                res.send(404, 'no node at that location');
+            }
+            else {
+                res.send('success');
+            }
+        });
+        //console.log(query);
+    }
+    else {
+        var newDE = {};
+        newDE.id = 'DE-' + req.body.dsetid + '-' + new Date().getTime() +'-1';
+        newDE.name = deObject.name;
+        newDE.description = deObject.description;
+        var query= 'MATCH (ds {id: {dsId}}) create (ds)-[r:CONTAINS]->(n:DataElement {newDE})';
+        
+        var params={
+            dsId : req.body.dsetid,
+            newDE: newDE
+        };
+        console.log('params ', params);
+        neodb.db.query(query, params, function(err, r) {
+            if (err) {
+                console.error('Error retreiving relations from database:', err);
+                res.send(404, 'no node at that location');
+            }
+            else {
+                res.send('add success');
+            }
+        });
+      //  console.log(query);
+    }
 
+}
 
 // /api/node/{id}/relations
 exports.getRelationsForNode = function(req, res) {

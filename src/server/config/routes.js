@@ -31,6 +31,7 @@ module.exports = function(app) {
     app.get('/api/node/search/:query', nodes.searchNodesByString);
     app.get('/api/node/search/label/:query', nodes.searchNodesByLabel);
     app.get('/api/node/viewer/:id', nodes.getNodesForLinkageViewer);
+    app.get('/api/node/dataElements/:id', nodes.getDataElements);
     app.get('/api/stats/nodes/:id', nodes.getPortalStatisticsNodes);
     app.get('/api/stats/nodes', nodes.getPortalStatisticsNodes);
     app.get('/api/stats/nodesvalidated/:id', nodes.getPortalStatisticsNodesValidated);
@@ -39,6 +40,8 @@ module.exports = function(app) {
     app.get('/api/relationships/all', nodes.getAllRelationships);
     app.get('/api/activitytypes/all', nodes.getAllNodeTypes);
     app.get('/api/adhoc/:query', nodes.getAdhocQueryResults);
+    app.post('/api/node/save/saveDE', nodes.saveDataElements);
+
     app.get('/api/adhoc/relatednoodetypes/:query', nodes.getAdhocQueryRelatedNodeTypesResults);
     //app.get('/api/dashboard/validationStatusDetails/:query', nodes.getValidationStatusDetails);
     app.get('/api/node/advancedSearch/:id', nodes.getAdvancedSearchData);

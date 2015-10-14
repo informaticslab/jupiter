@@ -138,6 +138,11 @@ jupiterApp.config(['$routeProvider',
         controller: 'adminCRAddCtrl',
         resolve: routeRoleChecks.levelThree
       }).
+          when('/adminCRRapidEntry', {
+        templateUrl: 'partials/adminCRRapidEntry',
+        controller: 'adminCRRapidEntryCtrl',
+        resolve: routeRoleChecks.levelThree
+      }).
           when('/adminCREdit', {
         templateUrl: 'partials/admin',
         controller: 'adminCtrl',

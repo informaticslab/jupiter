@@ -1923,7 +1923,7 @@ angular.module('jupiterApp').factory('nodeAttributeDictionary', function() {
                     'attributes': {
                         'elementDescription': {
                             'description': 'Data element description',
-                            'displayLabel': 'Data Element',
+                            'displayLabel': 'Description',
                             'sortIndex': '285'
                         }
                     }
@@ -1952,9 +1952,9 @@ angular.module('jupiterApp').factory('nodeAttributeDictionary', function() {
                     'heading': 'General Information',
                     'sortIndex': '02',
                     'attributes': {
-                        'elementDescription': {
-                            'description': 'Concept description',
-                            'displayLabel': 'Concept',
+                        'cui': {
+                            'description': 'Concept Unique Identifier',
+                            'displayLabel': 'CUI',
                             'sortIndex': '288'
                         }
                     }

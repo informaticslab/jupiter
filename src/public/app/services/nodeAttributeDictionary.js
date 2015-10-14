@@ -1921,7 +1921,7 @@ angular.module('jupiterApp').factory('nodeAttributeDictionary', function() {
                     'heading': 'General Information',
                     'sortIndex': '02',
                     'attributes': {
-                        'elementDescription': {
+                        'description': {
                             'description': 'Data element description',
                             'displayLabel': 'Description',
                             'sortIndex': '285'

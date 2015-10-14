@@ -136,4 +136,7 @@ $scope.setConcept = function($item, $model, $label,index) {
     $scope.dataElementsArray[index].cui = $item.cui;
 }
 
+$scope.setNewDataElmConcept = function($item, $model, $label) {
+    $scope.oneDataElement['cui'] = $item.cui;
+}
 }]);

@@ -1,4 +1,4 @@
-angular.module('jupiterApp').controller('uploadCtrl', function($scope, FileUploader,$modal, $modalInstance, nodeId, $http, $rootScope, $route, ngNotifier) {
+angular.module('jupiterApp').controller('uploadCtrl', function($scope, FileUploader,$modal, $modalInstance, nodeId, $http, $route, ngNotifier) {
     
 	var uploader = $scope.uploader = new FileUploader({
 		url:'/api/fileUpload',
@@ -40,7 +40,6 @@ angular.module('jupiterApp').controller('uploadCtrl', function($scope, FileUploa
     uploader.onCompleteAll = function() {
         console.info('onCompleteAll');
         $scope.ok();
-        $rootScope.showFileButtons = false;
         
     };
 

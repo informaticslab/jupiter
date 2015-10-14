@@ -852,7 +852,17 @@ del{}
   margin-left: 10px;
 }
 
+
+.myGrid {
+  width: 250px;
+  height: 250px;
+}
+
+.button-padding {
+  margin-right: 10px;
+}
 .deChanged {
   background-color: red !important;  
+
 }
 

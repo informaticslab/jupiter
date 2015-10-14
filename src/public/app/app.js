@@ -9,6 +9,7 @@ var jupiterApp = angular.module('jupiterApp', [
   ,'angulartics'
   ,'angulartics.google.analytics'
   ,'angularFileUpload'
+  ,'ui.grid'
   //'jupiterAppAnimations',
  // 'jupiterAppControllers',
  // 'jupiterAppFilters',

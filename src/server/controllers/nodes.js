@@ -254,6 +254,39 @@ exports.searchByName = function(req, res) {
     });
 };
 
+exports.searchConceptNode = function(req, res) {
+    var searchTerm = req.params.searchTerm.toLowerCase();
+    var query = 'match (n:Concept) where n.id <> "CN0" and lower(n.name)=~".*' + searchTerm +'.*" return n.id as id,n.name as name ,n.cui as cui';
+    console.log(query);
+    var params = {
+        searchTerm: req.params.searchTerm
+    };
+    neodb.db.query(query, params, function(err, results) {
+        //console.log(results);
+
+        if (err) {
+            console.error('Error retreiving node from database:', err);
+            res.send(404, 'No node at that location');
+        } else {
+            if (results != null) {
+                var nodedata = [];
+                _.each(results, function(i) {
+                       console.log('i :', i);
+                       nodedata.push({
+                            id: i.id,
+                            name: i.name,
+                            cui: i.cui
+                        });
+                 })
+                 console.log('node data from server: ',nodedata);
+                res.json(nodedata);
+            } else {
+                res.json([]);
+            }
+        }
+    });
+};
+
 exports.searchSysTreeByName = function(req, res) {
     var searchTerm = req.params.searchTerm.toLowerCase();
     var query = 'match p=(n)-[r:OVERSEES|MANAGES*]->x where lower(n.name)=~".*' + searchTerm + '.*" return distinct n.name as name, n.id as id'

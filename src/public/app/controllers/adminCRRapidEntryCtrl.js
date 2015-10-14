@@ -120,4 +120,20 @@ angular.module('jupiterApp').controller('adminCRRapidEntryCtrl', ['$scope', '$ht
     }
 
 
+ $scope.setDataElement=function($item){
+        //console.log("start",$item.id, $scope.node);
+        $scope.dataElementSelectedId=$item.id;
+        $scope.dataElementSelectedName=$item.displayname;
+
+        console.log($scope.dataElementSelectedId,$scope.dataElementSelectedName);
+        fetchDataElements();
+
+        //checkNewRel();
+    };
+
+$scope.setConcept = function($item, $model, $label,index) {
+    //console.log($item);
+    $scope.dataElementsArray[index].cui = $item.cui;
+}
+
 }]);

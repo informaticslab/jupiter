@@ -1,5 +1,5 @@
-angular.module('jupiterApp').controller('adminCtrl', ['$scope','$modal', '$http','$filter','$routeParams','$location','nodeAttributeDictionary','nodeRelationshipDictionary', 'ngIdentity', '$rootScope', 'ngNotifier',
-	function($scope,$modal,$http,$filter,$routeParams,$location,nodeAttributeDictionary,nodeRelationshipDictionary,ngIdentity,$rootScope, ngNotifier) {
+angular.module('jupiterApp').controller('adminCtrl', ['$scope','$modal', '$http','$filter','$routeParams','$location','nodeAttributeDictionary','nodeRelationshipDictionary', 'ngIdentity', '$rootScope', 'ngNotifier', '$route',
+	function($scope,$modal,$http,$filter,$routeParams,$location,nodeAttributeDictionary,nodeRelationshipDictionary,ngIdentity,$rootScope, ngNotifier,$route) {
 
     $scope.isActive = function(route) {
         return route === $location.path();
@@ -230,6 +230,7 @@ angular.module('jupiterApp').controller('adminCtrl', ['$scope','$modal', '$http'
                 $scope.filePath = nodeData.attributes[1].value;
                 console.log($scope.filePath);
                 $scope.showHide = showHide($scope.filePath);
+                console.log($scope.cr);
                 //nodeData.attributes.forEach(function(d){
                     //console.log(d);
                 //});
@@ -493,7 +494,7 @@ angular.module('jupiterApp').controller('adminCtrl', ['$scope','$modal', '$http'
                 console.log('File successfully deleted.');
                 $rootScope.showFileButtons = true;
                 ngNotifier.notifySuccess('Successfully deleted data file.');
-                $location.path('/adminCREdit/'+$scope.nodeId);
+                $route.reload();
             } else {
                 console.log('deletion failed');
             }

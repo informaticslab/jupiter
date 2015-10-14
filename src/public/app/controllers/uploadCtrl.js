@@ -48,7 +48,7 @@ angular.module('jupiterApp').controller('uploadCtrl', function($scope, FileUploa
 
     $scope.ok = function() {
         $modalInstance.close();
-        // $route.reload();
+         $route.reload();
         ngNotifier.notifySuccess('Successfully uploaded data file.');
     };
 

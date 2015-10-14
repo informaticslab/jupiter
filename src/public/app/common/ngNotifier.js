@@ -17,6 +17,16 @@ angular.module('jupiterApp').factory('ngNotifier',function(ngToastr) {
 			};
 			ngToastr.success(msg);
 			//console.log(msg);
+		},
+		notifySuccess: function(msg) {
+			ngToastr.options = {
+				'positionClass':'toast-top-center',
+				'timeOut' : '2600',
+				'closeButton' : true,
+				//'preventDuplicates' : true
+			};
+			ngToastr.success(msg);
+			//console.log(msg);
 		}
 	}
 })

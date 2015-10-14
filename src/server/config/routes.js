@@ -46,6 +46,7 @@ module.exports = function(app) {
     //app.get('/api/dashboard/validationStatusDetails/:query', nodes.getValidationStatusDetails);
     app.get('/api/node/advancedSearch/:id', nodes.getAdvancedSearchData);
     app.get('/api/node/searchByName/:searchTerm', nodes.searchByName);
+    app.get('/api/node/searchConceptNode/:searchTerm', nodes.searchConceptNode);
     app.get('/api/node/searchSysTreeByName/:searchTerm',nodes.searchSysTreeByName);
     app.get('/api/node/name/:id', nodes.getNodeNameById);
     app.get('/api/lab/nodes', nodes.getAllNodes);

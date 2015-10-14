@@ -76,8 +76,8 @@
 							tbody
 								tr(ng-repeat='(rowIdx,row) in dataElementsArray')
 									td(ng-repeat='colHeader in colHeaders' ng-mouseenter="hover = true" ng-mouseleave="hover = false" ng-if="colHeader!='id' && colHeader!='cid'" )
-										input(ng-if='colHeader != "cui"' type="text" ng-model="row[colHeader]"  placeholder="{{colHeader}}" class="form-control" ng-change="deFieldChanged(rowIdx,$index)")
-										input(ng-if='colHeader == "cui"' readonly='true' type="text" ng-model="row[colHeader]"  placeholder="{{colHeader}}" class="form-control")
+										input(ng-if='colHeader != "cui" && colHeader != "concept"' type="text" ng-model="row[colHeader]"  class="form-control" ng-change="deFieldChanged(rowIdx,$index)")
+										input(ng-if='colHeader == "cui" || colHeader == "concept"' readonly='true' type="text" ng-model="row[colHeader]"  class="form-control")
 									td(style="text-align: right;")
 										label.btn.btn-succes.btn-xs(style="color: blue;font-size: 1.5em;"  ng-click="saveDataElmRow(rowIdx)" ng-show='row.changed')
 											i.fa.fa-floppy-o
@@ -96,7 +96,8 @@
 							tbody
 								tr
 									td(ng-repeat='colHeader in colHeaders' ng-if="colHeader!='id' && colHeader!='cid'" )
-										input(type="text" ng-init="oneDataElement[colHeader]=null" ng-model="oneDataElement[colHeader]"  placeholder="{{colHeader}}" class="form-control")
+										input(type="text" ng-init="oneDataElement[colHeader]=''"  ng-readonly='colHeader == "cui" || colHeader=="concept"' ng-model="oneDataElement[colHeader]"  placeholder="{{colHeader}}" class="form-control")
+
 				.vertical_spacing_lesser
 				.row(ng-if="showAddDataElement")
 					.col-lg-4.col-md-4.col-sm-4

@@ -10,27 +10,6 @@ module.exports = {
 
   ACCESS_LOG: __dirname+'/access_log',
 
-  mysqlhost: '127.0.0.1',
-  mysqluser: 'jupiterapp',
-  mysqlpassword: 'jupiterwebapp',
-  mysqldatabase: 'jupiter'
 
 };
 
-//jupiterDev
-
-// MONGO_DOMAIN: 
-// NEO_DOMAIN: 	
-
-//FACBOOK_ID      : '656663327793594', 
-//FACEBOOK_SECRET: 'c798e54fa699da3041de84d64f492b39', 
-//FACEBOOK_CALLBACK: 'http://jupiterdev.phiresearchlab.org/auth/facebook/callback'
-
-//jupiterTest
-
-// MONGO_DOMAIN: 
-// NEO_DOMAIN:
-
-//FACEBOOK_ID: '1530749310479360', 
-//FACEBOOK_SECRET'  : '405b8e4a47df445cf58fc9c0f557d843', 
-//FACEBOOK_CALLBACK : 'http://jupitertest.phiresearchlab.org/auth/facebook/callback'

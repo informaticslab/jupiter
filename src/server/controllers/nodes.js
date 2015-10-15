@@ -9,7 +9,7 @@ var auditLog = require('../config/auditLog');
 exports.getDataElements = function(req, res) {
     //var query = ['START n=node({nodeId}) ', 'RETURN labels(n)'].join('\n');
     console.log("get Data Elements");
-    var query = 'MATCH (n)-[:CONTAINS]->(x:DataElement) optional match x-[*0..1]->(c:Concept) WHERE n.id ={nodeId} RETURN distinct x.id as id,x.name as name,x.description as description, c.id as cid, c.name as concept,c.cui as cui';
+    var query = 'MATCH (n)-[:CONTAINS]->(x:DataElement) WHERE n.id ={nodeId} optional match x-[:SHARES_MEANING_WITH]->(c:Concept) WHERE n.id ={nodeId} RETURN distinct x.id as id,x.name as name,x.description as description, c.id as cid, c.name as concept,c.cui as cui';
     var params = {
         nodeId: req.params.id
     };
@@ -114,7 +114,8 @@ exports.saveDataElements = function(req, res) {
         var newDE = {};
         var query = '';
         var params = {};
-        newDE.id = 'DE-' + req.body.dsetid + '-' + new Date().getTime() +'-1';
+        newDE.id = 'DE' + req.body.dsetid + new Date().getTime() +'1';
+
         newDE.name = deObject.name;
         newDE.description = deObject.description;
         if (deObject.cid == '' || deObject.cid == null) {

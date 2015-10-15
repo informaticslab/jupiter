@@ -8,19 +8,19 @@ var auditLog = require('../config/auditLog');
 
 exports.getDataElements = function(req, res) {
     //var query = ['START n=node({nodeId}) ', 'RETURN labels(n)'].join('\n');
-    console.log("get Data Elements");
+    // console.log("get Data Elements");
     var query = 'MATCH (n)-[:CONTAINS]->(x:DataElement) WHERE n.id ={nodeId} optional match x-[:SHARES_MEANING_WITH]->(c:Concept) WHERE n.id ={nodeId} RETURN distinct x.id as id,x.name as name,x.description as description, c.id as cid, c.name as concept,c.cui as cui';
     var params = {
         nodeId: req.params.id
     };
-    console.log('query ', query);
-    console.log('parm ', params);
+    // console.log('query ', query);
+    // console.log('parm ', params);
     neodb.db.query(query, params, function(err, results) {
         if (err) {
             console.error('Error retreiving data elements from database:', err);
             res.send(404, "No node at that locaton")
         } else {
-            console.log(results);
+            // console.log(results);
             if (results[0] != null) {
                 res.json(results);
             } else {
@@ -38,8 +38,8 @@ exports.getDataElements = function(req, res) {
 }
 
 exports.saveDataElements = function(req, res) {
-    console.log(req.body.dsetid);
-    console.log(req.body.deObject);
+    // console.log(req.body.dsetid);
+    // console.log(req.body.deObject);
     var deObject = req.body.deObject;
     var params = {};
     var query = '';
@@ -133,7 +133,7 @@ exports.saveDataElements = function(req, res) {
             };
             query = 'MATCH (ds {id: {dsId}}),(c {id: {cid}}) create (ds)-[r:CONTAINS]->(n:DataElement {newDE})-[:SHARES_MEANING_WITH]->(c)';
         }
-        console.log('params ', params);
+        // console.log('params ', params);
         neodb.db.query(query, params, function(err, r) {
             if (err) {
                 console.error('Error retreiving relations from database:', err);
@@ -240,7 +240,6 @@ exports.getNodeById = function(req, res) {
     var params = {
         nodeId: req.params.id
     };
-    //console.log("Query is " + query + " and params are " + req.params.id);
 
     neodb.db.query(query, params, function(err, results) {
         var nodedata = {};

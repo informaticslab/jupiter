@@ -61,7 +61,7 @@ exports.upload = function(req, res){
 						console.log(err);
 						res.send(err);
 					} else { 
-						console.log(result);
+						//console.log(result);
 						res.send(result);
 					}
 				});

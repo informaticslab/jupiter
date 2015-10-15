@@ -31,34 +31,42 @@ exports.upload = function(req, res){
 			res.send(err);
 		} else {
 			console.log(result);
-			res.send(result);
+			var parser = parse(function(err,data) {
 
-			var parser = parse(function(err,data){
-				// console.log('callback data', data[0]);
-				//TODO: CREATE QUERY BUILDER FOR MASS NODE AND RELATIONSHIP CREATION
+				var headers = data[0];
+				var ts = Math.round((new Date()).getTime() / 1000);
 
+				var matchClause = 'match (a:Dataset) where a.id="'+nodeId+'"';
+				var createPattern = '';
+				var builtQuery = '';
+				var elementQueryId = '';
 
-				// var headers = data[0];
-				// console.log(headers);
-				// // console.log(data);
-				// var ts = Math.round((new Date()).getTime() / 1000);
-				// var idObjArray = [];
+				var builtQuery = matchClause + ' create ';
+				for(var i = 0; i < headers.length; i++) {
+					var elementId = 'DE'+nodeId+ts+(i+1);
+					var elementQueryId = headers[i].charAt(0) + i;
+					if((i+1) === headers.length){
+						createPattern = '('+elementQueryId+':DataElement{name:"'+headers[i]+'", id:"'+elementId+'"})<-[:CONTAINS]-(a) ';
+					} else {
+						createPattern = '('+elementQueryId+':DataElement{name:"'+headers[i]+'", id:"'+elementId+'"})<-[:CONTAINS]-(a), ';
+					}
+					
+					builtQuery = builtQuery + createPattern;
+				}
 
-				// res.send(data);
+				builtQuery = builtQuery +'return a';
 
-				// for(var i = 0; i < headers.length; i++) {
-				// 	var newObj ={};
-				// 	newObj.name = headers[i];
-				// 	newObj.id = 'DE-'+nodeId+'-'+ts+'-'+(i+1);
-				// 	idObjArray.push(newObj);	
-				// }
-				// console.log(idObjArray);
-				// var params = {ids: idObjArray};
-				// var query = 'create (n {'+params+'}) RETURN n';
-				
-				// neodb.db.query(query, function(err, result) {
-				// 	console.log(result);
-				// });
+				neodb.db.query(builtQuery, function(err, result) {
+					if(err){
+						console.log(err);
+						res.send(err);
+					} else { 
+						console.log(result);
+						res.send(result);
+					}
+				});
+
+				// console.log(builtQuery);
 			});
 
 

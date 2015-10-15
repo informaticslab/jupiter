@@ -11,11 +11,7 @@ var mongoose = require('mongoose'),
 
 module.exports = function(app) {
     app.get('/partials/*', function(req, res) {
-        res.render('partials/' + req.params);
-        // if(req.originalUrl!="/partials/navbar-login")
-        // {
-        //     redirecturlto=req.originalUrl;
-        // }    
+        res.render('partials/' + req.params); 
     });
 
     app.get('/api/users',auth.requiresRole('admin'), users.getUsers);
@@ -60,24 +56,20 @@ module.exports = function(app) {
     app.get('/api/mongo/all', nodes.getMongoAll);
     app.get('/api/mongo/getstatus/:id', nodes.getMongoStatus);
     app.post('/api/mongo/postupdatecr', nodes.postUpdateCR);
-    app.post('/api/mongo/postaddcr',nodes.postAddCR);  //testing authorization
+    app.post('/api/mongo/postaddcr',nodes.postAddCR);  
     app.post('/api/mongo/postapprovecr', nodes.postApproveCR);
     app.post('/api/mongo/postdeclinecr', nodes.postDeclineCR);
     app.post('/api/mongo/posteditcr', nodes.postEditCR);
 
     app.post('/api/fileUpload', data.upload);
-    // app.post('/api/updateDataNode', data.updateNode);
     app.get('/api/getDataFile:id', data.getDataFile);
     app.post('/api/deletefile', data.deleteFile);
 
     app.get('/api/mongo/users/all', nodes.getUsers);
     app.post('/api/mongo/users/updateRights', nodes.updateRights);
-    //app.post('/api/mongo/postrollbackcr', nodes.postRollBackCR);
 
     app.get('/api/mongo/latestChanges', nodes.getLatestChanges);
 
-    
-    //app.get('/api/neo/nextnodeid/:label', nodes.getNextNeoID);
 
     app.post('/login', auth.authenticate); //Email/password route
 

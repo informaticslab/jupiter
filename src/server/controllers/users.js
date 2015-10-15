@@ -51,24 +51,15 @@ exports.createUser = function(req,res,next) {
 			auditLog.add(type,userId,displayName,notes);
 
 		}
-	})
-	// User.create(userData, function(err, user) {
-	// 	if(err){
-	// 		if(err.toString().indexOf('E11000') > -1) {
-	// 			err = new Error('Duplicate Email');
-	// 		}
-	// 		res.status(400);
-	// 		return res.send({reason: err.toString()});
-	// 	} 
-	// })
-}
+	});
+};
 
 
 function createSalt(){
 	return crypto.randomBytes(128).toString('base64');
-}
+};
 
 function hashPwd(salt,pwd) {
 	var hmac = crypto.createHmac('sha1', salt);
 	return hmac.update(pwd).digest('hex');
-}
+};

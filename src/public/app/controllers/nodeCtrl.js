@@ -11,12 +11,10 @@ angular.module('jupiterApp').controller('nodeCtrl', ['$scope', '$location', '$re
         
         $scope.actAttributes = {};
         for (x in nodeAttributeDictionary) {
-            //console.log("***********************"+x);
             $scope.actAttributes[x] = [];
             for (y in nodeAttributeDictionary[x].attributeGroups) {
                 var attGroupSortIndex=nodeAttributeDictionary[x].attributeGroups[y].sortIndex;
                 for (z in nodeAttributeDictionary[x].attributeGroups[y].attributes) {
-                    //$scope.actAttributes[x].push("" + z + "");
                     var newattSortIndex=attGroupSortIndex+""+nodeAttributeDictionary[x].attributeGroups[y].attributes[z].sortIndex;
                     nodeAttributeDictionary[x].attributeGroups[y].attributes[z].sortIndex=newattSortIndex;
                     $scope.actAttributes[x].push({
@@ -25,11 +23,8 @@ angular.module('jupiterApp').controller('nodeCtrl', ['$scope', '$location', '$re
                         displayLabel:nodeAttributeDictionary[x].attributeGroups[y].attributes[z].displayLabel,                        
                         sortIndex:nodeAttributeDictionary[x].attributeGroups[y].attributes[z].sortIndex
                     });
-                    //for getting attribute names 
-                    // var attname=$filter('unCamelCase')(z);
-                    // //console.log("x="+x+", z=" + attname + ", des="+nodeAttributeDictionary[x].attributeGroups[y].attributes[z].description);
                 }
-            } //$scope.nodeattributes.x
+            } 
         }
 
 
@@ -50,10 +45,8 @@ angular.module('jupiterApp').controller('nodeCtrl', ['$scope', '$location', '$re
             for(i=0;i<data.length;i++)
             {
                $scope.tablength[i]=0;
-               //console.log("1**",data[i].relTypes.length);
                for(j=0;j<data[i].relTypes.length;j++)
                {
-                    //console.log("2",data[i].relTypes[j].nodes.length);
                     $scope.tablength[i]=$scope.tablength[i]+data[i].relTypes[j].nodes.length;
                }
             }
@@ -118,7 +111,6 @@ angular.module('jupiterApp').controller('nodeCtrl', ['$scope', '$location', '$re
                 });
 
                 
-                //console.log(toRet.length,toRet[0].sortIndex);
                 var missingCol=_.difference(groupAttributeKeys,_.pluck(toRet, 'key'));
 
                 _.each(missingCol, function(i) {
@@ -174,22 +166,15 @@ angular.module('jupiterApp').controller('nodeCtrl', ['$scope', '$location', '$re
                 {
                     csvString=csvString+"\""+attrArray[att].displayLabel+"\",\""+attrArray[att].value+"\"\r\n";
                 }
-                //var csvrow=$scope.actAttributes[$scope.labels][att].displayLabel+","+
             }
 
-           // var element = angular.element('<a/>');
-           //       element.attr({
-           //           href: 'data:attachment/csv;charset=utf-8,' + encodeURI(csvString),
-           //           target: '_blank',
-           //           download: 'NodeDetails.csv'
-           //       })[0].click();
+
 
 
             var IEcheck = checkIE();
             console.log(navigator.userAgent);
             if(IEcheck)
             {
-                //console.log(navigator.appVersion);
                 var csvContent=csvString; //here we load our csv data 
                 var blob = new Blob([csvContent],{
                     type: "text/csv;charset=utf-8;"
@@ -199,7 +184,6 @@ angular.module('jupiterApp').controller('nodeCtrl', ['$scope', '$location', '$re
             }
             else
             {
-                //console.log(navigator.appVersion);
                 var hiddenElement = document.createElement('a');
 
                 hiddenElement.href = 'data:attachment/csv,' + encodeURI(csvString);

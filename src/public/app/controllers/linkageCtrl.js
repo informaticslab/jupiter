@@ -2,7 +2,6 @@ angular.module('jupiterApp').controller('linkageCtrl', function($scope, $routePa
 	$scope.$parent.q = 'explore';
     $scope.nodeId = $routeParams.id;
 
-    //console.log("linkageCtrl",$scope.showOrganization);
 
     var node = $resource('/api/node/:id', {
         id: '@id'
@@ -13,7 +12,6 @@ angular.module('jupiterApp').controller('linkageCtrl', function($scope, $routePa
     $scope.node = node.get({
         id: $routeParams.id
     }, function() {
-        //console.log('node name was: ' + $scope.node.name)
         if ($scope.node.name != null)
          {
            siteName = 'Relationships: ' + $scope.node.name;

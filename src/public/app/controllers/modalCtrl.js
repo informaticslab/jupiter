@@ -14,12 +14,6 @@ angular.module('jupiterApp').controller('modalCtrl', function($scope, $modal){
       }
     });
 
-    // modalInstance.result.then(function (selectedItem) {
-    //   $scope.selected = selectedItem;
-    // }, function () {
-    //   $log.info('Modal dismissed at: ' + new Date());
-    // });
-
   };
 
 });
@@ -27,7 +21,6 @@ angular.module('jupiterApp').controller('modalCtrl', function($scope, $modal){
 var ModalInstanceCtrl = function ($scope, $modalInstance, items) {
 
   $scope.ok = function () {
-    // $modalInstance.close($scope.selected.item);
     modalInstance.dismiss('cancel');
   };
 

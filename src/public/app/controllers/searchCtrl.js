@@ -9,7 +9,6 @@ angular.module('jupiterApp').controller('searchCtrl', function($scope, $resource
     $scope.search=[];
     $scope.queryString = $routeParams.query;
     var currentURL = $location.path();
-    //console.log('current URL is ' + currentURL );
 
 
     var searchTimeout =  $timeout(function(){ 
@@ -22,7 +21,6 @@ angular.module('jupiterApp').controller('searchCtrl', function($scope, $resource
     {
 
         pageName = 'Label Search: ' + $routeParams.query;
-        //console.log('\'tis a label search');
         nodes = $resource('/api/node/search/label/:query', {
         query: '@query'
         },{'query': {isArray: false }});
@@ -66,12 +64,10 @@ angular.module('jupiterApp').controller('searchCtrl', function($scope, $resource
     }
 
     $scope.redirectToSearch = function(){
-       //window.location =  '/#/search/' + $scope.queryString;
        $location.path('/search/' + $scope.queryString);
     };
 
     $scope.itemSelected = function($item, $model, $label) {
-        //window.location =  '/#/node/' + $item.id;
         $location.path('/node/' + $item.id);
         $scope.queryString = null;
     };
@@ -110,7 +106,6 @@ angular.module('jupiterApp').controller('searchCtrl', function($scope, $resource
     $timeout(function(){ 
         //timeout to avoid race condition.  Could add a watch, but they don't seem to recognize labelCount status :-/
 
-        //console.log('someone clicked a filter.  Program is currently ' + $scope.checkedLabels.Program);
         //check all checkboxes, if all are unchecked, then reset totalItems count for pagination
             if (!$scope.checkedLabels.Program && !$scope.checkedLabels.SurveillanceSystem && !$scope.checkedLabels.Registry 
                                 && !$scope.checkedLabels.HealthSurvey&& !$scope.checkedLabels.Tool&& !$scope.checkedLabels.Dataset&& !$scope.checkedLabels.DataStandard

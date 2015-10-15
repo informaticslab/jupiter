@@ -6,9 +6,7 @@ angular.module('jupiterApp').controller('uploadCtrl', function($scope, FileUploa
 	});
 
     uploader.onCompleteAll = function() {
-        console.info('onCompleteAll');
         $scope.ok();
-        
     };
 
     $scope.ok = function() {

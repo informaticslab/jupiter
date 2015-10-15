@@ -1,24 +1,22 @@
-angular.module('jupiterApp').controller('dashboardCtrl', function($scope,$resource,$location,$http,$routeParams,$timeout){
+angular.module('jupiterApp').controller('dashboardCtrl', function($scope, $resource, $location, $http, $routeParams, $timeout) {
 
-   	var nodestotal=0;
-   	$scope.hideNodeStatus=false;
-   	$scope.showAll=true;
-   	$scope.showVSTableLoading=true;
-   	$scope.nodedetailspresent=false;
-   	$scope.hideReturnLink=true;
+	var nodestotal = 0;
+	$scope.hideNodeStatus = false;
+	$scope.showAll = true;
+	$scope.showVSTableLoading = true;
+	$scope.nodedetailspresent = false;
+	$scope.hideReturnLink = true;
 
-   	$scope.nodeId = $routeParams.id;
-   	$scope.nodeNm="Overall Summary";
+	$scope.nodeId = $routeParams.id;
+	$scope.nodeNm = "Overall Summary";
 
-   	$scope.nodetype="";
-   	$scope.nodesearch="";
-   	//var nodestotal=0;
-   	//console.log("nodis",$scope.nodeId);
-   	$scope.readytoload=false;
-   	
+	$scope.nodetype = "";
+	$scope.nodesearch = "";
+	$scope.readytoload = false;
 
-	var statsarr={};
-	var validatedarr={};
+
+	var statsarr = {};
+	var validatedarr = {};
 
 	statsarr['Organization'] = 0;
 	statsarr['Program'] = 0;
@@ -42,79 +40,58 @@ angular.module('jupiterApp').controller('dashboardCtrl', function($scope,$resour
 	validatedarr['DataStandard'] = 0;
 	validatedarr['Tag'] = 0;
 
-		if($routeParams.id)
-		{
-			var nodeDetails = $http.get('/api/node/' + $routeParams.id).success(function(data) {
-            //console.log(data.name);
-            $scope.nodeNm=data.name;
-            $scope.hideReturnLink=false;
+	if ($routeParams.id) {
+		var nodeDetails = $http.get('/api/node/' + $routeParams.id).success(function(data) {
+			$scope.nodeNm = data.name;
+			$scope.hideReturnLink = false;
 
-        });
-		}
-	
-getnodestatsdata=function(){
-	var portalstatsnodes = $resource('/api/stats/nodes/'+$scope.nodeId, {
-	});
-
-	var stats = portalstatsnodes.query({
-	},function(result){
-	if (!result.nullset)
-	{
-		result.forEach(function(d) {
-		statsarr[d.label[0]]=d.count;
-		}
-		);
-
-		$scope.statsarr=statsarr;
-
-		//console.log(statsarr);
-
-		$scope.checkcomplete();
-
-		//console.log("1",$scope.validatedarr,$scope.statsarr);
+		});
 	}
 
-	});
+	getnodestatsdata = function() {
+		var portalstatsnodes = $resource('/api/stats/nodes/' + $scope.nodeId, {});
 
-}
+		var stats = portalstatsnodes.query({}, function(result) {
+			if (!result.nullset) {
+				result.forEach(function(d) {
+					statsarr[d.label[0]] = d.count;
+				});
 
-getnodestatsdatavalidated=function(){
-	var portalstatsrelations = $resource('/api/stats/nodesvalidated/'+$scope.nodeId, {
-	});
+				$scope.statsarr = statsarr;
 
-	var stats = portalstatsrelations.query({
-	},function(result){
-	if (!result.nullset)
-	{
-		result.forEach(function(d) {
-		validatedarr[d.label[0]]=d.count;
-		//nodestotal=nodestotal+d.count;
-		}
-		);
-		
-		$scope.validatedarr=validatedarr;
+				$scope.checkcomplete();
 
-		//console.log(validatedarr);
-		$scope.checkcomplete();
+			}
 
-		
-		//console.log("2",$scope.validatedarr,$scope.statsarr);
+		});
 
 	}
 
-	});
+	getnodestatsdatavalidated = function() {
+		var portalstatsrelations = $resource('/api/stats/nodesvalidated/' + $scope.nodeId, {});
 
-}
-	$scope.checkcomplete=function(){
+		var stats = portalstatsrelations.query({}, function(result) {
+			if (!result.nullset) {
+				result.forEach(function(d) {
+					validatedarr[d.label[0]] = d.count;
+				});
 
-		//console.log("checkcomplete");
-		
-		if($scope.validatedarr!=undefined & $scope.statsarr!=undefined)
-		{
-			//console.log("in checkcomplete");
-			//console.log("if checkcomplete");
-			var totvalidatearr={};
-		   	totvalidatearr['Organization'] = 0;
+				$scope.validatedarr = validatedarr;
+
+				$scope.checkcomplete();
+
+			}
+
+		});
+
+	}
+	$scope.checkcomplete = function() {
+
+
+
+		if ($scope.validatedarr != undefined & $scope.statsarr != undefined) {
+			var totvalidatearr = {};
+			totvalidatearr['Organization'] = 0;
 			totvalidatearr['Program'] = 0;
 			totvalidatearr['SurveillanceSystem'] = 0;
 			totvalidatearr['Tool'] = 0;
@@ -124,119 +101,63 @@ getnodestatsdatavalidated=function(){
 			totvalidatearr['Dataset'] = 0;
 			totvalidatearr['DataStandard'] = 0;
 			totvalidatearr['Tag'] = 0;
-			
-			for(d in statsarr)
-			{
-				//console.log(d,statsarr[d],validatedarr[d],totvalidatearr[d]);
-				
-				if(statsarr[d]==0)
-				{
 
+			for (d in statsarr) {
+
+				if (statsarr[d] == 0) {
+
+				} else {
+					totvalidatearr[d] = Math.round(((statsarr[d] - validatedarr[d]) / statsarr[d]) * 100);
 				}
-				else
-				{
-					totvalidatearr[d]=Math.round(((statsarr[d]-validatedarr[d])/statsarr[d])*100);
-				}
-				//console.log("total",d,totvalidatearr[d]);
 			}
 
-			$scope.validatedarr=validatedarr;
-			$scope.totvalidatearr=totvalidatearr;
+			$scope.validatedarr = validatedarr;
+			$scope.totvalidatearr = totvalidatearr;
+			$scope.readytoload = true;
 
-			//$scope.readytoload=false;
-			$scope.readytoload=true;
-			//console.log("3",$scope.statsarr, $scope.validatedarr,$scope.totvalidatearr);
-			//console.log("readytoload",$scope.readytoload);
-			//$timeout(loadvalidaationdata, 800);
-			
-			
 
-			
+
 		}
 	}
 
 
 
-        
+	loadvalidaationdata = function() {
 
+		var validationStatus = $resource('/api/dashboard/validationStatus/' + $scope.nodeId, {});
 
+		var stats = validationStatus.query({}, function(result) {
+			if (!result.nullset) {
 
-	loadvalidaationdata=function(){
+				$scope.validationresults = result;
+				$scope.showVSTableLoading = false;
 
-	var validationStatus = $resource('/api/dashboard/validationStatus/'+$scope.nodeId, {
-	});
+			}
 
-	var stats = validationStatus.query({
-	},function(result){
-	if (!result.nullset)
-	{
-		
-		$scope.validationresults=result;
-		$scope.showVSTableLoading=false;
+		});
+
+		$timeout(getnodestatsdata, 10);
+		$timeout(getnodestatsdatavalidated, 10);
+
 
 	}
 
-	});
+	$scope.itemSelected = function($item, $model, $label) {
+		$scope.nodeId = $item.id;
+		$location.path('/dashboard/' + $scope.nodeId);
+	};
 
-	$timeout(getnodestatsdata, 10);
-	$timeout(getnodestatsdatavalidated, 10);
-	
-
-}
-
-$scope.itemSelected = function($item, $model, $label) {
-        $scope.nodeId = $item.id;
-        //console.log($item);//.nodeId);
-		//console.log($model);
-		//console.log($label);
-        //window.location =  '/#/dashboard/' + $scope.nodeId;
-        $location.path('/dashboard/' + $scope.nodeId);
-        //loaddata($scope.nodeId);
-};
-
-$scope.exporttable= function()
-{
-
-	//console.log('/api/export/csv/' + $scope.nodeId+'/'+'ntype-'+$scope.nodetype+',nname='+$scope.nodesearch+',orderby='+$scope.orderByField+',asc='+$scope.reverse);
-	//console.log($scope.orderByField,$scope.reverse);
-	window.location =  '/api/export/csv/' + $scope.nodeId+'/'+'ntype='+$scope.nodetype+',nname='+$scope.nodesearch+',orderby='+$scope.orderByField+',asc='+$scope.reverse;
-}
+	$scope.exporttable = function() {
+		window.location = '/api/export/csv/' + $scope.nodeId + '/' + 'ntype=' + $scope.nodetype + ',nname=' + $scope.nodesearch + ',orderby=' + $scope.orderByField + ',asc=' + $scope.reverse;
+	}
 
 
-$scope.loadvsdata=function(id){
-	//console.log(id);
-	$location.path('/dashboard/' + id);
-}
+	$scope.loadvsdata = function(id) {
+		$location.path('/dashboard/' + id);
+	}
 
-loadvalidaationdata();
+	loadvalidaationdata();
 
 
-// $scope.fetchvsdetails=function(val){
-
-// 	//console.log(val);
-// 	//var vsdetails = $http.get('/api/dashboard/validationStatusDetails/'+val, {
-// 	return $http.get('/api/dashboard/validationStatusDetails/'+val).then(function(res) {
-//             var nodes = [];
-//             angular.forEach(res.data, function(item) {
-//                 nodes.push(item);
-//             });
-//             $scope.nodedetails=nodes;
-//             $scope.nodedetailspresent=true;
-//             //console.log(nodes);
-//             //return nodes;
-// 	});
-// };
-
-// $scope.getNodes = function(val) {
-//         return $http.get('/api/node/searchSysTreeByName/' + val).then(function(res) {
-//             var nodes = [];
-//             angular.forEach(res.data, function(item) {
-//                 nodes.push(item);
-//             });
-//             return nodes;
-//         });
-//     };
 
 });
-
-

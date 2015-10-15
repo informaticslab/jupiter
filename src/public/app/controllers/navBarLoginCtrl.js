@@ -19,7 +19,6 @@ angular.module('jupiterApp').controller('navBarLoginCtrl',function($scope,$http,
 				$scope.ok();
 
 			} else {
-				//console.log(success);
 				ngNotifier.notifyError('Incorrect Email/Password');
 			}
 		});
@@ -43,17 +42,11 @@ angular.module('jupiterApp').controller('navBarLoginCtrl',function($scope,$http,
 	   	var forceSsl = function () {
 			$window.location.href = $location.absUrl().replace('http','https').replace('8089','4400');
 		 };
-		// console.log($location.protocol()); 
-		// console.log($location.absUrl());
 		var protocol = $location.protocol();
-		//console.log(protocol);
 
 		if($location.protocol() != 'https'){
 			forceSsl();
 		}
-		// else if($location.protocol() == 'https'){
-		// 	$scope.rootCtrl.getPIVinfo();
-		// }
 		
 	}
 
@@ -61,7 +54,6 @@ angular.module('jupiterApp').controller('navBarLoginCtrl',function($scope,$http,
 		ngAuth.logoutUser().then(function() {
 			$scope.email = "";
 			$scope.password = "";
-			// ngNotifier.notify('You have successfully signed out.');
 			if($location.protocol()=='https'){
 				$window.location = $location.absUrl().replace('https','http').replace('4400','8089');
 			}

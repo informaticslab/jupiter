@@ -16,8 +16,6 @@ angular.module('jupiterApp').controller('mainCtrl', function($scope,$resource,$l
 	},function(result){
 	if (!result.nullset)
 	{
-		//$scope.statsarr=result;
-		//console.log(result);
 		result.forEach(function(d) {
 		statsarr[d.label[0]]=d.count;
 		nodestotal=nodestotal+d.count;
@@ -36,7 +34,6 @@ angular.module('jupiterApp').controller('mainCtrl', function($scope,$resource,$l
 	$http.get('/api/mongo/latestChanges').then(function(res) {
 		$scope.latestChanges = res.data;
 		
-		//$scope.latestChanges.crdata.CR_REQUEST_TYPE.toLowerCase();
 		
 	})
 
@@ -149,10 +146,4 @@ angular.module('jupiterApp').controller('mainCtrl', function($scope,$resource,$l
     		eval($scope.goToCarousel3());
 		}
 	}
-	// var site = {
- //          'name':'Home',
- //          'url':$location.absUrl()
- //        }
-	// $scope.$parent.unshiftSiteHistory(site);
-	//console.log($scope.$parent.browseHistory)
 });

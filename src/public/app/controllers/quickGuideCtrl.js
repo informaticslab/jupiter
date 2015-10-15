@@ -1,10 +1,6 @@
 angular.module('jupiterApp').controller('quickGuideCtrl', function($scope, $location, $anchorScroll, $routeParams){
     $scope.$parent.q = 'explore';
 
-	//function for scrolling to the top
-    // $scope.goToTop = function(){
-    // 	$anchorScroll();
-    // }
 
     $scope.goToSection = function(anchorId){
     	
@@ -14,7 +10,6 @@ angular.module('jupiterApp').controller('quickGuideCtrl', function($scope, $loca
     
     $scope.twitterBlurb = encodeURIComponent($location.absUrl());
     var name = 'QuickGuide';
-    //console.log('route params is giving me: '+ $routeParams);
     if ($routeParams.topic!= null)
     {
         name = name + ': ' + $scope.$parent.toCapitalizedWords($routeParams.topic) ;

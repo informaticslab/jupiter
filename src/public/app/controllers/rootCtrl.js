@@ -12,7 +12,6 @@ angular.module('jupiterApp').controller('rootCtrl', function($scope, $http, $loc
        });
     
     $scope.toCapitalizedWords  = function toCapitalizedWords(name) {
-      //var words = name.match(/[A-Za-z][a-z]*/g);
       var words = name.match(/^[a-z]+|[A-Z][a-z]*/g);
       return words.map(capitalize).join(" ");
     };
@@ -22,13 +21,11 @@ angular.module('jupiterApp').controller('rootCtrl', function($scope, $http, $loc
     }
 
     $scope.redirectToSearch = function(){
-       //window.location =  '/#/search/' + $scope.queryString;
        $location.path('/search/' + $scope.queryString);
 
     };
 
     $scope.itemSelected = function($item, $model, $label) {
-        ///window.location =  '/#/node/' + $item.id;
         $location.path('/node/' + $item.id);
         $scope.queryString = null;
     };
@@ -82,16 +79,6 @@ angular.module('jupiterApp').controller('rootCtrl', function($scope, $http, $loc
       $scope.showSidebar = !$scope.showSidebar;
     };
 
-    //  if($scope.identity.isAuthenticated()){
-
-    //   $scope.signInBtn = true;
-    // } else if (!$scope.identity.isAuthenticated()){
-      
-    // $scope.signInBtn = false;
-    // $scope.toggleSignInBtn = function() {
-    //     $scope.signInBtn = $scope.signInBtn === false ? true: false;
-    // };
-    // }
 
     //SITE HISTORY
 
@@ -104,7 +91,6 @@ angular.module('jupiterApp').controller('rootCtrl', function($scope, $http, $loc
 
       if (localStorageService.get('browseHistory') != null)
     {
-      //console.log('browsehistory pull succeeded.  It was: ' + $cookies.browseHistory);
       try
       {
         var browseHistoryJson = angular.fromJson(localStorageService.get('browseHistory'));
@@ -116,19 +102,7 @@ angular.module('jupiterApp').controller('rootCtrl', function($scope, $http, $loc
       {console.log ('BrowseHistory LocalStorage/cookie unparsable, error given was ' + e)}
     }
 
-    // if ($cookies.browseHistory != null)
-    // {
-    //   //console.log('browsehistory pull succeeded.  It was: ' + $cookies.browseHistory);
-    //   try
-    //   {
-    //     var browseHistoryJson = angular.fromJson($cookies.browseHistory);
-    //     if (browseHistoryJson.sites != null && browseHistoryJson.sites[0] != null)
-    //     {
-    //       $scope.browseHistory = browseHistoryJson;
-    //     }
-    //   } catch(e)
-    //   {console.log ('BrowseHistory cookie unparsable, error given was ' + e)}
-    // }
+
 
     
 
@@ -140,7 +114,6 @@ angular.module('jupiterApp').controller('rootCtrl', function($scope, $http, $loc
         if(node.name == $scope.browseHistory.sites[i].name)
         {
           arraymove($scope.browseHistory.sites, i, 0);
-          // console.log ('found a match in the unshift site thingy');
           foundMatch=true;
         }
       }
@@ -152,9 +125,7 @@ angular.module('jupiterApp').controller('rootCtrl', function($scope, $http, $loc
           $scope.browseHistory.sites = $scope.browseHistory.sites.slice(0,29);
         }
       }
-      //$cookies.browseHistory = angular.toJson($scope.browseHistory)
       localStorageService.set('browseHistory', angular.toJson($scope.browseHistory))
-      //console.log('Just saved browse history as ' + angular.toJson($scope.browseHistory))
     }
 
     function arraymove(arr, fromIndex, toIndex) {
@@ -254,12 +225,9 @@ angular.module('jupiterApp').controller('rootCtrl', function($scope, $http, $loc
 
 
   $scope.getPIVinfo = function(){
-     // console.log($scope.identity.isAuthenticated());
-     // console.log('protocol'+ $location.protocol());
     if($location.protocol() == 'https' && !$scope.identity.isAuthenticated()){
      
         ngAuth.autheticateUserPiv().then(function(success){
-        //console.log(success);
         if(success) {
           if($scope.identity.currentUser.isLevelTwo()){
             $location.path('/adminCRQueue');
@@ -277,8 +245,6 @@ angular.module('jupiterApp').controller('rootCtrl', function($scope, $http, $loc
 //
       });
     }
-            // window.location = $location.absUrl().replace('https','http').replace('4400','8089');
-            // console.log($location.absUrl().replace('https','http').replace('4400','8089'));
   }
 
 

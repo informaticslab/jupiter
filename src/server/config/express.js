@@ -20,6 +20,5 @@ module.exports = function(app, config) {
         app.use(passport.initialize());
         app.use(passport.session());
         app.use(morgan('combined', {stream: accessLogStream}));
-       //app.use(morgan('dev'));
     });
 }

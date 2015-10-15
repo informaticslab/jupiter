@@ -18,6 +18,30 @@ exports.authenticate = function(req,res,next){
 };
 
 
+exports.requiresLogin = function(req,res,next) {
+    if(!req.isAuthenticated()){
+        res.redirect('/');
+    } else {
+        next();
+    }
+};
+
+
+exports.requiresRole =function(role) {
+    return function (req,res,next) {
+        if(!req.isAuthenticated() || req.user.roles.indexOf(role) === -1) {
+            res.status(403);
+            res.end(); 
+        } else {
+            next();
+        }
+    }
+};
+
+
+
+//==============================================================================================//
+
 // exports.authenticateFB =  function(req, res, next){
 //         var auth = passport.authenticate('facebook',{ scope : ['email'] },function(err,user){
 //             if(err)
@@ -135,23 +159,4 @@ exports.authenticate = function(req,res,next){
      
 // };
 
-exports.requiresLogin = function(req,res,next) {
-    if(!req.isAuthenticated()){
-        res.redirect('/');
-    } else {
-        next();
-    }
-};
 
-
-exports.requiresRole =function(role) {
-    return function (req,res,next) {
-        if(!req.isAuthenticated() || req.user.roles.indexOf(role) === -1) {
-            res.status(403);
-            res.end();
-            //console.log(role); 
-        } else {
-            next();
-        }
-    }
-};

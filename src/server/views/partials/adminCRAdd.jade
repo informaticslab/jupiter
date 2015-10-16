@@ -55,12 +55,43 @@
 							option(value="")
 								| Select node type
 				.vertical_spacing_less
-				.row(ng-show="showButtons && nodetypeselect=='DataElement'")
+				.row(ng-show="nodetypeselect=='DataElement'")
 					.col-lg-12.col-md-12.col-sm-12
+						.col-lg-12.col-md-12.col-sm-12
+						input(type="text" ng-model="datasetSelected"  placeholder="Enter Dataset" typeahead-on-select="setDataSet($item, $model, $label)" typeahead-min-length='3' typeahead="node.name for node in getNodes($viewValue)" class="form-control")
 						alert
 							a(href="#/adminCRRapidEntry")
 								| click here for rapid entry of data elements
-				.row(ng-show="showButtons")
+				.row(ng-show="showButtons && (nodetypeselect != 'DataElement')")
+					.col-lg-12.col-md-12.col-sm-12
+						.row(ng-show="showButtons ")
+							.col-lg-12.col-md-12.col-sm-12
+								.h1.orange_header_larger
+									//| {{nextNodeID}} 
+									//span(ng-if="cr['name']!=''")
+										| - 
+									| {{cr['name']}}
+						.vertical_spacing_lesser
+						.row(ng-repeat="group in nodeGroups | orderBy:'sortIndex'")
+							.col-lg-12.col-md-12.col-sm-12
+								.orange_header_larger
+									| {{group.heading}}
+									//.vertical_spacing_lesser
+								.row(ng-repeat="node in nodeGroupAttributes[group.heading] | orderBy:'sortIndex'")
+									.col-lg-3.col-md-3.col-sm-3(ng-hide="node.attributeName=='id'")
+										span.cursor-help(ng-if="node.attributeName=='name'" tooltip='{{node.attributes.description}}', tooltip-placement='right') 
+											b
+												| {{node.attributes.displayLabel+'*' | unCamelCase}}
+										span.cursor-help(ng-if="node.attributeName!='name'" tooltip='{{node.attributes.description}}', tooltip-placement='right') 
+											b
+												| {{node.attributes.displayLabel | unCamelCase}}
+									.col-lg-9.col-md-9.col-sm-9(ng-hide="node.attributeName=='id'")
+										.form-group(ng-class="{'has-error':txtid=='name' && highlightMissingTxt && cr['name']==''}")
+											input.form-control(id="{{txtid=node.attributeName}}" type="text" ng-model="cr[txtid]" )
+										.alert.alert-danger(ng-if="highlightMissingTxt && txtid=='name' && cr['name']==''" role="alert")
+											| Name field is required
+										.vertical_spacing_lesser
+				.row(ng-show="showButtons && nodetypeselect == 'DataElement' && dataElementSelectedId !=null")
 					.col-lg-12.col-md-12.col-sm-12
 						.row(ng-show="showButtons")
 							.col-lg-12.col-md-12.col-sm-12
@@ -90,9 +121,9 @@
 											| Name field is required
 										.vertical_spacing_lesser
 				.vertical_spacing_lesser
-				.orange_header_larger(ng-show="showButtons")
+				.orange_header_larger(ng-show="showButtons && (nodetypeselect != 'DataElement')")
 					| Relationships
-				.row(ng-show="showButtons")
+				.row(ng-show="showButtons && nodetypeselect != 'DataElement'")
 					.col-lg-12.col-md-12.col-sm-12
 						table.table.table-striped
 							thead
@@ -123,7 +154,7 @@
 						h5
 							| Add New Relationship
 						.vertical_spacing_less
-				.row(ng-show="showButtons")
+				.row(ng-show="showButtons && nodetypeselect != 'DataElement'")
 					.col-lg-4.col-md-4.col-sm-4
 						input(type="text" ng-disabled="relCheckBox.fromNewNode" ng-model="startnode"  placeholder="From" typeahead-on-select="startNodeSelected($item, $model, $label)" typeahead-min-length='3' typeahead="node.name for node in getNodes($viewValue)" class="form-control")
 						label(ng-if="cr['name']!=''")
@@ -143,7 +174,7 @@
 					.col-lg-1.col-md-1.col-sm-1
 						
 				.vertical_spacing_lesser
-				.row(ng-show="showButtons")
+				.row(ng-show="showButtons && nodetypeselect != 'DataElement'")
 					.col-lg-4.col-md-4.col-sm-4
 						.small
 							| Describe this relationship ({{relnotelength=100-relationshipDescription.length}} 
@@ -162,7 +193,7 @@
 							span.fa.fa-plus-circle
 							|  Add
 				.vertical_spacing_less
-				.row(ng-show="showButtons")
+				.row(ng-show="showButtons && nodetypeselect != 'DataElement'")
 					.col-lg-4.col-md-4.col-sm-4
 						label.btn.btn-default(ng-click="addRel()" ng-disabled="disableAddRelBtn") 
 							span.fa.fa-plus-circle

@@ -27,6 +27,8 @@ angular.module('jupiterApp').controller('adminCRAddCtrl', ['$scope', '$http', '$
         $scope.i = 100;
 
         $scope.highlightMissingTxt = false;
+        $scope.datasetSelected = '';
+
 
 
 
@@ -43,6 +45,10 @@ angular.module('jupiterApp').controller('adminCRAddCtrl', ['$scope', '$http', '$
         function fetchNodeValues() {
 
             $scope.nodeLabel = $scope.nodetypeselect;
+            if ($scope.nodeLabel != 'DataElement') {
+                $scope.dataElementSelectedId = null;
+                $scope.datasetSelected = '';
+            }
             $scope.nodeDictionaryAttributes = $scope.actAttributes[$scope.nodeLabel];
 
             $scope.nodeGroups = [];
@@ -266,6 +272,15 @@ angular.module('jupiterApp').controller('adminCRAddCtrl', ['$scope', '$http', '$
             }
 
         }
+
+
+        $scope.setDataSet = function($item) {
+            
+            // console.log($scope.dataElementSelectedId, $scope.dataElementSelectedName);
+            $scope.dataElementSelectedId = $item.id;
+            $scope.dataElementSelectedName = $item.displayname;
+        };
+
 
     }
 ]);

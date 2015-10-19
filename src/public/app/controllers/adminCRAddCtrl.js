@@ -29,6 +29,10 @@ angular.module('jupiterApp').controller('adminCRAddCtrl', ['$scope', '$http', '$
         $scope.highlightMissingTxt = false;
         $scope.datasetSelected = '';
         $scope.dataSet = {};
+        $scope.undefinedConcept = {
+            'displayname'  : 'undefined',
+            'id'    : 'CN00'
+        }
 
 
 
@@ -133,7 +137,16 @@ angular.module('jupiterApp').controller('adminCRAddCtrl', ['$scope', '$http', '$
 
 
         $scope.postaddcr = function() {
-
+            if ($scope.nodeLabel == 'DataElement') {
+                $scope.addDataElementRel();
+                var deEndNode = {
+                    'displayname'  : $scope.endnode,
+                    'id'    : $scope.endNodeId
+                }
+                setConceptRel(deEndNode,$scope.undefinedConcept,'SHARES_MEANING_WITH');
+                $scope.addDataElementRel();
+                $scope.resetFields();
+            }
 
             if ($scope.cr['name'].trim() == "") {
                 $scope.highlightMissingTxt = true;
@@ -191,7 +204,6 @@ angular.module('jupiterApp').controller('adminCRAddCtrl', ['$scope', '$http', '$
 
 
         $scope.addRel = function() {
-          
             if (($scope.endNodeId == $scope.nextNodeID || $scope.startNodeId == $scope.nextNodeID) && ($scope.endNodeId != "" && $scope.startNodeId != "") && ($scope.relselect != "") && ($scope.relselect != null)) {
 
 
@@ -246,9 +258,7 @@ angular.module('jupiterApp').controller('adminCRAddCtrl', ['$scope', '$http', '$
 
                 $scope.showErrMsg = true;
             }
-             if ($scope.nodeLabel == 'DataElement') {
-                 setConceptRel();
-            }
+           
         }
 
         $scope.setRelValueFrom = function() {
@@ -282,33 +292,100 @@ angular.module('jupiterApp').controller('adminCRAddCtrl', ['$scope', '$http', '$
             // console.log($scope.dataElementSelectedId, $scope.dataElementSelectedName);
             $scope.dataSet['id'] = $item.id;
             $scope.dataSet['displayname'] = $item.displayname;
-            setConceptRel();
+            setDataSetRel($scope.dataSet);
+            $scope.showButtons = true;
+            $scope.crQueueSuccess = false;
+            $scope.cr = {};
+            $scope.endnode = '';
         };
 
         function setDataSetRel(startNode) {
-            $scope.relCheckBox.fromNewNode = false;
             $scope.startNodeSelected(startNode);
             $scope.relselect = "CONTAINS";
             $scope.relCheckBox.toNewNode = true;
             $scope.setRelValueTo();
         }
-        function setConceptRel(startNode) {
-            $scope.relselect = "SHARES_MEANING_WITH";
-            $scope.relCheckBox.fromNewNode = true;
-    //        $scope.startNodeSelected(startNode);
-            
-     
+
+        function setConceptRel(startNode,endNode,relationship) {
+            $scope.startNodeSelected(startNode);
+            $scope.relselect =  relationship;
+            $scope.endNodeSelected(endNode);
         }
 
-        $scope.addDataElementRel = function() {
-            if ($scope.relvalues.length == 0) {
-                setDataSetRel($scope.dataSet);
-                $scope.addRel();
-                $scope.setRelValueFrom();  // reset flag for next relationship insert  only once 
+     $scope.addDataElementRel = function() {
+            if (($scope.endNodeId == $scope.nextNodeID || $scope.startNodeId == $scope.nextNodeID) && ($scope.endNodeId != "" && $scope.startNodeId != "") && ($scope.relselect != "") && ($scope.relselect != null)) {
 
+
+                if ($scope.relationshipDescription == "") {
+                    $scope.relationshipDescription = "n/a";
+                }
+
+                if ($scope.endNodeId == $scope.nodeId || $scope.endNodeId == $scope.nextNodeID) {
+                    $scope.relvalues.push({
+                        aname: $scope.cr.name,
+                        aid: $scope.nextNodeID,
+                        bname: $scope.startnode,
+                        bid: $scope.startNodeId,
+                        relid: $scope.i++,
+                        reltype: $scope.relselect,
+                        startid: $scope.startNodeId,
+                        startname: $scope.startnode,
+                        endid: $scope.endNodeId,
+                        endname: $scope.endnode,
+                        reldesc: $scope.relationshipDescription
+                    });
+                } else {
+                    $scope.relvalues.push({
+                        aname: $scope.cr.name,
+                        aid: $scope.nextNodeID,
+                        bname: $scope.endnode,
+                        bid: $scope.endNodeId,
+                        relid: $scope.i++,
+                        reltype: $scope.relselect,
+                        startid: $scope.startNodeId,
+                        startname: $scope.startnode,
+                        endid: $scope.endNodeId,
+                        endname: $scope.endnode,
+                        reldesc: $scope.relationshipDescription
+                    });
+                }
+
+                // $scope.startnode = "";
+                // $scope.startNodeId = "";
+
+                //$scope.endnode = "";
+                //$scope.endNodeId = "";
+
+                // $scope.relselect = "";
+
+                $scope.relationshipDescription = "";
+              //  $scope.relCheckBox.fromNewNode = false;
+              //  $scope.relCheckBox.toNewNode = false;
+                $scope.showErrMsg = false;
+
+            } else {
+
+                $scope.showErrMsg = true;
             }
-                $scope.addRel();
+           
         }
 
+        $scope.resetFields = function() {
+
+            $scope.datasetSelected = '';
+            $scope.dataSet = {};        
+            $scope.startnode = "";
+            $scope.startNodeId = "";
+
+            $scope.endnode = "";
+            $scope.endNodeId = "";
+
+            $scope.relselect = "";
+
+            $scope.relationshipDescription = "";
+            $scope.relCheckBox.fromNewNode = false;
+            $scope.relCheckBox.toNewNode = false;
+
+        }
     }
 ]);

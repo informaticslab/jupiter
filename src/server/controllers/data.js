@@ -27,7 +27,7 @@ exports.upload = function(req, res) {
 				var headers = data[0];
 				var ts = Math.round((new Date()).getTime() / 1000);
 
-				var matchClause = 'match (a:Dataset) where a.id="' + nodeId + '"';
+				var matchClause = 'match (a:Dataset),(b:Concept) where a.id="' + nodeId + '" AND b.id = "CN00"';
 				var createPattern = '';
 				var builtQuery = '';
 				var elementQueryId = '';
@@ -37,9 +37,9 @@ exports.upload = function(req, res) {
 					var elementId = 'DE' + nodeId + ts + (i + 1);
 					var elementQueryId = headers[i].charAt(0) + i;
 					if ((i + 1) === headers.length) {
-						createPattern = '(' + elementQueryId + ':DataElement{name:"' + headers[i] + '", id:"' + elementId + '"})<-[:CONTAINS{`relationshipDescription`:"N/A"}]-(a) ';
+						createPattern = '(' + elementQueryId + ':DataElement{name:"' + headers[i] + '", id:"' + elementId + '"})<-[:CONTAINS{`relationshipDescription`:"N/A"}]-(a), ('+ elementQueryId +')-[:SHARES_MEANING_WITH]->(b)';
 					} else {
-						createPattern = '(' + elementQueryId + ':DataElement{name:"' + headers[i] + '", id:"' + elementId + '"})<-[:CONTAINS{`relationshipDescription`:"N/A"}]-(a), ';
+						createPattern = '(' + elementQueryId + ':DataElement{name:"' + headers[i] + '", id:"' + elementId + '"})<-[:CONTAINS{`relationshipDescription`:"N/A"}]-(a), ('+ elementQueryId +')-[:SHARES_MEANING_WITH]->(b),';
 					}
 
 					builtQuery = builtQuery + createPattern;

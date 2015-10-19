@@ -275,7 +275,8 @@ exports.getNodeById = function(req, res) {
 
 exports.searchByName = function(req, res) {
     var searchTerm = req.params.searchTerm.toLowerCase();
-    var query = 'MATCH n WHERE lower(n.name)=~".*' + searchTerm + '.*" or lower(n.shortName)=~".*' + searchTerm + '.*" RETURN distinct n.id as id, n.name as name, n.shortName as shortname';
+    //var query = 'MATCH n WHERE lower(n.name)=~".*' + searchTerm + '.*" or lower(n.shortName)=~".*' + searchTerm + '.*" RETURN distinct n.id as id, n.name as name, n.shortName as shortname';
+    var query = 'MATCH n WHERE lower(n.name)=~".*' + searchTerm + '.*" or lower(n.shortName)=~".*' + searchTerm + '.*" or lower(n.id) =~".*' + searchTerm + '.*" RETURN distinct n.id as id, n.name + " (" + (n.id) + ")" as name, n.shortName as shortname';
     var params = {
         searchTerm: req.params.searchTerm
     };

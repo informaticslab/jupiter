@@ -2148,9 +2148,14 @@ exports.postApproveCR = function(req, res) {
                 var idnum = parseInt(idnumstring[0]);
                 idnum++;
                 idnew = idalphanum.replace(/\d*$/, idnum.toString());
+                console.log('MongoData ', mongodata);
+                if (mongodata.CR_NODE_TYPE == 'DataElement') {  // override id generation logic for data element here.  searching for dataset id
 
-                mongodata.id = idnew;
-
+                    mongodata.id = 'DE' + mongodata.dsetid + new Date().getTime() + '1';
+                }
+                else {
+                   mongodata.id = idnew;
+                }
 
                 var query = 'create (n:`' + mongodata.CR_NODE_TYPE + '`{params})';
                 var params = {

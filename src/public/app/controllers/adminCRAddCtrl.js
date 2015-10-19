@@ -137,6 +137,7 @@ angular.module('jupiterApp').controller('adminCRAddCtrl', ['$scope', '$http', '$
 
 
         $scope.postaddcr = function() {
+            var dsetid = $scope.dataSet.id;
             if ($scope.nodeLabel == 'DataElement') {
                 $scope.addDataElementRel();
                 var deEndNode = {
@@ -168,6 +169,10 @@ angular.module('jupiterApp').controller('adminCRAddCtrl', ['$scope', '$http', '$
                 $scope.cr['CR_DATE_EXECUTED'] = "";
 
                 $scope.cr['id'] = $scope.nextNodeID;
+                // set dataset id for data element
+                if ($scope.nodeLabel == 'DataElement') {
+                    $scope.cr['dsetid'] = dsetid;
+                }
                 var datapacket = {};
                 datapacket['attr'] = $scope.cr;
                 datapacket['rels'] = $scope.relvalues;

@@ -66,7 +66,7 @@
 				.vertical_spacing_less
 				.row(ng-if="showAddDataElement")
 					.col-lg-12.col-md-12.col-sm-12
-						table.table.table-striped
+						table.table
 							thead
 								tr
 									th(ng-repeat='colHeader in colHeaders'  ng-if="colHeader!='id' && colHeader!='cid'")
@@ -78,7 +78,7 @@
 									td(ng-repeat='colHeader in colHeaders' ng-mouseenter="hover = true" ng-mouseleave="hover = false" ng-if="colHeader!='id' && colHeader!='cid'" )
 										input(ng-if='colHeader != "cui" && colHeader != "concept"' type="text" ng-model="row[colHeader]"  class="form-control" ng-change="deFieldChanged(rowIdx,$index)")
 										input(ng-if='colHeader == "cui"' readonly='true' type="text" ng-model="row[colHeader]"  class="form-control")
-										input(ng-if='colHeader == "concept"' type="text" ng-model="row[colHeader]" typeahead-on-select="setConcept($item, $model, $label,rowIdx)" typeahead-min-length='1' typeahead="node.name for node in getConceptNodes($viewValue)" class="form-control")
+										input(ng-if='colHeader == "concept"' type="text" ng-model="row[colHeader]" typeahead-on-select="setConcept($item, $model, $label,rowIdx)" typeahead-min-length='1' typeahead="node.name for node in getConceptNodes($viewValue)" ng-change="resetConcept($item,rowIdx)" class="form-control")
 									td(style="text-align: right;")
 										label.btn.btn-succes.btn-xs(style="color: blue;font-size: 1.5em;"  ng-click="saveDataElmRow(rowIdx)" ng-show='row.changed')
 											i.fa.fa-floppy-o
@@ -108,7 +108,7 @@
 							span.fa.fa-plus-circle
 							|  Add Data Element
 				.vertical_spacing_less
-				.row(ng-if="showAddDataElement")
+				//.row(ng-if="showAddDataElement")
 					.col-lg-12.col-md-12.col-sm-12
 						.orange_header_larger
 							| Save

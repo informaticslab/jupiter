@@ -55,132 +55,253 @@
 							option(value="")
 								| Select node type
 				.vertical_spacing_less
-				.row(ng-show="showButtons && nodetypeselect=='DataElement'")
+				.row(ng-show="nodetypeselect=='DataElement'")
 					.col-lg-12.col-md-12.col-sm-12
+						.col-lg-12.col-md-12.col-sm-12
+						input(type="text" ng-model="datasetSelected"  placeholder="Enter Dataset" typeahead-on-select="setDataSet($item, $model, $label)" typeahead-min-length='3' typeahead="node.name for node in getNodes($viewValue)" class="form-control")
 						alert
 							a(href="#/adminCRRapidEntry")
 								| click here for rapid entry of data elements
-				.row(ng-show="showButtons")
-					.col-lg-12.col-md-12.col-sm-12
-						.row(ng-show="showButtons")
-							.col-lg-12.col-md-12.col-sm-12
-								.h1.orange_header_larger
-									//| {{nextNodeID}} 
-									//span(ng-if="cr['name']!=''")
-										| - 
-									| {{cr['name']}}
-						.vertical_spacing_lesser
-						.row(ng-repeat="group in nodeGroups | orderBy:'sortIndex'")
-							.col-lg-12.col-md-12.col-sm-12
-								.orange_header_larger
-									| {{group.heading}}
-									//.vertical_spacing_lesser
-								.row(ng-repeat="node in nodeGroupAttributes[group.heading] | orderBy:'sortIndex'")
-									.col-lg-3.col-md-3.col-sm-3(ng-hide="node.attributeName=='id'")
-										span.cursor-help(ng-if="node.attributeName=='name'" tooltip='{{node.attributes.description}}', tooltip-placement='right') 
-											b
-												| {{node.attributes.displayLabel+'*' | unCamelCase}}
-										span.cursor-help(ng-if="node.attributeName!='name'" tooltip='{{node.attributes.description}}', tooltip-placement='right') 
-											b
-												| {{node.attributes.displayLabel | unCamelCase}}
-									.col-lg-9.col-md-9.col-sm-9(ng-hide="node.attributeName=='id'")
-										.form-group(ng-class="{'has-error':txtid=='name' && highlightMissingTxt && cr['name']==''}")
-											input.form-control(id="{{txtid=node.attributeName}}" type="text" ng-model="cr[txtid]" )
-										.alert.alert-danger(ng-if="highlightMissingTxt && txtid=='name' && cr['name']==''" role="alert")
-											| Name field is required
-										.vertical_spacing_lesser
-				.vertical_spacing_lesser
-				.orange_header_larger(ng-show="showButtons")
-					| Relationships
-				.row(ng-show="showButtons")
-					.col-lg-12.col-md-12.col-sm-12
-						table.table.table-striped
-							thead
-								tr
-									th.col-lg-4.col-md-4.col-sm-4
-										| From Node
-									th.col-lg-3.col-md-3.col-sm-3
-										| Relationship Type
-									th.col-lg-4.col-md-4.col-sm-4
-										| To Node
-									th.col-lg-1.col-md-1.col-sm-1
-										| 
-							tbody
-								tr(ng-repeat="relrow in relvalues" ng-mouseenter="hover = true" ng-mouseleave="hover = false")
-									td
-										| {{relrow.startname | TitleCase }} 
-									td
-										| {{relrow.reltype | TitleCase | unCamelCase}}
-										br
-										.small(ng-if="relrow.reldesc!='undefined'")
-											| ({{relrow.reldesc}})
-									td
-										| {{relrow.endname | TitleCase}}
-									td(style="text-align: right;")
-										label.btn.btn-default.btn-xs(ng-show="hover" ng-click="open(relrow.relid)")
-											i.fa.fa-times
-						.vertical_spacing_more
-						h5
-							| Add New Relationship
-						.vertical_spacing_less
-				.row(ng-show="showButtons")
-					.col-lg-4.col-md-4.col-sm-4
-						input(type="text" ng-disabled="relCheckBox.fromNewNode" ng-model="startnode"  placeholder="From" typeahead-on-select="startNodeSelected($item, $model, $label)" typeahead-min-length='3' typeahead="node.name for node in getNodes($viewValue)" class="form-control")
-						label(ng-if="cr['name']!=''")
+				div(ng-if="nodetypeselect != 'DataElement' ")
+					.row(ng-show="showButtons")
+						.col-lg-12.col-md-12.col-sm-12
+							.row(ng-show="showButtons")
+								.col-lg-12.col-md-12.col-sm-12
+									.h1.orange_header_larger
+										//| {{nextNodeID}} 
+										//span(ng-if="cr['name']!=''")
+											| - 
+										| {{cr['name']}}
+							.vertical_spacing_lesser
+							.row(ng-repeat="group in nodeGroups | orderBy:'sortIndex'")
+								.col-lg-12.col-md-12.col-sm-12
+									.orange_header_larger
+										| {{group.heading}}
+										//.vertical_spacing_lesser
+									.row(ng-repeat="node in nodeGroupAttributes[group.heading] | orderBy:'sortIndex'")
+										.col-lg-3.col-md-3.col-sm-3(ng-hide="node.attributeName=='id'")
+											span.cursor-help(ng-if="node.attributeName=='name'" tooltip='{{node.attributes.description}}', tooltip-placement='right') 
+												b
+													| {{node.attributes.displayLabel+'*' | unCamelCase}}
+											span.cursor-help(ng-if="node.attributeName!='name'" tooltip='{{node.attributes.description}}', tooltip-placement='right') 
+												b
+													| {{node.attributes.displayLabel | unCamelCase}}
+										.col-lg-9.col-md-9.col-sm-9(ng-hide="node.attributeName=='id'")
+											.form-group(ng-class="{'has-error':txtid=='name' && highlightMissingTxt && cr['name']==''}")
+												input.form-control(id="{{txtid=node.attributeName}}" type="text" ng-model="cr[txtid]" )
+											.alert.alert-danger(ng-if="highlightMissingTxt && txtid=='name' && cr['name']==''" role="alert")
+												| Name field is required
+											.vertical_spacing_lesser
+					.vertical_spacing_lesser
+					.orange_header_larger(ng-show="showButtons")
+						| Relationships
+					.row(ng-show="showButtons")
+						.col-lg-12.col-md-12.col-sm-12
+							table.table.table-striped
+								thead
+									tr
+										th.col-lg-4.col-md-4.col-sm-4
+											| From Node
+										th.col-lg-3.col-md-3.col-sm-3
+											| Relationship Type
+										th.col-lg-4.col-md-4.col-sm-4
+											| To Node
+										th.col-lg-1.col-md-1.col-sm-1
+											| 
+								tbody
+									tr(ng-repeat="relrow in relvalues" ng-mouseenter="hover = true" ng-mouseleave="hover = false")
+										td
+											| {{relrow.startname | TitleCase }} 
+										td
+											| {{relrow.reltype | TitleCase | unCamelCase}}
+											br
+											.small(ng-if="relrow.reldesc!='undefined'")
+												| ({{relrow.reldesc}})
+										td
+											| {{relrow.endname | TitleCase}}
+										td(style="text-align: right;")
+											label.btn.btn-default.btn-xs(ng-show="hover" ng-click="open(relrow.relid)")
+												i.fa.fa-times
+							.vertical_spacing_more
+							h5
+								| Add New Relationship
+							.vertical_spacing_less
+					.row(ng-show="showButtons")
+						.col-lg-4.col-md-4.col-sm-4
+							input(type="text" ng-disabled="relCheckBox.fromNewNode" ng-model="startnode"  placeholder="From" typeahead-on-select="startNodeSelected($item, $model, $label)" typeahead-min-length='3' typeahead="node.name for node in getNodes($viewValue)" class="form-control")
+							label(ng-if="cr['name']!=''")
+								.small
+									input(type="checkbox" ng-model="relCheckBox.fromNewNode" ng-change="setRelValueFrom()")
+									|  Mark if this node is '{{cr['name']}}'
+						.col-lg-3.col-md-3.col-sm-3
+							select.form-control(ng-model="relselect" ng-options="opt as (opt | TitleCase | unCamelCase) for opt in relValues")
+								option(value="")
+									| Select relationship type
+						.col-lg-4.col-md-4.col-sm-4
+							input(type="text" ng-disabled="relCheckBox.toNewNode" ng-model="endnode"  placeholder="To" typeahead-on-select="endNodeSelected($item, $model, $label)" typeahead-min-length='3' typeahead="node.name for node in getNodes($viewValue)" class="form-control")
+							label(ng-if="cr['name']!=''")
+								.small
+									input(type="checkbox" ng-model="relCheckBox.toNewNode" ng-change="setRelValueTo()")
+									|  Mark if this node is '{{cr['name']}}'
+						.col-lg-1.col-md-1.col-sm-1
+							
+					.vertical_spacing_lesser
+					.row(ng-show="showButtons")
+						.col-lg-4.col-md-4.col-sm-4
 							.small
-								input(type="checkbox" ng-model="relCheckBox.fromNewNode" ng-change="setRelValueFrom()")
-								|  Mark if this node is '{{cr['name']}}'
-					.col-lg-3.col-md-3.col-sm-3
-						select.form-control(ng-model="relselect" ng-options="opt as (opt | TitleCase | unCamelCase) for opt in relValues")
-							option(value="")
-								| Select relationship type
-					.col-lg-4.col-md-4.col-sm-4
-						input(type="text" ng-disabled="relCheckBox.toNewNode" ng-model="endnode"  placeholder="To" typeahead-on-select="endNodeSelected($item, $model, $label)" typeahead-min-length='3' typeahead="node.name for node in getNodes($viewValue)" class="form-control")
-						label(ng-if="cr['name']!=''")
+								| Describe this relationship ({{relnotelength=100-relationshipDescription.length}} 
+								span(ng-if="relnotelength!=1")
+									| characters left)
+								span(ng-if="relnotelength==1")
+									| character left)
+							input.form-control(type="text" maxlength="100" ng-model="relationshipDescription")
+							//input(type="text" ng-model="startnode"  placeholder="From" typeahead-on-select="startNodeSelected($item, $model, $label)" typeahead-min-length='3' typeahead="node.name for node in getNodes($viewValue)" class="form-control")
+						.col-lg-3.col-md-3.col-sm-3
+							
+						.col-lg-4.col-md-4.col-sm-4
+							//input(type="text" ng-model="endnode"  placeholder="To" typeahead-on-select="endNodeSelected($item, $model, $label)" typeahead-min-length='3' typeahead="node.name for node in getNodes($viewValue)" class="form-control")
+						.col-lg-1.col-md-1.col-sm-1
+							//label.btn.btn-default(ng-click="addRel()" ng-disabled="disableAddRelBtn") 
+								span.fa.fa-plus-circle
+								|  Add
+					.vertical_spacing_less
+					.row(ng-show="showButtons")
+						.col-lg-4.col-md-4.col-sm-4
+							label.btn.btn-default(ng-click="addRel()" ng-disabled="disableAddRelBtn") 
+								span.fa.fa-plus-circle
+								|  Add Relationship
+						.col-lg-3.col-md-3.col-sm-3
+							
+						.col-lg-4.col-md-4.col-sm-4
+							//input(type="text" ng-model="endnode"  placeholder="To" typeahead-on-select="endNodeSelected($item, $model, $label)" typeahead-min-length='3' typeahead="node.name for node in getNodes($viewValue)" class="form-control")
+						.col-lg-1.col-md-1.col-sm-1
+					.row(role="alert" ng-show="showErrMsg")
+						.col-lg-12.col-md-12.col-sm-12
+							.alert.alert-warning.alert-dismissible(role="alert")
+								strong
+									| Error
+								|  'From', 'To' and 'Relationship Type' fields should be selected, and either 'From' or 'To' field should be equal to '{{node}}'.
+				div(ng-if="nodetypeselect == 'DataElement' ")
+					.row(ng-show="showButtons && dataSet.id != null")
+						.col-lg-12.col-md-12.col-sm-12
+							.row(ng-show="showButtons")
+								.col-lg-12.col-md-12.col-sm-12
+									.h1.orange_header_larger
+										//| {{nextNodeID}} 
+										//span(ng-if="cr['name']!=''")
+											| - 
+										| {{cr['name']}}
+							.vertical_spacing_lesser
+							.row(ng-repeat="group in nodeGroups | orderBy:'sortIndex'")
+								.col-lg-12.col-md-12.col-sm-12
+									.orange_header_larger
+										| {{group.heading}}
+										//.vertical_spacing_lesser
+									.row(ng-repeat="node in nodeGroupAttributes[group.heading] | orderBy:'sortIndex'")
+										.col-lg-3.col-md-3.col-sm-3(ng-hide="node.attributeName=='id'")
+											span.cursor-help(ng-if="node.attributeName=='name'" tooltip='{{node.attributes.description}}', tooltip-placement='right') 
+												b
+													| {{node.attributes.displayLabel+'*' | unCamelCase}}
+											span.cursor-help(ng-if="node.attributeName!='name'" tooltip='{{node.attributes.description}}', tooltip-placement='right') 
+												b
+													| {{node.attributes.displayLabel | unCamelCase}}
+										.col-lg-9.col-md-9.col-sm-9(ng-hide="node.attributeName=='id'")
+											.form-group(ng-class="{'has-error':txtid=='name' && highlightMissingTxt && cr['name']==''}")
+												input.form-control(id="{{txtid=node.attributeName}}" type="text" ng-model="cr[txtid]"  ng-change="setRelValueTo();setRelValueFrom()")
+											.alert.alert-danger(ng-if="highlightMissingTxt && txtid=='name' && cr['name']==''" role="alert")
+												| Name field is required
+											.vertical_spacing_lesser
+					.vertical_spacing_lesser
+					.orange_header_larger(ng-show="showButtons && dataSet.id != null && cr['name'] != '' ")
+						| Relationships
+					.row(ng-show="showButtons && dataSet.id != null")
+						.col-lg-12.col-md-12.col-sm-12
+							table.table.table-striped
+								thead
+									tr
+										th.col-lg-4.col-md-4.col-sm-4
+											| From Node
+										th.col-lg-3.col-md-3.col-sm-3
+											| Relationship Type
+										th.col-lg-4.col-md-4.col-sm-4
+											| To Node
+										th.col-lg-1.col-md-1.col-sm-1
+											| 
+								tbody
+									tr(ng-repeat="relrow in relvalues" ng-mouseenter="hover = true" ng-mouseleave="hover = false")
+										td
+											| {{relrow.startname | TitleCase }} 
+										td
+											| {{relrow.reltype | TitleCase | unCamelCase}}
+											br
+											.small(ng-if="relrow.reldesc!='undefined'")
+												| ({{relrow.reldesc}})
+										td
+											| {{relrow.endname | TitleCase}}
+										td(style="text-align: right;")
+											label.btn.btn-default.btn-xs(ng-show="hover" ng-click="open(relrow.relid)")
+												i.fa.fa-times
+							.vertical_spacing_more
+							h5
+								| Add New Relationship
+							.vertical_spacing_less
+					.row(ng-show="showButtons && dataSet.id != null ")
+						.col-lg-4.col-md-4.col-sm-4
+							input(type="text" ng-disabled="relCheckBox.fromNewNode" ng-model="startnode"  placeholder="From" typeahead-on-select="startNodeSelected($item, $model, $label)" typeahead-min-length='3' typeahead="node.name for node in getNodes($viewValue)" class="form-control" ng-readonly='true')
+							label(ng-if="cr['name']!=''")
+								.small
+									input(type="checkbox" ng-model="relCheckBox.fromNewNode" ng-change="setRelValueFrom()" ng-disabled= 'true')
+									|  Mark if this node is '{{cr['name']}}'
+						.col-lg-3.col-md-3.col-sm-3
+							select.form-control(ng-model="relselect" ng-options="opt as (opt  | TitleCase | unCamelCase) for opt in relValues | excludeOptions:'CONTAINS'")
+								option(value="")
+									| Select relationship type
+						.col-lg-4.col-md-4.col-sm-4
+							input(type="text" ng-disabled="relCheckBox.toNewNode" ng-model="endnode"  placeholder="To" typeahead-on-select="endNodeSelected($item, $model, $label)" typeahead-min-length='3' typeahead="node.name for node in getNodes($viewValue)" class="form-control")
+							label(ng-if="cr['name']!=''")
+								.small
+									input(type="checkbox" ng-model="relCheckBox.toNewNode" ng-change="setRelValueTo()" ng-disabled='true')
+									|  Mark if this node is '{{cr['name']}}'
+						.col-lg-1.col-md-1.col-sm-1		
+							
+					.vertical_spacing_lesser
+					//.row(ng-show="showButtons && dataSet.id != null")
+						.col-lg-4.col-md-4.col-sm-4
 							.small
-								input(type="checkbox" ng-model="relCheckBox.toNewNode" ng-change="setRelValueTo()")
-								|  Mark if this node is '{{cr['name']}}'
-					.col-lg-1.col-md-1.col-sm-1
-						
-				.vertical_spacing_lesser
-				.row(ng-show="showButtons")
-					.col-lg-4.col-md-4.col-sm-4
-						.small
-							| Describe this relationship ({{relnotelength=100-relationshipDescription.length}} 
-							span(ng-if="relnotelength!=1")
-								| characters left)
-							span(ng-if="relnotelength==1")
-								| character left)
-						input.form-control(type="text" maxlength="100" ng-model="relationshipDescription")
-						//input(type="text" ng-model="startnode"  placeholder="From" typeahead-on-select="startNodeSelected($item, $model, $label)" typeahead-min-length='3' typeahead="node.name for node in getNodes($viewValue)" class="form-control")
-					.col-lg-3.col-md-3.col-sm-3
-						
-					.col-lg-4.col-md-4.col-sm-4
-						//input(type="text" ng-model="endnode"  placeholder="To" typeahead-on-select="endNodeSelected($item, $model, $label)" typeahead-min-length='3' typeahead="node.name for node in getNodes($viewValue)" class="form-control")
-					.col-lg-1.col-md-1.col-sm-1
-						//label.btn.btn-default(ng-click="addRel()" ng-disabled="disableAddRelBtn") 
-							span.fa.fa-plus-circle
-							|  Add
-				.vertical_spacing_less
-				.row(ng-show="showButtons")
-					.col-lg-4.col-md-4.col-sm-4
-						label.btn.btn-default(ng-click="addRel()" ng-disabled="disableAddRelBtn") 
-							span.fa.fa-plus-circle
-							|  Add Relationship
-					.col-lg-3.col-md-3.col-sm-3
-						
-					.col-lg-4.col-md-4.col-sm-4
-						//input(type="text" ng-model="endnode"  placeholder="To" typeahead-on-select="endNodeSelected($item, $model, $label)" typeahead-min-length='3' typeahead="node.name for node in getNodes($viewValue)" class="form-control")
-					.col-lg-1.col-md-1.col-sm-1
-				.row(role="alert" ng-show="showErrMsg")
-					.col-lg-12.col-md-12.col-sm-12
-						.alert.alert-warning.alert-dismissible(role="alert")
-							strong
-								| Error
-							|  'From', 'To' and 'Relationship Type' fields should be selected, and either 'From' or 'To' field should be equal to '{{node}}'.
-
-				hr(ng-show="showButtons")
-				.row(ng-show="showButtons")
+								| Describe this relationship ({{relnotelength=100-relationshipDescription.length}} 
+								span(ng-if="relnotelength!=1")
+									| characters left)
+								span(ng-if="relnotelength==1")
+									| character left)
+							input.form-control(type="text" maxlength="100" ng-model="relationshipDescription")
+							//input(type="text" ng-model="startnode"  placeholder="From" typeahead-on-select="startNodeSelected($item, $model, $label)" typeahead-min-length='3' typeahead="node.name for node in getNodes($viewValue)" class="form-control")
+						.col-lg-3.col-md-3.col-sm-3
+							
+						.col-lg-4.col-md-4.col-sm-4
+							//input(type="text" ng-model="endnode"  placeholder="To" typeahead-on-select="endNodeSelected($item, $model, $label)" typeahead-min-length='3' typeahead="node.name for node in getNodes($viewValue)" class="form-control")
+						.col-lg-1.col-md-1.col-sm-1
+							//label.btn.btn-default(ng-click="addRel()" ng-disabled="disableAddRelBtn") 
+								span.fa.fa-plus-circle
+								|  Add
+					.vertical_spacing_less
+					.row(ng-show="showButtons && cr['name'] !=''")
+						.col-lg-4.col-md-4.col-sm-4
+							label.btn.btn-default(ng-click="addDataElementRel()") 
+								span.fa.fa-plus-circle
+								|  Add Relationship
+						.col-lg-3.col-md-3.col-sm-3
+							
+						.col-lg-4.col-md-4.col-sm-4
+							//input(type="text" ng-model="endnode"  placeholder="To" typeahead-on-select="endNodeSelected($item, $model, $label)" typeahead-min-length='3' typeahead="node.name for node in getNodes($viewValue)" class="form-control")
+						.col-lg-1.col-md-1.col-sm-1
+					.row(role="alert" ng-show="showErrMsg")
+						.col-lg-12.col-md-12.col-sm-12
+							.alert.alert-warning.alert-dismissible(role="alert")
+								strong
+									| Error
+								|  'From', 'To' and 'Relationship Type' fields should be selected, and either 'From' or 'To' field should be equal to '{{node}}'.
+				hr(ng-show="showButtons && dataSet.id != null")
+				.row(ng-show="showButtons && dataSet.id != null")
 					.col-lg-12.col-md-12.col-sm-12
 						.orange_header_larger
 							| Submit

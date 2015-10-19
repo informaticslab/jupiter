@@ -125,5 +125,11 @@ angular.module('jupiterApp').controller('adminCRRapidEntryCtrl', ['$scope', '$ht
             $scope.oneDataElement['cui'] = $item.cui;
             $scope.oneDataElement.cid = $item.id;
         }
+
+        $scope.resetConcept = function($item,index) {
+            $scope.dataElementsArray[index].cid = null;
+            $scope.dataElementsArray[index].cui = null;
+            $scope.dataElementsArray[index].changed = true;
+        }
     }
 ]);

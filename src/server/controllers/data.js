@@ -37,9 +37,9 @@ exports.upload = function(req, res) {
 					var elementId = 'DE' + nodeId + ts + (i + 1);
 					var elementQueryId = headers[i].charAt(0) + i;
 					if ((i + 1) === headers.length) {
-						createPattern = '(' + elementQueryId + ':DataElement{name:"' + headers[i] + '", id:"' + elementId + '"})<-[:CONTAINS{`relationshipDescription`:"N/A"}]-(a), ('+ elementQueryId +')-[:SHARES_MEANING_WITH]->(b)';
+						createPattern = '(' + elementQueryId + ':DataElement{name:"' + headers[i] + '", id:"' + elementId + '"})<-[:CONTAINS{`relationshipDescription`:"N/A"}]-(a), ('+ elementQueryId +')-[:SHARES_MEANING_WITH{`relationshipDescription`:"N/A"}]->(b)';
 					} else {
-						createPattern = '(' + elementQueryId + ':DataElement{name:"' + headers[i] + '", id:"' + elementId + '"})<-[:CONTAINS{`relationshipDescription`:"N/A"}]-(a), ('+ elementQueryId +')-[:SHARES_MEANING_WITH]->(b),';
+						createPattern = '(' + elementQueryId + ':DataElement{name:"' + headers[i] + '", id:"' + elementId + '"})<-[:CONTAINS{`relationshipDescription`:"N/A"}]-(a), ('+ elementQueryId +')-[:SHARES_MEANING_WITH{`relationshipDescription`:"N/A"}]->(b),';
 					}
 
 					builtQuery = builtQuery + createPattern;

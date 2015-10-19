@@ -28,6 +28,7 @@ angular.module('jupiterApp').controller('adminCRAddCtrl', ['$scope', '$http', '$
 
         $scope.highlightMissingTxt = false;
         $scope.datasetSelected = '';
+        $scope.dataSet = {};
 
 
 
@@ -46,7 +47,7 @@ angular.module('jupiterApp').controller('adminCRAddCtrl', ['$scope', '$http', '$
 
             $scope.nodeLabel = $scope.nodetypeselect;
             if ($scope.nodeLabel != 'DataElement') {
-                $scope.dataElementSelectedId = null;
+                $scope.dataSet = {};
                 $scope.datasetSelected = '';
             }
             $scope.nodeDictionaryAttributes = $scope.actAttributes[$scope.nodeLabel];
@@ -190,7 +191,7 @@ angular.module('jupiterApp').controller('adminCRAddCtrl', ['$scope', '$http', '$
 
 
         $scope.addRel = function() {
-
+          
             if (($scope.endNodeId == $scope.nextNodeID || $scope.startNodeId == $scope.nextNodeID) && ($scope.endNodeId != "" && $scope.startNodeId != "") && ($scope.relselect != "") && ($scope.relselect != null)) {
 
 
@@ -245,7 +246,9 @@ angular.module('jupiterApp').controller('adminCRAddCtrl', ['$scope', '$http', '$
 
                 $scope.showErrMsg = true;
             }
-
+             if ($scope.nodeLabel == 'DataElement') {
+                 setConceptRel();
+            }
         }
 
         $scope.setRelValueFrom = function() {
@@ -277,10 +280,35 @@ angular.module('jupiterApp').controller('adminCRAddCtrl', ['$scope', '$http', '$
         $scope.setDataSet = function($item) {
             
             // console.log($scope.dataElementSelectedId, $scope.dataElementSelectedName);
-            $scope.dataElementSelectedId = $item.id;
-            $scope.dataElementSelectedName = $item.displayname;
+            $scope.dataSet['id'] = $item.id;
+            $scope.dataSet['displayname'] = $item.displayname;
+            setConceptRel();
         };
 
+        function setDataSetRel(startNode) {
+            $scope.relCheckBox.fromNewNode = false;
+            $scope.startNodeSelected(startNode);
+            $scope.relselect = "CONTAINS";
+            $scope.relCheckBox.toNewNode = true;
+            $scope.setRelValueTo();
+        }
+        function setConceptRel(startNode) {
+            $scope.relselect = "SHARES_MEANING_WITH";
+            $scope.relCheckBox.fromNewNode = true;
+    //        $scope.startNodeSelected(startNode);
+            
+     
+        }
+
+        $scope.addDataElementRel = function() {
+            if ($scope.relvalues.length == 0) {
+                setDataSetRel($scope.dataSet);
+                $scope.addRel();
+                $scope.setRelValueFrom();  // reset flag for next relationship insert  only once 
+
+            }
+                $scope.addRel();
+        }
 
     }
 ]);

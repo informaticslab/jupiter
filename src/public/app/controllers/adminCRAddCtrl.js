@@ -137,21 +137,10 @@ angular.module('jupiterApp').controller('adminCRAddCtrl', ['$scope', '$http', '$
 
 
         $scope.postaddcr = function() {
-            var dsetid = $scope.dataSet.id;
-            if ($scope.nodeLabel == 'DataElement') {
-                $scope.addDataElementRel();
-                var deEndNode = {
-                    'displayname'  : $scope.endnode,
-                    'id'    : $scope.endNodeId
-                }
-                setConceptRel(deEndNode,$scope.undefinedConcept,'SHARES_MEANING_WITH');
-                $scope.addDataElementRel();
-                $scope.resetFields();
-            }
-
             if ($scope.cr['name'].trim() == "") {
                 $scope.highlightMissingTxt = true;
             } else {
+               
                 $scope.cr['CR_NODE_TYPE'] = $scope.nodeLabel;
                 $scope.cr['CR_REQUEST_TYPE'] = "ADD";
                 $scope.cr['CR_STATUS'] = "PENDING";
@@ -170,26 +159,36 @@ angular.module('jupiterApp').controller('adminCRAddCtrl', ['$scope', '$http', '$
 
                 $scope.cr['id'] = $scope.nextNodeID;
                 // set dataset id for data element
-                if ($scope.nodeLabel == 'DataElement') {
-                    $scope.cr['dsetid'] = dsetid;
-                }
+              
                 var datapacket = {};
+                if ($scope.nodeLabel == 'DataElement') {
+                    $scope.cr['dsetid'] = $scope.dataSet.id;
+                    $scope.addDataElementRel();
+                    var deEndNode = {
+                        'displayname'  : $scope.endnode,
+                        'id'    : $scope.endNodeId
+                    };
+                    setConceptRel(deEndNode,$scope.undefinedConcept,'SHARES_MEANING_WITH');
+                    $scope.addDataElementRel();
+                }
                 datapacket['attr'] = $scope.cr;
+              
+
                 datapacket['rels'] = $scope.relvalues;
                 $http.post('/api/mongo/postaddcr', datapacket).
                 success(function(data, status, headers, config) {
                     $scope.node = "";
                     $scope.showButtons = false;
                     $scope.crQueueSuccess = true;
+                    if ($scope.nodetypeselect == 'DataElement') {
+                         $scope.resetFields();
+                    }
                 }).error(function(data, status) {
                     $scope.node = "";
                     $scope.showButtons = false;
                     $scope.crQueueFail = true;
                 });
             }
-
-
-
         };
 
 
@@ -300,7 +299,6 @@ angular.module('jupiterApp').controller('adminCRAddCtrl', ['$scope', '$http', '$
             setDataSetRel($scope.dataSet);
             $scope.showButtons = true;
             $scope.crQueueSuccess = false;
-            $scope.cr = {};
             $scope.endnode = '';
         };
 
@@ -391,6 +389,11 @@ angular.module('jupiterApp').controller('adminCRAddCtrl', ['$scope', '$http', '$
             $scope.relCheckBox.fromNewNode = false;
             $scope.relCheckBox.toNewNode = false;
 
+        }
+        $scope.resetDataset = function() {
+            $scope.dataSet = {};
+            $scope.cr['name'] = '';
+            $scope.cr['description']='';
         }
     }
 ]);

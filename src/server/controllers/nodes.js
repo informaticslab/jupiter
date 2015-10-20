@@ -47,6 +47,7 @@ exports.saveDataElements = function(req, res) {
     if (deObject.id) {
         // id for date element exist
         if (deObject.cid == '' || deObject.cid == null) { // no concept relationship exist
+            deObject.cid = 'CN00';
             query = 'match (n)-[:CONTAINS]->(de)-[r:SHARES_MEANING_WITH]->(c) where n.id={dsetid} and de.id={deid} delete r';
             params = {
                 dsetid: req.body.dsetid,
@@ -57,11 +58,14 @@ exports.saveDataElements = function(req, res) {
                     console.error('Error retreiving relations from database:', err);
                     res.send(404, 'no node at that location');
                 } else {
-                    var query2 = 'match (de {id:{deid}}) set de.name={dename}, de.description={dedescription}';
+           //         var query2 = 'match (de {id:{deid}}) set de.name={dename}, de.description={dedescription}';
+                    // use default concept for undefined concept
+                    var query2 = 'match (de {id:{deid}}),(c {id:{cid}}) set de.name={dename}, de.description={dedescription} with de,c create (de)-[r:SHARES_MEANING_WITH]->(c)';
                     params2 = {
                         deid: deObject.id,
                         dename: deObject.name,
-                        dedescription: deObject.description
+                        dedescription: deObject.description,
+                        cid: deObject.cid
                     };
                     neodb.db.query(query2, params2, function(err, r) {
                         if (err) {
@@ -119,6 +123,10 @@ exports.saveDataElements = function(req, res) {
 
         newDE.name = deObject.name;
         newDE.description = deObject.description;
+        console.log(deObject);
+        if (deObject.cid == '' || deObject.cid == null) {
+            deObject.cid = 'CN00';  // default undefined concept;  this would bypass the below section and jump to the else condition;  will refactor later;
+        }
         if (deObject.cid == '' || deObject.cid == null) {
             params = {
                 dsId: req.body.dsetid,
@@ -132,6 +140,7 @@ exports.saveDataElements = function(req, res) {
                 cid: deObject.cid
             };
             query = 'MATCH (ds {id: {dsId}}),(c {id: {cid}}) create (ds)-[r:CONTAINS]->(n:DataElement {newDE})-[:SHARES_MEANING_WITH]->(c)';
+            console.log(query);
         }
         // console.log('params ', params);
         neodb.db.query(query, params, function(err, r) {

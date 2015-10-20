@@ -8,7 +8,12 @@ angular.module('jupiterApp').controller('adminCRRapidEntryCtrl', ['$scope', '$ht
         $scope.identity = ngIdentity;
         $scope.colHeaders = [];
         $scope.nodetypeselect = 'DataElement';
-        $scope.oneDataElement = {};
+         $scope.oneDataElement = {
+                    'name' : '',
+                    'description' : '',
+                    'concept' : '',
+                    'cui'   : null
+                };
         $scope.showAddDataElement = false;
 
         $scope.isActive = function(route) {
@@ -92,11 +97,15 @@ angular.module('jupiterApp').controller('adminCRRapidEntryCtrl', ['$scope', '$ht
         $scope.addDataElement = function() {
 
             if (Object.keys($scope.oneDataElement).length > 0) {
-
                 $scope.oneDataElement["id"] = null;
                 $scope.oneDataElement['changed'] = true;
                 $scope.dataElementsArray.push($scope.oneDataElement);
-                $scope.oneDataElement = {};
+                $scope.oneDataElement = {
+                    'name' : '',
+                    'description' : '',
+                    'concept' : '',
+                    'cui'   : null
+                };
             }
             // console.log($scope.dataElementsArray);
         }
@@ -136,7 +145,7 @@ angular.module('jupiterApp').controller('adminCRRapidEntryCtrl', ['$scope', '$ht
         $scope.validConcept = function(index){
             var item = $scope.dataElementsArray[index];
            // console.log(item);
-            return  (!isEmpty(item.cid) && !isEmpty(item.cui) && !isEmpty(item.concept))  || (isEmpty(item.cid) && isEmpty(item.cui) && isEmpty(item.concept)) 
+            return  (!isEmpty(item.cui) && !isEmpty(item.concept))  || (isEmpty(item.cui) && isEmpty(item.concept)) 
         }
 
         function isEmpty(item) {

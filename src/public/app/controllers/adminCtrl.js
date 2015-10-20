@@ -388,7 +388,7 @@ angular.module('jupiterApp').controller('adminCtrl', ['$scope', '$modal', '$http
             var modalInstance = $modal.open({
                 templateUrl: 'partials/modals/uploadData',
                 controller: 'uploadCtrl',
-                size: 'lg',
+                size: 'md',
                 resolve: {
                     nodeId: function() {
                         return nodeId;

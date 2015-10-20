@@ -1,45 +1,33 @@
-.row
-  .col-md-3
-    h3 Select file
-    br
-    | Single
-    input(type='file', nv-file-select='', uploader='uploader')
-  .col-md-9(style='margin-bottom: 40px')
-    h3 Upload queue
-    p Queue length: {{ uploader.queue.length }}
-    table.table
-      thead
-        tr
-          th(width='50%') Name
-          th(ng-show='uploader.isHTML5') Size
-          th(ng-show='uploader.isHTML5') Progress
-          th Status
-      tbody
-        tr(ng-repeat='item in uploader.queue')
-          td
-            strong {{ item.file.name }}
-          td(ng-show='uploader.isHTML5', nowrap='') {{ item.file.size/1024/1024|number:2 }} MB
-          td(ng-show='uploader.isHTML5')
-            .progress(style='margin-bottom: 0;')
-              .progress-bar(role='progressbar', ng-style="{ 'width': item.progress + '%' }")
-          td.text-center
-            span(ng-show='item.isSuccess')
-              i.glyphicon.glyphicon-ok
-            span(ng-show='item.isCancel')
-              i.glyphicon.glyphicon-ban-circle
-            span(ng-show='item.isError')
-              i.glyphicon.glyphicon-remove
-    div
-      div
-        | Queue progress:
-        .progress(style='')
-          .progress-bar(role='progressbar', ng-style="{ 'width': uploader.progress + '%' }")
-      button.btn.btn-success.btn-s(type='button', ng-click='uploader.uploadAll()', ng-disabled='!uploader.getNotUploadedItems().length')
-        span.glyphicon.glyphicon-upload
-        |  Upload
-      button.btn.btn-warning.btn-s(type='button', ng-click='uploader.cancelAll()', ng-disabled='!uploader.isUploading')
-        span.glyphicon.glyphicon-ban-circle
-        |  Cancel 
-      button.btn.btn-danger.btn-s(type='button', ng-click='uploader.clearQueue()', ng-disabled='!uploader.queue.length')
-        span.glyphicon.glyphicon-trash
-        |  Remove 
+div
+  .modal-content
+    .modal-header.header_dark
+      span.pull-right
+        button.btn.close_button.glyphicon.glyphicon-remove(ng-click='cancel()')
+      h4.modal-title File Upload
+    .modal-body
+      .row
+        .col-md-12
+          table.table
+            thead
+              tr
+                th(width='50%') Name
+                th(ng-show='uploader.isHTML5') Size
+            tbody
+              tr(ng-repeat='item in uploader.queue')
+                td
+                  strong {{ item.file.name }}
+                td(ng-show='uploader.isHTML5', nowrap='') {{ item.file.size/1024/1024|number:2 }} MB
+          div
+            div
+              | Progress:
+              .progress(style='')
+                .progress-bar(role='progressbar', ng-style="{ 'width': uploader.progress + '%' }")
+            .fileUpload.btn.btn-primary
+              span Select file
+              input.upload(type='file', nv-file-select='', uploader='uploader')
+            button.btn.btn-success.btn-s.button-padding(type='button', ng-click='uploader.uploadAll()', ng-disabled='!uploader.getNotUploadedItems().length')
+              span.fa.fa-upload
+              |  Upload
+            button.btn.btn-danger.btn-s(type='button', ng-click='uploader.clearQueue()', ng-disabled='!uploader.queue.length')
+              span.glyphicon.glyphicon-trash
+              |  Remove 

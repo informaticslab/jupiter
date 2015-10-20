@@ -45,7 +45,7 @@
 			//- // end nav_split
 			.top_block_faq
 				ng-include(src="'/partials/adminMenuBar'")
-				hr						
+				hr
 				.well
 					.row
 						.col-lg-6.col-md-6.col-sm-6
@@ -284,15 +284,9 @@
 						</tr>
 						<tr ng-repeat="row in logs">
 						
-						<td>
-						{{row.action}}
-						</td>
-						<td>
-						{{row.user}}
-						</td>
-						<td>
-						{{row.date | date :'medium'}}
-						</td>
+						<td>{{row.action}}</td>
+						<td>{{row.user}}</td>
+						<td>{{row.date | date :'medium'}}</td>
 						
 						</tr>
 						</table>

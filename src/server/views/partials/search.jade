@@ -275,9 +275,8 @@
 									td.resource_type.search3
 										span.labelbg {{node.labels | unCamelCase}}
 								tr(ng-repeat="att in node.attributes")
-									td(class="text-left list_margin",colspan='3') 
-										{{att.key | unCamelCase}}:&nbsp; {{att.value}}	
-									//- td(class="text-left")
+									td(class="text-left list_margin",colspan='3')
+										| {{att.key | unCamelCase}}:&nbsp; {{att.value}}
 						.pages_block
 							pagination(total-items="totalItems" ng-model="currentPage" max-size="maxSize" class="pagination-sm" boundary-links="true" ng-show='!contentLoading' ng-change='pageChanged()')
 						//.page_controls
@@ -293,7 +292,7 @@
 				// end col specs
 				.col-lg-9.col-md-8.col-sm-8
 					.sub_block(ng-show='!hasSearchValue')
-						img(src='img/search_empty_bg.png' alt='Please enter a search term above' class='img-responsive search_empty')							
+						img(src='img/search_empty_bg.png' alt='Please enter a search term above' class='img-responsive search_empty')
 						//.page_controls
 						//	| Page controls (for multiple pages of results) to go here
 					// end sub block
@@ -311,12 +310,12 @@
 			//- 		div.sidebar_repeat(ng-Historybar)
 			.button_side
 				.sidebar_button
-					img(src='img/tab_button_collapse.png', alt='Collapse sidebar')			
+					img(src='img/tab_button_collapse.png', alt='Collapse sidebar')
 		// end hx_side
 		.hx_side(ng-show='showSidebar' ng-click='toggleSidebar()')
 			.blue_side_expanded
 			.button_side_expanded
 				.sidebar_button
-					img(src='img/tab_button_expand.png', alt='Expand sidebar')		
+					img(src='img/tab_button_expand.png', alt='Expand sidebar')
 		// end hx_side
 // end row

@@ -56,12 +56,14 @@
 								| Select node type
 				.vertical_spacing_less
 				.row(ng-show="nodetypeselect=='DataElement'")
-					.col-lg-12.col-md-12.col-sm-12
-						.col-lg-12.col-md-12.col-sm-12
-						input(type="text" ng-model="datasetSelected"  placeholder="Enter Dataset" typeahead-on-select="setDataSet($item, $model, $label)" typeahead-min-length='3' typeahead="node.name for node in getNodes($viewValue)" class="form-control")
-						alert
-							a(href="#/adminCRRapidEntry")
-								| click here for rapid entry of data elements
+					.col-lg-6.col-md-6.col-sm-6
+						input(type="text" ng-model="datasetSelected"  placeholder="Select dataset for which the data element needs to be created" typeahead-on-select="setDataSet($item, $model, $label)" typeahead-min-length='3' typeahead="node.name for node in getNodes($viewValue)" class="form-control")
+						br
+						| or
+						br
+						br
+						a(href="#/adminCRRapidEntry")
+							| click here if you want to enter more than one data element at a time
 				div(ng-if="nodetypeselect != 'DataElement' ")
 					.row(ng-show="showButtons")
 						.col-lg-12.col-md-12.col-sm-12

@@ -62,7 +62,7 @@
 								| click here for rapid entry of data elements
 				.row
 					.col-lg-12.col-md-12.col-sm-12
-						input(type="text" ng-model="datasetSelected"  placeholder="Enter Dataset" typeahead-on-select="setDataElement($item, $model, $label)" typeahead-min-length='3' typeahead="node.name for node in getNodes($viewValue)" class="form-control")
+						input(type="text" ng-model="datasetSelected"  placeholder="Select dataset for the data elements" typeahead-on-select="setDataElement($item, $model, $label)" typeahead-min-length='3' typeahead="node.name for node in getNodes($viewValue)" class="form-control")
 				.vertical_spacing_less
 				.row(ng-if="showAddDataElement")
 					.col-lg-12.col-md-12.col-sm-12

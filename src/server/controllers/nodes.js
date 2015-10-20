@@ -344,6 +344,46 @@ exports.searchConceptNode = function(req, res) {
     });
 };
 
+exports.searchDatasetNode = function(req, res) {
+    var searchTerm = req.params.searchTerm.toLowerCase();
+    //var query = 'MATCH n WHERE lower(n.name)=~".*' + searchTerm + '.*" or lower(n.shortName)=~".*' + searchTerm + '.*" RETURN distinct n.id as id, n.name as name, n.shortName as shortname';
+    var query = 'MATCH (n:Dataset) WHERE lower(n.name)=~".*' + searchTerm + '.*" or lower(n.shortName)=~".*' + searchTerm + '.*" or lower(n.id) =~".*' + searchTerm + '.*" RETURN distinct n.id as id, n.name + " (" + (n.id) + ")" as name, n.shortName as shortname';
+    var params = {
+        searchTerm: req.params.searchTerm
+    };
+    neodb.db.query(query, params, function(err, results) {
+
+        if (err) {
+            console.error('Error retreiving node from database:', err);
+            res.send(404, 'No node at that location');
+        } else {
+            if (results != null) {
+                var nodedata = [];
+                _.each(results, function(i) {
+                    if (!(i.shortname)) {
+                        nodedata.push({
+                            id: i.id,
+                            name: i.name,
+                            displayname: i.name
+                        });
+                    } else {
+                        nodedata.push({
+                            id: i.id,
+                            name: i.name + " (" + i.shortname + ")",
+                            displayname: i.name
+                        });
+                    }
+
+                })
+                res.json(nodedata);
+            } else {
+                res.json([]);
+            }
+        }
+    });
+};
+
+
 exports.searchSysTreeByName = function(req, res) {
     var searchTerm = req.params.searchTerm.toLowerCase();
     var query = 'match p=(n)-[r:OVERSEES|MANAGES*]->x where lower(n.name)=~".*' + searchTerm + '.*" return distinct n.name as name, n.id as id'

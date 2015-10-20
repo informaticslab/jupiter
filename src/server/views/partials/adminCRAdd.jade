@@ -57,7 +57,7 @@
 				.vertical_spacing_less
 				.row(ng-show="nodetypeselect=='DataElement'")
 					.col-lg-6.col-md-6.col-sm-6
-						input(type="text" ng-model="datasetSelected"  placeholder="Select dataset for which the data element needs to be created" typeahead-on-select="setDataSet($item, $model, $label)" typeahead-min-length='3' typeahead="node.name for node in getNodes($viewValue)" class="form-control")
+						input(type="text" ng-model="datasetSelected"  placeholder="Select dataset for which the data element needs to be created" typeahead-on-select="setDataSet($item, $model, $label)" typeahead-min-length='3' typeahead="node.name for node in getDatasetNodes($viewValue)" class="form-control" ng-change="resetDataset()")
 						br
 						| or
 						br
@@ -271,8 +271,8 @@
 								strong
 									| Error
 								|  'From', 'To' and 'Relationship Type' fields should be selected, and either 'From' or 'To' field should be equal to '{{node}}'.
-				hr(ng-show="showButtons && dataSet.id != null")
-				.row(ng-show="showButtons && dataSet.id != null")
+				hr(ng-show="showButtons ")
+				.row(ng-show="showButtons && (nodetypeselect != 'DataElement' || (nodetypeselect == 'DataElement' && dataSet.id != null))")
 					.col-lg-12.col-md-12.col-sm-12
 						.orange_header_larger
 							| Submit

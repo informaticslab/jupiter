@@ -50,6 +50,16 @@ angular.module('jupiterApp').controller('rootCtrl', function($scope, $http, $loc
             return nodes;
         });
     };
+
+    $scope.getDatasetNodes = function(val) {
+        return $http.get('/api/node/searchDatasetNode/' + val).then(function(res) {
+            var nodes = [];
+            angular.forEach(res.data, function(item) {
+                nodes.push(item);
+            });
+            return nodes;
+        });
+    };
     $scope.showSidebar = true;
 
     $scope.getSidebarWidth = function(){

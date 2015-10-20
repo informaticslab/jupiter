@@ -59,6 +59,9 @@ angular.module('jupiterApp').controller('adminCRRapidEntryCtrl', ['$scope', '$ht
             $http.post('/api/node/save/saveDE/', datapacket).
             success(function(data, status, headers, config) {
                 // console.log(data);
+                if (data.newId) {
+                    $scope.dataElementsArray[index].id = data.newId;
+                }
                 $scope.dataElementsArray[index].changed = false;
                 alert('Data Element saved');
             }).error(function(data, status) {
@@ -78,6 +81,14 @@ angular.module('jupiterApp').controller('adminCRRapidEntryCtrl', ['$scope', '$ht
 
         };
 
+        //   $scope.setDataElement = function($item) {
+        //     $scope.dataElementSelectedId = $item.id;
+        //     $scope.dataElementSelectedName = $item.displayname;
+
+        //     // console.log($scope.dataElementSelectedId, $scope.dataElementSelectedName);
+        //     fetchDataElements();
+
+        // };
         $scope.addDataElement = function() {
 
             if (Object.keys($scope.oneDataElement).length > 0) {
@@ -105,16 +116,6 @@ angular.module('jupiterApp').controller('adminCRRapidEntryCtrl', ['$scope', '$ht
             }
         }
 
-
-        $scope.setDataElement = function($item) {
-            $scope.dataElementSelectedId = $item.id;
-            $scope.dataElementSelectedName = $item.displayname;
-
-            // console.log($scope.dataElementSelectedId, $scope.dataElementSelectedName);
-            fetchDataElements();
-
-        };
-
         $scope.setConcept = function($item, $model, $label, index) {
             $scope.dataElementsArray[index].cid = $item.id;
             $scope.dataElementsArray[index].cui = $item.cui;
@@ -130,6 +131,16 @@ angular.module('jupiterApp').controller('adminCRRapidEntryCtrl', ['$scope', '$ht
             $scope.dataElementsArray[index].cid = null;
             $scope.dataElementsArray[index].cui = null;
             $scope.dataElementsArray[index].changed = true;
+        }
+
+        $scope.validConcept = function(index){
+            var item = $scope.dataElementsArray[index];
+           // console.log(item);
+            return  (!isEmpty(item.cid) && !isEmpty(item.cui) && !isEmpty(item.concept))  || (isEmpty(item.cid) && isEmpty(item.cui) && isEmpty(item.concept)) 
+        }
+
+        function isEmpty(item) {
+            return (item ==='' || item === null)
         }
     }
 ]);

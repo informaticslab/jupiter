@@ -139,7 +139,7 @@ exports.saveDataElements = function(req, res) {
                 console.error('Error retreiving relations from database:', err);
                 res.send(404, 'no node at that location');
             } else {
-                res.send('add success');
+                res.send({'newId': newDE.id, 'msg': 'add success'});
             }
         });
         //  console.log(query);

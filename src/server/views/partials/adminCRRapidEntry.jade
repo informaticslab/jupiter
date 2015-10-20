@@ -62,7 +62,7 @@
 								| click here for rapid entry of data elements
 				.row
 					.col-lg-12.col-md-12.col-sm-12
-						input(type="text" ng-model="datasetSelected"  placeholder="Select dataset for the data elements" typeahead-on-select="setDataElement($item, $model, $label)" typeahead-min-length='3' typeahead="node.name for node in getNodes($viewValue)" class="form-control")
+						input(type="text" ng-model="datasetSelected"  placeholder="Select dataset for the data elements" typeahead-on-select="setDataElement($item, $model, $label)" typeahead-min-length='3' typeahead="node.name for node in getDatasetNodes($viewValue)" class="form-control")
 				.vertical_spacing_less
 				.row(ng-if="showAddDataElement")
 					.col-lg-12.col-md-12.col-sm-12
@@ -80,10 +80,10 @@
 										input(ng-if='colHeader == "cui"' readonly='true' type="text" ng-model="row[colHeader]"  class="form-control")
 										input(ng-if='colHeader == "concept"' type="text" ng-model="row[colHeader]" typeahead-on-select="setConcept($item, $model, $label,rowIdx)" typeahead-min-length='1' typeahead="node.name for node in getConceptNodes($viewValue)" ng-change="resetConcept($item,rowIdx)" class="form-control")
 									td(style="text-align: right;")
-										label.btn.btn-succes.btn-xs(style="color: blue;font-size: 1.5em;"  ng-click="saveDataElmRow(rowIdx)" ng-show='row.changed')
+										label.btn.btn-succes.btn-xs(style="color: blue;font-size: 1.5em;"  ng-click="saveDataElmRow(rowIdx)" ng-show='row.changed && validConcept(rowIdx)')
 											i.fa.fa-floppy-o
 										|&nbsp;
-										label.btn.btn-default.btn-xs(ng-if="row.id == null" ng-click="deleteDataElmRow(rowIdx)")
+										label.btn.btn-default.btn-xs(ng-show="row.id == null" ng-click="deleteDataElmRow(rowIdx)")
 											i.fa.fa-times
 				.vertical_spacing_more
 				.row(ng-if="showAddDataElement")
@@ -99,7 +99,7 @@
 									td(ng-repeat='colHeader in colHeaders' ng-if="colHeader!='id' && colHeader!='cid'" )
 										input(ng-if='colHeader !="cui" && colHeader != "concept"' type="text" ng-init="oneDataElement[colHeader]=''" ng-model="oneDataElement[colHeader]"  placeholder="{{colHeader}}" class="form-control")
 										input(ng-if='colHeader=="cui"' type="text" ng-init="oneDataElement[colHeader]=''"  ng-readonly='colHeader == "cui"' ng-model="oneDataElement[colHeader]"  placeholder="{{colHeader}}" class="form-control")
-										input(ng-if='colHeader == "concept"' type="text" ng-model="oneDataElement[colHeader]" typeahead-on-select="setNewDataElmConcept($item, $model, $label)" typeahead-min-length='1' typeahead="node.name for node in getConceptNodes($viewValue)" class="form-control")
+										input(ng-if='colHeader == "concept"' type="text" placeholder="Please select a {{colHeader}} if known" ng-model="oneDataElement[colHeader]" typeahead-on-select="setNewDataElmConcept($item, $model, $label)" typeahead-min-length='1' typeahead="node.name for node in getConceptNodes($viewValue)" class="form-control")
 
 				.vertical_spacing_lesser
 				.row(ng-if="showAddDataElement")

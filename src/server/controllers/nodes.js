@@ -6,6 +6,47 @@ var _ = require('underscore');
 var auditLog = require('../config/auditLog');
 
 
+exports.getHarmonizeDataSets = function(req,res) {
+    //var query = 'match ((ds1:Dataset {id: {ds1id}})-[:CONTAINS]->(de1:DataElement)-[r1:SHARES_MEANING_WITH]->(c1)), ((ds2 {id:{ds2id}})-[:CONTAINS]->(de2)-[r2:SHARES_MEANING_WITH]->(c2)) return ds1.id as ds1id,de1.id as de1id, de1.name as de1name,c1.id as c1id, c1.cui as c1cui,c2.id as c2id,c2.cui as c2cui,de2.id as de2id,de2.name as de2name,ds2.id as ds2id';
+    var query = 'match (ds:Dataset)-[:CONTAINS]->(de)-[r1:SHARES_MEANING_WITH]->(c) where ds.id = {ds1id} return ds.id as dsid,de.id as deid, de.name as dename,c.id as cid, c.cui as cui,c.name as cname union all match (ds:Dataset)-[:CONTAINS]->(de)-[r1:SHARES_MEANING_WITH]->(c) where ds.id = {ds2id} return ds.id as dsid,de.id as deid, de.name as dename,c.id as cid, c.cui as cui, c.name as cname';
+    var params = {
+        ds1id : req.params.ds1id,
+        ds2id : req.params.ds2id
+    };
+    neodb.db.query(query, params, function(err, results) {
+        if (err) {
+            console.error('Error retreiving data elements from database:', err);
+            res.send(404, "No node at that location")
+        } else {
+            // console.log(results);
+             if (results != null) {
+                console.log('raw result ',results);
+                var ds1 = [];
+                var ds2 = [];
+                var cuiAry = [];
+                var conceptAry = [];
+                _.each(results, function(i) {
+                    if (i.dsid == req.params.ds1id) {
+                        ds1.push(i);
+                    }
+                    if (i.dsid == req.params.ds2id) {
+                        ds2.push(i)
+                    }
+                    if (cuiAry.indexOf(i.cui) == -1) {
+                        cuiAry.push(i.cui);
+                        conceptAry.push({id:i.cid,cui:i.cui,name:i.cname});
+                    } 
+                });
+                res.json({ 'DS1' : ds1, 'DS2' : ds2, 'concepts': conceptAry});
+            } else {
+                res.json([]);
+            }
+        }
+    });
+
+}
+
+
 exports.getDataElements = function(req, res) {
     //var query = ['START n=node({nodeId}) ', 'RETURN labels(n)'].join('\n');
     // console.log("get Data Elements");

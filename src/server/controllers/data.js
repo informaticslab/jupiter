@@ -1,3 +1,5 @@
+/* jshint node: true */
+'use strict';
 var parse = require('csv-parse');
 var fs = require('fs');
 var neodb = require('../lib/neo4jConnection');
@@ -27,7 +29,7 @@ exports.upload = function(req, res) {
 				var headers = data[0];
 				var ts = Math.round((new Date()).getTime() / 1000);
 
-				var matchClause = 'match (a:Dataset),(b:Concept) where a.id="' + nodeId + '" AND b.id = "CN00"';
+				var matchClause = 'match (a:Dataset),(b:Concept) where a.id="' + nodeId + '" AND b.id = "CN0"';
 				var createPattern = '';
 				var builtQuery = '';
 				var elementQueryId = '';

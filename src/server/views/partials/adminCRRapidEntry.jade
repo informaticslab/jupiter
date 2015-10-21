@@ -99,7 +99,7 @@
 									td(ng-repeat='colHeader in colHeaders' ng-if="colHeader!='id' && colHeader!='cid'" )
 										input(ng-if='colHeader !="cui" && colHeader != "concept"' type="text" ng-init="oneDataElement[colHeader]=''" ng-model="oneDataElement[colHeader]"  placeholder="{{colHeader}}" class="form-control")
 										input(ng-if='colHeader=="cui"' type="text" ng-init="oneDataElement[colHeader]=''"  ng-readonly='colHeader == "cui"' ng-model="oneDataElement[colHeader]"  placeholder="{{colHeader}}" class="form-control")
-										input(ng-if='colHeader == "concept"' type="text" placeholder="Please select a {{colHeader}} if known" ng-model="oneDataElement[colHeader]" typeahead-on-select="setNewDataElmConcept($item, $model, $label)" typeahead-min-length='1' typeahead="node.name for node in getConceptNodes($viewValue)" class="form-control")
+										input(ng-if='colHeader == "concept"' type="text" placeholder="{{colHeader}} undefined" ng-model="oneDataElement[colHeader]" typeahead-on-select="setNewDataElmConcept($item, $model, $label)" typeahead-min-length='1' typeahead="node.name for node in getConceptNodes($viewValue)" class="form-control")
 
 				.vertical_spacing_lesser
 				.row(ng-if="showAddDataElement")

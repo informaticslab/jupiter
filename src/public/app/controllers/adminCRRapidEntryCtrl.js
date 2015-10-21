@@ -1,6 +1,10 @@
-angular.module('jupiterApp').controller('adminCRRapidEntryCtrl', ['$scope', '$http', '$filter', '$location', 'nodeAttributeDictionary', 'nodeRelationshipDictionary', 'nodeTypeDictionary', 'ngIdentity',
-    function($scope, $http, $filter, $location, nodeAttributeDictionary, nodeRelationshipDictionary, nodeTypeDictionary, ngIdentity) {
+angular.module('jupiterApp').controller('adminCRRapidEntryCtrl', ['$scope', '$http', '$filter', '$routeParams', '$location', 'nodeAttributeDictionary', 'nodeRelationshipDictionary', 'nodeTypeDictionary', 'ngIdentity',
+    function($scope, $http, $filter, $routeParams, $location, nodeAttributeDictionary, nodeRelationshipDictionary, nodeTypeDictionary, ngIdentity) {
 
+        if ($routeParams.id) {
+            $scope.dataElementSelectedId = $routeParams.id;
+            fetchDataElements();
+        }
 
         $scope.relValues = nodeRelationshipDictionary.RelationshipTypes;
         $scope.nodeTypeValues = nodeTypeDictionary.NodeTypes;
@@ -79,7 +83,7 @@ angular.module('jupiterApp').controller('adminCRRapidEntryCtrl', ['$scope', '$ht
 
         $scope.setDataElement = function($item) {
             $scope.dataElementSelectedId = $item.id;
-            $scope.dataElementSelectedName = $item.displayname;
+            //$scope.dataElementSelectedName = $item.displayname;
 
             // console.log($scope.dataElementSelectedId, $scope.dataElementSelectedName);
             fetchDataElements();

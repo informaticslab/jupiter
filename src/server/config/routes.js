@@ -1,12 +1,12 @@
 //references to controllers go here
+/* jshint node: true */
+'use strict';
 var index = require('../controllers/index');
 var nodes = require('../controllers/nodes');
 var users = require('../controllers/users');
 var data = require('../controllers/data');
 var auth = require('./auth');
-var mongoose = require('mongoose'),
-    User = mongoose.model('User');
-    var redirecturlto="/#/main";
+var redirecturlto='/#/main';
 
 
 module.exports = function(app) {
@@ -96,13 +96,13 @@ module.exports = function(app) {
 
     app.get('/redirect', function(req,res) {
 
-        if(redirecturlto.search("/partials/"))
+        if(redirecturlto.search('/partials/'))
         {
-            redirecturlto=redirecturlto.replace("partials","#");
+            redirecturlto=redirecturlto.replace('partials','#');
         }
         else
         {
-            redirecturlto="/#/main";
+            redirecturlto='/#/main';
         }
         res.redirect(redirecturlto);    
     });

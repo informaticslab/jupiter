@@ -364,8 +364,8 @@ exports.searchByName = function(req, res) {
 
 exports.searchConceptNode = function(req, res) {
     var searchTerm = req.params.searchTerm.toLowerCase();
-    var query = 'match (n:Concept) where n.id <> "CN0" and lower(n.name)=~".*' + searchTerm + '.*" return n.id as id,n.name as name ,n.cui as cui';
-    console.log(query);
+    var query = 'match (n:Concept) where lower(n.name)=~".*' + searchTerm + '.*" return n.id as id,n.name as name ,n.cui as cui';
+ //   console.log(query);
     var params = {
         searchTerm: req.params.searchTerm
     };

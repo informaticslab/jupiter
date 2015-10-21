@@ -31,7 +31,7 @@ angular.module('jupiterApp').controller('adminCRAddCtrl', ['$scope', '$http', '$
         $scope.dataSet = {};
         $scope.undefinedConcept = {
             'displayname'  : 'undefined',
-            'id'    : 'CN00'
+            'id'    : 'CN0'
         }
 
 

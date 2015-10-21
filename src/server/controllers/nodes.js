@@ -88,7 +88,7 @@ exports.saveDataElements = function(req, res) {
     if (deObject.id) {
         // id for date element exist
         if (deObject.cid == '' || deObject.cid == null) { // no concept relationship exist
-            deObject.cid = 'CN00';
+            deObject.cid = 'CN0';
             query = 'match (n)-[:CONTAINS]->(de)-[r:SHARES_MEANING_WITH]->(c) where n.id={dsetid} and de.id={deid} delete r';
             params = {
                 dsetid: req.body.dsetid,
@@ -166,7 +166,7 @@ exports.saveDataElements = function(req, res) {
         newDE.description = deObject.description;
         console.log(deObject);
         if (deObject.cid == '' || deObject.cid == null) {
-            deObject.cid = 'CN00';  // default undefined concept;  this would bypass the below section and jump to the else condition;  will refactor later;
+            deObject.cid = 'CN0';  // default undefined concept;  this would bypass the below section and jump to the else condition;  will refactor later;
         }
         if (deObject.cid == '' || deObject.cid == null) {
             params = {

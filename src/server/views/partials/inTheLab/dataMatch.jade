@@ -57,10 +57,39 @@
 									th Dataset 2 
 									th Shared Concept
 							tbody
-								tr(ng-repeat='row in mergedList')
-									td {{row.dsDE1}}
-									td {{row.dsDE2}}
+								tr(ng-repeat='row in mergedList' ng-show='row.conceptName != "undefined"')
+									td 
+										span(ng-repeat='entry in row.dsDE1'){{entry}}
+									td 
+										span(ng-repeat='entry in row.dsDE2'){{entry}}
 									td {{row.conceptName}}
+				.row
+					.col-lg-12
+						.panel.panel-default.panel_custom
+							.panel-heading
+								h2.cursor-pointer.panel-title(ng-click="isCollapsed = !isCollapsed") Unmatched Data Elements&nbsp; 
+									span.caret
+							.panel-body(collapse='isCollapsed',)
+								table.table
+									thead
+										tr
+											th Dataset 1
+											th Dataset 2 
+											th Shared Concept
+									tbody
+										tr(ng-repeat='row in unmatchedList' ng-show='row.conceptName != "undefined"')
+											td 
+												span(ng-repeat='entry in row.dsDE1'){{entry}}
+											td 
+												span(ng-repeat='entry in row.dsDE2'){{entry}}
+											td {{row.concept}}
+										tr(ng-repeat='row in mergedList' ng-show='row.conceptName == "undefined"')
+											td 
+												span(ng-repeat='entry in row.dsDE1'){{entry}} 
+											td 
+												span(ng-repeat='entry in row.dsDE2'){{entry}} 
+											td {{row.conceptName}}
+								
 
 	.div(ng-class='getSidebarWidth()')
 		.hx_side(ng-show='!showSidebar' ng-click='toggleSidebar()')

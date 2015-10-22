@@ -62,7 +62,7 @@ You should have received a copy of the Apache Software License along with this p
 
 ## Privacy
 
-This project contains only non-sensitive, publicly available data and information. All material and community participation is covered by the PHIResearchLab.org [Disclaimer](http://www.phiresearchlab.org/index.php?option=com_content&view=article&id=26&Itemid=15) and [Code of Conduct](http://www.phiresearchlab.org/index.php?option=com_content&view=article&id=27&Itemid=19). For more information about CDC's privacy policy, please visit http://www.cdc.gov/privacy.html
+This project contains only non-sensitive, publicly available data and information. All material and community participation is covered by the PHIResearchLab.org [Disclaimer](http://www.phiresearchlab.org/?page_id=1713) and [Code of Conduct](http://www.phiresearchlab.org/?page_id=1715). For more information about CDC's privacy policy, please visit http://www.cdc.gov/privacy.html
 
 ## Public domain
 

@@ -1924,7 +1924,12 @@ angular.module('jupiterApp').factory('nodeAttributeDictionary', function() {
                         'description': {
                             'description': 'Data element description',
                             'displayLabel': 'Description',
-                            'sortIndex': '285'
+                            'sortIndex': '285.1'
+                        },
+                        'possibleValues': {
+                            'description': 'Possible data value range',
+                            'displayLabel': 'Possbile Values',
+                            'sortIndex': '285.2'
                         }
                     }
                 }
@@ -1954,7 +1959,7 @@ angular.module('jupiterApp').factory('nodeAttributeDictionary', function() {
                     'attributes': {
                         'cui': {
                             'description': 'Concept Unique Identifier',
-                            'displayLabel': 'CUI',
+                            'displayLabel': 'UMLS CUI',
                             'sortIndex': '288'
                         }
                     }

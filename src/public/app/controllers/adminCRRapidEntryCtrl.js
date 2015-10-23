@@ -12,9 +12,12 @@ angular.module('jupiterApp').controller('adminCRRapidEntryCtrl', ['$scope', '$ht
         $scope.identity = ngIdentity;
         $scope.colHeaders = [];
         $scope.nodetypeselect = 'DataElement';
+        $scope.colsObject = {};
+       
          $scope.oneDataElement = {
                     'name' : '',
                     'description' : '',
+                    'possbileValues' : '',
                     'concept' : '',
                     'cui'   : null
                 };
@@ -30,11 +33,32 @@ angular.module('jupiterApp').controller('adminCRRapidEntryCtrl', ['$scope', '$ht
 
                 //$scope.relarray=[];
                 //console.log(res.data);
-                var i = 1;
-                $scope.dataElementsArray.forEach(function(d) {
-                    //console.log(d);
-                });
-                $scope.colHeaders = Object.keys($scope.dataElementsArray[0]);
+                //var i = 1;
+                // $scope.dataElementsArray.forEach(function(d) {
+                //     //console.log(d);
+                // });
+                fetchDictionary();
+                for (var i = 0; i < $scope.actAttributes['Concept'].length; i++) {
+                    if ($scope.actAttributes['Concept'][i].attribute == 'id') {
+                        $scope.actAttributes['Concept'][i].attribute = 'cid';   // rename
+                    }
+                    if ($scope.actAttributes['Concept'][i].attribute == 'name') {
+                        $scope.actAttributes['Concept'][i].attribute = 'concept'; //rename
+                        $scope.actAttributes['Concept'][i].displayLabel = 'Concept'
+                    }
+                }
+                $scope.nodeDictionaryAttributes = $scope.actAttributes[$scope.nodetypeselect].concat($scope.actAttributes['Concept']);
+                //console.log($scope.nodeDictionaryAttributes);
+                for (var i = 0; i < $scope.nodeDictionaryAttributes.length; i++) {
+                    $scope.colsObject[$scope.nodeDictionaryAttributes[i].attribute] = $scope.nodeDictionaryAttributes[i];  // flatten
+                }
+                //console.log('col object ',$scope.colsObject);
+                for(var attribute in $scope.dataElementsArray[0]) {
+                    var oneColHeader = {}
+                    if ($scope.colsObject[attribute]) {
+                        $scope.colHeaders.push($scope.colsObject[attribute]);
+                    }
+                }
                 if ($scope.dataElementsArray.length == 1 && $scope.dataElementsArray[0].id === '') {
                     $scope.dataElementsArray = [];
                 }
@@ -107,6 +131,7 @@ angular.module('jupiterApp').controller('adminCRRapidEntryCtrl', ['$scope', '$ht
                 $scope.oneDataElement = {
                     'name' : '',
                     'description' : '',
+                    'possbileValues' : '',
                     'concept' : '',
                     'cui'   : null
                 };
@@ -155,5 +180,23 @@ angular.module('jupiterApp').controller('adminCRRapidEntryCtrl', ['$scope', '$ht
         function isEmpty(item) {
             return (item ==='' || item === null)
         }
+
+         function fetchDictionary() {
+            $scope.actAttributes = {};
+            for (x in nodeAttributeDictionary) {
+                $scope.actAttributes[x] = [];
+                for (y in nodeAttributeDictionary[x].attributeGroups) {
+                    for (z in nodeAttributeDictionary[x].attributeGroups[y].attributes) {
+                        $scope.actAttributes[x].push({
+                            attribute: z,
+                            description: nodeAttributeDictionary[x].attributeGroups[y].attributes[z].description,
+                            displayLabel: nodeAttributeDictionary[x].attributeGroups[y].attributes[z].displayLabel,
+                            sortIndex: nodeAttributeDictionary[x].attributeGroups[y].attributes[z].sortIndex
+                        });
+                    }
+                }
+            }
+        }
+ 
     }
 ]);

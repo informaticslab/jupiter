@@ -20,7 +20,7 @@ exports.getHarmonizeDataSets = function(req,res) {
         } else {
             // console.log(results);
              if (results != null) {
-                console.log('raw result ',results);
+     //           console.log('raw result ',results);
                 var ds1 = [];
                 var ds2 = [];
                 var cuiAry = [];
@@ -50,7 +50,7 @@ exports.getHarmonizeDataSets = function(req,res) {
 exports.getDataElements = function(req, res) {
     //var query = ['START n=node({nodeId}) ', 'RETURN labels(n)'].join('\n');
     // console.log("get Data Elements");
-    var query = 'MATCH (n)-[:CONTAINS]->(x:DataElement) WHERE n.id ={nodeId} optional match x-[:SHARES_MEANING_WITH]->(c:Concept) WHERE n.id ={nodeId} RETURN distinct x.id as id,x.name as name,x.description as description, c.id as cid, c.name as concept,c.cui as cui';
+    var query = 'MATCH (n)-[:CONTAINS]->(x:DataElement) WHERE n.id ={nodeId} optional match x-[:SHARES_MEANING_WITH]->(c:Concept) WHERE n.id ={nodeId} RETURN distinct x.id as id,x.name as name,x.description as description,x.possibleValues as possibleValues, c.id as cid, c.name as concept,c.cui as cui';
     var params = {
         nodeId: req.params.id
     };
@@ -69,6 +69,7 @@ exports.getDataElements = function(req, res) {
                     'id': '',
                     'name': '',
                     description: '',
+                    possibleValues : '',
                     cid: '',
                     concept: '',
                     cui: ''

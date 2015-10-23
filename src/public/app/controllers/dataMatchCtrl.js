@@ -69,13 +69,13 @@ angular.module('jupiterApp').controller('dataMatchCtrl', function($scope, $http)
 					unmatchObj = {};
 					unmatchObj.dsDE1 = ds1Bucket;
 					unmatchObj.dsDE2 = '';
-					unmatchObj.concept = 'N/A';
+					unmatchObj.concept = conceptList[i].name;
 					$scope.unmatchedList.push(unmatchObj);
 				} else if(ds2Bucket.length > 0 && ds1Bucket <= 0){
 					unmatchObj = {};
 					unmatchObj.dsDE1= '';
 					unmatchObj.dsDE2 = ds2Bucket;
-					unmatchObj.concept = 'N/A';
+					unmatchObj.concept = conceptList[i].name;
 					$scope.unmatchedList.push(unmatchObj);
 				}
 				// console.log('concept', conceptList[i].name);

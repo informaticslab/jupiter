@@ -34,17 +34,29 @@ angular.module('jupiterApp').controller('dataMatchCtrl', function($scope, $http)
 				var ds1Bucket = [];
 				var ds2Bucket = [];
 				var undefinedBucket = [];
-				for(var j = 0; j < ds1.length; j++) {
-
+				for(var j=ds1.length-1; j>=0; j--) {
 					if(conceptList[i].cui === ds1[j].cui && ds1[j]) {
 						ds1Bucket.push(ds1[j].dename);
+						ds1.splice(j,1);
 					}
 				}
-				for(var k =0; k < ds2.length; k++) {
-					if(conceptList[i].cui === ds2[k].cui) {
+				for(var k=ds2.length-1; k>=0; k--) {
+					if(conceptList[i].cui === ds2[k].cui && ds2[k]) {
 						ds2Bucket.push(ds2[k].dename);
+						ds2.splice(k,1);
 					}
 				}
+				// for(var j = 0; j < ds1.length; j++) {
+
+				// 	if(conceptList[i].cui === ds1[j].cui && ds1[j]) {
+				// 		ds1Bucket.push(ds1[j].dename);
+				// 	}
+				// }
+				// for(var k =0; k < ds2.length; k++) {
+				// 	if(conceptList[i].cui === ds2[k].cui) {
+				// 		ds2Bucket.push(ds2[k].dename);
+				// 	}
+				// }
 				if(ds1Bucket.length > 0 && ds2Bucket.length > 0 ) {
 					// console.log('MATCH');
 					mergedObj = {};

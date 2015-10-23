@@ -36,13 +36,13 @@ angular.module('jupiterApp').controller('dataMatchCtrl', function($scope, $http)
 				var undefinedBucket = [];
 				for(var j=ds1.length-1; j>=0; j--) {
 					if(conceptList[i].cui === ds1[j].cui && ds1[j]) {
-						ds1Bucket.push(ds1[j].dename);
+						ds1Bucket.push(ds1[j]);
 						ds1.splice(j,1);
 					}
 				}
 				for(var k=ds2.length-1; k>=0; k--) {
 					if(conceptList[i].cui === ds2[k].cui && ds2[k]) {
-						ds2Bucket.push(ds2[k].dename);
+						ds2Bucket.push(ds2[k]);
 						ds2.splice(k,1);
 					}
 				}
@@ -62,20 +62,20 @@ angular.module('jupiterApp').controller('dataMatchCtrl', function($scope, $http)
 					mergedObj = {};
 					mergedObj.dsDE1 = ds1Bucket;
 					mergedObj.dsDE2 = ds2Bucket;
-					mergedObj.conceptName = conceptList[i].name;
+					mergedObj.concept = conceptList[i];
 					$scope.mergedList.push(mergedObj);
 				
 				} else if(ds1Bucket.length > 0 && ds2Bucket <= 0){
 					unmatchObj = {};
 					unmatchObj.dsDE1 = ds1Bucket;
 					unmatchObj.dsDE2 = '';
-					unmatchObj.concept = conceptList[i].name;
+					unmatchObj.concept = conceptList[i];
 					$scope.unmatchedList.push(unmatchObj);
 				} else if(ds2Bucket.length > 0 && ds1Bucket <= 0){
 					unmatchObj = {};
 					unmatchObj.dsDE1= '';
 					unmatchObj.dsDE2 = ds2Bucket;
-					unmatchObj.concept = conceptList[i].name;
+					unmatchObj.concept = conceptList[i];
 					$scope.unmatchedList.push(unmatchObj);
 				}
 				// console.log('concept', conceptList[i].name);

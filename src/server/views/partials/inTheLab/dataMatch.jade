@@ -54,16 +54,19 @@
 						table.table
 							thead
 								tr
-									th Dataset 1
-									th Dataset 2 
+									th {{firstDataset ? firstDataset : 'Dataset 1'}}
+									th {{secondDataset ? secondDataset : 'Dataset 2'}} 
 									th Shared Concept
 							tbody
-								tr(ng-repeat='row in mergedList' ng-show='row.conceptName != "undefined"')
-									td(style="width: 350px;")
-										span(ng-repeat='entry in row.dsDE1'){{entry}}{{$last ? '' : ', '}}
-									td(style="width: 350px;")
-										span(ng-repeat='entry in row.dsDE2'){{entry}}{{$last ? '' : ', '}}
-									td {{row.conceptName}}
+								tr(ng-repeat='row in mergedList' ng-show='row.concept.name != "undefined"')
+									td
+										span(ng-repeat='entry in row.dsDE1')
+											a(href='#/node/{{entry.deid}}'){{entry.dename}}{{$last ? '' : ', '}}
+									td
+										span(ng-repeat='entry in row.dsDE2')
+											a(href='#/node/{{entry.deid}}'){{entry.dename}}{{$last ? '' : ', '}}
+									td 
+										a(href='#/node/{{row.concept.id}}'){{row.concept.name}}
 				.row
 					.col-lg-12
 						.panel.panel-default.panel_custom
@@ -74,22 +77,22 @@
 								table.table
 									thead
 										tr
-											th Dataset 1
-											th Dataset 2 
+											th {{firstDataset ? firstDataset : 'Dataset 1'}}
+											th {{secondDataset ? secondDataset : 'Dataset 2'}} 
 											th Unmatched Concept
 									tbody
-										tr(ng-repeat='row in unmatchedList' ng-show='row.conceptName != "undefined"')
+										tr(ng-repeat='row in unmatchedList' ng-show='row.concept.name != "undefined"')
 											td(style="width: 350px;")
-												span(ng-repeat='entry in row.dsDE1'){{entry}}{{$last ? '' : ', '}}
+												span(ng-repeat='entry in row.dsDE1'){{entry.dename}}{{$last ? '' : ', '}}
 											td(style="width: 350px;")
-												span(ng-repeat='entry in row.dsDE2'){{entry}}{{$last ? '' : ', '}}
-											td {{row.concept}}
-										tr(ng-repeat='row in mergedList' ng-show='row.conceptName == "undefined"')
+												span(ng-repeat='entry in row.dsDE2'){{entry.dename}}{{$last ? '' : ', '}}
+											td {{row.concept.name}}
+										tr(ng-repeat='row in mergedList' ng-show='row.concept.name == "undefined"')
 											td(style="width: 350px;")
-												span(ng-repeat='entry in row.dsDE1'){{entry}}{{$last ? '' : ', '}} 
+												span(ng-repeat='entry in row.dsDE1'){{entry.dename}}{{$last ? '' : ', '}} 
 											td(style="width: 350px;")
-												span(ng-repeat='entry in row.dsDE2'){{entry}}{{$last ? '' : ', '}} 
-											td {{row.conceptName}}
+												span(ng-repeat='entry in row.dsDE2'){{entry.dename}}{{$last ? '' : ', '}} 
+											td {{row.concept.name}}
 								
 
 	.div(ng-class='getSidebarWidth()')

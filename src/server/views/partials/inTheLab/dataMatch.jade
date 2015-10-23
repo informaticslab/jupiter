@@ -41,12 +41,13 @@
 			.top_block_faq
 				.vertical_spacing_less
 				.row
-					.col-lg-4.col-md-4.col-sm-4
-						input(type="text" ng-model="firstDataset"  placeholder="Select a dataset" typeahead-on-select="setDataSet1($item)" typeahead-min-length='3' typeahead="node.name for node in getDatasetNodes($viewValue)" class="form-control" ng-change="resetDataset()")
-					.col-lg-4.col-md-4.col-sm-4
-						input(type="text" ng-model="secondDataset"  placeholder="Select a second dataset" typeahead-on-select="setDataSet2($item)" typeahead-min-length='3' typeahead="node.name for node in getDatasetNodes($viewValue)" class="form-control" ng-change="resetDataset()")
-					.col-lg-4.col-md-4.col-sm-4
-						button.btn.btn-success(type='button' ng-click='match()') Harmonize
+					form(name='dataMatchForm')
+						.col-lg-4.col-md-4.col-sm-4
+							input(type="text" ng-model="firstDataset"  placeholder="Select a dataset" typeahead-on-select="setDataSet1($item)" typeahead-min-length='3' typeahead="node.name for node in getDatasetNodes($viewValue)" class="form-control" ng-change="resetDataset()" required='')
+						.col-lg-4.col-md-4.col-sm-4
+							input(type="text" ng-model="secondDataset"  placeholder="Select a second dataset" typeahead-on-select="setDataSet2($item)" typeahead-min-length='3' typeahead="node.name for node in getDatasetNodes($viewValue)" class="form-control" ng-change="resetDataset()" required='')
+						.col-lg-4.col-md-4.col-sm-4
+							button.btn.btn-success(type='button' ng-click='match()' ng-disabled='dataMatchForm.$invalid') Harmonize
 				.vertical_spacing_more
 				.row
 					.col-md-12.col-md-12.col-sm-12

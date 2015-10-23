@@ -4,6 +4,7 @@ angular.module('jupiterApp').controller('dataMatchCtrl', function($scope, $http)
 	$scope.ds1Id = '';
 	$scope.ds2Id = '';
 	$scope.mergedList = [];
+	$scope.isCollapsed = true;
 	 $scope.setDataSet1 = function($item) {
         $scope.ds1Id = $item.id;
      };

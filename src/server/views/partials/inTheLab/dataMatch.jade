@@ -59,9 +59,9 @@
 									th Shared Concept
 							tbody
 								tr(ng-repeat='row in mergedList' ng-show='row.conceptName != "undefined"')
-									td 
+									td(style="width: 350px;")
 										span(ng-repeat='entry in row.dsDE1'){{entry}}{{$last ? '' : ', '}}
-									td 
+									td(style="width: 350px;")
 										span(ng-repeat='entry in row.dsDE2'){{entry}}{{$last ? '' : ', '}}
 									td {{row.conceptName}}
 				.row
@@ -79,15 +79,15 @@
 											th Shared Concept
 									tbody
 										tr(ng-repeat='row in unmatchedList' ng-show='row.conceptName != "undefined"')
-											td 
+											td(style="width: 350px;")
 												span(ng-repeat='entry in row.dsDE1'){{entry}}{{$last ? '' : ', '}}
-											td 
+											td(style="width: 350px;")
 												span(ng-repeat='entry in row.dsDE2'){{entry}}{{$last ? '' : ', '}}
 											td {{row.concept}}
 										tr(ng-repeat='row in mergedList' ng-show='row.conceptName == "undefined"')
-											td 
+											td(style="width: 350px;")
 												span(ng-repeat='entry in row.dsDE1'){{entry}}{{$last ? '' : ', '}} 
-											td 
+											td(style="width: 350px;")
 												span(ng-repeat='entry in row.dsDE2'){{entry}}{{$last ? '' : ', '}} 
 											td {{row.conceptName}}
 								

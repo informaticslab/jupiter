@@ -17,7 +17,7 @@ angular.module('jupiterApp').controller('adminCRRapidEntryCtrl', ['$scope', '$ht
          $scope.oneDataElement = {
                     'name' : '',
                     'description' : '',
-                    'possbileValues' : '',
+                    'possibleValues' : '',
                     'concept' : '',
                     'cui'   : null
                 };
@@ -131,7 +131,7 @@ angular.module('jupiterApp').controller('adminCRRapidEntryCtrl', ['$scope', '$ht
                 $scope.oneDataElement = {
                     'name' : '',
                     'description' : '',
-                    'possbileValues' : '',
+                    'possibleValues' : '',
                     'concept' : '',
                     'cui'   : null
                 };

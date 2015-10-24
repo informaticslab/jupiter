@@ -102,11 +102,12 @@ exports.saveDataElements = function(req, res) {
                 } else {
            //         var query2 = 'match (de {id:{deid}}) set de.name={dename}, de.description={dedescription}';
                     // use default concept for undefined concept
-                    var query2 = 'match (de {id:{deid}}),(c {id:{cid}}) set de.name={dename}, de.description={dedescription} with de,c create (de)-[r:SHARES_MEANING_WITH]->(c)';
+                    var query2 = 'match (de {id:{deid}}),(c {id:{cid}}) set de.name={dename}, de.description={dedescription}, de.possibleValues = {depossibleValues} with de,c create (de)-[r:SHARES_MEANING_WITH]->(c)';
                     params2 = {
                         deid: deObject.id,
                         dename: deObject.name,
                         dedescription: deObject.description,
+                        depossibleValues : deObject.possibleValues,
                         cid: deObject.cid
                     };
                     neodb.db.query(query2, params2, function(err, r) {
@@ -133,11 +134,12 @@ exports.saveDataElements = function(req, res) {
                     console.error('Error retreiving relations from database:', err);
                     res.send(404, 'no node at that location');
                 } else {
-                    var query2 = 'match (de {id:{deid}}),(c {id:{cid}}) set de.name={dename}, de.description={dedescription} with de,c create (de)-[r:SHARES_MEANING_WITH]->(c)';
+                    var query2 = 'match (de {id:{deid}}),(c {id:{cid}}) set de.name={dename}, de.description={dedescription}, de.possibleValues = {depossibleValues} with de,c create (de)-[r:SHARES_MEANING_WITH]->(c)';
                     params2 = {
                         deid: deObject.id,
                         dename: deObject.name,
                         dedescription: deObject.description,
+                        depossibleValues : deObject.possibleValues,
                         cid: deObject.cid
                     };
                     neodb.db.query(query2, params2, function(err, r) {
@@ -165,7 +167,8 @@ exports.saveDataElements = function(req, res) {
 
         newDE.name = deObject.name;
         newDE.description = deObject.description;
-        console.log(deObject);
+        newDE.possibleValues = deObject.possibleValues;
+        console.log('new de ', deObject);
         if (deObject.cid == '' || deObject.cid == null) {
             deObject.cid = 'CN0';  // default undefined concept;  this would bypass the below section and jump to the else condition;  will refactor later;
         }

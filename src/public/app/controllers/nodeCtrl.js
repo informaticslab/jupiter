@@ -1,5 +1,5 @@
-angular.module('jupiterApp').controller('nodeCtrl', ['$scope', '$location', '$resource', '$http', '$routeParams', 'nodeAttributeDictionary',
-    function($scope, $location, $resource, $http, $routeParams, nodeAttributeDictionary) {
+angular.module('jupiterApp').controller('nodeCtrl', ['$scope', '$location', '$resource', '$http', '$routeParams', 'nodeAttributeDictionary', '$modal',
+    function($scope, $location, $resource, $http, $routeParams, nodeAttributeDictionary, $modal) {
         
         
         $scope.nodesArray=[];
@@ -64,11 +64,23 @@ angular.module('jupiterApp').controller('nodeCtrl', ['$scope', '$location', '$re
             }
             $scope.$parent.unshiftSiteHistory(site);
             
+            for (var i = $scope.node.attributes.length - 1; i >= 0; i--) {
+                if($scope.node.attributes[i].key === 'filePath'){
+                    $scope.filePath = $scope.node.attributes[i].value;
+                }
+                if($scope.node.attributes[i].key ==='localFileName'){
+                    $scope.localFileName = $scope.node.attributes[i].value;
+                }
+            }
+
             var len = $scope.node.attributes.length;
             $scope.labelGroups = function(label) {
                 return _.toArray(nodeAttributeDictionary[label].attributeGroups);
             };
             $scope.showGroup = function(group) {
+                if(group.heading === 'Local Data'){
+                    return false;
+                }
                 return $scope.labelGroupAttributes(group).length > 0;
             };
             $scope.labelGroupAttributes = function(group) {
@@ -125,7 +137,7 @@ angular.module('jupiterApp').controller('nodeCtrl', ['$scope', '$location', '$re
                 });
             };
         });
-
+    
 
         $scope.relations = relations.query({
             id: $routeParams.id
@@ -214,6 +226,18 @@ angular.module('jupiterApp').controller('nodeCtrl', ['$scope', '$location', '$re
 
         $scope.emailBlurb = encodeURIComponent($location.absUrl());
 
+               $scope.openGridModal = function(nodeId) {
+            var modalInstance = $modal.open({
+                templateUrl: 'partials/modals/previewGrid',
+                controller: 'previewGridCtrl',
+                size: 'lg',
+                resolve: {
+                    nodeId: function() {
+                        return nodeId;
+                    }
+                }
+            });
+        };
         
 
     }

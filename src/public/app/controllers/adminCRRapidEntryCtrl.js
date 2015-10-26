@@ -14,6 +14,22 @@ angular.module('jupiterApp').controller('adminCRRapidEntryCtrl', ['$scope', '$ht
         $scope.nodetypeselect = 'DataElement';
         $scope.colsObject = {};
        
+        fetchDictionary();
+        for (var i = 0; i < $scope.actAttributes['Concept'].length; i++) {
+            if ($scope.actAttributes['Concept'][i].attribute == 'id') {
+                $scope.actAttributes['Concept'][i].attribute = 'cid';   // rename
+            }
+            if ($scope.actAttributes['Concept'][i].attribute == 'name') {
+                $scope.actAttributes['Concept'][i].attribute = 'concept'; //rename
+                $scope.actAttributes['Concept'][i].displayLabel = 'Concept'
+            }
+        }
+        $scope.nodeDictionaryAttributes = $scope.actAttributes[$scope.nodetypeselect].concat($scope.actAttributes['Concept']);
+            //console.log($scope.nodeDictionaryAttributes);
+            for (var i = 0; i < $scope.nodeDictionaryAttributes.length; i++) {
+                $scope.colsObject[$scope.nodeDictionaryAttributes[i].attribute] = $scope.nodeDictionaryAttributes[i];  // flatten
+            }
+            //console.log('col object ',$scope.colsObject);
          $scope.oneDataElement = {
                     'name' : '',
                     'description' : '',
@@ -28,6 +44,7 @@ angular.module('jupiterApp').controller('adminCRRapidEntryCtrl', ['$scope', '$ht
         }
 
         function fetchDataElements() {
+            $scope.colHeaders = [];
             $http.get('/api/node/dataElements/' + $scope.dataElementSelectedId).then(function(res) {
                 $scope.dataElementsArray = res.data;
 
@@ -37,22 +54,8 @@ angular.module('jupiterApp').controller('adminCRRapidEntryCtrl', ['$scope', '$ht
                 // $scope.dataElementsArray.forEach(function(d) {
                 //     //console.log(d);
                 // });
-                fetchDictionary();
-                for (var i = 0; i < $scope.actAttributes['Concept'].length; i++) {
-                    if ($scope.actAttributes['Concept'][i].attribute == 'id') {
-                        $scope.actAttributes['Concept'][i].attribute = 'cid';   // rename
-                    }
-                    if ($scope.actAttributes['Concept'][i].attribute == 'name') {
-                        $scope.actAttributes['Concept'][i].attribute = 'concept'; //rename
-                        $scope.actAttributes['Concept'][i].displayLabel = 'Concept'
-                    }
-                }
-                $scope.nodeDictionaryAttributes = $scope.actAttributes[$scope.nodetypeselect].concat($scope.actAttributes['Concept']);
-                //console.log($scope.nodeDictionaryAttributes);
-                for (var i = 0; i < $scope.nodeDictionaryAttributes.length; i++) {
-                    $scope.colsObject[$scope.nodeDictionaryAttributes[i].attribute] = $scope.nodeDictionaryAttributes[i];  // flatten
-                }
-                //console.log('col object ',$scope.colsObject);
+                
+              
                 for(var attribute in $scope.dataElementsArray[0]) {
                     var oneColHeader = {}
                     if ($scope.colsObject[attribute]) {

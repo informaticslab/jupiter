@@ -119,11 +119,15 @@ angular.module('jupiterApp').controller('adminCtrl', ['$scope', '$modal', '$http
         function fetchRelationshipValues() {
             $http.get('/api/node/relationships/' + $scope.nodeId).then(function(res) {
                 $scope.relvalues = res.data;
-
+                var found = false;
                 var i = 1;
                 $scope.relvalues.forEach(function(d) {
                     d['relid'] = $scope.i;
                     $scope.i++;
+                    if (d.reltype == 'CONTAINS' && !found) {
+                        $scope.datasetId = d.startid;
+                        found = true;
+                    }
                 });
 
 

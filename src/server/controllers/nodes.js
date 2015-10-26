@@ -6,10 +6,51 @@ var _ = require('underscore');
 var auditLog = require('../config/auditLog');
 
 
+exports.getHarmonizeDataSets = function(req,res) {
+    //var query = 'match ((ds1:Dataset {id: {ds1id}})-[:CONTAINS]->(de1:DataElement)-[r1:SHARES_MEANING_WITH]->(c1)), ((ds2 {id:{ds2id}})-[:CONTAINS]->(de2)-[r2:SHARES_MEANING_WITH]->(c2)) return ds1.id as ds1id,de1.id as de1id, de1.name as de1name,c1.id as c1id, c1.cui as c1cui,c2.id as c2id,c2.cui as c2cui,de2.id as de2id,de2.name as de2name,ds2.id as ds2id';
+    var query = 'match (ds:Dataset)-[:CONTAINS]->(de)-[r1:SHARES_MEANING_WITH]->(c) where ds.id = {ds1id} return ds.id as dsid,de.id as deid, de.name as dename,c.id as cid, c.cui as cui,c.name as cname union all match (ds:Dataset)-[:CONTAINS]->(de)-[r1:SHARES_MEANING_WITH]->(c) where ds.id = {ds2id} return ds.id as dsid,de.id as deid, de.name as dename,c.id as cid, c.cui as cui, c.name as cname';
+    var params = {
+        ds1id : req.params.ds1id,
+        ds2id : req.params.ds2id
+    };
+    neodb.db.query(query, params, function(err, results) {
+        if (err) {
+            console.error('Error retreiving data elements from database:', err);
+            res.send(404, "No node at that location")
+        } else {
+            // console.log(results);
+             if (results != null) {
+     //           console.log('raw result ',results);
+                var ds1 = [];
+                var ds2 = [];
+                var cuiAry = [];
+                var conceptAry = [];
+                _.each(results, function(i) {
+                    if (i.dsid == req.params.ds1id) {
+                        ds1.push(i);
+                    }
+                    if (i.dsid == req.params.ds2id) {
+                        ds2.push(i)
+                    }
+                    if (cuiAry.indexOf(i.cui) == -1) {
+                        cuiAry.push(i.cui);
+                        conceptAry.push({id:i.cid,cui:i.cui,name:i.cname});
+                    } 
+                });
+                res.json({ 'DS1' : ds1, 'DS2' : ds2, 'concepts': conceptAry});
+            } else {
+                res.json([]);
+            }
+        }
+    });
+
+}
+
+
 exports.getDataElements = function(req, res) {
     //var query = ['START n=node({nodeId}) ', 'RETURN labels(n)'].join('\n');
     // console.log("get Data Elements");
-    var query = 'MATCH (n)-[:CONTAINS]->(x:DataElement) WHERE n.id ={nodeId} optional match x-[:SHARES_MEANING_WITH]->(c:Concept) WHERE n.id ={nodeId} RETURN distinct x.id as id,x.name as name,x.description as description, c.id as cid, c.name as concept,c.cui as cui';
+    var query = 'MATCH (n)-[:CONTAINS]->(x:DataElement) WHERE n.id ={nodeId} optional match x-[:SHARES_MEANING_WITH]->(c:Concept) WHERE n.id ={nodeId} RETURN distinct x.id as id,x.name as name,x.description as description,x.possibleValues as possibleValues, c.id as cid, c.name as concept,c.cui as cui';
     var params = {
         nodeId: req.params.id
     };
@@ -28,6 +69,7 @@ exports.getDataElements = function(req, res) {
                     'id': '',
                     'name': '',
                     description: '',
+                    possibleValues : '',
                     cid: '',
                     concept: '',
                     cui: ''
@@ -47,6 +89,7 @@ exports.saveDataElements = function(req, res) {
     if (deObject.id) {
         // id for date element exist
         if (deObject.cid == '' || deObject.cid == null) { // no concept relationship exist
+            deObject.cid = 'CN0';
             query = 'match (n)-[:CONTAINS]->(de)-[r:SHARES_MEANING_WITH]->(c) where n.id={dsetid} and de.id={deid} delete r';
             params = {
                 dsetid: req.body.dsetid,
@@ -57,11 +100,15 @@ exports.saveDataElements = function(req, res) {
                     console.error('Error retreiving relations from database:', err);
                     res.send(404, 'no node at that location');
                 } else {
-                    var query2 = 'match (de {id:{deid}}) set de.name={dename}, de.description={dedescription}';
+           //         var query2 = 'match (de {id:{deid}}) set de.name={dename}, de.description={dedescription}';
+                    // use default concept for undefined concept
+                    var query2 = 'match (de {id:{deid}}),(c {id:{cid}}) set de.name={dename}, de.description={dedescription}, de.possibleValues = {depossibleValues} with de,c create (de)-[r:SHARES_MEANING_WITH]->(c)';
                     params2 = {
                         deid: deObject.id,
                         dename: deObject.name,
-                        dedescription: deObject.description
+                        dedescription: deObject.description,
+                        depossibleValues : deObject.possibleValues,
+                        cid: deObject.cid
                     };
                     neodb.db.query(query2, params2, function(err, r) {
                         if (err) {
@@ -87,11 +134,12 @@ exports.saveDataElements = function(req, res) {
                     console.error('Error retreiving relations from database:', err);
                     res.send(404, 'no node at that location');
                 } else {
-                    var query2 = 'match (de {id:{deid}}),(c {id:{cid}}) set de.name={dename}, de.description={dedescription} with de,c create (de)-[r:SHARES_MEANING_WITH]->(c)';
+                    var query2 = 'match (de {id:{deid}}),(c {id:{cid}}) set de.name={dename}, de.description={dedescription}, de.possibleValues = {depossibleValues} with de,c create (de)-[r:SHARES_MEANING_WITH]->(c)';
                     params2 = {
                         deid: deObject.id,
                         dename: deObject.name,
                         dedescription: deObject.description,
+                        depossibleValues : deObject.possibleValues,
                         cid: deObject.cid
                     };
                     neodb.db.query(query2, params2, function(err, r) {
@@ -119,6 +167,11 @@ exports.saveDataElements = function(req, res) {
 
         newDE.name = deObject.name;
         newDE.description = deObject.description;
+        newDE.possibleValues = deObject.possibleValues;
+        console.log('new de ', deObject);
+        if (deObject.cid == '' || deObject.cid == null) {
+            deObject.cid = 'CN0';  // default undefined concept;  this would bypass the below section and jump to the else condition;  will refactor later;
+        }
         if (deObject.cid == '' || deObject.cid == null) {
             params = {
                 dsId: req.body.dsetid,
@@ -132,6 +185,7 @@ exports.saveDataElements = function(req, res) {
                 cid: deObject.cid
             };
             query = 'MATCH (ds {id: {dsId}}),(c {id: {cid}}) create (ds)-[r:CONTAINS]->(n:DataElement {newDE})-[:SHARES_MEANING_WITH]->(c)';
+            console.log(query);
         }
         // console.log('params ', params);
         neodb.db.query(query, params, function(err, r) {
@@ -314,8 +368,8 @@ exports.searchByName = function(req, res) {
 
 exports.searchConceptNode = function(req, res) {
     var searchTerm = req.params.searchTerm.toLowerCase();
-    var query = 'match (n:Concept) where n.id <> "CN0" and lower(n.name)=~".*' + searchTerm + '.*" return n.id as id,n.name as name ,n.cui as cui';
-    console.log(query);
+    var query = 'match (n:Concept) where lower(n.name)=~".*' + searchTerm + '.*" return n.id as id,n.name as name ,n.cui as cui';
+ //   console.log(query);
     var params = {
         searchTerm: req.params.searchTerm
     };

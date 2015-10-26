@@ -1,12 +1,12 @@
 //references to controllers go here
+/* jshint node: true */
+'use strict';
 var index = require('../controllers/index');
 var nodes = require('../controllers/nodes');
 var users = require('../controllers/users');
 var data = require('../controllers/data');
 var auth = require('./auth');
-var mongoose = require('mongoose'),
-    User = mongoose.model('User');
-    var redirecturlto="/#/main";
+var redirecturlto='/#/main';
 
 
 module.exports = function(app) {
@@ -52,6 +52,7 @@ module.exports = function(app) {
     app.get('/api/export/csv/:id/:qparam', nodes.exportCSV);
     app.get('/api/export/csvrelations/:id', nodes.exportCSVNodeRelations);
     //app.get('/api/export/csvnodedetails/:id/:attributes', nodes.exportCSVNodeDetails);
+    app.get('/api/node/getHarmonizeDataSets/:ds1id/:ds2id', nodes.getHarmonizeDataSets);
     app.get('/api/attributes/getValues/:attr', nodes.getAttributeValues);
     app.get('/api/export/adhoccsv/:query', nodes.getAdhocQueryRelatedNodeTypesResultsCSV);
     app.get('/api/mongo/all', nodes.getMongoAll);
@@ -96,13 +97,13 @@ module.exports = function(app) {
 
     app.get('/redirect', function(req,res) {
 
-        if(redirecturlto.search("/partials/"))
+        if(redirecturlto.search('/partials/'))
         {
-            redirecturlto=redirecturlto.replace("partials","#");
+            redirecturlto=redirecturlto.replace('partials','#');
         }
         else
         {
-            redirecturlto="/#/main";
+            redirecturlto='/#/main';
         }
         res.redirect(redirecturlto);    
     });

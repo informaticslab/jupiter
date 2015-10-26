@@ -1,0 +1,116 @@
+.row
+	.div(ng-class='getContentWidth()')
+		.content_block
+			span.visible-md.visible-lg
+				.subnav
+					ul.nav.nav-pills
+						li
+							a(href='#/quickGuide/') Quick Guide
+						li
+							a(href='#/browse/') Browse
+						li
+							a(href='#/search/') Search
+						li
+							a(href='#/advancedSearch/') Relationship Explorer
+						li
+							a(href='' class='inactive') Favorites
+						li.active
+							a(href='#/inTheLab/') In the Lab
+				// end subnav
+			span.visible-sm
+				.subnav_sm
+					ul.nav.nav-pills
+						li
+							a(href='#/quickGuide/') Quick Guide
+						li
+							a(href='#/browse/') Browse
+						li.active
+							a(href='#/search/') Search
+						li
+							a(href='#/advancedSearch/') Relationship Explorer
+						li
+							a(href='' class='inactive') Favorites
+						li.active
+							a(href='#/inTheLab/') In the Lab
+				// end subnav
+			.detail_header 
+				.detail_header
+					.detail_header_text_contain_lg
+						.detail_header_text
+							| Data Harmonization (Alpha)
+			.top_block_faq
+				.vertical_spacing_less
+				.row
+					form(name='dataMatchForm')
+						.col-lg-4.col-md-4.col-sm-4
+							input(type="text" ng-model="firstDataset"  placeholder="Select a dataset" typeahead-on-select="setDataSet1($item)" typeahead-min-length='3' typeahead="node.name for node in getDatasetNodes($viewValue)" class="form-control" ng-change="resetDataset()" required='')
+						.col-lg-4.col-md-4.col-sm-4
+							input(type="text" ng-model="secondDataset"  placeholder="Select a second dataset" typeahead-on-select="setDataSet2($item)" typeahead-min-length='3' typeahead="node.name for node in getDatasetNodes($viewValue)" class="form-control" ng-change="resetDataset()" required='')
+						.col-lg-4.col-md-4.col-sm-4
+							button.btn.btn-success(type='button' ng-click='match()' ng-disabled='dataMatchForm.$invalid') Harmonize
+				.vertical_spacing_more
+				.row
+					.col-md-12.col-md-12.col-sm-12
+						table.table
+							thead
+								tr
+									th {{firstDataset ? firstDataset : 'Dataset 1'}}
+									th {{secondDataset ? secondDataset : 'Dataset 2'}} 
+									th Shared Concept
+							tbody
+								tr(ng-repeat='row in mergedList' ng-show='row.concept.name != "undefined"')
+									td
+										span(ng-repeat='entry in row.dsDE1')
+											a(href='#/node/{{entry.deid}}'){{entry.dename}}{{$last ? '' : ', '}}
+									td
+										span(ng-repeat='entry in row.dsDE2')
+											a(href='#/node/{{entry.deid}}'){{entry.dename}}{{$last ? '' : ', '}}
+									td 
+										a(href='#/node/{{row.concept.id}}'){{row.concept.name}}
+				.row
+					.col-lg-12
+						.panel.panel-default.panel_custom
+							.panel-heading
+								h2.cursor-pointer.panel-title(ng-click="isCollapsed = !isCollapsed") Unmatched Data Elements&nbsp; 
+									span.caret
+							.panel-body(collapse='isCollapsed',)
+								table.table
+									thead
+										tr
+											th {{firstDataset ? firstDataset : 'Dataset 1'}}
+											th {{secondDataset ? secondDataset : 'Dataset 2'}} 
+											th Unmatched Concept
+									tbody
+										tr(ng-repeat='row in unmatchedList' ng-show='row.concept.name != "undefined"')
+											td(style="width: 350px;")
+												span(ng-repeat='entry in row.dsDE1'){{entry.dename}}{{$last ? '' : ', '}}
+											td(style="width: 350px;")
+												span(ng-repeat='entry in row.dsDE2'){{entry.dename}}{{$last ? '' : ', '}}
+											td {{row.concept.name}}
+										tr(ng-repeat='row in mergedList' ng-show='row.concept.name == "undefined"')
+											td(style="width: 350px;")
+												span(ng-repeat='entry in row.dsDE1'){{entry.dename}}{{$last ? '' : ', '}} 
+											td(style="width: 350px;")
+												span(ng-repeat='entry in row.dsDE2'){{entry.dename}}{{$last ? '' : ', '}} 
+											td {{row.concept.name}}
+								
+
+	.div(ng-class='getSidebarWidth()')
+		.hx_side(ng-show='!showSidebar' ng-click='toggleSidebar()')
+			div(ng-Historybar)
+			//- .blue_side
+			//- 	.blue_side_text
+			//- 		| Your Exploration History:
+			//- 	.sidebar_now
+			//- 		div.sidebar_repeat(ng-Historybar)
+			.button_side
+				.sidebar_button
+					img(src='img/tab_button_collapse.png', alt='Collapse sidebar')   
+		// end hx_side
+		.hx_side(ng-show='showSidebar' ng-click='toggleSidebar()')
+			.blue_side_expanded
+			.button_side_expanded
+				.sidebar_button
+					img(src='img/tab_button_expand.png', alt='Expand sidebar')   
+		// end hx_side   
+// row

@@ -1,6 +1,10 @@
-angular.module('jupiterApp').controller('adminCRRapidEntryCtrl', ['$scope', '$http', '$filter', '$location', 'nodeAttributeDictionary', 'nodeRelationshipDictionary', 'nodeTypeDictionary', 'ngIdentity',
-    function($scope, $http, $filter, $location, nodeAttributeDictionary, nodeRelationshipDictionary, nodeTypeDictionary, ngIdentity) {
+angular.module('jupiterApp').controller('adminCRRapidEntryCtrl', ['$scope', '$http', '$filter', '$routeParams', '$location', 'nodeAttributeDictionary', 'nodeRelationshipDictionary', 'nodeTypeDictionary', 'ngIdentity',
+    function($scope, $http, $filter, $routeParams, $location, nodeAttributeDictionary, nodeRelationshipDictionary, nodeTypeDictionary, ngIdentity) {
 
+        if ($routeParams.id) {
+            $scope.dataElementSelectedId = $routeParams.id;
+            fetchDataElements();
+        }
 
         $scope.relValues = nodeRelationshipDictionary.RelationshipTypes;
         $scope.nodeTypeValues = nodeTypeDictionary.NodeTypes;
@@ -8,7 +12,31 @@ angular.module('jupiterApp').controller('adminCRRapidEntryCtrl', ['$scope', '$ht
         $scope.identity = ngIdentity;
         $scope.colHeaders = [];
         $scope.nodetypeselect = 'DataElement';
-        $scope.oneDataElement = {};
+        $scope.colsObject = {};
+       
+        fetchDictionary();
+        for (var i = 0; i < $scope.actAttributes['Concept'].length; i++) {
+            if ($scope.actAttributes['Concept'][i].attribute == 'id') {
+                $scope.actAttributes['Concept'][i].attribute = 'cid';   // rename
+            }
+            if ($scope.actAttributes['Concept'][i].attribute == 'name') {
+                $scope.actAttributes['Concept'][i].attribute = 'concept'; //rename
+                $scope.actAttributes['Concept'][i].displayLabel = 'Concept'
+            }
+        }
+        $scope.nodeDictionaryAttributes = $scope.actAttributes[$scope.nodetypeselect].concat($scope.actAttributes['Concept']);
+            //console.log($scope.nodeDictionaryAttributes);
+            for (var i = 0; i < $scope.nodeDictionaryAttributes.length; i++) {
+                $scope.colsObject[$scope.nodeDictionaryAttributes[i].attribute] = $scope.nodeDictionaryAttributes[i];  // flatten
+            }
+            //console.log('col object ',$scope.colsObject);
+         $scope.oneDataElement = {
+                    'name' : '',
+                    'description' : '',
+                    'possibleValues' : '',
+                    'concept' : '',
+                    'cui'   : null
+                };
         $scope.showAddDataElement = false;
 
         $scope.isActive = function(route) {
@@ -16,16 +44,24 @@ angular.module('jupiterApp').controller('adminCRRapidEntryCtrl', ['$scope', '$ht
         }
 
         function fetchDataElements() {
+            $scope.colHeaders = [];
             $http.get('/api/node/dataElements/' + $scope.dataElementSelectedId).then(function(res) {
                 $scope.dataElementsArray = res.data;
 
                 //$scope.relarray=[];
                 //console.log(res.data);
-                var i = 1;
-                $scope.dataElementsArray.forEach(function(d) {
-                    //console.log(d);
-                });
-                $scope.colHeaders = Object.keys($scope.dataElementsArray[0]);
+                //var i = 1;
+                // $scope.dataElementsArray.forEach(function(d) {
+                //     //console.log(d);
+                // });
+                
+              
+                for(var attribute in $scope.dataElementsArray[0]) {
+                    var oneColHeader = {}
+                    if ($scope.colsObject[attribute]) {
+                        $scope.colHeaders.push($scope.colsObject[attribute]);
+                    }
+                }
                 if ($scope.dataElementsArray.length == 1 && $scope.dataElementsArray[0].id === '') {
                     $scope.dataElementsArray = [];
                 }
@@ -74,7 +110,7 @@ angular.module('jupiterApp').controller('adminCRRapidEntryCtrl', ['$scope', '$ht
 
         $scope.setDataElement = function($item) {
             $scope.dataElementSelectedId = $item.id;
-            $scope.dataElementSelectedName = $item.displayname;
+            //$scope.dataElementSelectedName = $item.displayname;
 
             // console.log($scope.dataElementSelectedId, $scope.dataElementSelectedName);
             fetchDataElements();
@@ -92,11 +128,16 @@ angular.module('jupiterApp').controller('adminCRRapidEntryCtrl', ['$scope', '$ht
         $scope.addDataElement = function() {
 
             if (Object.keys($scope.oneDataElement).length > 0) {
-
                 $scope.oneDataElement["id"] = null;
                 $scope.oneDataElement['changed'] = true;
                 $scope.dataElementsArray.push($scope.oneDataElement);
-                $scope.oneDataElement = {};
+                $scope.oneDataElement = {
+                    'name' : '',
+                    'description' : '',
+                    'possibleValues' : '',
+                    'concept' : '',
+                    'cui'   : null
+                };
             }
             // console.log($scope.dataElementsArray);
         }
@@ -136,11 +177,29 @@ angular.module('jupiterApp').controller('adminCRRapidEntryCtrl', ['$scope', '$ht
         $scope.validConcept = function(index){
             var item = $scope.dataElementsArray[index];
            // console.log(item);
-            return  (!isEmpty(item.cid) && !isEmpty(item.cui) && !isEmpty(item.concept))  || (isEmpty(item.cid) && isEmpty(item.cui) && isEmpty(item.concept)) 
+            return  (!isEmpty(item.cui) && !isEmpty(item.concept))  || (isEmpty(item.cui) && isEmpty(item.concept)) 
         }
 
         function isEmpty(item) {
             return (item ==='' || item === null)
         }
+
+         function fetchDictionary() {
+            $scope.actAttributes = {};
+            for (x in nodeAttributeDictionary) {
+                $scope.actAttributes[x] = [];
+                for (y in nodeAttributeDictionary[x].attributeGroups) {
+                    for (z in nodeAttributeDictionary[x].attributeGroups[y].attributes) {
+                        $scope.actAttributes[x].push({
+                            attribute: z,
+                            description: nodeAttributeDictionary[x].attributeGroups[y].attributes[z].description,
+                            displayLabel: nodeAttributeDictionary[x].attributeGroups[y].attributes[z].displayLabel,
+                            sortIndex: nodeAttributeDictionary[x].attributeGroups[y].attributes[z].sortIndex
+                        });
+                    }
+                }
+            }
+        }
+ 
     }
 ]);

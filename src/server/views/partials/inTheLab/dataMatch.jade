@@ -61,12 +61,12 @@
 								tr(ng-repeat='row in mergedList' ng-show='row.concept.name != "undefined"')
 									td
 										span(ng-repeat='entry in row.dsDE1')
-											a(href='#/node/{{entry.deid}}'){{entry.dename}}{{$last ? '' : ', '}}
+											a(href='#/node/{{entry.deid}}' target='_blank'){{entry.dename}}{{$last ? '' : ', '}}
 									td
 										span(ng-repeat='entry in row.dsDE2')
-											a(href='#/node/{{entry.deid}}'){{entry.dename}}{{$last ? '' : ', '}}
+											a(href='#/node/{{entry.deid}}' target='_blank'){{entry.dename}}{{$last ? '' : ', '}}
 									td 
-										a(href='#/node/{{row.concept.id}}'){{row.concept.name}}
+										a(href='#/node/{{row.concept.id}}' target='_blank'){{row.concept.name}}
 				.row
 					.col-lg-12
 						.panel.panel-default.panel_custom
@@ -83,16 +83,22 @@
 									tbody
 										tr(ng-repeat='row in unmatchedList' ng-show='row.concept.name != "undefined"')
 											td(style="width: 350px;")
-												span(ng-repeat='entry in row.dsDE1'){{entry.dename}}{{$last ? '' : ', '}}
+												span(ng-repeat='entry in row.dsDE1')
+													a(href='#/node/{{entry.deid}}' target='_blank'){{entry.dename}}{{$last ? '' : ', '}}
 											td(style="width: 350px;")
-												span(ng-repeat='entry in row.dsDE2'){{entry.dename}}{{$last ? '' : ', '}}
-											td {{row.concept.name}}
+												span(ng-repeat='entry in row.dsDE2')
+													a(href='#/node/{{entry.deid}}' target='_blank'){{entry.dename}}{{$last ? '' : ', '}}
+											td 
+												a(href='#/node/{{row.concept.id}}' target='_blank'){{row.concept.name}}
 										tr(ng-repeat='row in mergedList' ng-show='row.concept.name == "undefined"')
 											td(style="width: 350px;")
-												span(ng-repeat='entry in row.dsDE1'){{entry.dename}}{{$last ? '' : ', '}} 
+												span(ng-repeat='entry in row.dsDE1')
+													a(href='#/node/{{entry.deid}}' target='_blank'){{entry.dename}}{{$last ? '' : ', '}}
 											td(style="width: 350px;")
-												span(ng-repeat='entry in row.dsDE2'){{entry.dename}}{{$last ? '' : ', '}} 
-											td {{row.concept.name}}
+												span(ng-repeat='entry in row.dsDE2')
+													a(href='#/node/{{entry.deid}}' target='_blank'){{entry.dename}}{{$last ? '' : ', '}}
+											td
+												a(href='#/node/{{row.concept.id}}' target='_blank'){{row.concept.name}}
 								
 
 	.div(ng-class='getSidebarWidth()')

@@ -16,7 +16,9 @@ angular.module('jupiterApp').controller('adminCRAddCtrl', ['$scope', '$http', '$
         $scope.endnode = "";
         $scope.relationshipDescription = "";
 
-        $scope.relselect = "";
+        $scope.relData = { 
+            relselect : "" 
+        };
         $scope.hover = false;
         $scope.showErrMsg = false;
 
@@ -208,7 +210,7 @@ angular.module('jupiterApp').controller('adminCRAddCtrl', ['$scope', '$http', '$
 
 
         $scope.addRel = function() {
-            if (($scope.endNodeId == $scope.nextNodeID || $scope.startNodeId == $scope.nextNodeID) && ($scope.endNodeId != "" && $scope.startNodeId != "") && ($scope.relselect != "") && ($scope.relselect != null)) {
+            if (($scope.endNodeId == $scope.nextNodeID || $scope.startNodeId == $scope.nextNodeID) && ($scope.endNodeId != "" && $scope.startNodeId != "") && ($scope.relData.relselect != "") && ($scope.relData.relselect != null)) {
 
 
                 if ($scope.relationshipDescription == "") {
@@ -222,7 +224,7 @@ angular.module('jupiterApp').controller('adminCRAddCtrl', ['$scope', '$http', '$
                         bname: $scope.startnode,
                         bid: $scope.startNodeId,
                         relid: $scope.i++,
-                        reltype: $scope.relselect,
+                        reltype: $scope.relData.relselect,
                         startid: $scope.startNodeId,
                         startname: $scope.startnode,
                         endid: $scope.endNodeId,
@@ -236,7 +238,7 @@ angular.module('jupiterApp').controller('adminCRAddCtrl', ['$scope', '$http', '$
                         bname: $scope.endnode,
                         bid: $scope.endNodeId,
                         relid: $scope.i++,
-                        reltype: $scope.relselect,
+                        reltype: $scope.relData.relselect,
                         startid: $scope.startNodeId,
                         startname: $scope.startnode,
                         endid: $scope.endNodeId,
@@ -251,7 +253,7 @@ angular.module('jupiterApp').controller('adminCRAddCtrl', ['$scope', '$http', '$
                 $scope.endnode = "";
                 $scope.endNodeId = "";
 
-                $scope.relselect = "";
+                $scope.relData.relselect = "";
 
                 $scope.relationshipDescription = "";
                 $scope.relCheckBox.fromNewNode = false;
@@ -304,19 +306,19 @@ angular.module('jupiterApp').controller('adminCRAddCtrl', ['$scope', '$http', '$
 
         function setDataSetRel(startNode) {
             $scope.startNodeSelected(startNode);
-            $scope.relselect = "CONTAINS";
+            $scope.relData.relselect = "CONTAINS";
             $scope.relCheckBox.toNewNode = true;
             $scope.setRelValueTo();
         }
 
         function setConceptRel(startNode,endNode,relationship) {
             $scope.startNodeSelected(startNode);
-            $scope.relselect =  relationship;
+            $scope.relData.relselect =  relationship;
             $scope.endNodeSelected(endNode);
         }
 
      $scope.addDataElementRel = function() {
-            if (($scope.endNodeId == $scope.nextNodeID || $scope.startNodeId == $scope.nextNodeID) && ($scope.endNodeId != "" && $scope.startNodeId != "") && ($scope.relselect != "") && ($scope.relselect != null)) {
+            if (($scope.endNodeId == $scope.nextNodeID || $scope.startNodeId == $scope.nextNodeID) && ($scope.endNodeId != "" && $scope.startNodeId != "") && ($scope.relData.relselect != "") && ($scope.relData.relselect != null)) {
 
 
                 if ($scope.relationshipDescription == "") {
@@ -330,7 +332,7 @@ angular.module('jupiterApp').controller('adminCRAddCtrl', ['$scope', '$http', '$
                         bname: $scope.startnode,
                         bid: $scope.startNodeId,
                         relid: $scope.i++,
-                        reltype: $scope.relselect,
+                        reltype: $scope.relData.relselect,
                         startid: $scope.startNodeId,
                         startname: $scope.startnode,
                         endid: $scope.endNodeId,
@@ -344,7 +346,7 @@ angular.module('jupiterApp').controller('adminCRAddCtrl', ['$scope', '$http', '$
                         bname: $scope.endnode,
                         bid: $scope.endNodeId,
                         relid: $scope.i++,
-                        reltype: $scope.relselect,
+                        reltype: $scope.relData.relselect,
                         startid: $scope.startNodeId,
                         startname: $scope.startnode,
                         endid: $scope.endNodeId,
@@ -359,7 +361,7 @@ angular.module('jupiterApp').controller('adminCRAddCtrl', ['$scope', '$http', '$
                 //$scope.endnode = "";
                 //$scope.endNodeId = "";
 
-                // $scope.relselect = "";
+                // $scope.relData.relselect = "";
 
                 $scope.relationshipDescription = "";
               //  $scope.relCheckBox.fromNewNode = false;
@@ -383,7 +385,7 @@ angular.module('jupiterApp').controller('adminCRAddCtrl', ['$scope', '$http', '$
             $scope.endnode = "";
             $scope.endNodeId = "";
 
-            $scope.relselect = "";
+            $scope.relData.relselect = "";
 
             $scope.relationshipDescription = "";
             $scope.relCheckBox.fromNewNode = false;

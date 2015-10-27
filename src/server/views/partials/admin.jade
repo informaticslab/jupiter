@@ -53,6 +53,16 @@
 							| Search node to edit
 						input(type="text" ng-model="node"  placeholder="Search activity" typeahead-on-select="itemSelected($item, $model, $label)" typeahead-min-length='3' typeahead="node.name for node in getNodes($viewValue)" class="form-control")
 						//input(type="hidden" id="nodeId" ng-value="nodeId")
+				.row(ng-show="nodeLabel=='Dataset'")
+					.col-lg-6.col-md-6.col-sm-6
+						br
+						a(href="#/adminCRRapidEntry/{{nodeId}}")
+							| click here if you want to edit all data elements from this dataset		
+				.row(ng-show="nodeLabel=='DataElement'")
+					.col-lg-6.col-md-6.col-sm-6
+						br
+						a(href="#/adminCRRapidEntry/{{datasetId}}")
+							| click here if you want to edit all data elements associated with this data element		
 				.vertical_spacing_browse
 				.row(ng-show="showLockMsg")
 					.col-md-12.col-lg-12.col-sm-12

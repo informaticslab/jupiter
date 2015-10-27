@@ -136,6 +136,19 @@
 											td
 												a(ng-repeat='node in nodeTags', href="#/node/{{node.id}}", style='padding-right:15px')
 													strong {{node.name}}
+					.vertical_spacing_lesser
+					.orange_header_larger(ng-if='filePath != null')
+						| Local Data:
+					.row(ng-if='filePath != null')
+						.col-lg-12
+							button.btn.btn-default.button-padding(ng-click='openGridModal(nodeId)' )
+								span.fa.fa-table
+									|  Preview Dataset
+							button.btn.btn-default.button-padding
+								a(href='{{filePath}}' download='')
+									span.fa.fa-download
+										| Download CSV
+					.vertical_spacing_more(ng-if='filePath != null')
 					.row
 						.col-lg-12
 							.panel.panel-default.panel_custom

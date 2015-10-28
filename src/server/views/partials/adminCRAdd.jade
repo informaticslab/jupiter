@@ -64,7 +64,7 @@
 						br
 						a(href="#/adminCRRapidEntry")
 							| click here if you want to enter more than one data element at a time
-				div(ng-if="nodetypeselect != 'DataElement' ")
+				div(ng-show="nodetypeselect != 'DataElement' ")
 					.row(ng-show="showButtons")
 						.col-lg-12.col-md-12.col-sm-12
 							.row(ng-show="showButtons")
@@ -183,7 +183,7 @@
 								strong
 									| Error
 								|  'From', 'To' and 'Relationship Type' fields should be selected, and either 'From' or 'To' field should be equal to '{{node}}'.
-				div(ng-if="nodetypeselect == 'DataElement' ")
+				div(ng-show="nodetypeselect == 'DataElement' ")
 					.row(ng-show="showButtons && dataSet.id != null")
 						.col-lg-12.col-md-12.col-sm-12
 							.row(ng-show="showButtons")

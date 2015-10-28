@@ -2,39 +2,41 @@ angular.module('jupiterApp').controller('adminCRAddCtrl', ['$scope', '$http', '$
     function($scope, $http, $filter, $location, nodeAttributeDictionary, nodeRelationshipDictionary, nodeTypeDictionary, ngIdentity) {
 
 
+        initFields();
+        // $scope.cr = {};
+        // $scope.showButtons = false;
+        // $scope.nodeLabel = "";
+        // $scope.crQueueSuccess = false;
+        // $scope.crQueueFail = false;
 
-        $scope.cr = {};
-        $scope.showButtons = false;
-        $scope.nodeLabel = "";
-        $scope.crQueueSuccess = false;
-        $scope.crQueueFail = false;
+        // $scope.endNodeId = "";
+        // $scope.startNodeId = "";
 
-        $scope.endNodeId = "";
-        $scope.startNodeId = "";
+        // $scope.startnode = "";
+        // $scope.endnode = "";
+        // $scope.relationshipDescription = "";
 
-        $scope.startnode = "";
-        $scope.endnode = "";
-        $scope.relationshipDescription = "";
+        // $scope.relData = { 
+        //     startnode : "",
+        //     relselect : "",
+        //     endNode   : "" 
+        // };
+        // $scope.hover = false;
+        // $scope.showErrMsg = false;
 
-        $scope.relData = { 
-            relselect : "" 
-        };
-        $scope.hover = false;
-        $scope.showErrMsg = false;
+        // $scope.relCheckBox = {};
+        // $scope.relvalues = [];
 
-        $scope.relCheckBox = {};
-        $scope.relvalues = [];
+        // $scope.nextNodeID = "TBD";
+        // $scope.i = 100;
 
-        $scope.nextNodeID = "TBD";
-        $scope.i = 100;
-
-        $scope.highlightMissingTxt = false;
-        $scope.datasetSelected = '';
-        $scope.dataSet = {};
-        $scope.undefinedConcept = {
-            'displayname'  : 'undefined',
-            'id'    : 'CN0'
-        }
+        // $scope.highlightMissingTxt = false;
+        // $scope.datasetSelected = '';
+        // $scope.dataSet = {};
+        // $scope.undefinedConcept = {
+        //     'displayname'  : 'undefined',
+        //     'id'    : 'CN0'
+        // }
 
 
 
@@ -92,6 +94,7 @@ angular.module('jupiterApp').controller('adminCRAddCtrl', ['$scope', '$http', '$
 
 
         $scope.loadNodeFields = function() {
+            initFields();
             fetchNodeValues();
         };
 
@@ -185,6 +188,21 @@ angular.module('jupiterApp').controller('adminCRAddCtrl', ['$scope', '$http', '$
                     if ($scope.nodetypeselect == 'DataElement') {
                          $scope.resetFields();
                     }
+                    else {
+                        $scope.nodetypeselect = '';
+                        $scope.startnode = "";
+                        $scope.startNodeId = "";
+
+                        $scope.endnode = "";
+                        $scope.endNodeId = "";
+
+                        $scope.relData.relselect = "";
+
+                        $scope.relationshipDescription = "";
+                        $scope.relCheckBox.fromNewNode = false;
+                        $scope.relCheckBox.toNewNode = false;
+
+                    }
                 }).error(function(data, status) {
                     $scope.node = "";
                     $scope.showButtons = false;
@@ -248,9 +266,11 @@ angular.module('jupiterApp').controller('adminCRAddCtrl', ['$scope', '$http', '$
                 }
 
                 $scope.startnode = "";
+                //$scope.relData.startnode = "";
                 $scope.startNodeId = "";
 
                 $scope.endnode = "";
+                //$scope.relData.endnode = "";
                 $scope.endNodeId = "";
 
                 $scope.relData.relselect = "";
@@ -396,6 +416,43 @@ angular.module('jupiterApp').controller('adminCRAddCtrl', ['$scope', '$http', '$
             $scope.dataSet = {};
             $scope.cr['name'] = '';
             $scope.cr['description']='';
+        }
+
+        function initFields() {
+             $scope.cr = {};
+        $scope.showButtons = false;
+        $scope.nodeLabel = "";
+        $scope.crQueueSuccess = false;
+        $scope.crQueueFail = false;
+
+        $scope.endNodeId = "";
+        $scope.startNodeId = "";
+
+        $scope.startnode = "";
+        $scope.endnode = "";
+        $scope.relationshipDescription = "";
+
+        $scope.relData = { 
+            startnode : "",
+            relselect : "",
+            endNode   : "" 
+        };
+        $scope.hover = false;
+        $scope.showErrMsg = false;
+
+        $scope.relCheckBox = {};
+        $scope.relvalues = [];
+
+        $scope.nextNodeID = "TBD";
+        $scope.i = 100;
+
+        $scope.highlightMissingTxt = false;
+        $scope.datasetSelected = '';
+        $scope.dataSet = {};
+        $scope.undefinedConcept = {
+            'displayname'  : 'undefined',
+            'id'    : 'CN0'
+        }
         }
     }
 ]);

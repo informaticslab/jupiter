@@ -1961,6 +1961,11 @@ angular.module('jupiterApp').factory('nodeAttributeDictionary', function() {
                             'description': 'Concept Unique Identifier',
                             'displayLabel': 'UMLS CUI',
                             'sortIndex': '288'
+                        },
+                        'description': {
+                            'description': 'Concept description',
+                            'displayLabel': 'Description',
+                            'sortIndex': '289'
                         }
                     }
                 }

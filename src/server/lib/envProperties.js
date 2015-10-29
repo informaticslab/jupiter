@@ -10,6 +10,8 @@ module.exports = {
 
   ACCESS_LOG: __dirname+'/access_log',
 
+  uploadLocation: '../../../uploads',
+
 
 };
 

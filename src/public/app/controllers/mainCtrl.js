@@ -1,4 +1,13 @@
 angular.module('jupiterApp').controller('mainCtrl', function($scope,$resource,$location,$http){
+	//cheet('↑ ↑ ↓ ↓ ← → ← → b a', function () { alert('Voilà!'); });
+
+var egg = new Egg("up,up,down,down,left,right,left,right,b,a", function() {
+  jQuery('#egggif').fadeIn(500, function() {
+    window.setTimeout(function() { jQuery('#egggif').hide(); }, 5000);
+  });
+}).listen();
+
+
 	$scope.$parent.q = 'home';
     $scope.rays = 'sunshine';
     $scope.latestChanges = [];

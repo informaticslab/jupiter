@@ -5,6 +5,7 @@ angular.module('jupiterApp').controller('dataMatchCtrl', function($scope, $http)
 	$scope.ds2Id = '';
 	$scope.mergedList = [];
 	$scope.isCollapsed = true;
+	$scope.showResults = false;
 	 $scope.setDataSet1 = function($item) {
         $scope.ds1Id = $item.id;
      };
@@ -84,6 +85,7 @@ angular.module('jupiterApp').controller('dataMatchCtrl', function($scope, $http)
 			}
 
 			
+			$scope.showResults = true;
 
 		
 			// console.log($scope.unmatchedList);

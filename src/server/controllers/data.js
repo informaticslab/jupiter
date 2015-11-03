@@ -37,7 +37,8 @@ exports.upload = function(req, res) {
 				var builtQuery = matchClause + ' create ';
 				for (var i = 0; i < headers.length; i++) {
 					var elementId = 'DE' + nodeId + ts + (i + 1);
-					var elementQueryId = headers[i].charAt(0) + i;
+					//var elementQueryId = headers[i].charAt(0) + i;
+					var elementQueryId = 'DE_'+ i;
 					if ((i + 1) === headers.length) {
 						createPattern = '(' + elementQueryId + ':DataElement{name:"' + headers[i] + '", id:"' + elementId + '"})<-[:CONTAINS{`relationshipDescription`:"N/A"}]-(a), ('+ elementQueryId +')-[:SHARES_MEANING_WITH{`relationshipDescription`:"N/A"}]->(b)';
 					} else {

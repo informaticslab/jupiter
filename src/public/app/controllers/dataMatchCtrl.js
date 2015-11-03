@@ -14,6 +14,10 @@ angular.module('jupiterApp').controller('dataMatchCtrl', function($scope, $http)
         $scope.ds2Id = $item.id;
      };
 
+     $scope.resetStatus = function() {
+     	$scope.showResults = false;
+     };
+
 	$scope.match = function() {
 
 		$http.get('/api/node/getHarmonizeDataSets/'+$scope.ds1Id+'/'+$scope.ds2Id).then(function(res) {

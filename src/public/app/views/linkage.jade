@@ -93,8 +93,8 @@
 					.hide_activity_label
 						| Show activity type:
 						span(ng-repeat='nodes in nodeArray')
-							span.hide_activity_check(ng-show="nodes.show")
-								input(type='checkbox' ng-change="hidenodes(\'{{nodes.nodeType}}\',nodes.checked)" ng-model="nodes.checked" ng-show="nodes.show")
+							span.hide_activity_check(ng-if="nodes.show")
+								input(type='checkbox' ng-change="hidenodes(\'{{nodes.nodeType}}\',nodes.checked)" ng-model="nodes.checked" ng-if="nodes.show")
 								| &nbsp;{{nodes.displayName}} ({{nodes.count}})
 				.block_linkage(ng-linkage-viewer)
 					.vertical_spacing1

@@ -61,7 +61,9 @@ angular.module('jupiterApp')
 							Collaborative: true,
 							Dataset: true,
 							DataStandard: true,
-							Tag: true
+							Tag: true,
+							Concept: true,
+							DataElement: true
 						};
 
 						scope.disableHideLines = false;
@@ -79,6 +81,8 @@ angular.module('jupiterApp')
 						scope.showDataset = false;
 						scope.showDataStandard = false;
 						scope.showTag = false;
+						scope.showConcept = false;
+						scope.showDataElement = false;
 
 						var rootnodelabell = "";
 						var rootnodelabelr = "";
@@ -327,6 +331,8 @@ angular.module('jupiterApp')
 							scope.showDataset = false;
 							scope.showDataStandard = false;
 							scope.showTag = false;
+							scope.showDataElement = false;
+							scope.showConcept = false;
 							//error = false;
 
 							var circlecount=json.nodes.length;
@@ -904,7 +910,9 @@ angular.module('jupiterApp')
 								Collaborative: true,
 								Dataset: true,
 								DataStandard: true,
-								Tag: true
+								Tag: true,
+								Concept: true,
+								DataElement: true
 							};
 
 							scope.disableHideLines = false;

@@ -20,6 +20,7 @@ module.exports = function(app) {
 
 
     app.get('/api/node/all', nodes.getNodeNameAll);
+    app.get('/api/node/getDatasetWithFile', nodes.getDatasetWithFile);
     app.get('/api/node/:id', nodes.getNodeById);
     app.get('/api/node/:id/labels', nodes.getLabelsForNode);
     app.get('/api/node/:id/relations', nodes.getRelationsForNode);

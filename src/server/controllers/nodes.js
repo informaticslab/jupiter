@@ -1278,13 +1278,34 @@ exports.getAdvancedSearchData = function(req, res) {
 
 
                     var nodesRedundancyCheck = [];
-                    nodesRedundancyCheck.push(dnodes[0]);
+                    // nodesRedundancyCheck.push(dnodes[0]);
+
+                    // var found = false;
+                    // for (var i = 1; i < dnodes.length; i++) {
+                    //     found = false;
+                    //     for (j = 0; j < nodesRedundancyCheck.length; j++) {
+                    //         if (dnodes[i] == nodesRedundancyCheck[j]) {
+                    //             found = true;
+                    //             break;
+                    //         }
+
+
+                    //     }
+                    //     if (!found) {
+                    //         nodesRedundancyCheck.push(dnodes[i]);
+                    //     } else {
+                    //         break;
+                    //     }
+
+                    // }
+
+                    nodesRedundancyCheck.push(dnodesid[0]);
 
                     var found = false;
-                    for (var i = 1; i < dnodes.length; i++) {
+                    for (var i = 1; i < dnodesid.length; i++) {
                         found = false;
                         for (j = 0; j < nodesRedundancyCheck.length; j++) {
-                            if (dnodes[i] == nodesRedundancyCheck[j]) {
+                            if (dnodesid[i] == nodesRedundancyCheck[j]) {
                                 found = true;
                                 break;
                             }
@@ -1292,7 +1313,7 @@ exports.getAdvancedSearchData = function(req, res) {
 
                         }
                         if (!found) {
-                            nodesRedundancyCheck.push(dnodes[i]);
+                            nodesRedundancyCheck.push(dnodesid[i]);
                         } else {
                             break;
                         }

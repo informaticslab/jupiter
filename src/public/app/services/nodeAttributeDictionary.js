@@ -1928,7 +1928,7 @@ angular.module('jupiterApp').factory('nodeAttributeDictionary', function() {
                         },
                         'possibleValues': {
                             'description': 'Possible data value range',
-                            'displayLabel': 'Possbile Values',
+                            'displayLabel': 'Possible Values',
                             'sortIndex': '285.2'
                         }
                     }

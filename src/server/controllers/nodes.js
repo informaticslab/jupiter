@@ -2822,3 +2822,16 @@ exports.updateRights = function(req, res) {
 
     res.send("success");
 };
+
+exports.getDataSetWithFile = function(req.res) {
+    var query = 'match (n:Dataset) where n.localFileName <> "" return n';
+    var params = {};
+    neodb.db.query(query, params, function(err, results) {
+        if (err) {
+            console.error('Error retreiving labels from database:', err);
+            res.send(404, "No node at that locaton")
+        } else {
+            res.send(results);
+        }
+    });
+};

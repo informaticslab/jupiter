@@ -31,7 +31,7 @@ angular.module('jupiterApp').controller('rootCtrl', function($scope, $http, $loc
     };
 
     $scope.getNodes = function(val) {
-        return $http.get('/api/node/searchByName/' + val).then(function(res) {
+        return $http.get('/api/node/searchByName/' + encodeURIComponent(val)).then(function(res) {
             var nodes = [];
             angular.forEach(res.data, function(item) {
                 nodes.push(item);
@@ -42,7 +42,7 @@ angular.module('jupiterApp').controller('rootCtrl', function($scope, $http, $loc
 
 
     $scope.getConceptNodes = function(val) {
-        return $http.get('/api/node/searchConceptNode/' + val).then(function(res) {
+        return $http.get('/api/node/searchConceptNode/' + encodeURIComponent(val)).then(function(res) {
             var nodes = [];
             angular.forEach(res.data, function(item) {
                 nodes.push(item);
@@ -52,7 +52,7 @@ angular.module('jupiterApp').controller('rootCtrl', function($scope, $http, $loc
     };
 
     $scope.getDatasetNodes = function(val) {
-        return $http.get('/api/node/searchDatasetNode/' + val).then(function(res) {
+        return $http.get('/api/node/searchDatasetNode/' + encodeURIComponent(val)).then(function(res) {
             var nodes = [];
             angular.forEach(res.data, function(item) {
                 nodes.push(item);

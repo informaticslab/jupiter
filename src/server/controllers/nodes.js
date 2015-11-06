@@ -328,11 +328,11 @@ exports.getNodeById = function(req, res) {
 };
 
 exports.searchByName = function(req, res) {
-    var searchTerm = req.params.searchTerm.toLowerCase();
+    var searchTerm = decodeURIComponent(req.params.searchTerm).toLowerCase();
     //var query = 'MATCH n WHERE lower(n.name)=~".*' + searchTerm + '.*" or lower(n.shortName)=~".*' + searchTerm + '.*" RETURN distinct n.id as id, n.name as name, n.shortName as shortname';
     var query = 'MATCH n WHERE lower(n.name)=~".*' + searchTerm + '.*" or lower(n.shortName)=~".*' + searchTerm + '.*" or lower(n.id) =~".*' + searchTerm + '.*" RETURN distinct n.id as id, n.name + " (" + (n.id) + ")" as name, n.shortName as shortname';
     var params = {
-        searchTerm: req.params.searchTerm
+        searchTerm: searchTerm
     };
     neodb.db.query(query, params, function(err, results) {
 
@@ -367,11 +367,11 @@ exports.searchByName = function(req, res) {
 };
 
 exports.searchConceptNode = function(req, res) {
-    var searchTerm = req.params.searchTerm.toLowerCase();
+    var searchTerm = decodeURIComponent(req.params.searchTerm).toLowerCase();
     var query = 'match (n:Concept) where lower(n.name)=~".*' + searchTerm + '.*" return n.id as id,n.name as name ,n.cui as cui';
  //   console.log(query);
     var params = {
-        searchTerm: req.params.searchTerm
+        searchTerm: searchTerm
     };
     neodb.db.query(query, params, function(err, results) {
 
@@ -399,11 +399,11 @@ exports.searchConceptNode = function(req, res) {
 };
 
 exports.searchDatasetNode = function(req, res) {
-    var searchTerm = req.params.searchTerm.toLowerCase();
+    var searchTerm = decodeURIComponent(req.params.searchTerm).toLowerCase();
     //var query = 'MATCH n WHERE lower(n.name)=~".*' + searchTerm + '.*" or lower(n.shortName)=~".*' + searchTerm + '.*" RETURN distinct n.id as id, n.name as name, n.shortName as shortname';
     var query = 'MATCH (n:Dataset) WHERE lower(n.name)=~".*' + searchTerm + '.*" or lower(n.shortName)=~".*' + searchTerm + '.*" or lower(n.id) =~".*' + searchTerm + '.*" RETURN distinct n.id as id, n.name + " (" + (n.id) + ")" as name, n.shortName as shortname';
     var params = {
-        searchTerm: req.params.searchTerm
+        searchTerm: searchTerm
     };
     neodb.db.query(query, params, function(err, results) {
 

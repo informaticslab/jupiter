@@ -2823,7 +2823,7 @@ exports.updateRights = function(req, res) {
     res.send("success");
 };
 
-exports.getDataSetWithFile = function(req.res) {
+exports.getDataSetWithFile = function(req,res) {
     var query = 'match (n:Dataset) where n.localFileName <> "" return n';
     var params = {};
     neodb.db.query(query, params, function(err, results) {

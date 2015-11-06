@@ -1,19 +1,20 @@
 doctype
-html(lang="en" ng-app='apolloApp')
+html(lang="en" ng-app='jupiterApp')
 	head
 		meta(charset="utf-8")
 		meta(name="viewport" content="width=device-width, initial-scale=1.0")
 		title Integrated Surveillance Portal
-		link(rel="stylesheet" href="/apollo/css/bootstrap.min.css")
-		link(rel="stylesheet" href="/apollo/css/bootstrap-theme.min.css")
-		link(rel="stylesheet" href="/apollo/css/font-awesome.min.css")
-		link(rel="stylesheet" href="/apollo/css/sticky-footer-navbar.css")
-		link(rel="stylesheet" href="/apollo/css/animation.css")
-		link(rel="stylesheet" href="/apollo/css/custom.css")
-		link(rel="stylesheet" href="/apollo/css/d3-viz.css")
-		link(rel="stylesheet" href="/apollo/css/loading-bar.min.css")
-		link(rel="stylesheet" href="/apollo/css/inTheLab.css")
-		link(rel="stylesheet" href="/apollo/vendor/toastr/toastr.css")
+		link(rel="stylesheet" href="/css/bootstrap.min.css")
+		link(rel="stylesheet" href="/css/bootstrap-theme.min.css")
+		link(rel="stylesheet" href="/css/font-awesome.min.css")
+		link(rel="stylesheet" href="/css/sticky-footer-navbar.css")
+		link(rel="stylesheet" href="/css/animation.css")
+		link(rel="stylesheet" href="/css/custom.css")
+		link(rel="stylesheet" href="/css/d3-viz.css")
+		link(rel="stylesheet" href="/css/loading-bar.min.css")
+		link(rel="stylesheet" href="/css/inTheLab.css")
+		link(rel="stylesheet" href="/vendor/toastr/toastr.css")
+		link(rel="stylesheet" href="/vendor/angular-ui-grid/ui-grid/css/ui-grid.min.css")
 		link(rel="P3Pv1" href="http://www.cdc.gov/w3c/p3p.xml")
 
 		
@@ -97,13 +98,13 @@ html(lang="en" ng-app='apolloApp')
 						
 						span.right_nav_content(ng-controller="navBarLoginCtrl")
 
-							a(href="" ng-click="openLogin('lg')" ng-hide="identity.isAuthenticated()") 
+							a(href="" ng-click="openLogin('md')" ng-hide="identity.isAuthenticated()") 
 									span.glyphicon.glyphicon-user 
 										| &nbsp;Login
-						ng-include(src="'/apollo/partials/navbar-login'"  ng-show="identity.isAuthenticated()")
+						ng-include(src="'/partials/navbar-login'"  ng-show="identity.isAuthenticated()")
 	
 
-						//div(ng-include="'/apollo/partials/navbar-login'"  ng-show ="signInBtn")
+						//div(ng-include="'/partials/navbar-login'"  ng-show ="signInBtn")
 							//span.glyphicon.glyphicon-user.user_custom  
 							//| &nbsp;Welcome, {{loginuser}} &nbsp;
 							//a(href='#')  Logout
@@ -116,83 +117,6 @@ html(lang="en" ng-app='apolloApp')
 							//- 		| Show/Hide Sidebar
 
 		// end row 2 (navbar)
-
-		//Login modal
-		div
-			script(type="text/ng-template", id="loginModalContent.html")
-				.modal-content(ng-controller="navBarLoginCtrl")
-					.modal-header.header_dark
-						span.pull-right
-							button.btn.close_button.glyphicon.glyphicon-remove(ng-click="cancel()")
-						//.disclaimer_intro
-						h4.modal-title(id='myModalLabel') &nbsp;Login
-							img(alt='icon', src='img/modal_icon.png')
-							img(alt='Beta', src='img/modal_beta.png')
-					.modal-body
-
-						.row
-							.col-lg-5.col-md-5.col-sm-5
-								h4
-									| CDC Smart Card Login
-								br
-								.row
-									.col-lg-3.col-md-3.col-sm-3
-										img.pull-left(src="img/PIV_Card_Sample.png")
-									.col-lg-9.col-md-9.col-sm-9
-										| Insert your Smart Card into your smart card reader before you click the Login button.
-								br
-								.row
-									.col-lg-12.col-md-12.col-sm-12
-										button.btn.btn-primary(data-dismiss='modal', type='button', ng-click='ok();pivLogin()') 
-											| Login
-							.col-lg-1.col-md-1.col-sm-1
-								p.text-center
-									br
-									br
-									br
-									| (or)
-							.col-lg-6.col-md-6.col-sm-6
-								h4
-									| CISP Login
-								br
-								form(ng-controller="navBarLoginCtrl")
-									.form-group
-										input.form-control(placeholder="Email", ng-model="email")
-									.form-group
-										input.form-control(type="password", placeholder="Password", ng-model="password")
-									br
-									button.btn.btn-primary(ng-click="signin(email,password)")
-										| Login
-						hr
-						.row
-							.col-lg-6.col-md-6.col-sm-6
-								strong
-									span
-										| You can also login using:
-								br
-								br
-								a(href="/apollo/auth/facebook")
-									img(src="img/FB-f-Logo__blue_29.png" )
-							.col-lg-6.col-md-6.col-sm-6
-								strong
-									span
-										|  
-								br
-								br
-								
-									
-					//.modal-footer
-						.modal_show
-							h4
-								| Login Using
-								i.fa.fa-facebook-official
-							//a(href="/apollo/auth/facebook")
-								| login using facebook
-
-		// end login modal
-
-
-
 		div 
 			script(type="text/ng-template", id="myModalContent.html")
 				.modal-content

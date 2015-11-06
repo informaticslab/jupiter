@@ -48,7 +48,7 @@
                             var link = svgArc.append("g").selectAll(".link"),
                                 node = svgArc.append("g").selectAll(".node");
                             
-                            d3.json("/apollo/api/lab/relations", function(error, relations){
+                            d3.json("/api/lab/relations", function(error, relations){
 
                               if(relations==undefined | error)
                               { 
@@ -60,7 +60,7 @@
                               }
                               else{
                                 
-                                d3.json("/apollo/api/lab/nodes", function(error, classes) {
+                                d3.json("/api/lab/nodes", function(error, classes) {
                                     if(classes == undefined | error){
                                       var errormsg=svgArc.append("text")
                                       .text("Could not retrieve all the nodes")

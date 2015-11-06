@@ -11,15 +11,14 @@ var accessLogStream = fs.createWriteStream(properties.ACCESS_LOG, {flags: 'a'})
 
 module.exports = function(app, config) {
     app.configure(function() {
-        app.use('/apollo/',express.static(config.rootPath + '/public'));
+        app.use('/',express.static(config.rootPath + '/public'));
         app.set('views', config.rootPath + '/server/views');
         app.set('view engine', 'jade');
         app.use(cookieParser());
-        app.use(express.bodyParser());
+        app.use(express.bodyParser({uploadDir: properties.UPLOAD_PATH}));
         app.use(session({secret:'use the force',resave:false,saveUninitialized:false}));
         app.use(passport.initialize());
         app.use(passport.session());
         app.use(morgan('combined', {stream: accessLogStream}));
-       //app.use(morgan('dev'));
     });
 }

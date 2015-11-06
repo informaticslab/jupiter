@@ -1,10 +1,9 @@
-angular.module('apolloApp').controller('linkageCtrl', function($scope, $routeParams, $resource, $location){
+angular.module('jupiterApp').controller('linkageCtrl', function($scope, $routeParams, $resource, $location){
 	$scope.$parent.q = 'explore';
     $scope.nodeId = $routeParams.id;
 
-    //console.log("linkageCtrl",$scope.showOrganization);
 
-    var node = $resource('/apollo/api/node/:id', {
+    var node = $resource('/api/node/:id', {
         id: '@id'
     });
 
@@ -13,7 +12,6 @@ angular.module('apolloApp').controller('linkageCtrl', function($scope, $routePar
     $scope.node = node.get({
         id: $routeParams.id
     }, function() {
-        //console.log('node name was: ' + $scope.node.name)
         if ($scope.node.name != null)
          {
            siteName = 'Relationships: ' + $scope.node.name;

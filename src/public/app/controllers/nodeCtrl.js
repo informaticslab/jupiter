@@ -1,5 +1,5 @@
-angular.module('apolloApp').controller('nodeCtrl', ['$scope', '$location', '$resource', '$http', '$routeParams', 'nodeAttributeDictionary',
-    function($scope, $location, $resource, $http, $routeParams, nodeAttributeDictionary) {
+angular.module('jupiterApp').controller('nodeCtrl', ['$scope', '$location', '$resource', '$http', '$routeParams', 'nodeAttributeDictionary', '$modal',
+    function($scope, $location, $resource, $http, $routeParams, nodeAttributeDictionary, $modal) {
         
         
         $scope.nodesArray=[];
@@ -11,12 +11,10 @@ angular.module('apolloApp').controller('nodeCtrl', ['$scope', '$location', '$res
         
         $scope.actAttributes = {};
         for (x in nodeAttributeDictionary) {
-            //console.log("***********************"+x);
             $scope.actAttributes[x] = [];
             for (y in nodeAttributeDictionary[x].attributeGroups) {
                 var attGroupSortIndex=nodeAttributeDictionary[x].attributeGroups[y].sortIndex;
                 for (z in nodeAttributeDictionary[x].attributeGroups[y].attributes) {
-                    //$scope.actAttributes[x].push("" + z + "");
                     var newattSortIndex=attGroupSortIndex+""+nodeAttributeDictionary[x].attributeGroups[y].attributes[z].sortIndex;
                     nodeAttributeDictionary[x].attributeGroups[y].attributes[z].sortIndex=newattSortIndex;
                     $scope.actAttributes[x].push({
@@ -25,35 +23,30 @@ angular.module('apolloApp').controller('nodeCtrl', ['$scope', '$location', '$res
                         displayLabel:nodeAttributeDictionary[x].attributeGroups[y].attributes[z].displayLabel,                        
                         sortIndex:nodeAttributeDictionary[x].attributeGroups[y].attributes[z].sortIndex
                     });
-                    //for getting attribute names 
-                    // var attname=$filter('unCamelCase')(z);
-                    // //console.log("x="+x+", z=" + attname + ", des="+nodeAttributeDictionary[x].attributeGroups[y].attributes[z].description);
                 }
-            } //$scope.nodeattributes.x
+            } 
         }
 
 
         var siteName = 'Node Viewer: ' + $scope.nodeId
-        var node = $resource('/apollo/api/node/:id', {
+        var node = $resource('/api/node/:id', {
             id: '@id'
         });
-        var labels = $http.get('/apollo/api/node/' + $routeParams.id + '/labels').success(function(data) {
+        var labels = $http.get('/api/node/' + $routeParams.id + '/labels').success(function(data) {
             $scope.labels = data;
         });
-        var relations = $resource('/apollo/api/node/:id/relations', {
+        var relations = $resource('/api/node/:id/relations', {
             id: '@id'
         });
 
 
-        var labels = $http.get('/apollo/api/node/'+$scope.nodeId+'/relations').success(function(data) {
+        var labels = $http.get('/api/node/'+$scope.nodeId+'/relations').success(function(data) {
 
             for(i=0;i<data.length;i++)
             {
                $scope.tablength[i]=0;
-               //console.log("1**",data[i].relTypes.length);
                for(j=0;j<data[i].relTypes.length;j++)
                {
-                    //console.log("2",data[i].relTypes[j].nodes.length);
                     $scope.tablength[i]=$scope.tablength[i]+data[i].relTypes[j].nodes.length;
                }
             }
@@ -61,7 +54,7 @@ angular.module('apolloApp').controller('nodeCtrl', ['$scope', '$location', '$res
             
         });
 
-        var nodeDetails = $http.get('/apollo/api/node/' + $routeParams.id).success(function(data) {
+        var nodeDetails = $http.get('/api/node/' + $routeParams.id).success(function(data) {
             var attributeKeys = _.pluck(data.attributes, 'key');
             $scope.node = data;
             siteName = 'Details: ' + data.name;
@@ -71,11 +64,23 @@ angular.module('apolloApp').controller('nodeCtrl', ['$scope', '$location', '$res
             }
             $scope.$parent.unshiftSiteHistory(site);
             
+            for (var i = $scope.node.attributes.length - 1; i >= 0; i--) {
+                if($scope.node.attributes[i].key === 'filePath'){
+                    $scope.filePath = $scope.node.attributes[i].value;
+                }
+                if($scope.node.attributes[i].key ==='localFileName'){
+                    $scope.localFileName = $scope.node.attributes[i].value;
+                }
+            }
+
             var len = $scope.node.attributes.length;
             $scope.labelGroups = function(label) {
                 return _.toArray(nodeAttributeDictionary[label].attributeGroups);
             };
             $scope.showGroup = function(group) {
+                if(group.heading === 'Local Data'){
+                    return false;
+                }
                 return $scope.labelGroupAttributes(group).length > 0;
             };
             $scope.labelGroupAttributes = function(group) {
@@ -118,7 +123,6 @@ angular.module('apolloApp').controller('nodeCtrl', ['$scope', '$location', '$res
                 });
 
                 
-                //console.log(toRet.length,toRet[0].sortIndex);
                 var missingCol=_.difference(groupAttributeKeys,_.pluck(toRet, 'key'));
 
                 _.each(missingCol, function(i) {
@@ -133,7 +137,7 @@ angular.module('apolloApp').controller('nodeCtrl', ['$scope', '$location', '$res
                 });
             };
         });
-
+    
 
         $scope.relations = relations.query({
             id: $routeParams.id
@@ -158,7 +162,7 @@ angular.module('apolloApp').controller('nodeCtrl', ['$scope', '$location', '$res
         $scope.exportrelationships= function()
         {
             console.log($scope.nodesArray);
-            window.location =  '/apollo/api/export/csvrelations/' + $scope.nodeId;
+            window.location =  '/api/export/csvrelations/' + $scope.nodeId;
         }
 
         $scope.exportnodedetails= function()
@@ -174,22 +178,15 @@ angular.module('apolloApp').controller('nodeCtrl', ['$scope', '$location', '$res
                 {
                     csvString=csvString+"\""+attrArray[att].displayLabel+"\",\""+attrArray[att].value+"\"\r\n";
                 }
-                //var csvrow=$scope.actAttributes[$scope.labels][att].displayLabel+","+
             }
 
-           // var element = angular.element('<a/>');
-           //       element.attr({
-           //           href: 'data:attachment/csv;charset=utf-8,' + encodeURI(csvString),
-           //           target: '_blank',
-           //           download: 'NodeDetails.csv'
-           //       })[0].click();
+
 
 
             var IEcheck = checkIE();
             console.log(navigator.userAgent);
             if(IEcheck)
             {
-                //console.log(navigator.appVersion);
                 var csvContent=csvString; //here we load our csv data 
                 var blob = new Blob([csvContent],{
                     type: "text/csv;charset=utf-8;"
@@ -199,7 +196,6 @@ angular.module('apolloApp').controller('nodeCtrl', ['$scope', '$location', '$res
             }
             else
             {
-                //console.log(navigator.appVersion);
                 var hiddenElement = document.createElement('a');
 
                 hiddenElement.href = 'data:attachment/csv,' + encodeURI(csvString);
@@ -230,6 +226,18 @@ angular.module('apolloApp').controller('nodeCtrl', ['$scope', '$location', '$res
 
         $scope.emailBlurb = encodeURIComponent($location.absUrl());
 
+               $scope.openGridModal = function(nodeId) {
+            var modalInstance = $modal.open({
+                templateUrl: 'partials/modals/previewGrid',
+                controller: 'previewGridCtrl',
+                size: 'lg',
+                resolve: {
+                    nodeId: function() {
+                        return nodeId;
+                    }
+                }
+            });
+        };
         
 
     }

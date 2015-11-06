@@ -1,6 +1,7 @@
-angular.module('apolloApp').factory('nodeRelationshipDictionary', function() {
+angular.module('jupiterApp').factory('nodeRelationshipDictionary', function() {
     return {
         "RelationshipTypes":[
+                                "CONTAINS",
                                 "CONTRACTS_WITH",
                                 "ELECTRONICALLY_PROVIDES_DATA_TO",
                                 "ELECTRONICALLY_RECEIVES_DATA_FROM",
@@ -24,6 +25,7 @@ angular.module('apolloApp').factory('nodeRelationshipDictionary', function() {
                                 "PROVIDES_PRODUCTS/RESOURCES_TO",
                                 "SERVES_AS_A_MODEL_FOR",
                                 "SHARES_DATA_WITH",
+                                "SHARES_MEANING_WITH",
                                 "SHARES_RESOURCES_WITH",
                                 "SHARES_SPECIMENS/SAMPLES/KITS/ISOLATES_WITH",
                                 "TAGS",

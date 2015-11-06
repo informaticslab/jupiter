@@ -1,4 +1,4 @@
-angular.module('apolloApp').controller('mainCtrl', function($scope,$resource,$location,$http){
+angular.module('jupiterApp').controller('mainCtrl', function($scope,$resource,$location,$http){
 	$scope.$parent.q = 'home';
     $scope.rays = 'sunshine';
     $scope.latestChanges = [];
@@ -6,7 +6,7 @@ angular.module('apolloApp').controller('mainCtrl', function($scope,$resource,$lo
 
    	var nodestotal=0;
 
-	var portalstatsnodes = $resource('/apollo/api/stats/nodes', {
+	var portalstatsnodes = $resource('/api/stats/nodes', {
 	});
 
 	statsarr={};
@@ -16,8 +16,6 @@ angular.module('apolloApp').controller('mainCtrl', function($scope,$resource,$lo
 	},function(result){
 	if (!result.nullset)
 	{
-		//$scope.statsarr=result;
-		//console.log(result);
 		result.forEach(function(d) {
 		statsarr[d.label[0]]=d.count;
 		nodestotal=nodestotal+d.count;
@@ -33,15 +31,14 @@ angular.module('apolloApp').controller('mainCtrl', function($scope,$resource,$lo
 	});
 
 
-	$http.get('/apollo/api/mongo/latestChanges').then(function(res) {
+	$http.get('/api/mongo/latestChanges').then(function(res) {
 		$scope.latestChanges = res.data;
 		
-		//$scope.latestChanges.crdata.CR_REQUEST_TYPE.toLowerCase();
 		
 	})
 
 
-	var portalstatsrelations = $resource('/apollo/api/stats/relations', {
+	var portalstatsrelations = $resource('/api/stats/relations', {
 	});
 
 	var stats = portalstatsrelations.query({
@@ -149,10 +146,4 @@ angular.module('apolloApp').controller('mainCtrl', function($scope,$resource,$lo
     		eval($scope.goToCarousel3());
 		}
 	}
-	// var site = {
- //          'name':'Home',
- //          'url':$location.absUrl()
- //        }
-	// $scope.$parent.unshiftSiteHistory(site);
-	//console.log($scope.$parent.browseHistory)
 });

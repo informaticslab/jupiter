@@ -1,4 +1,4 @@
-angular.module('apolloApp')
+angular.module('jupiterApp')
 	.directive('ngDonutChart', [
 
 		function() {

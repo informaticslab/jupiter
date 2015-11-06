@@ -1,4 +1,4 @@
-angular.module('apolloApp').controller('rootCtrl', function($scope, $http, $location, localStorageService, $modal,ngIdentity,ngAuth,ngNotifier,$window){
+angular.module('jupiterApp').controller('rootCtrl', function($scope, $http, $location, localStorageService, $modal,ngIdentity,ngAuth,ngNotifier,$window){
     
     $scope.q = 'home';
     $scope.loginuser = 'guest';
@@ -12,7 +12,6 @@ angular.module('apolloApp').controller('rootCtrl', function($scope, $http, $loca
        });
     
     $scope.toCapitalizedWords  = function toCapitalizedWords(name) {
-      //var words = name.match(/[A-Za-z][a-z]*/g);
       var words = name.match(/^[a-z]+|[A-Z][a-z]*/g);
       return words.map(capitalize).join(" ");
     };
@@ -22,19 +21,17 @@ angular.module('apolloApp').controller('rootCtrl', function($scope, $http, $loca
     }
 
     $scope.redirectToSearch = function(){
-       //window.location =  '/apollo/#/search/' + $scope.queryString;
        $location.path('/search/' + $scope.queryString);
 
     };
 
     $scope.itemSelected = function($item, $model, $label) {
-        ///window.location =  '/apollo/#/node/' + $item.id;
         $location.path('/node/' + $item.id);
         $scope.queryString = null;
     };
 
     $scope.getNodes = function(val) {
-        return $http.get('/apollo/api/node/searchByName/' + val).then(function(res) {
+        return $http.get('/api/node/searchByName/' + encodeURIComponent(val)).then(function(res) {
             var nodes = [];
             angular.forEach(res.data, function(item) {
                 nodes.push(item);
@@ -43,6 +40,26 @@ angular.module('apolloApp').controller('rootCtrl', function($scope, $http, $loca
         });
     };
 
+
+    $scope.getConceptNodes = function(val) {
+        return $http.get('/api/node/searchConceptNode/' + encodeURIComponent(val)).then(function(res) {
+            var nodes = [];
+            angular.forEach(res.data, function(item) {
+                nodes.push(item);
+            });
+            return nodes;
+        });
+    };
+
+    $scope.getDatasetNodes = function(val) {
+        return $http.get('/api/node/searchDatasetNode/' + encodeURIComponent(val)).then(function(res) {
+            var nodes = [];
+            angular.forEach(res.data, function(item) {
+                nodes.push(item);
+            });
+            return nodes;
+        });
+    };
     $scope.showSidebar = true;
 
     $scope.getSidebarWidth = function(){
@@ -72,16 +89,6 @@ angular.module('apolloApp').controller('rootCtrl', function($scope, $http, $loca
       $scope.showSidebar = !$scope.showSidebar;
     };
 
-    //  if($scope.identity.isAuthenticated()){
-
-    //   $scope.signInBtn = true;
-    // } else if (!$scope.identity.isAuthenticated()){
-      
-    // $scope.signInBtn = false;
-    // $scope.toggleSignInBtn = function() {
-    //     $scope.signInBtn = $scope.signInBtn === false ? true: false;
-    // };
-    // }
 
     //SITE HISTORY
 
@@ -94,7 +101,6 @@ angular.module('apolloApp').controller('rootCtrl', function($scope, $http, $loca
 
       if (localStorageService.get('browseHistory') != null)
     {
-      //console.log('browsehistory pull succeeded.  It was: ' + $cookies.browseHistory);
       try
       {
         var browseHistoryJson = angular.fromJson(localStorageService.get('browseHistory'));
@@ -106,19 +112,7 @@ angular.module('apolloApp').controller('rootCtrl', function($scope, $http, $loca
       {console.log ('BrowseHistory LocalStorage/cookie unparsable, error given was ' + e)}
     }
 
-    // if ($cookies.browseHistory != null)
-    // {
-    //   //console.log('browsehistory pull succeeded.  It was: ' + $cookies.browseHistory);
-    //   try
-    //   {
-    //     var browseHistoryJson = angular.fromJson($cookies.browseHistory);
-    //     if (browseHistoryJson.sites != null && browseHistoryJson.sites[0] != null)
-    //     {
-    //       $scope.browseHistory = browseHistoryJson;
-    //     }
-    //   } catch(e)
-    //   {console.log ('BrowseHistory cookie unparsable, error given was ' + e)}
-    // }
+
 
     
 
@@ -130,7 +124,6 @@ angular.module('apolloApp').controller('rootCtrl', function($scope, $http, $loca
         if(node.name == $scope.browseHistory.sites[i].name)
         {
           arraymove($scope.browseHistory.sites, i, 0);
-          // console.log ('found a match in the unshift site thingy');
           foundMatch=true;
         }
       }
@@ -142,9 +135,7 @@ angular.module('apolloApp').controller('rootCtrl', function($scope, $http, $loca
           $scope.browseHistory.sites = $scope.browseHistory.sites.slice(0,29);
         }
       }
-      //$cookies.browseHistory = angular.toJson($scope.browseHistory)
       localStorageService.set('browseHistory', angular.toJson($scope.browseHistory))
-      //console.log('Just saved browse history as ' + angular.toJson($scope.browseHistory))
     }
 
     function arraymove(arr, fromIndex, toIndex) {
@@ -167,35 +158,36 @@ angular.module('apolloApp').controller('rootCtrl', function($scope, $http, $loca
       
       if(window.location.hostname == 'localhost'){
         $scope.facebook_appID = '1429109474024840';
-        $scope.app_domain = 'localhost:8089/apollo/';
-        $scope.app_image = 'http://edemo.phiresearchlab.org/apollo/img/header_graphic_alpha.png';
+        $scope.app_domain = 'localhost:8089/';
+        $scope.app_image = 'http://edemo.phiresearchlab.org/img/header_graphic_alpha.png';
       }
       else if(window.location.hostname == 'edemo.phiresearchlab.org'){
         $scope.facebook_appID = '1501295270085876';
-        $scope.app_domain = 'edemo.phiresearchlab.org/apollo/';
-        $scope.app_image = 'http://edemo.phiresearchlab.org/apollo/img/header_graphic_alpha.png';
+        $scope.app_domain = 'edemo.phiresearchlab.org/';
+        $scope.app_image = 'http://edemo.phiresearchlab.org/img/header_graphic_alpha.png';
       }
       else if(window.location.hostname == 'cloudev.phiresearchlab.org'){
         $scope.facebook_appID = '669609933094570';
-        $scope.app_domain = 'cloudev.phiresearchlab.org/apollo/';
-        $scope.app_image = 'http://cloudev.phiresearchlab.org/apollo/img/header_graphic_alpha.png';
+        $scope.app_domain = 'cloudev.phiresearchlab.org/';
+        $scope.app_image = 'http://cloudev.phiresearchlab.org/img/header_graphic_alpha.png';
       }
       else if(window.location.hostname == 'cloudtest.phiresearchlab.org'){
         $scope.facebook_appID = '1530749310479360';
-        $scope.app_domain = 'cloudtest.phiresearchlab.org/apollo/';
-        $scope.app_image = 'http://cloudtest.phiresearchlab.org/apollo/img/header_graphic_alpha.png';
+        $scope.app_domain = 'cloudtest.phiresearchlab.org/';
+        $scope.app_image = 'http://cloudtest.phiresearchlab.org/img/header_graphic_alpha.png';
       }
 
       FB.init({appId: $scope.facebook_appID, status: true, cookie: true,
       xfbml: true});
     };
     
-    (function() {
-      var e = document.createElement('script'); e.async = true;
-      e.src = document.location.protocol +
-      '//connect.facebook.net/en_US/all.js';
-      document.getElementById('fb-root').appendChild(e);
-    }());
+    //REMOVED FOR UNEXPECTED TOKEN & ERROR
+    // (function() {
+    //   var e = document.createElement('script'); e.async = true;
+    //   e.src = document.location.protocol +
+    //   '//connect.facebook.net/en_US/all.js';
+    //   document.getElementById('fb-root').appendChild(e);
+    // }());
 
     //START Facebook Share - Sample Post
     $scope.foodbornePost = {id:1, title:"Foodborne Illness Surveillance, Response and Data Systems", app_sublink:"/#/quickGuide/foodBorneIllness", caption:"", content:"The CDC Integrated Surveillance Portal (CISP) is a comprehensive, real-time, interactive resource for CDC, its partners, and the public to explore and discover information about the full inventory of CDC’s Surveillance Systems, Programs, Registries, Health Surveys, Tools, and Collaboratives. CISP contains not only descriptive information about these CDC resources"};
@@ -243,12 +235,9 @@ angular.module('apolloApp').controller('rootCtrl', function($scope, $http, $loca
 
 
   $scope.getPIVinfo = function(){
-     // console.log($scope.identity.isAuthenticated());
-     // console.log('protocol'+ $location.protocol());
     if($location.protocol() == 'https' && !$scope.identity.isAuthenticated()){
      
         ngAuth.autheticateUserPiv().then(function(success){
-        //console.log(success);
         if(success) {
           if($scope.identity.currentUser.isLevelTwo()){
             $location.path('/adminCRQueue');
@@ -266,8 +255,6 @@ angular.module('apolloApp').controller('rootCtrl', function($scope, $http, $loca
 //
       });
     }
-            // window.location = $location.absUrl().replace('https','http').replace('4400','8089');
-            // console.log($location.absUrl().replace('https','http').replace('4400','8089'));
   }
 
 

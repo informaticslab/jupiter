@@ -1,4 +1,4 @@
-angular.module('apolloApp').filter('TitleCase', function() {
+angular.module('jupiterApp').filter('TitleCase', function() {
   return function(input) {
     // ganked lovingly from https://gist.github.com/mattwiebe/1005915
 

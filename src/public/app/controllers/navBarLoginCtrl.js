@@ -1,4 +1,4 @@
-angular.module('apolloApp').controller('navBarLoginCtrl',function($scope,$http,ngIdentity,ngNotifier,ngAuth,$location,$modal,$window){ 
+angular.module('jupiterApp').controller('navBarLoginCtrl',function($scope,$http,ngIdentity,ngNotifier,ngAuth,$location,$modal,$window){ 
 	$scope.identity = ngIdentity;
 
 
@@ -19,7 +19,6 @@ angular.module('apolloApp').controller('navBarLoginCtrl',function($scope,$http,n
 				$scope.ok();
 
 			} else {
-				//console.log(success);
 				ngNotifier.notifyError('Incorrect Email/Password');
 			}
 		});
@@ -43,17 +42,11 @@ angular.module('apolloApp').controller('navBarLoginCtrl',function($scope,$http,n
 	   	var forceSsl = function () {
 			$window.location.href = $location.absUrl().replace('http','https').replace('8089','4400');
 		 };
-		// console.log($location.protocol()); 
-		// console.log($location.absUrl());
 		var protocol = $location.protocol();
-		//console.log(protocol);
 
 		if($location.protocol() != 'https'){
 			forceSsl();
 		}
-		// else if($location.protocol() == 'https'){
-		// 	$scope.rootCtrl.getPIVinfo();
-		// }
 		
 	}
 
@@ -61,7 +54,6 @@ angular.module('apolloApp').controller('navBarLoginCtrl',function($scope,$http,n
 		ngAuth.logoutUser().then(function() {
 			$scope.email = "";
 			$scope.password = "";
-			// ngNotifier.notify('You have successfully signed out.');
 			if($location.protocol()=='https'){
 				$window.location = $location.absUrl().replace('https','http').replace('4400','8089');
 			}
@@ -74,7 +66,7 @@ angular.module('apolloApp').controller('navBarLoginCtrl',function($scope,$http,n
 	$scope.openLogin = function (size) {
 
       var modalInstance = $modal.open({
-        templateUrl: 'loginModalContent.html',
+        templateUrl: '/partials/modals/login',
         controller: LoginModalInstanceCtrl,
         size: size
       });

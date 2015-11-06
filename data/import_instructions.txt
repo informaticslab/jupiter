@@ -10,7 +10,7 @@ jre\bin\java -cp bin\neo4j-desktop-2.0.1.jar org.neo4j.shell.StartClient -path c
 -- #######################################################################
 -- for mac/linux, within terminal
 -- assumes you ran './neo4j-installer install' during neo4j installation (per the documentation on the neo4j site) and thus have neo4j-shell within your path
--- navigate to [git apollo directory]/data/
+-- navigate to [git jupiter directory]/data/
 cat import.txt | neo4j-shell
 
 -- please note neo4j client can be called with the -config and -path flags (which you can point at a config and database file, respectively)
@@ -18,6 +18,6 @@ cat import.txt | neo4j-shell
 ---IGNORE-------
 C:\Program Files\Neo4j Community>
 
-jre\bin\java -cp bin\neo4j-desktop-2.0.1.jar org.neo4j.shell.StartClient -file C:\Users\sdavid\Documents\GitHub\apollo\data\import.txt -path C:\Users\sdavid\Documents\Neo4j\default.graphdb >C:\Users\sdavid\Documents\IIU\output.txt
+jre\bin\java -cp bin\neo4j-desktop-2.0.1.jar org.neo4j.shell.StartClient -file C:\Users\sdavid\Documents\GitHub\jupiter\data\import.txt -path C:\Users\sdavid\Documents\Neo4j\default.graphdb >C:\Users\sdavid\Documents\IIU\output.txt
 
-jre\bin\java -cp bin\neo4j-desktop-2.0.1.jar org.neo4j.shell.StartClient -file C:\Users\sdavid\Documents\GitHub\apollo\data\deleteallneo4j.txt -path C:\Users\sdavid\Documents\Neo4j\default.graphdb >C:\Users\sdavid\Documents\IIU\output.txt
+jre\bin\java -cp bin\neo4j-desktop-2.0.1.jar org.neo4j.shell.StartClient -file C:\Users\sdavid\Documents\GitHub\jupiter\data\deleteallneo4j.txt -path C:\Users\sdavid\Documents\Neo4j\default.graphdb >C:\Users\sdavid\Documents\IIU\output.txt

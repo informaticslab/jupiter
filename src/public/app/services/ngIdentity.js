@@ -1,4 +1,4 @@
-angular.module('apolloApp').factory('ngIdentity', function($window, ngUser,$location) {
+angular.module('jupiterApp').factory('ngIdentity', function($window, ngUser,$location) {
 	var currentUser;
 	// if($location.protocol() == 'https') {
 	// 	currentUser = new ngUser();

@@ -1,4 +1,4 @@
-angular.module('apolloApp').directive('ngHistorybar', function () {
+angular.module('jupiterApp').directive('ngHistorybar', function () {
     return {
       restrict: 'A',
       template: '<div class="blue_side"> ' + 

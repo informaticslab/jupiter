@@ -2,7 +2,7 @@
 var url = $(location).attr('href');
   var split = url.split('/');
   var pagid = split[split.length - 1];
-treeJSON = d3.json("/apollo/api/node/managed/"+pagid, function(error, treeData) {
+treeJSON = d3.json("/api/node/managed/"+pagid, function(error, treeData) {
 
     // Calculate total nodes, max label length
     var totalNodes = 0;
@@ -410,7 +410,7 @@ treeJSON = d3.json("/apollo/api/node/managed/"+pagid, function(error, treeData) 
             });
 
 
-        nodeEnter.append("a").attr("xlink:href",function(d) { return "/apollo/#/node/" + d.sysId; })
+        nodeEnter.append("a").attr("xlink:href",function(d) { return "/#/node/" + d.sysId; })
             .append("text")
             .attr("x", function(d) {
                 return d.children || d._children ? -10 : 10;
@@ -425,7 +425,7 @@ treeJSON = d3.json("/apollo/api/node/managed/"+pagid, function(error, treeData) 
             })
             .style("fill-opacity", 0);
 
-        //     nodeGroup.append("a").attr("xlink:href",function(d) { return "/apollo/#/node/" + d.sysId; })
+        //     nodeGroup.append("a").attr("xlink:href",function(d) { return "/#/node/" + d.sysId; })
         // .append("svg:text")
         // .attr("text-anchor", function(d)
         // {

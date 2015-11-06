@@ -1,0 +1,177 @@
+// new row
+.row
+	.div(ng-class='getContentWidth()')
+		.content_block_faq
+			span.visible-md.visible-lg
+				.subnav
+					ul.nav.nav-pills
+						li
+							a(href='#/quickGuide/') Quick Guide
+						li
+							a(href='#/browse/') Browse
+						li
+							a(href='#/search/') Search
+						li
+							a(href='#/advancedSearch/') Relationship Explorer
+						li
+							a(href='' class='inactive') Favorites
+						li.active
+							a(href='#/inTheLab/') In the Lab
+				// end subnav
+			span.visible-sm
+				.subnav_sm
+					ul.nav.nav-pills
+						li
+							a(href='#/quickGuide/') Quick Guide
+						li
+							a(href='#/browse/') Browse
+						li
+							a(href='#/search/') Search
+						li
+							a(href='#/advancedSearch/') Relationship Explorer
+						li
+							a(href='' class='inactive') Favorites
+						li.active
+							a(href='#/inTheLab/') In the Lab
+				// end subnav
+			//- a.btn.btn-custom(onclick='goBack()') Back
+			//- .nav_split
+			//- 	.btn-group.btn-group-md.btn-group-justified
+			//- 		.btn-group
+			//- 			a.btn.btn-custom(href="#/dashboard", id='btnDashboard') Summary
+			//- 		.btn-group
+			//- 			a.btn.btn-default(href='#/dashboarddetail', id='btnDashboardDetail') Detail
+			//- 	// end button group
+			//- // end nav_split
+			.top_block_faq
+				ng-include(src="'/partials/adminMenuBar'")
+				hr
+				.vertical_spacing_less
+				.row
+					.col-lg-12.col-md-12.col-sm-12
+						.orange_header_larger
+							| Pending Change Requests Summary
+				.row
+					.col-lg-12.col-md-12.col-sm-12
+						.list-group
+							a.list-group-item(href="" ng-click="crFilterModel='UPDATE'")
+								span.badge
+									| {{ crUpdateCount }}
+								| Update
+							a.list-group-item(href="" ng-click="crFilterModel='DELETE'")
+								span.badge
+									| {{ crDeleteCount }}
+								| Delete
+							a.list-group-item(href="" ng-click="crFilterModel='ADD'")
+								span.badge
+									| {{ crAddCount }}
+								| Add
+							a.list-group-item(href="" ng-click="crFilterModel=''")
+								span.badge
+									| {{ crDeleteCount+crUpdateCount+crAddCount }}
+								| All
+				.vertical_spacing_less
+				.row
+					.col-lg-12.col-md-12.col-sm-12
+						.orange_header_larger
+							| Change Request Records
+				.row
+					.col-lg-12.col-md-12.col-sm-12
+						.btn-group.pull-right
+							label.btn.btn-primary(ng-model="crStatusModel" btn-radio="'PENDING'" )
+								| Pending
+							label.btn.btn-primary(ng-model="crStatusModel" btn-radio="'APPROVED'" )
+								| Approved
+							label.btn.btn-primary(ng-model="crStatusModel" btn-radio="'DECLINED'" )
+								| Declined
+							//label.btn.btn-primary(ng-model="crStatusModel" btn-radio="'ROLLEDBACK'" )
+								| Rolled Back
+							label.btn.btn-primary(ng-model="crStatusModel" btn-radio="''" )
+								| All
+				.vertical_spacing_less
+				.row
+					.col-lg-12.col-md-12.col-sm-12
+						table.table
+							tr
+								th.col-md-0.mouse-pointer(ng-click="sortval='id';reverse=!reverse;")
+									| ID
+									i.fa.fa-sort(ng-class="{'fa-sort-asc':reverse && sortval=='id','fa-sort-desc':!reverse && sortval=='id'}" )
+								th.col-md-1.mouse-pointer(ng-click="sortval='CR_NODE_TYPE';reverse=!reverse;")
+									| Node Type
+									i.fa.fa-sort(ng-class="{'fa-sort-asc':reverse && sortval=='CR_NODE_TYPE','fa-sort-desc':!reverse && sortval=='CR_NODE_TYPE'}" )
+								th.col-md-3.mouse-pointer(ng-click="sortval='name';reverse=!reverse;")
+									| Name
+									i.fa.fa-sort(ng-class="{'fa-sort-asc':reverse && sortval=='name','fa-sort-desc':!reverse && sortval=='name'}" )
+								th.col-md-1.mouse-pointer(ng-click="sortval='CR_USER_CREATE';reverse=!reverse;")
+									| Created By
+									i.fa.fa-sort(ng-class="{'fa-sort-asc':reverse && sortval=='CR_USER_CREATE','fa-sort-desc':!reverse && sortval=='CR_USER_CREATE'}" )
+								th.col-md-1.mouse-pointer(ng-click="sortval='CR_DATE_CREATED';reverse=!reverse;")
+									| Created On
+									i.fa.fa-sort(ng-class="{'fa-sort-asc':reverse && sortval=='CR_DATE_CREATED','fa-sort-desc':!reverse && sortval=='CR_DATE_CREATED'}" )
+								th.col-md-1.mouse-pointer(ng-click="sortval='CR_USER_UPDATE';reverse=!reverse;")
+									| Revised By
+									i.fa.fa-sort(ng-class="{'fa-sort-asc':reverse && sortval=='CR_USER_UPDATE','fa-sort-desc':!reverse && sortval=='CR_USER_UPDATE'}" )
+								th.col-md-1.mouse-pointer(ng-click="sortval='CR_DATE_UPDATED';reverse=!reverse;")
+									| Revised On
+									i.fa.fa-sort(ng-class="{'fa-sort-asc':reverse && sortval=='CR_DATE_UPDATED','fa-sort-desc':!reverse && sortval=='CR_DATE_UPDATED'}" )
+								th.col-md-1.mouse-pointer(ng-click="sortval='CR_REQUEST_TYPE';reverse=!reverse;")
+									| CR REQUEST TYPE
+									i.fa.fa-sort(ng-class="{'fa-sort-asc':reverse && sortval=='CR_REQUEST_TYPE','fa-sort-desc':!reverse && sortval=='CR_REQUEST_TYPE'}" )
+								th.col-md-1.mouse-pointer(ng-click="sortval='CR_STATUS';reverse=!reverse;")
+									| CR STATUS
+									i.fa.fa-sort(ng-class="{'fa-sort-asc':reverse && sortval=='CR_STATUS','fa-sort-desc':!reverse && sortval=='CR_STATUS'}" )
+								td.col-md-0(ng-click="sortval='id';reverse=!reverse;")
+									| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+							tr( ng-repeat="doc in mongoDocumentsAll | filter:{CR_REQUEST_TYPE:crFilterModel,CR_STATUS:crStatusModel,CR_USER_DN_CREATE:userFilter}  | orderBy: sortval : reverse" ng-init="hover=false"  ng-mouseenter="hover = true" ng-mouseleave="hover = false")
+								td.col-md-0
+									| {{doc.id}}
+								td.col-md-1
+									| {{doc.CR_NODE_TYPE}}
+								td.col-md-3
+									a(ng-class="{'rowBackColorApproved':doc.CR_STATUS=='APPROVED','rowBackColorDeclined':doc.CR_STATUS=='DECLINED'}" href="#/adminCRQueue/CRDiff/{{doc._id}}")
+										| {{doc.name}} 
+									i.fa.fa-files-o(ng-if="doc.similarities!='Similar to none'" tooltip='{{doc.similarities}}', tooltip-placement='right')
+								td.col-md-1
+									| {{doc.CR_USER_DN_CREATE}}
+								td.col-md-1
+									| {{ doc.CR_DATE_CREATED | date :'medium'}}
+								td.col-md-1
+									| {{doc.CR_USER_DN_EDIT}}
+								td.col-md-1
+									| {{ doc.CR_DATE_EDITED | date :'medium'}}
+								td.col-md-1
+									span.label.label-success(ng-if="doc.CR_REQUEST_TYPE=='ADD'")
+										| {{doc.CR_REQUEST_TYPE}}
+									span.label.label-danger(ng-if="doc.CR_REQUEST_TYPE=='DELETE'")
+										| {{doc.CR_REQUEST_TYPE}}
+									span.label.label-warning(ng-if="doc.CR_REQUEST_TYPE=='UPDATE'")
+										| {{doc.CR_REQUEST_TYPE}}
+								td.col-md-1
+									| {{doc.CR_STATUS}}
+								td.col-md-0
+									//button.btn.btn-default(ng-click='open(doc._id)') Open me!
+									label.btn.btn-default.btn-xs(ng-show="hover && identity.currentUser.isLevelTwo()" ng-click="open(doc._id)")
+										i.fa.fa-times
+
+				.vertical_spacing_lesser
+					script(id="myModalContent.html" type="text/ng-template")
+						<div class="modal-header">
+						<h3 class="modal-title">Delete Change Request</h3>
+						</div>
+						<div class="modal-body">
+						<p>Are you sure you want to delete this Change Request?</p>
+						</div>
+						<div class="modal-footer">
+						<button class="btn btn-primary" ng-click="ok()">Yes</button>
+						<button class="btn btn-warning" ng-click="cancel()">No</button>
+						</div>
+				.vertical_spacing_less
+						img.img-responsive.linkage_empty( id="defaultimg" src="img/ajax-loader.gif" ng-show="showVSTableLoading")
+				
+				//nested row 
+				
+				//end nested row
+				
+		// end content block
+	// end col spec
+// end row.orange_header Overview

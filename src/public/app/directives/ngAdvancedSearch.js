@@ -1,4 +1,4 @@
-angular.module('apolloApp')
+angular.module('jupiterApp')
 	.directive('ngAdvancedSearch', [
 
 		function() {
@@ -61,7 +61,9 @@ angular.module('apolloApp')
 							Collaborative: true,
 							Dataset: true,
 							DataStandard: true,
-							Tag: true
+							Tag: true,
+							Concept: true,
+							DataElement: true
 						};
 
 						scope.disableHideLines = false;
@@ -79,6 +81,8 @@ angular.module('apolloApp')
 						scope.showDataset = false;
 						scope.showDataStandard = false;
 						scope.showTag = false;
+						scope.showConcept = false;
+						scope.showDataElement = false;
 
 						var rootnodelabell = "";
 						var rootnodelabelr = "";
@@ -97,7 +101,7 @@ angular.module('apolloApp')
 
 						//console.log(".."+id+"..");
 
-						//d3.json("/apollo/api/node/viewer/" + id, function(error, json) {
+						//d3.json("/api/node/viewer/" + id, function(error, json) {
 						var leftnodeid = id.split("-")[0];
 						var rightnodeid = id.split("-")[1];
 						//var hop = id.split("-")[2];
@@ -203,7 +207,7 @@ angular.module('apolloApp')
 
 
 
-						//jsonret = d3.json("/apollo/api/node/advancedSearch/" + leftnodeid + "-" + rightnodeid + "-" + hop, function(error, json) {
+						//jsonret = d3.json("/api/node/advancedSearch/" + leftnodeid + "-" + rightnodeid + "-" + hop, function(error, json) {
 
 
 
@@ -327,6 +331,8 @@ angular.module('apolloApp')
 							scope.showDataset = false;
 							scope.showDataStandard = false;
 							scope.showTag = false;
+							scope.showDataElement = false;
+							scope.showConcept = false;
 							//error = false;
 
 							var circlecount=json.nodes.length;
@@ -500,7 +506,7 @@ angular.module('apolloApp')
 
 
 							text.append("a").attr("xlink:href", function(d) {
-								return "/apollo/#/linkage/" + d.id;
+								return "/#/linkage/" + d.id;
 							})
 								.append("svg:text")
 								.attr("x", 25)
@@ -904,7 +910,9 @@ angular.module('apolloApp')
 								Collaborative: true,
 								Dataset: true,
 								DataStandard: true,
-								Tag: true
+								Tag: true,
+								Concept: true,
+								DataElement: true
 							};
 
 							scope.disableHideLines = false;

@@ -1,4 +1,4 @@
-angular.module('apolloApp').controller('searchCtrl', function($scope, $resource, $http, $routeParams, $timeout, $filter, $location, $anchorScroll) {
+angular.module('jupiterApp').controller('searchCtrl', function($scope, $resource, $http, $routeParams, $timeout, $filter, $location, $anchorScroll) {
 	
     $scope.goToTop = function(){
         $anchorScroll();
@@ -9,7 +9,6 @@ angular.module('apolloApp').controller('searchCtrl', function($scope, $resource,
     $scope.search=[];
     $scope.queryString = $routeParams.query;
     var currentURL = $location.path();
-    //console.log('current URL is ' + currentURL );
 
 
     var searchTimeout =  $timeout(function(){ 
@@ -22,8 +21,7 @@ angular.module('apolloApp').controller('searchCtrl', function($scope, $resource,
     {
 
         pageName = 'Label Search: ' + $routeParams.query;
-        //console.log('\'tis a label search');
-        nodes = $resource('/apollo/api/node/search/label/:query', {
+        nodes = $resource('/api/node/search/label/:query', {
         query: '@query'
         },{'query': {isArray: false }});
         $scope.queryString = '';
@@ -34,7 +32,7 @@ angular.module('apolloApp').controller('searchCtrl', function($scope, $resource,
         {
             pageName = 'Search: ' + $routeParams.query;
         }
-        var nodes = $resource('/apollo/api/node/search/:query', {
+        var nodes = $resource('/api/node/search/:query', {
         query: '@query'
     },{'query': {isArray: false }});
         
@@ -66,18 +64,16 @@ angular.module('apolloApp').controller('searchCtrl', function($scope, $resource,
     }
 
     $scope.redirectToSearch = function(){
-       //window.location =  '/apollo/#/search/' + $scope.queryString;
        $location.path('/search/' + $scope.queryString);
     };
 
     $scope.itemSelected = function($item, $model, $label) {
-        //window.location =  '/apollo/#/node/' + $item.id;
         $location.path('/node/' + $item.id);
         $scope.queryString = null;
     };
 
     $scope.getNodes = function(val) {
-        return $http.get('/apollo/api/node/searchByName/' + val).then(function(res) {
+        return $http.get('/api/node/searchByName/' + val).then(function(res) {
             var nodes = [];
             angular.forEach(res.data, function(item) {
                 nodes.push(item);
@@ -90,7 +86,7 @@ angular.module('apolloApp').controller('searchCtrl', function($scope, $resource,
                             HealthSurvey:false,Tool:false,Dataset:false,DataStandard:false,
                             Collaborative:false,Organization:false,Tag:false, 
                             FutureDev:false, UnderDev:false, PartOperational:false,
-                            FullOperational:false, Retired:false, NotAvailable:false};
+                            FullOperational:false, Retired:false, NotAvailable:false,Concept:false,DataElement:false};
 
     searchTimeout.catch( function(err){
             if(err != 'canceled')
@@ -110,13 +106,12 @@ angular.module('apolloApp').controller('searchCtrl', function($scope, $resource,
     $timeout(function(){ 
         //timeout to avoid race condition.  Could add a watch, but they don't seem to recognize labelCount status :-/
 
-        //console.log('someone clicked a filter.  Program is currently ' + $scope.checkedLabels.Program);
         //check all checkboxes, if all are unchecked, then reset totalItems count for pagination
             if (!$scope.checkedLabels.Program && !$scope.checkedLabels.SurveillanceSystem && !$scope.checkedLabels.Registry 
                                 && !$scope.checkedLabels.HealthSurvey&& !$scope.checkedLabels.Tool&& !$scope.checkedLabels.Dataset&& !$scope.checkedLabels.DataStandard
-                                && !$scope.checkedLabels.Collaborative && !$scope.checkedLabels.Organization && !$scope.checkedLabels.Tag
+                                && !$scope.checkedLabels.Collaborative && !$scope.checkedLabels.Organization && !$scope.checkedLabels.Tag && !$scope.checkedLabels.DataElement
                                 && !$scope.checkedLabels.FutureDev && !$scope.checkedLabels.UnderDev && !$scope.checkedLabels.PartOperational
-                                && !$scope.checkedLabels.FullOperational && !$scope.checkedLabels.Retired && !$scope.checkedLabels.NotAvailable)
+                                && !$scope.checkedLabels.FullOperational && !$scope.checkedLabels.Retired && !$scope.checkedLabels.NotAvailable && !$scope.checkedLabels.Concept)
             {
                 $scope.totalItems =  $scope.nodes.length;
             }
@@ -163,6 +158,14 @@ angular.module('apolloApp').controller('searchCtrl', function($scope, $resource,
                 if ($scope.checkedLabels.Tag)
                 {
                     filteredTotalItems = filteredTotalItems +  $scope.labelCounts.Tag;
+                }
+                if ($scope.checkedLabels.Concept)
+                {
+                    filteredTotalItems = filteredTotalItems +  $scope.labelCounts.Concept;
+                }
+                if ($scope.checkedLabels.DataElement)
+                {
+                    filteredTotalItems = filteredTotalItems +  $scope.labelCounts.DataElement;
                 }
                 if ($scope.checkedLabels.FutureDev)
                 {

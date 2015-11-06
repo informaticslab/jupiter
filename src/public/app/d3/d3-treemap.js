@@ -48,7 +48,7 @@ var mouseout = function() {
 };
 
 
-d3.json("/apollo/api/lab/relations", function(error, relations){
+d3.json("/api/lab/relations", function(error, relations){
 
   var treemapObj = {};
   var children=[];
@@ -59,7 +59,7 @@ d3.json("/apollo/api/lab/relations", function(error, relations){
   }
   else{
     
-    d3.json("/apollo/api/lab/nodes", function(error, nodes) {
+    d3.json("/api/lab/nodes", function(error, nodes) {
         if(nodes == undefined | error){
           console.log("Could not retrieve all the nodes");
         }

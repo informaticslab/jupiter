@@ -1,12 +1,4 @@
-angular.module('apolloApp').controller('inTheLabCtrl', function($scope, $routeParams, $resource, $location, $anchorScroll){
-    // $scope.rayes = 'sunny';
-    // $scope.$parent.q = 'explore';
-
-   	// var site = {
-    //   'name':'In The lab',
-    //   'url':$location.absUrl()
-    // }
-    // $scope.$parent.browseHistory.sites.push(site);
+angular.module('jupiterApp').controller('inTheLabCtrl', function($scope, $routeParams, $resource, $location, $anchorScroll){
 
     $scope.goToTop = function(){
     	$anchorScroll();

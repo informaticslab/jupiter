@@ -1,4 +1,4 @@
-angular.module('apolloApp').factory('nodeAttributeDictionary', function() {
+angular.module('jupiterApp').factory('nodeAttributeDictionary', function() {
     return {
         'Organization': {
             'attributeGroups': {
@@ -1759,6 +1759,22 @@ angular.module('apolloApp').factory('nodeAttributeDictionary', function() {
                             'sortIndex': '265'
                         }
                     }
+                },
+                'Local Data': {
+                    'heading': 'Local Data',
+                    'sortIndex': '06',
+                    'attributes': {
+                        'filePath': {
+                            'description': 'File path to uploaded file',
+                            'displayLabel': 'File Path',
+                            'sortIndex': '266'
+                        },
+                        'localFileName':{
+                            'description': 'File name of uploaded file',
+                            'displayLabel': 'Local File Name',
+                            'sortIndex':'267'
+                        }
+                    }
                 }
             }
         },
@@ -1905,10 +1921,51 @@ angular.module('apolloApp').factory('nodeAttributeDictionary', function() {
                     'heading': 'General Information',
                     'sortIndex': '02',
                     'attributes': {
-                        'elementDescription': {
-                            'description': 'Data elemeent description',
-                            'displayLabel': 'Data Element',
-                            'sortIndex': '285'
+                        'description': {
+                            'description': 'Data element description',
+                            'displayLabel': 'Description',
+                            'sortIndex': '285.1'
+                        },
+                        'possibleValues': {
+                            'description': 'Possible data value range',
+                            'displayLabel': 'Possible Values',
+                            'sortIndex': '285.2'
+                        }
+                    }
+                }
+            }
+        },
+        'Concept': {
+            'attributeGroups': {
+                'Summary': {
+                    'heading': 'Summary',
+                    'sortIndex': '01',
+                    'attributes': {
+                        'name': {
+                            'description': 'Name',
+                            'displayLabel': 'Name',
+                            'sortIndex': '286'
+                        },
+                        'id': {
+                            'description': 'Identifier',
+                            'displayLabel': 'ID',
+                            'sortIndex': '287'
+                        }
+                    }
+                },
+                'General Information': {
+                    'heading': 'General Information',
+                    'sortIndex': '02',
+                    'attributes': {
+                        'cui': {
+                            'description': 'Concept Unique Identifier',
+                            'displayLabel': 'UMLS CUI',
+                            'sortIndex': '288'
+                        },
+                        'description': {
+                            'description': 'Concept description',
+                            'displayLabel': 'Description',
+                            'sortIndex': '289'
                         }
                     }
                 }

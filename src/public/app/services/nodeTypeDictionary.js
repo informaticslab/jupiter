@@ -1,7 +1,9 @@
-angular.module('apolloApp').factory('nodeTypeDictionary', function() {
+angular.module('jupiterApp').factory('nodeTypeDictionary', function() {
     return {
         "NodeTypes":[
                                 "Collaborative",
+                                "Concept",
+                                "DataElement",
                                 "Dataset",
                                 "DataStandard",
                                 "HealthSurvey",
@@ -10,8 +12,8 @@ angular.module('apolloApp').factory('nodeTypeDictionary', function() {
                                 "Registry",
                                 "SurveillanceSystem",
                                 "Tag",
-                                "Tool",
-                                "DataElement"
+                                "Tool"
+                                
                             ]
     };
 });

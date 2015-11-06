@@ -1,4 +1,4 @@
-var apolloApp = angular.module('apolloApp', [
+var jupiterApp = angular.module('jupiterApp', [
   'ngRoute'
   ,'ngResource'
   ,'ngAnimate'
@@ -8,10 +8,12 @@ var apolloApp = angular.module('apolloApp', [
   ,'chieffancypants.loadingBar'
   ,'angulartics'
   ,'angulartics.google.analytics'
-  //'apolloAppAnimations',
- // 'apolloAppControllers',
- // 'apolloAppFilters',
-//  'apolloAppServices'
+  ,'angularFileUpload'
+  ,'ui.grid'
+  //'jupiterAppAnimations',
+ // 'jupiterAppControllers',
+ // 'jupiterAppFilters',
+//  'jupiterAppServices'
 ]);
 
 var routeRoleChecks = {
@@ -31,7 +33,7 @@ var routeRoleChecks = {
 
 
 //to prevent IE caching
-apolloApp.config([
+jupiterApp.config([
     '$httpProvider', function ($httpProvider) {
         // Initialize get if not there
         if (!$httpProvider.defaults.headers.get) {
@@ -45,7 +47,7 @@ apolloApp.config([
         $httpProvider.defaults.headers.get['If-Modified-Since'] = '0';
     }
 ])
-apolloApp.config(['$routeProvider', 
+jupiterApp.config(['$routeProvider', 
   function($routeProvider) {
     $routeProvider.
           when('/faq', {
@@ -127,9 +129,23 @@ apolloApp.config(['$routeProvider',
         templateUrl: 'partials/sysTree',
         controller: 'sysTreeCtrl'
       }).
+          when('/data', {
+        templateUrl: 'partials/upload',
+        controller: 'uploadCtrl'
+      }).
           when('/adminCRAdd', {
         templateUrl: 'partials/adminCRAdd',
         controller: 'adminCRAddCtrl',
+        resolve: routeRoleChecks.levelThree
+      }).
+          when('/adminCRRapidEntry', {
+        templateUrl: 'partials/adminCRRapidEntry',
+        controller: 'adminCRRapidEntryCtrl',
+        resolve: routeRoleChecks.levelThree
+      }).
+          when('/adminCRRapidEntry/:id', {
+        templateUrl: 'partials/adminCRRapidEntry',
+        controller: 'adminCRRapidEntryCtrl',
         resolve: routeRoleChecks.levelThree
       }).
           when('/adminCREdit', {
@@ -180,6 +196,10 @@ apolloApp.config(['$routeProvider',
           },
           controller: 'rootCtrl'
       }).
+          when('/dataMatch', {
+          templateUrl:'partials/inTheLab/dataMatch',
+          controller: 'dataMatchCtrl'
+      }).
         otherwise({
         redirectTo: '/main'
       });
@@ -187,7 +207,7 @@ apolloApp.config(['$routeProvider',
 
   
 
-angular.module('apolloApp').run(function($rootScope,$location) {
+angular.module('jupiterApp').run(function($rootScope,$location) {
   $rootScope.$on('$routeChangeError', function(evt,current, previous,rejection) {
     if(rejection === 'not authorized'){
       $location.path('/main');
@@ -196,19 +216,19 @@ angular.module('apolloApp').run(function($rootScope,$location) {
 })
 
 // angular.module('app', ['ngResource', 'ngRoute', 'ngAnimate']);
-// apolloApp.config([function($routeProvider, $locationProvider) {
+// jupiterApp.config([function($routeProvider, $locationProvider) {
 
 //     $locationProvider.html5Mode(true);
-//     $routeProvider.when('/apollo/', {
-//         templateUrl: '/apollo/partials/main',
+//     $routeProvider.when('/', {
+//         templateUrl: '/partials/main',
 //         controller: 'mainCtrl'
-//     }).when('/apollo/faq', {
-//         templateUrl: '/apollo/partials/faq',
+//     }).when('/faq', {
+//         templateUrl: '/partials/faq',
 //         controller: 'faqCtrl'
-//     }).when('/apollo/node/:id', {
-//         templateUrl: '/apollo/partials/node',
+//     }).when('/node/:id', {
+//         templateUrl: '/partials/node',
 //         controller: 'nodeCtrl'
 //     }).otherwise({
-//         templateUrl: '/apollo/partials/404'
+//         templateUrl: '/partials/404'
 //     });
 // }]);

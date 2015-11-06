@@ -6,6 +6,29 @@ var _ = require('underscore');
 var auditLog = require('../config/auditLog');
 
 
+exports.getDatasetWithFile = function(req,res) {
+    console.log('i was here');
+    var query = "match (n:Dataset) where n.localFileName <> '' return n.name as name, n.id as id, n.localFileName as fileName";
+    var params = {};
+    neodb.db.query(query, params, function(err, results) {
+        if (err) {
+            console.error('Error retreiving nodes from database:', err);
+            res.send(404, "No node at that location")
+        } else {
+                // console.log(results);
+            if (results[0] != null) {
+                res.json(results);
+            } else {
+                res.json([{
+                    'id': '',
+                    'name': '',
+                    'fileName' : ''
+                }]);
+            }
+        }
+    });
+}
+
 exports.getHarmonizeDataSets = function(req,res) {
     //var query = 'match ((ds1:Dataset {id: {ds1id}})-[:CONTAINS]->(de1:DataElement)-[r1:SHARES_MEANING_WITH]->(c1)), ((ds2 {id:{ds2id}})-[:CONTAINS]->(de2)-[r2:SHARES_MEANING_WITH]->(c2)) return ds1.id as ds1id,de1.id as de1id, de1.name as de1name,c1.id as c1id, c1.cui as c1cui,c2.id as c2id,c2.cui as c2cui,de2.id as de2id,de2.name as de2name,ds2.id as ds2id';
     var query = 'match (ds:Dataset)-[:CONTAINS]->(de)-[r1:SHARES_MEANING_WITH]->(c) where ds.id = {ds1id} return ds.id as dsid,de.id as deid, de.name as dename,c.id as cid, c.cui as cui,c.name as cname union all match (ds:Dataset)-[:CONTAINS]->(de)-[r1:SHARES_MEANING_WITH]->(c) where ds.id = {ds2id} return ds.id as dsid,de.id as deid, de.name as dename,c.id as cid, c.cui as cui, c.name as cname';
@@ -2823,15 +2846,4 @@ exports.updateRights = function(req, res) {
     res.send("success");
 };
 
-exports.getDataSetWithFile = function(req,res) {
-    var query = 'match (n:Dataset) where n.localFileName <> "" return n';
-    var params = {};
-    neodb.db.query(query, params, function(err, results) {
-        if (err) {
-            console.error('Error retreiving labels from database:', err);
-            res.send(404, "No node at that locaton")
-        } else {
-            res.send(results);
-        }
-    });
-};
+

@@ -224,6 +224,12 @@
 						span.hide_activity_check(ng-show="showTag")
 							input(type='checkbox', ng-change="hidenodes(\'Tag\',checkModel.Tag)" ng-model="checkModel.Tag" ng-show="showTag")
 							| &nbsp;Tag
+						span.hide_activity_check(ng-show="showConcept")
+							input(type='checkbox', ng-change="hidenodes(\'Concept\',checkModel.Concept)" ng-model="checkModel.Concept" ng-show="showConcept")
+							| &nbsp;Concept
+						span.hide_activity_check(ng-show="showDataElement")
+							input(type='checkbox', ng-change="hidenodes(\'DataElement\',checkModel.DataElement)" ng-model="checkModel.DataElement" ng-show="showDataElement")
+							| &nbsp;Data Element
 				.block_linkage(ng-advanced-search)
 					.vertical_spacing1
 

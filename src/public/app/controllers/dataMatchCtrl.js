@@ -5,12 +5,17 @@ angular.module('jupiterApp').controller('dataMatchCtrl', function($scope, $http)
 	$scope.ds2Id = '';
 	$scope.mergedList = [];
 	$scope.isCollapsed = true;
+	$scope.showResults = false;
 	 $scope.setDataSet1 = function($item) {
         $scope.ds1Id = $item.id;
      };
 
      $scope.setDataSet2 = function($item) {
         $scope.ds2Id = $item.id;
+     };
+
+     $scope.resetStatus = function() {
+     	$scope.showResults = false;
      };
 
 	$scope.match = function() {
@@ -84,6 +89,7 @@ angular.module('jupiterApp').controller('dataMatchCtrl', function($scope, $http)
 			}
 
 			
+			$scope.showResults = true;
 
 		
 			// console.log($scope.unmatchedList);

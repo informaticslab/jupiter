@@ -1279,7 +1279,6 @@ exports.getAdvancedSearchData = function(req, res) {
 
                     var nodesRedundancyCheck = [];
                     // nodesRedundancyCheck.push(dnodes[0]);
-
                     // var found = false;
                     // for (var i = 1; i < dnodes.length; i++) {
                     //     found = false;
@@ -1298,7 +1297,7 @@ exports.getAdvancedSearchData = function(req, res) {
                     //     }
 
                     // }
-
+// begin of new fix  using node id instead of node names
                     nodesRedundancyCheck.push(dnodesid[0]);
 
                     var found = false;
@@ -1319,6 +1318,7 @@ exports.getAdvancedSearchData = function(req, res) {
                         }
 
                     }
+                    // end of new fix
                     if (found) {
 
                     } else {

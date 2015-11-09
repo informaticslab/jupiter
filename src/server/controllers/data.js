@@ -5,7 +5,7 @@ var fs = require('fs');
 var neodb = require('../lib/neo4jConnection');
 
 
-exports.upload = function(req, res) {
+exports.uploadWithDataElements = function(req, res) {
 	var nodeId = '';
 	var body = req.body;
 
@@ -66,6 +66,40 @@ exports.upload = function(req, res) {
 
 		}
 	});
+};
+
+exports.upload = function(req, res) {
+	var nodeId = '';
+	var body = req.body;
+
+	for (var i = 0; i < body[0].length; i++) {
+		nodeId = nodeId + body[0][i];
+	}
+
+	var filePath = req.files.file.path;
+	var originalFileName = req.files.file.originalFilename;
+	originalFileName = originalFileName.substring(0, originalFileName.indexOf('.'));
+	var input = fs.createReadStream(filePath);
+	var query = "MATCH (n {id:'" + nodeId + "'}) SET n.filePath = '" + filePath + "', n.localFileName = '" + originalFileName + "' RETURN n";
+
+
+
+	var parser = parse(function(err, data) {
+		neodb.db.query(query, function(err, result) {
+			if (err) {
+				console.log(err);
+				res.send(err);
+			} else {
+				res.send(err);
+			}
+		});
+	});
+
+	fs.createReadStream(filePath).pipe(parser);
+
+	
+
+
 };
 
 exports.getDataFile = function(req, res) {

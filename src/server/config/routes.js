@@ -65,6 +65,7 @@ module.exports = function(app) {
     app.post('/api/mongo/posteditcr', nodes.postEditCR);
 
     app.post('/api/fileUpload', data.upload);
+    app.post('/api/fileUploadWithMetadata', data.uploadWithDataElements);
     app.get('/api/getDataFile:id', data.getDataFile);
     app.post('/api/deletefile', data.deleteFile);
 

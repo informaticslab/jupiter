@@ -5,6 +5,11 @@ angular.module('jupiterApp').controller('uploadCtrl', function($scope, FileUploa
         formData:nodeId
 	});
 
+    var uploaderWithDE = $scope.uploaderWithDE = new FileUploader({
+        url:'/api/fileUploadWithMetadata',
+        formData:nodeId
+    });
+
     uploader.onCompleteAll = function() {
         $scope.ok();
     };

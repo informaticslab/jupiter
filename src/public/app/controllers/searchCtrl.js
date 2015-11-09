@@ -86,7 +86,9 @@ angular.module('jupiterApp').controller('searchCtrl', function($scope, $resource
                             HealthSurvey:false,Tool:false,Dataset:false,DataStandard:false,
                             Collaborative:false,Organization:false,Tag:false, 
                             FutureDev:false, UnderDev:false, PartOperational:false,
-                            FullOperational:false, Retired:false, NotAvailable:false,Concept:false,DataElement:false};
+                            FullOperational:false, Retired:false, NotAvailable:false,Concept:false,DataElement:false,
+                            DatatsetAttachment:false
+                        };
 
     searchTimeout.catch( function(err){
             if(err != 'canceled')
@@ -103,6 +105,7 @@ angular.module('jupiterApp').controller('searchCtrl', function($scope, $resource
 
 
    $scope.filterclick = function(){
+    $scope.currentPage = 1;
     $timeout(function(){ 
         //timeout to avoid race condition.  Could add a watch, but they don't seem to recognize labelCount status :-/
 
@@ -111,7 +114,8 @@ angular.module('jupiterApp').controller('searchCtrl', function($scope, $resource
                                 && !$scope.checkedLabels.HealthSurvey&& !$scope.checkedLabels.Tool&& !$scope.checkedLabels.Dataset&& !$scope.checkedLabels.DataStandard
                                 && !$scope.checkedLabels.Collaborative && !$scope.checkedLabels.Organization && !$scope.checkedLabels.Tag && !$scope.checkedLabels.DataElement
                                 && !$scope.checkedLabels.FutureDev && !$scope.checkedLabels.UnderDev && !$scope.checkedLabels.PartOperational
-                                && !$scope.checkedLabels.FullOperational && !$scope.checkedLabels.Retired && !$scope.checkedLabels.NotAvailable && !$scope.checkedLabels.Concept)
+                                && !$scope.checkedLabels.FullOperational && !$scope.checkedLabels.Retired && !$scope.checkedLabels.NotAvailable && !$scope.checkedLabels.Concept
+                                && !$scope.checkedLabels.DatatsetAttachment)
             {
                 $scope.totalItems =  $scope.nodes.length;
             }
@@ -190,7 +194,11 @@ angular.module('jupiterApp').controller('searchCtrl', function($scope, $resource
                 if ($scope.checkedLabels.NotAvailable)
                 {
                     filteredTotalItems = filteredTotalItems +  $scope.notAvailable;
-                }      
+                }
+                if ($scope.checkedLabels.DatatsetAttachment)
+                {
+                    filteredTotalItems = filteredTotalItems +  $scope.labelCounts.Attachment;
+                }
                 $scope.totalItems =  filteredTotalItems;
             }        
             $scope.goToTop();

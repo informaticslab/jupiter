@@ -248,6 +248,13 @@
 										| &nbsp;Retired
 									// /input-group
 								td.result_number {{labelCounts.Retired}}
+							tr(ng-show = 'labelCounts.Dataset > 0')
+								td
+									.input-group.check_filter
+										input(type='checkbox' data-ng-model='checkedLabels.DatasetAttachment' ng-click='filterclick()' ng-disabled = 'checkedLabels.Dataset != true')
+										| &nbsp;Dataset With File Attachment
+									// /input-group
+								td.result_number {{labelCounts.Attachment}}
 							tr
 								td
 									.input-group.check_filter

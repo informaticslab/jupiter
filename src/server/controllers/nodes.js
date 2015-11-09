@@ -7,7 +7,6 @@ var auditLog = require('../config/auditLog');
 
 
 exports.getDatasetWithFile = function(req,res) {
-    console.log('i was here');
     var query = "match (n:Dataset) where n.localFileName <> '' return n.name as name, n.id as id, n.localFileName as fileName";
     var params = {};
     neodb.db.query(query, params, function(err, results) {
@@ -521,7 +520,8 @@ var compileSearchResults = function(req, res, err, results) {
         PartOperational: 0,
         FullOperational: 0,
         Retired: 0,
-        NotAvailable: 0
+        NotAvailable: 0,
+        Attachment :0
     };
     var returnable = {};
     var duplicheck = [];
@@ -581,8 +581,12 @@ var compileSearchResults = function(req, res, err, results) {
                                 nodeLabelCounts['FullOperational']++;
                             } else if (doohicky[prop] == 'Retired') {
                                 nodeLabelCounts['Retired']++;
-                            }
+                            } 
                         }
+                        if (prop == 'localFileName') {
+                                nodeLabelCounts['Attachment']++;
+                                nodedata.attachment =  doohicky[prop];
+                            }
                     }
 
                     nodedataarr.push(nodedata);

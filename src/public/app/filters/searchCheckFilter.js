@@ -25,15 +25,11 @@ angular.module('jupiterApp').filter('searchCheckFilter', function() {
           filtered.push(item);
         }
       else if(types.Dataset == true  && item.labels == 'Dataset'){
-          if (types.DatasetAttachment == true) {
-               if (item.attachment != null) {
                    filtered.push(item);
-               }
-          }
-          else {
-            filtered.push(item);
-          }
-        }
+      }
+      else if(types.DatasetAttachment == true  && item.labels == 'Dataset' && item.attachment != null){
+                   filtered.push(item);
+      }
       else if(types.DataStandard == true && item.labels == 'DataStandard'){
           filtered.push(item);
         }
@@ -74,9 +70,9 @@ angular.module('jupiterApp').filter('searchCheckFilter', function() {
           filtered.push(item);
         }
     });
-    if (!types.Dataset && types.DatasetAttachment) {
-        types.DatasetAttachment = false;
-    }
+    // if (!types.Dataset && types.DatasetAttachment) {
+    //     types.DatasetAttachment = false;
+    // }
     return filtered;
   };
 });

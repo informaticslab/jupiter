@@ -251,7 +251,7 @@
 							tr(ng-show = 'labelCounts.Dataset > 0')
 								td
 									.input-group.check_filter
-										input(type='checkbox' data-ng-model='checkedLabels.DatasetAttachment' ng-click='filterclick()' ng-disabled = 'checkedLabels.Dataset != true')
+										input(type='checkbox' data-ng-model='checkedLabels.DatasetAttachment' ng-click='filterclick()')
 										| &nbsp;Dataset With File Attachment
 									// /input-group
 								td.result_number {{labelCounts.Attachment}}

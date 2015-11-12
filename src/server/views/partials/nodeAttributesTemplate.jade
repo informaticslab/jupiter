@@ -1,9 +1,0 @@
-div(ng-repeat='label in labels')
-	div(ng-repeat='group in labelGroups(label)', ng-show='showGroup(group)')
-		h3 {{group.heading}}
-		table.table
-			tr(ng-repeat='attribute in labelGroupAttributes(group) | orderBy:"sortIndex"')
-				td 
-					span.cursor-help(tooltip='{{attribute.description}}', tooltip-placement='right') 
-						strong {{attribute.key | unCamelCase}}
-				td {{attribute.value}}

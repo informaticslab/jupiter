@@ -11,7 +11,7 @@ var redirecturlto='/#/main';
 
 module.exports = function(app) {
     app.get('/partials/*', function(req, res) {
-        res.render('../views/partials/' + req.params); 
+        res.render('../../public/app/views/' + req.params); 
     });
 
     app.get('/api/users',auth.requiresRole('admin'), users.getUsers);

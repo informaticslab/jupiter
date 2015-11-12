@@ -1,0 +1,179 @@
+// new row
+.row
+	.div(ng-class='getContentWidth()')
+		.content_block_faq
+			span.visible-md.visible-lg
+				.subnav
+					ul.nav.nav-pills
+						li
+							a(href='#/quickGuide/') Quick Guide
+						li
+							a(href='#/browse/') Browse
+						li
+							a(href='#/search/') Search
+						li
+							a(href='#/advancedSearch/') Relationship Explorer
+						li
+							a(href='' class='inactive') Favorites
+						li.active
+							a(href='#/inTheLab/') In the Lab
+				// end subnav
+			span.visible-sm
+				.subnav_sm
+					ul.nav.nav-pills
+						li
+							a(href='#/quickGuide/') Quick Guide
+						li
+							a(href='#/browse/') Browse
+						li
+							a(href='#/search/') Search
+						li
+							a(href='#/advancedSearch/') Relationship Explorer
+						li
+							a(href='' class='inactive') Favorites
+						li.active
+							a(href='#/inTheLab/') In the Lab
+				// end subnav
+			//- a.btn.btn-custom(onclick='goBack()') Back
+			//- .nav_split
+			//- 	.btn-group.btn-group-md.btn-group-justified
+			//- 		.btn-group
+			//- 			a.btn.btn-custom(href="#/dashboard", id='btnDashboard') Summary
+			//- 		.btn-group
+			//- 			a.btn.btn-default(href='#/dashboarddetail', id='btnDashboardDetail') Detail
+			//- 	// end button group
+			//- // end nav_split
+			.top_block_faq
+				h4.orange_main_faq(ng-click="print()")
+					span.glyphicon.glyphicon-comment.icon-flipped.faq_icon
+					| Advanced Query Tool
+				.vertical_spacing_browse
+				.vertical_spacing_lesser
+				.row
+					.col-lg-4.col-md-4.col-sm-4.gray_text
+						.orange_header_larger
+							| 1: Enter the name of the activity to query
+						//.query-nobordered				
+						.txtb(ng-repeat="txtcount in txtboxcount")
+							.row
+								.col-lg-12.col-md-12.col-sm-12
+									input(id="{{'stxt_'+txtcount.tcount}}" type="text" ng-model="txtboxval[txtcount.tcount]" typeahead-editable='false' placeholder="Search activity" typeahead-on-select="itemSelected($item, $model, $label,\"{{'stxt_'+txtcount.tcount}}\")" typeahead-min-length='3' typeahead="node.name for node in getNodes($viewValue)" class="form-control")
+								//.col-lg-2.col-md-2.col-sm-2
+									label.btn.pull-right(ng-if="txtcount.tcount>0" ng-click="removetxtbox(txtcount.tcount)")
+										i.fa.fa-times
+							.vertical_spacing_lesser
+						//label.btn.btn-default( ng-click="addtxtbox()")
+								i.fa.fa-plus
+						//.vertical_spacing_less
+						//label.btn.btn-default(ng-click="values()" ng-disabled="searchbtndisabled")
+							i.fa.fa-chevron-circle-right
+							| Search
+					.col-lg-4.col-md-4.col-sm-4.gray_text
+						.orange_header_larger
+							| 2: Select activity types you want to see related
+						//| '{{txtboxval[0]}}'
+						.query-bordered
+							img.img-responsive.linkage_empty(id="defaultimg" src="img/ajax-loader.gif" ng-show="showActlistLoading")
+							.checkbox(ng-repeat="activitytype in activitytypes" )
+								input(type="checkbox" ng-model="chkactvs[activitytype.nodetypes]" ng-change="setactivitytypestatus()" )
+								| {{activitytype.nodetypes  | unCamelCase}}
+					.col-lg-4.col-md-4.col-sm-4.gray_text
+						.orange_header_larger
+							| 3: Search
+						.checkbox
+							input(type="checkbox" ng-model="chkmangedonly" )
+							| Show only activities managed or overseen 
+							span(ng-if="txtboxval[0]!=''")
+								| by '{{txtboxval[0]}}'
+				.vertical_spacing_less
+				.row
+					.col-lg-4.col-md-4.col-sm-4.gray_text
+					.col-lg-4.col-md-4.col-sm-4.gray_text
+						label.btn.btn-default(ng-click="isCollapsed = !isCollapsed" ng-disabled="!q_acttypes")
+							| Advanced filtering for selected activities 
+							i.fa.fa-chevron-circle-right(ng-class="{'fa fa-chevron-circle-down': !isCollapsed, 'fa fa-chevron-circle-right': isCollapsed}")
+						.faq_footnote(ng-if="attrdisplaystring.length>0")
+							| Attributes filtered: {{attrdisplaystring}}
+						.faq_footnote(ng-if="attrdisplaystring.length<=0")
+							| Attributes filtered: none
+					.col-lg-4.col-md-4.col-sm-4.gray_text
+						label.btn.btn-default.pull-right(ng-click="getrelatedactivitytypes()" ng-disabled="dissearchbtn")
+							i.fa.fa-chevron-circle-right
+							| Search
+				
+				.row(ng-show="alert_acttextbox_show")
+					.col-lg-12.col-md-12.col-sm-12
+						.vertical_spacing_lesser
+						alert(type="danger"  close="closealert()")
+							| Invalid activity name selection. Please select a value from the dropdown.
+				.row
+					.col-lg-12.col-md-12.col-sm-12
+						.adhocadvanced(collapse="isCollapsed")
+							.orange_header_larger
+								| Advaced search options
+							tabset
+								tab(ng-repeat="activitytype in activitytypes" heading="{{activitytype.nodetypes | unCamelCase}}" active="tabs[activitytype.nodetypes]" disabled="!chkactvs[activitytype.nodetypes]")
+									//| {{actAttributes[activitytype.nodetypes]}}
+									//.adhoc_adv_query-bordered
+									.vertical_spacing_less
+									p
+										| Filter 
+										b
+											|'{{activitytype.nodetypes | unCamelCase}}' 
+										| activities further by using specific values with its attributes
+									.vertical_spacing_less
+									.well.well-lg
+										.adhocad(ng-repeat="act in actAttributes[activitytype.nodetypes] track by $index")
+											.row
+												.col-lg-3.col-md-3.col-sm-3
+													| {{act | unCamelCase}}
+												.col-lg-5.col-md-5.col-sm-5
+													//input(id="{{txtid=activitytype.nodetypes+'_'+act}}" name="txtid" type="text" class="form-control" ng-model="advs[txtid]" )
+													input(id="{{txtid=activitytype.nodetypes+'_'+act}}" name="txtid" type="text" ng-model="advs[txtid]"  typeahead-on-select="adhocAttrSelected($item, $model, $label)" typeahead-min-length='2' typeahead="node.values for node in getAttributeValues($viewValue,txtid)" class="form-control")
+				.row(collapse="isCollapsed")
+					.col-lg-12.col-md-12.col-sm-12
+						label.btn.btn-default.pull-right(ng-click="getrelatedactivitytypes()" ng-disabled="dissearchbtn")
+							i.fa.fa-chevron-circle-right
+							| Search
+				.row(ng-hide="q_results")
+					hr
+					.col-lg-12.col-md-12.col-sm-12
+						.orange_header_larger
+							| Ad-Hoc Query Results
+				.row(ng-hide="q_results")
+					.col-lg-12.col-md-12.col-sm-12
+						.row
+							.col-lg-12.col-md-12.col-sm-12
+								strong.gray_text
+									| {{lengthrel}} activities found
+						.vertical_spacing_less
+						.row
+							.col-lg-6.col-md-6.col-sm-6
+								//.btn-group
+									label.btn.btn-sm.btn-primary(ng-model="checkModel.direct" btn-checkbox ng-change="filterresults()")
+										| {{lengthdirrel}} Direct relationships
+									label.btn.btn-sm.btn-primary(ng-model="checkModel.indirect" btn-checkbox ng-change="filterresults()")
+										| {{lengthindirrel}} Indirect Relationships
+							.col-lg-6.col-md-6.col-sm-6
+								pagination.pull-right(total-items="totalItems" ng-model="currentPage" max-size="maxSize" items-per-page="itemsPerPage" class="pagination-sm" boundary-links="true" ng-change="pageChanged()")								
+						.vertical_spacing_less
+						.row(ng-repeat="row in adhocresultspag")
+							.col-lg-12.col-md-12.col-sm-12
+								.row
+									.col-lg-4.col-md-4.col-sm-4
+										a(href="#/advancedSearch/{{row.aid+'-'+row.bid}}")
+											| {{row.bname}} ({{row.btype}})
+									.col-lg-8.col-md-8.col-sm-8
+										.fg_placeholder.forcegraph-bordered(id="fg_{{row.aid+row.bid}}" attribute-divid="fg_{{row.aid+row.bid}}" ng-force-graph attribute-readytoload=true  attribute-percent=10 attribute-nodelinks="{{row.pathlinks}}" attribute-nodes="{{row.pathnodes}}")
+								.vertical_spacing_less			
+				.row(ng-if="lengthrel>0" ng-hide="q_results")
+					.col-lg-12.col-md-12.col-sm-12
+						label.btn.btn-default.pull-right(ng-click="exportadhocresults()")
+							i.fa.fa-download
+							|  Download results as CSV
+				
+				//end nested row
+				
+		// end content block
+	// end col spec
+// end row.orange_header Overview

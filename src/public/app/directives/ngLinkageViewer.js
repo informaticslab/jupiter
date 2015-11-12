@@ -193,7 +193,7 @@ angular.module('jupiterApp')
 									})
 									.on("dblclick", dblclick)
 									.call(force.drag);
-
+								console.log(scope.nodeArray);
 								var text = svg.append("svg:g")
 									.selectAll("g")
 									.data(json.nodes)

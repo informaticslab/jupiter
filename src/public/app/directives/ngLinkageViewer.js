@@ -1,32 +1,56 @@
 angular.module('jupiterApp')
-	.directive('ngLinkageViewer', ['nodeTypeDictionary',
+	.directive('ngLinkageViewer', [
 
-		function(nodeTypeDictionary) {
+		function() {
 			return {
 				link: function(scope, element, attrs) {
 
 					$(document).ready(function() {
-						var nodeDictionary = nodeTypeDictionary.NodeTypes;
-						// console.log(nodeDictionary);
-						scope.nodeArray=[];
-
-						for (snode in nodeDictionary) {
-							var node = {
-								nodeType:"",
-								displayName:"",
-								show:false,
-								checked:true,
-								count:0
-							};
-							node.nodeType = nodeDictionary[snode];
-							node.displayName = nodeDictionary[snode].replace(/([A-Z])/g, ' $1');
-							scope.nodeArray.push(node);
-						}
-
-						// console.log(scope.nodeArray);
+						
+						scope.checkModel = {
+							Organization: true,
+							Program: true,
+							SurveillanceSystem: true,
+							Tool: true,
+							Registry: true,
+							HealthSurvey: true,
+							Collaborative: true,
+							Dataset: true,
+							DataStandard: true,
+							Tag: true,
+							Concept: true,
+							DataElement: true
+						};
 
 						scope.showLinkageLoading = true;
 						scope.disableHideLines = false;
+
+						scope.showOrganization = false;
+						scope.showProgram = false;
+						scope.showSurveillanceSystem = false;
+						scope.showTool = false;
+						scope.showRegistry = false;
+						scope.showHealthSurvey = false;
+						scope.showCollaborative = false;
+						scope.showDataset = false;
+						scope.showDataStandard = false;
+						scope.showTag = false;
+						scope.showConcept = false;
+						scope.showDataElement = false;
+
+						scope.countOrganization = 0;
+						scope.countProgram = 0;
+						scope.countSurveillanceSystem = 0;
+						scope.countTool = 0;
+						scope.countRegistry = 0;
+						scope.countHealthSurvey = 0;
+						scope.countCollaborative = 0;
+						scope.countDataset = 0;
+						scope.countDataStandard = 0;
+						scope.countTag = 0;
+						scope.countConcept = 0;
+						scope.countDataElement = 0;
+
 
 						var url = $(location).attr('href');
 						var split = url.split('/');
@@ -177,16 +201,24 @@ angular.module('jupiterApp')
 										else return r;
 									})
 									.attr("class", function(d) {
+
+										var labelname = "show" + d.label;
+
+										var countlabel = "count" + d.label;
+
 										if (d.id == id) {
 											rootnodelabel = d.label;
 
 										} else {
-											for (var i = 0; i < scope.nodeArray.length; i++) {
-												if(scope.nodeArray[i].nodeType == d.label){
-													scope.nodeArray[i].show = true;
-													scope.nodeArray[i].count++;
-												}
-											}
+											// for (var i = 0; i < scope.nodeArray.length; i++) {
+											// 	if(scope.nodeArray[i].nodeType == d.label){
+											// 		scope.nodeArray[i].show = true;
+											// 		scope.nodeArray[i].count++;
+											// 	}
+											// }
+											scope[labelname] = true;
+											scope[countlabel]++;
+											scope.$apply();
 										}
 
 										return "node " + d.label;

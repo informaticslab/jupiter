@@ -44,12 +44,8 @@
 					form(name='dataMatchForm')
 						.col-lg-4.col-md-4.col-sm-4
 							|Data set 1:
-							input(type="text" ng-model="firstDataset"  placeholder="Select a dataset" typeahead-on-select="setDataSet1($item)" typeahead-min-length='3' typeahead="node.name for node in getDatasetNodes($viewValue)" class="form-control" ng-change="resetDataset(); resetStatus()" required='')
+							input(type="text" ng-model="firstDataset" ng-readonly = 'true')
 							.vertical_spacing_less
-							//button.btn.btn-normal.pull-right(type="button" ng-click = "showDataSet(firstDataset)") View Data Set
-							button.btn.btn-default.button-padding.pull-right(ng-click='openGridModal(ds1Id)' ng-disabled = "firstDataset.")
-								span.fa.fa-table
-									|  View Data Set
 						.col-lg-4.col-md-4.col-sm-4
 							|Data set 2:
 							input(type="text" ng-model="secondDataset"  placeholder="Select a second dataset" typeahead-on-select="setDataSet2($item)" typeahead-min-length='3' typeahead="node.name for node in getDatasetNodes($viewValue)" class="form-control" ng-change="resetDataset(); resetStatus()" required='')
@@ -116,7 +112,6 @@
 												a(href='#/node/{{row.concept.id}}' target='_blank'){{row.concept.name}}
 				.row
 					button.btn.btn-success.pull-right(type='button' ng-click='merge()' ng-show='validDataSets') Next
-				.row
 								
 
 	.div(ng-class='getSidebarWidth()')

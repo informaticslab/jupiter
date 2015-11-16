@@ -882,3 +882,11 @@ del{}
     opacity: 0;
     filter: alpha(opacity=0);
 }
+
+.preview-modal > .modal-dialog {
+    width:90% !important;
+}
+
+.preview-modal > .modal-body {
+    overflow-y: auto;
+}

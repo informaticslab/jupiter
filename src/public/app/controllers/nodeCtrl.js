@@ -226,7 +226,7 @@ angular.module('jupiterApp').controller('nodeCtrl', ['$scope', '$location', '$re
 
         $scope.emailBlurb = encodeURIComponent($location.absUrl());
 
-               $scope.openGridModal = function(nodeId) {
+        $scope.openGridModal = function(nodeId) {
             var modalInstance = $modal.open({
                 templateUrl: 'partials/modals/previewGrid',
                 controller: 'previewGridCtrl',

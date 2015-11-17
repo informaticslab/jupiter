@@ -1,10 +1,10 @@
 'use strict';
-angular.module('jupiterApp').controller('dataMatchCtrl', function($scope, $http,$modal){
+angular.module('jupiterApp').controller('dataMatchCtrl', function($scope, $http,$modal,mergedData){
 
 	$scope.validDataSets = true;
 	$scope.ds1Id = '';
 	$scope.ds2Id = '';
-	$scope.mergedList = [];
+	$scope.mergedList = mergedData.getMergedList();
 	$scope.isCollapsed = true;
 	$scope.showResults = false;
 	$scope.datafile1 = {
@@ -124,7 +124,7 @@ angular.module('jupiterApp').controller('dataMatchCtrl', function($scope, $http,
 				// console.log('second:',ds2Bucket);
 			}
 
-			
+			mergedData.setMergedList($scope.mergedList);
 			$scope.showResults = true;
 
 		
@@ -195,11 +195,15 @@ angular.module('jupiterApp').controller('dataMatchCtrl', function($scope, $http,
     		}
     	}
     	for (var j=0; j< $scope.datafile1.cols.length; j++) {
+    			if ($scope.mergedCols.indexOf($scope.datafile1.cols[j]) == -1 ) {
     				$scope.mergedCols.push({'sortOrder':1, 'col': $scope.datafile1.cols[j],'renamedCol': $scope.datafile1.cols[j]+'1', 'ds':1});
     			}
+    	}
     	for (var j=0; j< $scope.datafile2.cols.length; j++) {
+    			if ($scope.mergedCols.indexOf($scope.datafile2.cols[j]) == -1 ) {
     				$scope.mergedCols.push({'sortOrder':2, 'col': $scope.datafile2.cols[j],'renamedCol': $scope.datafile2.cols[j]+'2', 'ds':2})
     			}
+    	}
     			
     
     	
@@ -211,7 +215,8 @@ angular.module('jupiterApp').controller('dataMatchCtrl', function($scope, $http,
     	// 			$scope.mergedCols.push({'sortOrder':4, 'col': $scope.unmatchedList[i].dsDE2[j].dename});
     	// 		}
     	// }
-    	$scope.mergedCols = sortByKey($scope.mergedCols, 'sortOrder');
+    	//$scope.mergedCols = sortByKey($scope.mergedCols, 'sortOrder');
+    //	console.log($scope.mergedCols);
     	for (var i = 0; i < $scope.datafile1.data.length; i++) {
     		var oneRow = {};
     		for (var j = 0; j < $scope.mergedCols.length; j++) {
@@ -220,12 +225,13 @@ angular.module('jupiterApp').controller('dataMatchCtrl', function($scope, $http,
     					oneRow[$scope.mergedCols[j].col] = $scope.datafile1.data[i][orgCol[0]];
     				}
     				else {
-	    				if (($scope.datafile1.cols.indexOf(orgCol[0]) != -1) && ($scope.mergedCols[j].ds == 1) ){
-	    					oneRow[$scope.mergedCols[j].renamedCol] = $scope.datafile1.data[i][orgCol[0]];
-	    				}
-	    				else {
-	    					oneRow[$scope.mergedCols[j].renamedCol] = '';
-	    				} 
+	    				// if (($scope.datafile1.cols.indexOf(orgCol[0]) != -1) && ($scope.mergedCols[j].ds == 1) ){
+	    				// 	oneRow[$scope.mergedCols[j].renamedCol] = $scope.datafile1.data[i][orgCol[0]];
+	    				// }
+	    				// else {
+	    				// 	oneRow[$scope.mergedCols[j].renamedCol] = '';
+	    				// } 
+	    					oneRow[$scope.mergedCols[j].col] = $scope.datafile1.data[i][orgCol[0]];
 	    			}
     		}
     		$scope.mergedDatasets.push(oneRow);
@@ -238,18 +244,20 @@ angular.module('jupiterApp').controller('dataMatchCtrl', function($scope, $http,
     					oneRow[$scope.mergedCols[j].col] = $scope.datafile2.data[i][orgCol[1]];
     				}
     				else {
-    					if (($scope.datafile2.cols.indexOf(orgCol[0]) != -1) && ($scope.mergedCols[j].ds == 2)) {
-    						oneRow[$scope.mergedCols[j].renamedCol] = $scope.datafile2.data[i][orgCol[0]];
-	    				}
-	    				else {
-	    					oneRow[$scope.mergedCols[j].renamedCol] = '';
-	    				} 
-    					
-    				}
+    					// if (($scope.datafile2.cols.indexOf(orgCol[0]) != -1) && ($scope.mergedCols[j].ds == 2)) {
+    					// 	oneRow[$scope.mergedCols[j].renamedCol] = $scope.datafile2.data[i][orgCol[0]];
+	    				// }
+	    				// else {
+	    				// 	oneRow[$scope.mergedCols[j].renamedCol] = '';
+	 	  				// } 
+	 					oneRow[$scope.mergedCols[j].col] = $scope.datafile2.data[i][orgCol[0]];
+	 				}
     		}
     		$scope.mergedDatasets.push(oneRow);
     	} 	
-    	console.log($scope.mergedDatasets);
+    	mergedData.setMergedDataset($scope.mergedDatasets);
+    	mergedData.setMergedCols($scope.mergedCols);
+    	location.href = "#/dataMatch2";
     	
 
 	}

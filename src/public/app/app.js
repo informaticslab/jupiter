@@ -201,6 +201,10 @@ jupiterApp.config(['$routeProvider',
           templateUrl:'partials/inTheLab/dataMatch',
           controller: 'dataMatchCtrl'
       }).
+          when('/dataMatch2', {
+          templateUrl:'partials/inTheLab/dataMatch2',
+          controller: 'dataMatch2Ctrl'
+      }).
         otherwise({
         redirectTo: '/main'
       });

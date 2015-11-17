@@ -41,77 +41,13 @@
 			.top_block_faq
 				.vertical_spacing_less
 				.row
-					form(name='dataMatchForm')
-						.col-lg-4.col-md-4.col-sm-4
-							|Data set 1:
-							input(type="text" ng-model="firstDataset" ng-readonly = 'true')
-							.vertical_spacing_less
-						.col-lg-4.col-md-4.col-sm-4
-							|Data set 2:
-							input(type="text" ng-model="secondDataset"  placeholder="Select a second dataset" typeahead-on-select="setDataSet2($item)" typeahead-min-length='3' typeahead="node.name for node in getDatasetNodes($viewValue)" class="form-control" ng-change="resetDataset(); resetStatus()" required='')
-							.vertical_spacing_less
-							//button.btn.btn-normal.pull-right(type="button" ng-click = "showDataSet(secondDataset)") View Data Set
-							button.btn.btn-default.button-padding.pull-right(ng-click='openGridModal(ds2Id)' ng-if='cr.localFileName != ""')
-								span.fa.fa-table
-									|  View Data Set
-						.col-lg-4.col-md-4.col-sm-4
-							button.btn.btn-success(type='button' ng-click='match()' ng-disabled='dataMatchForm.$invalid') Harmonize
-				.vertical_spacing_more
-				.row(ng-show='showResults')
-					.col-md-12.col-md-12.col-sm-12
-						table.table
-							thead
-								tr
-									th {{firstDataset ? firstDataset : 'Dataset 1'}}
-									th {{secondDataset ? secondDataset : 'Dataset 2'}} 
-									th Shared Concept
-									th Merge
-							tbody
-								tr(ng-repeat='row in mergedList' ng-show='row.concept.name != "undefined"')
-									td
-										span(ng-repeat='entry in row.dsDE1')
-											a(href='#/node/{{entry.deid}}' target='_blank'){{entry.dename}}{{$last ? '' : ', '}}
-									td
-										span(ng-repeat='entry in row.dsDE2')
-											a(href='#/node/{{entry.deid}}' target='_blank'){{entry.dename}}{{$last ? '' : ', '}}
-									td 
-										a(href='#/node/{{row.concept.id}}' target='_blank'){{row.concept.name}}
-									td
-										input(type='checkbox' ng-model='row.mergeChecked')
-				.row(ng-show='showResults')
-					.col-lg-12
-						.panel.panel-default.panel_custom
-							.panel-heading
-								h2.cursor-pointer.panel-title(ng-click="isCollapsed = !isCollapsed") Unmatched Data Elements&nbsp; 
-									span.caret
-							.panel-body(collapse='isCollapsed',)
-								table.table
-									thead
-										tr
-											th {{firstDataset ? firstDataset : 'Dataset 1'}}
-											th {{secondDataset ? secondDataset : 'Dataset 2'}} 
-											th Unmatched Concept
-									tbody
-										tr(ng-repeat='row in unmatchedList' ng-show='row.concept.name != "undefined"')
-											td(style="width: 350px;")
-												span(ng-repeat='entry in row.dsDE1')
-													a(href='#/node/{{entry.deid}}' target='_blank'){{entry.dename}}{{$last ? '' : ', '}}
-											td(style="width: 350px;")
-												span(ng-repeat='entry in row.dsDE2')
-													a(href='#/node/{{entry.deid}}' target='_blank'){{entry.dename}}{{$last ? '' : ', '}}
-											td 
-												a(href='#/node/{{row.concept.id}}' target='_blank'){{row.concept.name}}
-										tr(ng-repeat='row in mergedList' ng-show='row.concept.name == "undefined"')
-											td(style="width: 350px;")
-												span(ng-repeat='entry in row.dsDE1')
-													a(href='#/node/{{entry.deid}}' target='_blank'){{entry.dename}}{{$last ? '' : ', '}}
-											td(style="width: 350px;")
-												span(ng-repeat='entry in row.dsDE2')
-													a(href='#/node/{{entry.deid}}' target='_blank'){{entry.dename}}{{$last ? '' : ', '}}
-											td
-												a(href='#/node/{{row.concept.id}}' target='_blank'){{row.concept.name}}
+					|PREVIEW - Combined Data Sets
 				.row
-					button.btn.btn-success.pull-right(type='button' ng-click='merge()' ng-show='validDataSets') Next
+					#grid2.grid(ui-grid='{data:mergedDatasets}' ui-grid-auto-resize='')		
+				.vertical_spacing_more
+				.row
+					button.btn.btn-success.pull-left(type='button' ng-click='backToMatch1()' ) Back
+					button.btn.btn-success.pull-right(type='button' ng-click='ValueSet()' ng-show='validDataSets') Value Set Rules
 								
 
 	.div(ng-class='getSidebarWidth()')

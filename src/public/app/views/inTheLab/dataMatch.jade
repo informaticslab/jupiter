@@ -59,7 +59,7 @@
 								span.fa.fa-table
 									|  View Data Set
 						.col-lg-4.col-md-4.col-sm-4
-							button.btn.btn-success(type='button' ng-click='match()' ng-disabled='dataMatchForm.$invalid') Harmonize
+							button.btn.btn-success(type='button' ng-click='match()' ng-disabled='dataMatchForm.$invalid') Merge Data Elements
 				.vertical_spacing_more
 				.row(ng-show='showResults')
 					.col-md-12.col-md-12.col-sm-12
@@ -116,8 +116,6 @@
 												a(href='#/node/{{row.concept.id}}' target='_blank'){{row.concept.name}}
 				.row
 					button.btn.btn-success.pull-right(type='button' ng-click='merge()' ng-show='validDataSets') Next
-				.row
-								
 
 	.div(ng-class='getSidebarWidth()')
 		.hx_side(ng-show='!showSidebar' ng-click='toggleSidebar()')

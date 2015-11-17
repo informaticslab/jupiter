@@ -41,13 +41,37 @@
 			.top_block_faq
 				.vertical_spacing_less
 				.row
-					|PREVIEW - Combined Data Sets
-				.row
-					#grid2.grid(ui-grid='{columnDefs: columnDefs, data:mergedDatasets}' ui-grid-auto-resize='')		
+					|Value Set Rules
+				.row(ng-repeat = 'row1 in mergedList' ng-show='row1.mergeChecked')
+					.col-md-12.col-md-12.col-sm-12
+						table.table
+							thead
+								tr
+									th Element {{}}
+									th  
+									th  
+									th Shared Concept
+									th Merge
+							tbody
+								tr(ng-repeat='row in valueSet')
+									td
+										span(ng-repeat='entry in row.dsDE1')
+											a(href='#/node/{{entry.deid}}' target='_blank'){{entry.dename}}{{$last ? '' : ', '}}
+									td
+										span(ng-repeat='entry in row.dsDE2')
+											a(href='#/node/{{entry.deid}}' target='_blank'){{entry.dename}}{{$last ? '' : ', '}}
+									td 
+										|Replace With
+									td 
+										a(href='#/node/{{row.concept.id}}' target='_blank'){{row.concept.name}}
+									td
+										input(type='checkbox' ng-model='value.mergeChecked')
+				
+					
 				.vertical_spacing_more
 				.row
-					button.btn.btn-success.pull-left(type='button' ng-click='backToMatch1()' ) Back
-					button.btn.btn-success.pull-right(type='button' ng-click='showValueSet()' ng-show='validDataSets') Value Set Rules
+					button.btn.btn-success.pull-left(type='button' ng-click='backToMatch2()' ) Back
+					button.btn.btn-success.pull-right(type='button' ng-click='notImplemented()' ng-show='validDataSets') Harmonize Data
 								
 
 	.div(ng-class='getSidebarWidth()')

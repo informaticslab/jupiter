@@ -225,13 +225,13 @@ angular.module('jupiterApp').controller('dataMatchCtrl', function($scope, $http,
     					oneRow[$scope.mergedCols[j].col] = $scope.datafile1.data[i][orgCol[0]];
     				}
     				else {
-	    				// if (($scope.datafile1.cols.indexOf(orgCol[0]) != -1) && ($scope.mergedCols[j].ds == 1) ){
-	    				// 	oneRow[$scope.mergedCols[j].renamedCol] = $scope.datafile1.data[i][orgCol[0]];
-	    				// }
-	    				// else {
-	    				// 	oneRow[$scope.mergedCols[j].renamedCol] = '';
-	    				// } 
-	    					oneRow[$scope.mergedCols[j].col] = $scope.datafile1.data[i][orgCol[0]];
+	    				if (($scope.datafile1.cols.indexOf(orgCol[0]) != -1) && ($scope.mergedCols[j].ds == 1) ){
+	    					oneRow[$scope.mergedCols[j].renamedCol] = $scope.datafile1.data[i][orgCol[0]];
+	    				}
+	    				else {
+	    					oneRow[$scope.mergedCols[j].renamedCol] = '';
+	    				} 
+	    				//	oneRow[$scope.mergedCols[j].col] = $scope.datafile1.data[i][orgCol[0]];
 	    			}
     		}
     		$scope.mergedDatasets.push(oneRow);
@@ -244,13 +244,13 @@ angular.module('jupiterApp').controller('dataMatchCtrl', function($scope, $http,
     					oneRow[$scope.mergedCols[j].col] = $scope.datafile2.data[i][orgCol[1]];
     				}
     				else {
-    					// if (($scope.datafile2.cols.indexOf(orgCol[0]) != -1) && ($scope.mergedCols[j].ds == 2)) {
-    					// 	oneRow[$scope.mergedCols[j].renamedCol] = $scope.datafile2.data[i][orgCol[0]];
-	    				// }
-	    				// else {
-	    				// 	oneRow[$scope.mergedCols[j].renamedCol] = '';
-	 	  				// } 
-	 					oneRow[$scope.mergedCols[j].col] = $scope.datafile2.data[i][orgCol[0]];
+    					if (($scope.datafile2.cols.indexOf(orgCol[0]) != -1) && ($scope.mergedCols[j].ds == 2)) {
+    						oneRow[$scope.mergedCols[j].renamedCol] = $scope.datafile2.data[i][orgCol[0]];
+	    				}
+	    				else {
+	    					oneRow[$scope.mergedCols[j].renamedCol] = '';
+	 	  				} 
+	 					//oneRow[$scope.mergedCols[j].col] = $scope.datafile2.data[i][orgCol[0]];
 	 				}
     		}
     		$scope.mergedDatasets.push(oneRow);

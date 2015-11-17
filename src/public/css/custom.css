@@ -890,3 +890,15 @@ del{}
 .preview-modal > .modal-body {
     overflow-y: auto;
 }
+
+.mergedColor {
+  color:  #99ccff;
+}
+
+.set1Color {
+  color : #00cc99;
+}
+
+.set2Color {
+  color : #ff9966;
+}

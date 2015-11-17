@@ -1,5 +1,5 @@
 'use strict';
-angular.module('jupiterApp').controller('dataMatch2Ctrl', function($scope, $http,$modal,mergedData){
+angular.module('jupiterApp').controller('dataMatch3Ctrl', function($scope, $http,$modal,mergedData){
 
 	$scope.validDataSets = true;
 	$scope.ds1Id = '';
@@ -30,30 +30,13 @@ angular.module('jupiterApp').controller('dataMatch2Ctrl', function($scope, $http
 	//     }
  //  	};
   
- 	$scope.columnDefs = [];
+ 	$scope.mergedList = mergedData.getMergedList();
+ 	console.log(' ', $scope.mergedList);
 	$scope.mergedDatasets = mergedData.getMergedDataset();
 	
 	$scope.valuesets = [];
 	$scope.mergedCols = mergedData.getMergedCols();
-  	for (var i = 0; i < $scope.mergedCols.length; i++ ) {
-  		var oneColDef = {};
-
-  		if ($scope.mergedCols[i].sortOrder == 0) {
-  			oneColDef['field'] = $scope.mergedCols[i].col;
-  			oneColDef['headerCellClass'] = 'mergedColor';
-  		}
-  		else if ($scope.mergedCols[i].sortOrder == 1) { // dataset 1 cols
-  			oneColDef['field'] = $scope.mergedCols[i].renamedCol;
-  			oneColDef['headerCellClass'] = 'set1Color';
-  		}
-  		else if ($scope.mergedCols[i].sortOrder == 2) {  // dataset 2 cols
-  			oneColDef['field'] = $scope.mergedCols[i].renamedCol;
-  			oneColDef['headerCellClass'] = 'set2Color';
-  		}
-  		$scope.columnDefs.push(oneColDef);
-  	}
-
-	
+  	
 	// $scope.setDataSet1 = function($item) {
 
 	//     $scope.ds1Id = $item.id;
@@ -83,9 +66,6 @@ angular.module('jupiterApp').controller('dataMatch2Ctrl', function($scope, $http
 		// })
   //    };
 
-  $scope.showValueSet =  function () {
-  		location.href = "#/dataMatch3";
-  }
      $scope.resetStatus = function() {
      	$scope.showResults = false;
      };
@@ -104,6 +84,23 @@ angular.module('jupiterApp').controller('dataMatch2Ctrl', function($scope, $http
                 }
             });
         };
+
+    $scope.getValueSet = function(data,column,reset) {
+    	var lookup = {};
+		var items = json.data;
+		if (reset) {
+			$scope.valuesets[column] = null;
+		}
+
+		for (var item, i = 0; item = items[i++];) {
+		  var value = item[column];
+
+		  if (!(value in lookup)) {
+		    lookup[value] = 1;
+		    $scope.valuesets[column].push(value);
+		  }
+		}
+    };
 
     function sortByKey(array, key) {
     return array.sort(function(a, b) {

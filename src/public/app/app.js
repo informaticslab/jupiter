@@ -11,6 +11,8 @@ var jupiterApp = angular.module('jupiterApp', [
   ,'angularFileUpload'
   ,'ui.grid'
   ,'ui.grid.autoResize'
+  ,'ui.grid.selection'
+  ,'ui.grid.exporter'
   //'jupiterAppAnimations',
  // 'jupiterAppControllers',
  // 'jupiterAppFilters',

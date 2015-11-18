@@ -2,7 +2,9 @@ angular.module('jupiterApp').controller('previewGridCtrl', function($scope,$moda
 	$scope.previewData;
 	$scope.datasetId = nodeId;
 	$scope.gridOptions = {
-		columnDefs : []
+		columnDefs : [],
+		enableGridMenu: true,
+		enableSelectAll: true
 	};
 	$http.get('/api/getDataFile'+nodeId).then(function(res) {
 		$scope.previewData = res.data;

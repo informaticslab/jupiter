@@ -43,7 +43,7 @@
 				.row
 					|PREVIEW - Combined Data Sets
 				.row
-					#grid2.grid(ui-grid='{columnDefs: columnDefs, data:mergedDatasets}' ui-grid-auto-resize='')		
+					#grid2.grid(ui-grid='{columnDefs: columnDefs, data:mergedDatasets, enableGridMenu: true, enableSelectAll: true}' ui-grid-auto-resize='' ui-grid-selection='' ui-grid-exporter='')		
 				.vertical_spacing_more
 				.row
 					button.btn.btn-success.pull-left(type='button' ng-click='backToMatch()' ) Back

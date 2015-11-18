@@ -203,6 +203,10 @@ jupiterApp.config(['$routeProvider',
           templateUrl:'partials/inTheLab/dataMatch',
           controller: 'dataMatchCtrl'
       }).
+          when('/dataMatch1', {
+          templateUrl:'partials/inTheLab/dataMatch1',
+          controller: 'dataMatch1Ctrl'
+      }).
           when('/dataMatch2', {
           templateUrl:'partials/inTheLab/dataMatch2',
           controller: 'dataMatch2Ctrl'

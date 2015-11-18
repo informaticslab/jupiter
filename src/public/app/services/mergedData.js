@@ -1,6 +1,6 @@
 angular.module('jupiterApp').service('mergedData', function() {
   var dataMerge = {
-    'mergedDatasets'  : [],
+    'mergedDatasets'  :{} ,
     'mergedCols'      :[],
     'mergedList'      :[],
     'mergedValueSets' :{}
@@ -8,12 +8,12 @@ angular.module('jupiterApp').service('mergedData', function() {
   };
     
 
-  var setMergedDataset = function(newData) {
-      dataMerge.mergedDatasets = newData;
+  var setMergedDataset = function(newData,setid) {
+      dataMerge.mergedDatasets[setid] = newData;
   };
 
-  var getMergedDataset = function(){
-      return dataMerge.mergedDatasets;
+  var getMergedDataset = function(setid){
+      return dataMerge.mergedDatasets[setid];
   };
 
   var setMergedCols = function(cols) {

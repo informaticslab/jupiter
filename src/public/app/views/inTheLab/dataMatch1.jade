@@ -40,7 +40,7 @@
 							| Data Harmonization (Alpha)
 			.top_block_faq
 				.vertical_spacing_less
-				.row
+				//.row
 					form(name='dataMatchForm')
 						.col-lg-4.col-md-4.col-sm-4
 							|Data set 1:
@@ -58,12 +58,69 @@
 							button.btn.btn-default.button-padding.pull-right(ng-click='openGridModal(ds2Id)' ng-show = 'datafile2.cols.length > 0')
 								span.fa.fa-table
 									|  View Data Set
+						.col-lg-.col-md-4.col-sm-4
+							button.btn.btn-success.pull-right(type='button' ng-click='match()' ng-disabled='dataMatchForm.$invalid') Merge Data Elements
+				.vertical_spacing_more
+				.row(ng-show='showResults')
+					.col-md-12.col-md-12.col-sm-12
+						table.table
+							thead
+								tr
+									th {{firstDataset ? firstDataset : 'Dataset 1'}}
+									th {{secondDataset ? secondDataset : 'Dataset 2'}} 
+									th Shared Concept
+									th Merge
+							tbody
+								tr(ng-repeat='row in mergedList' ng-show='row.concept.name != "undefined"')
+									td
+										span(ng-repeat='entry in row.dsDE1')
+											a(href='#/node/{{entry.deid}}' target='_blank'){{entry.dename}}{{$last ? '' : ', '}}
+									td
+										span(ng-repeat='entry in row.dsDE2')
+											a(href='#/node/{{entry.deid}}' target='_blank'){{entry.dename}}{{$last ? '' : ', '}}
+									td 
+										a(href='#/node/{{row.concept.id}}' target='_blank'){{row.concept.name}}
+									td
+										input(type='checkbox' ng-model='row.mergeChecked')
+				.row(ng-show='showResults')
+					.col-lg-12
+						.panel.panel-default.panel_custom
+							.panel-heading
+								h2.cursor-pointer.panel-title(ng-click="isCollapsed = !isCollapsed") Unmatched Data Elements&nbsp; 
+									span.caret
+							.panel-body(collapse='isCollapsed',)
+								table.table
+									thead
+										tr
+											th {{firstDataset ? firstDataset : 'Dataset 1'}}
+											th {{secondDataset ? secondDataset : 'Dataset 2'}} 
+											th Unmatched Concept
+									tbody
+										tr(ng-repeat='row in unmatchedList' ng-show='row.concept.name != "undefined"')
+											td(style="width: 350px;")
+												span(ng-repeat='entry in row.dsDE1')
+													a(href='#/node/{{entry.deid}}' target='_blank'){{entry.dename}}{{$last ? '' : ', '}}
+											td(style="width: 350px;")
+												span(ng-repeat='entry in row.dsDE2')
+													a(href='#/node/{{entry.deid}}' target='_blank'){{entry.dename}}{{$last ? '' : ', '}}
+											td 
+												a(href='#/node/{{row.concept.id}}' target='_blank'){{row.concept.name}}
+										tr(ng-repeat='row in mergedList' ng-show='row.concept.name == "undefined"')
+											td(style="width: 350px;")
+												span(ng-repeat='entry in row.dsDE1')
+													a(href='#/node/{{entry.deid}}' target='_blank'){{entry.dename}}{{$last ? '' : ', '}}
+											td(style="width: 350px;")
+												span(ng-repeat='entry in row.dsDE2')
+													a(href='#/node/{{entry.deid}}' target='_blank'){{entry.dename}}{{$last ? '' : ', '}}
+											td
+												a(href='#/node/{{row.concept.id}}' target='_blank'){{row.concept.name}}
 			br
 			.row
-				.col-lg-12.col-md-12.col-sm-12
-					button.btn.btn-success.pull-right(type='button' ng-click='doMatch()' ng-disabled='dataMatchForm.$invalid') Merge Data Elements
-			.vertical_spacing_more
-				
+				.col-lg-6.col-sm-6.col-sm-6
+					button.btn.btn-success.pull-left(type='button' ng-click="previousPage('#/dataMatch')" ) Back
+				.col-lg-6.col-sm-6.col-sm-6
+					button.btn.btn-success.pull-right(type='button' ng-click='merge()' ng-show='validDataSets') Next
+
 	.div(ng-class='getSidebarWidth()')
 		.hx_side(ng-show='!showSidebar' ng-click='toggleSidebar()')
 			div(ng-Historybar)

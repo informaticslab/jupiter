@@ -1,86 +1,43 @@
 'use strict';
-angular.module('jupiterApp').controller('dataMatchCtrl', function($scope, $http,$modal,mergedData){
+angular.module('jupiterApp').controller('dataMatch1Ctrl', function($scope, $http,$modal,mergedData){
 
 	$scope.validDataSets = true;
-	$scope.ds1Id = '';
-	$scope.ds2Id = '';
+	$scope.ds1Id = null;
+	$scope.ds2Id = null;
 	$scope.mergedList = mergedData.getMergedList();
 	$scope.isCollapsed = true;
 	$scope.showResults = false;
-	$scope.datafile1 = {
-		dsId : '',
-		data: '',
-		cols: []
-	};
-	$scope.datafile2 = {
-		dsId : '',
-		data: '',
-		cols: []
-	}
+	$scope.datafile1 =  mergedData.getMergedDataset('dset1');
+	$scope.datafile2 =  mergedData.getMergedDataset('dset2');
 	$scope.mergedDatasets = [];
 	$scope.valueSets = {};
 	$scope.mergedCols = [];
 	
-	$scope.setDataSet1 = function($item) {
-
-	    $scope.ds1Id = $item.id;
-	    $scope.datafile1.dsId = $item.id;
-	    // need to verify if the dataset has a file attachment before invoke
-
-	    try {
-		    $http.get('/api/getDataFile'+$scope.ds1Id).then(function(res,err) {
-		    	if (res.data.ERROR) {
-		    		alert('An error has occured, please verify that this is an uploaded dataset!');
-		    	}
-		    	else {
-					$scope.datafile1['data'] = res.data;
-					var cols = Object.keys($scope.datafile1.data[0]);
-					for(var col in cols) {
-						$scope.datafile1['cols'].push(cols[col]);
-					}
-					//console.log('ds 1 cols ', $scope.datafile1.cols);	
-					mergedData.setMergedDataset($scope.datafile1,'dset1');
-				}
-			})
-
-		}
-		catch(err) {
-			alert('An error has occured, pleases contact an administrator!');
-		}
-     };
-
-     $scope.setDataSet2 = function($item) {
-        $scope.ds2Id = $item.id;
-        $scope.datafile2.dsId = $item.id;
-
-        $http.get('/api/getDataFile'+$scope.ds2Id).then(function(res) {
-        	if (res.data.ERROR) {
-		    		alert('An error has occured, please verify that this is an uploaded dataset!');
-		    }
-		    else {
-	       		$scope.datafile2.data = res.data;
-	       		
-				var cols = Object.keys($scope.datafile2.data[0]);
-			//	console.log(cols);
-				for(var col in cols) {
-					$scope.datafile2.cols.push(cols[col]);
-				}	
-				mergedData.setMergedDataset($scope.datafile2,'dset2');
-			}
-			
-		})
-     };
+	if ($scope.datafile1) {
+		$scope.ds1Id = $scope.datafile1.dsId;
+	}  
+	if ($scope.datafile2) {
+		$scope.ds2Id = $scope.datafile2.dsId;
+	}  
+	
+	if ($scope.ds1Id && $scope.ds2Id) {  // got dataset's id for both set, try to match
+		match();
+	}
+	else { // does not have enough data to match, return to starting point
+		location.href = '#dataMatch';
+	}
+	
 
      $scope.resetStatus = function() {
      	$scope.showResults = false;
      };
 
-    $scope.doMatch = function() {
-    	location.href = '#/dataMatch1';
+    $scope.previousPage = function(page) {
+    	location.href = page;
     }
 
-	$scope.match = function() {
-
+	function match() {
+		
 		$http.get('/api/node/getHarmonizeDataSets/'+$scope.ds1Id+'/'+$scope.ds2Id).then(function(res) {
 			//console.log(res.data);
 			var ds1 = res.data.DS1;
@@ -156,8 +113,6 @@ angular.module('jupiterApp').controller('dataMatchCtrl', function($scope, $http,
 			// console.log($scope.unmatchedList);
 			// console.log($scope.mergedList);
 		});
-	
-	location.href = "#/dataMatch1";
 	};
 
 	$scope.openGridModal = function(nodeId) {
@@ -308,7 +263,7 @@ angular.module('jupiterApp').controller('dataMatchCtrl', function($scope, $http,
     	} 	
     	mergedData.setMergedDataset($scope.mergedDatasets);
     	mergedData.setMergedCols($scope.mergedCols);
-    	mergedData.setValueSets($scope.valueSets);
+    	mergedData.setValueSets($scope.valueSets)
     	location.href = "#/dataMatch2";
     	
 
@@ -320,5 +275,7 @@ angular.module('jupiterApp').controller('dataMatchCtrl', function($scope, $http,
         return ((x < y) ? -1 : ((x > y) ? 1 : 0));
     });
 	}
+
+
   
 });

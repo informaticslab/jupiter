@@ -18,7 +18,7 @@ angular.module('jupiterApp').controller('dataMatch3Ctrl', function($scope, $http
 		cols: []
 	}
 
-	
+
 	// $scope.gridOptions = {
 	//     enableSorting: true,
 	//     columnDefs: [],
@@ -40,9 +40,9 @@ angular.module('jupiterApp').controller('dataMatch3Ctrl', function($scope, $http
      	$scope.showResults = false;
      };
 
-	$scope.backToMatch2 = function() {
-		location.href = "#/dataMatch2";
-	}
+	$scope.previousPage = function(page) {
+    	location.href = page;
+    }
 	$scope.openGridModal = function(nodeId) {
             var modalInstance = $modal.open({
                 templateUrl: 'partials/modals/previewGrid',

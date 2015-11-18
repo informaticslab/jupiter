@@ -3,6 +3,7 @@ angular.module('jupiterApp').service('mergedData', function() {
     'mergedDatasets'  : [],
     'mergedCols'      :[],
     'mergedList'      :[],
+    'mergedValueSets' :{}
 
   };
     
@@ -29,13 +30,23 @@ angular.module('jupiterApp').service('mergedData', function() {
   var getMergedList= function(){
       return dataMerge.mergedList;
   };
+
+  var setValueSets = function(list) {
+      dataMerge.mergedValueSets = list;
+  };
+
+  var getValueSets= function(){
+      return dataMerge.mergedValueSets;
+  };
   return {
     getMergedDataset: getMergedDataset,
     setMergedDataset: setMergedDataset,
     setMergedCols : setMergedCols,
     getMergedCols : getMergedCols,
     setMergedList : setMergedList,
-    getMergedList : getMergedList
+    getMergedList : getMergedList,
+    setValueSets : setValueSets,
+    getValueSets : getValueSets
   };
 
 });

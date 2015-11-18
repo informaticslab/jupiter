@@ -108,19 +108,21 @@ exports.getDataFile = function(req, res) {
 
 	var query = 'match (n) where n.id="' + nodeId + '" RETURN n';
 	neodb.db.query(query, function(err, result) {
-		if (result[0] != null && result[0]['n'] != null && result[0]['n']['data'] != null) {
-			var data = result[0]['n']['data'];
-			var filePath = data.filePath;
+		if (result) {
+			if (result[0] != null && result[0]['n'] != null && result[0]['n']['data'] != null) {
+				var data = result[0]['n']['data'];
+				var filePath = data.filePath;
 
-			var parser = parse({
-				columns: true
-			}, function(err, gridData) {
-				res.send(gridData);
-			});
+				var parser = parse({
+					columns: true
+				}, function(err, gridData) {
+					res.send(gridData);
+				});
 
-			fs.createReadStream(filePath).pipe(parser);
+				fs.createReadStream(filePath).pipe(parser);
+			}
 		} else {
-			console.log('ERROR: No node at this location');
+			res.send({'ERROR' : 'No node at this location'});
 		}
 
 

@@ -90,7 +90,9 @@ angular.module('jupiterApp').controller('dataMatch2Ctrl', function($scope, $http
      	$scope.showResults = false;
      };
 
-	
+	$scope.backToMatch = function() {
+		location.href = '#/dataMatch';
+	}
 	$scope.openGridModal = function(nodeId) {
             var modalInstance = $modal.open({
                 templateUrl: 'partials/modals/previewGrid',

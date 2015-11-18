@@ -18,34 +18,53 @@ angular.module('jupiterApp').controller('dataMatchCtrl', function($scope, $http,
 		cols: []
 	}
 	$scope.mergedDatasets = [];
-	$scope.valuesets = [];
+	$scope.valueSets = {};
 	$scope.mergedCols = [];
 	
 	$scope.setDataSet1 = function($item) {
 
 	    $scope.ds1Id = $item.id;
 	    $scope.datafile1.dsId = $item.id;
-	    $http.get('/api/getDataFile'+$scope.ds1Id).then(function(res) {
-			$scope.datafile1['data'] = res.data;
-			var cols = Object.keys($scope.datafile1.data[0]);
-			for(var col in cols) {
-				$scope.datafile1['cols'].push(cols[col]);
-			}
-			console.log('ds 1 cols ', $scope.datafile1.cols);	
-		})
+	    // need to verify if the dataset has a file attachment before invoke
+
+	    try {
+		    $http.get('/api/getDataFile'+$scope.ds1Id).then(function(res,err) {
+		    	if (res.data.ERROR) {
+		    		alert('An error has occured, please verify that this is an uploaded dataset!');
+		    	}
+		    	else {
+					$scope.datafile1['data'] = res.data;
+					var cols = Object.keys($scope.datafile1.data[0]);
+					for(var col in cols) {
+						$scope.datafile1['cols'].push(cols[col]);
+					}
+					console.log('ds 1 cols ', $scope.datafile1.cols);	
+				}
+			})
+
+		}
+		catch(err) {
+			alert('An error has occured, pleases contact an administrator!');
+		}
      };
 
      $scope.setDataSet2 = function($item) {
         $scope.ds2Id = $item.id;
         $scope.datafile2.dsId = $item.id;
+
         $http.get('/api/getDataFile'+$scope.ds2Id).then(function(res) {
-       		$scope.datafile2.data = res.data;
-       		
-			var cols = Object.keys($scope.datafile2.data[0]);
-		//	console.log(cols);
-			for(var col in cols) {
-				$scope.datafile2.cols.push(cols[col]);
-			}	
+        	if (res.data.ERROR) {
+		    		alert('An error has occured, please verify that this is an uploaded dataset!');
+		    }
+		    else {
+	       		$scope.datafile2.data = res.data;
+	       		
+				var cols = Object.keys($scope.datafile2.data[0]);
+			//	console.log(cols);
+				for(var col in cols) {
+					$scope.datafile2.cols.push(cols[col]);
+				}	
+			}
 			
 		})
      };
@@ -156,22 +175,21 @@ angular.module('jupiterApp').controller('dataMatchCtrl', function($scope, $http,
             });
         };
 
-    $scope.getValueSet = function(data,column,reset) {
+     function getValueSet(data,column,reset) {
     	var lookup = {};
-		var items = json.data;
 		if (reset) {
 			$scope.valuesets[column] = null;
 		}
 
-		for (var item, i = 0; item = items[i++];) {
-		  var value = item[column];
+		for (var row, i = 0; row = data[i++];) {
+		  var value = row[column];
 
 		  if (!(value in lookup)) {
 		    lookup[value] = 1;
-		    $scope.valuesets[column].push(value);
 		  }
 		}
-    };
+		return Object.keys(lookup);
+    }
 
     $scope.merge = function() {
     	var checkedRows = [];
@@ -179,10 +197,44 @@ angular.module('jupiterApp').controller('dataMatchCtrl', function($scope, $http,
     	var rmvIdx = null;
     	$scope.mergedCols = [];
     	$scope.mergedDatasets = [];
+    	$scope.valueSets = {};
+    	var maxlength = 0;
+    	var combinedValueset = [];
     	// build columns from 2 datasets
     	for(var i =0; i < $scope.mergedList.length; i++) {
     		if ($scope.mergedList[i].mergeChecked) {  // row checked for merging
-    			$scope.mergedCols.push({'sortOrder':0, 'col': $scope.mergedList[i].dsDE1[0].dename+'|'+$scope.mergedList[i].dsDE2[0].dename});
+    			// extract value set for each merged columns 
+    			  var valueset1 = getValueSet($scope.datafile1.data,$scope.mergedList[i].dsDE1[0].dename,false);
+    			  var valueset2 = getValueSet($scope.datafile2.data,$scope.mergedList[i].dsDE2[0].dename,false);
+    			// combine valuesets for later processing  
+    				
+    			  if (valueset1.length >= valueset2.length) {
+    			  		maxlength = valueset1.length
+    			  }
+    			  else {
+    			  		maxlength = valueset2.length
+    			  } 
+    			  combinedValueset = [];
+    			  for (var x= 0; x < maxlength ; x++) {
+    			  	var oneValueSetRow = {};
+    			  	if (valueset1[x]) {
+    			  	 	oneValueSetRow['ds1Value'] = valueset1[x];
+    			  	 }
+    			  	 else {
+    			  	 	oneValueSetRow['ds1Value'] = '';
+    			  	 }
+    			  	if (valueset2[x]) {
+    			  	 	oneValueSetRow['ds2Value'] = valueset2[x];
+    			  	}
+    			  	else {
+    			  		oneValueSetRow['ds2Value'] = ''
+    			  	}
+    			  	combinedValueset.push(oneValueSetRow);
+    			  }
+
+    			$scope.mergedCols.push({'sortOrder':0, 'col': $scope.mergedList[i].dsDE1[0].dename+'|'+$scope.mergedList[i].dsDE2[0].dename, 'valuesets': combinedValueset});
+    			
+    		
     			//remove the merged column from the dataset 1 cols list
     			rmvIdx = $scope.datafile1.cols.indexOf($scope.mergedList[i].dsDE1[0].dename);
     			$scope.datafile1.cols.splice(rmvIdx,1);
@@ -257,6 +309,7 @@ angular.module('jupiterApp').controller('dataMatchCtrl', function($scope, $http,
     	} 	
     	mergedData.setMergedDataset($scope.mergedDatasets);
     	mergedData.setMergedCols($scope.mergedCols);
+    	mergedData.setValueSets($scope.valueSets)
     	location.href = "#/dataMatch2";
     	
 

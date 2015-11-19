@@ -33,7 +33,7 @@ angular.module('jupiterApp').controller('dataMatch2Ctrl', function($scope, $http
  	$scope.columnDefs = [];
 	$scope.mergedDatasets = mergedData.getMergedDataset();
 	
-	$scope.valuesets = [];
+	
 	$scope.mergedCols = mergedData.getMergedCols();
   	for (var i = 0; i < $scope.mergedCols.length; i++ ) {
   		var oneColDef = {};

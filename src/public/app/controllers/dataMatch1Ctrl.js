@@ -160,31 +160,31 @@ angular.module('jupiterApp').controller('dataMatch1Ctrl', function($scope, $http
     			// extract value set for each merged columns 
     			  var valueset1 = getValueSet($scope.datafile1.data,$scope.mergedList[i].dsDE1[0].dename,false);
     			  var valueset2 = getValueSet($scope.datafile2.data,$scope.mergedList[i].dsDE2[0].dename,false);
-    			// combine valuesets for later processing  
-    				
-    			  if (valueset1.length >= valueset2.length) {
-    			  		maxlength = valueset1.length
-    			  }
-    			  else {
-    			  		maxlength = valueset2.length
-    			  } 
-    			  combinedValueset = [];
-    			  for (var x= 0; x < maxlength ; x++) {
-    			  	var oneValueSetRow = {};
-    			  	if (valueset1[x]) {
-    			  	 	oneValueSetRow['ds1Value'] = valueset1[x];
-    			  	 }
-    			  	 else {
-    			  	 	oneValueSetRow['ds1Value'] = '';
-    			  	 }
-    			  	if (valueset2[x]) {
-    			  	 	oneValueSetRow['ds2Value'] = valueset2[x];
-    			  	}
-    			  	else {
-    			  		oneValueSetRow['ds2Value'] = ''
-    			  	}
-    			  	combinedValueset.push(oneValueSetRow);
-    			  }
+                  combinedValueset = _.uniq(valueset1.concat(valueset2)).sort(); // combine valuesets for later processing  
+             		
+       		// 	  if (valueset1.length >= valueset2.length) {
+    			  // 		maxlength = valueset1.length
+    			  // }
+    			  // else {
+    			  // 		maxlength = valueset2.length
+    			  // } 
+    			  // combinedValueset = [];
+    			  // for (var x= 0; x < maxlength ; x++) {
+    			  // 	var oneValueSetRow = {};
+    			  // 	if (valueset1[x]) {
+    			  // 	 	oneValueSetRow['ds1Value'] = valueset1[x];
+    			  // 	 }
+    			  // 	 else {
+    			  // 	 	oneValueSetRow['ds1Value'] = '';
+    			  // 	 }
+    			  // 	if (valueset2[x]) {
+    			  // 	 	oneValueSetRow['ds2Value'] = valueset2[x];
+    			  // 	}
+    			  // 	else {
+    			  // 		oneValueSetRow['ds2Value'] = ''
+    			  // 	}
+    			  // 	combinedValueset.push(oneValueSetRow);
+    			  // }
 
     			$scope.mergedCols.push({'sortOrder':0, 'col': $scope.mergedList[i].dsDE1[0].dename+'|'+$scope.mergedList[i].dsDE2[0].dename, 'valuesets': combinedValueset});
     			

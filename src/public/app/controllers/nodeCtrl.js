@@ -54,6 +54,10 @@ angular.module('jupiterApp').controller('nodeCtrl', ['$scope', '$location', '$re
             
         });
 
+        $http.get('/api/getDataFile'+ $scope.nodeId).then(function(res) {
+            $scope.csvData = res.data;
+        }); 
+
         var nodeDetails = $http.get('/api/node/' + $routeParams.id).success(function(data) {
             var attributeKeys = _.pluck(data.attributes, 'key');
             $scope.node = data;

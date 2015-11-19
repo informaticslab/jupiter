@@ -63,6 +63,10 @@ angular.module('jupiterApp').controller('adminCtrl', ['$scope', '$modal', '$http
             checkCRexist();
         }
 
+      $http.get('/api/getDataFile'+ $scope.nodeId).then(function(res) {
+            $scope.csvData = res.data;
+        }); 
+
         $scope.itemSelected = function($item, $model, $label, id) {
             $scope.crQueueSuccess = false;
             $scope.crQueueFail = false;
@@ -200,6 +204,7 @@ angular.module('jupiterApp').controller('adminCtrl', ['$scope', '$modal', '$http
                     $scope.showButtons = true;
 
                     $scope.filePath = nodeData.attributes[1].value;
+                  
 
                 });
 
@@ -207,14 +212,9 @@ angular.module('jupiterApp').controller('adminCtrl', ['$scope', '$modal', '$http
             });
         }
 
-
         $scope.deleterelrow = function(id) {
 
-
-
             var x = arrayObjectIndexOf($scope.relvalues, id, "relid"); // 1
-
-
             ($scope.relvalues).splice(x, 1);
 
 

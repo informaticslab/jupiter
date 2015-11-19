@@ -107,10 +107,9 @@
 						button.btn.btn-default.button-padding(ng-click='openGridModal(nodeId)' ng-if='cr.localFileName != ""')
 							span.fa.fa-table
 								|  Preview Dataset
-						button.btn.btn-default.button-padding(ng-if='cr.localFileName != ""')
-							a(href='{{filePath}}' download='')
-								span.fa.fa-download
-									| Download CSV
+						button.btn.btn-default.button-padding(ng-if='cr.localFileName != ""' type='button' ng-csv='csvData' filename='data.csv')
+							span.fa.fa-download
+								|  Download as CSV
 						button.btn.btn-danger(ng-click='deleteFile(cr)' ng-if='cr.localFileName != ""')
 							| Delete Local Data
 				.vertical_spacing_lesser

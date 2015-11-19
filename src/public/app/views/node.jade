@@ -144,10 +144,9 @@
 							button.btn.btn-default.button-padding(ng-click='openGridModal(nodeId)' )
 								span.fa.fa-table
 									|  Preview Dataset
-							button.btn.btn-default.button-padding
-								a(href='{{filePath}}' download='')
-									span.fa.fa-download
-										| Download CSV
+							button.btn.btn-default.button-padding(ng-if='cr.localFileName != ""' type='button' ng-csv='csvData' filename='data.csv')
+								span.fa.fa-download
+									|  Download as CSV
 					.vertical_spacing_more(ng-if='filePath != null')
 					.row
 						.col-lg-12

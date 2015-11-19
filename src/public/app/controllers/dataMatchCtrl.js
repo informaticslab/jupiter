@@ -22,7 +22,12 @@ angular.module('jupiterApp').controller('dataMatchCtrl', function($scope, $http,
 	$scope.mergedCols = [];
 	
 	$scope.setDataSet1 = function($item) {
-
+		$scope.datafile1 = {
+		dsId : '',
+		data: '',
+		cols: []
+		};
+	
 	    $scope.ds1Id = $item.id;
 	    $scope.datafile1.dsId = $item.id;
 	    // need to verify if the dataset has a file attachment before invoke
@@ -50,6 +55,11 @@ angular.module('jupiterApp').controller('dataMatchCtrl', function($scope, $http,
      };
 
      $scope.setDataSet2 = function($item) {
+     	$scope.datafile2 = {
+			dsId : '',
+			data: '',
+			cols: []
+		}
         $scope.ds2Id = $item.id;
         $scope.datafile2.dsId = $item.id;
 

@@ -61,7 +61,7 @@
 			br
 			.row
 				.col-lg-12.col-md-12.col-sm-12
-					button.btn.btn-success.pull-right(type='button' ng-click='doMatch()' ng-disabled='dataMatchForm.$invalid') Merge Data Elements
+					button.btn.btn-success.pull-right(type='button' ng-click='doMatch()' ng-disabled='dataMatchForm.$invalid || !datafile1.cols.length > 0 || !datafile2.cols.length > 0') Merge Data Elements
 			.vertical_spacing_more
 				
 	.div(ng-class='getSidebarWidth()')

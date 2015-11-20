@@ -34,8 +34,16 @@ angular.module('jupiterApp').controller('dataMatch3Ctrl', function($scope, $http
  	$scope.mergedList = mergedData.getMergedList();
  	$scope.mergedDatasets = mergedData.getMergedDataset();
 	$scope.mergedCols = mergedData.getMergedCols();
+
   	
   
+  	$scope.getColValues = function(data,col) {
+  		var values = [];
+  		values = _.pluck(data,col);
+  		return values;
+  	};
+
+  	console.log('values', $scope.getColValues($scope.mergedDatasets,'State|State'));
      $scope.resetStatus = function() {
      	$scope.showResults = false;
      };

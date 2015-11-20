@@ -49,18 +49,19 @@
 						.row
 					form(name='dataMatchForm')
 						.col-lg-4.col-md-4.col-sm-4
-							//| Find Value
-							//select.form-control(ng-model="findValue" ng-options="opt as opt for opt in mergedCol.valuesets")
-							//option(value="")
-							input(type="text" ng-model="mergedCol.currentValue"  placeholder="Select a value" typeahead-on-select="setCurValue($item)" typeahead-min-length='1' typeahead="value for value in mergedCol.valuesets | unique " class="form-control" ng-change="resetDataset(); resetStatus()" required='')
-							.vertical_spacing_less
-							//button.btn.btn-normal.pull-right(type="button" ng-click = "showDataSet(firstDataset)") View Data Set
-							//button.btn.btn-default.button-padding.pull-right(ng-click='openGridModal(ds1Id)' ng-show = 'datafile1.cols.length > 0')
+							| Find
+							select.form-control(ng-model="searchValue" ng-options="opt as opt for opt in getColValues(mergedCol.col)")
+							option(value="")
+							//input(type="text" ng-model="mergedCol.currentValue"  placeholder="Select a value" typeahead-on-select="setCurValue($item)" typeahead-min-length='1' typeahead="value for value in mergedCol.valuesets | unique " class="form-control" ng-change="resetDataset(); resetStatus()" required='')
 						.col-lg-4.col-md-4.col-sm-4
 							|Replace With:
-							input(type="text" ng-model="secondDataset"  placeholder="Select a second dataset" typeahead-on-select="setDataSet2($item)" typeahead-min-length='3' typeahead="node.name for node in getDatasetNodes($viewValue)" class="form-control" ng-change="resetDataset(); resetStatus()" required='')
-							.vertical_spacing_less
-						table.table
+							select.form-control(ng-model="replaceValue" ng-options="opt as opt for opt in mergedCol.valuesets")
+							option(value="")
+						.col-lg-4.col-md-4.col-sm-4
+							br
+							input(type='text' ng-model='newValue' ng-show = 'replaceValue=="Other"')
+							button.btn.btn-success.pull-left(type='button' ng-click='showUpdatedValues()') Preview
+						//table.table
 							thead
 								tr
 									th Find

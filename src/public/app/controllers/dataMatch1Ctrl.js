@@ -136,7 +136,7 @@ angular.module('jupiterApp').controller('dataMatch1Ctrl', function($scope, $http
 		}
 
 		for (var row, i = 0; row = data[i++];) {
-		  var value = row[column];
+		  var value = row[column].trim();
 
 		  if (!(value in lookup)) {
 		    lookup[value] = 1;

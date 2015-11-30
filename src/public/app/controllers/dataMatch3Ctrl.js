@@ -34,17 +34,25 @@ angular.module('jupiterApp').controller('dataMatch3Ctrl', function($scope, $http
  	$scope.mergedList = mergedData.getMergedList();
  	$scope.mergedDatasets = mergedData.getMergedDataset();
 	$scope.mergedCols = mergedData.getMergedCols();
-
+	//console.log($scope.mergedDatasets);
+	//console.log($scope.mergedCols);
   	
   
   	$scope.getColValues = function(data,col) {
   		var values = [];
-  		values = _.pluck(data,col);
+  		values = _.pluck(data,col).sort();
+  		// trim values before get unique.  there could be a more efficient way to do this.
+  // 		String[] trimmedArray = new String[values.length];
+		// for (int i = 0; i < values.length; i++) {
+  //   		trimmedArray[i] = values[i].trim();
+  //   	}
+  		values = _.uniq(values);
   		return values;
   	};
 
-  	console.log('values', $scope.getColValues($scope.mergedDatasets,'State|State'));
-     $scope.resetStatus = function() {
+  	//$scope.colValues = $scope.getColValues($scope.mergedDatasets,'State|State');
+    
+    $scope.resetStatus = function() {
      	$scope.showResults = false;
      };
 

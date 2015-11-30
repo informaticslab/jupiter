@@ -42,7 +42,7 @@
 				.vertical_spacing_less
 				.row
 					|Value Set Rules
-				.row(ng-repeat = 'mergedCol in mergedCols' ng-show='mergedCol.sortOrder == 0')
+				.row(ng-repeat = 'mergedCol in mergedCols | filter:{sortOrder:0}')
 					.col-md-12.col-md-12.col-sm-12
 						|Element {{mergedCol.col}}
 						br
@@ -50,13 +50,14 @@
 					form(name='dataMatchForm')
 						.col-lg-4.col-md-4.col-sm-4
 							| Find
-							select.form-control(ng-model="searchValue" ng-options="opt as opt for opt in getColValues(mergedCol.col)")
+							select.form-control(ng-model="searchValue" ng-options="opt as opt for opt in getColValues(mergedDatasets,mergedCol.col)")
 							option(value="")
-							//input(type="text" ng-model="mergedCol.currentValue"  placeholder="Select a value" typeahead-on-select="setCurValue($item)" typeahead-min-length='1' typeahead="value for value in mergedCol.valuesets | unique " class="form-control" ng-change="resetDataset(); resetStatus()" required='')
+							//input(type="text" ng-model="mergedCol.currentValue"  placeholder="Select a value" typeahead-on-select="setCurValue($item)" typeahead-min-length='1' typeahead="value for value in getColValues(mergedDatasets,mergedCol.col)" class="form-control" ng-change="resetDataset(); resetStatus()" required='')
 						.col-lg-4.col-md-4.col-sm-4
 							|Replace With:
-							select.form-control(ng-model="replaceValue" ng-options="opt as opt for opt in mergedCol.valuesets")
-							option(value="")
+							//- select.form-control(ng-model="replaceValue" ng-options="opt as opt for opt in mergedCol.valuesets")
+							//- option(value="")
+							input(type="text" ng-model="mergedCol.newValue"  placeholder="Select a value" typeahead-on-select="setNewValue($item)" typeahead-min-length='1' typeahead="value for value in mergedCol.valuesets | filter:$viewValue" class="form-control" ng-change="resetDataset(); resetStatus()" required='')
 						.col-lg-4.col-md-4.col-sm-4
 							br
 							input(type='text' ng-model='newValue' ng-show = 'replaceValue=="Other"')

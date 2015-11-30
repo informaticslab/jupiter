@@ -14,6 +14,7 @@ var jupiterApp = angular.module('jupiterApp', [
   ,'ui.grid.selection'
   ,'ui.grid.exporter'
   ,'ngCsv'
+  ,'ui.grid.resizeColumns'
   //'jupiterAppAnimations',
  // 'jupiterAppControllers',
  // 'jupiterAppFilters',

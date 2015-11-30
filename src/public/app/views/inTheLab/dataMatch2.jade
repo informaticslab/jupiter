@@ -43,7 +43,47 @@
 				.row
 					|PREVIEW - Combined Data Sets
 				.row
-					#grid2.grid(ui-grid='{columnDefs: columnDefs, data:mergedDatasets, enableGridMenu: true, enableSelectAll: true}' ui-grid-auto-resize='' ui-grid-selection='' ui-grid-exporter='')		
+					#grid2.grid(ui-grid='{columnDefs: columnDefs, data:mergedDatasets, enableGridMenu: true, enableColumnResizing:true, enableVerticalScrollbar:2, enableHorizontalScrollbar:2}' ui-grid-auto-resize ui-grid-selection ui-grid-exporter ui-grid-column-resize)			
+				.vertical_spacing_more
+				.row
+					form(name='dataMatchForm')
+						.col-lg-3.col-md-3.col-sm-3
+							| Column
+							select.form-control(ng-model="selectedCol" ng-options="mergedCol as mergedCol.col for mergedCol in mergedCols | filter:{sortOrder:0}" ng-change='colSelected()')
+							option(value="")
+						.col-lg-3.col-md-3.col-sm-3
+							| Find
+							select.form-control(ng-model="searchValue" ng-options="opt as opt for opt in getColValues(mergedDatasets,selectedCol.col)" ng-change="getValueCount()")
+							option(value="")
+							| Value Count: {{valueCount}}
+							//input(type="text" ng-model="mergedCol.currentValue"  placeholder="Select a value" typeahead-on-select="setCurValue($item)" typeahead-min-length='1' typeahead="value for value in getColValues(mergedDatasets,mergedCol.col)" class="form-control" ng-change="resetDataset(); resetStatus()" required='')
+						.col-lg-3.col-md-3.col-sm-3
+							|Replace With:
+							//- select.form-control(ng-model="replaceValue" ng-options="opt as opt for opt in mergedCol.valuesets")
+							//- option(value="")
+							input(type="text" ng-model="newValue"  placeholder="Select a value" typeahead-on-select="setNewValue($item)" typeahead-min-length='1' typeahead="value for value in selectedCol.valuesets | filter:$viewValue" class="form-control" ng-change="resetDataset(); resetStatus()" required='')
+						.col-lg-3.col-md-3.col-sm-3
+							br
+							button.btn.btn-success.pull-left(type='button' ng-click='showPreviewValues()') Preview
+						//table.table
+							thead
+								tr
+									th Find
+									th Replace 
+									th 
+							tbody
+								tr(ng-repeat='row in mergedCol.valuesets')
+									td
+										{{row.ds1Value}}
+									td
+										{{row.ds2Value}}
+									td 
+										|Replace With
+									td 
+										a(href='#/node/{{row.concept.id}}' target='_blank'){{row.concept.name}}
+									td
+										input(type='checkbox' ng-model='value.mergeChecked')
+
 				.vertical_spacing_more
 				.row
 					button.btn.btn-success.pull-left(type='button' ng-click="previousPage('#/dataMatch1')" ) Back

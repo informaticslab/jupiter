@@ -17,7 +17,7 @@ angular.module('jupiterApp').controller('dataMatch2Ctrl', function($scope, $http
 		data: '',
 		cols: []
 	}
-
+	$scope.valueCount = 0;
 	// $scope.gridOptions = {
 	//     enableSorting: true,
 	//     columnDefs: [],
@@ -32,15 +32,16 @@ angular.module('jupiterApp').controller('dataMatch2Ctrl', function($scope, $http
   
  	$scope.columnDefs = [];
 	$scope.mergedDatasets = mergedData.getMergedDataset();
-	
-	
 	$scope.mergedCols = mergedData.getMergedCols();
+	console.log($scope.mergedCols);
   	for (var i = 0; i < $scope.mergedCols.length; i++ ) {
   		var oneColDef = {};
-
+  		oneColDef['minWidth'] = '100';
+  		oneColDef['width'] = '130';
   		if ($scope.mergedCols[i].sortOrder == 0) {
   			oneColDef['field'] = $scope.mergedCols[i].col;
   			oneColDef['headerCellClass'] = 'mergedColor';
+
   		}
   		else if ($scope.mergedCols[i].sortOrder == 1) { // dataset 1 cols
   			oneColDef['field'] = $scope.mergedCols[i].renamedCol;
@@ -49,6 +50,7 @@ angular.module('jupiterApp').controller('dataMatch2Ctrl', function($scope, $http
   		else if ($scope.mergedCols[i].sortOrder == 2) {  // dataset 2 cols
   			oneColDef['field'] = $scope.mergedCols[i].renamedCol;
   			oneColDef['headerCellClass'] = 'set2Color';
+
   		}
   		$scope.columnDefs.push(oneColDef);
   	}
@@ -114,5 +116,49 @@ angular.module('jupiterApp').controller('dataMatch2Ctrl', function($scope, $http
         return ((x < y) ? -1 : ((x > y) ? 1 : 0));
     });
 	}
+
+	$scope.getTableHeight = function(grid,id) {
+       var rowHeight = 30; // your row height
+       var headerHeight = 30; // your header height
+       $('.ui-grid-viewport').height("100%")
+       //console.log(grid,id);
+       //if (id.split('_')[1] ==='0') {
+          return {
+              //height: ((grid.dailyData.length+1) * rowHeight + headerHeight-12) + "px"
+              height: ((grid.dailyData.length * rowHeight)+38)+"px"
+            };
+       //}
+       // else {
+       // return {
+       //    height: (grid.dailyData.length * rowHeight + headerHeight) + "px" };
+       // }
+    };
+
+   $scope.getColValues = function(data,col) {
+  		var values = [];
+  		values = _.pluck(data,col).sort();
+  		// trim values before get unique.  there could be a more efficient way to do this.
+  // 		String[] trimmedArray = new String[values.length];
+		// for (int i = 0; i < values.length; i++) {
+  //   		trimmedArray[i] = values[i].trim();
+  //   	}
+  		values = _.uniq(values);
+  		return values;
+  	};
+
+    $scope.colSelected = function() {
+    	//console.log($scope.selectedCol);
+    }
+
+    $scope.getValueCount = function() {
+    	var count = 0;
+    	for(var i = 0; i< $scope.mergedDatasets.length; i++) {
+    		if ($scope.mergedDatasets[i][$scope.selectedCol.col] == $scope.searchValue) {
+    			count++
+    		}
+    	}
+    	$scope.valueCount = count;
+    }
+
   
 });

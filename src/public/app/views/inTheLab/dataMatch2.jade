@@ -43,28 +43,30 @@
 				.row
 					|PREVIEW - Combined Data Sets
 				.row
-					#grid2.grid(ui-grid='{columnDefs: columnDefs, data:mergedDatasets, enableGridMenu: true, enableColumnResizing:true, enableVerticalScrollbar:2, enableHorizontalScrollbar:2}' ui-grid-auto-resize ui-grid-selection ui-grid-exporter ui-grid-column-resize)			
+					//#grid2.grid(ui-grid='{columnDefs: columnDefs, data:mergedDatasets, enableGridMenu: true, enableColumnResizing:true, enableVerticalScrollbar:2, enableHorizontalScrollbar:2}' ui-grid-auto-resize ui-grid-selection ui-grid-exporter ui-grid-column-resize)
+					#grid2.grid(ui-grid='gridOptions' ui-grid-auto-resize ui-grid-selection ui-grid-exporter ui-grid-column-resize)			
 				.vertical_spacing_more
 				.row
 					form(name='dataMatchForm')
 						.col-lg-3.col-md-3.col-sm-3
 							| Column
-							select.form-control(ng-model="selectedCol" ng-options="mergedCol as mergedCol.col for mergedCol in mergedCols | filter:{sortOrder:0}" ng-change='colSelected()')
+							select.form-control(ng-model="selectedCol" ng-options="mergedCol as mergedCol.col for mergedCol in mergedCols | filter:{sortOrder:0}" ng-change='colSelected()' ng-disabled = 'previewMode')
 							option(value="")
 						.col-lg-3.col-md-3.col-sm-3
 							| Find
-							select.form-control(ng-model="searchValue" ng-options="opt as opt for opt in getColValues(mergedDatasets,selectedCol.col)" ng-change="getValueCount()")
+							select.form-control(ng-model="searchValue" ng-options="value for value in getColValues(mergedDatasets,selectedCol.col)"  required='' ng-disabled='previewMode')
 							option(value="")
-							| Value Count: {{valueCount}}
 							//input(type="text" ng-model="mergedCol.currentValue"  placeholder="Select a value" typeahead-on-select="setCurValue($item)" typeahead-min-length='1' typeahead="value for value in getColValues(mergedDatasets,mergedCol.col)" class="form-control" ng-change="resetDataset(); resetStatus()" required='')
 						.col-lg-3.col-md-3.col-sm-3
 							|Replace With:
 							//- select.form-control(ng-model="replaceValue" ng-options="opt as opt for opt in mergedCol.valuesets")
 							//- option(value="")
-							input(type="text" ng-model="newValue"  placeholder="Select a value" typeahead-on-select="setNewValue($item)" typeahead-min-length='1' typeahead="value for value in selectedCol.valuesets | filter:$viewValue" class="form-control" ng-change="resetDataset(); resetStatus()" required='')
+							input(type="text" ng-model="newValue"  placeholder="Select a value" typeahead-on-select="setNewValue($item)" typeahead-min-length='1' typeahead="value for value in selectedCol.valuesets | filter:$viewValue" class="form-control" required='' ng-disabled='previewMode')
 						.col-lg-3.col-md-3.col-sm-3
 							br
-							button.btn.btn-success.pull-left(type='button' ng-click='showPreviewValues()') Preview
+							button.btn.btn-success.pull-left(type='button' ng-click='showPreviewValues()' ng-show='!previewMode' ng-disabled='!valuesFilled()') Preview
+							button.btn.btn-success.pull-left(type='button' ng-click='cancelPreviewValues()' ng-show='previewMode') Reverse
+							button.btn.btn-success.pull-right(type='button' ng-click='setNewValues()' ng-show='previewMode') Accept
 						//table.table
 							thead
 								tr
@@ -87,7 +89,7 @@
 				.vertical_spacing_more
 				.row
 					button.btn.btn-success.pull-left(type='button' ng-click="previousPage('#/dataMatch1')" ) Back
-					button.btn.btn-success.pull-right(type='button' ng-click='showValueSet()' ng-show='validDataSets') Value Set Rules
+					//button.btn.btn-success.pull-right(type='button' ng-click='showValueSet()' ng-show='validDataSets') Value Set Rules
 								
 
 	.div(ng-class='getSidebarWidth()')

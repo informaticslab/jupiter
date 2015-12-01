@@ -1,5 +1,5 @@
 'use strict';
-angular.module('jupiterApp').controller('dataMatch2Ctrl', function($scope, $http,$modal,mergedData){
+angular.module('jupiterApp').controller('dataMatch2Ctrl', function($scope, $http,$modal,$timeout,mergedData){
 
 	$scope.validDataSets = true;
 	$scope.ds1Id = '';
@@ -18,43 +18,61 @@ angular.module('jupiterApp').controller('dataMatch2Ctrl', function($scope, $http
 		cols: []
 	}
 	$scope.valueCount = 0;
-	// $scope.gridOptions = {
-	//     enableSorting: true,
-	//     columnDefs: [],
-	//     data : [];
-	//     onRegisterApi: function( gridApi ) {
-	//       $scope.gridApi = gridApi;
-	//       $scope.gridApi.core.on.sortChanged( $scope, function( grid, sort ) {
-	//         $scope.gridApi.core.notifyDataChange( uiGridConstants.dataChange.COLUMN );
-	//       })
-	//     }
- //  	};
+	$scope.gridOptions = {
+	    enableSorting: true,
+	    enableFiltering: true,
+  	    columnDefs: [],
+	    data : [],
+	    enableGridMenu: true,
+	    enableColumnResizing:true, 
+	    enableVerticalScrollbar:2, 
+	    enableHorizontalScrollbar:2
+	};
   
  	$scope.columnDefs = [];
+ 	$scope.previewDataset = [];
+ 	$scope.previewMode = false;
+ 	$scope.selectedCol = null;
+
 	$scope.mergedDatasets = mergedData.getMergedDataset();
 	$scope.mergedCols = mergedData.getMergedCols();
-	console.log($scope.mergedCols);
-  	for (var i = 0; i < $scope.mergedCols.length; i++ ) {
-  		var oneColDef = {};
-  		oneColDef['minWidth'] = '100';
-  		oneColDef['width'] = '130';
-  		if ($scope.mergedCols[i].sortOrder == 0) {
-  			oneColDef['field'] = $scope.mergedCols[i].col;
-  			oneColDef['headerCellClass'] = 'mergedColor';
+	//console.log($scope.mergedCols);
+	$timeout(function() {
+		buildColDefs();
+		$scope.gridOptions.data = $scope.mergedDatasets;
+		$scope.gridOptions.columnDefs = $scope.columnDefs; 
+	});
 
-  		}
-  		else if ($scope.mergedCols[i].sortOrder == 1) { // dataset 1 cols
-  			oneColDef['field'] = $scope.mergedCols[i].renamedCol;
-  			oneColDef['headerCellClass'] = 'set1Color';
-  		}
-  		else if ($scope.mergedCols[i].sortOrder == 2) {  // dataset 2 cols
-  			oneColDef['field'] = $scope.mergedCols[i].renamedCol;
-  			oneColDef['headerCellClass'] = 'set2Color';
+	function buildColDefs() { 
+  		for (var i = 0; i < $scope.mergedCols.length; i++ ) {
+	  		var oneColDef = {};
+	  		oneColDef['minWidth'] = '100';
+	  		oneColDef['width'] = '130';
+	  		if ($scope.mergedCols[i].sortOrder == 0) {
+	  			oneColDef['field'] = $scope.mergedCols[i].col;
+	  			oneColDef['headerCellClass'] = 'mergedColor';
+	  			
+	  			// oneColDef['cellClass'] =  function(grid, row, col, rowRenderIndex, colRenderIndex) {
+			      //   if (grid.getCellValue(row ,col).toLowerCase() === 'male') {
+			      //     return 'red';
+			      //   }
+			      //}
 
-  		}
-  		$scope.columnDefs.push(oneColDef);
-  	}
+	  		}
+	  		else if ($scope.mergedCols[i].sortOrder == 1) { // dataset 1 cols
+	  			oneColDef['field'] = $scope.mergedCols[i].renamedCol;
+	  			oneColDef['headerCellClass'] = 'set1Color';
+	  			oneColDef['enableFiltering'] = false;
+	  		}
+	  		else if ($scope.mergedCols[i].sortOrder == 2) {  // dataset 2 cols
+	  			oneColDef['field'] = $scope.mergedCols[i].renamedCol;
+	  			oneColDef['headerCellClass'] = 'set2Color';
+	  			oneColDef['enableFiltering'] = false;
 
+	  		}
+	  		$scope.columnDefs.push(oneColDef);
+  		}
+	}
 	
 	// $scope.setDataSet1 = function($item) {
 
@@ -93,6 +111,7 @@ angular.module('jupiterApp').controller('dataMatch2Ctrl', function($scope, $http
      };
 
 	$scope.previousPage = function(page) {
+		mergedData.setPreviousLoc(location.href);
     	location.href = page;
     }
 
@@ -116,6 +135,11 @@ angular.module('jupiterApp').controller('dataMatch2Ctrl', function($scope, $http
         return ((x < y) ? -1 : ((x > y) ? 1 : 0));
     });
 	}
+	
+	$scope.scrollTo = function( rowIndex, colIndex ) {
+      $scope.gridApi.core.scrollTo( $scope.gridOptions.data[rowIndex], $scope.gridOptions.columnDefs[colIndex]);
+    };
+ 
 
 	$scope.getTableHeight = function(grid,id) {
        var rowHeight = 30; // your row height
@@ -150,6 +174,7 @@ angular.module('jupiterApp').controller('dataMatch2Ctrl', function($scope, $http
     	//console.log($scope.selectedCol);
     }
 
+
     $scope.getValueCount = function() {
     	var count = 0;
     	for(var i = 0; i< $scope.mergedDatasets.length; i++) {
@@ -160,5 +185,74 @@ angular.module('jupiterApp').controller('dataMatch2Ctrl', function($scope, $http
     	$scope.valueCount = count;
     }
 
-  
+    function getColIdx(colName) {
+    	for(var i = 0; i < $scope.columnDefs.length; i++) {
+    		if ($scope.columnDefs[i].field === colName) {
+    			break;
+    		}
+    	}
+    	return i;
+    }
+
+    $scope.previewUpdateColValue = function(col,oldValue,newValue) {
+    	var rowIndex = 0;
+    	var colIndex = getColIdx(col);
+    	var previewDataset = [];
+    	var tempColdefs =  angular.copy($scope.columnDefs);
+    	for (var i=0; i < $scope.mergedDatasets.length; i++) {
+    		if ($scope.mergedDatasets[i][col] === oldValue) {
+    			 var oneRow = angular.copy($scope.mergedDatasets[i]);
+    			 oneRow[col] = oldValue + ' -> ' + newValue;
+    			 previewDataset.push(oneRow);
+    		}
+    	}
+    	tempColdefs[colIndex]['cellClass'] = 'valueChangedColor';
+    	$scope.gridOptions.columnDefs = tempColdefs;
+    	$scope.gridOptions.data = previewDataset;
+    }
+
+    $scope.setNewValues = function() {
+    	var searchObj = {};
+    	searchObj[$scope.selectedCol.col] = $scope.searchValue;
+    	var mylist = _.where($scope.mergedDatasets, searchObj);
+    	for (var i=0; i < mylist.length; i++) {
+    		mylist[i][$scope.selectedCol.col] = $scope.newValue;
+    	}
+    	// save current data just in case user goes back to previous screen for more merge
+    	mergedData.setMergedDataset($scope.mergedDatasets);
+    	$scope.gridOptions.columnDefs = $scope.columnDefs;
+    	$scope.gridOptions.data = $scope.mergedDatasets;
+    	resetSearchParms();
+    	$scope.previewMode = false;
+
+    }
+
+    $scope.gridOptions.onRegisterApi = function(gridApi){
+      //set gridApi on scope
+      $scope.gridApi = gridApi;
+      
+      
+    };
+
+    $scope.showPreviewValues = function() {
+    	$scope.previewMode = true;
+    	$scope.previewUpdateColValue($scope.selectedCol.col,$scope.searchValue,$scope.newValue);
+    }
+
+    $scope.cancelPreviewValues = function() {
+    	$scope.previewMode = false;
+    	$scope.gridOptions.columnDefs = $scope.columnDefs;
+    	$scope.gridOptions.data = $scope.mergedDatasets;
+    }
+
+    $scope.valuesFilled = function() {
+    	return (!_.isEmpty($scope.selectedCol) && !_.isEmpty($scope.searchValue) && !_.isEmpty($scope.newValue));
+   }
+
+   function resetSearchParms() {
+   	 $scope.selectedCol = null;
+   	 $scope.searchValue = '';
+   	 $scope.newValue = ''
+   }
+    
 });

@@ -61,7 +61,7 @@
 						.col-lg-.col-md-4.col-sm-4
 							button.btn.btn-success.pull-right(type='button' ng-click='match()' ng-disabled='dataMatchForm.$invalid') Merge Data Elements
 				.vertical_spacing_more
-				.row(ng-show='showResults')
+				.row
 					.col-md-12.col-md-12.col-sm-12
 						table.table
 							thead
@@ -82,7 +82,7 @@
 										a(href='#/node/{{row.concept.id}}' target='_blank'){{row.concept.name}}
 									td
 										input(type='checkbox' ng-model='row.mergeChecked')
-				.row(ng-show='showResults')
+				.row
 					.col-lg-12
 						.panel.panel-default.panel_custom
 							.panel-heading

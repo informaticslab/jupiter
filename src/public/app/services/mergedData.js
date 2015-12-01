@@ -3,7 +3,8 @@ angular.module('jupiterApp').service('mergedData', function() {
     'mergedDatasets'  :{} ,
     'mergedCols'      :[],
     'mergedList'      :[],
-    'mergedValueSets' :{}
+    'mergedValueSets' :{},
+    'previousLoc'     :''
 
   };
     
@@ -38,6 +39,13 @@ angular.module('jupiterApp').service('mergedData', function() {
   var getValueSets= function(){
       return dataMerge.mergedValueSets;
   };
+  var setPreviousLoc = function(location) {
+      dataMerge.previousLoc = location;
+  };
+
+  var getPreviousLoc= function(){
+      return dataMerge.previousLoc;
+  };
   return {
     getMergedDataset: getMergedDataset,
     setMergedDataset: setMergedDataset,
@@ -46,7 +54,9 @@ angular.module('jupiterApp').service('mergedData', function() {
     setMergedList : setMergedList,
     getMergedList : getMergedList,
     setValueSets : setValueSets,
-    getValueSets : getValueSets
+    getValueSets : getValueSets,
+    setPreviousLoc : setPreviousLoc,
+    getPreviousLoc : getPreviousLoc
   };
 
 });

@@ -57,6 +57,7 @@ angular.module('jupiterApp').controller('dataMatch3Ctrl', function($scope, $http
      };
 
 	$scope.previousPage = function(page) {
+		mergedData.setPreviousLoc(location.href);
     	location.href = page;
     }
 	$scope.openGridModal = function(nodeId) {

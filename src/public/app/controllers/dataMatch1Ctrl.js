@@ -12,6 +12,7 @@ angular.module('jupiterApp').controller('dataMatch1Ctrl', function($scope, $http
 	$scope.mergedDatasets = [];
 	$scope.valueSets = {};
 	$scope.mergedCols = [];
+    $scope.previousLoc = mergedData.getPreviousLoc() || null
 	
 	if ($scope.datafile1) {
 		$scope.ds1Id = $scope.datafile1.dsId;
@@ -21,7 +22,9 @@ angular.module('jupiterApp').controller('dataMatch1Ctrl', function($scope, $http
 	}  
 	
 	if ($scope.ds1Id && $scope.ds2Id) {  // got dataset's id for both set, try to match
-		match();
+	   if (!$scope.previousLoc) {
+           	match();
+        }
 	}
 	else { // does not have enough data to match, return to starting point
 		location.href = '#dataMatch';
@@ -33,7 +36,9 @@ angular.module('jupiterApp').controller('dataMatch1Ctrl', function($scope, $http
      };
 
     $scope.previousPage = function(page) {
-    	location.href = page;
+    	mergedData.setPreviousLoc(location.href);
+        location.href = page;
+
     }
 
 	function match() {
@@ -48,7 +53,7 @@ angular.module('jupiterApp').controller('dataMatch1Ctrl', function($scope, $http
 			var conceptList = res.data.concepts;
 
 			$scope.unmatchedList = [];
-			$scope.mergedList = [];
+			//$scope.mergedList = [];
 			// console.log(ds1);
 			// console.log(ds2);
 
@@ -86,7 +91,7 @@ angular.module('jupiterApp').controller('dataMatch1Ctrl', function($scope, $http
 					mergedObj.dsDE1 = ds1Bucket;
 					mergedObj.dsDE2 = ds2Bucket;
 					mergedObj.concept = conceptList[i];
-					$scope.mergedList.push(mergedObj);
+                	$scope.mergedList.push(mergedObj);
 				
 				} else if(ds1Bucket.length > 0 && ds2Bucket <= 0){
 					unmatchObj = {};
@@ -150,10 +155,15 @@ angular.module('jupiterApp').controller('dataMatch1Ctrl', function($scope, $http
     	var uncheckedRows = [];
     	var rmvIdx = null;
     	$scope.mergedCols = [];
-    	$scope.mergedDatasets = [];
     	$scope.valueSets = {};
     	var maxlength = 0;
     	var combinedValueset = [];
+        var excluded1 = [];
+        var excluded2 = [];
+        if($scope.previousLoc) {
+            $scope.mergedDatasets = mergedData.getMergedDataset();
+        }
+
     	// build columns from 2 datasets
     	for(var i =0; i < $scope.mergedList.length; i++) {
     		if ($scope.mergedList[i].mergeChecked) {  // row checked for merging
@@ -187,26 +197,21 @@ angular.module('jupiterApp').controller('dataMatch1Ctrl', function($scope, $http
     			  // }
 
     			$scope.mergedCols.push({'sortOrder':0, 'col': $scope.mergedList[i].dsDE1[0].dename+'|'+$scope.mergedList[i].dsDE2[0].dename, 'valuesets': combinedValueset});
-    			
-    		
-    			//remove the merged column from the dataset 1 cols list
-    			rmvIdx = $scope.datafile1.cols.indexOf($scope.mergedList[i].dsDE1[0].dename);
-    			$scope.datafile1.cols.splice(rmvIdx,1);
-    			//remove the merged column from the dataset 1 cols list
-    			rmvIdx = $scope.datafile2.cols.indexOf($scope.mergedList[i].dsDE2[0].dename);
-    			$scope.datafile2.cols.splice(rmvIdx,1);
-    		}
+    			excluded1.push($scope.mergedList[i].dsDE1[0].dename); //remove the merged column from the dataset 1 cols list
+          		excluded2.push($scope.mergedList[i].dsDE2[0].dename); //remove the merged column from the dataset 2 cols list
+          	}
     		else {
 
     		}
     	}
     	for (var j=0; j< $scope.datafile1.cols.length; j++) {
-    			if ($scope.mergedCols.indexOf($scope.datafile1.cols[j]) == -1 ) {
+
+    			if ($scope.mergedCols.indexOf($scope.datafile1.cols[j]) == -1 && excluded1.indexOf($scope.datafile1.cols[j])==-1 ) {
     				$scope.mergedCols.push({'sortOrder':1, 'col': $scope.datafile1.cols[j],'renamedCol': $scope.datafile1.cols[j]+'1', 'ds':1});
     			}
     	}
     	for (var j=0; j< $scope.datafile2.cols.length; j++) {
-    			if ($scope.mergedCols.indexOf($scope.datafile2.cols[j]) == -1 ) {
+    			if ($scope.mergedCols.indexOf($scope.datafile2.cols[j]) == -1 && excluded2.indexOf($scope.datafile2.cols[j])==-1 ) {
     				$scope.mergedCols.push({'sortOrder':2, 'col': $scope.datafile2.cols[j],'renamedCol': $scope.datafile2.cols[j]+'2', 'ds':2})
     			}
     	}

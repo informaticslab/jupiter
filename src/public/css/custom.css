@@ -910,7 +910,8 @@ del{}
 }
 
 .mergedColor {
-  color:  #99ccff;
+  /*color:  #99ccff;*/
+  color: #34495E;
 }
 
 .set1Color {
@@ -919,4 +920,7 @@ del{}
 
 .set2Color {
   color : #ff9966;
+}
+.valueChangedColor {
+  color : orange;
 }

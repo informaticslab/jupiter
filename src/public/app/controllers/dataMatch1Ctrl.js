@@ -152,70 +152,70 @@ angular.module('jupiterApp').controller('dataMatch1Ctrl', function($scope, $http
     }
 
     $scope.merge = function() {
-    	var checkedRows = [];
-    	var uncheckedRows = [];
-    	var rmvIdx = null;
-    	$scope.mergedCols = [];
-    	$scope.valueSets = {};
-    	var maxlength = 0;
-    	var combinedValueset = [];
-        var excluded1 = [];
-        var excluded2 = [];
-        if($scope.previousLoc) {
-            //$scope.mergedDatasets = mergedData.getMergedDataset();
-        }
+    	// var checkedRows = [];
+    	// var uncheckedRows = [];
+    	// var rmvIdx = null;
+    	// $scope.mergedCols = [];
+    	// $scope.valueSets = {};
+    	// var maxlength = 0;
+    	// var combinedValueset = [];
+     //    var excluded1 = [];
+     //    var excluded2 = [];
+     //    if($scope.previousLoc) {
+     //        //$scope.mergedDatasets = mergedData.getMergedDataset();
+     //    }
 
-    	// build columns from 2 datasets
-    	for(var i =0; i < $scope.mergedList.length; i++) {
-    		if ($scope.mergedList[i].mergeChecked) {  // row checked for merging
-    			// extract value set for each merged columns 
-    			  var valueset1 = getValueSet($scope.datafile1.data,$scope.mergedList[i].dsDE1[0].dename,false);
-    			  var valueset2 = getValueSet($scope.datafile2.data,$scope.mergedList[i].dsDE2[0].dename,false);
-                  combinedValueset = _.uniq(valueset1.concat(valueset2)).sort(); // combine valuesets for later processing  
+    	// // build columns from 2 datasets
+    	// for(var i =0; i < $scope.mergedList.length; i++) {
+    	// 	if ($scope.mergedList[i].mergeChecked) {  // row checked for merging
+    	// 		// extract value set for each merged columns 
+    	// 		  var valueset1 = getValueSet($scope.datafile1.data,$scope.mergedList[i].dsDE1[0].dename,false);
+    	// 		  var valueset2 = getValueSet($scope.datafile2.data,$scope.mergedList[i].dsDE2[0].dename,false);
+     //              combinedValueset = _.uniq(valueset1.concat(valueset2)).sort(); // combine valuesets for later processing  
              		
-       		// 	  if (valueset1.length >= valueset2.length) {
-    			  // 		maxlength = valueset1.length
-    			  // }
-    			  // else {
-    			  // 		maxlength = valueset2.length
-    			  // } 
-    			  // combinedValueset = [];
-    			  // for (var x= 0; x < maxlength ; x++) {
-    			  // 	var oneValueSetRow = {};
-    			  // 	if (valueset1[x]) {
-    			  // 	 	oneValueSetRow['ds1Value'] = valueset1[x];
-    			  // 	 }
-    			  // 	 else {
-    			  // 	 	oneValueSetRow['ds1Value'] = '';
-    			  // 	 }
-    			  // 	if (valueset2[x]) {
-    			  // 	 	oneValueSetRow['ds2Value'] = valueset2[x];
-    			  // 	}
-    			  // 	else {
-    			  // 		oneValueSetRow['ds2Value'] = ''
-    			  // 	}
-    			  // 	combinedValueset.push(oneValueSetRow);
-    			  // }
+     //   		// 	  if (valueset1.length >= valueset2.length) {
+    	// 		  // 		maxlength = valueset1.length
+    	// 		  // }
+    	// 		  // else {
+    	// 		  // 		maxlength = valueset2.length
+    	// 		  // } 
+    	// 		  // combinedValueset = [];
+    	// 		  // for (var x= 0; x < maxlength ; x++) {
+    	// 		  // 	var oneValueSetRow = {};
+    	// 		  // 	if (valueset1[x]) {
+    	// 		  // 	 	oneValueSetRow['ds1Value'] = valueset1[x];
+    	// 		  // 	 }
+    	// 		  // 	 else {
+    	// 		  // 	 	oneValueSetRow['ds1Value'] = '';
+    	// 		  // 	 }
+    	// 		  // 	if (valueset2[x]) {
+    	// 		  // 	 	oneValueSetRow['ds2Value'] = valueset2[x];
+    	// 		  // 	}
+    	// 		  // 	else {
+    	// 		  // 		oneValueSetRow['ds2Value'] = ''
+    	// 		  // 	}
+    	// 		  // 	combinedValueset.push(oneValueSetRow);
+    	// 		  // }
 
-    			$scope.mergedCols.push({'sortOrder':0, 'col': $scope.mergedList[i].dsDE1[0].dename+'|'+$scope.mergedList[i].dsDE2[0].dename, 'valuesets': combinedValueset});
-    			excluded1.push($scope.mergedList[i].dsDE1[0].dename); //remove the merged column from the dataset 1 cols list
-          		excluded2.push($scope.mergedList[i].dsDE2[0].dename); //remove the merged column from the dataset 2 cols list
-          	}
-    		else {
+    	// 		$scope.mergedCols.push({'sortOrder':0, 'col': $scope.mergedList[i].dsDE1[0].dename+'|'+$scope.mergedList[i].dsDE2[0].dename, 'valuesets': combinedValueset});
+    	// 		excluded1.push($scope.mergedList[i].dsDE1[0].dename); //remove the merged column from the dataset 1 cols list
+     //      		excluded2.push($scope.mergedList[i].dsDE2[0].dename); //remove the merged column from the dataset 2 cols list
+     //      	}
+    	// 	else {
 
-    		}
-    	}
-    	for (var j=0; j< $scope.datafile1.cols.length; j++) {
+    	// 	}
+    	// }
+    	// for (var j=0; j< $scope.datafile1.cols.length; j++) {
 
-    			if ($scope.mergedCols.indexOf($scope.datafile1.cols[j]) == -1 && excluded1.indexOf($scope.datafile1.cols[j])==-1 ) {
-    				$scope.mergedCols.push({'sortOrder':1, 'col': $scope.datafile1.cols[j],'renamedCol': $scope.datafile1.cols[j]+'1', 'ds':1});
-    			}
-    	}
-    	for (var j=0; j< $scope.datafile2.cols.length; j++) {
-    			if ($scope.mergedCols.indexOf($scope.datafile2.cols[j]) == -1 && excluded2.indexOf($scope.datafile2.cols[j])==-1 ) {
-    				$scope.mergedCols.push({'sortOrder':2, 'col': $scope.datafile2.cols[j],'renamedCol': $scope.datafile2.cols[j]+'2', 'ds':2})
-    			}
-    	}
+    	// 		if ($scope.mergedCols.indexOf($scope.datafile1.cols[j]) == -1 && excluded1.indexOf($scope.datafile1.cols[j])==-1 ) {
+    	// 			$scope.mergedCols.push({'sortOrder':1, 'col': $scope.datafile1.cols[j],'renamedCol': $scope.datafile1.cols[j]+'1', 'ds':1});
+    	// 		}
+    	// }
+    	// for (var j=0; j< $scope.datafile2.cols.length; j++) {
+    	// 		if ($scope.mergedCols.indexOf($scope.datafile2.cols[j]) == -1 && excluded2.indexOf($scope.datafile2.cols[j])==-1 ) {
+    	// 			$scope.mergedCols.push({'sortOrder':2, 'col': $scope.datafile2.cols[j],'renamedCol': $scope.datafile2.cols[j]+'2', 'ds':2})
+    	// 		}
+    	// }
     			
     
     	
@@ -228,48 +228,48 @@ angular.module('jupiterApp').controller('dataMatch1Ctrl', function($scope, $http
     	// 		}
     	// }
     	//$scope.mergedCols = sortByKey($scope.mergedCols, 'sortOrder');
-    //	console.log($scope.mergedCols);
-    	for (var i = 0; i < $scope.datafile1.data.length; i++) {
-    		var oneRow = {};
-    		for (var j = 0; j < $scope.mergedCols.length; j++) {
-    				var orgCol = $scope.mergedCols[j].col.split('|')
-    				if (orgCol.length > 1) {  // found a merged col
-    					oneRow[$scope.mergedCols[j].col] = $scope.datafile1.data[i][orgCol[0]];
-    				}
-    				else {
-	    				if (($scope.datafile1.cols.indexOf(orgCol[0]) != -1) && ($scope.mergedCols[j].ds == 1) ){
-	    					oneRow[$scope.mergedCols[j].renamedCol] = $scope.datafile1.data[i][orgCol[0]];
-	    				}
-	    				else {
-	    					oneRow[$scope.mergedCols[j].renamedCol] = '';
-	    				} 
-	    				//	oneRow[$scope.mergedCols[j].col] = $scope.datafile1.data[i][orgCol[0]];
-	    			}
-    		}
-    		$scope.mergedDatasets.push(oneRow);
-    	}
-    	for (var i = 0; i < $scope.datafile2.data.length; i++) {
-    		var oneRow = {};
-    		for (var j = 0; j < $scope.mergedCols.length; j++) {
-    				var orgCol = $scope.mergedCols[j].col.split('|')
-    				if (orgCol.length > 1) {  // found a merged col
-    					oneRow[$scope.mergedCols[j].col] = $scope.datafile2.data[i][orgCol[1]];
-    				}
-    				else {
-    					if (($scope.datafile2.cols.indexOf(orgCol[0]) != -1) && ($scope.mergedCols[j].ds == 2)) {
-    						oneRow[$scope.mergedCols[j].renamedCol] = $scope.datafile2.data[i][orgCol[0]];
-	    				}
-	    				else {
-	    					oneRow[$scope.mergedCols[j].renamedCol] = '';
-	 	  				} 
-	 					//oneRow[$scope.mergedCols[j].col] = $scope.datafile2.data[i][orgCol[0]];
-	 				}
-    		}
-    		$scope.mergedDatasets.push(oneRow);
-    	} 	
-    	mergedData.setMergedDataset($scope.mergedDatasets);
-    	mergedData.setMergedCols($scope.mergedCols);
-    	mergedData.setValueSets($scope.valueSets)
+    // //	console.log($scope.mergedCols);
+    // 	for (var i = 0; i < $scope.datafile1.data.length; i++) {
+    // 		var oneRow = {};
+    // 		for (var j = 0; j < $scope.mergedCols.length; j++) {
+    // 				var orgCol = $scope.mergedCols[j].col.split('|')
+    // 				if (orgCol.length > 1) {  // found a merged col
+    // 					oneRow[$scope.mergedCols[j].col] = $scope.datafile1.data[i][orgCol[0]];
+    // 				}
+    // 				else {
+	   //  				if (($scope.datafile1.cols.indexOf(orgCol[0]) != -1) && ($scope.mergedCols[j].ds == 1) ){
+	   //  					oneRow[$scope.mergedCols[j].renamedCol] = $scope.datafile1.data[i][orgCol[0]];
+	   //  				}
+	   //  				else {
+	   //  					oneRow[$scope.mergedCols[j].renamedCol] = '';
+	   //  				} 
+	   //  				//	oneRow[$scope.mergedCols[j].col] = $scope.datafile1.data[i][orgCol[0]];
+	   //  			}
+    // 		}
+    // 		$scope.mergedDatasets.push(oneRow);
+    // 	}
+    // 	for (var i = 0; i < $scope.datafile2.data.length; i++) {
+    // 		var oneRow = {};
+    // 		for (var j = 0; j < $scope.mergedCols.length; j++) {
+    // 				var orgCol = $scope.mergedCols[j].col.split('|')
+    // 				if (orgCol.length > 1) {  // found a merged col
+    // 					oneRow[$scope.mergedCols[j].col] = $scope.datafile2.data[i][orgCol[1]];
+    // 				}
+    // 				else {
+    // 					if (($scope.datafile2.cols.indexOf(orgCol[0]) != -1) && ($scope.mergedCols[j].ds == 2)) {
+    // 						oneRow[$scope.mergedCols[j].renamedCol] = $scope.datafile2.data[i][orgCol[0]];
+	   //  				}
+	   //  				else {
+	   //  					oneRow[$scope.mergedCols[j].renamedCol] = '';
+	 	 //  				} 
+	 		// 			//oneRow[$scope.mergedCols[j].col] = $scope.datafile2.data[i][orgCol[0]];
+	 		// 		}
+    // 		}
+    // 		$scope.mergedDatasets.push(oneRow);
+    // 	} 	
+    // 	mergedData.setMergedDataset($scope.mergedDatasets);
+    // 	mergedData.setMergedCols($scope.mergedCols);
+    // 	mergedData.setValueSets($scope.valueSets)
     	location.href = "#/dataMatch2";
     	
 

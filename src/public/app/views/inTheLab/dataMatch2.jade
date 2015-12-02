@@ -86,6 +86,26 @@
 									td
 										input(type='checkbox' ng-model='value.mergeChecked')
 
+				.vertical_spacing_less
+				.row(ng-show='replacedList.length > 0')
+					|Replacement History 
+					.well
+						table.table
+							thead
+								tr
+									th Column
+									th Old Value
+									th New Value
+								
+							tbody
+								tr(ng-repeat='replacement in replacedList')
+									td
+										|{{replacement.column}}
+									td
+										|{{replacement.oldValue}}
+									td 
+										|{{replacement.newValue}}
+									
 				.vertical_spacing_more
 				.row
 					button.btn.btn-success.pull-left(type='button' ng-click="previousPage('#/dataMatch1')" ) Back

@@ -2,34 +2,40 @@
 angular.module('jupiterApp').controller('dataMatchCtrl', function($scope, $http,$modal,mergedData){
 
 	$scope.validDataSets = true;
-	$scope.ds1Id = '';
-	$scope.ds2Id = '';
 	$scope.mergedList = mergedData.getMergedList();
 	$scope.isCollapsed = true;
 	$scope.showResults = false;
-	$scope.datafile1 = {
-		dsId : '',
-		data: '',
-		cols: []
-	};
-	$scope.datafile2 = {
-		dsId : '',
-		data: '',
-		cols: []
-	}
+	// $scope.datafile1 = {
+	// 	dsId : '',
+	// 	data: '',
+	// 	cols: []
+	// };
+	$scope.datafile1 =  mergedData.getMergedDataset('dset1') || {};
+	$scope.ds1Id = $scope.datafile1.dsId || null;
+	$scope.firstDataset = $scope.datafile1.dsName || '';
+	// $scope.datafile2 = {
+	// 	dsId : '',
+	// 	data: '',
+	// 	cols: []
+	// }
+	$scope.datafile2 =  mergedData.getMergedDataset('dset2') || {};
+	$scope.ds2Id = $scope.datafile2.dsId || null;
+	$scope.secondDataset = $scope.datafile2.dsName || '';
 	$scope.mergedDatasets = [];
 	$scope.valueSets = {};
 	$scope.mergedCols = [];
 	
 	$scope.setDataSet1 = function($item) {
+		$scope.mergedList = [];
 		$scope.datafile1 = {
+		dsName :'',
 		dsId : '',
 		data: '',
 		cols: []
 		};
-	
 	    $scope.ds1Id = $item.id;
 	    $scope.datafile1.dsId = $item.id;
+	    $scope.datafile1.dsName = $scope.firstDataset;
 	    mergedData.setPreviousLoc(null);
 	    // need to verify if the dataset has a file attachment before invoke
 
@@ -56,13 +62,16 @@ angular.module('jupiterApp').controller('dataMatchCtrl', function($scope, $http,
      };
 
      $scope.setDataSet2 = function($item) {
+     	$scope.mergedList = [];
      	$scope.datafile2 = {
+     		dsName:'',
 			dsId : '',
 			data: '',
 			cols: []
 		}
         $scope.ds2Id = $item.id;
         $scope.datafile2.dsId = $item.id;
+        $scope.datafile2.dsName = $scope.secondDataset;
         mergedData.setPreviousLoc(null);
         $http.get('/api/getDataFile'+$scope.ds2Id).then(function(res) {
         	if (res.data.ERROR) {
@@ -87,6 +96,7 @@ angular.module('jupiterApp').controller('dataMatchCtrl', function($scope, $http,
      };
 
     $scope.doMatch = function() {
+    	mergedData.setMergedList($scope.mergedList)
     	location.href = '#/dataMatch1';
     }
 

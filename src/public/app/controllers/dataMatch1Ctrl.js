@@ -23,9 +23,10 @@ angular.module('jupiterApp').controller('dataMatch1Ctrl', function($scope, $http
 	
 	if ($scope.ds1Id && $scope.ds2Id) {  // got dataset's id for both set, try to match
 	   if (!$scope.previousLoc) {
+            $scope.mergedList =[];
            	match();
         }
-	}
+   }
 	else { // does not have enough data to match, return to starting point
 		location.href = '#dataMatch';
 	}
@@ -161,7 +162,7 @@ angular.module('jupiterApp').controller('dataMatch1Ctrl', function($scope, $http
         var excluded1 = [];
         var excluded2 = [];
         if($scope.previousLoc) {
-            $scope.mergedDatasets = mergedData.getMergedDataset();
+            //$scope.mergedDatasets = mergedData.getMergedDataset();
         }
 
     	// build columns from 2 datasets

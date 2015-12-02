@@ -7,16 +7,8 @@ angular.module('jupiterApp').controller('dataMatch2Ctrl', function($scope, $http
 	$scope.mergedList = [];
 	$scope.isCollapsed = true;
 	$scope.showResults = false;
-	$scope.datafile1 = {
-		dsId : '',
-		data: '',
-		cols: []
-	};
-	$scope.datafile2 = {
-		dsId : '',
-		data: '',
-		cols: []
-	}
+	$scope.datafile1 =  mergedData.getMergedDataset('dset1');
+	$scope.datafile2 =  mergedData.getMergedDataset('dset2');
 	$scope.valueCount = 0;
 	$scope.gridOptions = {
 	    enableSorting: true,
@@ -211,15 +203,35 @@ angular.module('jupiterApp').controller('dataMatch2Ctrl', function($scope, $http
     	$scope.gridOptions.data = previewDataset;
     }
 
+
     $scope.setNewValues = function() {
+    	var searchObj1 = {};
+    	var searchObj2 = {};
     	var searchObj = {};
+    	// since this is a merged col, need to split the col to first and second cols
+    	var col1 = $scope.selectedCol.col.split('|')[0];
+    	var col2 = $scope.selectedCol.col.split('|')[1];
+    	searchObj1[col1]  = $scope.searchValue;
+    	searchObj2[col2]  = $scope.searchValue;
     	searchObj[$scope.selectedCol.col] = $scope.searchValue;
+      	// update dataset 1
+    	var mylist = _.where($scope.datafile1.data, searchObj1);
+    	for (var i=0; i < mylist.length; i++) {
+    		mylist[i][col1] = $scope.newValue;
+    	}
+    	mergedData.setMergedDataset($scope.datafile1,'dset1');  // save updated values
+    	// update dataset 2
+    	var mylist = _.where($scope.datafile2.data, searchObj2);
+    	for (var i=0; i < mylist.length; i++) {
+    		mylist[i][col2] = $scope.newValue;
+    	}
+    	mergedData.setMergedDataset($scope.datafile2,'dset2');  // save updated values 
     	var mylist = _.where($scope.mergedDatasets, searchObj);
     	for (var i=0; i < mylist.length; i++) {
     		mylist[i][$scope.selectedCol.col] = $scope.newValue;
     	}
-    	// save current data just in case user goes back to previous screen for more merge
-    	mergedData.setMergedDataset($scope.mergedDatasets);
+    	//save current data just in case user goes back to previous screen for more merge
+    	//mergedData.setMergedDataset($scope.mergedDatasets);
     	$scope.gridOptions.columnDefs = $scope.columnDefs;
     	$scope.gridOptions.data = $scope.mergedDatasets;
     	resetSearchParms();
@@ -250,7 +262,7 @@ angular.module('jupiterApp').controller('dataMatch2Ctrl', function($scope, $http
    }
 
    function resetSearchParms() {
-   	 $scope.selectedCol = null;
+   	 //$scope.selectedCol = null;
    	 $scope.searchValue = '';
    	 $scope.newValue = ''
    }

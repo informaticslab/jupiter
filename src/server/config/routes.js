@@ -50,6 +50,7 @@ module.exports = function(app) {
     app.get('/api/lab/nodes', nodes.getAllNodes);
     app.get('/api/lab/relations', nodes.getAllRealtionsForAllNodes);
     app.get('/api/node/managed/:id', nodes.getManagedSystems);
+    app.get('/api/node/getUmlsConcept/:searchTerm', nodes.searchUmlsConceptApi);
     app.get('/api/export/csv/:id/:qparam', nodes.exportCSV);
     app.get('/api/export/csvrelations/:id', nodes.exportCSVNodeRelations);
     //app.get('/api/export/csvnodedetails/:id/:attributes', nodes.exportCSVNodeDetails);

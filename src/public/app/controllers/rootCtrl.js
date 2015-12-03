@@ -51,6 +51,17 @@ angular.module('jupiterApp').controller('rootCtrl', function($scope, $http, $loc
         });
     };
 
+    $scope.getUmlsConceptNodes = function(val) {
+        return $http.get('/api/node/getUmlsConcept/' + encodeURIComponent(val)).then(function(res) {
+            var nodes = [];
+            //console.log(res);
+            angular.forEach(res.data, function(item) {
+                nodes.push(item);
+            });
+            return nodes;
+        });
+    };
+
     $scope.getDatasetNodes = function(val) {
         return $http.get('/api/node/searchDatasetNode/' + encodeURIComponent(val)).then(function(res) {
             var nodes = [];

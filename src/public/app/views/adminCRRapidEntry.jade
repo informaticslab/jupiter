@@ -78,7 +78,7 @@
 									td(ng-repeat='colHeader in colHeaders' ng-mouseenter="hover = true" ng-mouseleave="hover = false" ng-if="colHeader.attribute !='id' && colHeader.attribute!='cid'" )
 										input(ng-if='colHeader.attribute != "cui" && colHeader.attribute != "concept"' type="text" ng-model="row[colHeader.attribute]"  class="form-control" ng-change="deFieldChanged(rowIdx,$index)")
 										input(ng-if='colHeader.attribute == "cui"' readonly='true' type="text" ng-model="row[colHeader.attribute]"  class="form-control")
-										input(ng-if='colHeader.attribute == "concept"' type="text" ng-model="row[colHeader.attribute]" typeahead-on-select="setConcept($item, $model, $label,rowIdx)" typeahead-min-length='1' typeahead="node.name for node in getConceptNodes($viewValue)" ng-change="resetConcept($item,rowIdx)" class="form-control")
+										input(ng-if='colHeader.attribute == "concept"' type="text" ng-model="row[colHeader.attribute]" typeahead-on-select="setConcept($item, $model, $label,rowIdx)" typeahead-min-length='1' typeahead="node.name for node in getUmlsConceptNodes($viewValue)" ng-change="resetConcept($item,rowIdx)" class="form-control")
 									td(style="text-align: right;")
 										label.btn.btn-succes.btn-xs(style="color: blue;font-size: 1.5em;"  ng-click="saveDataElmRow(rowIdx)" ng-show='row.changed && validConcept(rowIdx)')
 											i.fa.fa-floppy-o
@@ -99,7 +99,7 @@
 									td(ng-repeat='colHeader in colHeaders' ng-if="colHeader.attribute!='id' && colHeader.attribute!='cid'" )
 										input(ng-if='colHeader.attribute !="cui" && colHeader.attribute != "concept"' type="text" ng-init="oneDataElement[colHeader.attribute]=''" ng-model="oneDataElement[colHeader.attribute]"  placeholder="{{colHeader.displayLabel}}" class="form-control")
 										input(ng-if='colHeader.attribute=="cui"' type="text" ng-init="oneDataElement[colHeader.attribute]=''"  ng-readonly='colHeader.attribute == "cui"' ng-model="oneDataElement[colHeader.attribute]"  placeholder="{{colHeader.displayLabel}}" class="form-control")
-										input(ng-if='colHeader.attribute == "concept"' type="text" placeholder="{{colHeader.displayLabel}} undefined" ng-model="oneDataElement[colHeader.attribute]" typeahead-on-select="setNewDataElmConcept($item, $model, $label)" typeahead-min-length='1' typeahead="node.name for node in getConceptNodes($viewValue)" class="form-control")
+										input(ng-if='colHeader.attribute == "concept"' type="text" placeholder="{{colHeader.displayLabel}} undefined" ng-model="oneDataElement[colHeader.attribute]" typeahead-on-select="setNewDataElmConcept($item, $model, $label)" typeahead-min-length='1' typeahead="node.name for node in getUmlsConceptNodes($viewValue)" class="form-control")
 
 				.vertical_spacing_lesser
 				.row(ng-if="showAddDataElement")

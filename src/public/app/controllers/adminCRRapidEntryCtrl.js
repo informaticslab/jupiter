@@ -91,7 +91,7 @@ angular.module('jupiterApp').controller('adminCRRapidEntryCtrl', ['$scope', '$ht
             var datapacket = {};
             datapacket.dsetid = $scope.dataElementSelectedId;
             datapacket.deObject = $scope.dataElementsArray[index];
-            // console.log(datapacket);
+            console.log('data packet ', datapacket);
             $http.post('/api/node/save/saveDE/', datapacket).
             success(function(data, status, headers, config) {
                 // console.log(data);
@@ -176,7 +176,7 @@ angular.module('jupiterApp').controller('adminCRRapidEntryCtrl', ['$scope', '$ht
 
         $scope.validConcept = function(index){
             var item = $scope.dataElementsArray[index];
-           // console.log(item);
+            //console.log(item);
             return  (!isEmpty(item.cui) && !isEmpty(item.concept))  || (isEmpty(item.cui) && isEmpty(item.concept)) 
         }
 

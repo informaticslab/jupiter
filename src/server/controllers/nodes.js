@@ -4,6 +4,8 @@ var mongo = require('../lib/mongoConnection');
 var ObjectId = require('mongodb').ObjectID;
 var _ = require('underscore');
 var auditLog = require('../config/auditLog');
+var http = require('http');
+var querystring = require('querystring');
 
 
 exports.getDatasetWithFile = function(req,res) {
@@ -107,9 +109,22 @@ exports.saveDataElements = function(req, res) {
     var deObject = req.body.deObject;
     var params = {};
     var query = '';
-
-    if (deObject.id) {
-        // id for date element exist
+    // if concept node not exist, create it
+    query = 'MERGE (n:Concept { id : {id}, name : {name} , cui : {cui}, description:{description}})';
+    params = {
+        id : deObject.cid,
+        name : deObject.concept, 
+        cui : deObject.cui, 
+        description:''
+    };
+      neodb.db.query(query, params, function(err, r) {
+         if (err) {
+                 console.error('Error retreiving relations from database:', err);
+         }
+         else {
+                console.log('concept node created');
+                 if (deObject.id) {
+        // id for data element exist
         if (deObject.cid == '' || deObject.cid == null) { // no concept relationship exist
             deObject.cid = 'CN0';
             query = 'match (n)-[:CONTAINS]->(de)-[r:SHARES_MEANING_WITH]->(c) where n.id={dsetid} and de.id={deid} delete r';
@@ -124,6 +139,7 @@ exports.saveDataElements = function(req, res) {
                 } else {
            //         var query2 = 'match (de {id:{deid}}) set de.name={dename}, de.description={dedescription}';
                     // use default concept for undefined concept
+                    console.log('new concept here');
                     var query2 = 'match (de {id:{deid}}),(c {id:{cid}}) set de.name={dename}, de.description={dedescription}, de.possibleValues = {depossibleValues} with de,c create (de)-[r:SHARES_MEANING_WITH]->(c)';
                     params2 = {
                         deid: deObject.id,
@@ -220,6 +236,9 @@ exports.saveDataElements = function(req, res) {
         });
         //  console.log(query);
     }
+    }
+  })
+   
 
 }
 
@@ -418,6 +437,90 @@ exports.searchConceptNode = function(req, res) {
             }
         }
     });
+};
+
+exports.searchUmlsConceptApi = function(req, res) {
+    var searchTerm = decodeURIComponent(req.params.searchTerm).toLowerCase();
+    var host = 'umlserver.phiresearchlab.org';
+    var endpoint = '/api/umlserve/CuisByNSTR/'+searchTerm;
+    var method = 'GET';
+    var headers = {};
+    var options = {
+        host: host,
+        path: endpoint,
+        method: method,
+        headers: headers
+      };
+    // do the GET request
+    var reqGet = http.request(options, function(apiRes) {
+        apiRes.setEncoding('utf-8');
+        var responseString ='';
+        apiRes.on('data', function(d) {
+           responseString += d;
+        });
+        apiRes.on('end', function() {
+            if (responseString != null) {
+                var nodedata = [];
+                var results = JSON.parse(responseString);
+                _.each(results, function(i) {
+                    console.log('i :', i);
+                    nodedata.push({
+                        id: i.CODE,
+                        name: i.STR,
+                        cui: i.CUI
+                    });
+                })
+                res.json(nodedata);
+            } else {
+                res.json([]);
+            }
+        })
+
+    });
+
+reqGet.end();
+reqGet.on('error', function(e) {
+    console.error(e);
+});
+    // var apiReq = http.request(options, function(apiRes) {
+    //         console.log('api called');
+    //         apiRes.setEncoding('utf-8');
+
+    //         var responseString = '';
+
+    //         apiRes.on('data', function(data) {
+    //           responseString += data;
+    //         });
+
+    //         apiRes.on('end', function() {
+    //           console.log(responseString);
+    //           var responseObject = JSON.parse(responseString);
+    //           success(responseObject);
+    //         });
+    // });
+    // apiReq.write('Hello');
+    // apiReq.end();
+  //     if (err) {
+    //         console.error('Error retreiving node from database:', err);
+    //         res.send(404, 'No node at that location');
+    //     } else {
+    //         if (results != null) {
+    //             var nodedata = [];
+    //             _.each(results, function(i) {
+    //                 console.log('i :', i);
+    //                 nodedata.push({
+    //                     id: i.id,
+    //                     name: i.name,
+    //                     cui: i.cui
+    //                 });
+    //             })
+    //             console.log('node data from server: ', nodedata);
+    //             res.json(nodedata);
+    //         } else {
+    //             res.json([]);
+    //         }
+    //     }
+    // });
 };
 
 exports.searchDatasetNode = function(req, res) {

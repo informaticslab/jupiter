@@ -17,12 +17,269 @@ var graph  = {
 ]
 };
 
+var graph2 = {
+  "nodes": [
+    {
+      "name": "World Health Organization",
+      "id": "O78",
+      "label": [
+        "Organization"
+      ]
+    },
+    {
+      "name": "HIV Behavioral Surveys",
+      "id": "CO10",
+      "label": [
+        "Collaborative"
+      ]
+    },
+    {
+      "name": "SAS",
+      "id": "TL60",
+      "label": [
+        "Tool"
+      ]
+    },
+    {
+      "name": "National Syndromic Surveillance Platform (BioSense)",
+      "id": "SS15",
+      "label": [
+        "SurveillanceSystem"
+      ]
+    },
+    {
+      "name": "ICD-10",
+      "id": "DSTD6",
+      "label": [
+        "DataStandard"
+      ]
+    },
+    {
+      "name": "Global Vaccine Preventable Disease Laboratory Network - Measles Surveillance",
+      "id": "CO8",
+      "label": [
+        "Collaborative"
+      ]
+    },
+    {
+      "name": "National Notifiable Diseases Surveillance System",
+      "id": "SS101",
+      "label": [
+        "SurveillanceSystem"
+      ]
+    },
+    {
+      "name": "Division of Health Informatics and Surveillance",
+      "id": "O84",
+      "label": [
+        "Organization"
+      ]
+    },
+    {
+      "name": "National Syndromic Surveillance Program (formerly BioSense)",
+      "id": "P3",
+      "label": [
+        "Program"
+      ]
+    }
+  ],
+  "links": [
+    {
+      "source": 0,
+      "target": 1,
+      "type": "PARTNER_WITH",
+      "description": "n/a"
+    },
+    {
+      "source": 1,
+      "target": 2,
+      "type": "USES",
+      "description": "n/a"
+    },
+    {
+      "source": 3,
+      "target": 2,
+      "type": "USES",
+      "description": "n/a"
+    },
+    {
+      "source": 3,
+      "target": 8,
+      "type": "IS_A_COMPONENT/PART_OF",
+      "description": "n/a"
+    },
+    {
+      "source": 1,
+      "target": 4,
+      "type": "USES",
+      "description": "n/a"
+    },
+    {
+      "source": 3,
+      "target": 4,
+      "type": "USES",
+      "description": "n/a"
+    },
+    {
+      "source": 0,
+      "target": 5,
+      "type": "PARTNER_WITH",
+      "description": "n/a"
+    },
+    {
+      "source": 5,
+      "target": 6,
+      "type": "USES",
+      "description": "n/a"
+    },
+    {
+      "source": 7,
+      "target": 6,
+      "type": "OVERSEES",
+      "description": "n/a"
+    },
+    {
+      "source": 7,
+      "target": 8,
+      "type": "OVERSEES",
+      "description": "n/a"
+    }
+  ]
+}
+
+var graph3 = {
+"nodes": [
+    {
+      "name": "World Health Organization",
+      "id": "O78",
+      "label": [
+        "Organization"
+      ],
+      "relationsCount": 7
+    },
+    {
+      "name": "Africa Vaccine Preventable Diseases Sentinel Surveillance Network",
+      "id": "CO1",
+      "label": [
+        "Collaborative"
+      ],
+      "relationsCount": 7
+    },
+    {
+      "name": "Biosecurity Engagement Program",
+      "id": "P2",
+      "label": [
+        "Program"
+      ],
+      "relationsCount": 6
+    },
+    {
+      "name": "Global Vaccine Preventable Disease Laboratory Network - Measles Surveillance",
+      "id": "CO8",
+      "label": [
+        "Collaborative"
+      ],
+      "relationsCount": 8
+    },
+    {
+      "name": "Global Vaccine Preventable Disease Laboratory Network - Polio Surveillance",
+      "id": "P15",
+      "label": [
+        "Program"
+      ],
+      "relationsCount": 7
+    },
+    {
+      "name": "HIV Behavioral Surveys",
+      "id": "CO10",
+      "label": [
+        "Collaborative"
+      ],
+      "relationsCount": 10
+    },
+    {
+      "name": "Iraq Injury Surveillance",
+      "id": "CO13",
+      "label": [
+        "Collaborative"
+      ],
+      "relationsCount": 6
+    },
+    {
+      "name": "Pediatric Bacterial Meningitis Surveillance Network",
+      "id": "CO18",
+      "label": [
+        "Collaborative"
+      ],
+      "relationsCount": 6
+    },
+    {
+      "name": "WHO Global Health Observatory Data Repository",
+      "id": "SS183",
+      "label": [
+        "SurveillanceSystem"
+      ],
+      "relationsCount": 2
+    }
+  ],
+  "links": [
+    {
+      "source": 0,
+      "target": 1,
+      "type": "PARTNER_WITH",
+      "description": "n/a"
+    },
+    {
+      "source": 0,
+      "target": 2,
+      "type": "MANUALLY_PROVIDES_DATA_TO",
+      "description": "n/a"
+    },
+    {
+      "source": 0,
+      "target": 3,
+      "type": "PARTNER_WITH",
+      "description": "n/a"
+    },
+    {
+      "source": 0,
+      "target": 4,
+      "type": "SHARES_DATA_WITH",
+      "description": "n/a"
+    },
+    {
+      "source": 0,
+      "target": 5,
+      "type": "SHARES_SPECIMENS/SAMPLES/KITS/ISOLATES_WITH",
+      "description": "n/a"
+    },
+   
+    {
+      "source": 0,
+      "target": 6,
+      "type": "PARTNER_WITH",
+      "description": "n/a"
+    },
+    {
+      "source": 0,
+      "target": 7,
+      "type": "PARTNER_WITH",
+      "description": "Both the Headquarters and the African Regional Office"
+    },
+    {
+      "source": 0,
+      "target": 8,
+      "type": "OVERSEES",
+      "description": "n/a"
+    }
+  ]
+}
 
 var units = "Widgets";
 
 var margin = {top: 10, right: 10, bottom: 10, left: 10},
-    width = 700 - margin.left - margin.right,
-    height = 300 - margin.top - margin.bottom;
+    width = 900 - margin.left - margin.right,
+    height = 500 - margin.top - margin.bottom;
 
 var formatNumber = d3.format(",.0f"),    // zero decimal places
     format = function(d) { return formatNumber(d) + " " + units; },
@@ -43,91 +300,36 @@ var sankey = d3.sankey()
 
 var path = sankey.link();
 
-// var bundle = d3.layout.bundle();
+         //jsonret = d3.json("/api/node/searchByType/Organization", function(error, json) {
+         jsonret = d3.json("/api/node/advancedSearch/O78-P3-4", function(error, json) {
+            console.log(json);
+            console.log(graph2);
+            json = graph3;
+            if (error) {
+                step4status = -1;
+            } else {
+                json.links.forEach(function(link) {
+                   link.value = 1;
+                   // if (link.source == 1) {
+                   //    link.source = 0;
+                   //    link.target = 1;
+                   // }
 
-// var line = d3.svg.line.radial()
-//         .interpolate("bundle")
-//         .tension(.75)
-//         .radius(function(d) { return d.y; })
-//         .angle(function(d) { return d.x / 180 * Math.PI; });
+                })
+               
+                step4len = json.nodes.length;
+                document.getElementById('loadingImg').style.display = 'none';
+                sankey.nodes(json.nodes)
+                      .links(json.links)
+                      .layout(32);
 
-
-// var cluster = d3.layout.cluster()
-//                                    // .size([360, innerRadius])
-//                                     .sort(null)
-//                                     //.value(function(d) { return d.size; })
-//                                     .sort(function(a, b) { return d3.ascending(a.key, b.key); });
-
-
-// var link = svgSankey.append("g").selectAll(".link"),
-//     node = svgSankey.append("g").selectAll(".node");
-                            
-                            d3.json("/api/lab/relations", function(error, relations){
-
-                              if(relations==undefined | error)
-                              { 
-                                var errormsg=svg.append("text")
-                                .text("Could not retrieve all the relations")
-                                .attr("class","linkageerrormsg")
-                                .attr("x",diameter/4)
-                                .attr("y",diameter/4);
-                              }
-                              else{
-                                console.log('relation ',relations); 
-                                d3.json("/api/lab/nodes", function(error, classes) {
-                                    if(classes == undefined | error){
-                                      var errormsg=svg.append("text")
-                                      .text("Could not retrieve all the nodes")
-                                      .attr("class","linkageerrormsg")
-                                      .attr("x",diameter/4)
-                                      .attr("y",diameter/4);
-                                    }
-                                    else{ 
-                                         classes.forEach(function(node){
-                                          var tmpArr = _.where(relations, {p: node.id});
-                                          tmpArr.forEach(function (d){
-                                             node.imports.push('root!'.concat(d.clabel).concat('!').concat(d.cname));
-                                          });
-
-                                          node.name = 'root!'.concat( node.labels[0]).concat('!').concat(node.name);
-                                      });
-                                      console.log('classes ', classes);
-                                      var depth2Nodes = [];
-                                      classes.forEach(function(node) {
-                                        if (node.labels[0] == "Organization") {
-                                          depth2Nodes.push(node);
-                                        }
-                                      });
-                                     console.log('dept2 nodes ', depth2Nodes);
-                                     // var nodes =[];
-                                     // var links = [];
-                                     // classes.forEach(function(node){
-                                     //    if (node.labels[0] == 'Organization') {
-                                     //      nodes.push(node);
-                                     //      node.imports.forEach(function(child) {
-                                     //         links.push({source: node, target: {, value:2});
-                                     //      })
-                                     //    } 
-                                     // }) 
-                                      // var nodes = 
-                                      //         links = packageImports(nodes);
-                                      // console.log('nodes ', nodes);
-                                      // console.log('links ', links);
-                                     
-                                     
-                                     console.log('graph nodes ', graph.nodes);
-                                     sankey.nodes(graph.nodes)
-                                         .links(graph.links)
-                                         .layout(32);
-                                      
-                                      // add in the links
-  var link = svg.append("g").selectAll(".link")
-      .data(graph.links)
-    .enter().append("path")
-      .attr("class", "link")
-      .attr("d", path)
-      .style("stroke-width", function(d) { return Math.max(1, d.dy); })
-      .sort(function(a, b) { return b.dy - a.dy; });
+                var link = svg.append("g").selectAll(".link")
+                              .data(json.links)
+                              .enter().append("path")
+                              .attr("class", "link")
+                              .attr("d", path)
+                              .style("stroke-width", function(d) { return Math.max(1, d.dy); })
+                              .sort(function(a, b) { return b.dy - a.dy; });
 
 // add the link titles
   link.append("title")
@@ -137,7 +339,7 @@ var path = sankey.link();
 
 // add in the nodes
   var node = svg.append("g").selectAll(".node")
-      .data(graph.nodes)
+      .data(json.nodes)
     .enter().append("g")
       .attr("class", "node")
       .attr("transform", function(d) { 
@@ -184,90 +386,8 @@ var path = sankey.link();
                                     sankey.relayout();
                                     link.attr("d", path);
                               }
-// the function for moving the nodes
-  
-
-                                      // node = node
-                                      //         .data(nodes.filter(function(n) { return !n.children; }))
-                                      //         .enter().append("text")
-                                      //         .attr("class", "nodeLab")
-                                      //         .attr("dy", ".31em")
-                                      //         .attr("transform", function(d) { return "rotate(" + (d.x - 90) + ")translate(" + (d.y + 8) + ",0)" + (d.x < 180 ? "" : "rotate(180)"); })
-                                      //         .style("text-anchor", function(d) { return d.x < 180 ? "start" : "end"; })
-                                      //         .text(function(d) { return d.key; })
-                                      //         .on("mouseover", mouseovered)
-                                      //         .on("mouseout", mouseouted);
-
-                                      // var groupData = svgSankey.selectAll("g.groups")
-                                      //                   .data(nodes.filter(function(d) {  return (d.key == 'Organization' || d.key == 'SurveillanceSystem' || 
-                                      //                                                            d.key == 'Tool' || d.key == 'Dataset' || d.key == 'Registry' ||
-                                      //                                                            d.key == 'Collaborative' || d.key == 'HealthSurvey' || 
-                                      //                                                            d.key == 'DataStandard' || d.key == 'Program'
-                                      //                                                           ) 
-                                      //                                                           && d.children; }))
-                                      //                  .enter().append("group")
-                                      //                  .attr("class", "group");
-
-                                      //     link = link
-                                      //           .data(bundle(links))
-                                      //           .enter().append("path")
-                                      //           .each(function(d) { d.source = d[0], d.target = d[d.length - 1]; })
-                                      //           .attr("d", line)
-                                      //           .attr("class", function(){ return "linkLab" });
-
-                                    
-
-                                      // var groupArc = d3.svg.arc()
-                                      //                 // .innerRadius(radius - 260)
-                                      //                 // .outerRadius(radius - 235)
-                                      //                 .innerRadius(radius - 270)
-                                      //                 .outerRadius(radius - 235)
-                                      //                 .startAngle(function(d) { return (findStartAngle(d.__data__.children)) * Math.PI / 180;})
-                                      //                 .endAngle(function(d) { return (findEndAngle(d.__data__.children)) * Math.PI / 180});
-                                     
-                                      // var arc_and_text = svgSankey.selectAll("g.arc")
-                                      //   .data(groupData[0])
-                                      //   .enter().append("svg:g")
-                                      //   .attr("class","arc_and_text");
-
-                                      // var arc_path = arc_and_text.append("svg:path")
-                                      //   .attr("text-anchor", "middle")
-                                      //   .attr("d", groupArc)
-                                      //   .attr("class", "groupArc")
-                                      //   .attr("id", function(d, i) { return "arc" + i; })
-                                      //   .attr("class", function(d){ if(d.__data__.key == 'Organization'){ return "arcColor_org";}
-                                      //                               else if(d.__data__.key == 'SurveillanceSystem'){ return "arcColor_sSystem";}
-                                      //                               else if(d.__data__.key == 'Tool'){ return "arcColor_tool";}
-                                      //                               else if(d.__data__.key == 'Dataset'){ return "arcColor_dataset";}
-                                      //                               else if(d.__data__.key == 'Registry'){ return "arcColor_registry";}
-                                      //                               else if(d.__data__.key == 'Collaborative'){ return "arcColor_collaborative";}
-                                      //                               else if(d.__data__.key == 'HealthSurvey'){ return "arcColor_hSurvey";}
-                                      //                               else if(d.__data__.key == 'DataStandard'){ return "arcColor_dStandard";}
-                                      //                               else if(d.__data__.key == 'Program'){ return "arcColor_program";}
-                                      //                             });
-
-                                      // var arc_text = arc_and_text.append("text")
-                                      //   .attr("class","arc_text")
-                                      //   .attr("dx", 10)
-                                      //   .attr("dy",30);
-
-                                      // arc_text.append("textPath")
-                                      //   .attr("xlink:href", function(d, i) { return "#arc" + i; })
-                                      //   .attr("class","arc_text_path")
-                                      //   .attr("class", "arcText")
-                                      //   .text(function(d, i) {  if(d.__data__.key == 'SurveillanceSystem'){ return "Surveillance System";}
-                                      //                           else if(d.__data__.key == 'Dataset'){ return "Data Set";}
-                                      //                           else if(d.__data__.key == 'HealthSurvey'){ return "Survey";}
-                                      //                           else if(d.__data__.key == 'DataStandard'){ return "Data Standard";}
-                                      //                           else{ return d.__data__.key}
-                                      //                        });
-
-                                        document.getElementById('loadingImg').style.display = 'none';
-                                    }
-                                });
-                              }
-                            });
-
+            }
+        });
 
                             function mouseovered(d) {
                                 node

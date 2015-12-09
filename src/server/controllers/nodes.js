@@ -974,6 +974,190 @@ exports.getPortalStatisticsNodes = function(req, res) {
     });
 };
 
+exports.getNodesByType = function(req, res) {
+    // var query = ['MATCH n-[r]-x where n.id={nodeId} ',
+    // 'return n.id as nodeId, labels(n) as nodeLabels, ',
+    // 'n.name as nodeNames, ',
+    // 'id(r) as relId,type(r) as relType, x.id as childId, ', 
+    // 'r.relationshipDescription as relDesc, ',
+    // 'labels(x) as childLabels, ',
+    // 'startNode(r).id as startNode, ',
+    // 'x.name as childName order by childName, childLabels[0]'
+    // ].join('\n');
+    var ids =[];
+    var params1 = {
+                };
+    var query1 = 'Match (n:'+req.params.nodeType+') return n.id as id';
+    console.log(query1);
+    neodb.db.query(query1,params1,function(err,nodes) {
+        if (err) {
+              console.error('Error retreiving relations from database:', err);
+              res.send(404, 'no node at that location');
+        }
+        else {
+                 nodes.forEach(function(node){
+                    ids.push(node.id);
+                 })
+                 //console.log(ids);
+                 var query = ['OPTIONAL MATCH n-[r]-x-[*0..1]-y where n.id = "O78" ',
+                'with n, r, x, y',
+                'return n.id as nodeId, labels(n) as nodeLabels, ',
+                'n.name as nodeNames, ',
+                'id(r) as relId,type(r) as relType, x.id as childId, ',
+                'r.relationshipDescription as relDesc, ',
+                'labels(x) as childLabels, ',
+                'startNode(r).id as startNode, ',
+                'x.name as childName , count(y) as rel2Count order by childName, childLabels[0]'
+                ].join('\n');
+                  var params = {
+                    "ids" : ids
+                };
+                var viewerJson;
+                neodb.db.query(query, params, function(err, r) {
+                if (err) {
+                    console.error('Error retreiving relations from database:', err);
+                    res.send(404, 'no node at that location 2');
+                } else {
+                    var nodeLabel = _.map(r, function(i) {
+                        return i.nodeLabels
+                    });
+                    if (nodeLabel != null && nodeLabel[0] != null) {
+                        nodeLabel = nodeLabel[0][0];
+                        
+                        var nodeName = _.map(r, function(i) {
+                            return i.nodeNames
+                        });
+                        nodeName = nodeName[0]
+                        var allLabels = _.map(r, function(i) {
+                            return i.childLabels
+                        });
+
+                        var allRelations = _.map(r, function(i) {
+                            return i.relType
+                        });
+
+                        var allRelDesc = _.map(r, function(i) {
+                            return i.relDesc
+                        });
+
+                        var allRelIds = _.map(r, function(i) {
+                            return i.relId
+                        });
+
+                        var allChildIds = _.map(r, function(i) {
+                            return i.childId
+                        });
+
+                        var allChildNames = _.map(r, function(i) {
+                            return i.childName
+                        });
+                        var relStartNode = _.map(r, function(i) {
+                            return i.startNode
+                        });
+                        var relationsCount = _.map(r, function(i) {
+                            return i.rel2Count
+                        });
+
+                        //cast root node
+                        var nodes = [{
+                            "name": nodeName,
+                            "id":  'O78',
+                            "label": [nodeLabel]
+                        }]
+                        console.log('nodes from query ' ,nodes)
+                        var tokennodes = ['O78']
+                       
+                        var links = [];
+                        var xi = 0;
+                        for (var i = 0; i < allRelations.length; i++) {
+
+                            var tokennodeid = allChildIds[i];
+
+                            //node=JSON.parse(node);
+                            //found=-1;
+                            var found = false;
+
+                            tokennodes.forEach(function(d) {
+                                if (tokennodeid == d) {
+                                    found = true
+                                }
+
+                            });
+
+
+
+                            if (!found) {
+                                // Element was found, remove it.
+
+                                tokennodes.push(tokennodeid);
+                                 console.log('tokennodes ', tokennodes);
+                                nodes.push({
+                                    "name": allChildNames[i],
+                                    "id": allChildIds[i],
+                                    "label": allLabels[i],
+                                    "relationsCount": relationsCount[i]
+                                });
+
+
+                                if (relStartNode[i] == allChildIds[i]) {
+                                    links.push({
+                                        "source": xi + 1,
+                                        "target": 0,
+                                        "type": allRelations[i],
+                                        "description": allRelDesc[i]
+                                    })
+                                } else {
+                                    links.push({
+                                        "source": 0,
+                                        "target": xi + 1,
+                                        "type": allRelations[i],
+                                        "description": allRelDesc[i]
+                                    })
+                                }
+                                xi++;
+                            } else {
+
+                                if (relStartNode[i] == allChildIds[i]) {
+                                    links.push({
+                                        "source": xi,
+                                        "target": 0,
+                                        "type": allRelations[i],
+                                        "description": allRelDesc[i]
+                                    })
+                                } else {
+                                    links.push({
+                                        "source": 0,
+                                        "target": xi,
+                                        "type": allRelations[i],
+                                        "description": allRelDesc[i]
+                                    })
+                                }
+                                // Element was not found, add it.
+                                // //console.log("Not found");
+                            }
+
+
+                            /*nodes.push({
+                                "name":allChildNames[i],
+                                "id":allChildIds[i],
+                                "label":allLabels[i]
+                            });*/
+
+                        }
+                        viewerJson = {
+                            "nodes": nodes,
+                            "links": links
+                        }
+                        res.send(viewerJson);
+                    } else {
+                        res.send(404, 'no node at that location');
+                    }
+                }
+             });
+        }
+    });
+   
+};
 
 exports.exportCSV = function(req, res) {
 

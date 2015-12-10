@@ -289,14 +289,14 @@ var formatNumber = d3.format(",.0f"),    // zero decimal places
 var svg = d3.select("#chart").append("svg")
     //.attr("width",'100%' )
     //.attr("height",2000 )
-    .attr("viewBox","0 0 2000 2500")
+    .attr("viewBox","0 0 2000 2600")
     .append("g")
     .attr("transform", 
           "translate(" + margin.left + "," + margin.top + ")");
 
 var sankey = d3.sankey()
     .nodeWidth(8)
-    .nodePadding(4)
+    .nodePadding(2)
     .size([width, height]);
 
 var path = sankey.link();
@@ -321,14 +321,14 @@ var path = sankey.link();
                 document.getElementById('loadingImg').style.display = 'none';
                 sankey.nodes(json.nodes)
                       .links(json.links)
-                      .layout(400);
+                      .layout(32);
 
                 var link = svg.append("g").selectAll(".link")
                               .data(json.links)
                               .enter().append("path")
-                              .attr("class", "link")
+                              .attr("class", "sankeyLink")
                               .attr("d", path)
-                              .style("stroke-width", function(d) { return Math.max(1, d.dy); })
+                              .style("stroke-width", 3)
                               .sort(function(a, b) { return b.dy - a.dy; });
 
 // add the link titles

@@ -1,6 +1,6 @@
 path.link {
-  /*fill: #000;*/
-  fill : #fff;
+  fill: #000;
+  /*fill : #fffffe;*/
   stroke: #8d8d91;
   stroke-width: 1.0px;
 }
@@ -103,16 +103,20 @@ text.shadow {
   text-shadow: 0 1px 0 #fff;
 }
 
-.link {
+.sankeyLink {
   fill: none;
-  stroke: #000;
+  stroke: #222;
   stroke-opacity: .2;
 }
-.link:hover {
+.sankeyLink:hover {
   stroke-opacity: .5;
 }
 
-spath.link {
+
+
+
+
+sankeyPath.link {
   fill: #fff;
   stroke: #8d8d91;
   stroke-width: 1.0px;

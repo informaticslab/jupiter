@@ -300,11 +300,10 @@ var sankey = d3.sankey()
 
 var path = sankey.link();
 
-         //jsonret = d3.json("/api/node/searchByType/Organization", function(error, json) {
-         jsonret = d3.json("/api/node/advancedSearch/O78-P3-4", function(error, json) {
-            console.log(json);
-            console.log(graph2);
-            json = graph3;
+         jsonret = d3.json("/api/node/searchByType/Organization", function(error, json) {
+         //jsonret = d3.json("/api/node/advancedSearch/O78-P3-4", function(error, json) {
+            //console.log(json);
+            //json = graph3;
             if (error) {
                 step4status = -1;
             } else {
@@ -319,9 +318,9 @@ var path = sankey.link();
                
                 step4len = json.nodes.length;
                 document.getElementById('loadingImg').style.display = 'none';
-                sankey.nodes(json.nodes)
-                      .links(json.links)
-                      .layout(32);
+                // sankey.nodes(json.nodes)
+                //       .links(json.links)
+                //       .layout(32);
 
                 var link = svg.append("g").selectAll(".link")
                               .data(json.links)

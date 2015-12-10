@@ -984,6 +984,7 @@ exports.getNodesByType = function(req, res) {
     // 'startNode(r).id as startNode, ',
     // 'x.name as childName order by childName, childLabels[0]'
     // ].join('\n');
+    var includeLabels = ['Organization', 'SurveillanceSystem'];
     var ids =[];
     var params1 = {
                 };
@@ -999,7 +1000,7 @@ exports.getNodesByType = function(req, res) {
                     ids.push(node.id);
                  })
                  //console.log(ids);
-                 var query = ['OPTIONAL MATCH n-[r]-x-[*0..1]-y where n.id = "O78" ',
+                 var query = ['OPTIONAL MATCH n-[r]->x-[*0..1]-y ',
                 'with n, r, x, y',
                 'return n.id as nodeId, labels(n) as nodeLabels, ',
                 'n.name as nodeNames, ',
@@ -1018,16 +1019,23 @@ exports.getNodesByType = function(req, res) {
                     console.error('Error retreiving relations from database:', err);
                     res.send(404, 'no node at that location 2');
                 } else {
+                   
                     var nodeLabel = _.map(r, function(i) {
                         return i.nodeLabels
                     });
+                    //console.log('labels ',nodeLabel);
                     if (nodeLabel != null && nodeLabel[0] != null) {
-                        nodeLabel = nodeLabel[0][0];
+                        //nodeLabel = nodeLabel[0][0];
                         
                         var nodeName = _.map(r, function(i) {
                             return i.nodeNames
                         });
-                        nodeName = nodeName[0]
+                       // nodeName = nodeName[0]
+                        var nodeIds = _.map(r, function(i) {
+                            return i.nodeId;
+                        })
+                        //console.log('node ids ', nodeIds);
+                        //nodeId = nodeIds[0];
                         var allLabels = _.map(r, function(i) {
                             return i.childLabels
                         });
@@ -1035,7 +1043,6 @@ exports.getNodesByType = function(req, res) {
                         var allRelations = _.map(r, function(i) {
                             return i.relType
                         });
-
                         var allRelDesc = _.map(r, function(i) {
                             return i.relDesc
                         });
@@ -1047,7 +1054,7 @@ exports.getNodesByType = function(req, res) {
                         var allChildIds = _.map(r, function(i) {
                             return i.childId
                         });
-
+                        //console.log('child Ids ', allChildIds);
                         var allChildNames = _.map(r, function(i) {
                             return i.childName
                         });
@@ -1057,26 +1064,42 @@ exports.getNodesByType = function(req, res) {
                         var relationsCount = _.map(r, function(i) {
                             return i.rel2Count
                         });
-
+                        //console.log('all start node ', relStartNode)
                         //cast root node
-                        var nodes = [{
-                            "name": nodeName,
-                            "id":  'O78',
-                            "label": [nodeLabel]
-                        }]
-                        console.log('nodes from query ' ,nodes)
-                        var tokennodes = ['O78']
-                       
+                        // var nodes = [{
+                        //     "name": nodeName,
+                        //     "id":  nodeId,
+                        //     "label": [nodeLabel]
+                        // }]
+                        var nodes = [];
+                        var tokennodes = [];
                         var links = [];
+
+
+
                         var xi = 0;
                         for (var i = 0; i < allRelations.length; i++) {
-
-                            var tokennodeid = allChildIds[i];
-
-                            //node=JSON.parse(node);
-                            //found=-1;
+                            console.log(nodeLabel[i][0]);
+                            if (includeLabels.indexOf(allLabels[i][0]) != -1 && includeLabels.indexOf(nodeLabel[i][0]) != -1) {
+                                var pnodeId =   nodeIds[i];
+                                console.log(pnodeId);
+                                var tokennodeid = allChildIds[i];
+                            // check if parent node exists
                             var found = false;
-
+                            tokennodes.forEach(function(d){
+                                if (pnodeId == d) {
+                                    found = true;
+                               }
+                            });
+                            if (!found) {
+                                tokennodes.push(pnodeId);
+                                nodes.push({
+                                    "name": nodeName[i],
+                                    "id": pnodeId,
+                                    "label": nodeLabel[i]
+                                })
+                            }
+                            found = false;
                             tokennodes.forEach(function(d) {
                                 if (tokennodeid == d) {
                                     found = true
@@ -1084,69 +1107,30 @@ exports.getNodesByType = function(req, res) {
 
                             });
 
-
-
                             if (!found) {
-                                // Element was found, remove it.
 
                                 tokennodes.push(tokennodeid);
-                                 console.log('tokennodes ', tokennodes);
                                 nodes.push({
                                     "name": allChildNames[i],
                                     "id": allChildIds[i],
-                                    "label": allLabels[i],
-                                    "relationsCount": relationsCount[i]
+                                    "label": allLabels[i]
                                 });
 
-
-                                if (relStartNode[i] == allChildIds[i]) {
-                                    links.push({
-                                        "source": xi + 1,
-                                        "target": 0,
-                                        "type": allRelations[i],
-                                        "description": allRelDesc[i]
-                                    })
-                                } else {
-                                    links.push({
-                                        "source": 0,
-                                        "target": xi + 1,
-                                        "type": allRelations[i],
-                                        "description": allRelDesc[i]
-                                    })
-                                }
-                                xi++;
-                            } else {
-
-                                if (relStartNode[i] == allChildIds[i]) {
-                                    links.push({
-                                        "source": xi,
-                                        "target": 0,
-                                        "type": allRelations[i],
-                                        "description": allRelDesc[i]
-                                    })
-                                } else {
-                                    links.push({
-                                        "source": 0,
-                                        "target": xi,
-                                        "type": allRelations[i],
-                                        "description": allRelDesc[i]
-                                    })
-                                }
-                                // Element was not found, add it.
-                                // //console.log("Not found");
                             }
-
-
-                            /*nodes.push({
-                                "name":allChildNames[i],
-                                "id":allChildIds[i],
-                                "label":allLabels[i]
-                            });*/
-
+                            var sourceIdx = tokennodes.indexOf(pnodeId);
+                            var targetIdx = tokennodes.indexOf(tokennodeid);
+                            links.push({
+                                        "source": sourceIdx,
+                                        "target": targetIdx,
+                                        "type": allRelations[i],
+                                        "description": allRelDesc[i]
+                                    })
+                        
+                        }
                         }
                         viewerJson = {
                             "nodes": nodes,
-                            "links": links
+                            "links": _.sortBy(links,'source')
                         }
                         res.send(viewerJson);
                     } else {

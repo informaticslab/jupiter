@@ -1,285 +1,285 @@
-var graph  = {
-"nodes":[
-{"node":0,"name":"node0"},
-{"node":1,"name":"node1"},
-{"node":2,"name":"node2"},
-{"node":3,"name":"node3"},
-{"node":4,"name":"node4"}
-],
-"links":[
-{"source":0,"target":2,"value":2},
-{"source":1,"target":2,"value":2},
-{"source":1,"target":3,"value":2},
-{"source":0,"target":4,"value":2},
-{"source":2,"target":3,"value":2},
-{"source":2,"target":4,"value":2},
-{"source":3,"target":4,"value":4}
-]
-};
+// var graph  = {
+// "nodes":[
+// {"node":0,"name":"node0"},
+// {"node":1,"name":"node1"},
+// {"node":2,"name":"node2"},
+// {"node":3,"name":"node3"},
+// {"node":4,"name":"node4"}
+// ],
+// "links":[
+// {"source":0,"target":2,"value":2},
+// {"source":1,"target":2,"value":2},
+// {"source":1,"target":3,"value":2},
+// {"source":0,"target":4,"value":2},
+// {"source":2,"target":3,"value":2},
+// {"source":2,"target":4,"value":2},
+// {"source":3,"target":4,"value":4}
+// ]
+// };
 
-var graph2 = {
-  "nodes": [
-    {
-      "name": "World Health Organization",
-      "id": "O78",
-      "label": [
-        "Organization"
-      ]
-    },
-    {
-      "name": "HIV Behavioral Surveys",
-      "id": "CO10",
-      "label": [
-        "Collaborative"
-      ]
-    },
-    {
-      "name": "SAS",
-      "id": "TL60",
-      "label": [
-        "Tool"
-      ]
-    },
-    {
-      "name": "National Syndromic Surveillance Platform (BioSense)",
-      "id": "SS15",
-      "label": [
-        "SurveillanceSystem"
-      ]
-    },
-    {
-      "name": "ICD-10",
-      "id": "DSTD6",
-      "label": [
-        "DataStandard"
-      ]
-    },
-    {
-      "name": "Global Vaccine Preventable Disease Laboratory Network - Measles Surveillance",
-      "id": "CO8",
-      "label": [
-        "Collaborative"
-      ]
-    },
-    {
-      "name": "National Notifiable Diseases Surveillance System",
-      "id": "SS101",
-      "label": [
-        "SurveillanceSystem"
-      ]
-    },
-    {
-      "name": "Division of Health Informatics and Surveillance",
-      "id": "O84",
-      "label": [
-        "Organization"
-      ]
-    },
-    {
-      "name": "National Syndromic Surveillance Program (formerly BioSense)",
-      "id": "P3",
-      "label": [
-        "Program"
-      ]
-    }
-  ],
-  "links": [
-    {
-      "source": 0,
-      "target": 1,
-      "type": "PARTNER_WITH",
-      "description": "n/a"
-    },
-    {
-      "source": 1,
-      "target": 2,
-      "type": "USES",
-      "description": "n/a"
-    },
-    {
-      "source": 3,
-      "target": 2,
-      "type": "USES",
-      "description": "n/a"
-    },
-    {
-      "source": 3,
-      "target": 8,
-      "type": "IS_A_COMPONENT/PART_OF",
-      "description": "n/a"
-    },
-    {
-      "source": 1,
-      "target": 4,
-      "type": "USES",
-      "description": "n/a"
-    },
-    {
-      "source": 3,
-      "target": 4,
-      "type": "USES",
-      "description": "n/a"
-    },
-    {
-      "source": 0,
-      "target": 5,
-      "type": "PARTNER_WITH",
-      "description": "n/a"
-    },
-    {
-      "source": 5,
-      "target": 6,
-      "type": "USES",
-      "description": "n/a"
-    },
-    {
-      "source": 7,
-      "target": 6,
-      "type": "OVERSEES",
-      "description": "n/a"
-    },
-    {
-      "source": 7,
-      "target": 8,
-      "type": "OVERSEES",
-      "description": "n/a"
-    }
-  ]
-}
+// var graph2 = {
+//   "nodes": [
+//     {
+//       "name": "World Health Organization",
+//       "id": "O78",
+//       "label": [
+//         "Organization"
+//       ]
+//     },
+//     {
+//       "name": "HIV Behavioral Surveys",
+//       "id": "CO10",
+//       "label": [
+//         "Collaborative"
+//       ]
+//     },
+//     {
+//       "name": "SAS",
+//       "id": "TL60",
+//       "label": [
+//         "Tool"
+//       ]
+//     },
+//     {
+//       "name": "National Syndromic Surveillance Platform (BioSense)",
+//       "id": "SS15",
+//       "label": [
+//         "SurveillanceSystem"
+//       ]
+//     },
+//     {
+//       "name": "ICD-10",
+//       "id": "DSTD6",
+//       "label": [
+//         "DataStandard"
+//       ]
+//     },
+//     {
+//       "name": "Global Vaccine Preventable Disease Laboratory Network - Measles Surveillance",
+//       "id": "CO8",
+//       "label": [
+//         "Collaborative"
+//       ]
+//     },
+//     {
+//       "name": "National Notifiable Diseases Surveillance System",
+//       "id": "SS101",
+//       "label": [
+//         "SurveillanceSystem"
+//       ]
+//     },
+//     {
+//       "name": "Division of Health Informatics and Surveillance",
+//       "id": "O84",
+//       "label": [
+//         "Organization"
+//       ]
+//     },
+//     {
+//       "name": "National Syndromic Surveillance Program (formerly BioSense)",
+//       "id": "P3",
+//       "label": [
+//         "Program"
+//       ]
+//     }
+//   ],
+//   "links": [
+//     {
+//       "source": 0,
+//       "target": 1,
+//       "type": "PARTNER_WITH",
+//       "description": "n/a"
+//     },
+//     {
+//       "source": 1,
+//       "target": 2,
+//       "type": "USES",
+//       "description": "n/a"
+//     },
+//     {
+//       "source": 3,
+//       "target": 2,
+//       "type": "USES",
+//       "description": "n/a"
+//     },
+//     {
+//       "source": 3,
+//       "target": 8,
+//       "type": "IS_A_COMPONENT/PART_OF",
+//       "description": "n/a"
+//     },
+//     {
+//       "source": 1,
+//       "target": 4,
+//       "type": "USES",
+//       "description": "n/a"
+//     },
+//     {
+//       "source": 3,
+//       "target": 4,
+//       "type": "USES",
+//       "description": "n/a"
+//     },
+//     {
+//       "source": 0,
+//       "target": 5,
+//       "type": "PARTNER_WITH",
+//       "description": "n/a"
+//     },
+//     {
+//       "source": 5,
+//       "target": 6,
+//       "type": "USES",
+//       "description": "n/a"
+//     },
+//     {
+//       "source": 7,
+//       "target": 6,
+//       "type": "OVERSEES",
+//       "description": "n/a"
+//     },
+//     {
+//       "source": 7,
+//       "target": 8,
+//       "type": "OVERSEES",
+//       "description": "n/a"
+//     }
+//   ]
+// }
 
-var graph3 = {
-"nodes": [
-    {
-      "name": "World Health Organization",
-      "id": "O78",
-      "label": [
-        "Organization"
-      ],
-      "relationsCount": 7
-    },
-    {
-      "name": "Africa Vaccine Preventable Diseases Sentinel Surveillance Network",
-      "id": "CO1",
-      "label": [
-        "Collaborative"
-      ],
-      "relationsCount": 7
-    },
-    {
-      "name": "Biosecurity Engagement Program",
-      "id": "P2",
-      "label": [
-        "Program"
-      ],
-      "relationsCount": 6
-    },
-    {
-      "name": "Global Vaccine Preventable Disease Laboratory Network - Measles Surveillance",
-      "id": "CO8",
-      "label": [
-        "Collaborative"
-      ],
-      "relationsCount": 8
-    },
-    {
-      "name": "Global Vaccine Preventable Disease Laboratory Network - Polio Surveillance",
-      "id": "P15",
-      "label": [
-        "Program"
-      ],
-      "relationsCount": 7
-    },
-    {
-      "name": "HIV Behavioral Surveys",
-      "id": "CO10",
-      "label": [
-        "Collaborative"
-      ],
-      "relationsCount": 10
-    },
-    {
-      "name": "Iraq Injury Surveillance",
-      "id": "CO13",
-      "label": [
-        "Collaborative"
-      ],
-      "relationsCount": 6
-    },
-    {
-      "name": "Pediatric Bacterial Meningitis Surveillance Network",
-      "id": "CO18",
-      "label": [
-        "Collaborative"
-      ],
-      "relationsCount": 6
-    },
-    {
-      "name": "WHO Global Health Observatory Data Repository",
-      "id": "SS183",
-      "label": [
-        "SurveillanceSystem"
-      ],
-      "relationsCount": 2
-    }
-  ],
-  "links": [
-    {
-      "source": 0,
-      "target": 1,
-      "type": "PARTNER_WITH",
-      "description": "n/a"
-    },
-    {
-      "source": 0,
-      "target": 2,
-      "type": "MANUALLY_PROVIDES_DATA_TO",
-      "description": "n/a"
-    },
-    {
-      "source": 0,
-      "target": 3,
-      "type": "PARTNER_WITH",
-      "description": "n/a"
-    },
-    {
-      "source": 0,
-      "target": 4,
-      "type": "SHARES_DATA_WITH",
-      "description": "n/a"
-    },
-    {
-      "source": 0,
-      "target": 5,
-      "type": "SHARES_SPECIMENS/SAMPLES/KITS/ISOLATES_WITH",
-      "description": "n/a"
-    },
+// var graph3 = {
+// "nodes": [
+//     {
+//       "name": "World Health Organization",
+//       "id": "O78",
+//       "label": [
+//         "Organization"
+//       ],
+//       "relationsCount": 7
+//     },
+//     {
+//       "name": "Africa Vaccine Preventable Diseases Sentinel Surveillance Network",
+//       "id": "CO1",
+//       "label": [
+//         "Collaborative"
+//       ],
+//       "relationsCount": 7
+//     },
+//     {
+//       "name": "Biosecurity Engagement Program",
+//       "id": "P2",
+//       "label": [
+//         "Program"
+//       ],
+//       "relationsCount": 6
+//     },
+//     {
+//       "name": "Global Vaccine Preventable Disease Laboratory Network - Measles Surveillance",
+//       "id": "CO8",
+//       "label": [
+//         "Collaborative"
+//       ],
+//       "relationsCount": 8
+//     },
+//     {
+//       "name": "Global Vaccine Preventable Disease Laboratory Network - Polio Surveillance",
+//       "id": "P15",
+//       "label": [
+//         "Program"
+//       ],
+//       "relationsCount": 7
+//     },
+//     {
+//       "name": "HIV Behavioral Surveys",
+//       "id": "CO10",
+//       "label": [
+//         "Collaborative"
+//       ],
+//       "relationsCount": 10
+//     },
+//     {
+//       "name": "Iraq Injury Surveillance",
+//       "id": "CO13",
+//       "label": [
+//         "Collaborative"
+//       ],
+//       "relationsCount": 6
+//     },
+//     {
+//       "name": "Pediatric Bacterial Meningitis Surveillance Network",
+//       "id": "CO18",
+//       "label": [
+//         "Collaborative"
+//       ],
+//       "relationsCount": 6
+//     },
+//     {
+//       "name": "WHO Global Health Observatory Data Repository",
+//       "id": "SS183",
+//       "label": [
+//         "SurveillanceSystem"
+//       ],
+//       "relationsCount": 2
+//     }
+//   ],
+//   "links": [
+//     {
+//       "source": 0,
+//       "target": 1,
+//       "type": "PARTNER_WITH",
+//       "description": "n/a"
+//     },
+//     {
+//       "source": 0,
+//       "target": 2,
+//       "type": "MANUALLY_PROVIDES_DATA_TO",
+//       "description": "n/a"
+//     },
+//     {
+//       "source": 0,
+//       "target": 3,
+//       "type": "PARTNER_WITH",
+//       "description": "n/a"
+//     },
+//     {
+//       "source": 0,
+//       "target": 4,
+//       "type": "SHARES_DATA_WITH",
+//       "description": "n/a"
+//     },
+//     {
+//       "source": 0,
+//       "target": 5,
+//       "type": "SHARES_SPECIMENS/SAMPLES/KITS/ISOLATES_WITH",
+//       "description": "n/a"
+//     },
    
-    {
-      "source": 0,
-      "target": 6,
-      "type": "PARTNER_WITH",
-      "description": "n/a"
-    },
-    {
-      "source": 0,
-      "target": 7,
-      "type": "PARTNER_WITH",
-      "description": "Both the Headquarters and the African Regional Office"
-    },
-    {
-      "source": 0,
-      "target": 8,
-      "type": "OVERSEES",
-      "description": "n/a"
-    }
-  ]
-}
+//     {
+//       "source": 0,
+//       "target": 6,
+//       "type": "PARTNER_WITH",
+//       "description": "n/a"
+//     },
+//     {
+//       "source": 0,
+//       "target": 7,
+//       "type": "PARTNER_WITH",
+//       "description": "Both the Headquarters and the African Regional Office"
+//     },
+//     {
+//       "source": 0,
+//       "target": 8,
+//       "type": "OVERSEES",
+//       "description": "n/a"
+//     }
+//   ]
+// }
 
 var units = "Widgets";
 
 var margin = {top: 10, right: 10, bottom: 10, left: 10},
-    width = 900 - margin.left - margin.right,
-    height = 500 - margin.top - margin.bottom;
+    width = 1800 - margin.left - margin.right,
+    height = 2500 - margin.top - margin.bottom;
 
 var formatNumber = d3.format(",.0f"),    // zero decimal places
     format = function(d) { return formatNumber(d) + " " + units; },
@@ -287,15 +287,16 @@ var formatNumber = d3.format(",.0f"),    // zero decimal places
 
 
 var svg = d3.select("#chart").append("svg")
-    .attr("width", width + margin.left + margin.right)
-    .attr("height", height + margin.top + margin.bottom)
+    //.attr("width",'100%' )
+    //.attr("height",2000 )
+    .attr("viewBox","0 0 2000 2500")
     .append("g")
     .attr("transform", 
           "translate(" + margin.left + "," + margin.top + ")");
 
 var sankey = d3.sankey()
-    .nodeWidth(36)
-    .nodePadding(40)
+    .nodeWidth(8)
+    .nodePadding(4)
     .size([width, height]);
 
 var path = sankey.link();
@@ -307,20 +308,20 @@ var path = sankey.link();
             if (error) {
                 step4status = -1;
             } else {
-                json.links.forEach(function(link) {
-                   link.value = 1;
+                //json.links.forEach(function(link) {
+                   //link.value = ;
                    // if (link.source == 1) {
                    //    link.source = 0;
                    //    link.target = 1;
                    // }
 
-                })
+               // })
                
                 step4len = json.nodes.length;
                 document.getElementById('loadingImg').style.display = 'none';
-                // sankey.nodes(json.nodes)
-                //       .links(json.links)
-                //       .layout(32);
+                sankey.nodes(json.nodes)
+                      .links(json.links)
+                      .layout(400);
 
                 var link = svg.append("g").selectAll(".link")
                               .data(json.links)

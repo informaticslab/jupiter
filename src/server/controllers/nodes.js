@@ -984,11 +984,11 @@ exports.getNodesByType = function(req, res) {
     // 'startNode(r).id as startNode, ',
     // 'x.name as childName order by childName, childLabels[0]'
     // ].join('\n');
-    var includeLabels = ['Organization', 'SurveillanceSystem'];
-    var ids =[];
+    var includeLabels = ['Organization', 'SurveillanceSystem', 'Tool', 'Program', 'DataStandard', 'Registry', 'HealthSurvey'];
+    var ids = [];
     var params1 = {
                 };
-    var query1 = 'Match (n:'+req.params.nodeType+') return n.id as id';
+    var query1 = 'Match (n:'+req.params.nodeType+') return n.id as id order by id';
     console.log(query1);
     neodb.db.query(query1,params1,function(err,nodes) {
         if (err) {
@@ -999,8 +999,9 @@ exports.getNodesByType = function(req, res) {
                  nodes.forEach(function(node){
                     ids.push(node.id);
                  })
-                 //console.log(ids);
-                 var query = ['OPTIONAL MATCH n-[r]->x-[*0..1]-y ',
+                 ids.sort();
+                //var query = ['OPTIONAL MATCH n-[r]->x-[*0..1]-y ',
+                var query = ['OPTIONAL MATCH n-[r]->x-[*0..1]->y  where n.id IN {ids}',
                 'with n, r, x, y',
                 'return n.id as nodeId, labels(n) as nodeLabels, ',
                 'n.name as nodeNames, ',
@@ -1019,7 +1020,7 @@ exports.getNodesByType = function(req, res) {
                     console.error('Error retreiving relations from database:', err);
                     res.send(404, 'no node at that location 2');
                 } else {
-                   
+                   console.log(' r ')
                     var nodeLabel = _.map(r, function(i) {
                         return i.nodeLabels
                     });
@@ -1061,6 +1062,7 @@ exports.getNodesByType = function(req, res) {
                         var relStartNode = _.map(r, function(i) {
                             return i.startNode
                         });
+                        //console.log('start nodes ', relStartNode);
                         var relationsCount = _.map(r, function(i) {
                             return i.rel2Count
                         });
@@ -1078,11 +1080,13 @@ exports.getNodesByType = function(req, res) {
 
 
                         var xi = 0;
+                        console.log(allRelations)
                         for (var i = 0; i < allRelations.length; i++) {
-                            console.log(nodeLabel[i][0]);
-                            if (includeLabels.indexOf(allLabels[i][0]) != -1 && includeLabels.indexOf(nodeLabel[i][0]) != -1) {
+                        //for (var i = 0; i < relStartNode.length; i++) {
+                            //console.log(nodeLabel[i][0]);
+                            if (includeLabels.indexOf(allLabels[i][0]) != -1 && includeLabels.indexOf(nodeLabel[i][0]) != -1 && allRelations[i] != 'CONTRACTS_WITH') {
                                 var pnodeId =   nodeIds[i];
-                                console.log(pnodeId);
+                                //console.log(pnodeId);
                                 var tokennodeid = allChildIds[i];
                             // check if parent node exists
                             var found = false;
@@ -1119,18 +1123,25 @@ exports.getNodesByType = function(req, res) {
                             }
                             var sourceIdx = tokennodes.indexOf(pnodeId);
                             var targetIdx = tokennodes.indexOf(tokennodeid);
-                            links.push({
+                                links.push({
                                         "source": sourceIdx,
                                         "target": targetIdx,
                                         "type": allRelations[i],
-                                        "description": allRelDesc[i]
+                                        "description": allRelDesc[i],
+                                        "value" : 1
                                     })
-                        
+                            
                         }
                         }
+                        var sortedLinks = _.sortBy((_.sortBy(links,'target')),'source');
+                        // for(var i = sortedLinks.length - 1; i >= 0; i--) {
+                        //     if(sortedLinks[i].source >= sortedLinks[i].target) {
+                        //        sortedLinks.splice(i, 1);  // remove circular link
+                        //     }
+                        //  }
                         viewerJson = {
                             "nodes": nodes,
-                            "links": _.sortBy(links,'source')
+                            "links": sortedLinks        
                         }
                         res.send(viewerJson);
                     } else {

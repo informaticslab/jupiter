@@ -287,9 +287,11 @@ var formatNumber = d3.format(",.0f"),    // zero decimal places
 
 
 var svg = d3.select("#chart").append("svg")
-    //.attr("width",'100%' )
-    //.attr("height",2000 )
-    .attr("viewBox","0 0 2000 2600")
+    //.attr("width","100%" )
+    //.attr("height","100%" )
+    .attr("viewBox", "0 0 2000 2500")
+    .attr("preserveAspectRatio", "xMidYMin slice")
+    //.attr("style", "width: 100%; padding-bottom: 99.99%; height: 1px; overflow:scroll;")
     .append("g")
     .attr("transform", 
           "translate(" + margin.left + "," + margin.top + ")");

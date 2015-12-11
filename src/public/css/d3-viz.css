@@ -113,9 +113,6 @@ text.shadow {
 }
 
 
-
-
-
 sankeyPath.link {
   fill: #fff;
   stroke: #8d8d91;
@@ -123,20 +120,6 @@ sankeyPath.link {
 }
 
 
-.sankey_container {
-    height: 0;             /* collapse the container's height */
-    width: width-value;    /* specify any width you want (a percentage value, basically) */
-    /* apply a padding using the following formula */
-    /* this formula makes sure the aspect ratio of the container equals that of the svg graphic */
-    padding-top: (svg height / svg width) * width-value;
-    position: relative;    /* create positioning context for svg */
-}
-
-svg {
-    position: absolute;
-    top: 0;
-    left: 0;
-}
 
 /*div.tooltip {   
   position: absolute;           

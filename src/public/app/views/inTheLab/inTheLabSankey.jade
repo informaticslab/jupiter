@@ -59,60 +59,58 @@
 			// end detail header
 			.top_block2
 				img(src='img/ajax-loader.gif', alt='Content is Loading', ng-show='true', id='loadingImg')
-				.sankey_container
-					#chart
-						.vertical_spacing1
-							style.
-								.nodeLab {
-									font: 300 5px "Helvetica Neue", Helvetica, Arial, sans-serif;
-									font-weight:700;
-									fill: #bbb;
-									//- cursor:pointer;
-									pointer-events: all;
-								}
-								.nodeLab:hover {
-									fill: #2a80b9;
-									font-size: 12px;
-									font-weight:700;
-									// -webkit-filter: url(#highlight);
-									// -moz-filter: url(#highlight);
-								}
-								.linkLab {
-									stroke: #CCC;
-									stroke-opacity: .4;
-									fill: none;
-									pointer-events: none;
-								}
+				#chart(style="position:relative; width:99%; height:99%; overflow:auto;")
+						style.
+							.nodeLab {
+								font: 300 5px "Helvetica Neue", Helvetica, Arial, sans-serif;
+								font-weight:700;
+								fill: #bbb;
+								//- cursor:pointer;
+								pointer-events: all;
+							}
+							.nodeLab:hover {
+								fill: #2a80b9;
+								font-size: 12px;
+								font-weight:700;
+								// -webkit-filter: url(#highlight);
+								// -moz-filter: url(#highlight);
+							}
+							.linkLab {
+								stroke: #CCC;
+								stroke-opacity: .4;
+								fill: none;
+								pointer-events: none;
+							}
 
-								.nodeLab--source,
-								.nodeLab--target {
-									
-									font-size: 12px;
-									font-weight:700;
-									// -webkit-filter: url(#highlight);
-									// -moz-filter: url(#highlight);
-								}
+							.nodeLab--source,
+							.nodeLab--target {
+								
+								font-size: 12px;
+								font-weight:700;
+								// -webkit-filter: url(#highlight);
+								// -moz-filter: url(#highlight);
+							}
 
-								.nodeLab--source {
-									fill: #626266;
-								}
+							.nodeLab--source {
+								fill: #626266;
+							}
 
-								.nodeLab--target {
-									fill: #626266;
-								}
+							.nodeLab--target {
+								fill: #626266;
+							}
 
-								.linkLab--source,
-								.linkLab--target {
-									stroke-opacity: 1;
-									stroke-width: 1.0;
-								}
-								.linkLab--source {
-									stroke: #2a80b9;
-								}
-								.linkLab--target {
-									stroke: #2a80b9;
-								}
-						script(type="text/javascript", src="/app/d3/d3-sankey.js")
+							.linkLab--source,
+							.linkLab--target {
+								stroke-opacity: 1;
+								stroke-width: 1.0;
+							}
+							.linkLab--source {
+								stroke: #2a80b9;
+							}
+							.linkLab--target {
+								stroke: #2a80b9;
+							}
+					script(type="text/javascript", src="/app/d3/d3-sankey.js")
 				// end block_edge
 	.div(ng-class='getSidebarWidth()')
 		.hx_side(ng-show='!showSidebar' ng-click='toggleSidebar()')

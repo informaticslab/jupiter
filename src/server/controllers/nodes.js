@@ -1021,7 +1021,7 @@ exports.getNodesByType = function(req, res) {
                     console.error('Error retreiving relations from database:', err);
                     res.send(404, 'no node at that location 2');
                 } else {
-                   console.log(' r ')
+                   //console.log(' r ')
                     var nodeLabel = _.map(r, function(i) {
                         return i.nodeLabels
                     });
@@ -1081,7 +1081,7 @@ exports.getNodesByType = function(req, res) {
 
 
                         var xi = 0;
-                        console.log(allRelations)
+                        //console.log(allRelations)
                         for (var i = 0; i < allRelations.length; i++) {
                         //for (var i = 0; i < relStartNode.length; i++) {
                             //console.log(nodeLabel[i][0]);

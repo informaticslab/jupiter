@@ -467,7 +467,8 @@ exports.searchUmlsConceptApi = function(req, res) {
                     nodedata.push({
                         id: i.CODE,
                         name: i.STR,
-                        cui: i.CUI
+                        cui: i.CUI,
+                        description : i.def
                     });
                 })
                 res.json(nodedata);

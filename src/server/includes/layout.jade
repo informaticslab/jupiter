@@ -11,7 +11,7 @@ html(lang="en" ng-app='jupiterApp')
 		link(rel="stylesheet" href="/css/sticky-footer-navbar.css")
 		link(rel="stylesheet" href="/css/animation.css")
 		link(rel="stylesheet" href="/css/custom.css")
-		link(rel="stylesheet" href="/css/d3-viz.css")
+		link(rel="stylesheet" href="/css/d3-viz.css" title="d3")
 		link(rel="stylesheet" href="/css/loading-bar.min.css")
 		link(rel="stylesheet" href="/css/inTheLab.css")
 		link(rel="stylesheet" href="/vendor/toastr/toastr.css")
@@ -137,6 +137,10 @@ html(lang="en" ng-app='jupiterApp')
 							input(type='checkbox' data-ng-model='disclaimerStatus' ng-change='resetCheckbox()')
 							| &nbsp; Do not show this message again
 						button.btn.btn-primary(data-dismiss='modal', type='button', ng-click='ok()')  I understand
+			script(type="text/ng-template", id="itemTpl.html")
+				a(tabindex='-1')
+					span(ng-bind-html='match.label | typeaheadHighlight:query')
+					p {{match.model.description}}
 		block main-content
 		// start footer row
 		span.visible-lg.visible-md

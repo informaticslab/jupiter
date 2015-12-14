@@ -985,7 +985,7 @@ exports.getNodesByType = function(req, res) {
     // 'startNode(r).id as startNode, ',
     // 'x.name as childName order by childName, childLabels[0]'
     // ].join('\n');
-    var includeLabels = ['Organization', 'SurveillanceSystem', 'Tool', 'Program', 'DataStandard', 'Registry', 'HealthSurvey'];
+    var includeLabels = ['Organization', 'SurveillanceSystem', 'Tool', 'Program', 'DataStandard', 'Registry', 'HealthSurvey', 'Collaborative','Dataset'];
     var ids = [];
     var params1 = {
                 };
@@ -1002,18 +1002,17 @@ exports.getNodesByType = function(req, res) {
                  })
                  ids.sort();
                 //var query = ['OPTIONAL MATCH n-[r]->x-[*0..1]-y ',
-                var query = ['OPTIONAL MATCH n-[r]->x-[*0..1]->y  where n.id IN {ids}',
-                'with n, r, x, y',
-                'return n.id as nodeId, labels(n) as nodeLabels, ',
+                var query = ['optional match p=(n)-[r]->x where labels(n)[0] in {includeLabels} ',
+                'return distinct n.id as nodeId, labels(n) as nodeLabels, ',
                 'n.name as nodeNames, ',
-                'id(r) as relId,type(r) as relType, x.id as childId, ',
-                'r.relationshipDescription as relDesc, ',
+                'type(r) as relType, x.id as childId, ',
                 'labels(x) as childLabels, ',
                 'startNode(r).id as startNode, ',
-                'x.name as childName , count(y) as rel2Count order by childName, childLabels[0]'
+                'x.name as childName '
                 ].join('\n');
                   var params = {
-                    "ids" : ids
+                    "ids" : ids,
+                    "includeLabels" : includeLabels
                 };
                 var viewerJson;
                 neodb.db.query(query, params, function(err, r) {
@@ -1022,6 +1021,16 @@ exports.getNodesByType = function(req, res) {
                     res.send(404, 'no node at that location 2');
                 } else {
                    //console.log(' r ')
+                    for(var ix = 0; ix < r.length; ix++) {
+                        if (r[ix].nodeLabels == 'Organization') {
+                            r[ix]['sortOrder'] = 0;
+                        }
+                        else {
+                            r[ix]['sortOrder'] = 1;
+                        }
+                    }
+                    r = _.sortBy((_.sortBy(r,'startNode')),'sortOrder');
+                    console.log(r);
                     var nodeLabel = _.map(r, function(i) {
                         return i.nodeLabels
                     });
@@ -1135,11 +1144,11 @@ exports.getNodesByType = function(req, res) {
                         }
                         }
                         var sortedLinks = _.sortBy((_.sortBy(links,'target')),'source');
-                        // for(var i = sortedLinks.length - 1; i >= 0; i--) {
-                        //     if(sortedLinks[i].source >= sortedLinks[i].target) {
-                        //        sortedLinks.splice(i, 1);  // remove circular link
-                        //     }
-                        //  }
+                        for(var i = sortedLinks.length - 1; i >= 0; i--) {
+                            if(sortedLinks[i].source >= sortedLinks[i].target) {
+                               sortedLinks.splice(i, 1);  // remove circular link
+                            }
+                         }
                         viewerJson = {
                             "nodes": nodes,
                             "links": sortedLinks        

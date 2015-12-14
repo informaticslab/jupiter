@@ -274,6 +274,8 @@
 //     }
 //   ]
 // }
+var nodeColors = {};
+getStyle();
 
 var units = "Widgets";
 
@@ -355,13 +357,13 @@ var path = sankey.link();
   node.append("rect")
       .attr("height", function(d) { return d.dy; })
       .attr("width", sankey.nodeWidth())
-      .style("fill", function(d) { 
-      return d.color = color(d.name.replace(/ .*/, "")); })
+      .style("fill", function(d) {
+         return d.color = d3.rgb(nodeColors['circle.node.'+d.label[0]]);})
       .style("stroke", function(d) { 
-      return d3.rgb(d.color).darker(2); })
-    .append("title")
+        return d3.rgb(d.color).darker(2); })
+      .append("title")
       .text(function(d) { 
-      return d.name + "\n" + format(d.value); });
+        return d.name + "\n" + format(d.value); });
 
 // add in the title for the nodes
   node.append("text")
@@ -489,3 +491,18 @@ var path = sankey.link();
                                 });
                                 return imports;
                             }
+function getStyle() {
+    for (var i=0; i<document.styleSheets.length; i++) {
+       if (document.styleSheets[i].title === 'd3') {
+          break;
+       }
+    }
+    var classes = document.styleSheets[i].rules || document.styleSheets[i].cssRules;
+    for (var x = 0; x < classes.length; x++) {
+       
+        if (classes[x].selectorText.indexOf('circle.node') != -1) {
+              nodeColors[classes[x].selectorText] = classes[x].style.fill;
+        }
+    }
+    //console.log(nodeColors);
+}

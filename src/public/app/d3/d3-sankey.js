@@ -274,8 +274,19 @@
 //     }
 //   ]
 // }
-var nodeColors = {};
-getStyle();
+var nodeColors = {
+  Program : '#2dcc70', 
+  Organization : '#3598db',
+  SurveillanceSystem: '#f1c40f',
+  Tool : '#e77e23',
+  Registry : '#95a5a5',
+  Collaborative : '#16a086',
+  HealthSurvey : '#d64032',
+  DataSet : '#9b58b5',
+  DataStandard : '#92af08'
+}
+
+//getStyle();
 
 var units = "Widgets";
 
@@ -358,7 +369,7 @@ var path = sankey.link();
       .attr("height", function(d) { return d.dy; })
       .attr("width", sankey.nodeWidth())
       .style("fill", function(d) {
-         return d.color = d3.rgb(nodeColors['circle.node.'+d.label[0]]);})
+         return d.color = d3.rgb(nodeColors[d.label[0]]);})
       .style("stroke", function(d) { 
         return d3.rgb(d.color).darker(2); })
       .append("title")
@@ -491,18 +502,18 @@ var path = sankey.link();
                                 });
                                 return imports;
                             }
-function getStyle() {
-    for (var i=0; i<document.styleSheets.length; i++) {
-       if (document.styleSheets[i].title === 'd3') {
-          break;
-       }
-    }
-    var classes = document.styleSheets[i].rules || document.styleSheets[i].cssRules;
-    for (var x = 0; x < classes.length; x++) {
+// function getStyle() {
+//     for (var i=0; i<document.styleSheets.length; i++) {
+//        if (document.styleSheets[i].title === 'd3') {
+//           break;
+//        }
+//     }
+//     var classes = document.styleSheets[i].rules || document.styleSheets[i].cssRules;
+//     for (var x = 0; x < classes.length; x++) {
        
-        if (classes[x].selectorText.indexOf('circle.node') != -1) {
-              nodeColors[classes[x].selectorText] = classes[x].style.fill;
-        }
-    }
-    //console.log(nodeColors);
-}
+//         if (classes[x].selectorText.indexOf('circle.node') != -1) {
+//               nodeColors[classes[x].selectorText] = classes[x].style.fill;
+//         }
+//     }
+//     //console.log(nodeColors);
+// }

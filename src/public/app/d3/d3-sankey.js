@@ -291,8 +291,8 @@ var nodeColors = {
 var units = "Widgets";
 
 var margin = {top: 15, right: 10, bottom: 10, left: 10},
-    width = 2500 - margin.left - margin.right,
-    height = 2500 - margin.top - margin.bottom;
+    width = 1550 - margin.left - margin.right,
+    height = 2550 - margin.top - margin.bottom;
 
 var formatNumber = d3.format(",.0f"),    // zero decimal places
     format = function(d) { return formatNumber(d) + " " + units; },
@@ -300,8 +300,8 @@ var formatNumber = d3.format(",.0f"),    // zero decimal places
 
 
 var svg = d3.select("#chart").append("svg")
-    .attr("width",2550)
-    .attr("height",2500)
+    .attr("width",width+margin.left+margin.right)
+    .attr("height",height+margin.bottom+margin.top)
     //.attr("viewBox", "0 0 1800 1300")
     //.attr("style", "width: 100%; padding-bottom: 99.99%; height: 1px;")
     .append("g")

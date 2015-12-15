@@ -1002,7 +1002,8 @@ exports.getNodesByType = function(req, res) {
                  })
                  ids.sort();
                 //var query = ['OPTIONAL MATCH n-[r]->x-[*0..1]-y ',
-                var query = ['optional match p=(n)-[r]->x where labels(n)[0] in {includeLabels} ',
+                //var query = 'MATCH p=(n)-->(b)-->(x) where n.id = "O84" ', 
+                var query = ['match p=(n)-[r]->x where labels(n)[0] in {includeLabels} ',
                 'return distinct n.id as nodeId, labels(n) as nodeLabels, ',
                 'n.name as nodeNames, ',
                 'type(r) as relType, x.id as childId, ',
@@ -1019,136 +1020,210 @@ exports.getNodesByType = function(req, res) {
                 if (err) {
                     console.error('Error retreiving relations from database:', err);
                     res.send(404, 'no node at that location 2');
-                } else {
+                } 
+                else {
                    //console.log(' r ')
-                    for(var ix = 0; ix < r.length; ix++) {
-                        if (r[ix].nodeLabels == 'Organization') {
-                            r[ix]['sortOrder'] = 0;
-                        }
-                        else {
-                            r[ix]['sortOrder'] = 1;
-                        }
-                    }
-                    r = _.sortBy((_.sortBy(r,'startNode')),'sortOrder');
-                    console.log(r);
+                    // for(var ix = 0; ix < r.length; ix++) {
+                    //     if (r[ix].nodeLabels == 'Organization') {
+                    //         r[ix]['sortOrder'] = 0;
+                    //     }
+                    //     else {
+                    //         r[ix]['sortOrder'] = 1;
+                    //     }
+                    // }
+                    
+                    //r = _.sortBy((_.sortBy(r,'startNode')),'sortOrder');
+                    //console.log(r);
                     var nodeLabel = _.map(r, function(i) {
                         return i.nodeLabels
                     });
                     //console.log('labels ',nodeLabel);
                     if (nodeLabel != null && nodeLabel[0] != null) {
-                        //nodeLabel = nodeLabel[0][0];
-                        
-                        var nodeName = _.map(r, function(i) {
-                            return i.nodeNames
-                        });
-                       // nodeName = nodeName[0]
-                        var nodeIds = _.map(r, function(i) {
-                            return i.nodeId;
-                        })
-                        //console.log('node ids ', nodeIds);
-                        //nodeId = nodeIds[0];
-                        var allLabels = _.map(r, function(i) {
-                            return i.childLabels
-                        });
 
-                        var allRelations = _.map(r, function(i) {
-                            return i.relType
-                        });
-                        var allRelDesc = _.map(r, function(i) {
-                            return i.relDesc
-                        });
-
-                        var allRelIds = _.map(r, function(i) {
-                            return i.relId
-                        });
-
-                        var allChildIds = _.map(r, function(i) {
-                            return i.childId
-                        });
-                        //console.log('child Ids ', allChildIds);
-                        var allChildNames = _.map(r, function(i) {
-                            return i.childName
-                        });
-                        var relStartNode = _.map(r, function(i) {
-                            return i.startNode
-                        });
-                        //console.log('start nodes ', relStartNode);
-                        var relationsCount = _.map(r, function(i) {
-                            return i.rel2Count
-                        });
-                        //console.log('all start node ', relStartNode)
-                        //cast root node
-                        // var nodes = [{
-                        //     "name": nodeName,
-                        //     "id":  nodeId,
-                        //     "label": [nodeLabel]
-                        // }]
-                        var nodes = [];
+                     
+                        var parentNodes = ['O84','O110'];
+                        var pickedNodes = [];
+                        var childLevel1 = []
+                        var childLevel2 = [];
+                        var childLevel3 = [];
+                        var childLevel4 = [];
                         var tokennodes = [];
                         var links = [];
+                        var nodes = [];
+                        for (var pidx = 0; pidx < parentNodes.length; pidx ++ ) { 
+                                for(var x1 = 0; x1 < r.length; x1++) {
+                                    if (parentNodes[pidx] == r[x1].startNode) {
+                                        console.log('startNode id',r[x1].startNode,'child id ', r[x1].childId);
+                                        childLevel1.push(r[x1].childId);
+                                        if (tokennodes.indexOf(parentNodes[pidx]) == -1) {
+                                            tokennodes.push(parentNodes[pidx]);
+                                             nodes.push({
+                                                "name": r[x1].nodeNames,
+                                                "id": r[x1].nodeId,
+                                                "label": r[x1].nodeLabels
+                                        });
 
+                                        }
+                                        if (tokennodes.indexOf(r[x1].childId) == -1) {
+                                            tokennodes.push(r[x1].childId);
+                                               nodes.push({
+                                            "name": r[x1].childName,
+                                            "id": r[x1].childId,
+                                            "label": r[x1].childLabels
+                                        });
+                                        }
+                                       
+                                     
+                                        // var sourceIdx = tokennodes.indexOf(parentNodes[parentIdx]);
+                                        // var targetIdx = tokennodes.indexOf(r[x1].childId);
+                                        // if (sourceIdx != -1 && targetIdx != -1) {
+                                        //     links.push({
+                                        //             "source": sourceIdx,
+                                        //             "target": targetIdx,
+                                        //             "type":   r[x1].relType,
+                                        //             "description": r[x1].relDesc,
+                                        //             "value" : 1
+                                        //         })
+                                        // }
+                                        pickedNodes.push({'p': r[x1].startNode, 'c': r[x1].childId, 'level' : 1,'type': r[x1].relType, 'description':r[x1].relDesc});
+                                    }
+                                    
+                                }
+                                //console.log('level 1 ', childLevel1);
+                                 for(var x1 = 0; x1 < r.length; x1++) {
+                                        var c1idx = childLevel1.indexOf(r[x1].startNode) ;
+                                    if (c1idx != -1 ) {
+                                         if (tokennodes.indexOf(childLevel1[c1idx]) == -1) {
+                                            tokennodes.push(childLevel1[c1idx]);
+                                            nodes.push({
+                                                "name": r[x1].nodeNames,
+                                                "id": r[x1].nodeId,
+                                                "label": r[x1].nodeLabels
+                                        });
 
+                                        }
+                                        if (tokennodes.indexOf(r[x1].childId) == -1) {
+                                            tokennodes.push(r[x1].childId);
+                                                 nodes.push({
+                                            "name": r[x1].childName,
+                                            "id": r[x1].childId,
+                                            "label": r[x1].childLabels
+                                        });
+                                        }
+                                        childLevel2.push(r[x1].childId);
+                                        // var sourceIdx = tokennodes.indexOf(childLevel1[c1idx]);
+                                        // var targetIdx = tokennodes.indexOf(r[x1].childId);
 
-                        var xi = 0;
-                        //console.log(allRelations)
-                        for (var i = 0; i < allRelations.length; i++) {
-                        //for (var i = 0; i < relStartNode.length; i++) {
-                            //console.log(nodeLabel[i][0]);
-                            if (includeLabels.indexOf(allLabels[i][0]) != -1 && includeLabels.indexOf(nodeLabel[i][0]) != -1 && allRelations[i] != 'CONTRACTS_WITH') {
-                                var pnodeId =   nodeIds[i];
-                                //console.log(pnodeId);
-                                var tokennodeid = allChildIds[i];
-                            // check if parent node exists
-                            var found = false;
-                            tokennodes.forEach(function(d){
-                                if (pnodeId == d) {
-                                    found = true;
-                               }
-                            });
-                            if (!found) {
-                                tokennodes.push(pnodeId);
-                                nodes.push({
-                                    "name": nodeName[i],
-                                    "id": pnodeId,
-                                    "label": nodeLabel[i]
-                                })
-                            }
-                            found = false;
-                            tokennodes.forEach(function(d) {
-                                if (tokennodeid == d) {
-                                    found = true
+                                        // if (sourceIdx != -1 && targetIdx != -1) {
+                                        //     links.push({
+                                        //             "source": sourceIdx,
+                                        //             "target": targetIdx,
+                                        //             "type":   r[x1].relType,
+                                        //             "description": r[x1].relDesc,
+                                        //             "value" : 1
+                                        //         })
+                                        // }
+                                        pickedNodes.push({'p': childLevel1[c1idx], 'c': r[x1].childId, 'level' : 2,'type': r[x1].relType, 'description':r[x1].relDesc});
+                                    }
                                 }
 
-                            });
+                                for(var x1 = 0; x1 < r.length; x1++) {
+                                    var c2idx = childLevel2.indexOf(r[x1].startNode) ;
+                                    if (c2idx != -1) {
+                                        if (tokennodes.indexOf(childLevel2[c2idx]) == -1) {
+                                            tokennodes.push(childLevel2[c2idx]);
+                                             nodes.push({
+                                                "name": r[x1].nodeNames,
+                                                "id": r[x1].nodeId,
+                                                "label": r[x1].nodeLabels
+                                            });
 
-                            if (!found) {
+                                        }
+                                        if (tokennodes.indexOf(r[x1].childId) == -1) {
+                                            tokennodes.push(r[x1].childId);
+                                                 nodes.push({
+                                                            "name": r[x1].childName,
+                                                            "id": r[x1].childId,
+                                                            "label": r[x1].childLabels
+                                                        });
+                                        }
+                                        childLevel3.push(r[x1].childId);
+                                        // var sourceIdx = tokennodes.indexOf(childLevel2[c2idx]);
+                                        // var targetIdx = tokennodes.indexOf(r[x1].childId);
+                                        // if (sourceIdx != -1 && targetIdx != -1) {
+                                        //     links.push({
+                                        //             "source": sourceIdx,
+                                        //             "target": targetIdx,
+                                        //             "type":   r[x1].relType,
+                                        //             "description": r[x1].relDesc,
+                                        //             "value" : 1
+                                        //         })
+                                        // }
+                                        pickedNodes.push({'p': childLevel2[c2idx], 'c': r[x1].childId, 'level' : 3,'type': r[x1].relType, 'description':r[x1].relDesc});
+                                       
+                                        }
+                                    }
+                                   for(var x1 = 0; x1 < r.length; x1++) {
+                                    var c3idx = childLevel3.indexOf(r[x1].startNode) ;
+                                    if (c3idx != -1) {
+                                        if (tokennodes.indexOf(childLevel3[c3idx]) == -1) {
+                                            tokennodes.push(childLevel3[c3idx]);
+                                             nodes.push({
+                                                "name": r[x1].nodeNames,
+                                                "id": r[x1].nodeId,
+                                                "label": r[x1].nodeLabels
+                                            });
 
-                                tokennodes.push(tokennodeid);
-                                nodes.push({
-                                    "name": allChildNames[i],
-                                    "id": allChildIds[i],
-                                    "label": allLabels[i]
-                                });
-
-                            }
-                            var sourceIdx = tokennodes.indexOf(pnodeId);
-                            var targetIdx = tokennodes.indexOf(tokennodeid);
-                                links.push({
-                                        "source": sourceIdx,
-                                        "target": targetIdx,
-                                        "type": allRelations[i],
-                                        "description": allRelDesc[i],
-                                        "value" : 1
-                                    })
-                            
-                        }
-                        }
-                        var sortedLinks = _.sortBy((_.sortBy(links,'target')),'source');
-                        for(var i = sortedLinks.length - 1; i >= 0; i--) {
-                            if(sortedLinks[i].source >= sortedLinks[i].target) {
-                               sortedLinks.splice(i, 1);  // remove circular link
-                            }
-                         }
+                                        }
+                                        if (tokennodes.indexOf(r[x1].childId) == -1) {
+                                            tokennodes.push(r[x1].childId);
+                                                 nodes.push({
+                                                            "name": r[x1].childName,
+                                                            "id": r[x1].childId,
+                                                            "label": r[x1].childLabels
+                                                        });
+                                        }
+                                        childLevel4.push(r[x1].childId);
+                                        // var sourceIdx = tokennodes.indexOf(childLevel2[c2idx]);
+                                        // var targetIdx = tokennodes.indexOf(r[x1].childId);
+                                        // if (sourceIdx != -1 && targetIdx != -1) {
+                                        //     links.push({
+                                        //             "source": sourceIdx,
+                                        //             "target": targetIdx,
+                                        //             "type":   r[x1].relType,
+                                        //             "description": r[x1].relDesc,
+                                        //             "value" : 1
+                                        //         })
+                                        // }
+                                        pickedNodes.push({'p': childLevel3[c3idx], 'c': r[x1].childId, 'level' : 4,'type': r[x1].relType, 'description':r[x1].relDesc});
+                                       
+                                        }
+                                    }
+                                }
+                                //console.log('level 3 ', childLevel3);
+                                //console.log('picked nodes ', pickedNodes);
+                                for(var lidx=0; lidx < pickedNodes.length; lidx++) {
+                                        var sourceIdx = tokennodes.indexOf(pickedNodes[lidx].p);
+                                        var targetIdx = tokennodes.indexOf(pickedNodes[lidx].c);
+                                      
+                                        if (sourceIdx < targetIdx) {
+                                       //     console.log('source ',sourceIdx ,' target ', targetIdx);
+                                            links.push({
+                                                    "source": sourceIdx,
+                                                    "target": targetIdx,
+                                                    "type":  pickedNodes[lidx].relType,
+                                                    "description": pickedNodes[lidx].relDesc,
+                                                    "value" : 1
+                                                })
+                                        }
+                                }
+                                var sortedLinks = _.sortBy((_.sortBy(links,'target')),'source');
+                                //console.log(sortedLinks)
+                                for(var i = sortedLinks.length - 1; i >= 0; i--) {
+                                    if(sortedLinks[i].source >= sortedLinks[i].target) {
+                                       sortedLinks.splice(i, 1);  // remove circular link
+                                    }
+                                 }
                         viewerJson = {
                             "nodes": nodes,
                             "links": sortedLinks        

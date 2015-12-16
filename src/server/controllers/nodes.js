@@ -986,11 +986,18 @@ exports.getNodesByType = function(req, res) {
     // 'x.name as childName order by childName, childLabels[0]'
     // ].join('\n');
     var includeLabels = ['Organization', 'SurveillanceSystem', 'Tool', 'Program', 'DataStandard', 'Registry', 'HealthSurvey', 'Collaborative','Dataset'];
+    //var includeRelations = ['OVERSEES', 'MANAGES','USES'];
+    var includeRelations =[]
+    //var excludeRelations = ['CONTRACTS_WITH','SHARES_SPECIMENS/SAMPLES/KITS/ISOLATES_WITH','IS_A_COMPONENT/PART_OF','SHARES_DATA_WITH','SHARES_RESOURCES_WITH'];
+    //var excludeRelations = ['CONTRACTS_WITH','SHARES_SPECIMENS/SAMPLES/KITS/ISOLATES_WITH','IS_A_COMPONENT/PART_OF','SHARES_DATA_WITH','SHARES_RESOURCES_WITH'];
+    var excludeRelations = [];
     var ids = [];
+    var level4Active = true;
     var params1 = {
                 };
     var query1 = 'Match (n:'+req.params.nodeType+') return n.id as id order by id';
-    console.log(query1);
+    var query2 = 'MATCH p=(a)-[r1]->(b)-[r2]->(c)-[r3]->(d)-[r4]->(e)-[r5]->(f) WHERE a.id in {ids} RETURN distinct extract(p1 in relationships(p) | startNode(p1).id)+f.id'
+    //console.log(query1);
     neodb.db.query(query1,params1,function(err,nodes) {
         if (err) {
               console.error('Error retreiving relations from database:', err);
@@ -1003,7 +1010,7 @@ exports.getNodesByType = function(req, res) {
                  ids.sort();
                 //var query = ['OPTIONAL MATCH n-[r]->x-[*0..1]-y ',
                 //var query = 'MATCH p=(n)-->(b)-->(x) where n.id = "O84" ', 
-                var query = ['match p=(n)-[r]->x where labels(n)[0] in {includeLabels} ',
+                var query = ['match p=(n)-[r]->x where labels(n)[0] in {includeLabels} and not(type(r) in {excludeRelations})',
                 'return distinct n.id as nodeId, labels(n) as nodeLabels, ',
                 'n.name as nodeNames, ',
                 'type(r) as relType, x.id as childId, ',
@@ -1013,7 +1020,9 @@ exports.getNodesByType = function(req, res) {
                 ].join('\n');
                   var params = {
                     "ids" : ids,
-                    "includeLabels" : includeLabels
+                    "includeLabels" : includeLabels,
+                    "includeRelations" : includeRelations,
+                    "excludeRelations" : excludeRelations
                 };
                 var viewerJson;
                 neodb.db.query(query, params, function(err, r) {
@@ -1042,18 +1051,19 @@ exports.getNodesByType = function(req, res) {
 
                      
                         var parentNodes = ['O84','O110'];
-                        var pickedNodes = [];
-                        var childLevel1 = []
-                        var childLevel2 = [];
-                        var childLevel3 = [];
-                        var childLevel4 = [];
+                        var pickedLinks = [];
+                        
                         var tokennodes = [];
                         var links = [];
                         var nodes = [];
                         for (var pidx = 0; pidx < parentNodes.length; pidx ++ ) { 
+                                var childLevel1 = []
+                                var childLevel2 = [];
+                                var childLevel3 = [];
+                                var childLevel4 = [];
                                 for(var x1 = 0; x1 < r.length; x1++) {
                                     if (parentNodes[pidx] == r[x1].startNode) {
-                                        console.log('startNode id',r[x1].startNode,'child id ', r[x1].childId);
+                                        //console.log('startNode id',r[x1].startNode,'child id ', r[x1].childId);
                                         childLevel1.push(r[x1].childId);
                                         if (tokennodes.indexOf(parentNodes[pidx]) == -1) {
                                             tokennodes.push(parentNodes[pidx]);
@@ -1072,20 +1082,8 @@ exports.getNodesByType = function(req, res) {
                                             "label": r[x1].childLabels
                                         });
                                         }
-                                       
-                                     
-                                        // var sourceIdx = tokennodes.indexOf(parentNodes[parentIdx]);
-                                        // var targetIdx = tokennodes.indexOf(r[x1].childId);
-                                        // if (sourceIdx != -1 && targetIdx != -1) {
-                                        //     links.push({
-                                        //             "source": sourceIdx,
-                                        //             "target": targetIdx,
-                                        //             "type":   r[x1].relType,
-                                        //             "description": r[x1].relDesc,
-                                        //             "value" : 1
-                                        //         })
-                                        // }
-                                        pickedNodes.push({'p': r[x1].startNode, 'c': r[x1].childId, 'level' : 1,'type': r[x1].relType, 'description':r[x1].relDesc});
+                                        
+                                        pickedLinks.push({'key': r[x1].startNode + '_'+ r[x1].childId, 'p': r[x1].startNode, 'c': r[x1].childId, 'level' : 1,'type': r[x1].relType, 'description':r[x1].relDesc});
                                     }
                                     
                                 }
@@ -1123,7 +1121,7 @@ exports.getNodesByType = function(req, res) {
                                         //             "value" : 1
                                         //         })
                                         // }
-                                        pickedNodes.push({'p': childLevel1[c1idx], 'c': r[x1].childId, 'level' : 2,'type': r[x1].relType, 'description':r[x1].relDesc});
+                                        pickedLinks.push({'key': r[x1].startNode + '_'+ r[x1].childId, 'p': childLevel1[c1idx], 'c': r[x1].childId, 'level' : 2,'type': r[x1].relType, 'description':r[x1].relDesc});
                                     }
                                 }
 
@@ -1159,71 +1157,83 @@ exports.getNodesByType = function(req, res) {
                                         //             "value" : 1
                                         //         })
                                         // }
-                                        pickedNodes.push({'p': childLevel2[c2idx], 'c': r[x1].childId, 'level' : 3,'type': r[x1].relType, 'description':r[x1].relDesc});
+                                        pickedLinks.push({'key': r[x1].startNode + '_'+ r[x1].childId, 'p': childLevel2[c2idx], 'c': r[x1].childId, 'level' : 3,'type': r[x1].relType, 'description':r[x1].relDesc});
                                        
                                         }
                                     }
+                                if (level4Active == true) {
                                    for(var x1 = 0; x1 < r.length; x1++) {
                                     var c3idx = childLevel3.indexOf(r[x1].startNode) ;
                                     if (c3idx != -1) {
-                                        if (tokennodes.indexOf(childLevel3[c3idx]) == -1) {
-                                            tokennodes.push(childLevel3[c3idx]);
-                                             nodes.push({
-                                                "name": r[x1].nodeNames,
-                                                "id": r[x1].nodeId,
-                                                "label": r[x1].nodeLabels
-                                            });
-
-                                        }
-                                        if (tokennodes.indexOf(r[x1].childId) == -1) {
-                                            tokennodes.push(r[x1].childId);
+                                            if (tokennodes.indexOf(childLevel3[c3idx]) == -1) {
+                                                tokennodes.push(childLevel3[c3idx]);
                                                  nodes.push({
-                                                            "name": r[x1].childName,
-                                                            "id": r[x1].childId,
-                                                            "label": r[x1].childLabels
-                                                        });
-                                        }
-                                        childLevel4.push(r[x1].childId);
-                                        // var sourceIdx = tokennodes.indexOf(childLevel2[c2idx]);
-                                        // var targetIdx = tokennodes.indexOf(r[x1].childId);
-                                        // if (sourceIdx != -1 && targetIdx != -1) {
-                                        //     links.push({
-                                        //             "source": sourceIdx,
-                                        //             "target": targetIdx,
-                                        //             "type":   r[x1].relType,
-                                        //             "description": r[x1].relDesc,
-                                        //             "value" : 1
-                                        //         })
-                                        // }
-                                        pickedNodes.push({'p': childLevel3[c3idx], 'c': r[x1].childId, 'level' : 4,'type': r[x1].relType, 'description':r[x1].relDesc});
-                                       
+                                                    "name": r[x1].nodeNames,
+                                                    "id": r[x1].nodeId,
+                                                    "label": r[x1].nodeLabels
+                                                });
+
+                                            }
+                                            if (tokennodes.indexOf(r[x1].childId) == -1) {
+                                                tokennodes.push(r[x1].childId);
+                                                     nodes.push({
+                                                                "name": r[x1].childName,
+                                                                "id": r[x1].childId,
+                                                                "label": r[x1].childLabels
+                                                            });
+                                            }
+                                            childLevel4.push(r[x1].childId);
+                                            // var sourceIdx = tokennodes.indexOf(childLevel2[c2idx]);
+                                            // var targetIdx = tokennodes.indexOf(r[x1].childId);
+                                            // if (sourceIdx != -1 && targetIdx != -1) {
+                                            //     links.push({
+                                            //             "source": sourceIdx,
+                                            //             "target": targetIdx,
+                                            //             "type":   r[x1].relType,
+                                            //             "description": r[x1].relDesc,
+                                            //             "value" : 1
+                                            //         })
+                                            // }
+                                            pickedLinks.push({'key': r[x1].startNode + '_'+ r[x1].childId, 'p': childLevel3[c3idx], 'c': r[x1].childId, 'level' : 4,'type': r[x1].relType, 'description':r[x1].relDesc});
+                                           
+                                            }
                                         }
                                     }
                                 }
                                 //console.log('level 3 ', childLevel3);
-                                //console.log('picked nodes ', pickedNodes);
-                                for(var lidx=0; lidx < pickedNodes.length; lidx++) {
-                                        var sourceIdx = tokennodes.indexOf(pickedNodes[lidx].p);
-                                        var targetIdx = tokennodes.indexOf(pickedNodes[lidx].c);
-                                      
-                                        if (sourceIdx < targetIdx) {
-                                       //     console.log('source ',sourceIdx ,' target ', targetIdx);
+                                //console.log('picked nodes ', pickedLinks);
+                                pickedLinks = _.uniq(pickedLinks,_.property('key'));
+                                console.log(pickedLinks);
+                                for(var lidx=0; lidx < pickedLinks.length; lidx++) {
+                                        var sourceIdx = tokennodes.indexOf(pickedLinks[lidx].p);
+                                        var targetIdx = tokennodes.indexOf(pickedLinks[lidx].c);
+                                        var pair1 = {'source': sourceIdx, 'target': targetIdx};
+                                        var pair2 = {'source': targetIdx, 'target': sourceIdx};
+                                        //console.log(pickedLinks[lidx]);
+                                        var found = false;
+                                        for(var ix = 0; ix < links.length; ix++) {
+                                            if ((links[ix].source == sourceIdx && links[ix].target == targetIdx) || links[ix].source == targetIdx && links[ix].target== sourceIdx) {
+                                                found = true;
+                                                console.log('found dupp' , sourceIdx, targetIdx);
+                                            }
+                                        }
+                                        if (!found) {
                                             links.push({
                                                     "source": sourceIdx,
                                                     "target": targetIdx,
-                                                    "type":  pickedNodes[lidx].relType,
-                                                    "description": pickedNodes[lidx].relDesc,
+                                                    "type":  pickedLinks[lidx].type,
+                                                    "description": pickedLinks[lidx].description,
                                                     "value" : 1
                                                 })
                                         }
                                 }
                                 var sortedLinks = _.sortBy((_.sortBy(links,'target')),'source');
-                                //console.log(sortedLinks)
-                                for(var i = sortedLinks.length - 1; i >= 0; i--) {
-                                    if(sortedLinks[i].source >= sortedLinks[i].target) {
-                                       sortedLinks.splice(i, 1);  // remove circular link
-                                    }
-                                 }
+                                //console.log('sorted link ',sortedLinks);
+                                // for(var i = sortedLinks.length - 1; i >= 0; i--) {
+                                //     if(sortedLinks[i].source >= sortedLinks[i].target) {
+                                //        sortedLinks.splice(i, 1);  // remove circular link
+                                //     }
+                                //  }
                         viewerJson = {
                             "nodes": nodes,
                             "links": sortedLinks        

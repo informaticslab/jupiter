@@ -269,7 +269,7 @@ angular.module('jupiterApp').controller('dataMatch1Ctrl', function($scope, $http
     // 	mergedData.setMergedDataset($scope.mergedDatasets);
     // 	mergedData.setMergedCols($scope.mergedCols);
     // 	mergedData.setValueSets($scope.valueSets)
-    	location.href = "#/dataMatch2";
+    	$location.path("/dataMatch2");
     	
 
 	}

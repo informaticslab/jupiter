@@ -1,5 +1,5 @@
 'use strict';
-angular.module('jupiterApp').controller('dataMatch1Ctrl', function($scope, $http,$modal,mergedData){
+angular.module('jupiterApp').controller('dataMatch1Ctrl', function($scope, $http,$modal,mergedData, $location){
 
 	$scope.validDataSets = true;
 	$scope.ds1Id = null;
@@ -28,7 +28,7 @@ angular.module('jupiterApp').controller('dataMatch1Ctrl', function($scope, $http
         }
    }
 	else { // does not have enough data to match, return to starting point
-		location.href = '#dataMatch';
+		$location.path('/dataMatch');
 	}
 	
 
@@ -37,9 +37,8 @@ angular.module('jupiterApp').controller('dataMatch1Ctrl', function($scope, $http
      };
 
     $scope.previousPage = function(page) {
-    	mergedData.setPreviousLoc(location.href);
-        location.href = page;
-
+    	mergedData.setPreviousLoc($location.path());
+        $location.path(page);
     }
 
 	function match() {

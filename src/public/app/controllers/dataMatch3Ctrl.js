@@ -1,5 +1,5 @@
 'use strict';
-angular.module('jupiterApp').controller('dataMatch3Ctrl', function($scope, $http,$modal,mergedData){
+angular.module('jupiterApp').controller('dataMatch3Ctrl', function($scope, $http,$modal,mergedData,$location ){
 
 	$scope.validDataSets = true;
 	$scope.ds1Id = '';
@@ -57,8 +57,8 @@ angular.module('jupiterApp').controller('dataMatch3Ctrl', function($scope, $http
      };
 
 	$scope.previousPage = function(page) {
-		mergedData.setPreviousLoc(location.href);
-    	location.href = page;
+		mergedData.setPreviousLoc($location.path());
+		$location.path(page);
     }
 	$scope.openGridModal = function(nodeId) {
             var modalInstance = $modal.open({

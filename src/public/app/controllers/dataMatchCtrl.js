@@ -1,5 +1,5 @@
 'use strict';
-angular.module('jupiterApp').controller('dataMatchCtrl', function($scope, $http,$modal,mergedData){
+angular.module('jupiterApp').controller('dataMatchCtrl', function($scope, $http,$modal,mergedData, $location){
 
 	$scope.validDataSets = true;
 	$scope.mergedList = mergedData.getMergedList();
@@ -97,7 +97,7 @@ angular.module('jupiterApp').controller('dataMatchCtrl', function($scope, $http,
 
     $scope.doMatch = function() {
     	mergedData.setMergedList($scope.mergedList)
-    	location.href = '#/dataMatch1';
+    	$location.path('/dataMatch1');
     }
 
 	// $scope.match = function() {

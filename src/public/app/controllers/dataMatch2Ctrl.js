@@ -1,5 +1,5 @@
 'use strict';
-angular.module('jupiterApp').controller('dataMatch2Ctrl', function($scope, $http,$modal,$timeout,mergedData){
+angular.module('jupiterApp').controller('dataMatch2Ctrl', function($scope, $http,$modal,$timeout,mergedData,$location){
 
 	$scope.validDataSets = true;
 	$scope.ds1Id = '';
@@ -222,15 +222,15 @@ angular.module('jupiterApp').controller('dataMatch2Ctrl', function($scope, $http
   //    };
 
   $scope.showValueSet =  function () {
-  		location.href = "#/dataMatch3";
+  		$location.path('/dataMatch3');
   }
      $scope.resetStatus = function() {
      	$scope.showResults = false;
      };
 
 	$scope.previousPage = function(page) {
-		mergedData.setPreviousLoc(location.href);
-		location.href = page;
+		mergedData.setPreviousLoc($location.path());
+		$location.path(page);
     }
 
 	$scope.openGridModal = function(nodeId) {

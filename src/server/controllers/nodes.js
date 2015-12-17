@@ -992,7 +992,7 @@ exports.getNodesByType = function(req, res) {
     //var excludeRelations = ['CONTRACTS_WITH','SHARES_SPECIMENS/SAMPLES/KITS/ISOLATES_WITH','IS_A_COMPONENT/PART_OF','SHARES_DATA_WITH','SHARES_RESOURCES_WITH'];
     var excludeRelations = [];
     var ids = [];
-    var level4Active = true;
+    var level4Active = false;
     var params1 = {
                 };
     var query1 = 'Match (n:'+req.params.nodeType+') return n.id as id order by id';
@@ -1050,7 +1050,7 @@ exports.getNodesByType = function(req, res) {
                     if (nodeLabel != null && nodeLabel[0] != null) {
 
                      
-                        var parentNodes = ['O84','O110'];
+                        var parentNodes = ['O84'];
                         var pickedLinks = [];
                         
                         var tokennodes = [];

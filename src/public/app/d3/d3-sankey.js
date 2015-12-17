@@ -344,7 +344,7 @@ var path = sankey.link();
                               .enter().append("path")
                               .attr("class", "sankeyLink")
                               .attr("d", path)
-                              .style("stroke-width", 3)
+                              .style("stroke-width", 2)
                               .sort(function(a, b) { return b.dy - a.dy; });
 
 // add the link titles

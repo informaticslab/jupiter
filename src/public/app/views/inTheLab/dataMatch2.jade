@@ -41,7 +41,11 @@
 			.top_block_faq
 				.vertical_spacing_less
 				.row
-					|PREVIEW - Combined Data Sets
+					|PREVIEW - Combined Data Sets --- 
+					| Set 1 : 
+					span.set1Color {{datafile1.dsName}}  
+					| Set 2 : 
+					span.set2Color {{datafile2.dsName}}
 				.row
 					//#grid2.grid(ui-grid='{columnDefs: columnDefs, data:mergedDatasets, enableGridMenu: true, enableColumnResizing:true, enableVerticalScrollbar:2, enableHorizontalScrollbar:2}' ui-grid-auto-resize ui-grid-selection ui-grid-exporter ui-grid-column-resize)
 					#grid2.grid(ui-grid='gridOptions' ui-grid-auto-resize ui-grid-selection ui-grid-exporter ui-grid-column-resize)			

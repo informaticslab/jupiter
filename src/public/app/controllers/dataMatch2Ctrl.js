@@ -84,7 +84,7 @@ angular.module('jupiterApp').controller('dataMatch2Ctrl', function($scope, $http
     			  // 	combinedValueset.push(oneValueSetRow);
     			  // }
 
-    			$scope.mergedCols.push({'sortOrder':0, 'col': $scope.mergedList[i].dsDE1[0].dename+'|'+$scope.mergedList[i].dsDE2[0].dename, 'valuesets': combinedValueset});
+    			$scope.mergedCols.push({'sortOrder':0, 'col': $scope.mergedList[i].dsDE1[0].dename+' | '+$scope.mergedList[i].dsDE2[0].dename, 'valuesets': combinedValueset});
     			excluded1.push($scope.mergedList[i].dsDE1[0].dename); //remove the merged column from the dataset 1 cols list
           		excluded2.push($scope.mergedList[i].dsDE2[0].dename); //remove the merged column from the dataset 2 cols list
           	}
@@ -121,11 +121,11 @@ angular.module('jupiterApp').controller('dataMatch2Ctrl', function($scope, $http
     		for (var j = 0; j < $scope.mergedCols.length; j++) {
     				var orgCol = $scope.mergedCols[j].col.split('|')
     				if (orgCol.length > 1) {  // found a merged col
-    					oneRow[$scope.mergedCols[j].col] = $scope.datafile1.data[i][orgCol[0]];
+    					oneRow[$scope.mergedCols[j].col] = $scope.datafile1.data[i][orgCol[0].trim()];
     				}
     				else {
-	    				if (($scope.datafile1.cols.indexOf(orgCol[0]) != -1) && ($scope.mergedCols[j].ds == 1) ){
-	    					oneRow[$scope.mergedCols[j].renamedCol] = $scope.datafile1.data[i][orgCol[0]];
+	    				if (($scope.datafile1.cols.indexOf(orgCol[0].trim()) != -1) && ($scope.mergedCols[j].ds == 1) ){
+	    					oneRow[$scope.mergedCols[j].renamedCol] = $scope.datafile1.data[i][orgCol[0].trim()];
 	    				}
 	    				else {
 	    					oneRow[$scope.mergedCols[j].renamedCol] = '';
@@ -138,13 +138,13 @@ angular.module('jupiterApp').controller('dataMatch2Ctrl', function($scope, $http
     	for (var i = 0; i < $scope.datafile2.data.length; i++) {
     		var oneRow = {};
     		for (var j = 0; j < $scope.mergedCols.length; j++) {
-    				var orgCol = $scope.mergedCols[j].col.split('|')
+    				var orgCol = $scope.mergedCols[j].col.split('|');
     				if (orgCol.length > 1) {  // found a merged col
-    					oneRow[$scope.mergedCols[j].col] = $scope.datafile2.data[i][orgCol[1]];
+    					oneRow[$scope.mergedCols[j].col] = $scope.datafile2.data[i][orgCol[1].trim()];
     				}
     				else {
-    					if (($scope.datafile2.cols.indexOf(orgCol[0]) != -1) && ($scope.mergedCols[j].ds == 2)) {
-    						oneRow[$scope.mergedCols[j].renamedCol] = $scope.datafile2.data[i][orgCol[0]];
+    					if (($scope.datafile2.cols.indexOf(orgCol[0].trim()) != -1) && ($scope.mergedCols[j].ds == 2)) {
+    						oneRow[$scope.mergedCols[j].renamedCol] = $scope.datafile2.data[i][orgCol[0].trim()];
 	    				}
 	    				else {
 	    					oneRow[$scope.mergedCols[j].renamedCol] = '';

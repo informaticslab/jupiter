@@ -996,8 +996,6 @@ exports.getNodesByType = function(req, res) {
     var params1 = {
                 };
     var query1 = 'Match (n:'+req.params.nodeType+') return n.id as id order by id';
-    var query2 = 'MATCH p=(a)-[r1]->(b)-[r2]->(c)-[r3]->(d)-[r4]->(e)-[r5]->(f) WHERE a.id in {ids} RETURN distinct extract(p1 in relationships(p) | startNode(p1).id)+f.id'
-    //console.log(query1);
     neodb.db.query(query1,params1,function(err,nodes) {
         if (err) {
               console.error('Error retreiving relations from database:', err);

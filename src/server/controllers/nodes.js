@@ -1283,6 +1283,7 @@ exports.getSankeyNodes = function(req, res) {
                  // nodes.forEach(function(node){
                  //    ids.push(node.id);
                  // })
+                ids = _.uniq(ids);
                  ids.sort();
                 //var query = ['OPTIONAL MATCH n-[r]->x-[*0..1]-y ',
                 //var query = 'MATCH p=(n)-->(b)-->(x) where n.id = "O84" ', 

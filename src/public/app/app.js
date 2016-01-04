@@ -217,6 +217,10 @@ jupiterApp.config(['$routeProvider',
           templateUrl:'partials/inTheLab/dataMatch3',
           controller: 'dataMatch3Ctrl'
       }).
+          when('/sankey/', {
+        templateUrl: 'partials/inTheLab/inTheLabSankey',
+        controller: 'sankeyCtrl'
+      }).
         otherwise({
         redirectTo: '/main'
       });

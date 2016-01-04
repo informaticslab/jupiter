@@ -274,6 +274,29 @@
 //     }
 //   ]
 // }
+$("#viewSankey").click(function() {
+
+            var leftnodeid = $('#nodeAId').val();
+            var rightnodeid = $('#nodeBId').val();
+       
+            //console.log(leftnodeid);
+            if (leftnodeid == "" | rightnodeid == "" | leftnodeid == undefined | rightnodeid == undefined) {
+              alert('Please enter left node, right node and select the number of hops.');
+
+            } else {
+
+              showSanKey(leftnodeid,rightnodeid);
+
+            }
+
+
+
+          }); //button click
+
+
+
+function showSanKey(nodeA,nodeB) {
+
 var nodeColors = {
   Program : '#2dcc70', 
   Organization : '#3598db',
@@ -290,16 +313,16 @@ var nodeColors = {
 
 var units = "Widgets";
 
-var margin = {top: 15, right: 10, bottom: 10, left: 10},
+var margin = {top: 25, right: 10, bottom: 10, left: 10},
     width = 1000 - margin.left - margin.right,
-    height = 1000 - margin.top - margin.bottom;
+    height = 1500 - margin.top - margin.bottom;
 
 var formatNumber = d3.format(",.0f"),    // zero decimal places
     format = function(d) { return formatNumber(d) + " " + units; },
     color = d3.scale.category20();
 
-
-var svg = d3.select("#chart").append("svg")
+var svg = d3.select("svg").remove();
+    svg = d3.select("#chart").append("svg")
     //.attr( "preserveAspectRatio", "xMinYMid meet" )
     .attr("width",width+margin.left+margin.right)
     .attr("height",height+margin.bottom+margin.top)
@@ -317,7 +340,7 @@ var sankey = d3.sankey()
 
 var path = sankey.link();
 
-         jsonret = d3.json("/api/node/searchByType/Organization", function(error, json) {
+         jsonret = d3.json("/api/node/getSankeyNodes/"+nodeA+"/"+nodeB, function(error, json) {
          //jsonret = d3.json("/api/node/advancedSearch/O78-P3-4", function(error, json) {
             //console.log(json);
             //json = graph3;
@@ -519,3 +542,4 @@ var path = sankey.link();
 //     }
 //     //console.log(nodeColors);
 // }
+}

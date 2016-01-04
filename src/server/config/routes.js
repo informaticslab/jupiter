@@ -28,7 +28,7 @@ module.exports = function(app) {
     app.get('/api/node/search/:query', nodes.searchNodesByString);
     app.get('/api/node/search/label/:query', nodes.searchNodesByLabel);
     app.get('/api/node/viewer/:id', nodes.getNodesForLinkageViewer);
-    app.get('/api/node/searchByType/:nodeType', nodes.getNodesByType);
+    app.get('/api/node/getSankeyNodes/:nodeAId/:nodeBId', nodes.getSankeyNodes);
     app.get('/api/node/dataElements/:id', nodes.getDataElements);
     app.get('/api/stats/nodes/:id', nodes.getPortalStatisticsNodes);
     app.get('/api/stats/nodes', nodes.getPortalStatisticsNodes);

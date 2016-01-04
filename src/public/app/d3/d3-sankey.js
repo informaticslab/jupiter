@@ -312,7 +312,7 @@ var nodeColors = {
   Registry : '#95a5a5',
   Collaborative : '#16a086',
   HealthSurvey : '#d64032',
-  DataSet : '#9b58b5',
+  Dataset : '#9b58b5',
   DataStandard : '#92af08'
 }
 

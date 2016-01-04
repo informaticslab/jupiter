@@ -1250,7 +1250,6 @@ exports.getPortalStatisticsNodes = function(req, res) {
 // };
 
 exports.getSankeyNodes = function(req, res) {
-    console.log(req.params.nodeAId ,' ', req.params.nodeBId);
     // var query = ['MATCH n-[r]-x where n.id={nodeId} ',
     // 'return n.id as nodeId, labels(n) as nodeLabels, ',
     // 'n.name as nodeNames, ',

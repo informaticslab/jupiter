@@ -274,11 +274,18 @@
 //     }
 //   ]
 // }
+
+showSanKey('O84','O84');  // default nodeid to IIU
 $("#viewSankey").click(function() {
 
             var leftnodeid = $('#nodeAId').val();
             var rightnodeid = $('#nodeBId').val();
-       
+            if (leftnodeid == '' | leftnodeid == undefined) {
+              leftnodeid = rightnodeid;
+            }
+            if (rightnodeid == '' | rightnodeid == undefined) {
+              rightnodeid = leftnodeid;
+            }
             //console.log(leftnodeid);
             if (leftnodeid == "" | rightnodeid == "" | leftnodeid == undefined | rightnodeid == undefined) {
               alert('Please enter left node, right node and select the number of hops.');

@@ -32,10 +32,21 @@ angular.module('jupiterApp').controller('sankeyCtrl', function($scope, $http, $r
     $scope.itemSelectedB = function($item, $model, $label) {
         $scope.nodeBId = $item.id;
     };
-    $scope.resetItemB = function(){
-        $scope.nodeBId = '';
+    $scope.resetItemB = function($item){
+        if ($item == '' || $item == undefined) {
+            $scope.nodeBId =  undefined;
+        }
+        else {
+         $scope.nodeBId =  $item.id;
+        }
     }
-    $scope.resetItemA = function(){
-        $scope.nodeAId = '';
+    $scope.resetItemA = function($item){
+        if ($item == '' || $item == undefined) {
+             $scope.nodeAId = undefined;
+        }
+        else {
+           $scope.nodeAId = $item.id;
+        }
+       
     }
 });

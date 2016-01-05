@@ -40,13 +40,13 @@
 						.adv_search_label
 							| Start: 
 						.adv_search_field
-							input(type="text" ng-model="nodeA"  placeholder="Enter activity name" typeahead-on-select="itemSelectedA($item, $model, $label)" typeahead-min-length='3' typeahead="node.name for node in getNodes($viewValue)" class="form-control")
+							input(type="text" ng-model="nodeA"  placeholder="Enter activity name" typeahead-on-select="itemSelectedA($item, $model, $label)" typeahead-min-length='3' typeahead="node.name for node in getNodes($viewValue)" class="form-control" ng-change='resetItemA()')
 							input(type="hidden" id="nodeAId" ng-value="nodeAId")
 					.input2_adv_search
 						.adv_search_label
 							| End:
 						.adv_search_field
-							input(type="text" ng-model="nodeB"  placeholder="Enter activity name" typeahead-on-select="itemSelectedB($item, $model, $label)" typeahead-min-length='3' typeahead="node.name for node in getNodes($viewValue)" class="form-control")
+							input(type="text" ng-model="nodeB"  placeholder="Enter activity name" typeahead-on-select="itemSelectedB($item, $model, $label)" typeahead-min-length='3' typeahead="node.name for node in getNodes($viewValue)" class="form-control" ng-change='resetItemB()')
 							input(type="hidden" id="nodeBId" ng-value="nodeBId")
 					//- .step_number
 					//- 	| Number of steps: &nbsp;
@@ -70,13 +70,13 @@
 						.adv_search_label
 							| Start: 
 						.adv_search_field_md
-							input(type="text" ng-model="nodeA"  placeholder="Enter activity name" typeahead-on-select="itemSelectedA($item, $model, $label)" typeahead-min-length='3' typeahead="node.name for node in getNodes($viewValue)" class="form-control")
+							input(type="text" ng-model="nodeA"  placeholder="Enter activity name" typeahead-on-select="itemSelectedA($item, $model, $label)" typeahead-min-length='3' typeahead="node.name for node in getNodes($viewValue)" class="form-control" ng-change='resetItemA()')
 							input(type="hidden" id="nodeAId" ng-value="nodeAId")
 					.input2_adv_search_md
 						.adv_search_label
 							| End:
 						.adv_search_field_md
-							input(type="text" ng-model="nodeB"  placeholder="Enter activity name" typeahead-on-select="itemSelectedB($item, $model, $label)" typeahead-min-length='3' typeahead="node.name for node in getNodes($viewValue)" class="form-control")
+							input(type="text" ng-model="nodeB"  placeholder="Enter activity name" typeahead-on-select="itemSelectedB($item, $model, $label)" typeahead-min-length='3' typeahead="node.name for node in getNodes($viewValue)" class="form-control" ng-change='resetItemB()')
 							input(type="hidden" id="nodeBId" ng-value="nodeBId")
 					//- .step_number
 					//- 	| Number of steps: &nbsp;
@@ -100,13 +100,13 @@
 						.adv_search_label_sm
 							| Start: 
 						.adv_search_field_sm
-							input(type="text" ng-model="nodeA"  placeholder="Activity name" typeahead-on-select="itemSelectedA($item, $model, $label)" typeahead-min-length='3' typeahead="node.name for node in getNodes($viewValue)" class="form-control")
+							input(type="text" ng-model="nodeA"  placeholder="Activity name" typeahead-on-select="itemSelectedA($item, $model, $label)" typeahead-min-length='3' typeahead="node.name for node in getNodes($viewValue)" class="form-control" ng-change='resetItemA()')
 							input(type="hidden" id="nodeAId" ng-value="nodeAId")
 					.input2_adv_search_sm
 						.adv_search_label_sm
 							| End:
 						.adv_search_field_sm
-							input(type="text" ng-model="nodeB"  placeholder="Activity name" typeahead-on-select="itemSelectedB($item, $model, $label)" typeahead-min-length='3' typeahead="node.name for node in getNodes($viewValue)" class="form-control")
+							input(type="text" ng-model="nodeB"  placeholder="Activity name" typeahead-on-select="itemSelectedB($item, $model, $label)" typeahead-min-length='3' typeahead="node.name for node in getNodes($viewValue)" class="form-control" ng-change='resetItemB()')
 							input(type="hidden" id="nodeBId" ng-value="nodeBId")
 					//- .step_number_sm
 					//- 	| Number

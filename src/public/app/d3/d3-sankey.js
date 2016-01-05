@@ -280,10 +280,10 @@ $("#viewSankey").click(function() {
 
             var leftnodeid = $('#nodeAId').val();
             var rightnodeid = $('#nodeBId').val();
-            if (leftnodeid == '' | leftnodeid == undefined) {
+            if (leftnodeid == '' || leftnodeid == undefined) {
               leftnodeid = rightnodeid;
             }
-            if (rightnodeid == '' | rightnodeid == undefined) {
+            if (rightnodeid == '' || rightnodeid == undefined) {
               rightnodeid = leftnodeid;
             }
             //console.log(leftnodeid);
@@ -550,3 +550,286 @@ var path = sankey.link();
 //     //console.log(nodeColors);
 // }
 }
+
+          scope.hidenodes = function(nodetype, flg) {
+
+              //scope.checkModel[nodetype]=!scope.checkModel[nodetype];
+              //chmod=(scope.checkModel);
+              //console.log(nodetype,flg,scope.checkModel);
+              var allunchecked = false;
+              var firstuncheck = 0;
+
+              angular.forEach(scope.checkModel, function(value, key) {
+
+
+                if (!value) {
+                  allunchecked = true;
+                  firstuncheck++;
+                  //console.log(value);
+                }
+
+
+              });
+
+              if (firstuncheck == 1 && !scope.disableHideLines) {
+                hidelinks("show");
+                //console.log("first show");
+              }
+
+              if (allunchecked) {
+                scope.disableHideLines = true;
+              } else {
+                scope.disableHideLines = false;
+                d3.select("#btn_as_hide").classed("active", false);
+                togglehidelinks = true;
+              }
+
+              var showflg;
+
+              if (flg == true) {
+                showflg = 'visible';
+              } else {
+                showflg = 'hidden';
+              }
+
+              d3.selectAll("circle.node." + nodetype)
+                .attr("visibility", function(d) {
+
+                  if (d.id == leftnodeid) {
+                    //return showflg; 
+                  } else if (d.id == rightnodeid) {
+                    //return showflg; 
+                  } else {
+                    return showflg;
+                  }
+
+
+                });
+
+              d3.selectAll("text.nodetext." + nodetype)
+                .attr("visibility", function(d) {
+
+                  if (d.id == leftnodeid) {
+                    //return showflg; 
+                  } else if (d.id == rightnodeid) {
+                    //return showflg; 
+                  } else {
+                    return showflg;
+                  }
+
+
+                });
+
+
+
+              if (!flg) {
+
+                d3.selectAll("path.link[pseudo_label*=\"" + nodetype + "\"]")
+                  .attr("visibility", function(d) {
+
+
+                    var sourcenodelabel = d.source.label;
+                    var targetnodelabel = d.target.label;
+                    var sourcenodeid = d.source.id;
+                    var targetnodeid = d.target.id;
+
+                    var sourceyes = false;
+                    var targetyes = false;
+                    //var i=0;
+                    angular.forEach(scope.checkModel, function(value, key) {
+
+                      //console.log("**********",value,key);
+                      if (!value & key == sourcenodelabel) {
+                        sourceyes = true;
+
+                      }
+                      if (!value & key == targetnodelabel) {
+                        targetyes = true;
+
+                      }
+                    });
+
+
+
+                    if (sourceyes | targetyes) {
+
+                      if (sourceyes & targetyes) {
+
+                        return "hidden";
+                      }
+                      if (sourceyes & !targetyes & (sourcenodeid == leftnodeid | sourcenodeid == rightnodeid)) {
+
+                        return "visible";
+                      }
+                      if (!sourceyes & targetyes & (targetnodeid == leftnodeid | targetnodeid == rightnodeid)) {
+
+                        return "visible";
+                      } else {
+
+                        return "hidden";
+                      }
+
+
+                    }
+
+
+                  });
+
+
+                //var i=0;
+                d3.selectAll("text[pseudo_label*=\"" + nodetype + "\"]")
+                  .attr("visibility", function(d) {
+
+
+                    var sourcenodelabel = d.source.label;
+                    var targetnodelabel = d.target.label;
+                    var sourcenodeid = d.source.id;
+                    var targetnodeid = d.target.id;
+
+                    var sourceyes = false;
+                    var targetyes = false;
+                    //var i=0;
+                    angular.forEach(scope.checkModel, function(value, key) {
+
+                      //console.log("**********",value,key);
+                      if (!value & key == sourcenodelabel) {
+                        sourceyes = true;
+                        //console.log("left",key,value,leftnodelabel);
+                      }
+                      if (!value & key == targetnodelabel) {
+                        targetyes = true;
+                        //console.log("right",key,value,rightnodelabel);
+                      }
+                    });
+
+                    if (sourceyes | targetyes) {
+
+                      if (sourceyes & targetyes) {
+
+                        return "hidden";
+                      }
+                      if (sourceyes & !targetyes & (sourcenodeid == leftnodeid | sourcenodeid == rightnodeid)) {
+
+                        return "visible";
+                      }
+                      if (!sourceyes & targetyes & (targetnodeid == leftnodeid | targetnodeid == rightnodeid)) {
+
+                        return "visible";
+                      } else {
+
+                        return "hidden";
+                      }
+
+
+                    }
+
+
+                  });
+
+
+
+              }
+
+              if (flg) {
+
+
+                d3.selectAll("path.link[pseudo_label*=\"" + nodetype + "\"]")
+                  .attr("visibility", function(d) {
+                    var sourcenodelabel = d.source.label;
+                    var targetnodelabel = d.target.label;
+                    var sourcenodeid = d.source.id;
+                    var targetnodeid = d.target.id;
+
+                    var sourceyes = false;
+                    var targetyes = false;
+                    //var i=0;
+                    angular.forEach(scope.checkModel, function(value, key) {
+
+                      //console.log("**********",value,key);
+                      if (value & key == sourcenodelabel) {
+                        sourceyes = true;
+                        //console.log("left",key,value,leftnodelabel);
+                      }
+                      if (value & key == targetnodelabel) {
+                        targetyes = true;
+                        //console.log("right",key,value,rightnodelabel);
+                      }
+                    });
+
+
+                    if (sourceyes | targetyes) {
+
+                      if (sourceyes & targetyes) {
+
+                        return "visible";
+                      }
+                      if (!sourceyes & targetyes & (sourcenodeid == leftnodeid | sourcenodeid == rightnodeid)) {
+
+                        return "visible";
+                      }
+                      if (sourceyes & !targetyes & (targetnodeid == leftnodeid | targetnodeid == rightnodeid)) {
+
+                        return "visible";
+                      } else {
+
+                        return "hidden";
+                      }
+
+
+                    }
+
+                  });
+                d3.selectAll("text[pseudo_label*=\"" + nodetype + "\"]")
+                  .attr("visibility", function(d) {
+                    var sourcenodelabel = d.source.label;
+                    var targetnodelabel = d.target.label;
+                    var sourcenodeid = d.source.id;
+                    var targetnodeid = d.target.id;
+
+                    var sourceyes = false;
+                    var targetyes = false;
+                    //var i=0;
+                    angular.forEach(scope.checkModel, function(value, key) {
+
+                      //console.log("**********",value,key);
+                      if (value & key == sourcenodelabel) {
+                        sourceyes = true;
+                        //console.log("left",key,value,leftnodelabel);
+                      }
+                      if (value & key == targetnodelabel) {
+                        targetyes = true;
+                        //console.log("right",key,value,rightnodelabel);
+                      }
+                    });
+
+
+                    if (sourceyes | targetyes) {
+
+                      if (sourceyes & targetyes) {
+
+                        return "visible";
+                      }
+                      if (!sourceyes & targetyes & (sourcenodeid == leftnodeid | sourcenodeid == rightnodeid)) {
+
+                        return "visible";
+                      }
+                      if (sourceyes & !targetyes & (targetnodeid == leftnodeid | targetnodeid == rightnodeid)) {
+
+                        return "visible";
+                      } else {
+
+                        return "hidden";
+                      }
+
+
+                    }
+
+                  });
+
+
+
+              }
+
+
+
+            }

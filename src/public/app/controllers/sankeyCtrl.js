@@ -18,12 +18,24 @@ angular.module('jupiterApp').controller('sankeyCtrl', function($scope, $http, $r
         step4len = 0;
 
     $scope.showLinkageLoading = false;
-   
+    $scope.nodeAId = 'O84';
+    $http.get('/api/node/name/' + $scope.nodeAId).then(function(res) {
+                $scope.nodeA = res.data;
+            });
+    // $http.get('/api/node/name/' + id.split("-")[1]).then(function(res) {
+    //             $scope.nodeB = res.data;
+    // });
+
     $scope.itemSelectedA = function($item, $model, $label) {
         $scope.nodeAId = $item.id;
     };
     $scope.itemSelectedB = function($item, $model, $label) {
         $scope.nodeBId = $item.id;
     };
-
+    $scope.resetItemB = function(){
+        $scope.nodeBId = '';
+    }
+    $scope.resetItemA = function(){
+        $scope.nodeAId = '';
+    }
 });

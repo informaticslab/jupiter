@@ -145,7 +145,7 @@ d3.sankey = function() {
         });
       });
       if (nextNodes.length == remainingNodes.length) {
-        console.warn('Detected cycles in the graph.');
+        //console.warn('Detected cycles in the graph.');
         findAndMarkCycleBreaker(nextNodes);
       }
       else {

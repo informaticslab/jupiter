@@ -975,279 +975,279 @@ exports.getPortalStatisticsNodes = function(req, res) {
     });
 };
 
-// exports.getNodesByType = function(req, res) {
-//     console.log(req.params.nodeAId, ' ', req.params.nodeBId);
-//     // var query = ['MATCH n-[r]-x where n.id={nodeId} ',
-//     // 'return n.id as nodeId, labels(n) as nodeLabels, ',
-//     // 'n.name as nodeNames, ',
-//     // 'id(r) as relId,type(r) as relType, x.id as childId, ', 
-//     // 'r.relationshipDescription as relDesc, ',
-//     // 'labels(x) as childLabels, ',
-//     // 'startNode(r).id as startNode, ',
-//     // 'x.name as childName order by childName, childLabels[0]'
-//     // ].join('\n');
-//     var includeLabels = ['Organization', 'SurveillanceSystem', 'Tool', 'Program', 'DataStandard', 'Registry', 'HealthSurvey', 'Collaborative','Dataset'];
-//     //var includeRelations = ['OVERSEES', 'MANAGES','USES'];
-//     var includeRelations =[]
-//     //var excludeRelations = ['CONTRACTS_WITH','SHARES_SPECIMENS/SAMPLES/KITS/ISOLATES_WITH','IS_A_COMPONENT/PART_OF','SHARES_DATA_WITH','SHARES_RESOURCES_WITH'];
-//     //var excludeRelations = ['CONTRACTS_WITH','SHARES_SPECIMENS/SAMPLES/KITS/ISOLATES_WITH','IS_A_COMPONENT/PART_OF','SHARES_DATA_WITH','SHARES_RESOURCES_WITH'];
-//     var excludeRelations = [];
-//     var ids = [];
-//     var level4Active = true;
-//     var params1 = {
-//                 };
-//     var query1 = 'Match (n:'+req.params.nodeType+') return n.id as id order by id';
-//     neodb.db.query(query1,params1,function(err,nodes) {
-//         if (err) {
-//               console.error('Error retreiving relations from database:', err);
-//               res.send(404, 'no node at that location');
-//         }
-//         else {
-//                  nodes.forEach(function(node){
-//                     ids.push(node.id);
-//                  })
-//                  ids.sort();
-//                 //var query = ['OPTIONAL MATCH n-[r]->x-[*0..1]-y ',
-//                 //var query = 'MATCH p=(n)-->(b)-->(x) where n.id = "O84" ', 
-//                 var query = ['match p=(n)-[r]->x where labels(n)[0] in {includeLabels} and not(type(r) in {excludeRelations})',
-//                 'return distinct n.id as nodeId, labels(n) as nodeLabels, ',
-//                 'n.name as nodeNames, ',
-//                 'type(r) as relType, x.id as childId, ',
-//                 'labels(x) as childLabels, ',
-//                 'startNode(r).id as startNode, ',
-//                 'x.name as childName '
-//                 ].join('\n');
-//                   var params = {
-//                     "ids" : ids,
-//                     "includeLabels" : includeLabels,
-//                     "includeRelations" : includeRelations,
-//                     "excludeRelations" : excludeRelations
-//                 };
-//                 var viewerJson;
-//                 neodb.db.query(query, params, function(err, r) {
-//                 if (err) {
-//                     console.error('Error retreiving relations from database:', err);
-//                     res.send(404, 'no node at that location 2');
-//                 } 
-//                 else {
-//                    //console.log(' r ')
-//                     // for(var ix = 0; ix < r.length; ix++) {
-//                     //     if (r[ix].nodeLabels == 'Organization') {
-//                     //         r[ix]['sortOrder'] = 0;
-//                     //     }
-//                     //     else {
-//                     //         r[ix]['sortOrder'] = 1;
-//                     //     }
-//                     // }
+exports.getNodesByType = function(req, res) {
+    console.log(req.params.nodeAId, ' ', req.params.nodeBId);
+    // var query = ['MATCH n-[r]-x where n.id={nodeId} ',
+    // 'return n.id as nodeId, labels(n) as nodeLabels, ',
+    // 'n.name as nodeNames, ',
+    // 'id(r) as relId,type(r) as relType, x.id as childId, ', 
+    // 'r.relationshipDescription as relDesc, ',
+    // 'labels(x) as childLabels, ',
+    // 'startNode(r).id as startNode, ',
+    // 'x.name as childName order by childName, childLabels[0]'
+    // ].join('\n');
+    var includeLabels = ['Organization', 'SurveillanceSystem', 'Tool', 'Program', 'DataStandard', 'Registry', 'HealthSurvey', 'Collaborative','Dataset'];
+    //var includeRelations = ['OVERSEES', 'MANAGES','USES'];
+    var includeRelations =[]
+    //var excludeRelations = ['CONTRACTS_WITH','SHARES_SPECIMENS/SAMPLES/KITS/ISOLATES_WITH','IS_A_COMPONENT/PART_OF','SHARES_DATA_WITH','SHARES_RESOURCES_WITH'];
+    //var excludeRelations = ['CONTRACTS_WITH','SHARES_SPECIMENS/SAMPLES/KITS/ISOLATES_WITH','IS_A_COMPONENT/PART_OF','SHARES_DATA_WITH','SHARES_RESOURCES_WITH'];
+    var excludeRelations = [];
+    var ids = [];
+    var level4Active = true;
+    var params1 = {
+                };
+    var query1 = 'Match (n:'+req.params.nodeType+') return n.id as id order by id';
+    neodb.db.query(query1,params1,function(err,nodes) {
+        if (err) {
+              console.error('Error retreiving relations from database:', err);
+              res.send(404, 'no node at that location');
+        }
+        else {
+                 nodes.forEach(function(node){
+                    ids.push(node.id);
+                 })
+                 ids.sort();
+                //var query = ['OPTIONAL MATCH n-[r]->x-[*0..1]-y ',
+                //var query = 'MATCH p=(n)-->(b)-->(x) where n.id = "O84" ', 
+                var query = ['match p=(n)-[r]->x where labels(n)[0] in {includeLabels} and not(type(r) in {excludeRelations})',
+                'return distinct n.id as nodeId, labels(n) as nodeLabels, ',
+                'n.name as nodeNames, ',
+                'type(r) as relType, x.id as childId, ',
+                'labels(x) as childLabels, ',
+                'startNode(r).id as startNode, ',
+                'x.name as childName '
+                ].join('\n');
+                  var params = {
+                    "ids" : ids,
+                    "includeLabels" : includeLabels,
+                    "includeRelations" : includeRelations,
+                    "excludeRelations" : excludeRelations
+                };
+                var viewerJson;
+                neodb.db.query(query, params, function(err, r) {
+                if (err) {
+                    console.error('Error retreiving relations from database:', err);
+                    res.send(404, 'no node at that location 2');
+                } 
+                else {
+                   //console.log(' r ')
+                    // for(var ix = 0; ix < r.length; ix++) {
+                    //     if (r[ix].nodeLabels == 'Organization') {
+                    //         r[ix]['sortOrder'] = 0;
+                    //     }
+                    //     else {
+                    //         r[ix]['sortOrder'] = 1;
+                    //     }
+                    // }
                     
-//                     //r = _.sortBy((_.sortBy(r,'startNode')),'sortOrder');
-//                     //console.log(r);
-//                     var nodeLabel = _.map(r, function(i) {
-//                         return i.nodeLabels
-//                     });
-//                     //console.log('labels ',nodeLabel);
-//                     if (nodeLabel != null && nodeLabel[0] != null) {
+                    //r = _.sortBy((_.sortBy(r,'startNode')),'sortOrder');
+                    //console.log(r);
+                    var nodeLabel = _.map(r, function(i) {
+                        return i.nodeLabels
+                    });
+                    //console.log('labels ',nodeLabel);
+                    if (nodeLabel != null && nodeLabel[0] != null) {
 
                      
-//                         //var parentNodes = ['O110','O84'];
-//                         var parentNodes = ids;
-//                         var pickedLinks = [];
+                        //var parentNodes = ['O110','O84'];
+                        var parentNodes = ['O84'];
+                        var pickedLinks = [];
                         
-//                         var tokennodes = [];
-//                         var links = [];
-//                         var nodes = [];
-//                         for (var pidx = 0; pidx < parentNodes.length; pidx ++ ) { 
-//                                 var childLevel1 = []
-//                                 var childLevel2 = [];
-//                                 var childLevel3 = [];
-//                                 var childLevel4 = [];
-//                                 for(var x1 = 0; x1 < r.length; x1++) {
-//                                     if (parentNodes[pidx] == r[x1].startNode) {
-//                                         //console.log('startNode id',r[x1].startNode,'child id ', r[x1].childId);
-//                                         childLevel1.push(r[x1].childId);
-//                                         if (tokennodes.indexOf(parentNodes[pidx]) == -1) {
-//                                             tokennodes.push(parentNodes[pidx]);
-//                                              nodes.push({
-//                                                 "name": r[x1].nodeNames,
-//                                                 "id": r[x1].nodeId,
-//                                                 "label": r[x1].nodeLabels
-//                                         });
+                        var tokennodes = [];
+                        var links = [];
+                        var nodes = [];
+                        for (var pidx = 0; pidx < parentNodes.length; pidx ++ ) { 
+                                var childLevel1 = []
+                                var childLevel2 = [];
+                                var childLevel3 = [];
+                                var childLevel4 = [];
+                                for(var x1 = 0; x1 < r.length; x1++) {
+                                    if (parentNodes[pidx] == r[x1].startNode) {
+                                        //console.log('startNode id',r[x1].startNode,'child id ', r[x1].childId);
+                                        childLevel1.push(r[x1].childId);
+                                        if (tokennodes.indexOf(parentNodes[pidx]) == -1) {
+                                            tokennodes.push(parentNodes[pidx]);
+                                             nodes.push({
+                                                "name": r[x1].nodeNames,
+                                                "id": r[x1].nodeId,
+                                                "label": r[x1].nodeLabels
+                                        });
 
-//                                         }
-//                                         if (tokennodes.indexOf(r[x1].childId) == -1) {
-//                                             tokennodes.push(r[x1].childId);
-//                                                nodes.push({
-//                                             "name": r[x1].childName,
-//                                             "id": r[x1].childId,
-//                                             "label": r[x1].childLabels
-//                                         });
-//                                         }
+                                        }
+                                        if (tokennodes.indexOf(r[x1].childId) == -1) {
+                                            tokennodes.push(r[x1].childId);
+                                               nodes.push({
+                                            "name": r[x1].childName,
+                                            "id": r[x1].childId,
+                                            "label": r[x1].childLabels
+                                        });
+                                        }
                                         
-//                                         pickedLinks.push({'key': r[x1].startNode + '_'+ r[x1].childId, 'p': r[x1].startNode, 'c': r[x1].childId, 'level' : 1,'type': r[x1].relType, 'description':r[x1].relDesc});
-//                                     }
+                                        pickedLinks.push({'key': r[x1].startNode + '_'+ r[x1].childId, 'p': r[x1].startNode, 'c': r[x1].childId, 'level' : 1,'type': r[x1].relType, 'description':r[x1].relDesc});
+                                    }
                                     
-//                                 }
-//                                 //console.log('level 1 ', childLevel1);
-//                                  for(var x1 = 0; x1 < r.length; x1++) {
-//                                         var c1idx = childLevel1.indexOf(r[x1].startNode) ;
-//                                     if (c1idx != -1 ) {
-//                                          if (tokennodes.indexOf(childLevel1[c1idx]) == -1) {
-//                                             tokennodes.push(childLevel1[c1idx]);
-//                                             nodes.push({
-//                                                 "name": r[x1].nodeNames,
-//                                                 "id": r[x1].nodeId,
-//                                                 "label": r[x1].nodeLabels
-//                                         });
+                                }
+                                //console.log('level 1 ', childLevel1);
+                                 for(var x1 = 0; x1 < r.length; x1++) {
+                                        var c1idx = childLevel1.indexOf(r[x1].startNode) ;
+                                    if (c1idx != -1 ) {
+                                         if (tokennodes.indexOf(childLevel1[c1idx]) == -1) {
+                                            tokennodes.push(childLevel1[c1idx]);
+                                            nodes.push({
+                                                "name": r[x1].nodeNames,
+                                                "id": r[x1].nodeId,
+                                                "label": r[x1].nodeLabels
+                                        });
 
-//                                         }
-//                                         if (tokennodes.indexOf(r[x1].childId) == -1) {
-//                                             tokennodes.push(r[x1].childId);
-//                                                  nodes.push({
-//                                             "name": r[x1].childName,
-//                                             "id": r[x1].childId,
-//                                             "label": r[x1].childLabels
-//                                         });
-//                                         }
-//                                         childLevel2.push(r[x1].childId);
-//                                         // var sourceIdx = tokennodes.indexOf(childLevel1[c1idx]);
-//                                         // var targetIdx = tokennodes.indexOf(r[x1].childId);
+                                        }
+                                        if (tokennodes.indexOf(r[x1].childId) == -1) {
+                                            tokennodes.push(r[x1].childId);
+                                                 nodes.push({
+                                            "name": r[x1].childName,
+                                            "id": r[x1].childId,
+                                            "label": r[x1].childLabels
+                                        });
+                                        }
+                                        childLevel2.push(r[x1].childId);
+                                        // var sourceIdx = tokennodes.indexOf(childLevel1[c1idx]);
+                                        // var targetIdx = tokennodes.indexOf(r[x1].childId);
 
-//                                         // if (sourceIdx != -1 && targetIdx != -1) {
-//                                         //     links.push({
-//                                         //             "source": sourceIdx,
-//                                         //             "target": targetIdx,
-//                                         //             "type":   r[x1].relType,
-//                                         //             "description": r[x1].relDesc,
-//                                         //             "value" : 1
-//                                         //         })
-//                                         // }
-//                                         pickedLinks.push({'key': r[x1].startNode + '_'+ r[x1].childId, 'p': childLevel1[c1idx], 'c': r[x1].childId, 'level' : 2,'type': r[x1].relType, 'description':r[x1].relDesc});
-//                                     }
-//                                 }
+                                        // if (sourceIdx != -1 && targetIdx != -1) {
+                                        //     links.push({
+                                        //             "source": sourceIdx,
+                                        //             "target": targetIdx,
+                                        //             "type":   r[x1].relType,
+                                        //             "description": r[x1].relDesc,
+                                        //             "value" : 1
+                                        //         })
+                                        // }
+                                        pickedLinks.push({'key': r[x1].startNode + '_'+ r[x1].childId, 'p': childLevel1[c1idx], 'c': r[x1].childId, 'level' : 2,'type': r[x1].relType, 'description':r[x1].relDesc});
+                                    }
+                                }
 
-//                                 for(var x1 = 0; x1 < r.length; x1++) {
-//                                     var c2idx = childLevel2.indexOf(r[x1].startNode) ;
-//                                     if (c2idx != -1) {
-//                                         if (tokennodes.indexOf(childLevel2[c2idx]) == -1) {
-//                                             tokennodes.push(childLevel2[c2idx]);
-//                                              nodes.push({
-//                                                 "name": r[x1].nodeNames,
-//                                                 "id": r[x1].nodeId,
-//                                                 "label": r[x1].nodeLabels
-//                                             });
+                                for(var x1 = 0; x1 < r.length; x1++) {
+                                    var c2idx = childLevel2.indexOf(r[x1].startNode) ;
+                                    if (c2idx != -1) {
+                                        if (tokennodes.indexOf(childLevel2[c2idx]) == -1) {
+                                            tokennodes.push(childLevel2[c2idx]);
+                                             nodes.push({
+                                                "name": r[x1].nodeNames,
+                                                "id": r[x1].nodeId,
+                                                "label": r[x1].nodeLabels
+                                            });
 
-//                                         }
-//                                         if (tokennodes.indexOf(r[x1].childId) == -1) {
-//                                             tokennodes.push(r[x1].childId);
-//                                                  nodes.push({
-//                                                             "name": r[x1].childName,
-//                                                             "id": r[x1].childId,
-//                                                             "label": r[x1].childLabels
-//                                                         });
-//                                         }
-//                                         childLevel3.push(r[x1].childId);
-//                                         // var sourceIdx = tokennodes.indexOf(childLevel2[c2idx]);
-//                                         // var targetIdx = tokennodes.indexOf(r[x1].childId);
-//                                         // if (sourceIdx != -1 && targetIdx != -1) {
-//                                         //     links.push({
-//                                         //             "source": sourceIdx,
-//                                         //             "target": targetIdx,
-//                                         //             "type":   r[x1].relType,
-//                                         //             "description": r[x1].relDesc,
-//                                         //             "value" : 1
-//                                         //         })
-//                                         // }
-//                                         pickedLinks.push({'key': r[x1].startNode + '_'+ r[x1].childId, 'p': childLevel2[c2idx], 'c': r[x1].childId, 'level' : 3,'type': r[x1].relType, 'description':r[x1].relDesc});
+                                        }
+                                        if (tokennodes.indexOf(r[x1].childId) == -1) {
+                                            tokennodes.push(r[x1].childId);
+                                                 nodes.push({
+                                                            "name": r[x1].childName,
+                                                            "id": r[x1].childId,
+                                                            "label": r[x1].childLabels
+                                                        });
+                                        }
+                                        childLevel3.push(r[x1].childId);
+                                        // var sourceIdx = tokennodes.indexOf(childLevel2[c2idx]);
+                                        // var targetIdx = tokennodes.indexOf(r[x1].childId);
+                                        // if (sourceIdx != -1 && targetIdx != -1) {
+                                        //     links.push({
+                                        //             "source": sourceIdx,
+                                        //             "target": targetIdx,
+                                        //             "type":   r[x1].relType,
+                                        //             "description": r[x1].relDesc,
+                                        //             "value" : 1
+                                        //         })
+                                        // }
+                                        pickedLinks.push({'key': r[x1].startNode + '_'+ r[x1].childId, 'p': childLevel2[c2idx], 'c': r[x1].childId, 'level' : 3,'type': r[x1].relType, 'description':r[x1].relDesc});
                                        
-//                                         }
-//                                     }
-//                                 if (level4Active == true) {
-//                                    for(var x1 = 0; x1 < r.length; x1++) {
-//                                     var c3idx = childLevel3.indexOf(r[x1].startNode) ;
-//                                     if (c3idx != -1) {
-//                                             if (tokennodes.indexOf(childLevel3[c3idx]) == -1) {
-//                                                 tokennodes.push(childLevel3[c3idx]);
-//                                                  nodes.push({
-//                                                     "name": r[x1].nodeNames,
-//                                                     "id": r[x1].nodeId,
-//                                                     "label": r[x1].nodeLabels
-//                                                 });
+                                        }
+                                    }
+                                if (level4Active == true) {
+                                   for(var x1 = 0; x1 < r.length; x1++) {
+                                    var c3idx = childLevel3.indexOf(r[x1].startNode) ;
+                                    if (c3idx != -1) {
+                                            if (tokennodes.indexOf(childLevel3[c3idx]) == -1) {
+                                                tokennodes.push(childLevel3[c3idx]);
+                                                 nodes.push({
+                                                    "name": r[x1].nodeNames,
+                                                    "id": r[x1].nodeId,
+                                                    "label": r[x1].nodeLabels
+                                                });
 
-//                                             }
-//                                             if (tokennodes.indexOf(r[x1].childId) == -1) {
-//                                                 tokennodes.push(r[x1].childId);
-//                                                      nodes.push({
-//                                                                 "name": r[x1].childName,
-//                                                                 "id": r[x1].childId,
-//                                                                 "label": r[x1].childLabels
-//                                                             });
-//                                             }
-//                                             childLevel4.push(r[x1].childId);
-//                                             // var sourceIdx = tokennodes.indexOf(childLevel2[c2idx]);
-//                                             // var targetIdx = tokennodes.indexOf(r[x1].childId);
-//                                             // if (sourceIdx != -1 && targetIdx != -1) {
-//                                             //     links.push({
-//                                             //             "source": sourceIdx,
-//                                             //             "target": targetIdx,
-//                                             //             "type":   r[x1].relType,
-//                                             //             "description": r[x1].relDesc,
-//                                             //             "value" : 1
-//                                             //         })
-//                                             // }
-//                                             pickedLinks.push({'key': r[x1].startNode + '_'+ r[x1].childId, 'p': childLevel3[c3idx], 'c': r[x1].childId, 'level' : 4,'type': r[x1].relType, 'description':r[x1].relDesc});
+                                            }
+                                            if (tokennodes.indexOf(r[x1].childId) == -1) {
+                                                tokennodes.push(r[x1].childId);
+                                                     nodes.push({
+                                                                "name": r[x1].childName,
+                                                                "id": r[x1].childId,
+                                                                "label": r[x1].childLabels
+                                                            });
+                                            }
+                                            childLevel4.push(r[x1].childId);
+                                            // var sourceIdx = tokennodes.indexOf(childLevel2[c2idx]);
+                                            // var targetIdx = tokennodes.indexOf(r[x1].childId);
+                                            // if (sourceIdx != -1 && targetIdx != -1) {
+                                            //     links.push({
+                                            //             "source": sourceIdx,
+                                            //             "target": targetIdx,
+                                            //             "type":   r[x1].relType,
+                                            //             "description": r[x1].relDesc,
+                                            //             "value" : 1
+                                            //         })
+                                            // }
+                                            pickedLinks.push({'key': r[x1].startNode + '_'+ r[x1].childId, 'p': childLevel3[c3idx], 'c': r[x1].childId, 'level' : 4,'type': r[x1].relType, 'description':r[x1].relDesc});
                                            
-//                                             }
-//                                         }
-//                                     }
-//                                 }
-//                                 //console.log('level 3 ', childLevel3);
-//                                 //console.log('picked nodes ', pickedLinks);
-//                                 pickedLinks = _.uniq(pickedLinks,_.property('key'));
-//                                 console.log(pickedLinks);
-//                                 for(var lidx=0; lidx < pickedLinks.length; lidx++) {
-//                                         var sourceIdx = tokennodes.indexOf(pickedLinks[lidx].p);
-//                                         var targetIdx = tokennodes.indexOf(pickedLinks[lidx].c);
-//                                         var pair1 = {'source': sourceIdx, 'target': targetIdx};
-//                                         var pair2 = {'source': targetIdx, 'target': sourceIdx};
-//                                         //console.log(pickedLinks[lidx]);
-//                                         var found = false;
-//                                         for(var ix = 0; ix < links.length; ix++) {
-//                                             if ((links[ix].source == sourceIdx && links[ix].target == targetIdx) || links[ix].source == targetIdx && links[ix].target== sourceIdx) {
-//                                                 found = true;
-//                                                 console.log('found dupp' , sourceIdx, targetIdx);
-//                                             }
-//                                         }
-//                                         if (!found) {
-//                                             links.push({
-//                                                     "source": sourceIdx,
-//                                                     "target": targetIdx,
-//                                                     "type":  pickedLinks[lidx].type,
-//                                                     "description": pickedLinks[lidx].description,
-//                                                     "value" : 1
-//                                                 })
-//                                         }
-//                                 }
-//                                 var sortedLinks = _.sortBy((_.sortBy(links,'target')),'source');
-//                                 //console.log('sorted link ',sortedLinks);
-//                                 // for(var i = sortedLinks.length - 1; i >= 0; i--) {
-//                                 //     if(sortedLinks[i].source >= sortedLinks[i].target) {
-//                                 //        sortedLinks.splice(i, 1);  // remove circular link
-//                                 //     }
-//                                 //  }
-//                         viewerJson = {
-//                             "nodes": nodes,
-//                             "links": sortedLinks        
-//                         }
-//                         res.send(viewerJson);
-//                     } else {
-//                         res.send(404, 'no node at that location');
-//                     }
-//                 }
-//              });
-//         }
-//     });
+                                            }
+                                        }
+                                    }
+                                }
+                                //console.log('level 3 ', childLevel3);
+                                //console.log('picked nodes ', pickedLinks);
+                                pickedLinks = _.uniq(pickedLinks,_.property('key'));
+                                console.log(pickedLinks);
+                                for(var lidx=0; lidx < pickedLinks.length; lidx++) {
+                                        var sourceIdx = tokennodes.indexOf(pickedLinks[lidx].p);
+                                        var targetIdx = tokennodes.indexOf(pickedLinks[lidx].c);
+                                        var pair1 = {'source': sourceIdx, 'target': targetIdx};
+                                        var pair2 = {'source': targetIdx, 'target': sourceIdx};
+                                        //console.log(pickedLinks[lidx]);
+                                        var found = false;
+                                        for(var ix = 0; ix < links.length; ix++) {
+                                            if ((links[ix].source == sourceIdx && links[ix].target == targetIdx) || links[ix].source == targetIdx && links[ix].target== sourceIdx) {
+                                                found = true;
+                                                console.log('found dupp' , sourceIdx, targetIdx);
+                                            }
+                                        }
+                                        if (!found) {
+                                            links.push({
+                                                    "source": sourceIdx,
+                                                    "target": targetIdx,
+                                                    "type":  pickedLinks[lidx].type,
+                                                    "description": pickedLinks[lidx].description,
+                                                    "value" : 1
+                                                })
+                                        }
+                                }
+                                var sortedLinks = _.sortBy((_.sortBy(links,'target')),'source');
+                                //console.log('sorted link ',sortedLinks);
+                                // for(var i = sortedLinks.length - 1; i >= 0; i--) {
+                                //     if(sortedLinks[i].source >= sortedLinks[i].target) {
+                                //        sortedLinks.splice(i, 1);  // remove circular link
+                                //     }
+                                //  }
+                        viewerJson = {
+                            "nodes": nodes,
+                            "links": sortedLinks        
+                        }
+                        res.send(viewerJson);
+                    } else {
+                        res.send(404, 'no node at that location');
+                    }
+                }
+             });
+        }
+    });
    
-// };
+};
 
 exports.getSankeyNodes = function(req, res) {
     // var query = ['MATCH n-[r]-x where n.id={nodeId} ',

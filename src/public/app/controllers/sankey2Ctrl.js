@@ -21,18 +21,23 @@ angular.module('jupiterApp').controller('sankey2Ctrl', function($scope, $http, $
     if (id) {
         var queryVals = id.split("-");
         if (queryVals.length) {
-            $http.get('/api/node/name/' + id.split("-")[0]).then(function(res) {
-                $scope.nodeA = res.data;
-            });
-            $http.get('/api/node/name/' + id.split("-")[1]).then(function(res) {
-                $scope.nodeB = res.data;
-            });
+            if (id.split("-")[0] != '' && id.split("-")[0] != undefined) {
+                $http.get('/api/node/name/' + id.split("-")[0]).then(function(res) {
+                    $scope.nodeA = res.data;
+                });
+            }
+            if (id.split("-")[1] != '' && id.split("-")[1] != undefined) {
+                $http.get('/api/node/name/' + id.split("-")[1]).then(function(res) {
+                    $scope.nodeB = res.data;
+                });
+            }
             $scope.nodeAId = id.split("-")[0];
             $scope.nodeBId = id.split("-")[1];
             $scope.hops = id.split("-")[2];
         }
         $scope.showImage = false;
         $scope.showLinkageLoading = true;
+        
     }
 
     $scope.itemSelectedA = function($item, $model, $label) {
@@ -41,6 +46,24 @@ angular.module('jupiterApp').controller('sankey2Ctrl', function($scope, $http, $
     $scope.itemSelectedB = function($item, $model, $label) {
         $scope.nodeBId = $item.id;
     };
+
+   $scope.resetItemB = function($item){
+        if ($item == '' || $item == undefined) {
+            $scope.nodeBId =  undefined;
+        }
+        else {
+         $scope.nodeBId =  $item.id;
+        }
+    }
+    $scope.resetItemA = function($item){
+        if ($item == '' || $item == undefined) {
+             $scope.nodeAId = undefined;
+        }
+        else {
+           $scope.nodeAId = $item.id;
+        }
+       
+    }
 
     if (id) {
         $scope.stepstatusallcomplete = false;

@@ -10,10 +10,15 @@ angular.module('jupiterApp')
 					var w;
 					var h = 900;
 				
-					$("#viewSankey").click(function() {
+					$(".btn.btn-default.pull-left.link_buttone").click(function() {
 						var leftnodeid = $('#nodeAId').val();
 						var rightnodeid = $('#nodeBId').val();
-
+						if (leftnodeid == '' || leftnodeid == undefined) {
+			              leftnodeid = rightnodeid;
+			            }
+			            if (rightnodeid == '' || rightnodeid == undefined) {
+			              rightnodeid = leftnodeid;
+			            }
 
 						// hops = "";
 
@@ -29,7 +34,7 @@ angular.module('jupiterApp')
 						// hops = hops.substring(0, lastIndex);
 
 
-						if (leftnodeid == "" | rightnodeid == "" | leftnodeid == undefined | rightnodeid == undefined) {
+						if ((leftnodeid == "" | leftnodeid == undefined) && (rightnodeid == "" | rightnodeid == undefined)) {
 							alert('Please enter left node, right node and select the number of hops.');
 
 						} else {

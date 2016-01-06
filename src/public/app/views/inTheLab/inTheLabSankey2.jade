@@ -1,0 +1,214 @@
+.row
+	.div(ng-class='getContentWidth()')
+		.content_block
+			span.visible-md.visible-lg
+				.subnav
+					ul.nav.nav-pills
+						li
+							a(href='#/quickGuide/') Quick Guide
+						li
+							a(href='#/browse/') Browse
+						li
+							a(href='#/search/') Search
+						li
+							a(href='#/advancedSearch/') Relationship Explorer
+						li
+							a(href='' class='inactive') Favorites
+						li.active
+							a(href='#/inTheLab/') In the Lab
+				// end subnav
+			span.visible-sm
+				.subnav_sm
+					ul.nav.nav-pills
+						li
+							a(href='#/quickGuide/') Quick Guide
+						li
+							a(href='#/browse/') Browse
+						li.active
+							a(href='#/search/') Search
+						li
+							a(href='#/advancedSearch/') Relationship Explorer
+						li
+							a(href='' class='inactive') Favorites
+						li.active
+							a(href='#/inTheLab/') In the Lab
+				// end subnav
+			.vertical_spacing
+			span.visible-lg
+				.adv_search_controls
+					.input1_adv_search
+						.adv_search_label
+							| Start: 
+						.adv_search_field
+							input(type="text" ng-model="nodeA"  placeholder="Enter activity name" typeahead-on-select="itemSelectedA($item, $model, $label)" typeahead-min-length='3' typeahead="node.name for node in getNodes($viewValue)" class="form-control" ng-change='resetItemA()')
+							input(type="hidden" id="nodeAId" ng-value="nodeAId")
+					.input2_adv_search
+						.adv_search_label
+							| End:
+						.adv_search_field
+							input(type="text" ng-model="nodeB"  placeholder="Enter activity name" typeahead-on-select="itemSelectedB($item, $model, $label)" typeahead-min-length='3' typeahead="node.name for node in getNodes($viewValue)" class="form-control" ng-change='resetItemB()')
+							input(type="hidden" id="nodeBId" ng-value="nodeBId")
+					//- .step_number
+					//- 	| Number of steps: &nbsp;
+					//- 	input(type='checkbox', id='hop1', name='hop', value='1')
+					//- 	| 1 &nbsp;
+					//- 	input(type='checkbox', id='hop2', name='hop', value='2')
+					//- 	| 2 &nbsp;
+					//- 	input(type='checkbox', id='hop3', name='hop', value='3') 
+					//- 	| 3 &nbsp;
+					//- 	input(type='checkbox', id='hop4', name='hop', value='4') 
+					//- 	| 4 
+					//end step number
+					.adv_search_button
+						button.btn.btn-default(type='button', id='viewSankey')
+							i.fa.fa-chevron-circle-right
+							| View
+				// end adv search controls
+			span.visible-md
+				.adv_search_controls
+					.input1_adv_search_md
+						.adv_search_label
+							| Start: 
+						.adv_search_field_md
+							input(type="text" ng-model="nodeA"  placeholder="Enter activity name" typeahead-on-select="itemSelectedA($item, $model, $label)" typeahead-min-length='3' typeahead="node.name for node in getNodes($viewValue)" class="form-control" ng-change='resetItemA()')
+							input(type="hidden" id="nodeAId" ng-value="nodeAId")
+					.input2_adv_search_md
+						.adv_search_label
+							| End:
+						.adv_search_field_md
+							input(type="text" ng-model="nodeB"  placeholder="Enter activity name" typeahead-on-select="itemSelectedB($item, $model, $label)" typeahead-min-length='3' typeahead="node.name for node in getNodes($viewValue)" class="form-control" ng-change='resetItemB()')
+							input(type="hidden" id="nodeBId" ng-value="nodeBId")
+					//- .step_number
+					//- 	| Number of steps: &nbsp;
+					//- 	input(type='checkbox', id='hop1', name='hop', value='1')
+					//- 	| 1 &nbsp;
+					//- 	input(type='checkbox', id='hop2', name='hop', value='2')
+					//- 	| 2 &nbsp;
+					//- 	input(type='checkbox', id='hop3', name='hop', value='3') 
+					//- 	| 3 &nbsp;
+					//- 	input(type='checkbox', id='hop4', name='hop', value='4') 
+					//- 	| 4 
+					//end step number
+					.adv_search_button
+						button.btn.btn-default(type='button', id='viewSankey')
+							i.fa.fa-chevron-circle-right
+							| View
+				// end adv search controls
+			span.visible-sm
+				.adv_search_controls
+					.input1_adv_search_sm
+						.adv_search_label_sm
+							| Start: 
+						.adv_search_field_sm
+							input(type="text" ng-model="nodeA"  placeholder="Activity name" typeahead-on-select="itemSelectedA($item, $model, $label)" typeahead-min-length='3' typeahead="node.name for node in getNodes($viewValue)" class="form-control" ng-change='resetItemA()')
+							input(type="hidden" id="nodeAId" ng-value="nodeAId")
+					.input2_adv_search_sm
+						.adv_search_label_sm
+							| End:
+						.adv_search_field_sm
+							input(type="text" ng-model="nodeB"  placeholder="Activity name" typeahead-on-select="itemSelectedB($item, $model, $label)" typeahead-min-length='3' typeahead="node.name for node in getNodes($viewValue)" class="form-control" ng-change='resetItemB()')
+							input(type="hidden" id="nodeBId" ng-value="nodeBId")
+					//- .step_number_sm
+					//- 	| Number
+					//- 	br
+					//- 	| of steps: &nbsp;
+					//- 	input(type='checkbox', id='hop1', name='hop', value='1')
+					//- 	| 1 &nbsp;
+					//- 	input(type='checkbox', id='hop2', name='hop', value='2')
+					//- 	| 2 &nbsp;
+					//- 	input(type='checkbox', id='hop3', name='hop', value='3') 
+					//- 	| 3 &nbsp;
+					//- 	input(type='checkbox', id='hop4', name='hop', value='4') 
+					//- 	| 4 
+					//end step number
+					.adv_search_button
+						button.btn.btn-default(type='button', id='viewSankey')
+							i.fa.fa-chevron-circle-right
+							| View
+			.detail_header 
+				.detail_header
+					.detail_header_text_contain_lg
+						.detail_header_text
+							| Sankey Diagram - Root Nodes: Organizations   
+					.share_button_linkage
+						//These lines, 173 - 187, were added 
+						//Single button 
+						.btn-group
+							button.btn.btn-default.dropdown-toggle(type='button', data-toggle='dropdown')
+								span.glyphicon.glyphicon-share
+								| &nbsp;Share &nbsp;&nbsp;
+								span.caret
+							ul.dropdown-menu(role='menu')
+								li
+									a(href='mailto:?subject=CDC iSurv Portal: Universal Viewer II&body={{uvBlurb}}') Email
+
+								li
+									a(href='' ng-click='share(["CDC iSurv Portal: Universal Viewer II: ", "#/inTheLab/inTheLabArc"])' id='fb-root') Facebook
+
+								li
+									a(target='_blank' href='http://twitter.com/home?status=CDC iSurv Portal: Universal Viewer II:{{uvBlurb}}') Twitter
+						//end added lines 
+			// end detail header
+			.top_block2
+				.hide_activity
+					.hide_activity_label
+						//span.glyphicon.glyphicon-ban-circle
+						| Show activity type:
+						span.hide_activity_check(ng-show="showOrganization")
+							input(type='checkbox' ng-change="hidenodes(\'Organization\',checkModel.Organization)" ng-model="checkModel.Organization" ng-show="showOrganization")
+							| &nbsp;Organization
+						span.hide_activity_check(ng-show="showProgram")
+							input(type='checkbox', ng-change="hidenodes(\'Program\',checkModel.Program)" ng-model="checkModel.Program" ng-show="showProgram")
+							| &nbsp;Program
+						span.hide_activity_check(ng-show="showSurveillanceSystem")
+							input(type='checkbox', ng-change="hidenodes(\'SurveillanceSystem\',checkModel.SurveillanceSystem)" ng-model="checkModel.SurveillanceSystem" ng-show="showSurveillanceSystem")
+							| &nbsp;Surveillance System
+						span.hide_activity_check(ng-show="showTool")
+							input(type='checkbox', ng-change="hidenodes(\'Tool\',checkModel.Tool)" ng-model="checkModel.Tool" ng-show="showTool")
+							| &nbsp;Tool
+						span.hide_activity_check(ng-show="showRegistry")
+							input(type='checkbox', ng-change="hidenodes(\'Registry\',checkModel.Registry)" ng-model="checkModel.Registry" ng-show="showRegistry")
+							| &nbsp;Registry
+						span.hide_activity_check(ng-show="showHealthSurvey")
+							input(type='checkbox', ng-change="hidenodes(\'HealthSurvey\',checkModel.HealthSurvey)" ng-model="checkModel.HealthSurvey" ng-show="showHealthSurvey")
+							| &nbsp;Health Survey
+						span.hide_activity_check(ng-show="showCollaborative")
+							input(type='checkbox', ng-change="hidenodes(\'Collaborative\',checkModel.Collaborative)" ng-model="checkModel.Collaborative" ng-show="showCollaborative")
+							| &nbsp;Collaborative
+						span.hide_activity_check(ng-show="showDataset")
+							input(type='checkbox', ng-change="hidenodes(\'Dataset\',checkModel.Dataset)" ng-model="checkModel.Dataset" ng-show="showDataset")
+							| &nbsp;Dataset
+						span.hide_activity_check(ng-show="showDataStandard")
+							input(type='checkbox', ng-change="hidenodes(\'DataStandard\',checkModel.DataStandard)" ng-model="checkModel.DataStandard" ng-show="showDataStandard")
+							| &nbsp;Data Standard
+						span.hide_activity_check(ng-show="showTag")
+							input(type='checkbox', ng-change="hidenodes(\'Tag\',checkModel.Tag)" ng-model="checkModel.Tag" ng-show="showTag")
+							| &nbsp;Tag
+						span.hide_activity_check(ng-show="showConcept")
+							input(type='checkbox', ng-change="hidenodes(\'Concept\',checkModel.Concept)" ng-model="checkModel.Concept" ng-show="showConcept")
+							| &nbsp;Concept
+						span.hide_activity_check(ng-show="showDataElement")
+							input(type='checkbox', ng-change="hidenodes(\'DataElement\',checkModel.DataElement)" ng-model="checkModel.DataElement" ng-show="showDataElement")
+							| &nbsp;Data Element
+				.block_linkage(ng-sankey)
+					.vertical_spacing1
+				// end block_edge
+	.div(ng-class='getSidebarWidth()')
+		.hx_side(ng-show='!showSidebar' ng-click='toggleSidebar()')
+			div(ng-Historybar)
+			//- .blue_side
+			//- 	.blue_side_text
+			//- 		| Your Exploration History:
+			//- 	.sidebar_now
+			//- 		div.sidebar_repeat(ng-Historybar)
+			.button_side
+				.sidebar_button
+					img(src='img/tab_button_collapse.png', alt='Collapse sidebar')   
+		// end hx_side
+		.hx_side(ng-show='showSidebar' ng-click='toggleSidebar()')
+			.blue_side_expanded
+			.button_side_expanded
+				.sidebar_button
+					img(src='img/tab_button_expand.png', alt='Expand sidebar')   
+		// end hx_side   
+// row

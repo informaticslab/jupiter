@@ -66,7 +66,8 @@ angular.module('jupiterApp').controller('navBarLoginCtrl',function($scope,$http,
 	$scope.openLogin = function (size) {
 
       var modalInstance = $modal.open({
-        templateUrl: '/partials/modals/login',
+        //templateUrl: '/partials/modals/login',
+        templateUrl: 'loginModalContent.html',
         controller: LoginModalInstanceCtrl,
         size: size
       });

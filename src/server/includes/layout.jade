@@ -98,7 +98,7 @@ html(lang="en" ng-app='jupiterApp')
 						
 						span.right_nav_content(ng-controller="navBarLoginCtrl")
 
-							a(href="" ng-click="openLogin('md')" ng-hide="identity.isAuthenticated()") 
+							a(href="" ng-click="openLogin('lg')" ng-hide="identity.isAuthenticated()") 
 									span.glyphicon.glyphicon-user 
 										| &nbsp;Login
 						ng-include(src="'/partials/navbar-login'"  ng-show="identity.isAuthenticated()")
@@ -117,6 +117,81 @@ html(lang="en" ng-app='jupiterApp')
 							//- 		| Show/Hide Sidebar
 
 		// end row 2 (navbar)
+
+		//Login modal
+		div
+			script(type="text/ng-template", id="loginModalContent.html")
+				.modal-content(ng-controller="navBarLoginCtrl")
+					.modal-header.header_dark
+						span.pull-right
+							button.btn.close_button.glyphicon.glyphicon-remove(ng-click="cancel()")
+						//.disclaimer_intro
+						h4.modal-title(id='myModalLabel') &nbsp;Login
+							img(alt='icon', src='img/modal_icon.png')
+							img(alt='Beta', src='img/modal_beta.png')
+					.modal-body
+
+						.row
+							.col-lg-5.col-md-5.col-sm-5
+								h4
+									| CDC Smart Card Login
+								br
+								.row
+									.col-lg-3.col-md-3.col-sm-3
+										img.pull-left(src="img/PIV_Card_Sample.png")
+									.col-lg-9.col-md-9.col-sm-9
+										| Insert your Smart Card into your smart card reader before you click the Login button.
+								br
+								.row
+									.col-lg-12.col-md-12.col-sm-12
+										button.btn.btn-primary(data-dismiss='modal', type='button', ng-click='ok();pivLogin()') 
+											| Login
+							.col-lg-1.col-md-1.col-sm-1
+								p.text-center
+									br
+									br
+									br
+									| (or)
+							.col-lg-6.col-md-6.col-sm-6
+								h4
+									| CISP Login
+								br
+								form(ng-controller="navBarLoginCtrl")
+									.form-group
+										input.form-control(placeholder="Email", ng-model="email")
+									.form-group
+										input.form-control(type="password", placeholder="Password", ng-model="password")
+									br
+									button.btn.btn-primary(ng-click="signin(email,password)")
+										| Login
+						hr
+						.row
+							.col-lg-6.col-md-6.col-sm-6
+								strong
+									span
+										| You can also login using:
+								br
+								br
+								a(href="/auth/facebook")
+									img(src="img/FB-f-Logo__blue_29.png" )
+							.col-lg-6.col-md-6.col-sm-6
+								strong
+									span
+										|  
+								br
+								br
+								
+									
+					//.modal-footer
+						.modal_show
+							h4
+								| Login Using
+								i.fa.fa-facebook-official
+							//a(href="/auth/facebook")
+								| login using facebook
+
+		// end login modal
+
 		div 
 			script(type="text/ng-template", id="myModalContent.html")
 				.modal-content

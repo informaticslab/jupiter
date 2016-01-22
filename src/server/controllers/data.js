@@ -106,32 +106,42 @@ exports.getDataFile = function(req, res) {
 
 	var nodeId = req.params.id;
 	console.log(nodeId);
-	var query = 'match (n) where n.id="' + nodeId + '" RETURN n';
-	neodb.db.query(query, function(err, result) {
-		console.log("result---",result);
-		if(result!=undefined)
-		{	
-			if (result[0] != null && result[0]['n'] != null && result[0]['n']['data'] != null ) {
-				var data = result[0]['n']['data'];
-				var filePath = data.filePath;
 
-				var parser = parse({
-					columns: true
-				}, function(err, gridData) {
-					res.send(gridData);
-				});
+	if(nodeId==undefined)
+	{
+		res.send("empty");
+	}
+	else
+	{
+		var query = 'match (n) where n.id="' + nodeId + '" RETURN n';
+		neodb.db.query(query, function(err, result) {
+			console.log("result---",result);
+			if(result!=undefined)
+			{	
+				if (result[0] != null && result[0]['n'] != null && result[0]['n']['data'] != null ) {
+					var data = result[0]['n']['data'];
+					var filePath = data.filePath;
 
-				fs.createReadStream(filePath).pipe(parser);
-			} else {
-				console.log('ERROR: No node at this location');
+					var parser = parse({
+						columns: true
+					}, function(err, gridData) {
+						res.send(gridData);
+					});
+
+					fs.createReadStream(filePath).pipe(parser);
+				} else {
+					console.log('ERROR: No node at this location');
+					res.send("empty");
+				}
 			}
-		}
-		else
-		{
-			res.send("empty");
-		}
+			else
+			{
+				res.send("empty");
+			}
 
-	});
+		});
+	}
+
 
 };
 

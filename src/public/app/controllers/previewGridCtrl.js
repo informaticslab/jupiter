@@ -2,7 +2,10 @@ angular.module('jupiterApp').controller('previewGridCtrl', function($scope,$moda
 	$scope.previewData;
 
 	$http.get('/api/getDataFile'+nodeId).then(function(res) {
-		$scope.previewData = res.data;
+	    if(res.data!="empty")
+	    {
+	        $scope.csvData = res.data;
+	    }
 
 	});
 

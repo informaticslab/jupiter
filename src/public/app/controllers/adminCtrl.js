@@ -64,7 +64,10 @@ angular.module('jupiterApp').controller('adminCtrl', ['$scope', '$modal', '$http
         }
 
       $http.get('/api/getDataFile'+ $scope.nodeId).then(function(res) {
-            $scope.csvData = res.data;
+            if(res.data!="empty")
+            {
+                $scope.csvData = res.data;
+            }
         }); 
 
         $scope.itemSelected = function($item, $model, $label, id) {

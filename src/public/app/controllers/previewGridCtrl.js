@@ -20,6 +20,10 @@ angular.module('jupiterApp').controller('previewGridCtrl', function($scope,$moda
 		}
 		
 		$scope.gridOptions.data = $scope.previewData;
+	    if(res.data!="empty")
+	    {
+	        $scope.csvData = res.data;
+	    }
 
 	});
 

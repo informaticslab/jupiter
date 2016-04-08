@@ -80,7 +80,7 @@ module.exports = function(app) {
 
     app.post('/login', auth.authenticate); //Email/password route
 
-    // app.get('/api/getpiv', auth.authenticatePIV); //PIV route
+    app.get('/api/getpiv', auth.authenticatePIV); //PIV route
 
     app.post('/logout', function(req,res) {
         req.logout();
@@ -98,7 +98,7 @@ module.exports = function(app) {
     // FACEBOOK ROUTES =====================
     // =====================================
     // route for facebook authentication and login
-    // app.get('/auth/facebook',auth.authenticateFB);
+    app.get('/auth/facebook',auth.authenticateFB);
 
     app.get('/redirect', function(req,res) {
 
@@ -114,12 +114,12 @@ module.exports = function(app) {
     });
 
     // handle the callback after facebook has authenticated the user
-    // app.get('/auth/facebook/callback',
-    //     passport.authenticate('facebook', {
-    //         scope           : ['email'], 
-    //         successRedirect : '/redirect',
-    //         failureRedirect : '/#/main'
-    //     }));
+    app.get('/auth/facebook/callback',
+        passport.authenticate('facebook', {
+            scope           : ['email'], 
+            successRedirect : '/redirect',
+            failureRedirect : '/#/main'
+        }));
 
     
     //this goes at the bottom.  It is the catchall for everything not defined above.  Silly.

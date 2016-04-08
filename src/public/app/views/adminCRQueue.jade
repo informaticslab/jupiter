@@ -102,18 +102,18 @@
 								th.col-md-3.mouse-pointer(ng-click="sortval='name';reverse=!reverse;")
 									| Name
 									i.fa.fa-sort(ng-class="{'fa-sort-asc':reverse && sortval=='name','fa-sort-desc':!reverse && sortval=='name'}" )
-								th.col-md-1.mouse-pointer(ng-click="sortval='CR_USER_CREATE';reverse=!reverse;")
+								th.col-md-1.mouse-pointer(ng-click="sortval='CR_USER_DN_CREATE';reverse=!reverse;")
 									| Created By
-									i.fa.fa-sort(ng-class="{'fa-sort-asc':reverse && sortval=='CR_USER_CREATE','fa-sort-desc':!reverse && sortval=='CR_USER_CREATE'}" )
+									i.fa.fa-sort(ng-class="{'fa-sort-asc':reverse && sortval=='CR_USER_DN_CREATE','fa-sort-desc':!reverse && sortval=='CR_USER_DN_CREATE'}" )
 								th.col-md-1.mouse-pointer(ng-click="sortval='CR_DATE_CREATED';reverse=!reverse;")
 									| Created On
 									i.fa.fa-sort(ng-class="{'fa-sort-asc':reverse && sortval=='CR_DATE_CREATED','fa-sort-desc':!reverse && sortval=='CR_DATE_CREATED'}" )
-								th.col-md-1.mouse-pointer(ng-click="sortval='CR_USER_UPDATE';reverse=!reverse;")
+								th.col-md-1.mouse-pointer(ng-click="sortval='CR_USER_DN_EDIT';reverse=!reverse;")
 									| Revised By
-									i.fa.fa-sort(ng-class="{'fa-sort-asc':reverse && sortval=='CR_USER_UPDATE','fa-sort-desc':!reverse && sortval=='CR_USER_UPDATE'}" )
-								th.col-md-1.mouse-pointer(ng-click="sortval='CR_DATE_UPDATED';reverse=!reverse;")
+									i.fa.fa-sort(ng-class="{'fa-sort-asc':reverse && sortval=='CR_USER_DN_EDIT','fa-sort-desc':!reverse && sortval=='CR_USER_DN_EDIT'}" )
+								th.col-md-1.mouse-pointer(ng-click="sortval='CR_DATE_EDITED';reverse=!reverse;")
 									| Revised On
-									i.fa.fa-sort(ng-class="{'fa-sort-asc':reverse && sortval=='CR_DATE_UPDATED','fa-sort-desc':!reverse && sortval=='CR_DATE_UPDATED'}" )
+									i.fa.fa-sort(ng-class="{'fa-sort-asc':reverse && sortval=='CR_DATE_EDITED','fa-sort-desc':!reverse && sortval=='CR_DATE_EDITED'}" )
 								th.col-md-1.mouse-pointer(ng-click="sortval='CR_REQUEST_TYPE';reverse=!reverse;")
 									| CR REQUEST TYPE
 									i.fa.fa-sort(ng-class="{'fa-sort-asc':reverse && sortval=='CR_REQUEST_TYPE','fa-sort-desc':!reverse && sortval=='CR_REQUEST_TYPE'}" )

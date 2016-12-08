@@ -30,9 +30,9 @@ var https = require('https'),      // module for https
     fs =    require('fs');         // required to read certs and keys
 
 var options = {
-    key:    fs.readFileSync('/Users/sec/certs/server-key.pem'),
-    cert:   fs.readFileSync('/Users/sec/certs/server-cert.pem'),
-    ca:     [fs.readFileSync('/Users/sec/certs/gd_bundle-g2.crt'),fs.readFileSync('/Users/sec/certs/HHSPIVcachn.pem')],
+    key:    fs.readFileSync('/sec/certs/server-key.pem'),
+    cert:   fs.readFileSync('/sec/certs/server-cert.pem'),
+    ca:     [fs.readFileSync('/sec/certs/gd_bundle-g2.crt'),fs.readFileSync('/sec/certs/HHSPIVcachn.pem')],
     requestCert:        true,
     rejectUnauthorized: false,
 };

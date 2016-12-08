@@ -24,11 +24,11 @@ div
                 .progress-bar(role='progressbar', ng-style="{ 'width': uploader.progress + '%' }")
             .fileUpload.btn.btn-primary
               span Select file
-              input.upload(type='file', nv-file-select='', uploader='uploader')
+              input.upload(type='file', nv-file-select='', uploader='uploaderWithDE')
             button.btn.btn-success.btn-s.button-padding(type='button', ng-click='uploaderWithDE.uploadAll()', ng-disabled='!uploader.getNotUploadedItems().length')
               span.fa.fa-upload
               |  Upload with metadata
-            button.btn.btn-success.btn-s.button-padding(type='button', ng-click='uploader.uploadAll()', ng-disabled='!uploader.getNotUploadedItems().length')
+            button.btn.btn-success.btn-s.button-padding(type='button', ng-click='uploader.uploadAll()', ng-disabled=true)
               span.fa.fa-upload
               |  Upload data only
             button.btn.btn-danger.btn-s(type='button', ng-click='uploader.clearQueue()', ng-disabled='!uploader.queue.length')

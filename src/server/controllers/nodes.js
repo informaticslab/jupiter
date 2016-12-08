@@ -687,7 +687,7 @@ var compileSearchResults = function(req, res, err, results) {
                                 nodeLabelCounts['Retired']++;
                             } 
                         }
-                        if (prop == 'localFileName') {
+                        if (prop == 'localFileName' && doohicky[prop] != '') {
                                 nodeLabelCounts['Attachment']++;
                                 nodedata.attachment =  doohicky[prop];
                             }

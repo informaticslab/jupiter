@@ -195,7 +195,7 @@ angular.module('jupiterApp').controller('searchCtrl', function($scope, $resource
                 {
                     filteredTotalItems = filteredTotalItems +  $scope.notAvailable;
                 }
-                if (!$scope.checkedLabels.DatatsetAttachment === '')
+                if (!$scope.checkedLabels.DatatsetAttachment)
                 {
                     filteredTotalItems = filteredTotalItems +  $scope.labelCounts.Attachment;
                 }

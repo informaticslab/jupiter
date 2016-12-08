@@ -6,8 +6,9 @@ angular.module('jupiterApp').controller('previewGridCtrl', function($scope,$moda
 		enableGridMenu: true,
 		enableSelectAll: true
 	};
-	$http.get('/api/getDataFile'+nodeId).then(function(res) {
+	$http.get('/api/getDataFile/'+nodeId).then(function(res) {
 		$scope.previewData = res.data;
+		
 		var cols = Object.keys($scope.previewData[0]);
 		for(col in cols) {
 				console.log(col);

@@ -11,11 +11,11 @@ angular.module('jupiterApp').controller('previewGridCtrl', function($scope,$moda
 		
 		var cols = Object.keys($scope.previewData[0]);
 		for(col in cols) {
-				console.log(col);
+				// console.log(col);
 				var oneCol = {};
 				oneCol.name = cols[col];
 				oneCol.width = '*';
-				console.log(oneCol);
+				// console.log(oneCol);
 				$scope.gridOptions.columnDefs.push(oneCol);
 			
 		}

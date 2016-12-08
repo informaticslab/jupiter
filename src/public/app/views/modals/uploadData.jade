@@ -25,7 +25,7 @@ div
             .fileUpload.btn.btn-primary
               span Select file
               input.upload(type='file', nv-file-select='', uploader='uploader')
-            button.btn.btn-success.btn-s.button-padding(type='button', ng-click='uploader.uploadAll()', ng-disabled='true')
+            button.btn.btn-success.btn-s.button-padding(type='button', ng-click='uploaderWithDE.uploadAll()', ng-disabled='false')
               span.fa.fa-upload
               |  Upload with metadata
             button.btn.btn-success.btn-s.button-padding(type='button', ng-click='uploader.uploadAll()', ng-disabled='!uploader.getNotUploadedItems().length')

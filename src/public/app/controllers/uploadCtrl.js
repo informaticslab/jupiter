@@ -1,11 +1,11 @@
 angular.module('jupiterApp').controller('uploadCtrl', function($scope, FileUploader,$modal, $modalInstance, nodeId, $http, $route, ngNotifier) {
     
-	var uploader = $scope.uploader = new FileUploader({
-		url:'/api/fileUpload',
-        formData:nodeId
-	});
+	// var uploader = $scope.uploader = new FileUploader({
+	// 	url:'/api/fileUpload',
+    //     formData:nodeId
+	// });
 
-    var uploaderWithDE = $scope.uploaderWithDE = new FileUploader({
+    var uploader = $scope.uploader = new FileUploader({
         url:'/api/fileUploadWithMetadata',
         formData:nodeId
     });

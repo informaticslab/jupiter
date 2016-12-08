@@ -40,7 +40,7 @@ angular.module('jupiterApp').controller('dataMatchCtrl', function($scope, $http,
 	    // need to verify if the dataset has a file attachment before invoke
 
 	    try {
-		    $http.get('/api/getDataFile'+$scope.ds1Id).then(function(res,err) {
+		    $http.get('/api/getDataFile/'+$scope.ds1Id).then(function(res,err) {
 		    	if (res.data.ERROR) {
 		    		alert('An error has occured, please verify that this is an uploaded dataset!');
 		    	}
@@ -73,7 +73,7 @@ angular.module('jupiterApp').controller('dataMatchCtrl', function($scope, $http,
         $scope.datafile2.dsId = $item.id;
         $scope.datafile2.dsName = $scope.secondDataset;
         mergedData.setPreviousLoc(null);
-        $http.get('/api/getDataFile'+$scope.ds2Id).then(function(res) {
+        $http.get('/api/getDataFile/'+$scope.ds2Id).then(function(res) {
         	if (res.data.ERROR) {
 		    		alert('An error has occured, please verify that this is an uploaded dataset!');
 		    }

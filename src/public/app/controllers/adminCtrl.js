@@ -63,7 +63,7 @@ angular.module('jupiterApp').controller('adminCtrl', ['$scope', '$modal', '$http
             checkCRexist();
         }
 
-      $http.get('/api/getDataFile'+ $scope.nodeId).then(function(res) {
+      $http.get('/api/getDataFile/'+ $scope.nodeId).then(function(res) {
             if(res.data!="empty")
             {
                 $scope.csvData = res.data;

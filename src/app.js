@@ -3,6 +3,16 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+httpsPort = 4400;
+httpPort = 8089;
+var path = require('path');
+var rootPath = path.normalize(__dirname + '/');
+var properties = require('./server/lib/envProperties');
+
+
+ var https = require('https'),      // module for https
+ fs =    require('fs');         // required to read certs and keys
+
 var express = require('express'),
     app = express();
 
@@ -19,22 +29,45 @@ require('./server/config/passport')();
 require('./server/config/routes.js')(app);
 
 
-//require('./lib/mongouser');
-app.listen(8089);
-console.log('Express server listening on port 8089'); 
+if(properties.USESSL == 'false')
+{
+    //require('./lib/mongouser');
+    app.listen(httpPort);
+    console.log('Express server listening on port '+httpPort); 
 
+    //https will still be used for client-authentication
+    var options = {
+        key:    fs.readFileSync(properties.SSL_KEY),
+        cert:   fs.readFileSync(properties.SSL_CERT),
+        ca:     [fs.readFileSync(properties.SSL_BUNDLE),
+                fs.readFileSync(properties.CLIENT_CERT)],
+        requestCert:        true,
+        rejectUnauthorized: false,
+    };
 
+    https.createServer(options, app).listen(httpsPort);
+}
+else if(properties.USESSL == 'true')
+{
+     //https Now used for all communication
+    var options = {
+        key:    fs.readFileSync(properties.SSL_KEY),
+        cert:   fs.readFileSync(properties.SSL_CERT),
+        ca:     [fs.readFileSync(properties.SSL_BUNDLE),
+                fs.readFileSync(properties.CLIENT_CERT)],
+        requestCert:        true,
+        rejectUnauthorized: false,
+    };
 
+    https.createServer(options, app).listen(httpsPort);
+    console.log('Express server listening securely on port '+httpsPort);
 
-var https = require('https'),      // module for https
-    fs =    require('fs');         // required to read certs and keys
+    var http = require('http');
+http.createServer(function (req, res) {
+    res.writeHead(301, { "Location": "https://" + req.headers['host'] + req.url });
+    //res.writeHead(301, { "Location": "https://localhost:4400" });
+    res.end();
+}).listen(httpPort);
 
-var options = {
-    key:    fs.readFileSync('/sec/certs/server-key.pem'),
-    cert:   fs.readFileSync('/sec/certs/server-cert.pem'),
-    ca:     [fs.readFileSync('/sec/certs/gd_bundle-g2.crt'),fs.readFileSync('/sec/certs/HHSPIVcachn.pem')],
-    requestCert:        true,
-    rejectUnauthorized: false,
-};
-
-https.createServer(options, app).listen(4400);
+console.log('Redirector listening on port ' + httpPort); 
+}

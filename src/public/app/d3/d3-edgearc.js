@@ -155,7 +155,7 @@
                                                                 else if(d.__data__.key == 'Dataset'){ return "Data Set";}
                                                                 else if(d.__data__.key == 'HealthSurvey'){ return "Survey";}
                                                                 else if(d.__data__.key == 'DataStandard'){ return "Data Standard";}
-                                                                else if(d.__data__.key == 'Concept'){ return "Concept";}
+                                                                else if(d.__data__.key == 'Concept'){ return "Con.";}
                                                                 else if(d.__data__.key == 'DataElement'){ return "Element";}
                                                                 else{ return d.__data__.key}
                                                              });

@@ -94,6 +94,16 @@ path.arc {
 	fill-opacity: 1.0;
 }
 
+.arcColor_dElement {
+	fill: #7FDBFF;
+	fill-opacity: 1.0;
+}
+
+.arcColor_concept {
+	fill: #001f3f;
+	fill-opacity: 1.0;
+}
+
 .arcText{
 	fill: #fff;
 	font-weight: bold;

@@ -98,7 +98,7 @@
                                                         .data(nodes.filter(function(d) {  return (d.key == 'Organization' || d.key == 'SurveillanceSystem' || 
                                                                                                  d.key == 'Tool' || d.key == 'Dataset' || d.key == 'Registry' ||
                                                                                                  d.key == 'Collaborative' || d.key == 'HealthSurvey' || 
-                                                                                                 d.key == 'DataStandard' || d.key == 'Program'
+                                                                                                 d.key == 'DataStandard' || d.key == 'Program' || d.key == 'Concept' || d.key == 'DataElement'
                                                                                                 ) 
                                                                                                 && d.children; }))
                                                        .enter().append("group")
@@ -138,6 +138,8 @@
                                                                     else if(d.__data__.key == 'HealthSurvey'){ return "arcColor_hSurvey";}
                                                                     else if(d.__data__.key == 'DataStandard'){ return "arcColor_dStandard";}
                                                                     else if(d.__data__.key == 'Program'){ return "arcColor_program";}
+                                                                    else if(d.__data__.key == 'Concept'){ return "arcColor_concept";}
+                                                                    else if(d.__data__.key == 'DataElement'){ return "arcColor_dElement";}
                                                                   });
 
                                       var arc_text = arc_and_text.append("text")
@@ -153,6 +155,8 @@
                                                                 else if(d.__data__.key == 'Dataset'){ return "Data Set";}
                                                                 else if(d.__data__.key == 'HealthSurvey'){ return "Survey";}
                                                                 else if(d.__data__.key == 'DataStandard'){ return "Data Standard";}
+                                                                else if(d.__data__.key == 'Concept'){ return "Concept";}
+                                                                else if(d.__data__.key == 'DataElement'){ return "Element";}
                                                                 else{ return d.__data__.key}
                                                              });
 
